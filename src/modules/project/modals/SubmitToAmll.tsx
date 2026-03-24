@@ -185,7 +185,7 @@ export const SubmitToAMLLDBDialog = memo(() => {
 			const uploadResult = await uploadResp.json();
 
 			const issueUrl = new URL(
-				"https://github.com/Steve-xmh/amll-ttml-lyrics/issues/new",
+				"https://github.com/amll-dev/amll-ttml-lyrics/issues/new",
 			);
 
 			issueUrl.searchParams.append(

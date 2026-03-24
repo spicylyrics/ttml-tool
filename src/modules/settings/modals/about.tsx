@@ -52,7 +52,7 @@ export const SettingsAboutTab = () => {
 										t("aboutModal.unknown", "unknown")
 									) : (
 										<Link
-											href={`https://github.com/Steve-xmh/amll-ttml-tool/commit/${GIT_COMMIT}`}
+											href={`https://github.com/amll-dev/amll-ttml-tool/commit/${GIT_COMMIT}`}
 											target="_blank"
 											rel="noreferrer"
 										>

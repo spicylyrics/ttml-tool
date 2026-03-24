@@ -4,7 +4,7 @@
 
 # Apple Music-like Lyrics TTML Tool
 
-一个全新的逐词歌词编辑器！针对 [Apple Music-like Lyrics 生态](https://github.com/Steve-xmh/applemusic-like-lyrics)制作！
+一个全新的逐词歌词编辑器！针对 [Apple Music-like Lyrics 生态](https://github.com/amll-dev/applemusic-like-lyrics)制作！
 
 <img width="1312" alt="image" src="https://github.com/user-attachments/assets/4db81b29-df0c-4f6e-819a-3b956b28247c">
 <img width="1312" alt="image" src="https://github.com/user-attachments/assets/929eefee-ebda-43db-ad04-c0f099077053">
@@ -21,7 +21,7 @@
 
 欢迎访问[ test 分支](https://amll-ttml-tool-test.vercel.app/)来体验最新的功能和最新的 BUG！
 
-也可以使用 Github Action 构建的 Tauri 桌面版本，具体见 [Github Action 构建 Tauri 桌面版本](https://github.com/Steve-xmh/amll-ttml-tool/actions/workflows/build-desktop.yaml)。
+也可以使用 Github Action 构建的 Tauri 桌面版本，具体见 [Github Action 构建 Tauri 桌面版本](https://github.com/amll-dev/amll-ttml-tool/actions/workflows/build-desktop.yaml)。
 
 ## 编辑器功能
 

@@ -215,17 +215,17 @@ export const useTopMenuActions = () => {
 
 	const onOpenGitHub = useCallback(async () => {
 		if (import.meta.env.TAURI_ENV_PLATFORM) {
-			await open("https://github.com/Steve-xmh/amll-ttml-tool");
+			await open("https://github.com/amll-dev/amll-ttml-tool");
 		} else {
-			window.open("https://github.com/Steve-xmh/amll-ttml-tool");
+			window.open("https://github.com/amll-dev/amll-ttml-tool");
 		}
 	}, []);
 
 	const onOpenWiki = useCallback(async () => {
 		if (import.meta.env.TAURI_ENV_PLATFORM) {
-			await open("https://github.com/Steve-xmh/amll-ttml-tool/wiki");
+			await open("https://github.com/amll-dev/amll-ttml-tool/wiki");
 		} else {
-			window.open("https://github.com/Steve-xmh/amll-ttml-tool/wiki");
+			window.open("https://github.com/amll-dev/amll-ttml-tool/wiki");
 		}
 	}, []);
 
