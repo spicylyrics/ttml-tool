@@ -89,10 +89,16 @@ export const collectPossibleGrammarWarnings = (
 
 		// repeated words
 		if (i > 0) {
-			const prev = normalizeWord(line.words[i - 1].word);
+			const prevRaw = line.words[i - 1].word;
+			const currentRaw = wordObj.word;
+			const prev = normalizeWord(prevRaw);
 			if (prev && current === prev) {
-				warnings.add(line.words[i - 1].id);
-				warnings.add(line.words[i].id);
+				const hasSpaceBetween =
+					/\s$/.test(prevRaw) || /^\s/.test(currentRaw);
+				if (hasSpaceBetween) {
+					warnings.add(line.words[i - 1].id);
+					warnings.add(line.words[i].id);
+				}
 			}
 		}
 
@@ -227,11 +233,16 @@ export const getGrammarSuggestions = (
 		if (alts) suggestions.push(...alts);
 	}
 
-	// For repeated words, suggest removing
 	if (wordIndex > 0) {
-		const prev = normalizeWord(line.words[wordIndex - 1].word);
+		const prevRaw = line.words[wordIndex - 1].word;
+		const currentRaw = word.word;
+		const prev = normalizeWord(prevRaw);
 		if (prev && current === prev) {
-			suggestions.push("__REMOVE_REPEATED_WORD__");
+			const hasSpaceBetween =
+				/\s$/.test(prevRaw) || /^\s/.test(currentRaw);
+			if (hasSpaceBetween) {
+				suggestions.push("__REMOVE_REPEATED_WORD__");
+			}
 		}
 	}
 
