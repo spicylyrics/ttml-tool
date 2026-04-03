@@ -380,6 +380,7 @@
 		"close": "关闭",
 		"cancel": "取消",
 		"confirm": "确认",
+		"resultsFound": "找到 {{count}} 条结果",
 		"apply": "应用",
 		"applyScope": "应用于",
 		"scope": {
@@ -539,7 +540,17 @@
 		"customKey": "自定义键名",
 		"addPresets": "一键添加所有预设键",
 		"clear": "清空",
-		"info": "了解详情"
+		"info": "了解详情",
+		"fetchSongwriters": {
+			"noMusicName": "未找到歌曲名称",
+			"notFound": "在 Genius 上未找到该歌曲",
+			"noSongwriters": "该歌曲没有记录词曲作者",
+			"success": "已成功通过 Genius 获取词曲作者",
+			"error": "获取词曲作者失败",
+			"button": "通过 Genius 获取词曲作者",
+			"findingRealName": "正在查找 {{name}} 的真名 ({{current}}/{{total}})...",
+			"tryFindRealNames": "尝试查找真名 (法定姓名)"
+		}
 	},
 	"submitToAMLLDB": {
 		"validation": {

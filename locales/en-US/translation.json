@@ -385,6 +385,7 @@
 		"close": "Close",
 		"cancel": "Cancel",
 		"confirm": "Confirm",
+		"resultsFound": "Found {{count}} results",
 		"apply": "Apply",
 		"applyScope": "Scope",
 		"scope": {
@@ -543,7 +544,17 @@
 		"customKey": "Custom Key",
 		"addPresets": "Add all preset keys",
 		"clear": "Clear",
-		"info": "Learn more"
+		"info": "Learn more",
+		"fetchSongwriters": {
+			"noMusicName": "Music Name not found",
+			"notFound": "Song not found on Genius",
+			"noSongwriters": "No songwriting credits recorded for this song",
+			"success": "Songwriters successfully fetched from Genius",
+			"error": "Failed to fetch songwriters",
+			"button": "Fetch Songwriters from Genius",
+			"findingRealName": "Finding real name for {{name}} ({{current}}/{{total}})...",
+			"tryFindRealNames": "Try to find real names (Legal Names)"
+		}
 	},
 	"submitToAMLLDB": {
 		"validation": {

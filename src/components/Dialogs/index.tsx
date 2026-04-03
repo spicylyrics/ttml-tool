@@ -1,3 +1,4 @@
+import { GeniusSearchDialog } from "$/modules/genius/modals/GeniusSearchDialog.tsx";
 import { LatencyTestDialog } from "$/modules/audio/modals/LatencyTest.tsx";
 import { ImportFromLRCLIB } from "$/modules/lrclib/modals/ImportDialog.tsx";
 import { ReplaceWordDialog } from "$/modules/lyric-editor/tools/ReplaceWordDialog.tsx";
@@ -28,6 +29,7 @@ export const Dialogs = () => {
 			<AdvancedSegmentationDialog />
 			<TimeShiftDialog />
 			<DistributeRomanizationDialog />
+			<GeniusSearchDialog />
 		</>
 	);
 };

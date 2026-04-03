@@ -7,6 +7,7 @@ import {
 	NumberSymbol16Regular,
 	Open16Regular,
 	Person16Regular,
+	Search16Regular,
 } from "@fluentui/react-icons";
 import {
 	Button,
@@ -17,7 +18,7 @@ import {
 	Text,
 	TextField,
 } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useImmerAtom } from "jotai-immer";
 import {
 	memo,
@@ -29,7 +30,7 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { metadataEditorDialogAtom } from "$/states/dialogs.ts";
+import { metadataEditorDialogAtom, geniusSearchDialogAtom } from "$/states/dialogs.ts";
 import { lyricLinesAtom } from "$/states/main.ts";
 import type { TTMLLyric } from "$/types/ttml";
 import styles from "./MetadataEditor.module.css";
@@ -40,6 +41,7 @@ import {
 	QQMusicIcon,
 	SpotifyIcon,
 } from "./PlatformIcons";
+
 
 interface MetadataEntryProps {
 	entry: { key: string; value: string[] };
@@ -384,6 +386,7 @@ export const MetadataEditor = () => {
 	const [customKey, setCustomKey] = useState("");
 	const [lyricLines, setLyricLines] = useImmerAtom(lyricLinesAtom);
 	const addKeyButtonRef = useRef<HTMLButtonElement | null>(null);
+	const setGeniusSearchDialogOpen = useSetAtom(geniusSearchDialogAtom);
 
 	const { t } = useTranslation();
 
@@ -708,6 +711,16 @@ export const MetadataEditor = () => {
 							))}
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
+					<Button
+						style={{
+							flex: "1 0 auto",
+						}}
+						variant="soft"
+						onClick={() => setGeniusSearchDialogOpen(true)}
+					>
+						<Search16Regular />
+						{t("metadataDialog.fetchSongwriters.button", "Fetch Songwriters from Genius")}
+					</Button>
 					<Button
 						style={{
 							flex: "1 0 auto",

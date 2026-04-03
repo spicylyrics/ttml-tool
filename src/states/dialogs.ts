@@ -23,3 +23,4 @@ export const confirmDialogAtom = atom<{
 });
 export const historyRestoreDialogAtom = atom(false);
 export const importFromLRCLIBDialogAtom = atom(false);
+export const geniusSearchDialogAtom = atom(false);
