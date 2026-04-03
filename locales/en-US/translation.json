@@ -98,6 +98,14 @@
 		"loading": "Panel loading…"
 	},
 	"settings": {
+		"group": {
+			"display": "Display",
+			"romanization": "Auto-Romanization",
+			"timing": "Syncing",
+			"timingHighlight": "Visual Timing Cue (Sync)",
+			"playback": "Playback",
+			"autosave": "Auto Save"
+		},
 		"common": {
 			"layoutModeOptions": {
 				"simple": "Simple Mode",
@@ -160,7 +168,7 @@
 			"accentColor": "Accent Color",
 			"accentColorDesc": "Select the primary accent color for the application interface.",
 			"useCustomAccent": "Custom Accent Color",
-			"useCustomAccentDesc": "Override presets with a custom color scale.",
+			"useCustomAccentDesc": "Set Accent color",
 			"background": "Background",
 			"mode": {
 				"none": "None",
@@ -428,7 +436,8 @@
 		"description": "New word:",
 		"placeholder": "New word",
 		"applyToAll": "Apply this replacing to all identical words",
-		"ignoreCase": "Ignore case"
+		"ignoreCase": "Ignore case",
+		"caseSensitive": "Match case (Exact match)"
 	},
 	"timeShiftDialog": {
 		"title": "Time Shift",

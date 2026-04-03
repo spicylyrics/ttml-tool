@@ -1,4 +1,4 @@
-// 打轴设置
+// Syncing settings
 
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
@@ -20,7 +20,7 @@ export const syncTimeOffsetAtom = atomWithStorage("syncTimeOffset", 0);
 
 export const enableUpcomingWordHighlightAtom = atomWithStorage(
 	"enableUpcomingWordHighlight",
-	true,
+	false,
 );
 export const upcomingWordHighlightThresholdAtom = atomWithStorage(
 	"upcomingWordHighlightThreshold",

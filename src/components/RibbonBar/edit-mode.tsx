@@ -40,10 +40,6 @@ import {
 	showWordRomanizationInputAtom,
 } from "$/modules/settings/states";
 import {
-	globalRomanLanguageAtom,
-	romanizationModeAtom,
-} from "$/modules/settings/states/index.ts";
-import {
 	editingTimeFieldAtom,
 	lyricLinesAtom,
 	requestFocusAtom,
@@ -52,7 +48,6 @@ import {
 	showEndTimeAsDurationAtom,
 } from "$/states/main.ts";
 import { type LyricLine, type LyricWord, newLyricLine } from "$/types/ttml";
-import { romanizeText } from "$/utils/romanization.ts";
 import { msToTimestamp, parseTimespan } from "$/utils/timestamp.ts";
 import { RibbonFrame, RibbonSection } from "./common";
 
@@ -494,7 +489,7 @@ function CheckboxField<
 
 	return (
 		<>
-			<Text wrap="nowrap" size="1">
+			<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 				<label htmlFor={checkboxId}>{label}</label>
 			</Text>
 			<Checkbox
@@ -544,12 +539,12 @@ function EditModeField({
 			size="1"
 		>
 			<Flex gapY="3" direction="column">
-				<Text wrap="nowrap" size="1">
+				<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 					<RadioGroup.Item value={LayoutMode.Simple}>
 						{simpleModeLabel}
 					</RadioGroup.Item>
 				</Text>
-				<Text wrap="nowrap" size="1">
+				<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 					<RadioGroup.Item value={LayoutMode.Advance}>
 						{advanceModeLabel}
 					</RadioGroup.Item>
@@ -681,28 +676,31 @@ const AuxiliaryDisplayField: FC = () => {
 
 	return (
 		<Grid columns="1fr auto" gapX="4" gapY="1" flexGrow="1" align="center">
-			<Text size="1" asChild
-			><label htmlFor={idTranslation}>
+			<Text size="1" asChild style={{ color: "var(--accent-11)" }}>
+				<label htmlFor={idTranslation}>
 					{t("ribbonBar.editMode.showTranslation", "显示翻译行")}
-				</label></Text>
+				</label>
+			</Text>
 			<Checkbox
 				id={idTranslation}
 				checked={showTranslation}
 				onCheckedChange={(c) => setShowTranslation(Boolean(c))}
 			/>
-			<Text size="1" asChild
-			><label htmlFor={idRomanization}>
+			<Text size="1" asChild style={{ color: "var(--accent-11)" }}>
+				<label htmlFor={idRomanization}>
 					{t("ribbonBar.editMode.showRomanization", "显示音译行")}
-				</label></Text>
+				</label>
+			</Text>
 			<Checkbox
 				id={idRomanization}
 				checked={showRomanization}
 				onCheckedChange={(c) => setShowRomanization(Boolean(c))}
 			/>
-			<Text size="1" asChild
-			><label htmlFor={idPerWord}>
+			<Text size="1" asChild style={{ color: "var(--accent-11)" }}>
+				<label htmlFor={idPerWord}>
 					{t("ribbonBar.editMode.showWordRomanizationInput", "显示逐字音译")}
-				</label></Text>
+				</label>
+			</Text>
 			<Checkbox
 				id={idPerWord}
 				checked={showWordRomanizationInput}
@@ -712,73 +710,6 @@ const AuxiliaryDisplayField: FC = () => {
 	);
 };
 
-function AutoRomanizeButton() {
-	const { t } = useTranslation();
-	const [isConverting, setIsConverting] = useState(false);
-	const romanizationMode = useAtomValue(romanizationModeAtom);
-	const globalRomanLanguage = useAtomValue(globalRomanLanguageAtom);
-	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
-	const selectedLines = useAtomValue(selectedLinesAtom);
-	const store = useStore();
-
-	const handleAutoRomanize = async () => {
-		setIsConverting(true);
-		try {
-			const lyricState = store.get(lyricLinesAtom);
-			const linesToConvert =
-				selectedLines.size > 0
-					? lyricState.lyricLines.filter((l) => selectedLines.has(l.id))
-					: lyricState.lyricLines;
-
-			const inputs = linesToConvert.map((line) => {
-				const wordsJoined = line.words.map((w) => w.word).join(" ");
-				// Use the joined words or the raw fallback if not segmented
-				const text = (wordsJoined || "").trim();
-				const lang =
-					romanizationMode === "global"
-						? globalRomanLanguage
-						: line.language && line.language !== "auto"
-							? line.language
-							: globalRomanLanguage;
-				return { id: line.id, text, lang };
-			});
-
-			const results = await Promise.all(
-				inputs.map((input) => romanizeText(input.text, input.lang)),
-			);
-
-			const updateMap = new Map();
-			for (let i = 0; i < inputs.length; i++) {
-				updateMap.set(inputs[i].id, results[i]);
-			}
-
-			editLyricLines((state) => {
-				for (const line of state.lyricLines) {
-					if (updateMap.has(line.id)) {
-						line.romanLyric = updateMap.get(line.id);
-					}
-				}
-			});
-		} catch (e) {
-			console.error(e);
-		} finally {
-			setIsConverting(false);
-		}
-	};
-
-	return (
-		<Button
-			size="1"
-			variant="soft"
-			onClick={handleAutoRomanize}
-			disabled={isConverting}
-		>
-			{isConverting
-				? t("ribbonBar.editMode.converting", "Converting...")
-				: t("ribbonBar.editMode.autoRomanize", "Auto-Romanize")}
-		</Button>
-	);
-}
 
 export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 	(_props, ref) => {
@@ -912,11 +843,6 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							formatter={(v) => v}
 							textFieldStyle={{ width: "20em" }}
 						/>
-					</Grid>
-				</RibbonSection>
-				<RibbonSection label={t("ribbonBar.editMode.actions", "Actions")}>
-					<Grid columns="1" gap="1" gapY="1" flexGrow="1" align="center">
-						<AutoRomanizeButton />
 					</Grid>
 				</RibbonSection>
 				<RibbonSection label={t("ribbonBar.editMode.layoutMode", "布局模式")}>

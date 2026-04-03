@@ -12,6 +12,8 @@ export enum LayoutMode {
 	Advance = "advance",
 }
 
+export const geniusApiKeyAtom = atomWithStorage<string>("geniusApiKey", "");
+
 export const latencyTestBPMAtom = atomWithStorage("latencyTestBPM", 120);
 
 export const syncJudgeModeAtom = atomWithStorage(
@@ -74,20 +76,7 @@ export const ignoredQuickFixWordsAtom = atomWithStorage(
 export const smartFirstWordAtom = atomWithStorage("smartFirstWord", false);
 export const smartLastWordAtom = atomWithStorage("smartLastWord", false);
 
-export const enableAutoRomanizationPredictionAtom = atomWithStorage(
-	"enableAutoRomanizationPrediction",
-	false,
-);
 
-export const romanizationModeAtom = atomWithStorage<"global" | "multi-lingual">(
-	"romanizationMode",
-	"global",
-);
-
-export const globalRomanLanguageAtom = atomWithStorage<string>(
-	"globalRomanLanguage",
-	"ja",
-);
 
 export const accentColorAtom = atomWithStorage<
 	| "gray"
@@ -136,21 +125,6 @@ export const useCustomAccentAtom = atomWithStorage<boolean>(
 export const customAccentColorAtom = atomWithStorage<string>(
 	"customAccentColor",
 	"#e5484d",
-);
-
-export const useCustomPanelAtom = atomWithStorage<boolean>(
-	"useCustomPanel",
-	false,
-);
-
-export const customPanelColorAtom = atomWithStorage<string>(
-	"customPanelColor",
-	"#282c34",
-);
-
-export const customPanelOpacityAtom = atomWithStorage<number>(
-	"customPanelOpacity",
-	0.8,
 );
 
 export const useCustomGradientAtom = atomWithStorage<boolean>(

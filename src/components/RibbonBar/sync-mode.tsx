@@ -29,8 +29,8 @@ import {
 	displayRomanizationInSyncAtom,
 	highlightActiveWordAtom,
 	highlightErrorsAtom,
-	quickFixesAtom,
 	ignoredQuickFixWordsAtom,
+	quickFixesAtom,
 	showTimestampsAtom,
 	showWordRomanizationInputAtom,
 } from "$/modules/settings/states/index.ts";
@@ -56,7 +56,7 @@ const EmptyBeatField = () => {
 
 	return (
 		<>
-			<Text wrap="nowrap" size="1">
+			<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 				{t("ribbonBar.syncMode.currentEmptyBeat", "当前空拍")}
 			</Text>
 			<Slider
@@ -134,7 +134,7 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							flexGrow="1"
 							align="center"
 						>
-							<Text wrap="nowrap" size="1">
+							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 								{t("ribbonBar.syncMode.timeOffset", "时间戳位移")}
 							</Text>
 							<TextField.Root
@@ -146,7 +146,12 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 								}}
 								value={syncTimeOffset}
 								onChange={(e) => setSyncTimeOffset(e.target.valueAsNumber)}
-							><TextField.Slot /><TextField.Slot><Text>ms</Text></TextField.Slot></TextField.Root>
+							>
+								<TextField.Slot />
+								<TextField.Slot>
+									<Text>ms</Text>
+								</TextField.Slot>
+							</TextField.Root>
 							<EmptyBeatField />
 						</Grid>
 					</RibbonSection>
@@ -160,21 +165,21 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							flexGrow="1"
 							align="center"
 						>
-							<Text wrap="nowrap" size="1">
+							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 								{t("ribbonBar.syncMode.showTimestampUpdate", "呈现时间戳更新")}
 							</Text>
 							<Checkbox
 								checked={visualizeTimestampUpdate}
 								onCheckedChange={(v) => setVisualizeTimestampUpdate(!!v)}
 							/>
-							<Text wrap="nowrap" size="1">
+							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 								{t("ribbonBar.syncMode.touchSyncPanel", "触控打轴辅助面板")}
 							</Text>
 							<Checkbox
 								checked={showTouchSyncPanel}
 								onCheckedChange={(v) => setShowTouchSyncPanel(!!v)}
 							/>
-							<Text wrap="nowrap" size="1">
+							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 								{t("ribbonBar.syncMode.bgLyricIgnoreSync", "背景歌词忽略打轴")}
 							</Text>
 							<Checkbox
@@ -193,7 +198,7 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 								}}
 							/>
 							<Flex align="center" gap="1">
-								<Text wrap="nowrap" size="1">
+								<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 									{t("ribbonBar.syncMode.quickFixes", "Quick Fixes")}
 								</Text>
 								<IconButton
@@ -220,21 +225,21 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							flexGrow="1"
 							align="center"
 						>
-							<Text wrap="nowrap" size="1">
+							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 								{t("ribbonBar.syncMode.showTimestamps", "显示时间戳")}
 							</Text>
 							<Checkbox
 								checked={showTimestamps}
 								onCheckedChange={(v) => setShowTimestamps(!!v)}
 							/>
-							<Text wrap="nowrap" size="1">
+							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 								{t("ribbonBar.syncMode.highlightActiveWord", "高亮当前音节")}
 							</Text>
 							<Checkbox
 								checked={highlightActiveWord}
 								onCheckedChange={(v) => setHighlightActiveWord(!!v)}
 							/>
-							<Text wrap="nowrap" size="1">
+							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 								{t("ribbonBar.syncMode.highlightErrors", "高亮错误")}
 							</Text>
 							<Checkbox
@@ -244,7 +249,7 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 
 							{showWordRomanizationInput && (
 								<>
-									<Text wrap="nowrap" size="1">
+									<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 										{t(
 											"ribbonBar.syncMode.showPerWordRomanization",
 											"显示逐字音译",
@@ -270,15 +275,15 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 								align="center"
 								justify="center"
 							>
-								<Text wrap="nowrap" size="1">
+								<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 									{t("ribbonBar.syncMode.startSync", "起始轴")}
 								</Text>
 								<KeyBinding kbdAtom={keySyncStartAtom} />
-								<Text wrap="nowrap" size="1">
+								<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 									{t("ribbonBar.syncMode.continuousSync", "连续轴")}
 								</Text>
 								<KeyBinding kbdAtom={keySyncNextAtom} />
-								<Text wrap="nowrap" size="1">
+								<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
 									{t("ribbonBar.syncMode.endSync", "结束轴")}
 								</Text>
 								<KeyBinding kbdAtom={keySyncEndAtom} />
@@ -302,7 +307,10 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 								onChange={(e) => setNewWord(e.target.value)}
 								onKeyDown={(e) => {
 									if (e.key === "Enter" && newWord.trim()) {
-										setIgnoredQuickFixWords((prev) => [...prev, newWord.trim()]);
+										setIgnoredQuickFixWords((prev) => [
+											...prev,
+											newWord.trim(),
+										]);
 										setNewWord("");
 									}
 								}}

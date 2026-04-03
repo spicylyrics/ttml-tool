@@ -1,7 +1,4 @@
-import {
-	Search16Regular,
-	Search24Regular,
-} from "@fluentui/react-icons";
+import { Search16Regular, Search24Regular } from "@fluentui/react-icons";
 import {
 	Button,
 	Card,
@@ -20,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { geniusSearchDialogAtom } from "$/states/dialogs.ts";
 import { lyricLinesAtom } from "$/states/main.ts";
+import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
 import { GeniusApi } from "../api/client";
 import type { GeniusSearchHit } from "../types";
 import styles from "./GeniusSearchDialog.module.css";
@@ -36,6 +34,9 @@ export const GeniusSearchDialog = () => {
 	const [hasSearched, setHasSearched] = useState(false);
 	const [findRealNames, setFindRealNames] = useState(false);
 	const [processingMessage, setProcessingMessage] = useState("");
+
+	const [geniusApiKey, setGeniusApiKey] = useAtom(geniusApiKeyAtom);
+	const [tempApiKey, setTempApiKey] = useState("");
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -67,32 +68,43 @@ export const GeniusSearchDialog = () => {
 		setResults([]);
 
 		try {
-			const data = await GeniusApi.search(query);
+			const data = await GeniusApi.search(query, geniusApiKey);
 			const hits = data.response.hits;
 			setResults(hits);
 			if (hits.length > 0) {
-				toast.success(t("common.resultsFound", "Found {{count}} results", { count: hits.length }));
+				toast.success(
+					t("common.resultsFound", "Found {{count}} results", {
+						count: hits.length,
+					}),
+				);
 			}
 		} catch (e: unknown) {
 			console.error("Genius Search Error", e);
 			const errorMsg = e instanceof Error ? e.message : String(e);
-			toast.error(`${t("metadataDialog.fetchSongwriters.error", "Failed to fetch songwriters")}: ${errorMsg}`);
+			toast.error(
+				`${t("metadataDialog.fetchSongwriters.error", "Failed to fetch songwriters")}: ${errorMsg}`,
+			);
 		} finally {
 			setLoading(false);
 		}
-	}, [query, t]);
+	}, [query, t, geniusApiKey]);
 
 	const handleSelectSong = useCallback(
 		async (hit: GeniusSearchHit) => {
 			setIsFetchingDetails(true);
 			try {
-				const songDetailsRes = await GeniusApi.getSongById(hit.result.id);
+				const songDetailsRes = await GeniusApi.getSongById(hit.result.id, geniusApiKey);
 				let songwriters = songDetailsRes.response.song.writer_artists.map(
 					(a) => a.name,
 				);
 
 				if (songwriters.length === 0) {
-					toast.info(t("metadataDialog.fetchSongwriters.noSongwriters", "No songwriting credits recorded for this song"));
+					toast.info(
+						t(
+							"metadataDialog.fetchSongwriters.noSongwriters",
+							"No songwriting credits recorded for this song",
+						),
+					);
 					setIsFetchingDetails(false);
 					return;
 				}
@@ -102,13 +114,19 @@ export const GeniusSearchDialog = () => {
 					const artists = songDetailsRes.response.song.writer_artists;
 					for (let i = 0; i < artists.length; i++) {
 						const artist = artists[i];
-						setProcessingMessage(t("metadataDialog.fetchSongwriters.findingRealName", "Finding real name for {{name}} ({{current}}/{{total}})...", {
-							name: artist.name,
-							current: i + 1,
-							total: artists.length
-						}));
+						setProcessingMessage(
+							t(
+								"metadataDialog.fetchSongwriters.findingRealName",
+								"Finding real name for {{name}} ({{current}}/{{total}})...",
+								{
+									name: artist.name,
+									current: i + 1,
+									total: artists.length,
+								},
+							),
+						);
 						try {
-							const detailRes = await GeniusApi.getArtistById(artist.id);
+							const detailRes = await GeniusApi.getArtistById(artist.id, geniusApiKey);
 							const artistDetail = detailRes.response.artist;
 							const altNames = artistDetail.alternate_names || [];
 							const description = artistDetail.description.plain || "";
@@ -116,8 +134,12 @@ export const GeniusSearchDialog = () => {
 							let realName = artist.name;
 
 							// 1. Try to extract from description using regex
-							const bornMatch = description.match(/born\s+([A-Z][a-zA-Z\.]+(?:\s[A-Z][a-zA-Z\.]+){1,4})/);
-							const realNameMatch = description.match(/real\s+name\s+(?:is\s+)?([A-Z][a-zA-Z\.]+(?:\s[A-Z][a-zA-Z\.]+){1,4})/i);
+							const bornMatch = description.match(
+								/born\s+([A-Z][a-zA-Z.]+(?:\s[A-Z][a-zA-Z.]+){1,4})/,
+							);
+							const realNameMatch = description.match(
+								/real\s+name\s+(?:is\s+)?([A-Z][a-zA-Z.]+(?:\s[A-Z][a-zA-Z.]+){1,4})/i,
+							);
 
 							if (bornMatch) {
 								realName = bornMatch[1];
@@ -125,21 +147,43 @@ export const GeniusSearchDialog = () => {
 								realName = realNameMatch[1];
 							} else {
 								// 2. Fallback to alternate_names with strict filtering
-								const forbiddenPrefixes = ["King ", "The ", "Mr. ", "aka ", "alias ", "DJ "];
-								const potentialNames = altNames.filter(name => {
-									const isNotStageName = !name.toLowerCase().includes(artist.name.toLowerCase()) &&
-														  !artist.name.toLowerCase().includes(name.toLowerCase());
-									const hasGoodWordCount = name.split(' ').length >= 2 && name.split(' ').length <= 4;
-									const noForbiddenPrefix = !forbiddenPrefixes.some(p => name.startsWith(p));
-									const isCapitalized = name.split(' ').every(word => /^[A-Z]/.test(word));
-									const noUrls = !name.includes('http') && !name.includes('www.');
+								const forbiddenPrefixes = [
+									"King ",
+									"The ",
+									"Mr. ",
+									"aka ",
+									"alias ",
+									"DJ ",
+								];
+								const potentialNames = altNames.filter((name) => {
+									const isNotStageName =
+										!name.toLowerCase().includes(artist.name.toLowerCase()) &&
+										!artist.name.toLowerCase().includes(name.toLowerCase());
+									const hasGoodWordCount =
+										name.split(" ").length >= 2 && name.split(" ").length <= 4;
+									const noForbiddenPrefix = !forbiddenPrefixes.some((p) =>
+										name.startsWith(p),
+									);
+									const isCapitalized = name
+										.split(" ")
+										.every((word) => /^[A-Z]/.test(word));
+									const noUrls =
+										!name.includes("http") && !name.includes("www.");
 
-									return isNotStageName && hasGoodWordCount && noForbiddenPrefix && isCapitalized && noUrls;
+									return (
+										isNotStageName &&
+										hasGoodWordCount &&
+										noForbiddenPrefix &&
+										isCapitalized &&
+										noUrls
+									);
 								});
 
 								if (potentialNames.length > 0) {
 									// Prioritize the shortest multi-word name as it's often the cleanest "Real Name"
-									realName = potentialNames.sort((a, b) => a.length - b.length)[0];
+									realName = potentialNames.sort(
+										(a, b) => a.length - b.length,
+									)[0];
 								}
 							}
 
@@ -161,7 +205,10 @@ export const GeniusSearchDialog = () => {
 						const existing = new Set(songwriterEntry.value);
 						for (const writer of songwriters) {
 							if (!existing.has(writer)) {
-								if (songwriterEntry.value.length === 1 && songwriterEntry.value[0] === "") {
+								if (
+									songwriterEntry.value.length === 1 &&
+									songwriterEntry.value[0] === ""
+								) {
 									songwriterEntry.value[0] = writer;
 								} else {
 									songwriterEntry.value.push(writer);
@@ -177,16 +224,26 @@ export const GeniusSearchDialog = () => {
 					}
 				});
 
-				toast.success(t("metadataDialog.fetchSongwriters.success", "Songwriters successfully fetched from Genius"));
+				toast.success(
+					t(
+						"metadataDialog.fetchSongwriters.success",
+						"Songwriters successfully fetched from Genius",
+					),
+				);
 				setIsOpen(false);
 			} catch (error) {
 				console.error(error);
-				toast.error(t("metadataDialog.fetchSongwriters.error", "Failed to fetch songwriters"));
+				toast.error(
+					t(
+						"metadataDialog.fetchSongwriters.error",
+						"Failed to fetch songwriters",
+					),
+				);
 			} finally {
 				setIsFetchingDetails(false);
 			}
 		},
-		[setLyricLines, setIsOpen, t, findRealNames],
+		[setLyricLines, setIsOpen, t, findRealNames, geniusApiKey],
 	);
 
 	const onKeyDown = (e: React.KeyboardEvent) => {
@@ -195,10 +252,51 @@ export const GeniusSearchDialog = () => {
 		}
 	};
 
+	if (!geniusApiKey) {
+		return (
+			<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+				<Dialog.Content className={styles.dialogContent}>
+					<Dialog.Title>
+						{t("metadataDialog.fetchSongwriters.setupTitle", "Genius API Key Setup")}
+					</Dialog.Title>
+					<Flex direction="column" gap="4">
+						<Text>
+							{t("metadataDialog.fetchSongwriters.setupDesc", 'To use this feature, please configure your Genius API Key (specifically, you need the "CLIENT ACCESS TOKEN"). You can generate one from the ')}
+							<a href="https://genius.com/api-clients" target="_blank" rel="noopener noreferrer">
+								Genius
+							</a>
+							{t("metadataDialog.fetchSongwriters.setupDescEnd", " developer portal.")}
+						</Text>
+						<TextField.Root
+							placeholder={t("metadataDialog.fetchSongwriters.keyPlaceholder", "Enter CLIENT ACCESS TOKEN")}
+							value={tempApiKey}
+							onChange={(e) => setTempApiKey(e.target.value)}
+						/>
+						<Flex justify="end" gap="2" mt="2">
+							<Dialog.Close>
+								<Button variant="soft" color="gray" onClick={() => setIsOpen(false)}>
+									{t("common.cancel", "Cancel")}
+								</Button>
+							</Dialog.Close>
+							<Button disabled={!tempApiKey.trim()} onClick={() => setGeniusApiKey(tempApiKey.trim())}>
+								{t("common.save", "Save")}
+							</Button>
+						</Flex>
+					</Flex>
+				</Dialog.Content>
+			</Dialog.Root>
+		);
+	}
+
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
 			<Dialog.Content className={styles.dialogContent}>
-				<Dialog.Title>{t("metadataDialog.fetchSongwriters.button", "Fetch Songwriters from Genius")}</Dialog.Title>
+				<Dialog.Title>
+					{t(
+						"metadataDialog.fetchSongwriters.button",
+						"Fetch Songwriters from Genius",
+					)}
+				</Dialog.Title>
 
 				<Flex gap="3" mb="4">
 					<TextField.Root
@@ -213,12 +311,19 @@ export const GeniusSearchDialog = () => {
 							<Search16Regular />
 						</TextField.Slot>
 					</TextField.Root>
-					<Button onClick={handleSearch} disabled={loading || isFetchingDetails}>
+					<Button
+						onClick={handleSearch}
+						disabled={loading || isFetchingDetails}
+					>
 						{loading ? <Spinner /> : t("common.search", "Search")}
 					</Button>
 				</Flex>
 
-				<ScrollArea type="auto" scrollbars="vertical" className={styles.scrollArea}>
+				<ScrollArea
+					type="auto"
+					scrollbars="vertical"
+					className={styles.scrollArea}
+				>
 					<Flex direction="column" gap="2" className={styles.resultList}>
 						{loading ? (
 							<Flex align="center" justify="center" p="4">
@@ -237,7 +342,11 @@ export const GeniusSearchDialog = () => {
 											alt={hit.result.title}
 											className={styles.thumbnail}
 										/>
-										<Flex direction="column" gap="1" style={{ flex: 1, minWidth: 0 }}>
+										<Flex
+											direction="column"
+											gap="1"
+											style={{ flex: 1, minWidth: 0 }}
+										>
 											<Text size="3" weight="bold" truncate>
 												{hit.result.title}
 											</Text>
@@ -254,14 +363,21 @@ export const GeniusSearchDialog = () => {
 						{!loading && hasSearched && results.length === 0 && (
 							<Flex className={styles.emptyState}>
 								<Search24Regular className={styles.emptyStateIcon} />
-								<Text>{t("lrclib.notFound", "No results found, please try different keywords")}</Text>
+								<Text>
+									{t(
+										"lrclib.notFound",
+										"No results found, please try different keywords",
+									)}
+								</Text>
 							</Flex>
 						)}
 
 						{!hasSearched && (
 							<Flex className={styles.emptyState}>
 								<Search24Regular className={styles.emptyStateIcon} />
-								<Text>{t("lrclib.noResult", "Enter keywords to start searching")}</Text>
+								<Text>
+									{t("lrclib.noResult", "Enter keywords to start searching")}
+								</Text>
 							</Flex>
 						)}
 					</Flex>
@@ -275,13 +391,21 @@ export const GeniusSearchDialog = () => {
 									checked={findRealNames}
 									onCheckedChange={(c) => setFindRealNames(!!c)}
 								/>
-								{t("metadataDialog.fetchSongwriters.tryFindRealNames", "Try to find real names (Legal Names)")}
+								{t(
+									"metadataDialog.fetchSongwriters.tryFindRealNames",
+									"Try to find real names (Legal Names)",
+								)}
 							</Flex>
 						</Text>
 						{processingMessage && (
 							<Flex align="center" gap="2">
 								<Spinner size="1" />
-								<Text size="1" color="gray" truncate style={{ maxWidth: '250px' }}>
+								<Text
+									size="1"
+									color="gray"
+									truncate
+									style={{ maxWidth: "250px" }}
+								>
 									{processingMessage}
 								</Text>
 							</Flex>

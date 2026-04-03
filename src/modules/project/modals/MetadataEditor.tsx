@@ -30,7 +30,10 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { metadataEditorDialogAtom, geniusSearchDialogAtom } from "$/states/dialogs.ts";
+import {
+	geniusSearchDialogAtom,
+	metadataEditorDialogAtom,
+} from "$/states/dialogs.ts";
 import { lyricLinesAtom } from "$/states/main.ts";
 import type { TTMLLyric } from "$/types/ttml";
 import styles from "./MetadataEditor.module.css";
@@ -41,7 +44,6 @@ import {
 	QQMusicIcon,
 	SpotifyIcon,
 } from "./PlatformIcons";
-
 
 interface MetadataEntryProps {
 	entry: { key: string; value: string[] };
@@ -296,7 +298,8 @@ const MetadataEntry = memo(
 											asChild={isButtonEnabled}
 											variant="soft"
 											title={t("metadataDialog.openLink", "打开链接")}
-										>{isButtonEnabled ? (
+										>
+											{isButtonEnabled ? (
 												<a
 													href={url || ""}
 													target="_blank"
@@ -306,7 +309,8 @@ const MetadataEntry = memo(
 												</a>
 											) : (
 												<Open16Regular />
-											)}</IconButton>
+											)}
+										</IconButton>
 									)}
 									<IconButton
 										variant="soft"
@@ -596,9 +600,21 @@ export const MetadataEditor = () => {
 		>
 			<Dialog.Content className={styles.dialogContent}>
 				<div className={styles.dialogHeader}>
-					<Dialog.Title style={{ margin: 0 }}>
-						{t("metadataDialog.title", "元数据编辑器")}
-					</Dialog.Title>
+					<Flex align="center" gap="2" justify="between">
+						<Dialog.Title style={{ margin: 0 }}>
+							{t("metadataDialog.title", "元数据编辑器")}
+						</Dialog.Title>
+						<IconButton variant="ghost" color="gray" asChild>
+							<a
+								href="https://github.com/spicylyrics/ttml-tool"
+								target="_blank"
+								rel="noreferrer"
+								title="GitHub"
+							>
+								<GithubIcon />
+							</a>
+						</IconButton>
+					</Flex>
 				</div>
 
 				<div className={styles.dialogBody}>
@@ -648,10 +664,12 @@ export const MetadataEditor = () => {
 							style={{
 								flex: "1 0 auto",
 							}}
-						><Button variant="soft" ref={addKeyButtonRef}>
+						>
+							<Button variant="soft" ref={addKeyButtonRef}>
 								{t("metadataDialog.addKeyValue", "添加新键值")}
 								<DropdownMenu.TriggerIcon />
-							</Button></DropdownMenu.Trigger>
+							</Button>
+						</DropdownMenu.Trigger>
 						<DropdownMenu.Content>
 							<Flex gap="1">
 								<TextField.Root
@@ -719,7 +737,10 @@ export const MetadataEditor = () => {
 						onClick={() => setGeniusSearchDialogOpen(true)}
 					>
 						<Search16Regular />
-						{t("metadataDialog.fetchSongwriters.button", "Fetch Songwriters from Genius")}
+						{t(
+							"metadataDialog.fetchSongwriters.button",
+							"Fetch Songwriters from Genius",
+						)}
 					</Button>
 					<Button
 						style={{
@@ -757,15 +778,6 @@ export const MetadataEditor = () => {
 						<Delete16Regular />
 						{t("metadataDialog.clear", "清空")}
 					</Button>
-					<Button asChild variant="soft"
-					><a
-							target="_blank"
-							rel="noreferrer"
-							href="https://github.com/amll-dev/amll-ttml-tool/wiki/%E6%AD%8C%E8%AF%8D%E5%85%83%E6%95%B0%E6%8D%AE"
-						>
-							<Info16Regular />
-							{t("metadataDialog.info", "了解详情")}
-						</a></Button>
 				</Flex>
 			</Dialog.Content>
 		</Dialog.Root>

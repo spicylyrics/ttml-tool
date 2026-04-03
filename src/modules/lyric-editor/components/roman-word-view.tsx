@@ -17,14 +17,12 @@ interface RomanWordViewProps {
 	wordAtom: Atom<LyricWord>;
 	wordIndex: number;
 	editingIndexAtom: WritableAtom<number | null, [number | null], void>;
-	suggestedRoman?: string;
 }
 
 export const RomanWordView = ({
 	wordAtom,
 	wordIndex,
 	editingIndexAtom,
-	suggestedRoman,
 }: RomanWordViewProps) => {
 	const word = useAtomValue(wordAtom);
 	const [editingIndex, setEditingIndex] = useAtom(editingIndexAtom);
@@ -54,9 +52,9 @@ export const RomanWordView = ({
 
 	useEffect(() => {
 		if (isEditing) {
-			setInputValue(word.romanWord || suggestedRoman || "");
+			setInputValue(word.romanWord || "");
 		}
-	}, [isEditing, word.romanWord, suggestedRoman]);
+	}, [isEditing, word.romanWord]);
 
 	useEffect(() => {
 		if (isEditing) {
@@ -95,10 +93,7 @@ export const RomanWordView = ({
 			<TextField.Root
 				ref={inputRef}
 				size="1"
-				className={classNames(
-					styles.romanWordView,
-					word.romanWarning && styles.warning,
-				)}
+				className={styles.romanWordView}
 				value={inputValue}
 				onChange={(e) => setInputValue(e.currentTarget.value)}
 				onBlur={(e) => saveAndStopEditing(e.currentTarget.value)}
@@ -115,7 +110,6 @@ export const RomanWordView = ({
 			className={classNames(
 				styles.romanWordView,
 				!word.romanWord && styles.placeholder,
-				word.romanWarning && styles.warning,
 			)}
 			onClick={(e) => {
 				e.stopPropagation();

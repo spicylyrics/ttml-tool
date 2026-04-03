@@ -70,7 +70,7 @@ export const SettingsSpectrogramTab = () => {
 		<Flex direction="column" gap="4">
 			<Text as="label">
 				<Flex direction="column" gap="2" align="start">
-					<Text>{t("settings.spectrogram.palette", "配色方案")}</Text>
+					<Text>{t("settings.spectrogram.palette", "Color Palette")}</Text>
 					<Select.Root
 						value={selectedPaletteId}
 						onValueChange={(v) => setSelectedPaletteId(v)}
@@ -83,7 +83,7 @@ export const SettingsSpectrogramTab = () => {
 							))}
 							<Select.Separator />
 							<Select.Item value="custom">
-								{t("settings.spectrogram.paletteCustom", "自定义")}
+								{t("settings.spectrogram.paletteCustom", "Custom")}
 							</Select.Item>
 						</Select.Content>
 					</Select.Root>
@@ -103,7 +103,7 @@ export const SettingsSpectrogramTab = () => {
 							<Text size="1" color="gray">
 								{t(
 									"settings.spectrogram.gradientEditorDesc",
-									"Pos 0.0 对应最安静的部分，1.0 对应最响亮的部分。建议 Pos 越大，使用亮度越高的颜色。",
+									"Pos 0.0 corresponds to the quietest part, 1.0 to the loudest part. It is recommended to use brighter colors for larger Pos values.",
 								)}
 							</Text>
 
@@ -159,12 +159,12 @@ export const SettingsSpectrogramTab = () => {
 										onClick={() => handleRemoveStop(index)}
 										style={{ marginLeft: "auto" }}
 									>
-										{t("common.remove", "移除")}
+										{t("common.remove", "Remove")}
 									</Button>
 								</Flex>
 							))}
 							<Button variant="outline" onClick={handleAddStop}>
-								{t("settings.spectrogram.addStop", "添加色标")}
+								{t("settings.spectrogram.addStop", "Add Color Stop")}
 							</Button>
 						</Flex>
 					</section>

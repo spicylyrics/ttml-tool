@@ -21,13 +21,13 @@ export const ReplaceWordDialog = memo(() => {
 
 	const [replacementText, setReplacementText] = useState("");
 	const [applyToAll, setApplyToAll] = useState(false);
-	const [ignoreCase, setIgnoreCase] = useState(true);
+	const [caseSensitive, setCaseSensitive] = useState(true);
 
 	useEffect(() => {
 		if (isOpen) {
 			setReplacementText(editingState.word);
 			setApplyToAll(false);
-			setIgnoreCase(true);
+			setCaseSensitive(true);
 		}
 	}, [isOpen, editingState.word]);
 
@@ -45,9 +45,9 @@ export const ReplaceWordDialog = memo(() => {
 				const targetLower = targetWord.toLowerCase();
 				for (const line of state.lyricLines) {
 					for (const word of line.words) {
-						const isMatch = ignoreCase
-							? word.word.toLowerCase() === targetLower
-							: word.word === targetWord;
+						const isMatch = caseSensitive
+							? word.word === targetWord
+							: word.word.toLowerCase() === targetLower;
 
 						if (isMatch) {
 							word.word = newWord;
@@ -110,11 +110,11 @@ export const ReplaceWordDialog = memo(() => {
 						>
 							<Flex gap="2" align="center">
 								<Checkbox
-									checked={ignoreCase}
-									onCheckedChange={(c) => setIgnoreCase(c as boolean)}
+									checked={caseSensitive}
+									onCheckedChange={(c) => setCaseSensitive(c as boolean)}
 									disabled={!applyToAll}
 								/>
-								{t("replaceWordDialog.ignoreCase", "忽略大小写")}
+								{t("replaceWordDialog.caseSensitive", "区分大小写（完全一致）")}
 							</Flex>
 						</Text>
 					</Flex>

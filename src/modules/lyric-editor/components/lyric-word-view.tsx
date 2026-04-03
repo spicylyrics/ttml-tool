@@ -62,9 +62,9 @@ import {
 } from "$/modules/settings/states/sync.ts";
 import { splitWordDialogAtom } from "$/states/dialogs.ts";
 import {
+	allLyricsWordsAtom,
 	editingWordStateAtom,
 	lyricLinesAtom,
-	allLyricsWordsAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
 	showEndTimeAsDurationAtom,
@@ -74,9 +74,7 @@ import {
 import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml.ts";
 import { msToTimestamp, parseTimespan } from "$/utils/timestamp.ts";
 import { RubyEditor } from "../tools/RubyEditor.tsx";
-import {
-	getGrammarSuggestions,
-} from "../utils/grammar-warning.ts";
+import { getGrammarSuggestions } from "../utils/grammar-warning.ts";
 import { buildRubySelectionId } from "../utils/lyric-states.ts";
 import { normalizeLineTime } from "../utils/normalize-line-time.ts";
 import styles from "./index.module.css";
@@ -147,7 +145,8 @@ const LyricWordViewEditSpan = ({
 	className,
 	children,
 	onDoubleClick,
-}: PropsWithChildren<LyricWordViewEditSpanProps>) => {
+	...props
+}: PropsWithChildren<LyricWordViewEditSpanProps & React.HTMLAttributes<HTMLSpanElement>>) => {
 	const word = useAtomValue(wordAtom);
 	const store = useStore();
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
@@ -211,6 +210,7 @@ const LyricWordViewEditSpan = ({
 
 	return (
 		<span
+			{...props}
 			draggable={toolMode === ToolMode.Edit}
 			onPointerDown={(evt) => {
 				blockDragRef.current =
@@ -471,7 +471,13 @@ const LyricWordViewEditAdvance = ({
 		<ContextMenu.Root
 			onOpenChange={(open) => {
 				if (!open) return;
-				if (isWordSelected) return;
+				const currentStore = store;
+				const currentSelectedWords = currentStore.get(selectedWordsAtom);
+				if (
+					currentSelectedWords.has(currentWord.id) &&
+					currentSelectedWords.size === 1
+				)
+					return;
 				setSelectedWords((state) => {
 					state.clear();
 					state.add(currentWord.id);
@@ -482,7 +488,8 @@ const LyricWordViewEditAdvance = ({
 				});
 			}}
 		>
-			<ContextMenu.Trigger><LyricWordViewEditSpan
+			<ContextMenu.Trigger asChild>
+				<LyricWordViewEditSpan
 					wordAtom={wordAtom}
 					wordIndex={wordIndex}
 					className={className}
@@ -493,7 +500,6 @@ const LyricWordViewEditAdvance = ({
 				>
 					<WordEditField
 						size="1"
-						color="ruby"
 						wordAtom={wordAtom}
 						fieldName="startTime"
 						formatter={msToTimestamp}
@@ -502,7 +508,9 @@ const LyricWordViewEditAdvance = ({
 							minWidth: "0",
 						}}
 					>
-						<TextField.Slot><PaddingLeftRegular /></TextField.Slot>
+						<TextField.Slot>
+							<PaddingLeftRegular />
+						</TextField.Slot>
 					</WordEditField>
 					<div className={styles.advanceBar}>
 						<IconButton
@@ -556,7 +564,6 @@ const LyricWordViewEditAdvance = ({
 					</div>
 					<WordEditField
 						size="1"
-						color="red"
 						wordAtom={wordAtom}
 						fieldName="endTime"
 						formatter={msToTimestamp}
@@ -565,7 +572,9 @@ const LyricWordViewEditAdvance = ({
 							minWidth: "0",
 						}}
 					>
-						<TextField.Slot><PaddingRightRegular /></TextField.Slot>
+						<TextField.Slot>
+							<PaddingRightRegular />
+						</TextField.Slot>
 					</WordEditField>
 					<div className={styles.advanceBar}>
 						<WordEditField
@@ -580,7 +589,9 @@ const LyricWordViewEditAdvance = ({
 								minWidth: "0",
 							}}
 						>
-							<TextField.Slot><SplitVerticalRegular /></TextField.Slot>
+							<TextField.Slot>
+								<SplitVerticalRegular />
+							</TextField.Slot>
 						</WordEditField>
 						<IconButton
 							variant="soft"
@@ -628,6 +639,7 @@ const LyricWorldViewEdit = ({
 	const isWordSelected = useAtomValue(isWordSelectedAtom);
 	const setSelectedWords = useSetImmerAtom(selectedWordsAtom);
 	const [editing, setEditing] = useState(false);
+	const store = useStore();
 	const toolMode = useAtomValue(toolModeAtom);
 	const isWordBlank = useWordBlank(word.word);
 	const displayWord = getDisplayWordText(t, word.word, isWordBlank);
@@ -688,7 +700,13 @@ const LyricWorldViewEdit = ({
 		<ContextMenu.Root
 			onOpenChange={(open) => {
 				if (!open) return;
-				if (isWordSelected) return;
+				const currentStore = store;
+				const currentSelectedWords = currentStore.get(selectedWordsAtom);
+				if (
+					currentSelectedWords.has(word.id) &&
+					currentSelectedWords.size === 1
+				)
+					return;
 				setSelectedWords((state) => {
 					state.clear();
 					state.add(word.id);
@@ -699,7 +717,8 @@ const LyricWorldViewEdit = ({
 				});
 			}}
 		>
-			<ContextMenu.Trigger><LyricWordViewEditSpan
+			<ContextMenu.Trigger asChild>
+				<LyricWordViewEditSpan
 					wordAtom={wordAtom}
 					wordIndex={wordIndex}
 					className={className}
@@ -735,12 +754,14 @@ const LyricSyncWordView: FC<{
 	displayWord: string;
 	isWordBlank: boolean;
 	wordIndex: number;
-	setCorrectionDialog: (dialog: {
-		open: boolean;
-		wordIndex: number;
-		currentWord: string;
-		suggestions: string[];
-	} | null) => void;
+	setCorrectionDialog: (
+		dialog: {
+			open: boolean;
+			wordIndex: number;
+			currentWord: string;
+			suggestions: string[];
+		} | null,
+	) => void;
 	allWordsInLyrics: Set<string>;
 }> = ({
 	syncId,
@@ -776,7 +797,6 @@ const LyricSyncWordView: FC<{
 	const highlightActiveWord = useAtomValue(highlightActiveWordAtom);
 	const toolMode = useAtomValue(toolModeAtom);
 	const quickFixes = useAtomValue(quickFixesAtom);
-
 
 	const store = useStore();
 	const enableUpcomingWordHighlight = useAtomValue(
@@ -847,10 +867,10 @@ const LyricSyncWordView: FC<{
 		const animation = startTimeRef.current?.animate(
 			[
 				{
-					backgroundColor: "var(--ruby-a8)",
+					backgroundColor: "var(--accent-a8)",
 				},
 				{
-					backgroundColor: "var(--ruby-a4)",
+					backgroundColor: "var(--accent-a4)",
 				},
 			],
 			{
@@ -869,10 +889,10 @@ const LyricSyncWordView: FC<{
 		const animation = endTimeRef.current?.animate(
 			[
 				{
-					backgroundColor: "var(--red-a8)",
+					backgroundColor: "var(--accent-a8)",
 				},
 				{
-					backgroundColor: "var(--red-a4)",
+					backgroundColor: "var(--accent-a4)",
 				},
 			],
 			{
@@ -994,20 +1014,16 @@ const LyricWorldViewSync: FC<{
 	wordIndex: number;
 	line: LyricLine;
 	lineIndex: number;
-	setCorrectionDialog: (dialog: {
-		open: boolean;
-		wordIndex: number;
-		currentWord: string;
-		suggestions: string[];
-	} | null) => void;
+	setCorrectionDialog: (
+		dialog: {
+			open: boolean;
+			wordIndex: number;
+			currentWord: string;
+			suggestions: string[];
+		} | null,
+	) => void;
 	allWordsInLyrics: Set<string>;
-}> = ({
-	wordAtom,
-	line,
-	wordIndex,
-	setCorrectionDialog,
-	allWordsInLyrics,
-}) => {
+}> = ({ wordAtom, line, wordIndex, setCorrectionDialog, allWordsInLyrics }) => {
 	const { t } = useTranslation();
 	const word = useAtomValue(wordAtom);
 	const displayRomanizationInSync = useAtomValue(displayRomanizationInSyncAtom);
@@ -1023,8 +1039,8 @@ const LyricWorldViewSync: FC<{
 		[t],
 	);
 
-	if (word.ruby && word.ruby.length > 0) {
-		return (
+	const content =
+		word.ruby && word.ruby.length > 0 ? (
 			<div className={styles.rubySyncRow}>
 				{word.ruby.map((rubyWord, rubyIndex) => {
 					const isRubyBlank =
@@ -1046,27 +1062,26 @@ const LyricWorldViewSync: FC<{
 					);
 				})}
 			</div>
+		) : (
+			<LyricSyncWordView
+				syncId={word.id}
+				line={line}
+				startTime={word.startTime}
+				endTime={word.endTime}
+				displayWord={getDisplayWord(
+					word.word,
+					isWordBlank,
+					word.romanWord,
+					displayRomanizationInSync,
+				)}
+				isWordBlank={isWordBlank}
+				wordIndex={wordIndex}
+				setCorrectionDialog={setCorrectionDialog}
+				allWordsInLyrics={allWordsInLyrics}
+			/>
 		);
-	}
 
-	return (
-		<LyricSyncWordView
-			syncId={word.id}
-			line={line}
-			startTime={word.startTime}
-			endTime={word.endTime}
-			displayWord={getDisplayWord(
-				word.word,
-				isWordBlank,
-				word.romanWord,
-				displayRomanizationInSync,
-			)}
-			isWordBlank={isWordBlank}
-			wordIndex={wordIndex}
-			setCorrectionDialog={setCorrectionDialog}
-			allWordsInLyrics={allWordsInLyrics}
-		/>
-	);
+	return content;
 };
 
 export const LyricWordView: FC<{
@@ -1079,7 +1094,6 @@ export const LyricWordView: FC<{
 	const word = useAtomValue(wordAtom);
 	const toolMode = useAtomValue(toolModeAtom);
 	const layoutMode = useAtomValue(layoutModeAtom);
-
 
 	const isWordBlank = useWordBlank(word.word);
 	const hasRuby = word.ruby && word.ruby.length > 0;
@@ -1108,12 +1122,12 @@ export const LyricWordView: FC<{
 	const SuggestionButton = ({
 		suggestion,
 		onApply,
-	}: { suggestion: string; onApply: (s: string) => void }) => {
+	}: {
+		suggestion: string;
+		onApply: (s: string) => void;
+	}) => {
 		return (
-			<Button
-				variant="soft"
-				onClick={() => onApply(suggestion)}
-			>
+			<Button variant="soft" onClick={() => onApply(suggestion)}>
 				{suggestion === "__REMOVE_REPEATED_WORD__"
 					? t("lyricWordView.removeWord", "删除重复单词")
 					: suggestion}

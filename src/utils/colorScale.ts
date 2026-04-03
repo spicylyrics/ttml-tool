@@ -57,23 +57,58 @@ function getContrastColor(l: number): string {
 	return l > 65 ? "black" : "white";
 }
 
-export function generateRadixScale(baseHex: string, panelHex?: string, panelOpacity: number = 0.8) {
+export function generateRadixScale(
+	baseHex: string,
+	isDark?: boolean,
+) {
 	const { h, s, l: baseL } = hexToHsl(baseHex);
+	const effectiveIsDark = isDark ?? baseL < 50;
 
 	// Lightness presets for Radix-like 1-12 scale
-	const lightnesses = [
-		99, // 1: App bg
-		97, // 2: Subtle bg
-		93, // 3: Item bg
-		89, // 4: Item hover
-		84, // 5: Item active
-		78, // 6: Subtle border
-		71, // 7: Border
-		62, // 8: High contrast border
-		Math.max(25, Math.min(75, baseL)), // 9: Solid (clamped base)
-		Math.max(20, Math.min(70, baseL - 5)), // 10: Solid hover
-		Math.max(15, Math.min(60, baseL - 15)), // 11: Low contrast text
-		12, // 12: High contrast text
+	const lightnesses = effectiveIsDark
+		? [
+				2, // 1: App bg
+				4, // 2: Subtle bg
+				8, // 3: Item bg
+				12, // 4: Item hover
+				16, // 5: Item active
+				24, // 6: Subtle border
+				32, // 7: Border
+				40, // 8: High contrast border
+				Math.max(45, Math.min(85, baseL)), // 9: Solid (clamped base)
+				Math.max(40, Math.min(80, baseL - 5)), // 10: Solid hover
+				Math.max(65, Math.min(85, baseL + 15)), // 11: Low contrast text (Vivid)
+				93, // 12: High contrast text (Slightly tinted near-white)
+			]
+		: [
+				99, // 1: App bg
+				97, // 2: Subtle bg
+				93, // 3: Item bg
+				89, // 4: Item hover
+				84, // 5: Item active
+				78, // 6: Subtle border
+				71, // 7: Border
+				70, // 8: High contrast border
+				Math.max(25, Math.min(75, baseL)), // 9: Solid (clamped base)
+				Math.max(20, Math.min(70, baseL - 5)), // 10: Solid hover
+				Math.max(25, Math.min(45, baseL - 20)), // 11: Low contrast text (Vivid)
+				8, // 12: High contrast text (Near-black)
+			];
+
+	// Custom alpha opacities to match Radix-like behavior
+	const alphaOpacities = [
+		0.05, // 1
+		0.1,  // 2
+		0.15, // 3: Soft background
+		0.2,  // 4: Soft hover
+		0.3,  // 5: Soft active
+		0.45, // 6: Border
+		0.6,  // 7: Higher contrast border
+		0.8,  // 8: Solid border
+		1.0,  // 9: Solid
+		1.0,  // 10: Solid hover
+		1.0,  // 11: Low contrast text
+		1.0,  // 12: High contrast text
 	];
 
 	const variables: Record<string, string> = {
@@ -88,22 +123,20 @@ export function generateRadixScale(baseHex: string, panelHex?: string, panelOpac
 		const step = i + 1;
 		const l = lightnesses[i];
 		variables[`--accent-${step}`] = hslToCss(h, s, l);
-		variables[`--accent-a${step}`] = hslToCss(h, s, l, 0.8);
+		variables[`--accent-a${step}`] = hslToCss(h, s, l, alphaOpacities[i]);
 	}
 
-	// Generate Harmonious Gray Scale (Deeply tinted by accent hue, or overridden by panelHex)
-	const panelData = panelHex ? hexToHsl(panelHex) : undefined;
-	const panelH = panelData ? panelData.h : h;
-	const panelS = panelData ? panelData.s : Math.max(10, Math.min(s, 20));
-	const panelL = panelData ? panelData.l : baseL;
+	// Generate Harmonious Gray Scale
+	const greyH = h;
+	const greyS = Math.max(5, Math.min(s, 50)); // Thematic saturation
 
-	variables["--gray-surface"] = hslToCss(panelH, panelS, panelL > 50 ? 99 : 10);
+	variables["--gray-surface"] = hslToCss(greyH, greyS, effectiveIsDark ? 10 : 99);
 
 	for (let i = 0; i < 12; i++) {
 		const step = i + 1;
 		const l = lightnesses[i];
-		variables[`--gray-${step}`] = hslToCss(panelH, panelS, l);
-		variables[`--gray-a${step}`] = hslToCss(panelH, panelS, l, panelOpacity);
+		variables[`--gray-${step}`] = hslToCss(greyH, greyS, l);
+		variables[`--gray-a${step}`] = hslToCss(greyH, greyS, l, alphaOpacities[i]);
 	}
 
 	return variables;
@@ -113,11 +146,11 @@ export function generateRadixScale(baseHex: string, panelHex?: string, panelOpac
  * Generates a dual-tone linear gradient from a single hex color or a multi-stop gradient from multiple colors.
  */
 export function generateGradient(
-	baseHex: string | string[], 
+	baseHex: string | string[],
 	type: "linear" | "radial" | "conic" = "linear",
 	center: [number, number] = [50, 50],
 	angle: number = 45,
-	size: number = 1
+	size: number = 1,
 ): string {
 	const buildGradientString = (colorsStr: string) => {
 		switch (type) {
@@ -125,7 +158,6 @@ export function generateGradient(
 				return `radial-gradient(circle at ${center[0]}% ${center[1]}%, ${colorsStr})`;
 			case "conic":
 				return `conic-gradient(from ${angle}deg at ${center[0]}% ${center[1]}%, ${colorsStr})`;
-			case "linear":
 			default:
 				return `linear-gradient(${angle}deg, ${colorsStr})`;
 		}

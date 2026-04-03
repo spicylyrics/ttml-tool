@@ -30,10 +30,8 @@ import {
 	autosaveEnabledAtom,
 	autosaveIntervalAtom,
 	autosaveLimitAtom,
-	globalRomanLanguageAtom,
 	LayoutMode,
 	layoutModeAtom,
-	romanizationModeAtom,
 	SyncJudgeMode,
 	smartFirstWordAtom,
 	smartLastWordAtom,
@@ -73,10 +71,6 @@ export const SettingsCommonTab = () => {
 		upcomingWordHighlightColorAtom,
 	);
 
-	const [romanizationMode, setRomanizationMode] = useAtom(romanizationModeAtom);
-	const [globalRomanLanguage, setGlobalRomanLanguage] = useAtom(
-		globalRomanLanguageAtom,
-	);
 	const { t, i18n } = useTranslation();
 	const currentLanguage = i18n.resolvedLanguage || i18n.language;
 
@@ -115,7 +109,7 @@ export const SettingsCommonTab = () => {
 	return (
 		<Flex direction="column" gap="4">
 			<Flex direction="column" gap="2">
-				<Heading size="4">{t("settings.group.display", "显示")}</Heading>
+				<Heading size="4">{t("settings.group.display", "Display")}</Heading>
 
 				<Card>
 					<Flex gap="3" align="center">
@@ -123,9 +117,9 @@ export const SettingsCommonTab = () => {
 						<Box flexGrow="1">
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
-									<Text>{t("settings.common.language", "界面语言")}</Text>
+									<Text>{t("settings.common.language", "Interface Language")}</Text>
 									<Text size="1" color="gray">
-										{t("settings.common.languageDesc", "选择界面显示的语言")}
+										{t("settings.common.languageDesc", "Select the language for the interface")}
 									</Text>
 								</Flex>
 
@@ -156,16 +150,16 @@ export const SettingsCommonTab = () => {
 						<Box flexGrow="1">
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
-									<Text>{t("settings.common.layoutMode", "编辑布局模式")}</Text>
+									<Text>{t("settings.common.layoutMode", "Editor Layout Mode")}</Text>
 									<Text size="1" color="gray">
 										{t(
 											"settings.common.layoutModeDesc.line1",
-											"简单布局能够满足大部分使用者的基本需求",
+											"Simple layout meets the basic needs of most users",
 										)}
 										<br />
 										{t(
 											"settings.common.layoutModeDesc.line2",
-											"如果你需要更加高效的打轴的话，可以考虑切换到高级模式",
+											"If you require higher syncing efficiency, consider switching to advanced mode",
 										)}
 									</Text>
 								</Flex>
@@ -178,13 +172,13 @@ export const SettingsCommonTab = () => {
 										<Select.Item value={LayoutMode.Simple}>
 											{t(
 												"settings.common.layoutModeOptions.simple",
-												"简单模式",
+												"Simple Mode",
 											)}
 										</Select.Item>
 										<Select.Item value={LayoutMode.Advance}>
 											{t(
 												"settings.common.layoutModeOptions.advance",
-												"高级模式",
+												"Advanced Mode",
 											)}
 										</Select.Item>
 									</Select.Content>
@@ -195,95 +189,9 @@ export const SettingsCommonTab = () => {
 				</Card>
 			</Flex>
 
-			<Flex direction="column" gap="3">
-				<Heading size="4">
-					{t("settings.group.romanization", "Auto-Romanization")}
-				</Heading>
-
-				<Card>
-					<Flex gap="3" align="center">
-						<LocalLanguage24Regular />
-						<Box flexGrow="1">
-							<Flex align="center" justify="between" gap="4">
-								<Flex direction="column" gap="1">
-									<Text>
-										{t("settings.common.romanizationMode", "Romanization Mode")}
-									</Text>
-									<Text size="1" color="gray">
-										{t(
-											"settings.common.romanizationModeDesc",
-											"Use a global language or allow per-line selection",
-										)}
-									</Text>
-								</Flex>
-
-								<Select.Root
-									value={romanizationMode}
-									onValueChange={(v) =>
-										setRomanizationMode(v as "global" | "multi-lingual")
-									}
-								>
-									<Select.Trigger /><Select.Content>
-										<Select.Item value="global">
-											{t(
-												"settings.common.romanizationMode.global",
-												"Global Language Override",
-											)}
-										</Select.Item>
-										<Select.Item value="multi-lingual">
-											{t(
-												"settings.common.romanizationMode.multi",
-												"Multi-Lingual (Per-line)",
-											)}
-										</Select.Item>
-									</Select.Content>
-								</Select.Root>
-							</Flex>
-						</Box>
-					</Flex>
-				</Card>
-
-				{romanizationMode === "global" && (
-					<Card>
-						<Flex gap="3" align="center">
-							<LocalLanguage24Regular opacity={0.5} />
-							<Box flexGrow="1">
-								<Flex align="center" justify="between" gap="4">
-									<Flex direction="column" gap="1">
-										<Text>
-											{t(
-												"settings.common.globalRomanLanguage",
-												"Global Romanization Source Language",
-											)}
-										</Text>
-										<Text size="1" color="gray">
-											{t(
-												"settings.common.globalRomanLanguageDesc",
-												"The source language used for converting lyrics to romaji",
-											)}
-										</Text>
-									</Flex>
-
-									<Select.Root
-										value={globalRomanLanguage}
-										onValueChange={setGlobalRomanLanguage}
-									>
-										<Select.Trigger /><Select.Content>
-											<Select.Item value="ja">Japanese (Romaji)</Select.Item>
-											<Select.Item value="zh">Chinese (Pinyin)</Select.Item>
-											<Select.Item value="ko">Korean (Romaja)</Select.Item>
-											<Select.Item value="off">Disabled</Select.Item>
-										</Select.Content>
-									</Select.Root>
-								</Flex>
-							</Box>
-						</Flex>
-					</Card>
-				)}
-			</Flex>
 
 			<Flex direction="column" gap="3">
-				<Heading size="4">{t("settings.group.timing", "打轴")}</Heading>
+				<Heading size="4">{t("settings.group.timing", "Syncing")}</Heading>
 
 				<Card>
 					<Flex gap="3" align="center">
@@ -292,12 +200,12 @@ export const SettingsCommonTab = () => {
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
 									<Text>
-										{t("settings.common.syncJudgeMode", "打轴时间戳判定模式")}
+										{t("settings.common.syncJudgeMode", "Sync Timestamp Judgment Mode")}
 									</Text>
 									<Text size="1" color="gray">
 										{t(
 											"settings.common.syncJudgeModeDesc",
-											'设置打轴时间戳的判定模式，默认为"首个按键按下时间"。',
+											'Set the sync timestamp judgment mode, default is "First Key Down Time".',
 										)}
 									</Text>
 								</Flex>
@@ -310,25 +218,25 @@ export const SettingsCommonTab = () => {
 										<Select.Item value={SyncJudgeMode.FirstKeyDownTime}>
 											{t(
 												"settings.common.syncJudgeModeOptions.firstKeyDown",
-												"首个按键按下时间",
+												"First Key Down Time",
 											)}
 										</Select.Item>
 										<Select.Item value={SyncJudgeMode.LastKeyUpTime}>
 											{t(
 												"settings.common.syncJudgeModeOptions.lastKeyUp",
-												"最后一个按键抬起时间",
+												"Last Key Up Time",
 											)}
 										</Select.Item>
 										<Select.Item value={SyncJudgeMode.MiddleKeyTime}>
 											{t(
 												"settings.common.syncJudgeModeOptions.middleKey",
-												"取按键按下和抬起的中间值",
+												"Average of Key Down and Key Up Time",
 											)}
 										</Select.Item>
 										<Select.Item value={SyncJudgeMode.FirstKeyDownTimeLegacy}>
 											{t(
 												"settings.common.syncJudgeModeOptions.firstKeyDownLegacy",
-												"首个按键按下时间（旧版）",
+												"First Key Down Time (Legacy)",
 											)}
 										</Select.Item>
 									</Select.Content>
@@ -345,12 +253,12 @@ export const SettingsCommonTab = () => {
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
 									<Text>
-										{t("settings.common.keyBindingTrigger", "快捷键触发时机")}
+										{t("settings.common.keyBindingTrigger", "Keybinding Trigger Timing")}
 									</Text>
 									<Text size="1" color="gray">
 										{t(
 											"settings.common.keyBindingTriggerDesc",
-											"快捷键是在按下时触发还是在松开时触发",
+											"Whether keybindings are triggered on key down or key up",
 										)}
 									</Text>
 								</Flex>
@@ -365,13 +273,13 @@ export const SettingsCommonTab = () => {
 										<Select.Item value={KeyBindingTriggerMode.KeyDown}>
 											{t(
 												"settings.common.keyBindingTriggerOptions.keyDown",
-												"按下时触发",
+												"Trigger on Key Down",
 											)}
 										</Select.Item>
 										<Select.Item value={KeyBindingTriggerMode.KeyUp}>
 											{t(
 												"settings.common.keyBindingTriggerOptions.keyUp",
-												"松开时触发",
+												"Trigger on Key Up",
 											)}
 										</Select.Item>
 									</Select.Content>
@@ -389,12 +297,12 @@ export const SettingsCommonTab = () => {
 								<Flex gap="2" align="center" justify="between">
 									<Flex direction="column" gap="1">
 										<Text>
-											{t("settings.common.smartFirstWord", "智能首字")}
+											{t("settings.common.smartFirstWord", "Smart First Word")}
 										</Text>
 										<Text size="1" color="gray">
 											{t(
 												"settings.common.smartFirstWordDesc",
-												"对行首第一个音节打轴时，第一次按下“起始轴”按钮会设置其开始时间，但不会设置其结束时间。",
+												"When syncing the first syllable of a line, pressing the Start trigger records its start time but not its end time.",
 											)}
 										</Text>
 									</Flex>
@@ -416,12 +324,12 @@ export const SettingsCommonTab = () => {
 								<Flex gap="2" align="center" justify="between">
 									<Flex direction="column" gap="1">
 										<Text>
-											{t("settings.common.smartLastWord", "智能尾字")}
+											{t("settings.common.smartLastWord", "Smart Last Word")}
 										</Text>
 										<Text size="1" color="gray">
 											{t(
 												"settings.common.smartLastWordDesc",
-												"对行末最后一个音节打轴时，最后一次按下“结束轴”按钮会设置其结束时间，但不会设置下一行第一个音节的开始时间。",
+												"When syncing the last syllable of a line, pressing the End trigger records its end time without starting the next syllable.",
 											)}
 										</Text>
 									</Flex>
@@ -519,7 +427,7 @@ export const SettingsCommonTab = () => {
 			</Flex>
 
 			<Flex direction="column" gap="2">
-				<Heading size="4">{t("settings.group.playback", "播放")}</Heading>
+				<Heading size="4">{t("settings.group.playback", "Playback")}</Heading>
 
 				<Card>
 					<Flex gap="3" align="center">
@@ -531,7 +439,7 @@ export const SettingsCommonTab = () => {
 									justify="between"
 									style={{ alignSelf: "stretch" }}
 								>
-									<Text>{t("settings.common.volume", "音乐音量")}</Text>
+									<Text>{t("settings.common.volume", "Music Volume")}</Text>
 									<Text wrap="nowrap" color="gray" size="1">
 										{(volume * 100).toFixed()}%
 									</Text>
@@ -558,7 +466,7 @@ export const SettingsCommonTab = () => {
 									justify="between"
 									style={{ alignSelf: "stretch" }}
 								>
-									<Text>{t("settings.common.playbackRate", "播放速度")}</Text>
+									<Text>{t("settings.common.playbackRate", "Playback Speed")}</Text>
 									<Text wrap="nowrap" color="gray" size="1">
 										{playbackRate.toFixed(2)}x
 									</Text>
@@ -577,7 +485,7 @@ export const SettingsCommonTab = () => {
 			</Flex>
 
 			<Flex direction="column" gap="2">
-				<Heading size="4">{t("settings.group.autosave", "自动保存")}</Heading>
+				<Heading size="4">{t("settings.group.autosave", "Auto Save")}</Heading>
 
 				<Card>
 					<Text as="label">
@@ -586,7 +494,7 @@ export const SettingsCommonTab = () => {
 							<Box flexGrow="1">
 								<Flex gap="2" align="center" justify="between">
 									<Text>
-										{t("settings.common.autosave.enable", "启用自动保存")}
+										{t("settings.common.autosave.enable", "Enable Auto Save")}
 									</Text>
 									<Switch
 										checked={autosaveEnabled}
@@ -605,7 +513,7 @@ export const SettingsCommonTab = () => {
 							<Box flexGrow="1">
 								<Flex direction="column" gap="2" align="start">
 									<Text>
-										{t("settings.common.autosave.interval", "保存间隔 (分钟)")}
+										{t("settings.common.autosave.interval", "Save Interval (minutes)")}
 									</Text>
 									<TextField.Root
 										type="number"
@@ -634,7 +542,7 @@ export const SettingsCommonTab = () => {
 									style={{ alignSelf: "stretch" }}
 								>
 									<Text>
-										{t("settings.common.autosave.limit", "保留快照数量")}
+										{t("settings.common.autosave.limit", "Snapshots to keep")}
 									</Text>
 									<Text wrap="nowrap" color="gray" size="1">
 										{autosaveLimit}

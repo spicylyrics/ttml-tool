@@ -424,7 +424,8 @@
 		"description": "新的单词内容:",
 		"placeholder": "新单词",
 		"applyToAll": "将此替换规则应用于所有相同的单词",
-		"ignoreCase": "忽略大小写"
+		"ignoreCase": "忽略大小写",
+		"caseSensitive": "区分大小写（完全一致）"
 	},
 	"timeShiftDialog": {
 		"title": "平移时间",

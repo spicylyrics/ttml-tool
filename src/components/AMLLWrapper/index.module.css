@@ -4,8 +4,8 @@
 	padding: 0;
 	height: 100%;
 
-	--amll-lp-color: var(--gray-12);
+	--amll-lp-color: var(--accent-11);
 	&.isDark {
-		--amll-lp-color: var(--white-12);
+		--amll-lp-color: var(--accent-11);
 	}
 }

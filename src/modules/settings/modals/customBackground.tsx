@@ -185,7 +185,7 @@ export const SettingsCustomBackgroundSettings = ({
 		<Flex direction="column" gap="4">
 			<Flex align="center" justify="between">
 				<Heading size="4">
-					{t("settings.common.customBackground", "自定义背景")}
+					{t("settings.common.customBackground", "Custom Background")}
 				</Heading>
 				<IconButton variant="ghost" onClick={onClose}>
 					<Dismiss24Regular />
@@ -197,7 +197,7 @@ export const SettingsCustomBackgroundSettings = ({
 					<Text size="1" color="gray">
 						{t(
 							"settings.common.customBackgroundDesc",
-							"选择一张图片作为背景。",
+							"Select an image to use as background.",
 						)}
 					</Text>
 					<input
@@ -217,14 +217,14 @@ export const SettingsCustomBackgroundSettings = ({
 							variant="soft"
 							onClick={() => backgroundFileInputRef.current?.click()}
 						>
-							{t("settings.common.customBackgroundPick", "选择图片")}
+							{t("settings.common.customBackgroundPick", "Select Image")}
 						</Button>
 						<Button
 							variant="ghost"
 							disabled={!customBackgroundImage}
 							onClick={() => setCustomBackgroundImage(null)}
 						>
-							{t("settings.common.customBackgroundClear", "清除")}
+							{t("settings.common.customBackgroundClear", "Clear")}
 						</Button>
 					</Flex>
 				</Flex>
@@ -234,7 +234,7 @@ export const SettingsCustomBackgroundSettings = ({
 				<Flex direction="column" gap="2">
 					<Flex align="center" justify="between">
 						<Text>
-							{t("settings.common.customBackgroundOpacity", "透明度")}
+							{t("settings.common.customBackgroundOpacity", "Opacity")}
 						</Text>
 						<Flex align="center" gap="2">
 							<Text wrap="nowrap" color="gray" size="1">
@@ -262,7 +262,7 @@ export const SettingsCustomBackgroundSettings = ({
 						<Text size="1" color="orange">
 							{t(
 								"settings.common.customBackgroundOpacityWarning",
-								"如果这个数值太高可能让你看不清页面上的内容。",
+								"If this value is too high, it might obscure page content.",
 							)}
 						</Text>
 					)}
@@ -272,7 +272,7 @@ export const SettingsCustomBackgroundSettings = ({
 			<Card style={{ marginBottom: "var(--space-1)" }}>
 				<Flex direction="column" gap="2">
 					<Flex align="center" justify="between">
-						<Text>{t("settings.common.customBackgroundMask", "遮罩")}</Text>
+						<Text>{t("settings.common.customBackgroundMask", "Mask")}</Text>
 						<Flex align="center" gap="2">
 							<Text wrap="nowrap" color="gray" size="1">
 								{Math.round(customBackgroundMask * 100)}%
@@ -301,7 +301,7 @@ export const SettingsCustomBackgroundSettings = ({
 			<Card>
 				<Flex direction="column" gap="2">
 					<Flex align="center" justify="between">
-						<Text>{t("settings.common.customBackgroundBlur", "模糊半径")}</Text>
+						<Text>{t("settings.common.customBackgroundBlur", "Blur Radius")}</Text>
 						<Flex align="center" gap="2">
 							<Text wrap="nowrap" color="gray" size="1">
 								{customBackgroundBlur.toFixed(0)}px
@@ -331,7 +331,7 @@ export const SettingsCustomBackgroundSettings = ({
 				<Flex direction="column" gap="2">
 					<Flex align="center" justify="between">
 						<Text>
-							{t("settings.common.customBackgroundBrightness", "亮度")}
+							{t("settings.common.customBackgroundBrightness", "Brightness")}
 						</Text>
 						<Flex align="center" gap="2">
 							<Text wrap="nowrap" color="gray" size="1">
@@ -376,18 +376,18 @@ export const SettingsCustomBackgroundCard = ({
 				<Box flexGrow="1">
 					<Flex align="center" justify="between" gap="4">
 						<Flex direction="column" gap="1">
-							<Text>{t("settings.common.customBackground", "自定义背景")}</Text>
+							<Text>{t("settings.common.customBackground", "Custom Background")}</Text>
 							<Text size="1" color="gray">
 								{customBackgroundImage
-									? t("settings.common.customBackgroundEnabled", "已设置背景")
+									? t("settings.common.customBackgroundEnabled", "Background applied")
 									: t(
 											"settings.common.customBackgroundDesc",
-											"选择一张图片作为背景。",
+											"Select an image to use as background.",
 										)}
 							</Text>
 						</Flex>
 						<Button variant="soft" onClick={onOpen}>
-							{t("settings.common.customBackgroundManage", "设置")}
+							{t("settings.common.customBackgroundManage", "Manage")}
 						</Button>
 					</Flex>
 				</Box>

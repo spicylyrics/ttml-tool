@@ -1,50 +1,48 @@
 import {
+	ArrowReset24Regular,
 	Color24Regular,
 	Sparkle24Regular,
-	ArrowReset24Regular,
 	Target24Regular,
 } from "@fluentui/react-icons";
 import {
 	Box,
+	Button,
 	Card,
 	Flex,
 	Grid,
 	Heading,
 	IconButton,
+	Popover,
 	SegmentedControl,
 	Slider,
 	Switch,
 	Text,
 	Tooltip,
-	Popover,
 } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { backgroundGradients } from "$/modules/settings/states/gradients";
 import {
 	accentColorAtom,
 	backgroundModeAtom,
+	customAccentColorAtom,
+	customGradientAngleAtom,
+	customGradientCenterAtom,
+	customGradientColorsAtom,
+	customGradientOpacityAtom,
+	customGradientSizeAtom,
+	customGradientTypeAtom,
 	selectedGradientAtom,
 	useCustomAccentAtom,
-	customAccentColorAtom,
-	useCustomPanelAtom,
-	customPanelColorAtom,
-	customPanelOpacityAtom,
 	useCustomGradientAtom,
-	customGradientColorsAtom,
-	customGradientTypeAtom,
-	customGradientOpacityAtom,
-	customGradientCenterAtom,
-	customGradientAngleAtom,
-	customGradientSizeAtom,
 } from "$/modules/settings/states/index.ts";
-import { backgroundGradients } from "$/modules/settings/states/gradients";
+import { isDarkThemeAtom } from "$/states/main.ts";
+import { generateGradient, generateRadixScale } from "$/utils/colorScale";
 import {
 	SettingsCustomBackgroundCard,
 	SettingsCustomBackgroundSettings,
 } from "./customBackground";
-import { useState, useMemo } from "react";
-import { generateRadixScale, generateGradient } from "$/utils/colorScale";
-import { Button } from "@radix-ui/themes";
 
 const accentColors = [
 	"gray",
@@ -81,16 +79,17 @@ export const SettingsAppearanceTab = () => {
 	const [customAccentColor, setCustomAccentColor] = useAtom(
 		customAccentColorAtom,
 	);
-	const [useCustomPanel, setUseCustomPanel] = useAtom(useCustomPanelAtom);
-	const [customPanelColor, setCustomPanelColor] = useAtom(
-		customPanelColorAtom,
-	);
-	const [customPanelOpacity, setCustomPanelOpacity] = useAtom(
-		customPanelOpacityAtom,
-	);
+	const isDarkTheme = useAtomValue(isDarkThemeAtom);
 	const customScale = useMemo(
-		() => generateRadixScale(customAccentColor),
-		[customAccentColor],
+		() =>
+			generateRadixScale(
+				customAccentColor,
+				isDarkTheme,
+			),
+		[
+			customAccentColor,
+			isDarkTheme,
+		],
 	);
 
 	const [backgroundMode, setBackgroundMode] = useAtom(backgroundModeAtom);
@@ -116,7 +115,6 @@ export const SettingsAppearanceTab = () => {
 	const [customGradientSize, setCustomGradientSize] = useAtom(
 		customGradientSizeAtom,
 	);
-
 
 	const [showBackgroundSettings, setShowBackgroundSettings] = useState(false);
 	const { t } = useTranslation();
@@ -151,7 +149,7 @@ export const SettingsAppearanceTab = () => {
 											<Text size="1" color="gray">
 												{t(
 													"settings.appearance.useCustomAccentDesc",
-													"Override presets with a custom color scale.",
+													"Set Accent color",
 												)}
 											</Text>
 										</Flex>
@@ -192,8 +190,7 @@ export const SettingsAppearanceTab = () => {
 														style={{
 															height: "20px",
 															borderRadius: "var(--radius-1)",
-															backgroundColor:
-																customScale[`--accent-${i + 1}`],
+															backgroundColor: customScale[`--accent-${i + 1}`],
 														}}
 													/>
 												))}
@@ -232,81 +229,6 @@ export const SettingsAppearanceTab = () => {
 					</Flex>
 				</Card>
 
-				<Card>
-					<Flex direction="column" gap="4">
-						<Flex gap="3" align="start">
-							<Color24Regular />
-							<Box flexGrow="1">
-								<Flex direction="column" gap="3">
-									<Flex align="center" justify="between">
-										<Flex direction="column" gap="1">
-											<Text>
-												{t("settings.appearance.useCustomPanel", "Custom Panel Background Color")}
-											</Text>
-											<Text size="1" color="gray">
-												{t(
-													"settings.appearance.useCustomPanelDesc",
-													"Use a specific color for the ribbon bar and background panels instead of tinting them by the accent color.",
-												)}
-											</Text>
-										</Flex>
-										<Switch
-											checked={useCustomPanel}
-											onCheckedChange={setUseCustomPanel}
-										/>
-									</Flex>
-
-									{useCustomPanel && (
-										<Flex direction="column" gap="4">
-											<Flex align="center" gap="3">
-												<input
-													type="color"
-													value={customPanelColor}
-													onChange={(e) => setCustomPanelColor(e.target.value)}
-													style={{
-														width: "32px",
-														height: "32px",
-														padding: "0",
-														border: "none",
-														borderRadius: "var(--radius-3)",
-														cursor: "pointer",
-														backgroundColor: "transparent",
-													}}
-												/>
-												<Text size="2" color="gray">
-													{customPanelColor.toUpperCase()}
-												</Text>
-												<Button
-													variant="soft"
-													size="1"
-													onClick={() => setCustomPanelColor("#282c34")}
-												>
-													{t("common.reset", "Reset")}
-												</Button>
-											</Flex>
-
-											<Flex direction="column" gap="2">
-												<Flex align="center" justify="between">
-													<Text>{t("settings.appearance.panelOpacity", "Panel Opacity")}</Text>
-													<Text wrap="nowrap" color="gray" size="1">
-														{Math.round(customPanelOpacity * 100)}%
-													</Text>
-												</Flex>
-												<Slider
-													min={0}
-													max={1}
-													step={0.01}
-													value={[customPanelOpacity]}
-													onValueChange={(v) => setCustomPanelOpacity(v[0])}
-												/>
-											</Flex>
-										</Flex>
-									)}
-								</Flex>
-							</Box>
-						</Flex>
-					</Flex>
-				</Card>
 			</Flex>
 
 			<Flex direction="column" gap="3">
@@ -377,7 +299,9 @@ export const SettingsAppearanceTab = () => {
 													<Button
 														variant="soft"
 														onClick={() => {
-															const newGradientColors = [...customGradientColors];
+															const newGradientColors = [
+																...customGradientColors,
+															];
 															newGradientColors[0] = customAccentColor;
 															setCustomGradientColors(newGradientColors);
 														}}
@@ -415,7 +339,9 @@ export const SettingsAppearanceTab = () => {
 																	size="1"
 																	onClick={() => {
 																		setCustomGradientColors(
-																			customGradientColors.filter((_, i) => i !== idx),
+																			customGradientColors.filter(
+																				(_, i) => i !== idx,
+																			),
 																		);
 																	}}
 																>
@@ -434,24 +360,47 @@ export const SettingsAppearanceTab = () => {
 																]);
 															}}
 														>
-															{t("settings.appearance.addGradientColor", "Add Color")}
+															{t(
+																"settings.appearance.addGradientColor",
+																"Add Color",
+															)}
 														</Button>
 													)}
 												</Flex>
 												<Flex align="center" justify="between">
-													<Text>{t("settings.appearance.gradientType", "Gradient Type")}</Text>
+													<Text>
+														{t(
+															"settings.appearance.gradientType",
+															"Gradient Type",
+														)}
+													</Text>
 													<SegmentedControl.Root
 														value={customGradientType}
-														onValueChange={(v) => setCustomGradientType(v as "linear" | "radial" | "conic")}
+														onValueChange={(v) =>
+															setCustomGradientType(
+																v as "linear" | "radial" | "conic",
+															)
+														}
 													>
-														<SegmentedControl.Item value="linear">{t("settings.appearance.type.linear", "Linear")}</SegmentedControl.Item>
-														<SegmentedControl.Item value="radial">{t("settings.appearance.type.radial", "Radial")}</SegmentedControl.Item>
-														<SegmentedControl.Item value="conic">{t("settings.appearance.type.conic", "Conic")}</SegmentedControl.Item>
+														<SegmentedControl.Item value="linear">
+															{t("settings.appearance.type.linear", "Linear")}
+														</SegmentedControl.Item>
+														<SegmentedControl.Item value="radial">
+															{t("settings.appearance.type.radial", "Radial")}
+														</SegmentedControl.Item>
+														<SegmentedControl.Item value="conic">
+															{t("settings.appearance.type.conic", "Conic")}
+														</SegmentedControl.Item>
 													</SegmentedControl.Root>
 												</Flex>
 												<Flex direction="column" gap="2">
 													<Flex align="center" justify="between">
-														<Text>{t("settings.appearance.gradientOpacity", "Gradient Opacity")}</Text>
+														<Text>
+															{t(
+																"settings.appearance.gradientOpacity",
+																"Gradient Opacity",
+															)}
+														</Text>
 														<Text wrap="nowrap" color="gray" size="1">
 															{Math.round(customGradientOpacity * 100)}%
 														</Text>
@@ -461,12 +410,19 @@ export const SettingsAppearanceTab = () => {
 														max={1}
 														step={0.01}
 														value={[customGradientOpacity]}
-														onValueChange={(v) => setCustomGradientOpacity(v[0])}
+														onValueChange={(v) =>
+															setCustomGradientOpacity(v[0])
+														}
 													/>
 												</Flex>
 												<Flex direction="column" gap="2">
 													<Flex align="center" justify="between">
-														<Text>{t("settings.appearance.gradientSize", "Gradient Scale")}</Text>
+														<Text>
+															{t(
+																"settings.appearance.gradientSize",
+																"Gradient Scale",
+															)}
+														</Text>
 														<Text wrap="nowrap" color="gray" size="1">
 															{Math.round(customGradientSize * 100)}%
 														</Text>
@@ -484,45 +440,89 @@ export const SettingsAppearanceTab = () => {
 														<Popover.Trigger>
 															<Button variant="soft" style={{ flexGrow: 1 }}>
 																<Target24Regular />
-																{t("settings.appearance.gradientPositionSettings", "Adjust Center & Angle")}
+																{t(
+																	"settings.appearance.gradientPositionSettings",
+																	"Adjust Center & Angle",
+																)}
 															</Button>
 														</Popover.Trigger>
 														<Popover.Content size="2" style={{ width: 300 }}>
 															<Flex direction="column" gap="3">
-																<Text weight="bold" size="2">{t("settings.appearance.gradientPositionSettings", "Center & Angle")}</Text>
-																
+																<Text weight="bold" size="2">
+																	{t(
+																		"settings.appearance.gradientPositionSettings",
+																		"Center & Angle",
+																	)}
+																</Text>
+
 																{customGradientType !== "linear" && (
 																	<>
-																		<Text size="1" color="gray">{t("settings.appearance.gradientCenterX", "Center X (Horizontal)")}: {customGradientCenter[0]}%</Text>
+																		<Text size="1" color="gray">
+																			{t(
+																				"settings.appearance.gradientCenterX",
+																				"Center X (Horizontal)",
+																			)}
+																			: {customGradientCenter[0]}%
+																		</Text>
 																		<Slider
-																			min={0} max={100} step={1}
+																			min={0}
+																			max={100}
+																			step={1}
 																			value={[customGradientCenter[0]]}
-																			onValueChange={(v) => setCustomGradientCenter([v[0], customGradientCenter[1]])}
+																			onValueChange={(v) =>
+																				setCustomGradientCenter([
+																					v[0],
+																					customGradientCenter[1],
+																				])
+																			}
 																		/>
-																		
-																		<Text size="1" color="gray">{t("settings.appearance.gradientCenterY", "Center Y (Vertical)")}: {customGradientCenter[1]}%</Text>
+
+																		<Text size="1" color="gray">
+																			{t(
+																				"settings.appearance.gradientCenterY",
+																				"Center Y (Vertical)",
+																			)}
+																			: {customGradientCenter[1]}%
+																		</Text>
 																		<Slider
-																			min={0} max={100} step={1}
+																			min={0}
+																			max={100}
+																			step={1}
 																			value={[customGradientCenter[1]]}
-																			onValueChange={(v) => setCustomGradientCenter([customGradientCenter[0], v[0]])}
+																			onValueChange={(v) =>
+																				setCustomGradientCenter([
+																					customGradientCenter[0],
+																					v[0],
+																				])
+																			}
 																		/>
 																	</>
 																)}
 
 																{customGradientType !== "radial" && (
 																	<>
-																		<Text size="1" color="gray">{t("settings.appearance.gradientAngle", "Angle")}: {customGradientAngle}°</Text>
+																		<Text size="1" color="gray">
+																			{t(
+																				"settings.appearance.gradientAngle",
+																				"Angle",
+																			)}
+																			: {customGradientAngle}°
+																		</Text>
 																		<Slider
-																			min={0} max={360} step={1}
+																			min={0}
+																			max={360}
+																			step={1}
 																			value={[customGradientAngle]}
-																			onValueChange={(v) => setCustomGradientAngle(v[0])}
+																			onValueChange={(v) =>
+																				setCustomGradientAngle(v[0])
+																			}
 																		/>
 																	</>
 																)}
 															</Flex>
 														</Popover.Content>
 													</Popover.Root>
-													<IconButton 
+													<IconButton
 														variant="outline"
 														onClick={() => {
 															setCustomGradientCenter([50, 50]);
@@ -536,7 +536,13 @@ export const SettingsAppearanceTab = () => {
 													style={{
 														height: "40px",
 														borderRadius: "var(--radius-2)",
-														background: generateGradient(customGradientColors, customGradientType, customGradientCenter, customGradientAngle, customGradientSize),
+														background: generateGradient(
+															customGradientColors,
+															customGradientType,
+															customGradientCenter,
+															customGradientAngle,
+															customGradientSize,
+														),
 														marginTop: "var(--space-2)",
 													}}
 												/>
@@ -570,16 +576,7 @@ export const SettingsAppearanceTab = () => {
 					</Card>
 				)}
 
-				{backgroundMode !== "none" && (
-					<Box mt="2">
-						<Text size="1" color="gray">
-							{t(
-								"settings.appearance.backgroundFilterTip",
-								"Tip: You can still adjust opacity, blur, and brightness in the background settings.",
-							)}
-						</Text>
-					</Box>
-				)}
+
 			</Flex>
 		</Flex>
 	);

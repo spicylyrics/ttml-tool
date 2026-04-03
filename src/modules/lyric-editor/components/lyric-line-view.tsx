@@ -20,7 +20,6 @@ import {
 	ContextMenu,
 	Flex,
 	IconButton,
-	Select,
 	Text,
 	TextField,
 } from "@radix-ui/themes";
@@ -41,10 +40,7 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { predictLineRomanization } from "$/modules/segmentation/utils/Transliteration/distributor";
 import {
-	enableAutoRomanizationPredictionAtom,
-	romanizationModeAtom,
 	showLineRomanizationAtom,
 	showLineTranslationAtom,
 	showTimestampsAtom,
@@ -279,7 +275,6 @@ export const LyricLineView: FC<{
 	const showTimestamps = useAtomValue(showTimestampsAtom);
 	const showEndTimeAsDuration = useAtomValue(showEndTimeAsDurationAtom);
 	const toolMode = useAtomValue(toolModeAtom);
-	const romanizationMode = useAtomValue(romanizationModeAtom);
 	const store = useStore();
 	const wordsContainerRef = useRef<HTMLDivElement>(null);
 	const blockDragRef = useRef(false);
@@ -311,7 +306,6 @@ export const LyricLineView: FC<{
 		[],
 	);
 	const editingRomanWordIndex = useAtomValue(editingRomanWordIndexAtom);
-	const enablePrediction = useAtomValue(enableAutoRomanizationPredictionAtom);
 
 	const startTimeRef = useRef<HTMLDivElement>(null);
 	const endTimeRef = useRef<HTMLButtonElement>(null);
@@ -328,10 +322,10 @@ export const LyricLineView: FC<{
 		const animation = startTimeRef.current?.animate(
 			[
 				{
-					backgroundColor: "var(--ruby-a8)",
+					backgroundColor: "var(--accent-a8)",
 				},
 				{
-					backgroundColor: "var(--ruby-a4)",
+					backgroundColor: "var(--accent-a4)",
 				},
 			],
 			{
@@ -356,10 +350,10 @@ export const LyricLineView: FC<{
 		const animation = endTimeRef.current?.animate(
 			[
 				{
-					backgroundColor: "var(--red-a8)",
+					backgroundColor: "var(--accent-a8)",
 				},
 				{
-					backgroundColor: "var(--red-a4)",
+					backgroundColor: "var(--accent-a4)",
 				},
 			],
 			{
@@ -396,13 +390,6 @@ export const LyricLineView: FC<{
 		setEndTimeLinked(linked);
 	}, [endTimeLinked, line.endTimeLink]);
 
-	const suggestedRomans = useMemo(() => {
-		if (!enablePrediction) {
-			return [];
-		}
-
-		return predictLineRomanization(line.words, line.romanLyric || "");
-	}, [line.romanLyric, line.words, enablePrediction]);
 
 	const onToggleEndTimeLink = useCallback(
 		(evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -656,32 +643,8 @@ export const LyricLineView: FC<{
 								>
 									{displayNumber}
 								</Text>
-								{line.isBG && <VideoBackgroundEffectFilled color="#4466FF" />}
+								{line.isBG && <VideoBackgroundEffectFilled color="var(--accent-9)" />}
 								{line.isDuet && <TextAlignRightFilled color="#44AA33" />}
-								{toolMode === ToolMode.Edit &&
-									romanizationMode === "multi-lingual" && (
-										<Select.Root
-											value={line.language || "auto"}
-											onValueChange={(val) => {
-												editLyricLines((state) => {
-													state.lyricLines[lineIndex].language = val;
-												});
-											}}
-											size="1"
-										>
-											<Select.Trigger
-												variant="ghost"
-												style={{ marginTop: 4, height: 20, padding: "0 2px" }}
-											/><Select.Content>
-												<Select.Item value="auto">Auto</Select.Item>
-												<Select.Item value="ja">JA</Select.Item>
-												<Select.Item value="zh">ZH</Select.Item>
-												<Select.Item value="en">EN</Select.Item>
-												<Select.Item value="ko">KO</Select.Item>
-												<Select.Item value="off">Off</Select.Item>
-											</Select.Content>
-										</Select.Root>
-									)}
 							</Flex>
 							<div
 								className={classNames(
@@ -741,7 +704,6 @@ export const LyricLineView: FC<{
 																wordAtom={wordAtom}
 																wordIndex={wi}
 																editingIndexAtom={editingRomanWordIndexAtom}
-																suggestedRoman={suggestedRomans[wi]}
 															/>
 														)}
 												</Flex>

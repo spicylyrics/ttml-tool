@@ -68,7 +68,7 @@ export const TitleBar: FC = () => {
 						mr="2"
 						style={{ lineHeight: 1.2 }}
 					>
-						<Text color="gray" wrap="nowrap" size="2">
+						<Text style={{ color: "var(--accent-11)" }} wrap="nowrap" size="2">
 							<span className={styles.title}>
 								{t("topBar.appName", "Apple Music-like Lyrics TTML Tool")}
 							</span>

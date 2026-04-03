@@ -405,7 +405,6 @@ export const AudioSpectrogram: FC = () => {
 								</>
 							)}
 
-							{/** biome-ignore lint/a11y/noStaticElementInteractions: 全局快捷键已经可以处理播放控制了，不应该再在这里额外添加处理 */}
 							<div
 								className={styles.playheadScrubHandle}
 								style={{
@@ -419,7 +418,6 @@ export const AudioSpectrogram: FC = () => {
 								onMouseDown={handleScrubStart}
 							/>
 
-							{/** biome-ignore lint/a11y/useSemanticElements: <fieldset> 在这里不适用 */}
 							<div
 								ref={scrollContainerRef}
 								className={styles.virtualScrollContainer}
@@ -501,12 +499,14 @@ export const AudioSpectrogram: FC = () => {
 					<Tooltip
 						content={t("spectrogram.showUnselectedLines", "显示未选中行")}
 						side="left"
-					><IconButton
+					>
+						<IconButton
 							variant={showUnselectedLines ? "solid" : "outline"}
 							onClick={() => setShowUnselectedLines((prev) => !prev)}
 						>
 							{showUnselectedLines ? <EyeFilled /> : <EyeOffFilled />}
-						</IconButton></Tooltip>
+						</IconButton>
+					</Tooltip>
 				</div>
 			</div>
 		</div>

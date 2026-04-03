@@ -32,7 +32,7 @@ export const SettingsAboutTab = () => {
 				<Text as="div" size="2" color="gray">
 					{t(
 						"aboutModal.description",
-						"一个用于 Apple Music-like lyrics 生态的逐词歌词 TTML 编辑和时间轴工具",
+						"A TTML lyric and timing editor designed for the Apple Music-like lyrics ecosystem",
 					)}
 				</Text>
 			</Flex>
@@ -41,15 +41,15 @@ export const SettingsAboutTab = () => {
 				<Flex direction="column" gap="2">
 					<Flex direction="column" gap="1">
 						<Text as="div" size="2">
-							{t("aboutModal.buildDate", "构建日期：{date}", {
+							{t("aboutModal.buildDate", "Build Date: {date}", {
 								date: BUILD_TIME,
 							})}
 						</Text>
 						<Text as="div" size="2">
-							{t("aboutModal.gitCommit", "Git 提交：{commit}", {
+							{t("aboutModal.gitCommit", "Git Commit: {commit}", {
 								commit:
 									GIT_COMMIT === "unknown" ? (
-										t("aboutModal.unknown", "unknown")
+										t("aboutModal.unknown", "Unknown")
 									) : (
 										<Link
 											href={`https://github.com/amll-dev/amll-ttml-tool/commit/${GIT_COMMIT}`}
@@ -70,11 +70,11 @@ export const SettingsAboutTab = () => {
 					<Flex direction="column" gap="3">
 						<Flex align="center" gap="2">
 							<Heading size="3">
-								{t("settings.about.update", "软件更新")}
+								{t("settings.about.update", "Software Update")}
 							</Heading>
 							{status === "available" && (
 								<Badge color="ruby">
-									{t("settings.about.newVersion", "新版本")}
+									{t("settings.about.newVersion", "New Version")}
 								</Badge>
 							)}
 						</Flex>
@@ -101,7 +101,7 @@ export const SettingsAboutTab = () => {
 									<Flex gap="3">
 										<Button onClick={installUpdate}>
 											<CloudArrowDown24Regular />
-											{t("settings.about.updateNow", "立即更新")}
+											{t("settings.about.updateNow", "Update Now")}
 										</Button>
 									</Flex>
 								</Flex>
@@ -111,7 +111,7 @@ export const SettingsAboutTab = () => {
 								<Flex direction="column" gap="2">
 									<Flex justify="between">
 										<Text size="2">
-											{t("settings.about.downloading", "正在下载更新...")}
+											{t("settings.about.downloading", "Downloading update...")}
 										</Text>
 										<Text size="2">{progress.toFixed(0)}%</Text>
 									</Flex>
@@ -126,12 +126,12 @@ export const SettingsAboutTab = () => {
 										<Text size="2">
 											{t(
 												"settings.about.ready",
-												"更新已准备就绪，重启应用以生效",
+												"Update ready, restart application to apply",
 											)}
 										</Text>
 									</Flex>
 									<Button onClick={() => window.location.reload()}>
-										{t("settings.about.restart", "重启应用")}
+										{t("settings.about.restart", "Restart Application")}
 									</Button>
 								</Flex>
 							)}

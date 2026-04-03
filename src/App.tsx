@@ -27,12 +27,27 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import { platform, version } from "@tauri-apps/plugin-os";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue, useSetAtom, useStore } from "jotai";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
 import saveFile from "save-file";
 import semverGt from "semver/functions/gt";
+import { backgroundGradients } from "$/modules/settings/states/gradients";
+import {
+	accentColorAtom,
+	backgroundModeAtom,
+	customAccentColorAtom,
+	customGradientAngleAtom,
+	customGradientCenterAtom,
+	customGradientColorsAtom,
+	customGradientOpacityAtom,
+	customGradientSizeAtom,
+	customGradientTypeAtom,
+	selectedGradientAtom,
+	useCustomAccentAtom,
+	useCustomGradientAtom,
+} from "$/modules/settings/states/index.ts";
 import styles from "./App.module.css";
 import DarkThemeDetector from "./components/DarkThemeDetector";
 import RibbonBar from "./components/RibbonBar";
@@ -61,28 +76,7 @@ import {
 	ToolMode,
 	toolModeAtom,
 } from "./states/main.ts";
-import {
-	accentColorAtom,
-	backgroundModeAtom,
-	selectedGradientAtom,
-	useCustomAccentAtom,
-	customAccentColorAtom,
-	useCustomPanelAtom,
-	customPanelColorAtom,
-	customPanelOpacityAtom,
-	useCustomGradientAtom,
-	customGradientColorsAtom,
-	customGradientTypeAtom,
-	customGradientOpacityAtom,
-	customGradientCenterAtom,
-	customGradientAngleAtom,
-	customGradientSizeAtom,
-} from "$/modules/settings/states/index.ts";
-import { backgroundGradients } from "$/modules/settings/states/gradients";
-import {
-	generateRadixScale,
-	generateGradient,
-} from "./utils/colorScale.ts";
+import { generateGradient, generateRadixScale } from "./utils/colorScale.ts";
 import { useAppUpdate } from "./utils/useAppUpdate.ts";
 
 const LyricLinesView = lazy(() => import("./modules/lyric-editor/components"));
@@ -160,9 +154,6 @@ function App() {
 	const accentColor = useAtomValue(accentColorAtom);
 	const useCustomAccent = useAtomValue(useCustomAccentAtom);
 	const customAccentColor = useAtomValue(customAccentColorAtom);
-	const useCustomPanel = useAtomValue(useCustomPanelAtom);
-	const customPanelColor = useAtomValue(customPanelColorAtom);
-	const customPanelOpacity = useAtomValue(customPanelOpacityAtom);
 
 	const useCustomGradient = useAtomValue(useCustomGradientAtom);
 	const customGradientColors = useAtomValue(customGradientColorsAtom);
@@ -173,17 +164,20 @@ function App() {
 	const customGradientSize = useAtomValue(customGradientSizeAtom);
 
 	const customThemeStyles = useCustomAccent
-		? generateRadixScale(customAccentColor, useCustomPanel ? customPanelColor : undefined, useCustomPanel ? customPanelOpacity : undefined)
-		: {
-				// Even if not using custom accent color, we should inject a consistent gray scale
-				// to override the hardcoded red/ruby junk.
-				...generateRadixScale(
-					// Use a neutral gray if not using custom accent
-					"#888888",
-					useCustomPanel ? customPanelColor : undefined,
-					useCustomPanel ? customPanelOpacity : undefined
-				),
-			};
+		? generateRadixScale(customAccentColor, isDarkTheme)
+		: null;
+
+	const customStyleString = useMemo(() => {
+		if (!customThemeStyles) return "";
+		const vars = Object.entries(customThemeStyles)
+			.map(([k, v]) => `${k}: ${v} !important;`)
+			.join("\n\t\t");
+		return `
+		.radix-themes {
+			${vars}
+		}
+		`;
+	}, [customThemeStyles]);
 
 	const backgroundMode = useAtomValue(backgroundModeAtom);
 	const selectedGradientId = useAtomValue(selectedGradientAtom);
@@ -354,8 +348,8 @@ function App() {
 			hasBackground={hasBackground}
 			accentColor={accentColor}
 			className={styles.radixTheme}
-			style={customThemeStyles as React.CSSProperties}
 		>
+			{customStyleString ? <style>{customStyleString}</style> : null}
 			<ErrorBoundary
 				FallbackComponent={AppErrorPage}
 				onReset={(_details) => {
@@ -371,16 +365,26 @@ function App() {
 									backgroundMode === "image"
 										? `url(${customBackgroundImage})`
 										: useCustomGradient
-											? generateGradient(customGradientColors, customGradientType, customGradientCenter, customGradientAngle, customGradientSize)
+											? generateGradient(
+													customGradientColors,
+													customGradientType,
+													customGradientCenter,
+													customGradientAngle,
+													customGradientSize,
+												)
 											: selectedGradient?.css,
-								opacity: backgroundMode === "gradient" ? customGradientOpacity : customBackgroundOpacity,
+								opacity:
+									backgroundMode === "gradient"
+										? customGradientOpacity
+										: customBackgroundOpacity,
 								filter: `blur(${customBackgroundBlur}px) brightness(${customBackgroundBrightness})`,
 							}}
 						/>
 						<div
 							className={styles.customBackgroundMask}
 							style={{
-								opacity: backgroundMode === "gradient" ? 0 : customBackgroundMask,
+								opacity:
+									backgroundMode === "gradient" ? 0 : customBackgroundMask,
 							}}
 						/>
 					</div>
@@ -414,15 +418,16 @@ function App() {
 								)}
 								{toolMode === ToolMode.Preview && (
 									<SuspensePlaceHolder key="amll-preview">
-										<Box height="100%" key="amll-preview" p="2" asChild
-										><motion.div
+										<Box height="100%" key="amll-preview" p="2" asChild>
+											<motion.div
 												layout="position"
 												initial={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												exit={{ opacity: 0 }}
 											>
 												<AMLLWrapper />
-											</motion.div></Box>
+											</motion.div>
+										</Box>
 									</SuspensePlaceHolder>
 								)}
 							</AnimatePresence>

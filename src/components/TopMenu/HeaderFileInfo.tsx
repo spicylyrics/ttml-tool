@@ -141,12 +141,11 @@ export const HeaderFileInfo = () => {
 				) : (
 					<Button
 						variant="ghost"
-						color="gray"
 						style={{
 							height: "auto",
 							padding: "6px 10px",
 							fontWeight: "normal",
-							color: "var(--gray-12)",
+							color: "var(--accent-11)",
 							maxWidth: "100%",
 						}}
 						onClick={handleNameClick}

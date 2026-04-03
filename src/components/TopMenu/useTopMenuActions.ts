@@ -6,14 +6,11 @@ import { useTranslation } from "react-i18next";
 import saveFile from "save-file";
 import { uid } from "uid";
 import { useFileOpener } from "$/hooks/useFileOpener.ts";
-import { applyGeneratedRuby } from "$/modules/lyric-editor/utils/ruby-generator";
 import exportTTMLText from "$/modules/project/logic/ttml-writer";
 import {
 	segmentLyricLines,
 	segmentWord,
 } from "$/modules/segmentation/utils/segmentation";
-import { predictLineRomanization } from "$/modules/segmentation/utils/Transliteration/distributor";
-import { applyRomanizationWarnings } from "$/modules/segmentation/utils/Transliteration/roman-warning";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
 	advancedSegmentationDialogAtom,
@@ -386,50 +383,7 @@ export const useTopMenuActions = () => {
 		});
 	}, [editLyricLines, setConfirmDialog, t]);
 
-	const onOpenDistributeRomanization = useCallback(() => {
-		const selectedLines = store.get(selectedLinesAtom);
-		const hasSelection = selectedLines.size > 0;
-		editLyricLines((draft) => {
-			draft.lyricLines.forEach((line) => {
-				if (hasSelection && !selectedLines.has(line.id)) return;
-				const fullRoman = line.romanLyric || "";
-				if (line.words.length === 0 || fullRoman.trim() === "") return;
-				try {
-					const results = predictLineRomanization(line.words, fullRoman);
-					line.words.forEach((word, wordIndex) => {
-						if (!results[wordIndex]) return;
-						word.romanWord = results[wordIndex];
-					});
-					applyRomanizationWarnings(line.words);
-				} catch (e) {
-					error("Failed to distribute romanization", e);
-				}
-			});
-		});
-	}, [editLyricLines, store]);
 
-	const onAutoRuby = useCallback(() => {
-		const selectedLines = store.get(selectedLinesAtom);
-		const hasSelection = selectedLines.size > 0;
-		editLyricLines((draft) => {
-			draft.lyricLines.forEach((line) => {
-				if (hasSelection && !selectedLines.has(line.id)) return;
-				if (line.words.length === 0) return;
-				line.words.forEach((word) => {
-					if (!word.romanWord || word.romanWord.trim() === "") return;
-					applyGeneratedRuby(word);
-				});
-			});
-		});
-	}, [editLyricLines, store]);
-
-	const onCheckRomanizationWarnings = useCallback(() => {
-		editLyricLines((draft) => {
-			for (const line of draft.lyricLines) {
-				applyRomanizationWarnings(line.words);
-			}
-		});
-	}, [editLyricLines]);
 
 	const onOpenAdvancedSegmentation = useCallback(() => {
 		setAdvancedSegmentationDialog(true);
@@ -469,9 +423,6 @@ export const useTopMenuActions = () => {
 		onRubySegment,
 		onOpenAdvancedSegmentation,
 		onSyncLineTimestamps,
-		onOpenDistributeRomanization,
-		onAutoRuby,
-		onCheckRomanizationWarnings,
 		onOpenLatencyTest,
 		onOpenGitHub,
 		onOpenWiki,

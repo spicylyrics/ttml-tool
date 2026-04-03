@@ -35,25 +35,6 @@ const ToolMenuItems = () => {
 			<DropdownMenu.Item onSelect={menu.onSyncLineTimestamps}>
 				{t("topBar.menu.syncLineTimestamps", "同步行时间戳")}
 			</DropdownMenu.Item>
-			<DropdownMenu.Sub>
-				<DropdownMenu.SubTrigger>
-					{t("topBar.menu.perWordRomanization.index", "逐字音译")}
-				</DropdownMenu.SubTrigger>
-				<DropdownMenu.SubContent>
-					<DropdownMenu.Item onSelect={menu.onOpenDistributeRomanization}>
-						{t(
-							"topBar.menu.perWordRomanization.distribute",
-							"自动分配罗马音...",
-						)}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onSelect={menu.onCheckRomanizationWarnings}>
-						{t("topBar.menu.perWordRomanization.check", "检查")}
-					</DropdownMenu.Item>
-				</DropdownMenu.SubContent>
-			</DropdownMenu.Sub>
-			<DropdownMenu.Item onSelect={menu.onAutoRuby}>
-				{t("topBar.menu.perWordRomanization.autoRuby", "自动注音")}
-			</DropdownMenu.Item>
 			<DropdownMenu.Item onSelect={menu.onOpenLatencyTest}>
 				{t("settingsDialog.common.latencyTest", "音频/输入延迟测试")}
 			</DropdownMenu.Item>

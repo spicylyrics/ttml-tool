@@ -4,8 +4,8 @@ import { memo } from "react";
 import { useTranslation } from "react-i18next";
 import { settingsDialogAtom, settingsTabAtom } from "$/states/dialogs.ts";
 import { SettingsAboutTab } from "./about";
-import { SettingsCommonTab } from "./common";
 import { SettingsAppearanceTab } from "./appearance";
+import { SettingsCommonTab } from "./common";
 import { SettingsKeyBindingsDialog } from "./keybindings";
 import { SettingsSpectrogramTab } from "./spectrogram";
 
@@ -18,23 +18,23 @@ export const SettingsDialog = memo(() => {
 	return (
 		<Dialog.Root open={settingsDialogOpen} onOpenChange={setSettingsDialogOpen}>
 			<Dialog.Content maxWidth="600px">
-				<Dialog.Title>{t("settingsDialog.title", "首选项")}</Dialog.Title>
+				<Dialog.Title>{t("settingsDialog.title", "Preferences")}</Dialog.Title>
 				<Tabs.Root value={activeTab} onValueChange={setActiveTab}>
 					<Tabs.List>
 						<Tabs.Trigger value="common">
-							{t("settingsDialog.tab.common", "常规")}
+							{t("settingsDialog.tab.common", "General")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="appearance">
-							{t("settingsDialog.tab.appearance", "外观")}
+							{t("settingsDialog.tab.appearance", "Appearance")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="keybinding">
-							{t("settingsDialog.tab.keybindings", "按键绑定")}
+							{t("settingsDialog.tab.keybindings", "Keybindings")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="spectrogram">
-							{t("settingsDialog.tab.spectrogram", "频谱图")}
+							{t("settingsDialog.tab.spectrogram", "Spectrogram")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="about">
-							{t("common.about", "关于")}
+							{t("common.about", "About")}
 						</Tabs.Trigger>
 					</Tabs.List>
 					<Box
