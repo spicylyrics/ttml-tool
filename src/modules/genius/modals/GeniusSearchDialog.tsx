@@ -93,7 +93,10 @@ export const GeniusSearchDialog = () => {
 		async (hit: GeniusSearchHit) => {
 			setIsFetchingDetails(true);
 			try {
-				const songDetailsRes = await GeniusApi.getSongById(hit.result.id, geniusApiKey);
+				const songDetailsRes = await GeniusApi.getSongById(
+					hit.result.id,
+					geniusApiKey,
+				);
 				let songwriters = songDetailsRes.response.song.writer_artists.map(
 					(a) => a.name,
 				);
@@ -126,7 +129,10 @@ export const GeniusSearchDialog = () => {
 							),
 						);
 						try {
-							const detailRes = await GeniusApi.getArtistById(artist.id, geniusApiKey);
+							const detailRes = await GeniusApi.getArtistById(
+								artist.id,
+								geniusApiKey,
+							);
 							const artistDetail = detailRes.response.artist;
 							const altNames = artistDetail.alternate_names || [];
 							const description = artistDetail.description.plain || "";
@@ -257,28 +263,51 @@ export const GeniusSearchDialog = () => {
 			<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
 				<Dialog.Content className={styles.dialogContent}>
 					<Dialog.Title>
-						{t("metadataDialog.fetchSongwriters.setupTitle", "Genius API Key Setup")}
+						{t(
+							"metadataDialog.fetchSongwriters.setupTitle",
+							"Genius API Key Setup",
+						)}
 					</Dialog.Title>
 					<Flex direction="column" gap="4">
 						<Text>
-							{t("metadataDialog.fetchSongwriters.setupDesc", 'To use this feature, please configure your Genius API Key (specifically, you need the "CLIENT ACCESS TOKEN"). You can generate one from the ')}
-							<a href="https://genius.com/api-clients" target="_blank" rel="noopener noreferrer">
+							{t(
+								"metadataDialog.fetchSongwriters.setupDesc",
+								'To use this feature, please configure your Genius API Key (specifically, you need the "CLIENT ACCESS TOKEN"). You can generate one from the ',
+							)}
+							<a
+								href="https://genius.com/api-clients"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
 								Genius
 							</a>
-							{t("metadataDialog.fetchSongwriters.setupDescEnd", " developer portal.")}
+							{t(
+								"metadataDialog.fetchSongwriters.setupDescEnd",
+								" developer portal.",
+							)}
 						</Text>
 						<TextField.Root
-							placeholder={t("metadataDialog.fetchSongwriters.keyPlaceholder", "Enter CLIENT ACCESS TOKEN")}
+							placeholder={t(
+								"metadataDialog.fetchSongwriters.keyPlaceholder",
+								"Enter CLIENT ACCESS TOKEN",
+							)}
 							value={tempApiKey}
 							onChange={(e) => setTempApiKey(e.target.value)}
 						/>
 						<Flex justify="end" gap="2" mt="2">
 							<Dialog.Close>
-								<Button variant="soft" color="gray" onClick={() => setIsOpen(false)}>
+								<Button
+									variant="soft"
+									color="gray"
+									onClick={() => setIsOpen(false)}
+								>
 									{t("common.cancel", "Cancel")}
 								</Button>
 							</Dialog.Close>
-							<Button disabled={!tempApiKey.trim()} onClick={() => setGeniusApiKey(tempApiKey.trim())}>
+							<Button
+								disabled={!tempApiKey.trim()}
+								onClick={() => setGeniusApiKey(tempApiKey.trim())}
+							>
 								{t("common.save", "Save")}
 							</Button>
 						</Flex>

@@ -20,16 +20,7 @@ export const TileComponent = memo(
 		bitmap,
 	}: TileComponentProps) => {
 		const canvasRef = useRef<HTMLCanvasElement>(null);
-		const currentBitmapRef = useRef<ImageBitmap | undefined>(undefined);
-
 		useEffect(() => {
-			if (bitmap !== currentBitmapRef.current) {
-				if (currentBitmapRef.current) {
-					currentBitmapRef.current.close();
-				}
-				currentBitmapRef.current = bitmap;
-			}
-
 			if (bitmap && canvasRef.current) {
 				const canvas = canvasRef.current;
 				if (canvas.width !== bitmap.width) canvas.width = bitmap.width;

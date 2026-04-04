@@ -488,7 +488,7 @@ const LyricWordViewEditAdvance = ({
 				});
 			}}
 		>
-			<ContextMenu.Trigger asChild>
+			<ContextMenu.Trigger>
 				<LyricWordViewEditSpan
 					wordAtom={wordAtom}
 					wordIndex={wordIndex}
@@ -717,7 +717,7 @@ const LyricWorldViewEdit = ({
 				});
 			}}
 		>
-			<ContextMenu.Trigger asChild>
+			<ContextMenu.Trigger>
 				<LyricWordViewEditSpan
 					wordAtom={wordAtom}
 					wordIndex={wordIndex}
