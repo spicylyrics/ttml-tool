@@ -78,7 +78,7 @@ export const TouchSyncPanel: FC = () => {
 					variant="soft"
 					size="4"
 					style={{ gridColumn: "span 2" }}
-					onClick={(evt) =>
+					onMouseDown={(evt) =>
 						forceInvokeKeyBindingAtom(store, keySyncNextAtom, evt.nativeEvent)
 					}
 					onTouchStart={(evt) =>

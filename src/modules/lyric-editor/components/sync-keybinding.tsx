@@ -119,7 +119,7 @@ export const SyncKeyBinding: FC = () => {
 					case SyncJudgeMode.LastKeyUpTime:
 						break;
 					case SyncJudgeMode.MiddleKeyTime:
-						timeAdjustment -= currentTime - evt.downTimeOffset / 2;
+						timeAdjustment -= evt.downTimeOffset / 2;
 						break;
 				}
 				timeAdjustment *= audioEngine.musicPlayBackRate;
