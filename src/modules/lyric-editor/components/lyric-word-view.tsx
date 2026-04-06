@@ -940,10 +940,8 @@ const LyricSyncWordView: FC<{
 			className={className}
 			style={{ position: "relative", zIndex: 1 }}
 			onPointerDown={(evt) => {
-				const now = Date.now();
-				const clickInterval = now - lastClickTimeRef.current;
-				lastClickTimeRef.current = now;
-
+				evt.stopPropagation();
+				evt.preventDefault();
 				setSelectedLines((state) => {
 					state.clear();
 					state.add(line.id);
@@ -952,15 +950,20 @@ const LyricSyncWordView: FC<{
 					state.clear();
 					state.add(syncId);
 				});
+			}}
+			onClick={(evt) => {
+				evt.stopPropagation();
+				evt.preventDefault();
+
+				const now = Date.now();
+				const clickInterval = now - lastClickTimeRef.current;
+				lastClickTimeRef.current = now;
 
 				// Only trigger grammar actions if two clicks happen within 300ms (standard double click)
 				if (clickInterval > 300) return;
 
 				// Only open the dialog if Quick Fixes is enabled
 				if (!quickFixes) return;
-
-				evt.stopPropagation();
-				evt.preventDefault();
 
 				const wordText = line.words[wordIndex]?.word || "";
 				const suggestions = getGrammarSuggestions(
