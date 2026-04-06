@@ -939,7 +939,7 @@ const LyricSyncWordView: FC<{
 		<div
 			className={className}
 			style={{ position: "relative", zIndex: 1 }}
-			onClick={(evt) => {
+			onPointerDown={(evt) => {
 				const now = Date.now();
 				const clickInterval = now - lastClickTimeRef.current;
 				lastClickTimeRef.current = now;
