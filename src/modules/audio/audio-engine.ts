@@ -4,6 +4,7 @@ import {
 	audioErrorAtom,
 	audioTaskStateAtom,
 	auditionTimeAtom,
+	loadedAudioAtom,
 } from "$/modules/audio/states/index.ts";
 import { AudioWorkerClient } from "$/modules/audio/workers/audio-worker-client";
 import { globalStore } from "$/states/store.ts";
@@ -277,6 +278,7 @@ class AudioEngine extends EventTarget {
 				this.pauseMusic();
 				this.musicBuffer = null;
 				globalStore.set(audioBufferAtom, null);
+				globalStore.set(loadedAudioAtom, new Blob([]));
 				audioEl.src = "";
 				this.dispatchEvent(new Event("music-unload"));
 			}
@@ -316,6 +318,7 @@ class AudioEngine extends EventTarget {
 					const audioData = await src.arrayBuffer();
 					this.musicBuffer = await this.ctx.decodeAudioData(audioData);
 					globalStore.set(audioBufferAtom, this.musicBuffer);
+					globalStore.set(loadedAudioAtom, src);
 
 					this.connectAudioToContext();
 					this.setupAudioListeners();

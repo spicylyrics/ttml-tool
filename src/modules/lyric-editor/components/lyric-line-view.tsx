@@ -270,7 +270,6 @@ export const LyricLineView: FC<{
 	const lineSelected = useAtomValue(lineSelectedAtom);
 	const setSelectedWords = useSetImmerAtom(selectedWordsAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
-	const lyricLines = useAtomValue(lyricLinesAtom);
 	const visualizeTimestampUpdate = useAtomValue(visualizeTimestampUpdateAtom);
 	const showTimestamps = useAtomValue(showTimestampsAtom);
 	const showEndTimeAsDuration = useAtomValue(showEndTimeAsDurationAtom);
@@ -368,7 +367,7 @@ export const LyricLineView: FC<{
 
 	useEffect(() => {
 		if (!endTimeLinked) return;
-		const nextLine = lyricLines.lyricLines[lineIndex + 1];
+		const nextLine = store.get(lyricLinesAtom).lyricLines[lineIndex + 1];
 		if (!nextLine) {
 			editLyricLines((state) => {
 				const targetLine = state.lyricLines[lineIndex];
@@ -383,7 +382,7 @@ export const LyricLineView: FC<{
 			if (!targetLine) return;
 			targetLine.startTime = line.endTime;
 		});
-	}, [endTimeLinked, editLyricLines, line.endTime, lineIndex, lyricLines]);
+	}, [endTimeLinked, editLyricLines, line.endTime, lineIndex, store]);
 	useEffect(() => {
 		const linked = Boolean(line.endTimeLink);
 		if (linked === endTimeLinked) return;
@@ -424,7 +423,7 @@ export const LyricLineView: FC<{
 				});
 				return;
 			}
-			const nextLine = lyricLines.lyricLines[lineIndex + 1];
+			const nextLine = store.get(lyricLinesAtom).lyricLines[lineIndex + 1];
 			if (!nextLine) return;
 			originalEndTimeRef.current = line.endTime;
 			originalNextStartTimeRef.current = nextLine?.startTime ?? null;
@@ -449,7 +448,7 @@ export const LyricLineView: FC<{
 			});
 			setEndTimeLinked(true);
 		},
-		[editLyricLines, endTimeLinked, line.endTime, lineIndex, lyricLines],
+		[editLyricLines, endTimeLinked, line.endTime, lineIndex, store],
 	);
 
 	return (

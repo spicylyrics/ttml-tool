@@ -101,3 +101,5 @@ export const spectrogramHoverTimeMsAtom = atom((get) => {
 
 	return hoverTimeS * 1000;
 });
+
+export const spectrogramSelectionAtom = atom<{ start: number; end: number } | null>(null);

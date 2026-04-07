@@ -14,7 +14,6 @@ import {
 	cmdMovePrevWord,
 	cmdMovePrevWordAndPlay,
 	cmdNewFile,
-	cmdOpenAudio,
 	cmdOpenFile,
 	cmdPlaybackRateDown,
 	cmdPlaybackRateReset,
@@ -33,6 +32,7 @@ import {
 	cmdSyncEnd,
 	cmdSyncNext,
 	cmdSyncStart,
+
 	cmdUndo,
 	cmdUnselectAll,
 	cmdVolumeDown,
@@ -49,7 +49,6 @@ export type KeyBindingAtom = WritableAtom<
 export const keyNewFileAtom = cmdNewFile.atom;
 export const keyOpenFileAtom = cmdOpenFile.atom;
 export const keySaveFileAtom = cmdSaveFile.atom;
-export const keyOpenAudioAtom = cmdOpenAudio.atom;
 
 export const keyUndoAtom = cmdUndo.atom;
 export const keyRedoAtom = cmdRedo.atom;

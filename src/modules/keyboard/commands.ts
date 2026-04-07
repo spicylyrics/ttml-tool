@@ -30,12 +30,6 @@ export const cmdSaveFile = registerCommand(
 	"File",
 );
 
-export const cmdOpenAudio = registerCommand(
-	"openAudio",
-	[CONTROL_KEY, "KeyM"],
-	t("settingsDialog.keybindings.openAudio"),
-	"File",
-);
 
 // =========================================================================================
 //  编辑与选择
