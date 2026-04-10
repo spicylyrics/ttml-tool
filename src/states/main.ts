@@ -29,6 +29,9 @@ export enum ToolMode {
 }
 
 export const toolModeAtom = atom(ToolMode.Edit);
+
+export const showPreviewPanelAtom = atom(false);
+
 export const darkModeAtom = atom(DarkMode.Auto);
 export const isDarkThemeAtom = atom((get) => {
 	if (get(darkModeAtom) === DarkMode.Auto) return get(autoDarkModeAtom);
