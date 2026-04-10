@@ -47,7 +47,6 @@ import {
 	selectedLinesAtom,
 	selectedWordsAtom,
 	showEndTimeAsDurationAtom,
-	showPreviewPanelAtom,
 } from "$/states/main.ts";
 import { type LyricLine, type LyricWord, newLyricLine } from "$/types/ttml";
 import { msToTimestamp, parseTimespan } from "$/utils/timestamp.ts";
@@ -716,8 +715,6 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 	(_props, ref) => {
 		const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 		const { t } = useTranslation();
-		const [showPreviewPanel, setShowPreviewPanel] =
-			useAtom(showPreviewPanelAtom);
 
 		return (
 			<RibbonFrame ref={ref}>
@@ -864,14 +861,6 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 					label={t("ribbonBar.editMode.auxiliaryLineDisplay", "辅助行显示")}
 				>
 					<AuxiliaryDisplayField />
-				</RibbonSection>
-				<RibbonSection label={t("ribbonBar.editMode.previewPanel", "预览面板")}>
-					<Flex direction="column" align="center" gap="1">
-						<Switch
-							checked={showPreviewPanel}
-							onCheckedChange={setShowPreviewPanel}
-						/>
-					</Flex>
 				</RibbonSection>
 			</RibbonFrame>
 		);
