@@ -270,19 +270,19 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Delete {count, plural, one {word} other {words}}",
+		"deleteWords": "Delete {count, plural, one {word} other {words}",
 		"bgLyric": "Background line",
 		"duetLyric": "Duet line",
 		"insertLineBefore": "Insert new line before",
 		"insertLineAfter": "Insert new line after",
-		"copyLine": "Duplicate {count, plural, one {line} other {lines}}",
+		"copyLine": "Duplicate {count, plural, one {line} other {lines}",
 		"combineLine": "Combine lines",
-		"deleteLine": "Delete {count, plural, one {line} other {lines}}",
+		"deleteLine": "Delete {count, plural, one {line} other {lines}",
 		"splitWord": "Split word…",
 		"replaceWord": "Replace word…",
 		"combineWords": "Combine words",
 		"moveFollowingWordToNewLine": "Move followings to new line",
-		"moveWordToNewLine": "Move {count, plural, one {word} other {words}} to new line"
+		"moveWordToNewLine": "Move {count, plural, one {word} other {words} to new line"
 	},
 	"settingsDialog": {
 		"title": "Preferences",
@@ -401,7 +401,7 @@
 		"close": "Close",
 		"cancel": "Cancel",
 		"confirm": "Confirm",
-		"resultsFound": "Found {{count}} results",
+		"resultsFound": "Found {count} results",
 		"apply": "Apply",
 		"applyScope": "Scope",
 		"scope": {
@@ -604,7 +604,7 @@
 			"searchError": "Search failed: {error}",
 			"fetchError": "Could not fetch lyrics: {error}",
 			"button": "Fetch Songwriters from Genius",
-			"findingRealName": "Finding real name for {{name}} ({{current}}/{{total}})...",
+			"findingRealName": "Finding real name for {name} ({current}/{total})...",
 			"tryFindRealNames": "Try to find real names (Legal Names)"
 		}
 	},

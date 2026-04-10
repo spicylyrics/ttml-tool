@@ -219,19 +219,19 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Slet {count, plural, one {ord} other {ord}}",
+		"deleteWords": "Slet {count, plural, one {ord} other {ord}",
 		"bgLyric": "Baggrundslinje",
 		"duetLyric": "Duetlinje",
 		"insertLineBefore": "Indsæt ny linje før",
 		"insertLineAfter": "Indsæt ny linje efter",
-		"copyLine": "Dupliker {count, plural, one {linje} other {linjer}}",
+		"copyLine": "Dupliker {count, plural, one {linje} other {linjer}",
 		"combineLine": "Kombiner linjer",
-		"deleteLine": "Slet {count, plural, one {linje} other {linjer}}",
+		"deleteLine": "Slet {count, plural, one {linje} other {linjer}",
 		"splitWord": "Opdel ord…",
 		"replaceWord": "Erstat ord…",
 		"combineWords": "Kombiner ord",
 		"moveFollowingWordToNewLine": "Flyt følgende til ny linje",
-		"moveWordToNewLine": "Flyt {count, plural, one {ord} other {ord}} til ny linje"
+		"moveWordToNewLine": "Flyt {count, plural, one {ord} other {ord} til ny linje"
 	},
 	"settingsDialog": {
 		"title": "Indstillinger",

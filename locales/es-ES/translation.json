@@ -219,19 +219,19 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Eliminar {count, plural, one {palabra} other {palabras}}",
+		"deleteWords": "Eliminar {count, plural, one {palabra} other {palabras}",
 		"bgLyric": "Línea de fondo",
 		"duetLyric": "Línea de dueto",
 		"insertLineBefore": "Insertar nueva línea antes",
 		"insertLineAfter": "Insertar nueva línea después",
-		"copyLine": "Duplicar {count, plural, one {línea} other {líneas}}",
+		"copyLine": "Duplicar {count, plural, one {línea} other {líneas}",
 		"combineLine": "Combinar líneas",
-		"deleteLine": "Eliminar {count, plural, one {línea} other {líneas}}",
+		"deleteLine": "Eliminar {count, plural, one {línea} other {líneas}",
 		"splitWord": "Dividir palabra…",
 		"replaceWord": "Reemplazar palabra…",
 		"combineWords": "Combinar palabras",
 		"moveFollowingWordToNewLine": "Mover siguientes a nueva línea",
-		"moveWordToNewLine": "Mover {count, plural, one {palabra} other {palabras}} a nueva línea"
+		"moveWordToNewLine": "Mover {count, plural, one {palabra} other {palabras} a nueva línea"
 	},
 	"settingsDialog": {
 		"title": "Preferencias",

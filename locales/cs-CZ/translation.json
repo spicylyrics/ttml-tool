@@ -219,19 +219,19 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Smazat {count, plural, one {slovo} few {slova} other {slov}}",
+		"deleteWords": "Smazat {count, plural, one {slovo} few {slova} other {slov}",
 		"bgLyric": "Doprovodný řádek",
 		"duetLyric": "Duetový řádek",
 		"insertLineBefore": "Vložit nový řádek před",
 		"insertLineAfter": "Vložit nový řádek za",
-		"copyLine": "Duplikovat {count, plural, one {řádek} few {řádky} other {řádků}}",
+		"copyLine": "Duplikovat {count, plural, one {řádek} few {řádky} other {řádků}",
 		"combineLine": "Sloučit řádky",
-		"deleteLine": "Smazat {count, plural, one {řádek} few {řádky} other {řádků}}",
+		"deleteLine": "Smazat {count, plural, one {řádek} few {řádky} other {řádků}",
 		"splitWord": "Rozdělit slovo…",
 		"replaceWord": "Nahradit slovo…",
 		"combineWords": "Sloučit slova",
 		"moveFollowingWordToNewLine": "Přesunout následující na nový řádek",
-		"moveWordToNewLine": "Přesunout {count, plural, one {slovo} few {slova} other {slov}} na nový řádek"
+		"moveWordToNewLine": "Přesunout {count, plural, one {slovo} few {slova} other {slov} na nový řádek"
 	},
 	"settingsDialog": {
 		"title": "Předvolby",

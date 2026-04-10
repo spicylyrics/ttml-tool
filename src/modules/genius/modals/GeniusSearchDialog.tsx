@@ -20,6 +20,7 @@ import { lyricLinesAtom } from "$/states/main.ts";
 import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
 import { GeniusApi } from "../api/client";
 import type { GeniusSearchHit } from "../types";
+import { getBetterGeniusCoverArt } from "../utils/image";
 import styles from "./GeniusSearchDialog.module.css";
 
 export const GeniusSearchDialog = () => {
@@ -31,6 +32,7 @@ export const GeniusSearchDialog = () => {
 	const [results, setResults] = useState<GeniusSearchHit[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [isFetchingDetails, setIsFetchingDetails] = useState(false);
+	const [fetchingSongId, setFetchingSongId] = useState<number | null>(null);
 	const [hasSearched, setHasSearched] = useState(false);
 	const [findRealNames, setFindRealNames] = useState(false);
 	const [processingMessage, setProcessingMessage] = useState("");
@@ -73,7 +75,7 @@ export const GeniusSearchDialog = () => {
 			setResults(hits);
 			if (hits.length > 0) {
 				toast.success(
-					t("common.resultsFound", "Found {{count}} results", {
+					t("common.resultsFound", "Found {count} results", {
 						count: hits.length,
 					}),
 				);
@@ -92,6 +94,7 @@ export const GeniusSearchDialog = () => {
 	const handleSelectSong = useCallback(
 		async (hit: GeniusSearchHit) => {
 			setIsFetchingDetails(true);
+			setFetchingSongId(hit.result.id);
 			try {
 				const songDetailsRes = await GeniusApi.getSongById(
 					hit.result.id,
@@ -109,6 +112,7 @@ export const GeniusSearchDialog = () => {
 						),
 					);
 					setIsFetchingDetails(false);
+					setFetchingSongId(null);
 					return;
 				}
 
@@ -120,7 +124,7 @@ export const GeniusSearchDialog = () => {
 						setProcessingMessage(
 							t(
 								"metadataDialog.fetchSongwriters.findingRealName",
-								"Finding real name for {{name}} ({{current}}/{{total}})...",
+								"Finding real name for {name} ({current}/{total})...",
 								{
 									name: artist.name,
 									current: i + 1,
@@ -247,6 +251,7 @@ export const GeniusSearchDialog = () => {
 				);
 			} finally {
 				setIsFetchingDetails(false);
+				setFetchingSongId(null);
 			}
 		},
 		[setLyricLines, setIsOpen, t, findRealNames, geniusApiKey],
@@ -367,9 +372,10 @@ export const GeniusSearchDialog = () => {
 								>
 									<Flex align="center" gap="4">
 										<img
-											src={hit.result.song_art_image_thumbnail_url}
+											src={getBetterGeniusCoverArt(hit.result.song_art_image_url || hit.result.song_art_image_thumbnail_url)}
 											alt={hit.result.title}
 											className={styles.thumbnail}
+											referrerPolicy="no-referrer"
 										/>
 										<Flex
 											direction="column"
@@ -383,7 +389,7 @@ export const GeniusSearchDialog = () => {
 												{hit.result.primary_artist.name}
 											</Text>
 										</Flex>
-										{isFetchingDetails && <Spinner />}
+										{isFetchingDetails && fetchingSongId === hit.result.id && <Spinner />}
 									</Flex>
 								</Card>
 							))

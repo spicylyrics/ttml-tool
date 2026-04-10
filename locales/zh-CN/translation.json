@@ -388,7 +388,7 @@
 		"close": "关闭",
 		"cancel": "取消",
 		"confirm": "确认",
-		"resultsFound": "找到 {{count}} 条结果",
+		"resultsFound": "找到 {count} 条结果",
 		"apply": "应用",
 		"applyScope": "应用于",
 		"scope": {
@@ -592,7 +592,7 @@
 			"searchError": "搜索失败: {error}",
 			"fetchError": "无法获取歌词: {error}",
 			"button": "通过 Genius 获取词曲作者",
-			"findingRealName": "正在查找 {{name}} 的真名 ({{current}}/{{total}})...",
+			"findingRealName": "正在查找 {name} 的真名 ({current}/{total})...",
 			"tryFindRealNames": "尝试查找真名 (法定姓名)"
 		}
 	},

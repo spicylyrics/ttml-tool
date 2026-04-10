@@ -219,19 +219,19 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Usuń {count, plural, one {słowo} few {słowa} many {słów} other {słów}}",
+		"deleteWords": "Usuń {count, plural, one {słowo} few {słowa} many {słów} other {słów}",
 		"bgLyric": "Linia w tle",
 		"duetLyric": "Linia w duecie",
 		"insertLineBefore": "Wstaw nową linię przed",
 		"insertLineAfter": "Wstaw nową linię po",
-		"copyLine": "Duplikuj {count, plural, one {ľinię} few {linie} many {linii} other {linii}}",
+		"copyLine": "Duplikuj {count, plural, one {ľinię} few {linie} many {linii} other {linii}",
 		"combineLine": "Połącz linie",
-		"deleteLine": "Usuń {count, plural, one {linię} few {linie} many {linii} other {linii}}",
+		"deleteLine": "Usuń {count, plural, one {linię} few {linie} many {linii} other {linii}",
 		"splitWord": "Podziel słowo…",
 		"replaceWord": "Zamień słowo…",
 		"combineWords": "Połącz słowa",
 		"moveFollowingWordToNewLine": "Przenieś następne do nowej linii",
-		"moveWordToNewLine": "Przenieś {count, plural, one {słowo} few {słowa} many {słów} other {słów}} do nowego wiersza"
+		"moveWordToNewLine": "Przenieś {count, plural, one {słowo} few {słowa} many {słów} other {słów} do nowego wiersza"
 	},
 	"settingsDialog": {
 		"title": "Preferencje",
