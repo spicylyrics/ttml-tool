@@ -16,6 +16,7 @@ import {
 	Flex,
 	Grid,
 	IconButton,
+	SegmentedControl,
 	Slider,
 	Text,
 	TextField,
@@ -38,6 +39,8 @@ import {
 	currentEmptyBeatAtom,
 	showTouchSyncPanelAtom,
 	syncTimeOffsetAtom,
+	syncLevelModeAtom,
+	type SyncLevelMode,
 	visualizeTimestampUpdateAtom,
 } from "$/modules/settings/states/sync.ts";
 import {
@@ -106,6 +109,7 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 			showWordRomanizationInputAtom,
 		);
 		const [syncTimeOffset, setSyncTimeOffset] = useAtom(syncTimeOffsetAtom);
+		const [syncLevelMode, setSyncLevelMode] = useAtom(syncLevelModeAtom);
 		const { t } = useTranslation();
 
 		return (
@@ -154,6 +158,24 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							</TextField.Root>
 							<EmptyBeatField />
 						</Grid>
+					</RibbonSection>
+					<RibbonSection
+						label={t("ribbonBar.syncMode.syncLevel", "Sync Level")}
+					>
+						<Flex direction="column" gap="2" align="center" justify="center" px="2" style={{ height: "100%" }}>
+							<SegmentedControl.Root
+								value={syncLevelMode}
+								onValueChange={(v) => setSyncLevelMode(v as SyncLevelMode)}
+								size="1"
+							>
+								<SegmentedControl.Item value="word">
+									{t("ribbonBar.syncMode.syncLevelWord", "Word Sync")}
+								</SegmentedControl.Item>
+								<SegmentedControl.Item value="line">
+									{t("ribbonBar.syncMode.syncLevelLine", "Line Sync")}
+								</SegmentedControl.Item>
+							</SegmentedControl.Root>
+						</Flex>
 					</RibbonSection>
 					<RibbonSection
 						label={t("ribbonBar.syncMode.assistSettings", "辅助设置")}

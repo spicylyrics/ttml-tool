@@ -18,6 +18,12 @@ export const visualizeTimestampUpdateAtom = atomWithStorage(
 );
 export const syncTimeOffsetAtom = atomWithStorage("syncTimeOffset", 0);
 
+export type SyncLevelMode = "word" | "line";
+export const syncLevelModeAtom = atomWithStorage<SyncLevelMode>(
+	"syncLevelMode",
+	"word",
+);
+
 export const enableUpcomingWordHighlightAtom = atomWithStorage(
 	"enableUpcomingWordHighlight",
 	false,

@@ -97,7 +97,10 @@
 			"keyBindingReference": "Hotkey Cheatsheet",
 			"startSync": "Mark Begin",
 			"continuousSync": "Commit",
-			"endSync": "Mark End"
+			"endSync": "Mark End",
+			"syncLevel": "Sync Level",
+			"syncLevelWord": "Word Sync",
+			"syncLevelLine": "Line Sync"
 		},
 		"loading": "Panel loading…"
 	},

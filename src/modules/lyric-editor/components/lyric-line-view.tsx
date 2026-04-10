@@ -46,7 +46,10 @@ import {
 	showTimestampsAtom,
 	showWordRomanizationInputAtom,
 } from "$/modules/settings/states/index.ts";
-import { visualizeTimestampUpdateAtom } from "$/modules/settings/states/sync.ts";
+import {
+	syncLevelModeAtom,
+	visualizeTimestampUpdateAtom,
+} from "$/modules/settings/states/sync.ts";
 import {
 	lyricLinesAtom,
 	selectedLinesAtom,
@@ -60,6 +63,7 @@ import { msToTimestamp } from "$/utils/timestamp.ts";
 import styles from "./index.module.css";
 import { LyricLineMenu } from "./lyric-line-menu.tsx";
 import { draggingIdAtom } from "./lyric-line-view-states.ts";
+import { getSynchronizableUnits } from "../utils/lyric-states.ts";
 import LyricWordView from "./lyric-word-view.tsx";
 import { RomanWordView } from "./roman-word-view.tsx";
 
@@ -274,6 +278,7 @@ export const LyricLineView: FC<{
 	const showTimestamps = useAtomValue(showTimestampsAtom);
 	const showEndTimeAsDuration = useAtomValue(showEndTimeAsDurationAtom);
 	const toolMode = useAtomValue(toolModeAtom);
+	const syncLevelMode = useAtomValue(syncLevelModeAtom);
 	const store = useStore();
 	const wordsContainerRef = useRef<HTMLDivElement>(null);
 	const blockDragRef = useRef(false);
@@ -616,8 +621,12 @@ export const LyricLineView: FC<{
 									}
 								});
 								setSelectedWords((state) => {
-									if (state.size !== 0) {
-										state.clear();
+									state.clear();
+									if (toolMode === ToolMode.Sync && syncLevelMode === "line") {
+										const units = getSynchronizableUnits(line);
+										for (const unit of units) {
+											state.add(unit.id);
+										}
 									}
 								});
 							}

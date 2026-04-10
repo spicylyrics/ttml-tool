@@ -20,6 +20,7 @@ import {
 	currentEmptyBeatAtom,
 	smartFirstWordActiveIdAtom,
 	syncTimeOffsetAtom,
+	syncLevelModeAtom,
 } from "$/modules/settings/states/sync";
 import {
 	keyMoveFirstWordAndPlayAtom,
@@ -332,6 +333,73 @@ export const SyncKeyBinding: FC = () => {
 			if (!location) return;
 			const currentTime = calcJudgeTime(evt);
 
+			const syncLevelMode = store.get(syncLevelModeAtom);
+			if (syncLevelMode === "line") {
+				store.set(lyricLinesAtom, (prev) => {
+					const state: LyricsState = prev;
+					const prevCurLine = state.lyricLines[location.lineIndex];
+					if (!prevCurLine) return prev;
+
+					const nextLines = state.lyricLines.slice();
+					const curLine = cloneLineWithWords(prevCurLine);
+					curLine.endTime = currentTime;
+
+					const units = getSynchronizableUnits(curLine);
+					if (units.length > 0) {
+						let startTime = getUnitStartTime(units[0]);
+						if (startTime === undefined || startTime >= currentTime) {
+							startTime = Math.max(0, currentTime - 1000);
+						}
+						const totalDuration = currentTime - startTime;
+						const lengths = units.map((u) => Math.max(1, (u.rubyWord?.word || u.word.word).trim().length));
+						const totalLength = lengths.reduce((a, b) => a + b, 0);
+
+						let currentStart = startTime;
+						for(let i = 0; i < units.length; i++) {
+							const duration = Math.round((lengths[i] / totalLength) * totalDuration);
+							const currentEnd = (i === units.length - 1) ? currentTime : currentStart + duration;
+							setUnitStartTimeCloned(curLine, units[i].wordIndex, units[i].rubyIndex, currentStart);
+							setUnitEndTimeCloned(curLine, units[i].wordIndex, units[i].rubyIndex, currentEnd);
+							currentStart = currentEnd;
+						}
+					}
+
+					const nextLineIndex = state.lyricLines.slice(location.lineIndex + 1).findIndex(
+						(nextLine) => isSynchronizableLine(nextLine) && getSynchronizableUnits(nextLine).length > 0
+					);
+
+					if (nextLineIndex !== -1) {
+						const absoluteNextLineIndex = location.lineIndex + 1 + nextLineIndex;
+						const prevNextLine = state.lyricLines[absoluteNextLineIndex];
+						const nextLine = cloneLineWithWords(prevNextLine);
+						nextLine.startTime = currentTime;
+						const nextLineUnits = getSynchronizableUnits(nextLine);
+						if (nextLineUnits.length > 0) {
+							setUnitStartTimeCloned(nextLine, nextLineUnits[0].wordIndex, nextLineUnits[0].rubyIndex, currentTime);
+						}
+						nextLines[absoluteNextLineIndex] = nextLine;
+					}
+
+					nextLines[location.lineIndex] = curLine;
+					return { ...state, lyricLines: nextLines };
+				});
+
+				const state = store.get(lyricLinesAtom);
+				const nextLineIndex = state.lyricLines.slice(location.lineIndex + 1).findIndex(
+					(nextLine) => isSynchronizableLine(nextLine) && getSynchronizableUnits(nextLine).length > 0
+				);
+				if (nextLineIndex !== -1) {
+					const absoluteNextLineIndex = location.lineIndex + 1 + nextLineIndex;
+					const nextLine = state.lyricLines[absoluteNextLineIndex];
+					store.set(selectedLinesAtom, new Set([nextLine.id]));
+					const nextLineUnits = getSynchronizableUnits(nextLine);
+					if (nextLineUnits.length > 0) {
+						store.set(selectedWordsAtom, new Set([nextLineUnits[0].id]));
+					}
+				}
+				return;
+			}
+
 			// 智能首字
 			const smartFirstWord = store.get(smartFirstWordAtom);
 			if (smartFirstWord && location.isFirstWord) {
@@ -463,6 +531,58 @@ export const SyncKeyBinding: FC = () => {
 			const location = getCurrentLocation(store);
 			if (!location) return;
 			const currentTime = calcJudgeTime(evt);
+
+			const syncLevelMode = store.get(syncLevelModeAtom);
+			if (syncLevelMode === "line") {
+				store.set(lyricLinesAtom, (prev) => {
+					const state: LyricsState = prev;
+					const prevCurLine = state.lyricLines[location.lineIndex];
+					if (!prevCurLine) return prev;
+
+					const nextLines = state.lyricLines.slice();
+					const curLine = cloneLineWithWords(prevCurLine);
+					curLine.endTime = currentTime;
+
+					const units = getSynchronizableUnits(curLine);
+					if (units.length > 0) {
+						let startTime = getUnitStartTime(units[0]);
+						if (startTime === undefined || startTime >= currentTime) {
+							startTime = Math.max(0, currentTime - 1000);
+						}
+						const totalDuration = currentTime - startTime;
+						const lengths = units.map((u) => Math.max(1, (u.rubyWord?.word || u.word.word).trim().length));
+						const totalLength = lengths.reduce((a, b) => a + b, 0);
+
+						let currentStart = startTime;
+						for(let i = 0; i < units.length; i++) {
+							const duration = Math.round((lengths[i] / totalLength) * totalDuration);
+							const currentEnd = (i === units.length - 1) ? currentTime : currentStart + duration;
+							setUnitStartTimeCloned(curLine, units[i].wordIndex, units[i].rubyIndex, currentStart);
+							setUnitEndTimeCloned(curLine, units[i].wordIndex, units[i].rubyIndex, currentEnd);
+							currentStart = currentEnd;
+						}
+					}
+					
+					nextLines[location.lineIndex] = curLine;
+					return { ...state, lyricLines: nextLines };
+				});
+
+				const state = store.get(lyricLinesAtom);
+				const nextLineIndex = state.lyricLines.slice(location.lineIndex + 1).findIndex(
+					(nextLine) => isSynchronizableLine(nextLine) && getSynchronizableUnits(nextLine).length > 0
+				);
+				if (nextLineIndex !== -1) {
+					const absoluteNextLineIndex = location.lineIndex + 1 + nextLineIndex;
+					const nextLine = state.lyricLines[absoluteNextLineIndex];
+					store.set(selectedLinesAtom, new Set([nextLine.id]));
+					const nextLineUnits = getSynchronizableUnits(nextLine);
+					if (nextLineUnits.length > 0) {
+						store.set(selectedWordsAtom, new Set([nextLineUnits[0].id]));
+					}
+				}
+				return;
+			}
+
 			store.set(lyricLinesAtom, (prev) => {
 				const state: LyricsState = prev;
 				const prevLine = state.lyricLines[location.lineIndex];

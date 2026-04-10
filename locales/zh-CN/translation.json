@@ -96,7 +96,10 @@
 			"keyBindingReference": "打轴键位速查",
 			"startSync": "起始轴",
 			"continuousSync": "连续轴",
-			"endSync": "结束轴"
+			"endSync": "结束轴",
+			"syncLevel": "打轴模式",
+			"syncLevelWord": "逐字打轴",
+			"syncLevelLine": "逐行打轴"
 		},
 		"loading": "面板载入中…"
 	},
