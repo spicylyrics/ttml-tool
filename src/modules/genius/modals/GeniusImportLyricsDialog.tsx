@@ -1,13 +1,11 @@
 import { Search16Regular, Search24Regular } from "@fluentui/react-icons";
 import {
-	Badge,
 	Box,
 	Button,
 	Card,
 	Dialog,
 	Flex,
 	ScrollArea,
-	Separator,
 	Spinner,
 	Text,
 	TextArea,
@@ -45,7 +43,6 @@ export const GeniusImportLyricsDialog = () => {
 
 	// Lyrics preview
 	const [selectedHit, setSelectedHit] = useState<GeniusSearchHit | null>(null);
-	const [lyrics, setLyrics] = useState<string>("");
 	const [fetchingLyrics, setFetchingLyrics] = useState(false);
 	const [editableLyrics, setEditableLyrics] = useState("");
 
@@ -58,7 +55,6 @@ export const GeniusImportLyricsDialog = () => {
 			setHasSearched(false);
 			setResults([]);
 			setSelectedHit(null);
-			setLyrics("");
 			setEditableLyrics("");
 			setIsEditing(false);
 			setTimeout(() => {
@@ -73,7 +69,6 @@ export const GeniusImportLyricsDialog = () => {
 		setHasSearched(true);
 		setResults([]);
 		setSelectedHit(null);
-		setLyrics("");
 		setEditableLyrics("");
 		setIsEditing(false);
 		try {
@@ -90,7 +85,6 @@ export const GeniusImportLyricsDialog = () => {
 	const handleSelectSong = useCallback(async (hit: GeniusSearchHit) => {
 		setSelectedHit(hit);
 		setFetchingLyrics(true);
-		setLyrics("");
 		setEditableLyrics("");
 		setIsEditing(false);
 
@@ -112,11 +106,11 @@ export const GeniusImportLyricsDialog = () => {
 			};
 			upsert("musicName", title);
 			upsert("artists", artist);
+			upsert("cover_art", hit.result.song_art_image_url);
 		});
 
 		try {
 			const text = await GeniusApi.getLyrics(hit.result.url);
-			setLyrics(text);
 			setEditableLyrics(text);
 		} catch (e) {
 			const msg = e instanceof Error ? e.message : String(e);
@@ -128,10 +122,22 @@ export const GeniusImportLyricsDialog = () => {
 	}, [setSaveFileName, setLyricLines, t]);
 
 	const handleImport = useCallback(() => {
-		const lines = editableLyrics
-			.split("\n")
-			.map((l) => l.trim())
-			.filter((l) => l.length > 0);
+		const rawLines = editableLyrics.split("\n").map((l) => l.trim());
+
+		const slopPatterns = [
+			/^\[.*\]$/, // Section headers [Verse], [Chorus]
+			/Embed$/, // Genius embed artifact
+			/^\d+ Contributors?$/, // Contributor count
+			/^You might also like$/, // Genius recommendation slop
+			/^Translations?.*$/, // Translation slop
+			/^\(Instrumental Intro\)$/i,
+			/^\(Instrumental\)$/i,
+		];
+
+		const lines = rawLines.filter((l) => {
+			if (!l) return false;
+			return !slopPatterns.some((pattern) => pattern.test(l));
+		});
 
 		if (lines.length === 0) {
 			toast.error(t("metadataDialog.fetchSongwriters.noLyricsError", "No lyrics to import."));
@@ -141,14 +147,19 @@ export const GeniusImportLyricsDialog = () => {
 		// Process all lines and split out background lyrics (text in parentheses)
 		const processedLines: any[] = [];
 		for (const lineText of lines) {
-			// Split by segments in parentheses to separate "greyed out" (BG) lyrics
-			const parts = lineText.split(/(\(.*?\))/g);
+			// regex to find things like "Normal Text (Background Text)" or "(Background) Normal"
+			// This regex matches groups of non-parentheses or groups inside parentheses
+			const parts = lineText.split(/(\([^)]+\))/g).filter(p => p.trim());
+			
 			for (const part of parts) {
 				const trimmed = part.trim();
 				if (!trimmed) continue;
 
 				const isBG = trimmed.startsWith("(") && trimmed.endsWith(")");
-				const text = isBG ? trimmed.slice(1, -1).trim() : trimmed;
+				let text = isBG ? trimmed.slice(1, -1).trim() : trimmed;
+				
+				// Final cleanup for text
+				text = text.replace(/\s+/g, " ");
 				if (!text) continue;
 
 				const words = text.split(/\s+/).map((word) => ({
@@ -166,6 +177,7 @@ export const GeniusImportLyricsDialog = () => {
 					endTime: 0,
 					isBG,
 					isDuet: false,
+					isInterlaced: false, // New flag if supported
 				});
 			}
 		}
@@ -228,7 +240,7 @@ export const GeniusImportLyricsDialog = () => {
 								{selectedHit.result.full_title}
 							</Text>
 						</Flex>
-						<Button variant="soft" color="gray" onClick={() => { setSelectedHit(null); setLyrics(""); setEditableLyrics(""); }}>
+						<Button variant="soft" color="gray" onClick={() => { setSelectedHit(null); setEditableLyrics(""); }}>
 							{t("genius.back", "← Back")}
 						</Button>
 					</Flex>
@@ -274,13 +286,14 @@ export const GeniusImportLyricsDialog = () => {
 											lineHeight: "1.6",
 											color: "var(--gray-12)",
 										}}
-										dangerouslySetInnerHTML={{
-											__html: editableLyrics
-												.replace(/&/g, "&amp;")
-												.replace(/</g, "&lt;")
-												.replace(/>/g, "&gt;")
-												.replace(/(\(.*?\))/g, '<span style="opacity: 0.35; font-style: italic; font-weight: 300;">$1</span>')
-										}}
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: Used for syntax highlighting in the preview
+				dangerouslySetInnerHTML={{
+					__html: editableLyrics
+						.replace(/&/g, "&amp;")
+						.replace(/</g, "&lt;")
+						.replace(/>/g, "&gt;")
+						.replace(/(\([^)]+\))/g, '<span style="opacity: 0.35; font-style: italic; font-weight: 300;">$1</span>')
+				}}
 									/>
 								</Box>
 							)}
