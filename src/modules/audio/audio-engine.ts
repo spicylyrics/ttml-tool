@@ -4,6 +4,9 @@ import {
 	audioErrorAtom,
 	audioTaskStateAtom,
 	auditionTimeAtom,
+	equalizerEnabledAtom,
+	equalizerGainsAtom,
+	EQ_FREQUENCIES,
 	loadedAudioAtom,
 } from "$/modules/audio/states/index.ts";
 import { AudioWorkerClient } from "$/modules/audio/workers/audio-worker-client";
@@ -41,6 +44,47 @@ class AudioEngine extends EventTarget {
 		this.gainNode.gain.value = 0.5;
 		this.gainNode.connect(this.ctx.destination);
 		return this.gainNode;
+	}
+
+	private _eqNodes: BiquadFilterNode[] = [];
+	private get eqNodes() {
+		if (this._eqNodes.length > 0) return this._eqNodes;
+		
+		const nodes: BiquadFilterNode[] = [];
+		const gains = globalStore.get(equalizerGainsAtom);
+		const enabled = globalStore.get(equalizerEnabledAtom);
+
+		EQ_FREQUENCIES.forEach((freq, i) => {
+			const node = this.ctx.createBiquadFilter();
+			node.type = (i === 0) ? "lowshelf" : (i === EQ_FREQUENCIES.length - 1) ? "highshelf" : "peaking";
+			node.frequency.value = freq;
+			node.gain.value = enabled ? gains[i] : 0;
+			node.Q.value = 1;
+			nodes.push(node);
+		});
+
+		// Connect chain
+		for (let i = 0; i < nodes.length - 1; i++) {
+			nodes[i].connect(nodes[i+1]);
+		}
+		
+		// Final node connects to gain
+		nodes[nodes.length - 1].connect(this.gain);
+		
+		this._eqNodes = nodes;
+		return nodes;
+	}
+
+	public updateEqGains() {
+		const gains = globalStore.get(equalizerGainsAtom);
+		const enabled = globalStore.get(equalizerEnabledAtom);
+		this.eqNodes.forEach((node, i) => {
+			node.gain.setTargetAtTime(enabled ? gains[i] : 0, this.ctx.currentTime, 0.05);
+		});
+	}
+
+	public get eqEntryPoint() {
+		return this.eqNodes[0];
 	}
 	//#endregion
 
@@ -84,8 +128,8 @@ class AudioEngine extends EventTarget {
 		if (!this._audioEl || !this.ctx || this._audioEl.src === "") return;
 		try {
 			const source = this.ctx.createMediaElementSource(this._audioEl);
-			source?.connect(this.gain);
-			log("AudioElement connected to AudioContext");
+			source?.connect(this.eqEntryPoint);
+			log("AudioElement connected to AudioContext (via EQ)");
 		} catch (e) {
 			log("Failed to connect AudioElement:", e);
 		}
@@ -233,7 +277,7 @@ class AudioEngine extends EventTarget {
 
 		const source = this.ctx.createBufferSource();
 		source.buffer = this.musicBuffer;
-		source.connect(this.gain);
+		source.connect(this.eqEntryPoint);
 		this.auditionSourceNode = source;
 
 		const progressLoop = () => {
@@ -369,7 +413,7 @@ class AudioEngine extends EventTarget {
 		if (!this.ctx) return;
 		const source = this.ctx.createBufferSource();
 		source.buffer = audioBuffer;
-		source.connect(this.gain);
+		source.connect(this.eqEntryPoint);
 		source.start(when, offset, duration);
 		source.addEventListener("ended", () => {
 			source.disconnect();
@@ -377,7 +421,7 @@ class AudioEngine extends EventTarget {
 	}
 
 	playNode(node: AudioScheduledSourceNode, when?: number, stop?: number) {
-		node.connect(this.gain);
+		node.connect(this.eqEntryPoint);
 		node.start(when);
 		node.addEventListener("ended", () => {
 			node.disconnect();
