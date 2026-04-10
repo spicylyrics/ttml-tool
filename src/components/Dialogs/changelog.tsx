@@ -38,7 +38,22 @@ export function ChangelogDialog() {
 				<ScrollArea type="always" scrollbars="vertical" style={{ height: "calc(100% - 60px)" }}>
 					<Flex direction="column" gap="5" pr="4">
 						<Box>
-							<Heading size="4" mb="2" color="ruby">v0.1.0 Updates (Latest)</Heading>
+							<Heading size="4" mb="2" color="ruby">v0.1.1 Updates (Latest)</Heading>
+							<Flex direction="column" gap="3">
+								<Text size="2">
+									<strong>Rich Preview Panel:</strong> A new visual preview system for Genius imports that allows you to review, edit, and verify perfectly formatted lyrics before they hit your project.
+								</Text>
+								<Text size="2">
+									<strong>Genius Background Lyric Parser:</strong> Automatically recognizes parenthesized text as background vocals during import, stripping brackets and setting the appropriate background flag.
+								</Text>
+								<Text size="2">
+									<strong>Ultra-Reliable Genius Cover Arts:</strong> Implemented a high-performance image proxy service to ensure Genius cover arts load reliably across all platforms, bypassing hotlink protection.
+								</Text>
+							</Flex>
+						</Box>
+
+						<Box>
+							<Heading size="4" mb="2" color="teal">v0.1.0 Updates</Heading>
 							<Flex direction="column" gap="3">
 								<Text size="2">
 									<strong>Line Sync Mode:</strong> Easily perform macro-level (line-by-line) syncing. Go to Time &gt; Sync Level and set it to Line instead of Word. Pressing "Start Next Word/Line" automatically fills empty beats with proportionately distributed offsets based on syllables.
@@ -54,12 +69,6 @@ export function ChangelogDialog() {
 								</Text>
 								<Text size="2">
 									<strong>Full Genius Lyrics Import:</strong> Directly search and import song lyrics from Genius into the editor. Featuring a direct-from-source scraper with <strong>Auto-Slop Removal</strong> to automatically strip section markers ([Chorus], etc.) and metadata blocks.
-								</Text>
-								<Text size="2">
-									<strong>Genius Background Lyric Parser:</strong> Automatically recognizes parenthesized text as background vocals during import, stripping brackets and setting the appropriate background flag.
-								</Text>
-								<Text size="2">
-									<strong>Ultra-Reliable Genius Cover Arts:</strong> Implemented a high-performance image proxy service to ensure Genius cover arts load reliably across all platforms, bypassing hotlink protection.
 								</Text>
 							</Flex>
 						</Box>
