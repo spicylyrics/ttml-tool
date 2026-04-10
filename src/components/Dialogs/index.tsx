@@ -1,5 +1,6 @@
 import { LatencyTestDialog } from "$/modules/audio/modals/LatencyTest.tsx";
 import { GeniusSearchDialog } from "$/modules/genius/modals/GeniusSearchDialog.tsx";
+import { GeniusImportLyricsDialog } from "$/modules/genius/modals/GeniusImportLyricsDialog.tsx";
 import { ImportFromLRCLIB } from "$/modules/lrclib/modals/ImportDialog.tsx";
 import { ReplaceWordDialog } from "$/modules/lyric-editor/tools/ReplaceWordDialog.tsx";
 import { TimeShiftDialog } from "$/modules/lyric-editor/tools/TimeShift.tsx";
@@ -31,6 +32,7 @@ export const Dialogs = () => {
 			<TimeShiftDialog />
 
 			<GeniusSearchDialog />
+			<GeniusImportLyricsDialog />
 			<ChangelogDialog />
 		</>
 	);

@@ -85,4 +85,27 @@ export const GeniusApi = {
 			throw error;
 		}
 	},
+
+	/**
+	 * Fetch plain lyrics for a Genius song using the Paxsenix Lyrically proxy.
+	 * @param songUrl The full Genius song URL (e.g. https://genius.com/Artist-song-lyrics)
+	 * @returns Plain-text lyrics string
+	 */
+	async getLyrics(songUrl: string): Promise<string> {
+		try {
+			const resp = await fetch(
+				`https://lyrically.paxsenix.biz.id/genius?url=${encodeURIComponent(songUrl)}`,
+			);
+			if (!resp.ok) {
+				throw new Error(`Lyrics fetch failed: ${resp.status} ${resp.statusText}`);
+			}
+			const data = await resp.json();
+			// Paxsenix returns { lyrics: "..." }
+			if (typeof data?.lyrics === "string") return data.lyrics;
+			throw new Error("Unexpected lyrics response shape");
+		} catch (error) {
+			console.error("Genius Lyrics Fetch Error:", error);
+			throw error;
+		}
+	},
 };
