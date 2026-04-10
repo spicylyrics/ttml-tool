@@ -38,7 +38,25 @@ export function ChangelogDialog() {
 				<ScrollArea type="always" scrollbars="vertical" style={{ height: "calc(100% - 60px)" }}>
 					<Flex direction="column" gap="5" pr="4">
 						<Box>
-							<Heading size="4" mb="2" color="ruby">v0.1.2 Updates (Latest)</Heading>
+							<Heading size="4" mb="2" color="gold">v0.1.3 Updates (Latest)</Heading>
+							<Flex direction="column" gap="3">
+								<Text size="2">
+									<strong>10-Band Audio Equalizer:</strong> A professional-grade audio processor is now available. Optimize your syncing experience with <strong>Presets</strong> like <em>Bass Boost</em>, <em>Vocal Boost</em>, and <em>Rock</em>, or create your own <strong>Custom Profiles</strong>.
+								</Text>
+								<Text size="2">
+									<strong>Immersive Lyrics Preview:</strong> The live preview now features <strong>Dynamic Cover Art Backgrounds</strong> with premium glassmorphism effects, synced playback blurs, and spring-loaded "popping" text animations.
+								</Text>
+								<Text size="2">
+									<strong>Sync Mode Highlighting:</strong> Added a high-contrast <strong>Glow Effect</strong> to the active word in the Time (Sync) tab, making it significantly easier to track your timing focus during playback.
+								</Text>
+								<Text size="2">
+									<strong>Enhanced Genius Parser:</strong> Rebuilt the Genius import engine with advanced <strong>Slop-Removal</strong> to strip section headers, contributor counts, and metadata artifacts automatically for a cleaner workflow.
+								</Text>
+							</Flex>
+						</Box>
+
+						<Box>
+							<Heading size="4" mb="2" color="ruby">v0.1.2 Updates</Heading>
 							<Flex direction="column" gap="3">
 								<Text size="2">
 									<strong>Advanced Font Selection Menu:</strong> Replaced the basic font list with a high-performance Gallery interface. Features over 300+ of the most popular Google Fonts and system font stacks for total visual control.
