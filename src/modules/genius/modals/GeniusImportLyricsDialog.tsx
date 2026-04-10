@@ -25,6 +25,7 @@ import { useSetAtom } from "jotai";
 import { uid } from "uid";
 import { GeniusApi } from "../api/client";
 import type { GeniusSearchHit } from "../types";
+import { getBetterGeniusCoverArt } from "../utils/image";
 
 export const GeniusImportLyricsDialog = () => {
 	const { t } = useTranslation();
@@ -137,28 +138,47 @@ export const GeniusImportLyricsDialog = () => {
 			return;
 		}
 
-		setLyricLines((prev) => {
-			const newLines = lines.map((lineText) => {
-				const words = lineText.split(/\s+/).map((word) => ({
+		// Process all lines and split out background lyrics (text in parentheses)
+		const processedLines: any[] = [];
+		for (const lineText of lines) {
+			// Split by segments in parentheses to separate "greyed out" (BG) lyrics
+			const parts = lineText.split(/(\(.*?\))/g);
+			for (const part of parts) {
+				const trimmed = part.trim();
+				if (!trimmed) continue;
+
+				const isBG = trimmed.startsWith("(") && trimmed.endsWith(")");
+				const text = isBG ? trimmed.slice(1, -1).trim() : trimmed;
+				if (!text) continue;
+
+				const words = text.split(/\s+/).map((word) => ({
 					id: uid(),
 					word,
 					startTime: 0,
 					endTime: 0,
 					emptyBeat: 0,
 				}));
-				return {
+
+				processedLines.push({
 					id: uid(),
 					words,
 					startTime: 0,
 					endTime: 0,
-					isBG: lineText.includes("("),
+					isBG,
 					isDuet: false,
-				};
-			});
-			prev.lyricLines.push(...newLines);
+				});
+			}
+		}
+
+		setLyricLines((prev) => {
+			prev.lyricLines.push(...processedLines);
 		});
 
-		toast.success(t("metadataDialog.fetchSongwriters.importSuccess", "Imported {count} lines from Genius.", { count: lines.length }));
+		toast.success(
+			t("metadataDialog.fetchSongwriters.importSuccess", "Imported {count} lines from Genius.", {
+				count: processedLines.length,
+			}),
+		);
 		setIsOpen(false);
 	}, [editableLyrics, setLyricLines, setIsOpen, t]);
 
@@ -221,7 +241,7 @@ export const GeniusImportLyricsDialog = () => {
 						<>
 							<Flex justify="between" align="center" mb="2">
 								<Text size="1" color="gray">
-									{isEditing ? "Editing Raw Text" : t("genius.previewSubtitle", "Lines with parentheses will be imported as background vocals.")}
+									{isEditing ? "Editing Raw Text" : t("genius.previewSubtitle", "Text in parentheses will be separated as background lyrics.")}
 								</Text>
 								<Button variant="ghost" size="1" onClick={() => setIsEditing(!isEditing)}>
 									{isEditing ? "Back to Preview" : "Manual Edit"}
@@ -327,9 +347,10 @@ export const GeniusImportLyricsDialog = () => {
 							>
 								<Flex align="center" gap="3">
 									<img
-										src={hit.result.song_art_image_thumbnail_url}
+										src={getBetterGeniusCoverArt(hit.result.song_art_image_url || hit.result.song_art_image_thumbnail_url)}
 										alt={hit.result.title}
 										style={{ width: 48, height: 48, borderRadius: 6, objectFit: "cover", flexShrink: 0 }}
+										referrerPolicy="no-referrer"
 									/>
 									<Flex direction="column" gap="1" style={{ flex: 1, minWidth: 0 }}>
 										<Text size="2" weight="bold" truncate>{hit.result.title}</Text>
