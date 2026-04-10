@@ -38,7 +38,25 @@ export function ChangelogDialog() {
 				<ScrollArea type="always" scrollbars="vertical" style={{ height: "calc(100% - 60px)" }}>
 					<Flex direction="column" gap="5" pr="4">
 						<Box>
-							<Heading size="4" mb="2" color="ruby">v0.1.1 Updates (Latest)</Heading>
+							<Heading size="4" mb="2" color="ruby">v0.1.2 Updates (Latest)</Heading>
+							<Flex direction="column" gap="3">
+								<Text size="2">
+									<strong>Advanced Font Selection Menu:</strong> Replaced the basic font list with a high-performance Gallery interface. Features over 300+ of the most popular Google Fonts and system font stacks for total visual control.
+								</Text>
+								<Text size="2">
+									<strong>Custom Typography Support:</strong> You can now import your own <code>.ttf</code>, <code>.otf</code>, and <code>.woff</code> font files directly. Your custom fonts are securely stored and persist across app sessions.
+								</Text>
+								<Text size="2">
+									<strong>Global Font Variations:</strong> Integrated full support for <strong>Bold</strong> and <em>Italic</em> styles. The tool dynamically fetches the appropriate variants from Google for every library font.
+								</Text>
+								<Text size="2">
+									<strong>Enhanced Font Library UI:</strong> A refined, searchable interface with live previews, categorized list stacks, and improved spacing to handle long font names without clipping.
+								</Text>
+							</Flex>
+						</Box>
+
+						<Box>
+							<Heading size="4" mb="2" color="teal">v0.1.1 Updates</Heading>
 							<Flex direction="column" gap="3">
 								<Text size="2">
 									<strong>Rich Preview Panel:</strong> A new visual preview system for Genius imports that allows you to review, edit, and verify perfectly formatted lyrics before they hit your project.
@@ -53,7 +71,7 @@ export function ChangelogDialog() {
 						</Box>
 
 						<Box>
-							<Heading size="4" mb="2" color="teal">v0.1.0 Updates</Heading>
+							<Heading size="4" mb="2" color="blue">v0.1.0 Updates</Heading>
 							<Flex direction="column" gap="3">
 								<Text size="2">
 									<strong>Line Sync Mode:</strong> Easily perform macro-level (line-by-line) syncing. Go to Time &gt; Sync Level and set it to Line instead of Word. Pressing "Start Next Word/Line" automatically fills empty beats with proportionately distributed offsets based on syllables.

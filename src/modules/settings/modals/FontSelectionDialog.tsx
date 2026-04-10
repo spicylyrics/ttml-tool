@@ -296,7 +296,7 @@ export const FontSelectionDialog = () => {
 											style={{ 
 												cursor: "pointer",
 												padding: "12px",
-												minHeight: "8	0px",
+												minHeight: "80px",
 												display: "flex",
 												flexDirection: "column",
 												justifyContent: "center",
