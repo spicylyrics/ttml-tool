@@ -76,7 +76,10 @@ import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml.ts";
 import { msToTimestamp, parseTimespan } from "$/utils/timestamp.ts";
 import { RubyEditor } from "../tools/RubyEditor.tsx";
 import { getGrammarSuggestions } from "../utils/grammar-warning.ts";
-import { buildRubySelectionId, getSynchronizableUnits } from "../utils/lyric-states.ts";
+import {
+	buildRubySelectionId,
+	getSynchronizableUnits,
+} from "../utils/lyric-states.ts";
 import { normalizeLineTime } from "../utils/normalize-line-time.ts";
 import styles from "./index.module.css";
 import { LyricLineMenu } from "./lyric-line-menu.tsx";
@@ -147,7 +150,9 @@ const LyricWordViewEditSpan = ({
 	children,
 	onDoubleClick,
 	...props
-}: PropsWithChildren<LyricWordViewEditSpanProps & React.HTMLAttributes<HTMLSpanElement>>) => {
+}: PropsWithChildren<
+	LyricWordViewEditSpanProps & React.HTMLAttributes<HTMLSpanElement>
+>) => {
 	const word = useAtomValue(wordAtom);
 	const store = useStore();
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
@@ -1097,7 +1102,9 @@ const LyricSyncWordView: FC<{
 								padding: "0 2px",
 							}}
 						/>
-					) : startTimeDisplay}
+					) : (
+						startTimeDisplay
+					)}
 				</div>
 			)}
 			<div className={styles.displayWord}>{displayWord}</div>
@@ -1109,7 +1116,9 @@ const LyricSyncWordView: FC<{
 					style={{ cursor: "text" }}
 					onClick={(e) => {
 						e.stopPropagation();
-						setEditingInput(showEndTimeAsDuration ? msToTimestamp(endTime) : endTimeDisplay);
+						setEditingInput(
+							showEndTimeAsDuration ? msToTimestamp(endTime) : endTimeDisplay,
+						);
 						setEditingTime("end");
 					}}
 				>
@@ -1138,7 +1147,9 @@ const LyricSyncWordView: FC<{
 								padding: "0 2px",
 							}}
 						/>
-					) : endTimeDisplay}
+					) : (
+						endTimeDisplay
+					)}
 				</div>
 			)}
 		</div>

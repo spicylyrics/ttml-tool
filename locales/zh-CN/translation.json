@@ -70,7 +70,8 @@
 			"translatedLyric": "翻译歌词",
 			"romanLyric": "音译歌词",
 			"layoutMode": "布局模式",
-			"auxiliaryLineDisplay": "辅助行显示"
+			"auxiliaryLineDisplay": "辅助行显示",
+			"previewPanel": "预览面板"
 		},
 		"previewMode": {
 			"lyrics": "歌词",

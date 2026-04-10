@@ -62,7 +62,8 @@
 			"translatedLyric": "Перевод",
 			"romanLyric": "Романизация",
 			"layoutMode": "Макет",
-			"auxiliaryLineDisplay": "Отображение вспомогательной строки"
+			"auxiliaryLineDisplay": "Отображение вспомогательной строки",
+			"previewPanel": "Панель предпросмотра"
 		},
 		"previewMode": {
 			"lyrics": "Текст",

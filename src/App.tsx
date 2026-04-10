@@ -73,6 +73,7 @@ import {
 	isDarkThemeAtom,
 	isGlobalFileDraggingAtom,
 	lyricLinesAtom,
+	showPreviewPanelAtom,
 	ToolMode,
 	toolModeAtom,
 } from "./states/main.ts";
@@ -144,6 +145,7 @@ function App() {
 	const isDarkTheme = useAtomValue(isDarkThemeAtom);
 	const toolMode = useAtomValue(toolModeAtom);
 	const showTouchSyncPanel = useAtomValue(showTouchSyncPanelAtom);
+	const showPreviewPanel = useAtomValue(showPreviewPanelAtom);
 	const customBackgroundImage = useAtomValue(customBackgroundImageAtom);
 	const customBackgroundOpacity = useAtomValue(customBackgroundOpacityAtom);
 	const customBackgroundMask = useAtomValue(customBackgroundMaskAtom);
@@ -398,39 +400,90 @@ function App() {
 						<TitleBar />
 						<RibbonBar />
 						<Box flexGrow="1" overflow="hidden">
-							<AnimatePresence mode="wait">
-								{toolMode !== ToolMode.Preview && (
-									<SuspensePlaceHolder key="edit">
-										<motion.div
-											layout="position"
-											style={{
-												height: "100%",
-												maxHeight: "100%",
-												overflowY: "hidden",
-											}}
-											initial={{ opacity: 0 }}
-											animate={{ opacity: 1 }}
-											exit={{ opacity: 0 }}
-										>
-											<LyricLinesView key="edit" />
-										</motion.div>
-									</SuspensePlaceHolder>
-								)}
-								{toolMode === ToolMode.Preview && (
-									<SuspensePlaceHolder key="amll-preview">
-										<Box height="100%" key="amll-preview" p="2" asChild>
+							{showPreviewPanel ? (
+								<Flex height="100%" gap="2" p="2">
+									<Box flexGrow="1" overflow="hidden">
+										<AnimatePresence mode="wait">
+											{toolMode !== ToolMode.Preview && (
+												<SuspensePlaceHolder key="edit">
+													<motion.div
+														layout="position"
+														style={{
+															height: "100%",
+															maxHeight: "100%",
+															overflowY: "hidden",
+														}}
+														initial={{ opacity: 0 }}
+														animate={{ opacity: 1 }}
+														exit={{ opacity: 0 }}
+													>
+														<LyricLinesView key="edit" />
+													</motion.div>
+												</SuspensePlaceHolder>
+											)}
+											{toolMode === ToolMode.Preview && (
+												<SuspensePlaceHolder key="amll-preview">
+													<motion.div
+														layout="position"
+														initial={{ opacity: 0 }}
+														animate={{ opacity: 1 }}
+														exit={{ opacity: 0 }}
+													>
+														<AMLLWrapper />
+													</motion.div>
+												</SuspensePlaceHolder>
+											)}
+										</AnimatePresence>
+									</Box>
+									<Box width="400px" flexShrink="0">
+										<SuspensePlaceHolder key="preview-panel">
 											<motion.div
 												layout="position"
 												initial={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												exit={{ opacity: 0 }}
+												style={{ height: "100%" }}
 											>
 												<AMLLWrapper />
 											</motion.div>
-										</Box>
-									</SuspensePlaceHolder>
-								)}
-							</AnimatePresence>
+										</SuspensePlaceHolder>
+									</Box>
+								</Flex>
+							) : (
+								<AnimatePresence mode="wait">
+									{toolMode !== ToolMode.Preview && (
+										<SuspensePlaceHolder key="edit">
+											<motion.div
+												layout="position"
+												style={{
+													height: "100%",
+													maxHeight: "100%",
+													overflowY: "hidden",
+												}}
+												initial={{ opacity: 0 }}
+												animate={{ opacity: 1 }}
+												exit={{ opacity: 0 }}
+											>
+												<LyricLinesView key="edit" />
+											</motion.div>
+										</SuspensePlaceHolder>
+									)}
+									{toolMode === ToolMode.Preview && (
+										<SuspensePlaceHolder key="amll-preview">
+											<Box height="100%" key="amll-preview" p="2" asChild>
+												<motion.div
+													layout="position"
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 1 }}
+													exit={{ opacity: 0 }}
+												>
+													<AMLLWrapper />
+												</motion.div>
+											</Box>
+										</SuspensePlaceHolder>
+									)}
+								</AnimatePresence>
+							)}
 						</Box>
 						{showTouchSyncPanel && toolMode === ToolMode.Sync && (
 							<TouchSyncPanel />

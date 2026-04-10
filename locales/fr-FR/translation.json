@@ -62,7 +62,8 @@
 			"translatedLyric": "Traduction",
 			"romanLyric": "Romanisation",
 			"layoutMode": "Disposition",
-			"auxiliaryLineDisplay": "Affichage de ligne auxiliaire"
+			"auxiliaryLineDisplay": "Affichage de ligne auxiliaire",
+			"previewPanel": "Panneau d'aperçu"
 		},
 		"previewMode": {
 			"lyrics": "Paroles",

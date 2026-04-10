@@ -62,7 +62,8 @@
 			"translatedLyric": "Oversættelse",
 			"romanLyric": "Romanisering",
 			"layoutMode": "Layout",
-			"auxiliaryLineDisplay": "Visning af hjælpelinje"
+			"auxiliaryLineDisplay": "Visning af hjælpelinje",
+			"previewPanel": "Preview-panel"
 		},
 		"previewMode": {
 			"lyrics": "Sangtekster",

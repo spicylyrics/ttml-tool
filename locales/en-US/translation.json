@@ -70,7 +70,8 @@
 			"translatedLyric": "Translation",
 			"romanLyric": "Romanization",
 			"layoutMode": "Layout",
-			"auxiliaryLineDisplay": "Auxiliary Line Display"
+			"auxiliaryLineDisplay": "Auxiliary Line Display",
+			"previewPanel": "Preview Panel"
 		},
 		"previewMode": {
 			"lyrics": "Lyrics",

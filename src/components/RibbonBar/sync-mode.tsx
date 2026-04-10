@@ -11,6 +11,7 @@
 
 import { DeleteRegular, MoreHorizontalRegular } from "@fluentui/react-icons";
 import {
+	Button,
 	Checkbox,
 	Dialog,
 	Flex,
@@ -18,6 +19,7 @@ import {
 	IconButton,
 	SegmentedControl,
 	Slider,
+	Switch,
 	Text,
 	TextField,
 } from "@radix-ui/themes";
@@ -48,7 +50,11 @@ import {
 	keySyncNextAtom,
 	keySyncStartAtom,
 } from "$/states/keybindings.ts";
-import { bgLyricIgnoreSyncAtom, lyricLinesAtom } from "$/states/main.ts";
+import {
+	bgLyricIgnoreSyncAtom,
+	lyricLinesAtom,
+	showPreviewPanelAtom,
+} from "$/states/main.ts";
 import { KeyBinding } from "../KeyBinding/index.tsx";
 import { RibbonFrame, RibbonSection } from "./common";
 
@@ -86,6 +92,8 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 		const [showTouchSyncPanel, setShowTouchSyncPanel] = useAtom(
 			showTouchSyncPanelAtom,
 		);
+		const [showPreviewPanel, setShowPreviewPanel] =
+			useAtom(showPreviewPanelAtom);
 		const [showTimestamps, setShowTimestamps] = useAtom(showTimestampsAtom);
 		const [highlightErrors, setHighlightErrors] = useAtom(highlightErrorsAtom);
 		const [quickFixes, setQuickFixes] = useAtom(quickFixesAtom);
@@ -138,7 +146,11 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							flexGrow="1"
 							align="center"
 						>
-							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+							<Text
+								wrap="nowrap"
+								size="1"
+								style={{ color: "var(--accent-11)" }}
+							>
 								{t("ribbonBar.syncMode.timeOffset", "时间戳位移")}
 							</Text>
 							<TextField.Root
@@ -162,7 +174,14 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 					<RibbonSection
 						label={t("ribbonBar.syncMode.syncLevel", "Sync Level")}
 					>
-						<Flex direction="column" gap="2" align="center" justify="center" px="2" style={{ height: "100%" }}>
+						<Flex
+							direction="column"
+							gap="2"
+							align="center"
+							justify="center"
+							px="2"
+							style={{ height: "100%" }}
+						>
 							<SegmentedControl.Root
 								value={syncLevelMode}
 								onValueChange={(v) => setSyncLevelMode(v as SyncLevelMode)}
@@ -187,21 +206,33 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							flexGrow="1"
 							align="center"
 						>
-							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+							<Text
+								wrap="nowrap"
+								size="1"
+								style={{ color: "var(--accent-11)" }}
+							>
 								{t("ribbonBar.syncMode.showTimestampUpdate", "呈现时间戳更新")}
 							</Text>
 							<Checkbox
 								checked={visualizeTimestampUpdate}
 								onCheckedChange={(v) => setVisualizeTimestampUpdate(!!v)}
 							/>
-							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+							<Text
+								wrap="nowrap"
+								size="1"
+								style={{ color: "var(--accent-11)" }}
+							>
 								{t("ribbonBar.syncMode.touchSyncPanel", "触控打轴辅助面板")}
 							</Text>
 							<Checkbox
 								checked={showTouchSyncPanel}
 								onCheckedChange={(v) => setShowTouchSyncPanel(!!v)}
 							/>
-							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+							<Text
+								wrap="nowrap"
+								size="1"
+								style={{ color: "var(--accent-11)" }}
+							>
 								{t("ribbonBar.syncMode.bgLyricIgnoreSync", "背景歌词忽略打轴")}
 							</Text>
 							<Checkbox
@@ -220,7 +251,11 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 								}}
 							/>
 							<Flex align="center" gap="1">
-								<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+								<Text
+									wrap="nowrap"
+									size="1"
+									style={{ color: "var(--accent-11)" }}
+								>
 									{t("ribbonBar.syncMode.quickFixes", "Quick Fixes")}
 								</Text>
 								<IconButton
@@ -247,21 +282,33 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							flexGrow="1"
 							align="center"
 						>
-							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+							<Text
+								wrap="nowrap"
+								size="1"
+								style={{ color: "var(--accent-11)" }}
+							>
 								{t("ribbonBar.syncMode.showTimestamps", "显示时间戳")}
 							</Text>
 							<Checkbox
 								checked={showTimestamps}
 								onCheckedChange={(v) => setShowTimestamps(!!v)}
 							/>
-							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+							<Text
+								wrap="nowrap"
+								size="1"
+								style={{ color: "var(--accent-11)" }}
+							>
 								{t("ribbonBar.syncMode.highlightActiveWord", "高亮当前音节")}
 							</Text>
 							<Checkbox
 								checked={highlightActiveWord}
 								onCheckedChange={(v) => setHighlightActiveWord(!!v)}
 							/>
-							<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+							<Text
+								wrap="nowrap"
+								size="1"
+								style={{ color: "var(--accent-11)" }}
+							>
 								{t("ribbonBar.syncMode.highlightErrors", "高亮错误")}
 							</Text>
 							<Checkbox
@@ -271,7 +318,11 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 
 							{showWordRomanizationInput && (
 								<>
-									<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+									<Text
+										wrap="nowrap"
+										size="1"
+										style={{ color: "var(--accent-11)" }}
+									>
 										{t(
 											"ribbonBar.syncMode.showPerWordRomanization",
 											"显示逐字音译",
@@ -297,19 +348,41 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 								align="center"
 								justify="center"
 							>
-								<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+								<Text
+									wrap="nowrap"
+									size="1"
+									style={{ color: "var(--accent-11)" }}
+								>
 									{t("ribbonBar.syncMode.startSync", "起始轴")}
 								</Text>
 								<KeyBinding kbdAtom={keySyncStartAtom} />
-								<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+								<Text
+									wrap="nowrap"
+									size="1"
+									style={{ color: "var(--accent-11)" }}
+								>
 									{t("ribbonBar.syncMode.continuousSync", "连续轴")}
 								</Text>
 								<KeyBinding kbdAtom={keySyncNextAtom} />
-								<Text wrap="nowrap" size="1" style={{ color: "var(--accent-11)" }}>
+								<Text
+									wrap="nowrap"
+									size="1"
+									style={{ color: "var(--accent-11)" }}
+								>
 									{t("ribbonBar.syncMode.endSync", "结束轴")}
 								</Text>
 								<KeyBinding kbdAtom={keySyncEndAtom} />
 							</Grid>
+						</Flex>
+					</RibbonSection>
+					<RibbonSection
+						label={t("ribbonBar.editMode.previewPanel", "预览面板")}
+					>
+						<Flex direction="column" align="center" gap="1">
+							<Switch
+								checked={showPreviewPanel}
+								onCheckedChange={setShowPreviewPanel}
+							/>
 						</Flex>
 					</RibbonSection>
 				</RibbonFrame>

@@ -62,7 +62,8 @@
 			"translatedLyric": "Překlad",
 			"romanLyric": "Romanizace",
 			"layoutMode": "Rozložení",
-			"auxiliaryLineDisplay": "Zobrazení pomocného řádku"
+			"auxiliaryLineDisplay": "Zobrazení pomocného řádku",
+			"previewPanel": "Náhledový panel"
 		},
 		"previewMode": {
 			"lyrics": "titulky",

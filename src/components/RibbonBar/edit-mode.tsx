@@ -17,6 +17,7 @@ import {
 	RadioGroup,
 	Text,
 	TextField,
+	Switch,
 } from "@radix-ui/themes";
 import { atom, useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
@@ -709,7 +710,6 @@ const AuxiliaryDisplayField: FC = () => {
 		</Grid>
 	);
 };
-
 
 export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 	(_props, ref) => {

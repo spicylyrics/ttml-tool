@@ -66,7 +66,8 @@
 			"translatedLyric": "Lirik Terjemahan",
 			"romanLyric": "Lirik Romanisasi",
 			"layoutMode": "Mode Tata Letak",
-			"auxiliaryLineDisplay": "Tampilan Baris Tambahan"
+			"auxiliaryLineDisplay": "Tampilan Baris Tambahan",
+			"previewPanel": "Panel Pratinjau"
 		},
 		"previewMode": {
 			"lyrics": "Lirik",
