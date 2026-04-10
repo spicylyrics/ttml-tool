@@ -45,7 +45,6 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
-import { audioEngine } from "$/modules/audio/audio-engine";
 import {
 	displayRomanizationInSyncAtom,
 	highlightActiveWordAtom,
@@ -55,7 +54,6 @@ import {
 	quickFixesAtom,
 	showTimestampsAtom,
 } from "$/modules/settings/states/index.ts";
-import { jumpToWordDelayAtom } from "$/modules/settings/states/preview";
 import {
 	enableUpcomingWordHighlightAtom,
 	upcomingWordHighlightColorAtom,
@@ -78,10 +76,7 @@ import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml.ts";
 import { msToTimestamp, parseTimespan } from "$/utils/timestamp.ts";
 import { RubyEditor } from "../tools/RubyEditor.tsx";
 import { getGrammarSuggestions } from "../utils/grammar-warning.ts";
-import {
-	buildRubySelectionId,
-	getSynchronizableUnits,
-} from "../utils/lyric-states.ts";
+import { buildRubySelectionId, getSynchronizableUnits } from "../utils/lyric-states.ts";
 import { normalizeLineTime } from "../utils/normalize-line-time.ts";
 import styles from "./index.module.css";
 import { LyricLineMenu } from "./lyric-line-menu.tsx";
@@ -152,9 +147,7 @@ const LyricWordViewEditSpan = ({
 	children,
 	onDoubleClick,
 	...props
-}: PropsWithChildren<
-	LyricWordViewEditSpanProps & React.HTMLAttributes<HTMLSpanElement>
->) => {
+}: PropsWithChildren<LyricWordViewEditSpanProps & React.HTMLAttributes<HTMLSpanElement>>) => {
 	const word = useAtomValue(wordAtom);
 	const store = useStore();
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
@@ -348,11 +341,6 @@ const LyricWordViewEditSpan = ({
 					onDoubleClick?.();
 				}
 			}}
-			onDoubleClick={(evt) => {
-				evt.stopPropagation();
-				evt.preventDefault();
-				onDoubleClick?.();
-			}}
 		>
 			{children}
 		</span>
@@ -466,7 +454,6 @@ const LyricWordViewEditAdvance = ({
 	const setSelectedWords = useSetImmerAtom(selectedWordsAtom);
 	const currentWord = useAtomValue(wordAtom);
 	const toolMode = useAtomValue(toolModeAtom);
-	const jumpToWordDelay = useAtomValue(jumpToWordDelayAtom);
 	const isWordSelectedAtom = useMemo(
 		() => atom((get) => get(selectedWordsAtom).has(get(wordAtom).id)),
 		[wordAtom],
@@ -526,10 +513,7 @@ const LyricWordViewEditAdvance = ({
 					className={className}
 					line={line}
 					onDoubleClick={() => {
-						const targetTime = (currentWord.startTime - jumpToWordDelay) / 1000;
-						setTimeout(() => {
-							audioEngine.seekMusic(Math.max(0, targetTime));
-						}, 0);
+						// Grammar actions disabled in Edit mode
 					}}
 				>
 					<WordEditField
@@ -1113,9 +1097,7 @@ const LyricSyncWordView: FC<{
 								padding: "0 2px",
 							}}
 						/>
-					) : (
-						startTimeDisplay
-					)}
+					) : startTimeDisplay}
 				</div>
 			)}
 			<div className={styles.displayWord}>{displayWord}</div>
@@ -1127,9 +1109,7 @@ const LyricSyncWordView: FC<{
 					style={{ cursor: "text" }}
 					onClick={(e) => {
 						e.stopPropagation();
-						setEditingInput(
-							showEndTimeAsDuration ? msToTimestamp(endTime) : endTimeDisplay,
-						);
+						setEditingInput(showEndTimeAsDuration ? msToTimestamp(endTime) : endTimeDisplay);
 						setEditingTime("end");
 					}}
 				>
@@ -1158,9 +1138,7 @@ const LyricSyncWordView: FC<{
 								padding: "0 2px",
 							}}
 						/>
-					) : (
-						endTimeDisplay
-					)}
+					) : endTimeDisplay}
 				</div>
 			)}
 		</div>

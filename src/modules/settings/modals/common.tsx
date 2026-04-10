@@ -26,7 +26,6 @@ import {
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import { playbackRateAtom, volumeAtom } from "$/modules/audio/states";
-import { jumpToWordDelayAtom } from "$/modules/settings/states/preview";
 import {
 	autosaveEnabledAtom,
 	autosaveIntervalAtom,
@@ -71,7 +70,6 @@ export const SettingsCommonTab = () => {
 	const [upcomingWordHighlightColor, setUpcomingWordHighlightColor] = useAtom(
 		upcomingWordHighlightColorAtom,
 	);
-	const [jumpToWordDelay, setJumpToWordDelay] = useAtom(jumpToWordDelayAtom);
 
 	const { t, i18n } = useTranslation();
 	const currentLanguage = i18n.resolvedLanguage || i18n.language;
@@ -106,6 +104,8 @@ export const SettingsCommonTab = () => {
 		return code;
 	};
 
+
+
 	return (
 		<Flex direction="column" gap="4">
 			<Flex direction="column" gap="2">
@@ -117,14 +117,9 @@ export const SettingsCommonTab = () => {
 						<Box flexGrow="1">
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
-									<Text>
-										{t("settings.common.language", "Interface Language")}
-									</Text>
+									<Text>{t("settings.common.language", "Interface Language")}</Text>
 									<Text size="1" color="gray">
-										{t(
-											"settings.common.languageDesc",
-											"Select the language for the interface",
-										)}
+										{t("settings.common.languageDesc", "Select the language for the interface")}
 									</Text>
 								</Flex>
 
@@ -136,8 +131,7 @@ export const SettingsCommonTab = () => {
 										});
 									}}
 								>
-									<Select.Trigger />
-									<Select.Content>
+									<Select.Trigger /><Select.Content>
 										{languageOptions.map((code) => (
 											<Select.Item key={code} value={code}>
 												{getLanguageName(code, currentLanguage)}
@@ -156,9 +150,7 @@ export const SettingsCommonTab = () => {
 						<Box flexGrow="1">
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
-									<Text>
-										{t("settings.common.layoutMode", "Editor Layout Mode")}
-									</Text>
+									<Text>{t("settings.common.layoutMode", "Editor Layout Mode")}</Text>
 									<Text size="1" color="gray">
 										{t(
 											"settings.common.layoutModeDesc.line1",
@@ -176,8 +168,7 @@ export const SettingsCommonTab = () => {
 									value={layoutMode}
 									onValueChange={(v) => setLayoutMode(v as LayoutMode)}
 								>
-									<Select.Trigger />
-									<Select.Content>
+									<Select.Trigger /><Select.Content>
 										<Select.Item value={LayoutMode.Simple}>
 											{t(
 												"settings.common.layoutModeOptions.simple",
@@ -198,10 +189,194 @@ export const SettingsCommonTab = () => {
 				</Card>
 			</Flex>
 
+
+			<Flex direction="column" gap="3">
+				<Heading size="4">{t("settings.group.timing", "Syncing")}</Heading>
+
+				<Card>
+					<Flex gap="3" align="center">
+						<Timer24Regular />
+						<Box flexGrow="1">
+							<Flex align="center" justify="between" gap="4">
+								<Flex direction="column" gap="1">
+									<Text>
+										{t("settings.common.syncJudgeMode", "Sync Timestamp Judgment Mode")}
+									</Text>
+									<Text size="1" color="gray">
+										{t(
+											"settings.common.syncJudgeModeDesc",
+											'Set the sync timestamp judgment mode, default is "First Key Down Time".',
+										)}
+									</Text>
+								</Flex>
+
+								<Select.Root
+									value={syncJudgeMode}
+									onValueChange={(v) => setSyncJudgeMode(v as SyncJudgeMode)}
+								>
+									<Select.Trigger /><Select.Content>
+										<Select.Item value={SyncJudgeMode.FirstKeyDownTime}>
+											{t(
+												"settings.common.syncJudgeModeOptions.firstKeyDown",
+												"First Key Down Time",
+											)}
+										</Select.Item>
+										<Select.Item value={SyncJudgeMode.LastKeyUpTime}>
+											{t(
+												"settings.common.syncJudgeModeOptions.lastKeyUp",
+												"Last Key Up Time",
+											)}
+										</Select.Item>
+										<Select.Item value={SyncJudgeMode.MiddleKeyTime}>
+											{t(
+												"settings.common.syncJudgeModeOptions.middleKey",
+												"Average of Key Down and Key Up Time",
+											)}
+										</Select.Item>
+										<Select.Item value={SyncJudgeMode.FirstKeyDownTimeLegacy}>
+											{t(
+												"settings.common.syncJudgeModeOptions.firstKeyDownLegacy",
+												"First Key Down Time (Legacy)",
+											)}
+										</Select.Item>
+									</Select.Content>
+								</Select.Root>
+							</Flex>
+						</Box>
+					</Flex>
+				</Card>
+
+				<Card>
+					<Flex gap="3" align="center">
+						<Keyboard12324Regular />
+						<Box flexGrow="1">
+							<Flex align="center" justify="between" gap="4">
+								<Flex direction="column" gap="1">
+									<Text>
+										{t("settings.common.keyBindingTrigger", "Keybinding Trigger Timing")}
+									</Text>
+									<Text size="1" color="gray">
+										{t(
+											"settings.common.keyBindingTriggerDesc",
+											"Whether keybindings are triggered on key down or key up",
+										)}
+									</Text>
+								</Flex>
+
+								<Select.Root
+									value={keyBindingTriggerMode}
+									onValueChange={(v) =>
+										setKeyBindingTriggerMode(v as KeyBindingTriggerMode)
+									}
+								>
+									<Select.Trigger /><Select.Content>
+										<Select.Item value={KeyBindingTriggerMode.KeyDown}>
+											{t(
+												"settings.common.keyBindingTriggerOptions.keyDown",
+												"Trigger on Key Down",
+											)}
+										</Select.Item>
+										<Select.Item value={KeyBindingTriggerMode.KeyUp}>
+											{t(
+												"settings.common.keyBindingTriggerOptions.keyUp",
+												"Trigger on Key Up",
+											)}
+										</Select.Item>
+									</Select.Content>
+								</Select.Root>
+							</Flex>
+						</Box>
+					</Flex>
+				</Card>
+
+				<Card>
+					<Text as="label">
+						<Flex gap="3" align="center">
+							<PaddingLeft24Regular />
+							<Box flexGrow="1">
+								<Flex gap="2" align="center" justify="between">
+									<Flex direction="column" gap="1">
+										<Text>
+											{t("settings.common.smartFirstWord", "Smart First Word")}
+										</Text>
+										<Text size="1" color="gray">
+											{t(
+												"settings.common.smartFirstWordDesc",
+												"When syncing the first syllable of a line, pressing the Start trigger records its start time but not its end time.",
+											)}
+										</Text>
+									</Flex>
+									<Switch
+										checked={smartFirstWord}
+										onCheckedChange={setSmartFirstWord}
+									/>
+								</Flex>
+							</Box>
+						</Flex>
+					</Text>
+				</Card>
+
+				<Card>
+					<Text as="label">
+						<Flex gap="3" align="center">
+							<PaddingRight24Regular />
+							<Box flexGrow="1">
+								<Flex gap="2" align="center" justify="between">
+									<Flex direction="column" gap="1">
+										<Text>
+											{t("settings.common.smartLastWord", "Smart Last Word")}
+										</Text>
+										<Text size="1" color="gray">
+											{t(
+												"settings.common.smartLastWordDesc",
+												"When syncing the last syllable of a line, pressing the End trigger records its end time without starting the next syllable.",
+											)}
+										</Text>
+									</Flex>
+									<Switch
+										checked={smartLastWord}
+										onCheckedChange={setSmartLastWord}
+									/>
+								</Flex>
+							</Box>
+						</Flex>
+					</Text>
+				</Card>
+			</Flex>
+
 			<Flex direction="column" gap="3">
 				<Heading size="4">
-					{t("settings.group.lyricJump", "Lyric Navigation")}
+					{t("settings.group.timingHighlight", "Visual Timing Cue (Sync)")}
 				</Heading>
+				<Card>
+					<Text as="label">
+						<Flex gap="3" align="center">
+							<Timer24Regular />
+							<Box flexGrow="1">
+								<Flex gap="2" align="center" justify="between">
+									<Flex direction="column" gap="1">
+										<Text>
+											{t(
+												"settings.common.enableUpcomingWordHighlight",
+												"Enable Upcoming Word Pre-Highlight",
+											)}
+										</Text>
+										<Text size="1" color="gray">
+											{t(
+												"settings.common.enableUpcomingWordHighlightDesc",
+												"Fades in a highlight color shortly before a word plays during Sync mode to improve precision.",
+											)}
+										</Text>
+									</Flex>
+									<Switch
+										checked={enableUpcomingWordHighlight}
+										onCheckedChange={setEnableUpcomingWordHighlight}
+									/>
+								</Flex>
+							</Box>
+						</Flex>
+					</Text>
+				</Card>
 				<Card>
 					<Flex gap="3" align="center">
 						<Timer24Regular />
@@ -209,23 +384,40 @@ export const SettingsCommonTab = () => {
 							<Flex direction="column" gap="2" align="start">
 								<Text>
 									{t(
-										"settings.common.jumpToWordDelay",
-										"Jump to Word Delay (ms)",
-									)}
-								</Text>
-								<Text size="1" color="gray">
-									{t(
-										"settings.common.jumpToWordDelayDesc",
-										"Delay before jumping to a word when double-clicking or using keybinds",
+										"settings.common.upcomingWordHighlightThreshold",
+										"Pre-Highlight Time Threshold (ms)",
 									)}
 								</Text>
 								<TextField.Root
 									type="number"
-									value={jumpToWordDelay}
+									disabled={!enableUpcomingWordHighlight}
+									value={upcomingWordHighlightThreshold}
 									onChange={(e) =>
-										setJumpToWordDelay(
+										setUpcomingWordHighlightThreshold(
 											Math.max(0, Number.parseInt(e.target.value, 10) || 0),
 										)
+									}
+								/>
+							</Flex>
+						</Box>
+					</Flex>
+				</Card>
+				<Card>
+					<Flex gap="3" align="center">
+						<ContentView24Regular />
+						<Box flexGrow="1">
+							<Flex direction="column" gap="2" align="start">
+								<Text>
+									{t(
+										"settings.common.upcomingWordHighlightColor",
+										"Highlight Color (CSS Value)",
+									)}
+								</Text>
+								<TextField.Root
+									disabled={!enableUpcomingWordHighlight}
+									value={upcomingWordHighlightColor}
+									onChange={(e) =>
+										setUpcomingWordHighlightColor(e.target.value)
 									}
 								/>
 							</Flex>
@@ -274,9 +466,7 @@ export const SettingsCommonTab = () => {
 									justify="between"
 									style={{ alignSelf: "stretch" }}
 								>
-									<Text>
-										{t("settings.common.playbackRate", "Playback Speed")}
-									</Text>
+									<Text>{t("settings.common.playbackRate", "Playback Speed")}</Text>
 									<Text wrap="nowrap" color="gray" size="1">
 										{playbackRate.toFixed(2)}x
 									</Text>
@@ -323,10 +513,7 @@ export const SettingsCommonTab = () => {
 							<Box flexGrow="1">
 								<Flex direction="column" gap="2" align="start">
 									<Text>
-										{t(
-											"settings.common.autosave.interval",
-											"Save Interval (minutes)",
-										)}
+										{t("settings.common.autosave.interval", "Save Interval (minutes)")}
 									</Text>
 									<TextField.Root
 										type="number"

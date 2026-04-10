@@ -10,4 +10,3 @@ export const lyricWordFadeWidthAtom = atomWithStorage(
 	"lyricWordFadeWidth",
 	0.5,
 );
-export const jumpToWordDelayAtom = atomWithStorage("jumpToWordDelay", 500);

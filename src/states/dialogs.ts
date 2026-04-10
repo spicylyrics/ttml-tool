@@ -28,3 +28,4 @@ export const historyRestoreDialogAtom = atom(false);
 export const importFromLRCLIBDialogAtom = atom(false);
 export const geniusSearchDialogAtom = atom(false);
 export const changelogDialogAtom = atom(false);
+export const geniusImportLyricsDialogAtom = atom(false);
