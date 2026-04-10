@@ -55,6 +55,12 @@ export function ChangelogDialog() {
 								<Text size="2">
 									<strong>Full Genius Lyrics Import:</strong> Directly search and import song lyrics from Genius into the editor. Featuring a direct-from-source scraper with <strong>Auto-Slop Removal</strong> to automatically strip section markers ([Chorus], etc.) and metadata blocks.
 								</Text>
+								<Text size="2">
+									<strong>Genius Background Lyric Parser:</strong> Automatically recognizes parenthesized text as background vocals during import, stripping brackets and setting the appropriate background flag.
+								</Text>
+								<Text size="2">
+									<strong>Ultra-Reliable Genius Cover Arts:</strong> Implemented a high-performance image proxy service to ensure Genius cover arts load reliably across all platforms, bypassing hotlink protection.
+								</Text>
 							</Flex>
 						</Box>
 						
