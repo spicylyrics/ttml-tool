@@ -2,6 +2,8 @@ import { Button, DropdownMenu } from "@radix-ui/themes";
 import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { useSetAtom } from "jotai";
+import { changelogDialogAtom } from "$/states/dialogs.ts";
 import { useTopMenuActions } from "../useTopMenuActions";
 
 type HelpMenuProps = {
@@ -12,12 +14,17 @@ type HelpMenuProps = {
 const HelpMenuItems = () => {
 	const { t } = useTranslation();
 	const menu = useTopMenuActions();
+	const setChangelogOpen = useSetAtom(changelogDialogAtom);
 
 	return (
 		<>
 			<DropdownMenu.Item onSelect={menu.onOpenGitHub}>GitHub</DropdownMenu.Item>
 			<DropdownMenu.Item onSelect={menu.onOpenWiki}>
 				{t("topBar.menu.helpDoc", "使用说明")}
+			</DropdownMenu.Item>
+			<DropdownMenu.Separator />
+			<DropdownMenu.Item onSelect={() => setChangelogOpen(true)}>
+				Changelog & Updates
 			</DropdownMenu.Item>
 		</>
 	);

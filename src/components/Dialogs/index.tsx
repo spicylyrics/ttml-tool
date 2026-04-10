@@ -11,6 +11,7 @@ import { SubmitToAMLLDBDialog } from "$/modules/project/modals/SubmitToAmll.tsx"
 import { AdvancedSegmentationDialog } from "$/modules/segmentation/components/AdvancedSegmentation.tsx";
 import { SplitWordDialog } from "$/modules/segmentation/components/split-word.tsx";
 import { SettingsDialog } from "$/modules/settings/modals/index.tsx";
+import { ChangelogDialog } from "./changelog.tsx";
 import { ConfirmationDialog } from "./confirmation.tsx";
 
 export const Dialogs = () => {
@@ -30,6 +31,7 @@ export const Dialogs = () => {
 			<TimeShiftDialog />
 
 			<GeniusSearchDialog />
+			<ChangelogDialog />
 		</>
 	);
 };

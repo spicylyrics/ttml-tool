@@ -772,6 +772,7 @@ const LyricSyncWordView: FC<{
 	displayWord: string;
 	isWordBlank: boolean;
 	wordIndex: number;
+	rubyIndex?: number;
 	setCorrectionDialog: (
 		dialog: {
 			open: boolean;
@@ -789,6 +790,7 @@ const LyricSyncWordView: FC<{
 	displayWord,
 	isWordBlank,
 	wordIndex,
+	rubyIndex = -1,
 	setCorrectionDialog,
 	allWordsInLyrics,
 }) => {
@@ -816,6 +818,7 @@ const LyricSyncWordView: FC<{
 	const toolMode = useAtomValue(toolModeAtom);
 	const quickFixes = useAtomValue(quickFixesAtom);
 	const syncLevelMode = useAtomValue(syncLevelModeAtom);
+	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 
 	const store = useStore();
 	const enableUpcomingWordHighlight = useAtomValue(
@@ -832,6 +835,42 @@ const LyricSyncWordView: FC<{
 	const endTimeRef = useRef<HTMLDivElement>(null);
 	const ambientHighlightRef = useRef<HTMLDivElement>(null);
 	const lastClickTimeRef = useRef(0);
+
+	// Inline timestamp editing state: null = not editing, "start" | "end" = editing that field
+	const [editingTime, setEditingTime] = useState<"start" | "end" | null>(null);
+	const [editingInput, setEditingInput] = useState("");
+
+	const commitTimeEdit = useCallback(
+		(field: "start" | "end", rawValue: string) => {
+			try {
+				const newMs = parseTimespan(rawValue);
+				editLyricLines((state) => {
+					const targetLine = state.lyricLines.find((l) => l.id === line.id);
+					if (!targetLine) return;
+					const word = targetLine.words[wordIndex];
+					if (!word) return;
+					if (rubyIndex >= 0) {
+						const ruby = word.ruby?.[rubyIndex];
+						if (!ruby) return;
+						if (field === "start") ruby.startTime = newMs;
+						else ruby.endTime = newMs;
+					} else {
+						if (field === "start") word.startTime = newMs;
+						else word.endTime = newMs;
+					}
+				});
+			} catch {
+				// invalid format — silently revert
+			}
+			setEditingTime(null);
+		},
+		[editLyricLines, line.id, wordIndex, rubyIndex],
+	);
+
+	const startTimeDisplay = msToTimestamp(startTime);
+	const endTimeDisplay = showEndTimeAsDuration
+		? `+${endTime - startTime}ms`
+		: msToTimestamp(endTime);
 
 	// Optimized render loop for pre-playback word ambient highlighting
 	useEffect(() => {
@@ -1022,16 +1061,84 @@ const LyricSyncWordView: FC<{
 				}}
 			/>
 			{showTimestamps && (
-				<div className={classNames(styles.startTime)} ref={startTimeRef}>
-					{msToTimestamp(startTime)}
+				<div
+					className={classNames(styles.startTime)}
+					ref={startTimeRef}
+					title="Click to edit start time"
+					style={{ cursor: "text" }}
+					onClick={(e) => {
+						e.stopPropagation();
+						setEditingInput(startTimeDisplay);
+						setEditingTime("start");
+					}}
+				>
+					{editingTime === "start" ? (
+						<input
+							autoFocus
+							value={editingInput}
+							onChange={(e) => setEditingInput(e.target.value)}
+							onBlur={() => commitTimeEdit("start", editingInput)}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") commitTimeEdit("start", editingInput);
+								if (e.key === "Escape") setEditingTime(null);
+								e.stopPropagation();
+							}}
+							onClick={(e) => e.stopPropagation()}
+							style={{
+								width: "100%",
+								background: "transparent",
+								border: "none",
+								outline: "1px solid var(--accent-8)",
+								borderRadius: "2px",
+								color: "inherit",
+								fontFamily: "inherit",
+								fontSize: "inherit",
+								textAlign: "center",
+								padding: "0 2px",
+							}}
+						/>
+					) : startTimeDisplay}
 				</div>
 			)}
 			<div className={styles.displayWord}>{displayWord}</div>
 			{showTimestamps && (
-				<div className={classNames(styles.endTime)} ref={endTimeRef}>
-					{showEndTimeAsDuration
-						? `+${endTime - startTime}ms`
-						: msToTimestamp(endTime)}
+				<div
+					className={classNames(styles.endTime)}
+					ref={endTimeRef}
+					title="Click to edit end time"
+					style={{ cursor: "text" }}
+					onClick={(e) => {
+						e.stopPropagation();
+						setEditingInput(showEndTimeAsDuration ? msToTimestamp(endTime) : endTimeDisplay);
+						setEditingTime("end");
+					}}
+				>
+					{editingTime === "end" ? (
+						<input
+							autoFocus
+							value={editingInput}
+							onChange={(e) => setEditingInput(e.target.value)}
+							onBlur={() => commitTimeEdit("end", editingInput)}
+							onKeyDown={(e) => {
+								if (e.key === "Enter") commitTimeEdit("end", editingInput);
+								if (e.key === "Escape") setEditingTime(null);
+								e.stopPropagation();
+							}}
+							onClick={(e) => e.stopPropagation()}
+							style={{
+								width: "100%",
+								background: "transparent",
+								border: "none",
+								outline: "1px solid var(--accent-8)",
+								borderRadius: "2px",
+								color: "inherit",
+								fontFamily: "inherit",
+								fontSize: "inherit",
+								textAlign: "center",
+								padding: "0 2px",
+							}}
+						/>
+					) : endTimeDisplay}
 				</div>
 			)}
 		</div>
@@ -1085,6 +1192,7 @@ const LyricWorldViewSync: FC<{
 							displayWord={getDisplayWord(rubyWord.word, isRubyBlank)}
 							isWordBlank={isRubyBlank}
 							wordIndex={wordIndex}
+							rubyIndex={rubyIndex}
 							setCorrectionDialog={setCorrectionDialog}
 							allWordsInLyrics={allWordsInLyrics}
 						/>
