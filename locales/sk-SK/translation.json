@@ -219,19 +219,19 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Zmazať {count, plural, one {slovo} few {slová} other {slov}}",
+		"deleteWords": "Zmazať {count, plural, one {slovo} few {slová} other {slov}",
 		"bgLyric": "Sprievodný riadok",
 		"duetLyric": "Duetový riadok",
 		"insertLineBefore": "Vložiť nový riadok pred",
 		"insertLineAfter": "Vložiť nový riadok za",
-		"copyLine": "Duplikovať {count, plural, one {riadok} few {riadky} other {riadkov}}",
+		"copyLine": "Duplikovať {count, plural, one {riadok} few {riadky} other {riadkov}",
 		"combineLine": "Zlúčiť riadky",
-		"deleteLine": "Zmazať {count, plural, one {riadok} few {riadky} other {riadkov}}",
+		"deleteLine": "Zmazať {count, plural, one {riadok} few {riadky} other {riadkov}",
 		"splitWord": "Rozdeliť slovo…",
 		"replaceWord": "Nahradiť slovo…",
 		"combineWords": "Zlúčiť slová",
 		"moveFollowingWordToNewLine": "Presunúť nasledujúce na nový riadok",
-		"moveWordToNewLine": "Presunúť {count, plural, one {slovo} few {slová} other {slov}} na nový riadok"
+		"moveWordToNewLine": "Presunúť {count, plural, one {slovo} few {slová} other {slov} na nový riadok"
 	},
 	"settingsDialog": {
 		"title": "Predvoľby",

@@ -97,7 +97,6 @@ const ImportFromTextEditor = memo(() => {
 			style={{
 				height: "calc(80vh - 120px)",
 				flex: "1 1 auto",
-				fontFamily: "var(--code-font-family)",
 			}}
 			value={value}
 			onChange={(evt) => setValue(evt.currentTarget.value)}

@@ -238,6 +238,7 @@
 				"import": "Import lyrics",
 				"fromPlainText": "Import from plain text…",
 				"fromLRCLIB": "Import from LRCLIB...",
+				"fromGenius": "Import from Genius…",
 				"fromLyRiC": "Import from LyRiC file…",
 				"fromESLyRiC": "Import from ESLyRiC file…",
 				"fromQRC": "Import from QRC file…",
@@ -269,19 +270,19 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Delete {count, plural, one {word} other {words}}",
+		"deleteWords": "Delete {count, plural, one {word} other {words}",
 		"bgLyric": "Background line",
 		"duetLyric": "Duet line",
 		"insertLineBefore": "Insert new line before",
 		"insertLineAfter": "Insert new line after",
-		"copyLine": "Duplicate {count, plural, one {line} other {lines}}",
+		"copyLine": "Duplicate {count, plural, one {line} other {lines}",
 		"combineLine": "Combine lines",
-		"deleteLine": "Delete {count, plural, one {line} other {lines}}",
+		"deleteLine": "Delete {count, plural, one {line} other {lines}",
 		"splitWord": "Split word…",
 		"replaceWord": "Replace word…",
 		"combineWords": "Combine words",
 		"moveFollowingWordToNewLine": "Move followings to new line",
-		"moveWordToNewLine": "Move {count, plural, one {word} other {words}} to new line"
+		"moveWordToNewLine": "Move {count, plural, one {word} other {words} to new line"
 	},
 	"settingsDialog": {
 		"title": "Preferences",
@@ -400,7 +401,7 @@
 		"close": "Close",
 		"cancel": "Cancel",
 		"confirm": "Confirm",
-		"resultsFound": "Found {{count}} results",
+		"resultsFound": "Found {count} results",
 		"apply": "Apply",
 		"applyScope": "Scope",
 		"scope": {
@@ -598,8 +599,12 @@
 			"noSongwriters": "No songwriting credits recorded for this song",
 			"success": "Songwriters successfully fetched from Genius",
 			"error": "Failed to fetch songwriters",
+			"importSuccess": "Imported {count} lines from Genius.",
+			"noLyricsError": "No lyrics to import.",
+			"searchError": "Search failed: {error}",
+			"fetchError": "Could not fetch lyrics: {error}",
 			"button": "Fetch Songwriters from Genius",
-			"findingRealName": "Finding real name for {{name}} ({{current}}/{{total}})...",
+			"findingRealName": "Finding real name for {name} ({current}/{total})...",
 			"tryFindRealNames": "Try to find real names (Legal Names)"
 		}
 	},
@@ -708,5 +713,20 @@
 		"offlineReady": "Site successfully cached for offline use",
 		"updateRefresh": "Site updated, refresh to use the latest version!",
 		"refresh": "Refresh"
+	},
+	"genius": {
+		"setupTitle": "Genius API Key Setup",
+		"setupDesc": "To import lyrics from Genius you need a CLIENT ACCESS TOKEN. You can generate one from the Genius developer portal.",
+		"keyPlaceholder": "Paste CLIENT ACCESS TOKEN here…",
+		"importTitle": "Import Lyrics from Genius",
+		"searchPlaceholder": "Artist – Song title…",
+		"previewTitle": "Genius — Lyrics Preview",
+		"previewSubtitle": "You can edit the lyrics below before importing.",
+		"importButton": "Import Lyrics",
+		"linesCount": "{count} lines",
+		"notFound": "No results found. Try different keywords.",
+		"noResult": "Enter a song name or artist to start.",
+		"changeKey": "Change API Key",
+		"back": "Back"
 	}
 }

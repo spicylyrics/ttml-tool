@@ -219,19 +219,19 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Удалить {count, plural, one {слово} few {слова} many {слов} other {слов}}",
+		"deleteWords": "Удалить {count, plural, one {слово} few {слова} many {слов} other {слов}",
 		"bgLyric": "Фоновая строка",
 		"duetLyric": "Дуэтная строка",
 		"insertLineBefore": "Вставить новую строку перед",
 		"insertLineAfter": "Вставить новую строку после",
-		"copyLine": "Дублировать {count, plural, one {строку} few {строки} many {строк} other {строк}}",
+		"copyLine": "Дублировать {count, plural, one {строку} few {строки} many {строк} other {строк}",
 		"combineLine": "Объединить строки",
-		"deleteLine": "Удалить {count, plural, one {строку} few {строки} many {строк} other {строк}}",
+		"deleteLine": "Удалить {count, plural, one {строку} few {строки} many {строк} other {строк}",
 		"splitWord": "Разделить слово…",
 		"replaceWord": "Заменить слово…",
 		"combineWords": "Объединить слова",
 		"moveFollowingWordToNewLine": "Переместить следующие в новую строку",
-		"moveWordToNewLine": "Переместить {count, plural, one {слово} few {слова} many {слов} other {слов}} в новую строку"
+		"moveWordToNewLine": "Переместить {count, plural, one {слово} few {слова} many {слов} other {слов} в новую строку"
 	},
 	"settingsDialog": {
 		"title": "Настройки",

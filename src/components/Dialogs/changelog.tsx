@@ -52,6 +52,15 @@ export function ChangelogDialog() {
 								<Text size="2">
 									<strong>Smart Double Click Editor:</strong> If Quick Fixes is disabled, double clicking skips context evaluation saving resources and opening the inline-editor quickly.
 								</Text>
+								<Text size="2">
+									<strong>Full Genius Lyrics Import:</strong> Directly search and import song lyrics from Genius into the editor. Featuring a direct-from-source scraper with <strong>Auto-Slop Removal</strong> to automatically strip section markers ([Chorus], etc.) and metadata blocks.
+								</Text>
+								<Text size="2">
+									<strong>Genius Background Lyric Parser:</strong> Automatically recognizes parenthesized text as background vocals during import, stripping brackets and setting the appropriate background flag.
+								</Text>
+								<Text size="2">
+									<strong>Ultra-Reliable Genius Cover Arts:</strong> Implemented a high-performance image proxy service to ensure Genius cover arts load reliably across all platforms, bypassing hotlink protection.
+								</Text>
 							</Flex>
 						</Box>
 						
@@ -64,8 +73,8 @@ export function ChangelogDialog() {
 								<Text size="2">
 									<strong>Sync Keybinding Performance:</strong> Greatly reduced UI freezing issues related to the <code>undoableLyricLinesAtom</code> memory stack overcommits by isolating history snapshots from real-time events.
 								</Text>
-                                <Text size="2">
-									<strong>Genius Lyrics Importer:</strong> A completely integrated Search Tool for automated text syncing sourced directly from Paxsenix API.
+								<Text size="2">
+									<strong>Genius Songwriter Fetcher:</strong> Integrated tool in the metadata editor to automatically fetch songwriting credits using the Genius API.
 								</Text>
 							</Flex>
 						</Box>
