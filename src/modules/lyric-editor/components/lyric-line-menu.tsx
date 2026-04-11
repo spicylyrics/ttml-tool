@@ -1,16 +1,18 @@
 import { ContextMenu } from "@radix-ui/themes";
-import { atom, useAtomValue } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { lyricLinesAtom, selectedLinesAtom } from "$/states/main";
 
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
+import { globalEnableInsertAtom } from "./lyric-line-view-states";
 
 const selectedLinesSizeAtom = atom((get) => get(selectedLinesAtom).size);
 
 export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 	const { t } = useTranslation();
+	const setGlobalEnableInsert = useSetAtom(globalEnableInsertAtom);
 
 	const selectedLinesSize = useAtomValue(selectedLinesSizeAtom);
 	const selectedLines = useAtomValue(selectedLinesAtom);
@@ -97,6 +99,9 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 					count: selectedLinesSize,
 					defaultValue: "复制行",
 				})}
+			</ContextMenu.Item>
+			<ContextMenu.Item onSelect={() => setGlobalEnableInsert(true)} disabled={selectedLinesSize === 0}>
+				{t("contextMenu.duplicateTo", "Duplicate to...")}
 			</ContextMenu.Item>
 			<ContextMenu.Item onSelect={combineLines} disabled={!combineEnabled}>
 				{t("contextMenu.combineLine", "合并行")}

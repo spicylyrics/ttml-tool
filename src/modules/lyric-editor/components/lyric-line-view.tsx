@@ -24,9 +24,9 @@ import {
 	TextField,
 } from "@radix-ui/themes";
 import classNames from "classnames";
-import { type Atom, atom, useAtomValue, useStore } from "jotai";
-import { splitAtom } from "jotai/utils";
+import { useAtom, type Atom, atom, useAtomValue, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
+import { splitAtom } from "jotai/utils";
 import {
 	type FC,
 	Fragment,
@@ -55,17 +55,18 @@ import {
 	selectedLinesAtom,
 	selectedWordsAtom,
 	showEndTimeAsDurationAtom,
-	ToolMode,
 	toolModeAtom,
+	ToolMode,
 } from "$/states/main.ts";
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml.ts";
 import { msToTimestamp } from "$/utils/timestamp.ts";
-import styles from "./index.module.css";
-import { LyricLineMenu } from "./lyric-line-menu.tsx";
-import { draggingIdAtom } from "./lyric-line-view-states.ts";
 import { getSynchronizableUnits } from "../utils/lyric-states.ts";
+import styles from "./index.module.css";
+import { draggingIdAtom, globalEnableInsertAtom } from "./lyric-line-view-states.ts";
+import { LyricLineMenu } from "./lyric-line-menu.tsx";
 import LyricWordView from "./lyric-word-view.tsx";
 import { RomanWordView } from "./roman-word-view.tsx";
+
 
 const isDraggingAtom = atom(false);
 const parseRubyShortcut = (value: string) => {
@@ -283,6 +284,18 @@ export const LyricLineView: FC<{
 	const wordsContainerRef = useRef<HTMLDivElement>(null);
 	const blockDragRef = useRef(false);
 
+	const isLastLineAtom = useMemo(
+		() => atom((get) => get(lyricLinesAtom).lyricLines.length - 1 === lineIndex),
+		[lineIndex],
+	);
+	const isLastLine = useAtomValue(isLastLineAtom);
+
+	const selectedLinesCountAtom = useMemo(
+		() => atom((get) => get(selectedLinesAtom).size),
+		[],
+	);
+	const selectedLinesCount = useAtomValue(selectedLinesCountAtom);
+
 	// 创建一个仅订阅当前行显示行号的 atom，优化性能
 	const displayNumberAtom = useMemo(
 		() => atom((get) => get(lineDisplayNumbersAtom)[lineIndex]),
@@ -313,7 +326,20 @@ export const LyricLineView: FC<{
 
 	const startTimeRef = useRef<HTMLDivElement>(null);
 	const endTimeRef = useRef<HTMLButtonElement>(null);
-	const [enableInsert, setEnableInsert] = useState(false);
+	const [enableInsertLocal, setEnableInsertLocal] = useState(false);
+	const [globalEnableInsert, setGlobalEnableInsert] = useAtom(globalEnableInsertAtom);
+	const enableInsert = enableInsertLocal || globalEnableInsert;
+
+	const disableInsert = useCallback(() => {
+		setEnableInsertLocal(false);
+		if (globalEnableInsert) setGlobalEnableInsert(false);
+	}, [globalEnableInsert, setGlobalEnableInsert]);
+
+	const toggleInsert = useCallback(() => {
+		if (enableInsert) disableInsert();
+		else setEnableInsertLocal(true);
+	}, [enableInsert, disableInsert]);
+
 	const [endTimeLinked, setEndTimeLinked] = useState(() =>
 		Boolean(line.endTimeLink),
 	);
@@ -344,9 +370,9 @@ export const LyricLineView: FC<{
 
 	useLayoutEffect(() => {
 		if (toolMode !== ToolMode.Edit) {
-			setEnableInsert(false);
+			disableInsert();
 		}
-	}, [toolMode]);
+	}, [toolMode, disableInsert]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: 用于呈现时间戳更新效果
 	useEffect(() => {
@@ -472,15 +498,38 @@ export const LyricLineView: FC<{
 					style={{
 						width: "calc(100% - var(--space-4))",
 					}}
-					onClick={() => {
+					onClick={(evt) => {
 						editLyricLines((state) => {
-							state.lyricLines.splice(lineIndex, 0, newLyricLine());
+							const selectedLines = store.get(selectedLinesAtom);
+							if (selectedLines.size > 0) {
+								const linesToCopy = state.lyricLines.filter((l) =>
+									selectedLines.has(l.id),
+								);
+								const newLines = linesToCopy.map((l) => ({
+									...l,
+									id: newLyricLine().id,
+									words: l.words.map((w) => ({
+										...w,
+										id: newLyricWord().id,
+									})),
+								}));
+								state.lyricLines.splice(lineIndex, 0, ...newLines);
+							} else {
+								state.lyricLines.splice(lineIndex, 0, newLyricLine());
+							}
 						});
 						// setInsertMode(InsertMode.None);
-						setEnableInsert(false);
+						if (!evt.shiftKey) {
+							disableInsert();
+						}
 					}}
 				>
-					{t("lyricLineView.insertLine", "在此插入新行")}
+					{selectedLinesCount > 0
+						? t("lyricLineView.duplicateLinesHere", {
+								count: selectedLinesCount,
+								defaultValue: "Duplicate {count} selected line(s) here",
+						  })
+						: t("lyricLineView.insertLine", "在此插入新行")}
 				</Button>
 			)}
 			<ContextMenu.Root
@@ -801,7 +850,7 @@ export const LyricLineView: FC<{
 										onClick={(evt) => {
 											evt.preventDefault();
 											evt.stopPropagation();
-											setEnableInsert((v) => !v);
+											toggleInsert();
 										}}
 									>
 										<AddFilled />
@@ -843,7 +892,7 @@ export const LyricLineView: FC<{
 					<LyricLineMenu lineIndex={lineIndex} />
 				</ContextMenu.Content>
 			</ContextMenu.Root>
-			{enableInsert && (
+			{(enableInsertLocal || (globalEnableInsert && isLastLine)) && (
 				<Button
 					mx="2"
 					my="1"
@@ -852,15 +901,38 @@ export const LyricLineView: FC<{
 					style={{
 						width: "calc(100% - var(--space-4))",
 					}}
-					onClick={() => {
+					onClick={(evt) => {
 						editLyricLines((state) => {
-							state.lyricLines.splice(lineIndex + 1, 0, newLyricLine());
+							const selectedLines = store.get(selectedLinesAtom);
+							if (selectedLines.size > 0) {
+								const linesToCopy = state.lyricLines.filter((l) =>
+									selectedLines.has(l.id),
+								);
+								const newLines = linesToCopy.map((l) => ({
+									...l,
+									id: newLyricLine().id,
+									words: l.words.map((w) => ({
+										...w,
+										id: newLyricWord().id,
+									})),
+								}));
+								state.lyricLines.splice(lineIndex + 1, 0, ...newLines);
+							} else {
+								state.lyricLines.splice(lineIndex + 1, 0, newLyricLine());
+							}
 						});
 						// setInsertMode(InsertMode.None);
-						setEnableInsert(false);
+						if (!evt.shiftKey) {
+							disableInsert();
+						}
 					}}
 				>
-					{t("lyricLineView.insertLine", "在此插入新行")}
+					{selectedLinesCount > 0
+						? t("lyricLineView.duplicateLinesHere", {
+								count: selectedLinesCount,
+								defaultValue: "Duplicate {count} selected line(s) here",
+						  })
+						: t("lyricLineView.insertLine", "在此插入新行")}
 				</Button>
 			)}
 		</>

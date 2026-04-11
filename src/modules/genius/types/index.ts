@@ -51,6 +51,11 @@ export interface GeniusSong {
 	featured_artists: GeniusArtist[];
 	primary_artist: GeniusArtist;
 	writer_artists: GeniusArtist[];
+	album: {
+		id: number;
+		name: string;
+		cover_art_url: string;
+	} | null;
 }
 
 export interface GeniusSearchHit {
@@ -89,6 +94,11 @@ export interface GeniusSearchHit {
 		title_with_featured: string;
 		url: string;
 		primary_artist: GeniusArtist;
+		album: {
+			id: number;
+			name: string;
+			cover_art_url: string;
+		} | null;
 	};
 }
 

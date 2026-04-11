@@ -93,7 +93,9 @@
 			"displayOptions": "Display Options",
 			"showTimestamps": "Show Timestamps",
 			"highlightActiveWord": "Highlight Active Word",
+			"enableGlowAnimation": "Enable Glow Animation",
 			"highlightErrors": "Highlight Errors",
+
 			"showPerWordRomanization": "Show Per-Word Romanization",
 			"keyBindingReference": "Hotkey Cheatsheet",
 			"startSync": "Mark Begin",
@@ -271,19 +273,20 @@
 		}
 	},
 	"contextMenu": {
-		"deleteWords": "Delete {count, plural, one {word} other {words}",
+		"deleteWords": "Delete {count} word(s)",
 		"bgLyric": "Background line",
 		"duetLyric": "Duet line",
 		"insertLineBefore": "Insert new line before",
 		"insertLineAfter": "Insert new line after",
-		"copyLine": "Duplicate {count, plural, one {line} other {lines}",
+		"copyLine": "Duplicate {count} line(s)",
+		"duplicateTo": "Duplicate to...",
 		"combineLine": "Combine lines",
-		"deleteLine": "Delete {count, plural, one {line} other {lines}",
+		"deleteLine": "Delete {count} line(s)",
 		"splitWord": "Split word…",
 		"replaceWord": "Replace word…",
 		"combineWords": "Combine words",
 		"moveFollowingWordToNewLine": "Move followings to new line",
-		"moveWordToNewLine": "Move {count, plural, one {word} other {words} to new line"
+		"moveWordToNewLine": "Move {count} word(s) to new line"
 	},
 	"settingsDialog": {
 		"title": "Preferences",
@@ -320,6 +323,8 @@
 			"syncStart": "Timing - Mark begin",
 			"syncNext": "Timing - Commit",
 			"syncEnd": "Timing - Mark end",
+			"toggleWordHighlight": "Timing - Toggle active word highlight",
+
 			"moveFirstWordAndPlay": "Timing - Move to first word and play",
 			"moveLastWordAndPlay": "Timing - Move to last word and play",
 			"playPause": "Playback - Play/Pause",
@@ -428,6 +433,7 @@
 		"romanLabel": "Romanization:",
 		"empty": "None",
 		"insertLine": "Insert new line here",
+		"duplicateLinesHere": "Duplicate {count} selected line(s) here",
 		"insertWord": "Insert word here…"
 	},
 	"lyricWordView": {
@@ -553,7 +559,10 @@
 		"separator": "Line Separator",
 		"swapTransAndRoman": "Swap translation and romanization lines",
 		"wordSeparator": "Word Separator",
+		"addSpaces": "Add Spaces",
+		"splitHyphens": "Split Hyphenated Words",
 		"enableSpecialPrefix": "Enable Special Prefix",
+
 		"bgLyricPrefix": "Background Lyric Prefix",
 		"duetLyricPrefix": "Duet Lyric Prefix",
 		"enableEmptyBeat": "Enable Empty Beat",

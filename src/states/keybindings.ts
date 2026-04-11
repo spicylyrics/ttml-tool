@@ -32,12 +32,13 @@ import {
 	cmdSyncEnd,
 	cmdSyncNext,
 	cmdSyncStart,
-
+	cmdToggleWordHighlight,
 	cmdUndo,
 	cmdUnselectAll,
 	cmdVolumeDown,
 	cmdVolumeUp,
 } from "$/modules/keyboard/commands";
+
 import type { KeyBindingsConfig } from "$/utils/keybindings";
 
 export type KeyBindingAtom = WritableAtom<
@@ -73,6 +74,8 @@ export const keyMoveNextWordAndPlayAtom = cmdMoveNextWordAndPlay.atom;
 export const keySyncStartAtom = cmdSyncStart.atom;
 export const keySyncNextAtom = cmdSyncNext.atom;
 export const keySyncEndAtom = cmdSyncEnd.atom;
+export const keyToggleWordHighlightAtom = cmdToggleWordHighlight.atom;
+
 
 export const keyMoveFirstWordAndPlayAtom = cmdMoveFirstWordAndPlay.atom;
 export const keyMoveLastWordAndPlayAtom = cmdMoveLastWordAndPlay.atom;

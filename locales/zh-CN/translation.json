@@ -92,7 +92,9 @@
 			"displayOptions": "显示选项",
 			"showTimestamps": "显示时间戳",
 			"highlightActiveWord": "高亮当前音节",
+			"enableGlowAnimation": "启用高亮动态特效",
 			"highlightErrors": "高亮错误",
+
 			"showPerWordRomanization": "显示逐字音译",
 			"keyBindingReference": "打轴键位速查",
 			"startSync": "起始轴",
@@ -264,6 +266,7 @@
 		"insertLineBefore": "在前插入新行",
 		"insertLineAfter": "在后插入新行",
 		"copyLine": "复制行",
+		"duplicateTo": "复制至...",
 		"combineLine": "合并行",
 		"deleteLine": "删除行",
 		"splitWord": "拆分单词…",
@@ -301,6 +304,8 @@
 			"syncStart": "打轴 - 初始打轴",
 			"syncNext": "打轴 - 步进打轴",
 			"syncEnd": "打轴 - 间奏打轴",
+			"toggleWordHighlight": "打轴 - 切换当前音节高亮",
+
 			"moveFirstWordAndPlay": "打轴 - 移动到行第一个单词并播放",
 			"moveLastWordAndPlay": "打轴 - 移动到行最后一个单词并播放",
 			"playPause": "播放 - 暂停/继续播放",
@@ -415,6 +420,7 @@
 		"romanLabel": "音译：",
 		"empty": "无",
 		"insertLine": "在此插入新行",
+		"duplicateLinesHere": "在此复制 {count} 项所选行",
 		"insertWord": "插入单词…"
 	},
 	"lyricWordView": {
@@ -541,7 +547,10 @@
 		"separator": "歌词行分隔符",
 		"swapTransAndRoman": "交换翻译行和音译行",
 		"wordSeparator": "单词分隔符",
+		"addSpaces": "补全单词空格",
+		"splitHyphens": "拆分连字符单词",
 		"enableSpecialPrefix": "启用特殊前缀",
+
 		"bgLyricPrefix": "背景歌词前缀",
 		"duetLyricPrefix": "对唱歌词前缀",
 		"enableEmptyBeat": "启用空拍",

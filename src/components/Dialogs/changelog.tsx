@@ -1,8 +1,8 @@
-import { Box, Button, Dialog, Flex, Text, Heading, ScrollArea } from "@radix-ui/themes";
+import { DismissRegular } from "@fluentui/react-icons";
+import { Box, Button, Dialog, Flex, Heading, ScrollArea, Text } from "@radix-ui/themes";
 import { open } from "@tauri-apps/plugin-shell";
 import { useAtom } from "jotai";
 import { changelogDialogAtom } from "$/states/dialogs.ts";
-import { DismissRegular } from "@fluentui/react-icons";
 
 export function ChangelogDialog() {
 	const [isOpen, setIsOpen] = useAtom(changelogDialogAtom);
@@ -38,7 +38,31 @@ export function ChangelogDialog() {
 				<ScrollArea type="always" scrollbars="vertical" style={{ height: "calc(100% - 60px)" }}>
 					<Flex direction="column" gap="5" pr="4">
 						<Box>
-							<Heading size="4" mb="2" color="cyan">v0.1.4 Updates (Latest)</Heading>
+							<Heading size="4" mb="2" color="teal">v0.1.5 Updates (Latest)</Heading>
+							<Flex direction="column" gap="3">
+								<Text size="2">
+									<strong>Duplicate-to-Spot:</strong> Introduced a "Duplicate to..." workflow. Click indicators between any two lines to instantly place copies of your selection at that exact position.
+								</Text>
+								<Text size="2">
+									<strong>Global Placement Mode:</strong> Activating "Duplicate to" reveals insertion spacers globally across the editor, providing a one-click visual map for project restructuring.
+								</Text>
+								<Text size="2">
+									<strong>Smart Selection Persistence:</strong> Right-clicking no longer clears multi-word selections. This enables powerful bulk operations like "Combine Words" for complex phonetic merging.
+								</Text>
+								<Text size="2">
+									<strong>Continuous Duplication (Shift):</strong> Holding <strong>Shift</strong> while clicking insertion points keeps the placement mode active, allowing for high-speed batch line replication.
+								</Text>
+								<Text size="2">
+									<strong>Clean UI Logic:</strong> Rebuilt the insertion spacer rendering to resolve stacking bugs and collision issues, ensuring a clutter-free interface with perfectly centered placement points.
+								</Text>
+								<Text size="2">
+									<strong>Redo Shortcut:</strong> Updated the Redo shortcut to <strong>Shift + Ctrl + Z</strong> across all platforms for a more intuitive editing workflow.
+								</Text>
+							</Flex>
+						</Box>
+
+						<Box>
+							<Heading size="4" mb="2" color="cyan">v0.1.4 Updates</Heading>
 							<Flex direction="column" gap="3">
 								<Text size="2">
 									<strong>Lyrically Engine Integration:</strong> Added a high-reliability alternative lyrics source via the <strong>Lyrically API</strong> (powered by lyrics.ovh). This fallback completely bypasses CORS restrictions and Genius anti-bot measures using server-side aggregation.
@@ -57,7 +81,12 @@ export function ChangelogDialog() {
 
 						<Box>
 							<Heading size="4" mb="2" color="gold">v0.1.3 Updates</Heading>
-
+							<Flex direction="column" gap="3">
+								<Text size="2">
+									<strong>Multi-Provider Scaling:</strong> Improved backend logic for handling concurrent requests across different lyric providers.
+								</Text>
+							</Flex>
+						</Box>
 
 						<Box>
 							<Heading size="4" mb="2" color="ruby">v0.1.2 Updates</Heading>
@@ -133,5 +162,3 @@ export function ChangelogDialog() {
 		</Dialog.Root>
 	);
 }
-
-// Ensure Box is imported. Oops, let me just add it above.

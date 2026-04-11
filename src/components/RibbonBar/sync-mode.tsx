@@ -11,7 +11,6 @@
 
 import { DeleteRegular, MoreHorizontalRegular } from "@fluentui/react-icons";
 import {
-	Button,
 	Checkbox,
 	Dialog,
 	Flex,
@@ -30,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import { useCurrentLocation } from "$/modules/lyric-editor/utils/lyric-states.ts";
 import {
 	displayRomanizationInSyncAtom,
+	enableSyncGlowAnimationAtom,
 	highlightActiveWordAtom,
 	highlightErrorsAtom,
 	ignoredQuickFixWordsAtom,
@@ -40,23 +40,26 @@ import {
 import {
 	currentEmptyBeatAtom,
 	showTouchSyncPanelAtom,
-	syncTimeOffsetAtom,
 	syncLevelModeAtom,
-	type SyncLevelMode,
+	syncTimeOffsetAtom,
 	visualizeTimestampUpdateAtom,
+	type SyncLevelMode,
 } from "$/modules/settings/states/sync.ts";
 import {
 	keySyncEndAtom,
 	keySyncNextAtom,
 	keySyncStartAtom,
 } from "$/states/keybindings.ts";
+
 import {
 	bgLyricIgnoreSyncAtom,
 	lyricLinesAtom,
 	showPreviewPanelAtom,
 } from "$/states/main.ts";
 import { KeyBinding } from "../KeyBinding/index.tsx";
+
 import { RibbonFrame, RibbonSection } from "./common";
+
 
 const EmptyBeatField = () => {
 	const [currentEmptyBeat, setCurrentEmptyBeat] = useAtom(currentEmptyBeatAtom);
@@ -106,6 +109,10 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 		const [highlightActiveWord, setHighlightActiveWord] = useAtom(
 			highlightActiveWordAtom,
 		);
+		const [enableSyncGlowAnimation, setEnableSyncGlowAnimation] = useAtom(
+			enableSyncGlowAnimationAtom,
+		);
+
 		const [displayRomanizationInSync, setdisplayRomanizationInSync] = useAtom(
 			displayRomanizationInSyncAtom,
 		);
@@ -304,6 +311,18 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 								checked={highlightActiveWord}
 								onCheckedChange={(v) => setHighlightActiveWord(!!v)}
 							/>
+							<Text
+								wrap="nowrap"
+								size="1"
+								style={{ color: "var(--accent-11)" }}
+							>
+								{t("ribbonBar.syncMode.enableGlowAnimation", "启用高亮动态特效")}
+							</Text>
+							<Checkbox
+								checked={enableSyncGlowAnimation}
+								onCheckedChange={(v) => setEnableSyncGlowAnimation(!!v)}
+							/>
+
 							<Text
 								wrap="nowrap"
 								size="1"

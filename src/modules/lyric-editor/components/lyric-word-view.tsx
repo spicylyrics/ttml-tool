@@ -47,6 +47,7 @@ import { useTranslation } from "react-i18next";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
 import {
 	displayRomanizationInSyncAtom,
+	enableSyncGlowAnimationAtom,
 	highlightActiveWordAtom,
 	highlightErrorsAtom,
 	LayoutMode,
@@ -54,6 +55,7 @@ import {
 	quickFixesAtom,
 	showTimestampsAtom,
 } from "$/modules/settings/states/index.ts";
+
 import {
 	enableUpcomingWordHighlightAtom,
 	upcomingWordHighlightColorAtom,
@@ -496,10 +498,7 @@ const LyricWordViewEditAdvance = ({
 				if (!open) return;
 				const currentStore = store;
 				const currentSelectedWords = currentStore.get(selectedWordsAtom);
-				if (
-					currentSelectedWords.has(currentWord.id) &&
-					currentSelectedWords.size === 1
-				)
+				if (currentSelectedWords.has(currentWord.id))
 					return;
 				setSelectedWords((state) => {
 					state.clear();
@@ -725,10 +724,7 @@ const LyricWorldViewEdit = ({
 				if (!open) return;
 				const currentStore = store;
 				const currentSelectedWords = currentStore.get(selectedWordsAtom);
-				if (
-					currentSelectedWords.has(word.id) &&
-					currentSelectedWords.size === 1
-				)
+				if (currentSelectedWords.has(word.id))
 					return;
 				setSelectedWords((state) => {
 					state.clear();
@@ -968,7 +964,9 @@ const LyricSyncWordView: FC<{
 		};
 	}, [endTime, visualizeTimestampUpdate]);
 
+	const enableSyncGlowAnimation = useAtomValue(enableSyncGlowAnimationAtom);
 	const hasError = useMemo(() => startTime > endTime, [startTime, endTime]);
+
 
 	const className = useMemo(
 		() =>
@@ -978,6 +976,10 @@ const LyricSyncWordView: FC<{
 				isWordSelected && styles.selected,
 				isWordBlank && styles.blank,
 				isWordActive && highlightActiveWord && styles.active,
+				isWordActive &&
+					highlightActiveWord &&
+					enableSyncGlowAnimation &&
+					styles.animated,
 				hasError &&
 					(toolMode === ToolMode.Edit ||
 						(toolMode === ToolMode.Sync &&
@@ -995,8 +997,10 @@ const LyricSyncWordView: FC<{
 			highlightActiveWord,
 			showTimestamps,
 			highlightErrors,
+			enableSyncGlowAnimation,
 		],
 	);
+
 
 	return (
 		<div

@@ -63,7 +63,13 @@ export const highlightActiveWordAtom = atomWithStorage(
 	true,
 );
 
+export const enableSyncGlowAnimationAtom = atomWithStorage(
+	"enableSyncGlowAnimation",
+	true,
+);
+
 export const highlightErrorsAtom = atomWithStorage("highlightErrors", false);
+
 export const quickFixesAtom = atomWithStorage(
 	"highlightGrammarWarnings",
 	false,
@@ -177,3 +183,16 @@ export const customFontNameAtom = atomWithStorage<string | null>("customFontName
 
 export const appFontWeightAtom = atomWithStorage<string>("appFontWeight", "400");
 export const appFontStyleAtom = atomWithStorage<string>("appFontStyle", "normal");
+
+export const importAddSpacesAtom = atomWithStorage<boolean>(
+	"importAddSpaces",
+	true,
+);
+
+export const importSplitHyphensAtom = atomWithStorage<boolean>(
+	"importSplitHyphens",
+	true,
+);
+
+
+

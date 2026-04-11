@@ -44,7 +44,7 @@ export const cmdUndo = registerCommand(
 
 export const cmdRedo = registerCommand(
 	"redo",
-	IS_MAC ? ["Shift", CONTROL_KEY, "KeyZ"] : [CONTROL_KEY, "KeyY"],
+	["Shift", CONTROL_KEY, "KeyZ"],
 	t("settingsDialog.keybindings.redo"),
 	"Edit",
 );
@@ -175,6 +175,14 @@ export const cmdSyncEnd = registerCommand(
 	t("settingsDialog.keybindings.syncEnd"),
 	"Sync",
 );
+
+export const cmdToggleWordHighlight = registerCommand(
+	"toggleWordHighlight",
+	["KeyK"],
+	t("settingsDialog.keybindings.toggleWordHighlight"),
+	"Sync",
+);
+
 
 export const cmdMoveFirstWordAndPlay = registerCommand(
 	"moveFirstWordAndPlay",

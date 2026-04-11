@@ -3,6 +3,7 @@ import {
 	Box,
 	Button,
 	Card,
+	Checkbox,
 	Dialog,
 	Flex,
 	ScrollArea,
@@ -11,22 +12,38 @@ import {
 	TextArea,
 	TextField,
 } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom, useStore } from "jotai";
+
+import { useImmerAtom } from "jotai-immer";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
-import { geniusImportLyricsDialogAtom } from "$/states/dialogs.ts";
-import { lyricLinesAtom, saveFileNameAtom } from "$/states/main.ts";
-import { useImmerAtom } from "jotai-immer";
-import { useSetAtom } from "jotai";
 import { uid } from "uid";
 import { GeniusApi } from "../api/client";
-import type { GeniusSearchHit } from "../types";
 import { getBetterGeniusCoverArt } from "../utils/image";
+import type { GeniusSearchHit } from "../types";
+import { geniusImportLyricsDialogAtom } from "$/states/dialogs.ts";
+import { lyricLinesAtom, saveFileNameAtom, selectedLinesAtom, selectedWordsAtom } from "$/states/main.ts";
+
+import type { LyricLine, LyricWord } from "$/types/ttml.ts";
+import {
+	geniusApiKeyAtom,
+	importAddSpacesAtom,
+	importSplitHyphensAtom,
+} from "$/modules/settings/states/index.ts";
+
+
+
+
+
+
+
+
 
 export const GeniusImportLyricsDialog = () => {
 	const { t } = useTranslation();
+	const store = useStore();
+
 	const [isOpen, setIsOpen] = useAtom(geniusImportLyricsDialogAtom);
 	const [, setLyricLines] = useImmerAtom(lyricLinesAtom);
 	const setSaveFileName = useSetAtom(saveFileNameAtom);
@@ -47,8 +64,12 @@ export const GeniusImportLyricsDialog = () => {
 	const [editableLyrics, setEditableLyrics] = useState("");
 
 	const [isEditing, setIsEditing] = useState(false);
-
 	const inputRef = useRef<HTMLInputElement>(null);
+	const [addSpaces, setAddSpaces] = useAtom(importAddSpacesAtom);
+	const [splitHyphens, setSplitHyphens] = useAtom(importSplitHyphensAtom);
+
+
+
 
 	useEffect(() => {
 		if (isOpen) {
@@ -145,7 +166,8 @@ export const GeniusImportLyricsDialog = () => {
 		}
 
 		// Process all lines and split out background lyrics (text in parentheses)
-		const processedLines: any[] = [];
+		const processedLines: LyricLine[] = [];
+
 		for (const lineText of lines) {
 			// regex to find things like "Normal Text (Background Text)" or "(Background) Normal"
 			// This regex matches groups of non-parentheses or groups inside parentheses
@@ -162,13 +184,27 @@ export const GeniusImportLyricsDialog = () => {
 				text = text.replace(/\s+/g, " ");
 				if (!text) continue;
 
-				const words = text.split(/\s+/).map((word) => ({
+				const regex = addSpaces ? /(\s+)/ : /\s+/;
+				let wordStrings = text.split(regex).filter(Boolean);
+
+				if (splitHyphens) {
+					wordStrings = wordStrings.flatMap((w) => w.split(/(?<=-)/g));
+				}
+
+				const words: LyricWord[] = wordStrings.map((word) => ({
 					id: uid(),
 					word,
 					startTime: 0,
 					endTime: 0,
 					emptyBeat: 0,
+					obscene: false,
+					romanWord: "",
 				}));
+
+
+
+
+
 
 				processedLines.push({
 					id: uid(),
@@ -177,8 +213,11 @@ export const GeniusImportLyricsDialog = () => {
 					endTime: 0,
 					isBG,
 					isDuet: false,
-					isInterlaced: false, // New flag if supported
+					ignoreSync: false,
+					translatedLyric: "",
+					romanLyric: "",
 				});
+
 			}
 		}
 
@@ -186,13 +225,25 @@ export const GeniusImportLyricsDialog = () => {
 			prev.lyricLines.push(...processedLines);
 		});
 
+		// Select the first new line and word
+		if (processedLines.length > 0) {
+			store.set(selectedLinesAtom, new Set([processedLines[0].id]));
+			if (processedLines[0].words.length > 0) {
+				store.set(selectedWordsAtom, new Set([processedLines[0].words[0].id]));
+			}
+		}
+
 		toast.success(
 			t("metadataDialog.fetchSongwriters.importSuccess", "Imported {count} lines from Genius.", {
 				count: processedLines.length,
 			}),
 		);
 		setIsOpen(false);
-	}, [editableLyrics, setLyricLines, setIsOpen, t]);
+	}, [editableLyrics, setLyricLines, setIsOpen, t, addSpaces, splitHyphens, store]);
+
+
+
+
 
 	// ── API key setup screen ────────────────────────────────────────────────────
 	if (!geniusApiKey) {
@@ -303,7 +354,26 @@ export const GeniusImportLyricsDialog = () => {
 									<Text size="1" color="gray">
 										{t("genius.linesCount", "{count} lines", { count: editableLyrics.split("\n").filter((l) => l.trim()).length })}
 									</Text>
+									<Flex gap="2" align="center" ml="3">
+										<Text size="1" color="gray">{t("textImportDialog.addSpaces", "Add Spaces")}</Text>
+										<Checkbox
+											size="1"
+											checked={addSpaces}
+											onCheckedChange={(c: boolean) => setAddSpaces(c)}
+										/>
+									</Flex>
+									<Flex gap="2" align="center" ml="3">
+										<Text size="1" color="gray">{t("textImportDialog.splitHyphens", "Split Hyphens")}</Text>
+										<Checkbox
+											size="1"
+											checked={splitHyphens}
+											onCheckedChange={(c: boolean) => setSplitHyphens(c)}
+										/>
+									</Flex>
+
+
 								</Flex>
+
 								<Flex gap="2">
 									<Dialog.Close>
 										<Button variant="soft" color="gray">{t("common.cancel", "Cancel")}</Button>
@@ -360,7 +430,11 @@ export const GeniusImportLyricsDialog = () => {
 							>
 								<Flex align="center" gap="3">
 									<img
-										src={getBetterGeniusCoverArt(hit.result.song_art_image_url || hit.result.song_art_image_thumbnail_url)}
+										src={getBetterGeniusCoverArt(
+											hit.result.song_art_image_url ||
+												hit.result.song_art_image_thumbnail_url,
+											100,
+										)}
 										alt={hit.result.title}
 										style={{ width: 48, height: 48, borderRadius: 6, objectFit: "cover", flexShrink: 0 }}
 										referrerPolicy="no-referrer"

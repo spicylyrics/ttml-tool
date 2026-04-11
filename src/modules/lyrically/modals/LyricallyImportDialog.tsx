@@ -1,8 +1,8 @@
-import { Search16Regular, Search24Regular } from "@fluentui/react-icons";
 import {
 	Box,
 	Button,
 	Card,
+	Checkbox,
 	Dialog,
 	Flex,
 	ScrollArea,
@@ -11,19 +11,33 @@ import {
 	TextArea,
 	TextField,
 } from "@radix-ui/themes";
-import { useAtom, useSetAtom } from "jotai";
+
+import { Search16Regular, Search24Regular } from "@fluentui/react-icons";
+import { useAtom, useSetAtom, useStore } from "jotai";
+
 import { useImmerAtom } from "jotai-immer";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { uid } from "uid";
+import { lyricallyImportLyricsDialogAtom } from "$/states/dialogs.ts";
+import { lyricLinesAtom, saveFileNameAtom, selectedLinesAtom, selectedWordsAtom } from "$/states/main.ts";
+
+import type { LyricLine, LyricWord } from "$/types/ttml.ts";
+import { getBetterGeniusCoverArt } from "$/modules/genius/utils/image";
 import { LyricallyApi } from "../api/client";
 import type { LyricallyTrack } from "../types";
-import { lyricallyImportLyricsDialogAtom } from "$/states/dialogs.ts";
-import { lyricLinesAtom, saveFileNameAtom } from "$/states/main.ts";
+import { importAddSpacesAtom, importSplitHyphensAtom } from "$/modules/settings/states/index.ts";
+
+
+
+
+
 
 export const LyricallyImportDialog = () => {
 	const { t } = useTranslation();
+	const store = useStore();
+
 	const [isOpen, setIsOpen] = useAtom(lyricallyImportLyricsDialogAtom);
 	const [, setLyricLines] = useImmerAtom(lyricLinesAtom);
 	const setSaveFileName = useSetAtom(saveFileNameAtom);
@@ -39,7 +53,13 @@ export const LyricallyImportDialog = () => {
 	const [fetchingLyrics, setFetchingLyrics] = useState(false);
 	const [editableLyrics, setEditableLyrics] = useState("");
 	const [isEditing, setIsEditing] = useState(false);
+	const [addSpaces, setAddSpaces] = useAtom(importAddSpacesAtom);
+	const [splitHyphens, setSplitHyphens] = useAtom(importSplitHyphensAtom);
 	const inputRef = useRef<HTMLInputElement>(null);
+
+
+
+
 
 	useEffect(() => {
 		if (isOpen) {
@@ -138,7 +158,8 @@ export const LyricallyImportDialog = () => {
 		}
 
 		// Process all lines and split out background lyrics (text in parentheses)
-		const processedLines: any[] = [];
+		const processedLines: LyricLine[] = [];
+
 		for (const lineText of lines) {
 			const parts = lineText.split(/(\([^)]+\))/g).filter(p => p.trim());
 			
@@ -152,13 +173,26 @@ export const LyricallyImportDialog = () => {
 				text = text.replace(/\s+/g, " ");
 				if (!text) continue;
 
-				const words = text.split(/\s+/).map((word) => ({
+				const regex = addSpaces ? /(\s+)/ : /\s+/;
+				let wordStrings = text.split(regex).filter(Boolean);
+
+				if (splitHyphens) {
+					wordStrings = wordStrings.flatMap((w) => w.split(/(?<=-)/g));
+				}
+
+				const words: LyricWord[] = wordStrings.map((word) => ({
 					id: uid(),
 					word,
 					startTime: 0,
 					endTime: 0,
 					emptyBeat: 0,
+					obscene: false,
+					romanWord: "",
 				}));
+
+
+
+
 
 				processedLines.push({
 					id: uid(),
@@ -167,8 +201,11 @@ export const LyricallyImportDialog = () => {
 					endTime: 0,
 					isBG,
 					isDuet: false,
-					isInterlaced: false,
+					ignoreSync: false,
+					translatedLyric: "",
+					romanLyric: "",
 				});
+
 			}
 		}
 
@@ -176,13 +213,24 @@ export const LyricallyImportDialog = () => {
 			prev.lyricLines.push(...processedLines);
 		});
 
+		// Select first new word
+		if (processedLines.length > 0) {
+			store.set(selectedLinesAtom, new Set([processedLines[0].id]));
+			if (processedLines[0].words.length > 0) {
+				store.set(selectedWordsAtom, new Set([processedLines[0].words[0].id]));
+			}
+		}
+
 		toast.success(
 			t("metadataDialog.fetchSongwriters.importSuccess", "Imported {count} lines from Genius.", {
 				count: processedLines.length,
 			}),
 		);
 		setIsOpen(false);
-	}, [editableLyrics, setLyricLines, setIsOpen, t]);
+	}, [editableLyrics, setLyricLines, setIsOpen, t, addSpaces, splitHyphens, store]);
+
+
+
 
 	// ── Lyrics preview pane ────────────────────────────────────────────────────
 	if (selectedHit) {
@@ -259,7 +307,25 @@ export const LyricallyImportDialog = () => {
 									<Text size="1" color="gray">
 										{t("genius.linesCount", "{count} lines", { count: editableLyrics.split("\n").filter((l) => l.trim()).length })}
 									</Text>
+									<Flex gap="2" align="center" ml="3">
+										<Text size="1" color="gray">{t("textImportDialog.addSpaces", "Add Spaces")}</Text>
+										<Checkbox
+											size="1"
+											checked={addSpaces}
+											onCheckedChange={(c: boolean) => setAddSpaces(c)}
+										/>
+									</Flex>
+									<Flex gap="2" align="center" ml="3">
+										<Text size="1" color="gray">{t("textImportDialog.splitHyphens", "Split Hyphens")}</Text>
+										<Checkbox
+											size="1"
+											checked={splitHyphens}
+											onCheckedChange={(c: boolean) => setSplitHyphens(c)}
+										/>
+									</Flex>
+
 								</Flex>
+
 								<Flex gap="2">
 									<Dialog.Close>
 										<Button variant="soft" color="gray">{t("common.cancel", "Cancel")}</Button>
@@ -317,7 +383,7 @@ export const LyricallyImportDialog = () => {
 								<Flex align="center" gap="3">
 									{hit.cover ? (
 										<img
-											src={hit.cover}
+											src={getBetterGeniusCoverArt(hit.cover, 100)}
 											alt={hit.name}
 											style={{ width: 48, height: 48, borderRadius: 6, objectFit: "cover", flexShrink: 0 }}
 											referrerPolicy="no-referrer"
