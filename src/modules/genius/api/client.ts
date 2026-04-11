@@ -131,9 +131,40 @@ export const GeniusApi = {
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(html, "text/html");
 
-			// Genius uses multiple divs for the new layout.
-			// [data-lyrics-container="true"] is currently the most stable selector.
-			// We also fallback to class-based selectors.
+			// Check for anti-bot pages
+			if (html.includes("cf-browser-verification") || html.includes("Cloudflare")) {
+				throw new Error("Genius request blocked by Cloudflare. Try again later or use a different proxy.");
+			}
+
+			// Method 1: Extraction from window.__PRELOADED_STATE__ (Most robust)
+			// This contains the lyrics data in a structured format (D-Script)
+			try {
+				const stateMatch = html.match(/window\.__PRELOADED_STATE__\s*=\s*JSON\.parse\('(.*?)'\)/);
+				let stateString = stateMatch ? stateMatch[1] : null;
+				if (!stateString) {
+					const directMatch = html.match(/window\.__PRELOADED_STATE__\s*=\s*({.*?});/);
+					stateString = directMatch ? directMatch[1] : null;
+				}
+
+				if (stateString) {
+					// Handle escaped characters if it was a JSON.parse('') match
+					if (stateMatch) {
+						stateString = stateString.replace(/\\'/g, "'").replace(/\\\\/g, "\\");
+					}
+					const state = JSON.parse(stateString);
+					
+					// The path to lyrics varies, but it's usually in songPage.lyricsData
+					const lyricsData = state.songPage?.lyricsData?.body?.html || "";
+					if (lyricsData) {
+						const lyricsDoc = parser.parseFromString(lyricsData, "text/html");
+						return lyricsDoc.body.textContent?.trim() || "";
+					}
+				}
+			} catch (e) {
+				console.warn("Failed to parse __PRELOADED_STATE__:", e);
+			}
+
+			// Method 2: DOM selectors (current standard)
 			let lyricsContainers = Array.from(doc.querySelectorAll('[data-lyrics-container="true"]'));
 
 			// Fallback 1: Legacy class-based selector
@@ -153,13 +184,16 @@ export const GeniusApi = {
 			// Fallback 3: Search for any element with "lyrics" in ID or class as a last resort
 			if (lyricsContainers.length === 0 && !backupLyrics) {
 				const anyLyrics = doc.querySelector('[id*="lyrics"], [class*="lyrics"]');
-				if (anyLyrics && anyLyrics.textContent && anyLyrics.textContent.length > 100) {
+				// Filter for elements that actually look like lyrics (long text)
+				if (anyLyrics && anyLyrics.textContent && anyLyrics.textContent.length > 200) {
 					backupLyrics = anyLyrics.textContent.trim();
 				}
 			}
 
 			if (lyricsContainers.length === 0 && !backupLyrics) {
-				throw new Error("Could not find lyrics container in the Genius page");
+				// If we have HTML but no lyrics, the proxy might have returned a skeleton or error page.
+				const title = doc.title || "Unknown Page";
+				throw new Error(`Could not find lyrics container (Page Title: ${title}). Genius might have changed their layout.`);
 			}
 
 			let fullLyrics = backupLyrics;
