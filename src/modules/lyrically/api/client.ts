@@ -16,14 +16,21 @@ export const LyricallyApi = {
 			const json = await res.json();
 			
 			// Map Deezer response to our track format
-			return (json.data || []).map((track: any) => ({
-				name: track.title,
-				artist: track.artist.name,
-				album: track.album.title,
-				cover: track.album.cover_xl || track.album.cover_medium,
-				source: "lyrics.ovh",
-				lyrics: "" // Fetched lazily
-			}));
+			return (json.data || []).map((track: any) => {
+				const rawCover = track.album?.cover_xl || track.album?.cover_medium || "";
+				// Deezer API returns http:// which causes mixed-content errors on Vercel
+				const secureCover = rawCover.replace("http://", "https://");
+				
+				return {
+					name: track.title,
+					artist: track.artist?.name || "Unknown Artist",
+					album: track.album?.title || "",
+					cover: secureCover,
+					source: "lyrics.ovh",
+					lyrics: "" // Fetched lazily
+				};
+			});
+
 		} catch (error) {
 			console.error("Lyrics API Error:", error);
 			throw error;
