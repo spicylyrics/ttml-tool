@@ -8,7 +8,6 @@
 export const getBetterGeniusCoverArt = (url: string | undefined | null, size = 310) => {
 	if (!url) return "";
 
-	// Using images.weserv.nl as a reliable proxy to bypass Genius hotlinking protection.
-	// This service handles the resizing and provides a neutral referrer.
-	return `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=${size}&h=${size}&fit=cover`;
+	// Use Genius's native thumbnail generation proxy which avoids third-party unreliability
+	return `https://t2.genius.com/unsafe/${size}x${size}/${encodeURIComponent(url)}`;
 };
