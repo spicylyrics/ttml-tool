@@ -102,8 +102,9 @@ export const ImportExportLyric = () => {
 						{t("topBar.menu.importLyric.fromLRCLIB", "从 LRCLIB 导入...")}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item onClick={() => setLyricallyImportDialog(true)}>
-						{t("topBar.menu.importLyric.fromLyrically", "从 Lyrically 导入…")}
+						{t("topBar.menu.importLyric.fromLyrically", "Import from Lyrically...")}
 					</DropdownMenu.Item>
+
 					<DropdownMenu.Item onClick={() => setGeniusImportLyricsDialog(true)}>
 						{t("topBar.menu.importLyric.fromGenius", "从 Genius 导入…")}
 					</DropdownMenu.Item>
