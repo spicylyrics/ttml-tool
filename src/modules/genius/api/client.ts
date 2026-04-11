@@ -94,12 +94,13 @@ export const GeniusApi = {
 	 */
 	async getLyrics(songUrl: string): Promise<string> {
 		try {
-			// Using a public CORS proxy to fetch the actual Genius page
-			// We try multiple proxies to increase reliability as Genius aggressively blocks them.
+			// For Genius, we add a random cache-buster and try to mimic a browser better by reordering proxies
+			const cacheBuster = `?cb=${Math.random().toString(36).substring(7)}`;
+			const targetUrl = songUrl.includes("?") ? `${songUrl}&${cacheBuster.slice(1)}` : `${songUrl}${cacheBuster}`;
+
 			const proxies = [
-				(url: string) => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
 				(url: string) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-				(url: string) => `https://proxy.cors.sh/${url}`, // This sometimes works for free
+				(url: string) => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
 				(url: string) => `https://thingproxy.freeboard.io/fetch/${encodeURIComponent(url)}`,
 				(url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
 				(url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
@@ -110,14 +111,18 @@ export const GeniusApi = {
 
 			for (let i = 0; i < proxies.length; i++) {
 				try {
-					const proxyUrl = proxies[i](songUrl);
-					resp = await fetch(proxyUrl);
+					const proxyUrl = proxies[i](targetUrl);
+					resp = await fetch(proxyUrl, {
+						// Some proxies might respect these
+						headers: {
+							"X-Requested-With": "XMLHttpRequest",
+						},
+					});
 					if (resp.ok) break;
-					lastError = new Error(`Proxy ${i + 1} returned ${resp.status} ${resp.statusText}`);
+					lastError = new Error(`Proxy ${i + 1} (${new URL(proxies[i]('')).hostname}) returned ${resp.status}`);
 					
-					// If not the last proxy, wait a bit before trying the next one
 					if (i < proxies.length - 1) {
-						await new Promise(resolve => setTimeout(resolve, 500));
+						await new Promise(resolve => setTimeout(resolve, i * 200 + 100));
 					}
 				} catch (e) {
 					lastError = e as Error;
@@ -125,7 +130,7 @@ export const GeniusApi = {
 			}
 
 			if (!resp || !resp.ok) {
-				throw new Error(`Failed to fetch Genius page: ${lastError?.message || "All proxies failed"}`);
+				throw new Error(`Failed to fetch Genius page (tried ${proxies.length} proxies). Last error: ${lastError?.message || "Unknown"}`);
 			}
 			const html = await resp.text();
 
