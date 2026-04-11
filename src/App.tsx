@@ -47,6 +47,11 @@ import {
 	selectedGradientAtom,
 	useCustomAccentAtom,
 	useCustomGradientAtom,
+	appFontAtom,
+	appFontWeightAtom,
+	appFontStyleAtom,
+	customFontDataAtom,
+	customFontNameAtom,
 } from "$/modules/settings/states/index.ts";
 import styles from "./App.module.css";
 import DarkThemeDetector from "./components/DarkThemeDetector";
@@ -164,22 +169,70 @@ function App() {
 	const customGradientCenter = useAtomValue(customGradientCenterAtom);
 	const customGradientAngle = useAtomValue(customGradientAngleAtom);
 	const customGradientSize = useAtomValue(customGradientSizeAtom);
+	const appFont = useAtomValue(appFontAtom);
+	const appFontWeight = useAtomValue(appFontWeightAtom);
+	const appFontStyle = useAtomValue(appFontStyleAtom);
+	const customFontData = useAtomValue(customFontDataAtom);
+	const customFontName = useAtomValue(customFontNameAtom);
+
+	useEffect(() => {
+		// Extract font name from appFont string (e.g., '"Inter", sans-serif' -> 'Inter')
+		const match = appFont.match(/"([^"]+)"/);
+		if (match) {
+			const fontName = match[1];
+			// Only load if it's not the custom font and not a system default
+			if (fontName !== customFontName && !["MiSans", "Inter", "system-ui"].includes(fontName)) {
+				const fontId = `google-font-${fontName.replace(/\s+/g, "-")}`;
+				if (!document.getElementById(fontId)) {
+					const link = document.createElement("link");
+					link.id = fontId;
+					link.rel = "stylesheet";
+					// Load Regular(400), Bold(700) and their Italic versions
+					link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, "+")}:ital,wght@0,400;0,700;1,400;1,700&display=swap`;
+					document.head.appendChild(link);
+				}
+			}
+		}
+	}, [appFont, customFontName]);
 
 	const customThemeStyles = useCustomAccent
 		? generateRadixScale(customAccentColor, isDarkTheme)
 		: null;
 
 	const customStyleString = useMemo(() => {
-		if (!customThemeStyles) return "";
-		const vars = Object.entries(customThemeStyles)
-			.map(([k, v]) => `${k}: ${v} !important;`)
-			.join("\n\t\t");
+		let vars = "";
+		if (customThemeStyles) {
+			vars += Object.entries(customThemeStyles)
+				.map(([k, v]) => `${k}: ${v} !important;`)
+				.join("\n\t\t");
+		}
+		
+		let customFontFace = "";
+		if (customFontData && customFontName) {
+			customFontFace = `
+			@font-face {
+				font-family: "${customFontName}";
+				src: url("${customFontData}");
+				font-weight: normal;
+				font-style: normal;
+			}
+			`;
+		}
+
 		return `
+		${customFontFace}
+		:root {
+			--default-font-family: ${appFont} !important;
+		}
 		.radix-themes {
+			--default-font-family: ${appFont} !important;
+			font-family: var(--default-font-family);
+			font-weight: ${appFontWeight} !important;
+			font-style: ${appFontStyle} !important;
 			${vars}
 		}
 		`;
-	}, [customThemeStyles]);
+	}, [customThemeStyles, appFont, appFontWeight, appFontStyle, customFontData, customFontName]);
 
 	const backgroundMode = useAtomValue(backgroundModeAtom);
 	const selectedGradientId = useAtomValue(selectedGradientAtom);

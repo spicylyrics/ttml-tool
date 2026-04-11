@@ -166,3 +166,14 @@ export const syncGradientToAccentAtom = atomWithStorage<boolean>(
 	"syncGradientToAccent",
 	false,
 );
+
+export const appFontAtom = atomWithStorage<string>(
+	"appFont",
+	'"MiSans", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+);
+
+export const customFontDataAtom = atomWithStorage<string | null>("customFontData", null);
+export const customFontNameAtom = atomWithStorage<string | null>("customFontName", null);
+
+export const appFontWeightAtom = atomWithStorage<string>("appFontWeight", "400");
+export const appFontStyleAtom = atomWithStorage<string>("appFontStyle", "normal");

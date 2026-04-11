@@ -3,6 +3,7 @@ import {
 	Color24Regular,
 	Sparkle24Regular,
 	Target24Regular,
+	TextFont24Regular,
 } from "@fluentui/react-icons";
 import {
 	Box,
@@ -19,12 +20,13 @@ import {
 	Text,
 	Tooltip,
 } from "@radix-ui/themes";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { backgroundGradients } from "$/modules/settings/states/gradients";
 import {
 	accentColorAtom,
+	appFontAtom,
 	backgroundModeAtom,
 	customAccentColorAtom,
 	customGradientAngleAtom,
@@ -37,6 +39,7 @@ import {
 	useCustomAccentAtom,
 	useCustomGradientAtom,
 } from "$/modules/settings/states/index.ts";
+import { fontSelectionDialogAtom } from "$/states/dialogs.ts";
 import { isDarkThemeAtom } from "$/states/main.ts";
 import { generateGradient, generateRadixScale } from "$/utils/colorScale";
 import {
@@ -115,6 +118,8 @@ export const SettingsAppearanceTab = () => {
 	const [customGradientSize, setCustomGradientSize] = useAtom(
 		customGradientSizeAtom,
 	);
+	const [appFont] = useAtom(appFontAtom);
+	const setIsFontSelectionOpen = useSetAtom(fontSelectionDialogAtom);
 
 	const [showBackgroundSettings, setShowBackgroundSettings] = useState(false);
 	const { t } = useTranslation();
@@ -577,6 +582,31 @@ export const SettingsAppearanceTab = () => {
 				)}
 
 
+			</Flex>
+			<Flex direction="column" gap="3">
+				<Heading size="4">
+					{t("settings.appearance.font", "Application Font")}
+				</Heading>
+				<Card>
+					<Flex direction="column" gap="3">
+						<Flex direction="column" gap="1">
+							<Text size="2" weight="bold">
+								{t("settings.appearance.currentFont", "Current Font")}
+							</Text>
+							<Text size="1" color="gray" style={{ fontFamily: appFont }}>
+								{appFont.split(",")[0].replace(/"/g, "")}
+							</Text>
+						</Flex>
+						<Button
+							variant="soft"
+							style={{ cursor: "pointer" }}
+							onClick={() => setIsFontSelectionOpen(true)}
+						>
+							<TextFont24Regular />
+							{t("settings.appearance.changeFont", "Change Font...")}
+						</Button>
+					</Flex>
+				</Card>
 			</Flex>
 		</Flex>
 	);

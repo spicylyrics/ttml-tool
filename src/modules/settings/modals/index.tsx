@@ -8,6 +8,7 @@ import { SettingsAppearanceTab } from "./appearance";
 import { SettingsCommonTab } from "./common";
 import { SettingsKeyBindingsDialog } from "./keybindings";
 import { SettingsSpectrogramTab } from "./spectrogram";
+import { AudioSettingsTab } from "./audio";
 
 export const SettingsDialog = memo(() => {
 	const [settingsDialogOpen, setSettingsDialogOpen] =
@@ -26,6 +27,9 @@ export const SettingsDialog = memo(() => {
 						</Tabs.Trigger>
 						<Tabs.Trigger value="appearance">
 							{t("settingsDialog.tab.appearance", "Appearance")}
+						</Tabs.Trigger>
+						<Tabs.Trigger value="audio">
+							{t("settingsDialog.tab.audio", "Audio")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="keybinding">
 							{t("settingsDialog.tab.keybindings", "Keybindings")}
@@ -56,6 +60,9 @@ export const SettingsDialog = memo(() => {
 						</Tabs.Content>
 						<Tabs.Content value="spectrogram">
 							<SettingsSpectrogramTab />
+						</Tabs.Content>
+						<Tabs.Content value="audio">
+							<AudioSettingsTab />
 						</Tabs.Content>
 						<Tabs.Content value="about">
 							<SettingsAboutTab />

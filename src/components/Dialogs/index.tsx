@@ -14,6 +14,7 @@ import { SplitWordDialog } from "$/modules/segmentation/components/split-word.ts
 import { SettingsDialog } from "$/modules/settings/modals/index.tsx";
 import { ChangelogDialog } from "./changelog.tsx";
 import { ConfirmationDialog } from "./confirmation.tsx";
+import { FontSelectionDialog } from "$/modules/settings/modals/FontSelectionDialog.tsx";
 
 export const Dialogs = () => {
 	return (
@@ -34,6 +35,7 @@ export const Dialogs = () => {
 			<GeniusSearchDialog />
 			<GeniusImportLyricsDialog />
 			<ChangelogDialog />
+			<FontSelectionDialog />
 		</>
 	);
 };

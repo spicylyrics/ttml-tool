@@ -326,9 +326,19 @@
 
 .lyricWord.sync.active {
 	background-color: var(--accent-a4);
+	box-shadow: 0 0 15px var(--accent-a7);
+	position: relative;
+	z-index: 2;
+
+	.displayWord {
+		text-shadow: 0 0 10px var(--accent-a11);
+		color: #fff;
+		font-weight: bold;
+	}
 
 	&.selected {
 		background-color: var(--accent-a6);
+		box-shadow: 0 0 20px var(--accent-a9);
 	}
 }
 
