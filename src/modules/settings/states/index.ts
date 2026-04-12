@@ -57,13 +57,23 @@ export const autosaveIntervalAtom = atomWithStorage("autosaveInterval", 10);
 export const autosaveLimitAtom = atomWithStorage("autosaveLimit", 10);
 
 export const showTimestampsAtom = atomWithStorage("showTimestamps", true);
+export const enableManualTimestampEditAtom = atomWithStorage(
+	"enableManualTimestampEdit",
+	true,
+);
 
 export const highlightActiveWordAtom = atomWithStorage(
 	"highlightActiveWord",
 	true,
 );
 
+export const enableSyncGlowAnimationAtom = atomWithStorage(
+	"enableSyncGlowAnimation",
+	false,
+);
+
 export const highlightErrorsAtom = atomWithStorage("highlightErrors", false);
+
 export const quickFixesAtom = atomWithStorage(
 	"highlightGrammarWarnings",
 	false,
@@ -177,3 +187,16 @@ export const customFontNameAtom = atomWithStorage<string | null>("customFontName
 
 export const appFontWeightAtom = atomWithStorage<string>("appFontWeight", "400");
 export const appFontStyleAtom = atomWithStorage<string>("appFontStyle", "normal");
+
+export const importAddSpacesAtom = atomWithStorage<boolean>(
+	"importAddSpaces",
+	false,
+);
+
+export const importSplitHyphensAtom = atomWithStorage<boolean>(
+	"importSplitHyphens",
+	true,
+);
+
+
+

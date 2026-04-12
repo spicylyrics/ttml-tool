@@ -1,4 +1,3 @@
-import { Search16Regular, Search24Regular } from "@fluentui/react-icons";
 import {
 	Button,
 	Card,
@@ -10,18 +9,21 @@ import {
 	Text,
 	TextField,
 } from "@radix-ui/themes";
+import { Search16Regular, Search24Regular } from "@fluentui/react-icons";
 import { useAtom } from "jotai";
 import { useImmerAtom } from "jotai-immer";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
 import { geniusSearchDialogAtom } from "$/states/dialogs.ts";
 import { lyricLinesAtom } from "$/states/main.ts";
-import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
 import { GeniusApi } from "../api/client";
 import type { GeniusSearchHit } from "../types";
 import { getBetterGeniusCoverArt } from "../utils/image";
 import styles from "./GeniusSearchDialog.module.css";
+
+
 
 export const GeniusSearchDialog = () => {
 	const { t } = useTranslation();
@@ -208,6 +210,7 @@ export const GeniusSearchDialog = () => {
 				}
 
 				setLyricLines((prev) => {
+					// 1. Update Songwriters
 					const songwriterEntry = prev.metadata.find(
 						(m) => m.key === "songwriter",
 					);
@@ -231,6 +234,25 @@ export const GeniusSearchDialog = () => {
 							key: "songwriter",
 							value: songwriters,
 						});
+					}
+
+
+					// 3. Update Other Metadata if missing
+					const upsertIfMissing = (key: string, value: string) => {
+						const existing = prev.metadata.find((m) => m.key === key);
+						if (!existing || (existing.value.length === 1 && existing.value[0] === "")) {
+							if (existing) {
+								existing.value = [value];
+							} else {
+								prev.metadata.push({ key, value: [value] });
+							}
+						}
+					};
+
+					upsertIfMissing("musicName", songDetailsRes.response.song.title);
+					upsertIfMissing("artists", songDetailsRes.response.song.primary_artist.name);
+					if (songDetailsRes.response.song.album) {
+						upsertIfMissing("album", songDetailsRes.response.song.album.name);
 					}
 				});
 
@@ -372,9 +394,21 @@ export const GeniusSearchDialog = () => {
 								>
 									<Flex align="center" gap="4">
 										<img
-											src={getBetterGeniusCoverArt(hit.result.song_art_image_url || hit.result.song_art_image_thumbnail_url)}
+											src={getBetterGeniusCoverArt(
+												hit.result.song_art_image_url ||
+													hit.result.song_art_image_thumbnail_url,
+												100,
+											)}
 											alt={hit.result.title}
 											className={styles.thumbnail}
+											style={{
+												width: 48,
+												height: 48,
+												borderRadius: 6,
+												objectFit: "cover",
+												flexShrink: 0,
+												backgroundColor: "var(--gray-3)",
+											}}
 											referrerPolicy="no-referrer"
 										/>
 										<Flex

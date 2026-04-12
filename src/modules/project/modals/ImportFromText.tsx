@@ -23,9 +23,21 @@ import {
 	confirmDialogAtom,
 	importFromTextDialogAtom,
 } from "$/states/dialogs.ts";
-import { isDirtyAtom, lyricLinesAtom } from "$/states/main.ts";
+
+
+import {
+	isDirtyAtom,
+	lyricLinesAtom,
+	selectedLinesAtom,
+	selectedWordsAtom,
+} from "$/states/main.ts";
+
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
+import { importAddSpacesAtom, importSplitHyphensAtom } from "$/modules/settings/states/index.ts";
+
+
 import { error as logError } from "$/utils/logging.ts";
+
 
 import styles from "./ImportFromText.module.css";
 import error = toast.error;
@@ -90,6 +102,8 @@ const isGuideClickedAtom = atomWithStorage(
 );
 const textValueAtom = atom("");
 
+
+
 const ImportFromTextEditor = memo(() => {
 	const [value, setValue] = useAtom(textValueAtom);
 	return (
@@ -129,7 +143,13 @@ export const ImportFromText = () => {
 	const [duetLyricPrefix, setDuetLyricPrefix] = useAtom(duetLyricPrefixAtom);
 	const [enableEmptyBeat, setEnableEmptyBeat] = useAtom(enableEmptyBeatAtom);
 	const [emptyBeatSymbol, setEmptyBeatSymbol] = useAtom(emptyBeatSymbolAtom);
+	const [addSpaces, setAddSpaces] = useAtom(importAddSpacesAtom);
+	const [splitHyphens, setSplitHyphens] = useAtom(importSplitHyphensAtom);
 	const [isGuideClicked, setIsGuideClicked] = useAtom(isGuideClickedAtom);
+
+
+
+
 
 	const store = useStore();
 
@@ -145,6 +165,12 @@ export const ImportFromText = () => {
 			const duetLyricPrefix = store.get(duetLyricPrefixAtom);
 			const enableEmptyBeat = store.get(enableEmptyBeatAtom);
 			const emptyBeatSymbol = store.get(emptyBeatSymbolAtom);
+			const addSpaces = store.get(importAddSpacesAtom);
+			const splitHyphens = store.get(importSplitHyphensAtom);
+
+
+
+
 
 			const lines = text.split("\n");
 			const result: LyricLine[] = [];
@@ -256,15 +282,46 @@ export const ImportFromText = () => {
 				}
 			}
 
-			if (wordSeparator.length > 0) {
+			if (wordSeparator.length > 0 || addSpaces || splitHyphens) {
 				for (const line of result) {
 					const wholeLine = line.words.map((word) => word.word).join("");
-					line.words = wholeLine.split(wordSeparator).map((word) => ({
+					let words: string[];
+					if (wordSeparator.length > 0) {
+						const regex = new RegExp(`(${wordSeparator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'g');
+						words = wholeLine.split(regex).filter(p => p.length > 0);
+					} else {
+						words = [wholeLine];
+					}
+
+					if (splitHyphens) {
+						// Split by hyphen but KEEP the hyphen at the end of the previous segment
+						words = words.flatMap((w) => w.split(/(?<=-)/g));
+					}
+
+					if (addSpaces) {
+						const spacedWords: string[] = [];
+						for (let i = 0; i < words.length; i++) {
+							spacedWords.push(words[i]);
+							if (
+								i < words.length - 1 &&
+								!/\s$/.test(words[i]) &&
+								!/^\s/.test(words[i + 1])
+							) {
+								spacedWords.push(" ");
+							}
+						}
+						words = spacedWords;
+					}
+					
+					line.words = words.map((word) => ({
 						...newLyricWord(),
 						word,
 					}));
 				}
 			}
+
+
+
 
 			if (enableEmptyBeat && emptyBeatSymbol.length > 0) {
 				for (const line of result) {
@@ -281,9 +338,20 @@ export const ImportFromText = () => {
 				lyricLines: result,
 				metadata: [],
 			});
+			if (result.length > 0) {
+				store.set(selectedLinesAtom, new Set([result[0].id]));
+				if (result[0].words.length > 0) {
+					store.set(selectedWordsAtom, new Set([result[0].words[0].id]));
+				}
+			} else {
+				store.set(selectedLinesAtom, new Set());
+				store.set(selectedWordsAtom, new Set());
+			}
+			setImportFromTextDialog(false);
 		},
-		[store],
+		[store, setImportFromTextDialog],
 	);
+
 
 	return (
 		<Dialog.Root
@@ -469,6 +537,25 @@ export const ImportFromText = () => {
 											value={wordSeparator}
 											onChange={(evt) => setWordSeparator(evt.currentTarget.value)}
 										/>
+
+										<PrefText>
+											{t("textImportDialog.addSpaces", "补全单词空格")}
+										</PrefText>
+										<Switch
+											checked={addSpaces}
+											onCheckedChange={setAddSpaces}
+										/>
+
+										<PrefText>
+											{t("textImportDialog.splitHyphens", "拆分连字符单词")}
+										</PrefText>
+										<Switch
+											checked={splitHyphens}
+											onCheckedChange={setSplitHyphens}
+										/>
+
+
+
 
 										<PrefText>
 											{t("textImportDialog.enableSpecialPrefix", "启用特殊前缀")}

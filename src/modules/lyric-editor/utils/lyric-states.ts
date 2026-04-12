@@ -67,8 +67,9 @@ export const getSyncUnitsForLine = (line: LyricLine): SyncWordUnit[] =>
 export const getSynchronizableUnits = (line: LyricLine) =>
 	getSyncUnitsForLine(line).filter((unit) => {
 		const text = unit.rubyWord?.word ?? unit.word.word;
-		return text.trim().length > 0;
+		return text.length > 0;
 	});
+
 
 export const getFirstSynchronizableUnit = (line: LyricLine) =>
 	getSynchronizableUnits(line)[0];

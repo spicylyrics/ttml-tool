@@ -2,6 +2,7 @@ import {
 	Add16Regular,
 	AlbumRegular,
 	Delete16Regular,
+	Image16Regular,
 	Info16Regular,
 	MusicNote1Regular,
 	NumberSymbol16Regular,
@@ -10,6 +11,7 @@ import {
 	Search16Regular,
 } from "@fluentui/react-icons";
 import {
+	Box,
 	Button,
 	Dialog,
 	DropdownMenu,
@@ -30,6 +32,7 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { getBetterGeniusCoverArt } from "$/modules/genius/utils/image";
 import {
 	geniusSearchDialogAtom,
 	metadataEditorDialogAtom,
@@ -44,6 +47,7 @@ import {
 	QQMusicIcon,
 	SpotifyIcon,
 } from "./PlatformIcons";
+
 
 interface MetadataEntryProps {
 	entry: { key: string; value: string[] };
@@ -292,6 +296,28 @@ const MetadataEntry = memo(
 													: undefined
 										}
 									/>
+									{entry.key === "cover_art" && vv && (
+										<Box
+											style={{
+												width: "32px",
+												height: "32px",
+												borderRadius: "4px",
+												overflow: "hidden",
+												flexShrink: 0,
+											}}
+										>
+											<img
+												src={getBetterGeniusCoverArt(vv, 100)}
+												alt="Cover"
+												style={{
+													width: "100%",
+													height: "100%",
+													objectFit: "cover",
+												}}
+												referrerPolicy="no-referrer"
+											/>
+										</Box>
+									)}
 									{isLinkable && (
 										<IconButton
 											disabled={!isButtonEnabled}
@@ -455,6 +481,11 @@ export const MetadataEditor = () => {
 				label: t("metadataDialog.builtinOptions.album", "歌曲的专辑名"),
 				value: "album",
 				icon: <AlbumRegular />,
+			},
+			{
+				label: t("metadataDialog.builtinOptions.coverArt", "Cover URL"),
+				value: "cover_art",
+				icon: <Image16Regular />,
 			},
 			{
 				// 歌词所匹配的网易云音乐 ID

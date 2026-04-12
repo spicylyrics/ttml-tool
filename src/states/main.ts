@@ -107,7 +107,7 @@ export const saveStatusAtom = atom<SaveStatus>(SaveStatus.Saved);
  */
 export const lastSavedTimeAtom = atom<number | null>(null);
 
-export const undoableLyricLinesAtom = withHistory(lyricLinesAtom, 256);
+export const undoableLyricLinesAtom = withHistory(lyricLinesAtom, 10);
 export const isDirtyAtom = atom((get) => get(undoableLyricLinesAtom).canUndo);
 export const undoLyricLinesAtom = atom(null, (_get, set) => {
 	set(undoableLyricLinesAtom, UNDO);

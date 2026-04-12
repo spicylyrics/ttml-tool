@@ -16,6 +16,7 @@ import {
 	geniusImportLyricsDialogAtom,
 	importFromLRCLIBDialogAtom,
 	importFromTextDialogAtom,
+	lyricallyImportLyricsDialogAtom,
 } from "$/states/dialogs.ts";
 import { lyricLinesAtom, saveFileNameAtom } from "$/states/main.ts";
 import { error } from "$/utils/logging.ts";
@@ -25,6 +26,7 @@ export const ImportExportLyric = () => {
 	const setImportFromTextDialog = useSetAtom(importFromTextDialogAtom);
 	const setImportFromLRCLIBDialog = useSetAtom(importFromLRCLIBDialogAtom);
 	const setGeniusImportLyricsDialog = useSetAtom(geniusImportLyricsDialogAtom);
+	const setLyricallyImportDialog = useSetAtom(lyricallyImportLyricsDialogAtom);
 	const { openFile } = useFileOpener();
 	const { t } = useTranslation();
 
@@ -99,9 +101,14 @@ export const ImportExportLyric = () => {
 					<DropdownMenu.Item onClick={() => setImportFromLRCLIBDialog(true)}>
 						{t("topBar.menu.importLyric.fromLRCLIB", "从 LRCLIB 导入...")}
 					</DropdownMenu.Item>
+					<DropdownMenu.Item onClick={() => setLyricallyImportDialog(true)}>
+						{t("topBar.menu.importLyric.fromLyrically", "Import from Lyrically...")}
+					</DropdownMenu.Item>
+
 					<DropdownMenu.Item onClick={() => setGeniusImportLyricsDialog(true)}>
 						{t("topBar.menu.importLyric.fromGenius", "从 Genius 导入…")}
 					</DropdownMenu.Item>
+
 					<DropdownMenu.Item onClick={() => onImportLyric("lrc")}>
 						{t("topBar.menu.importLyric.fromLyRiC", "从 LyRiC 文件导入")}
 					</DropdownMenu.Item>

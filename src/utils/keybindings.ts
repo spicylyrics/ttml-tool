@@ -59,7 +59,15 @@ export const keyBindingTriggerModeAtom = atom(
 );
 
 export function formatKeyBindings(cfg: KeyBindingsConfig): string {
-	return cfg
+	const sorted = [...cfg].sort((a, b) => {
+		const indexA = MODIFIER_ORDER.indexOf(a);
+		const indexB = MODIFIER_ORDER.indexOf(b);
+		if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+		if (indexA !== -1) return -1;
+		if (indexB !== -1) return 1;
+		return a.localeCompare(b);
+	});
+	return sorted
 		.map((key) => {
 			if (key.startsWith("Key")) return key.substring(3);
 			if (key.endsWith("Right")) return key.substring(0, key.length - 5);
@@ -80,7 +88,15 @@ export function formatKeyBindings(cfg: KeyBindingsConfig): string {
 }
 
 export function formatKeyBindingsAsArray(cfg: KeyBindingsConfig): string[] {
-	return cfg.map((key) => {
+	const sorted = [...cfg].sort((a, b) => {
+		const indexA = MODIFIER_ORDER.indexOf(a);
+		const indexB = MODIFIER_ORDER.indexOf(b);
+		if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+		if (indexA !== -1) return -1;
+		if (indexB !== -1) return 1;
+		return a.localeCompare(b);
+	});
+	return sorted.map((key) => {
 		if (key.startsWith("Key")) return key.substring(3);
 		if (navigator.userAgent.includes("Mac")) {
 			if (key === "Control") return "⌃";
@@ -134,6 +150,20 @@ const pressingKeys = new Set<string>();
 const registeredKeyBindings = new Map<string, Set<KeyBindingCallback>>();
 let downTime = 0;
 
+const MODIFIER_ORDER = ["Control", "Meta", "Alt", "Shift"];
+function getShortcutKey(cfg: KeyBindingsConfig | Set<string>) {
+	const keys = [...cfg];
+	keys.sort((a, b) => {
+		const indexA = MODIFIER_ORDER.indexOf(a);
+		const indexB = MODIFIER_ORDER.indexOf(b);
+		if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+		if (indexA !== -1) return -1;
+		if (indexB !== -1) return 1;
+		return a.localeCompare(b);
+	});
+	return keys.join(" + ");
+}
+
 function triggerCallbacks(
 	joinedKey: string,
 	evt: KeyboardEvent,
@@ -183,7 +213,7 @@ window.addEventListener("keydown", (evt) => {
 	pressingKeys.add(code);
 
 	if (currentTriggerMode === KeyBindingTriggerMode.KeyDown) {
-		const joined = [...pressingKeys].join(" + ").trim();
+		const joined = getShortcutKey(pressingKeys);
 		triggerCallbacks(joined, evt, downTime);
 	}
 });
@@ -197,7 +227,7 @@ window.addEventListener("keyup", (evt) => {
 	const code = removeSideOfKeyCode(evt.code);
 
 	if (currentTriggerMode === KeyBindingTriggerMode.KeyUp) {
-		const joined = [...pressingKeys].join(" + ").trim();
+		const joined = getShortcutKey(pressingKeys);
 		triggerCallbacks(joined, evt, downTime);
 	}
 
@@ -216,7 +246,7 @@ export function forceInvokeKeyBindingAtom(
 	evt?: MouseEvent | KeyboardEvent | TouchEvent,
 ) {
 	const keyBinding = store.get(thisAtom);
-	const joined = keyBinding.join(" + ").trim();
+	const joined = getShortcutKey(keyBinding);
 	const callbacks = registeredKeyBindings.get(joined);
 
 	if (callbacks) {
@@ -284,7 +314,7 @@ export function registerKeyBindings(
 	if (cfg.length === 0) {
 		return () => {};
 	}
-	const joined = [...cfg].join(" + ");
+	const joined = getShortcutKey(cfg);
 	let set = registeredKeyBindings.get(joined);
 	if (!set) {
 		set = new Set();

@@ -11,16 +11,17 @@ import {
 	isSynchronizableLine,
 } from "$/modules/lyric-editor/utils/lyric-states";
 import {
-	SyncJudgeMode,
+	highlightActiveWordAtom,
 	smartFirstWordAtom,
 	smartLastWordAtom,
+	SyncJudgeMode,
 	syncJudgeModeAtom,
 } from "$/modules/settings/states";
 import {
 	currentEmptyBeatAtom,
 	smartFirstWordActiveIdAtom,
-	syncTimeOffsetAtom,
 	syncLevelModeAtom,
+	syncTimeOffsetAtom,
 } from "$/modules/settings/states/sync";
 import {
 	keyMoveFirstWordAndPlayAtom,
@@ -34,6 +35,7 @@ import {
 	keySyncEndAtom,
 	keySyncNextAtom,
 	keySyncStartAtom,
+	keyToggleWordHighlightAtom,
 } from "$/states/keybindings.ts";
 import {
 	lyricLinesAtom,
@@ -45,6 +47,7 @@ import {
 	type KeyBindingEvent,
 	useKeyBindingAtom,
 } from "$/utils/keybindings.ts";
+
 
 const getUnitStartTime = (unit: {
 	word: LyricWord;
@@ -347,7 +350,8 @@ export const SyncKeyBinding: FC = () => {
 					const units = getSynchronizableUnits(curLine);
 					if (units.length > 0) {
 						let startTime = getUnitStartTime(units[0]);
-						if (startTime === undefined || startTime >= currentTime) {
+						if (startTime === undefined || startTime >= currentTime || startTime === 0) {
+
 							startTime = Math.max(0, currentTime - 1000);
 						}
 						const totalDuration = currentTime - startTime;
@@ -465,55 +469,68 @@ export const SyncKeyBinding: FC = () => {
 
 			store.set(lyricLinesAtom, (prev) => {
 				const state: LyricsState = prev;
-				const prevCurLine = state.lyricLines[location.lineIndex];
-				if (!prevCurLine) return prev;
-
-				const nextWord = findNextWord(
-					state.lyricLines,
-					location.lineIndex,
-					location.syncIndex,
-				);
-
 				const nextLines = state.lyricLines.slice();
-				const curLine = cloneLineWithWords(prevCurLine);
-				setUnitEndTimeCloned(
-					curLine,
-					location.wordIndex,
-					location.rubyIndex,
-					currentTime,
-				);
+				
+				let curLineIndex = location.lineIndex;
+				let curWordIndex = location.wordIndex;
+				let curRubyIndex = location.rubyIndex;
+				let curSyncIndex = location.syncIndex;
 
-				if (nextWord) {
-					const nextLineIndex = state.lyricLines.findIndex(
-						(l) => l.id === nextWord.line.id,
-					);
-					if (nextLineIndex >= 0) {
-						const prevNextLine = state.lyricLines[nextLineIndex];
-						const nextLine =
-							nextLineIndex === location.lineIndex
-								? curLine
-								: cloneLineWithWords(prevNextLine);
+				const getLineToEdit = (idx: number) => {
+					// Ensure the line is cloned and stored in nextLines
+					nextLines[idx] = cloneLineWithWords(nextLines[idx]);
+					return nextLines[idx];
+				};
 
-						if (nextLineIndex !== location.lineIndex) {
-							curLine.endTime = currentTime;
-							nextLine.startTime = currentTime;
+				// 1. Commit current word end time
+				setUnitEndTimeCloned(getLineToEdit(curLineIndex), curWordIndex, curRubyIndex, currentTime);
+
+				// 2. Scan forward for next selection
+				let targetSelection: { id: string; lineId: string } | null = null;
+				
+				let iterLineIndex = curLineIndex;
+				let iterSyncIndex = curSyncIndex;
+
+				while (true) {
+					const next = findNextWord(nextLines, iterLineIndex, iterSyncIndex);
+					if (!next) break;
+
+					const text = (next.unit.rubyWord?.word ?? next.unit.word.word).trim();
+					if (text.length === 0) {
+						// It's whitespace. Auto-commit both start and end to the current time.
+						const targetLine = getLineToEdit(next.lineIndex);
+						if (next.lineIndex !== iterLineIndex) {
+							nextLines[iterLineIndex].endTime = currentTime;
+							targetLine.startTime = currentTime;
 						}
-
-						setUnitStartTimeCloned(
-							nextLine,
-							nextWord.unit.wordIndex,
-							nextWord.unit.rubyIndex,
-							currentTime,
-						);
-
-						nextLines[nextLineIndex] = nextLine;
+						setUnitStartTimeCloned(targetLine, next.unit.wordIndex, next.unit.rubyIndex, currentTime);
+						setUnitEndTimeCloned(targetLine, next.unit.wordIndex, next.unit.rubyIndex, currentTime);
+						iterLineIndex = next.lineIndex;
+						iterSyncIndex = next.syncIndex;
+					} else {
+						// Found the next real word!
+						const targetLine = getLineToEdit(next.lineIndex);
+						if (next.lineIndex !== iterLineIndex) {
+							nextLines[iterLineIndex].endTime = currentTime;
+							targetLine.startTime = currentTime;
+						}
+						setUnitStartTimeCloned(targetLine, next.unit.wordIndex, next.unit.rubyIndex, currentTime);
+						targetSelection = { id: next.unit.id, lineId: next.line.id };
+						break;
 					}
 				}
 
-				nextLines[location.lineIndex] = curLine;
+				if (targetSelection) {
+					store.set(selectedWordsAtom, new Set([targetSelection.id]));
+					store.set(selectedLinesAtom, new Set([targetSelection.lineId]));
+				}
+
 				return { ...state, lyricLines: nextLines };
 			});
-			moveToNextWord();
+			
+			store.set(currentEmptyBeatAtom, 0);
+
+
 
 			// 开了智能首字后，连轴打到下一行时跳过智能首字
 			if (smartFirstWord) {
@@ -546,7 +563,8 @@ export const SyncKeyBinding: FC = () => {
 					const units = getSynchronizableUnits(curLine);
 					if (units.length > 0) {
 						let startTime = getUnitStartTime(units[0]);
-						if (startTime === undefined || startTime >= currentTime) {
+						if (startTime === undefined || startTime >= currentTime || startTime === 0) {
+
 							startTime = Math.max(0, currentTime - 1000);
 						}
 						const totalDuration = currentTime - startTime;
@@ -605,6 +623,11 @@ export const SyncKeyBinding: FC = () => {
 		},
 		[store, moveToNextWord],
 	);
+	
+	useKeyBindingAtom(keyToggleWordHighlightAtom, () => {
+		store.set(highlightActiveWordAtom, (v) => !v);
+	}, [store]);
+
 
 	return null;
 };

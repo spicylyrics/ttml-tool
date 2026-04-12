@@ -1,6 +1,18 @@
 import { Box, Flex } from "@radix-ui/themes";
 import { Toolbar } from "radix-ui";
 import { type FC, useEffect, useState } from "react";
+import {
+	keyDeleteSelectionAtom,
+	keyNewFileAtom,
+	keyOpenFileAtom,
+	keyRedoAtom,
+	keySaveFileAtom,
+	keySelectAllAtom,
+	keySelectInvertedAtom,
+	keySelectWordsOfMatchedSelectionAtom,
+	keyUndoAtom,
+} from "$/states/keybindings.ts";
+import { registerKeyBindings, useKeyBindingAtom } from "$/utils/keybindings.ts";
 import { HeaderFileInfo } from "./HeaderFileInfo";
 import { EditMenu } from "./modals/EditMenu";
 import { FileMenu } from "./modals/FileMenu";
@@ -33,7 +45,34 @@ const useWindowSize = () => {
 export const TopMenu: FC = () => {
 	const { width } = useWindowSize();
 	const showHomeButton = width < 800;
-	// useTopMenuActions is not needed here; menu actions are used inside individual menu components
+	const menu = useTopMenuActions();
+
+	useKeyBindingAtom(keyNewFileAtom, menu.onNewFile, [menu.onNewFile]);
+	useKeyBindingAtom(keyOpenFileAtom, menu.onOpenFile, [menu.onOpenFile]);
+	useKeyBindingAtom(keySaveFileAtom, menu.onSaveFile, [menu.onSaveFile]);
+	useKeyBindingAtom(keyUndoAtom, menu.onUndo, [menu.onUndo]);
+	useKeyBindingAtom(keyRedoAtom, menu.onRedo, [menu.onRedo]);
+	useEffect(() => {
+		const unbinds = [
+			registerKeyBindings(["Control", "KeyY"], menu.onRedo),
+			registerKeyBindings(["Control", "Shift", "KeyZ"], menu.onRedo),
+			registerKeyBindings(["Shift", "Control", "KeyZ"], menu.onRedo),
+		];
+		return () => unbinds.forEach((unbind) => unbind());
+	}, [menu.onRedo]);
+	useKeyBindingAtom(keySelectAllAtom, menu.onUnselectAll, [menu.onUnselectAll]);
+	useKeyBindingAtom(keySelectAllAtom, menu.onSelectAll, [menu.onSelectAll]);
+	useKeyBindingAtom(keySelectInvertedAtom, menu.onSelectInverted, [
+		menu.onSelectInverted,
+	]);
+	useKeyBindingAtom(
+		keySelectWordsOfMatchedSelectionAtom,
+		menu.onSelectWordsOfMatchedSelection,
+		[menu.onSelectWordsOfMatchedSelection],
+	);
+	useKeyBindingAtom(keyDeleteSelectionAtom, menu.onDeleteSelection, [
+		menu.onDeleteSelection,
+	]);
 
 	return (
 		<Flex
