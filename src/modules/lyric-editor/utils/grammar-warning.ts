@@ -426,6 +426,53 @@ export const collectPossibleGrammarWarnings = (
 				warnings.add(wordObj.id);
 			}
 		}
+
+		// Cross-token em-dash bridging: flag em-dash that crosses to the next word
+		if (i < line.words.length - 1) {
+			const currentWord = line.words[i].word;
+			const nextWord = line.words[i + 1].word;
+			if (
+				currentWord.endsWith("—") &&
+				nextWord &&
+				/^[A-Za-z]/.test(nextWord[0])
+			) {
+				warnings.add(line.words[i].id);
+				warnings.add(line.words[i + 1].id);
+			}
+			// Also handle case where dash occurs across token boundary (e.g., "God—stained" split)
+			if (
+				currentWord.includes("—") &&
+				nextWord &&
+				/^[A-Za-z]/.test(nextWord[0])
+			) {
+				warnings.add(line.words[i].id);
+				warnings.add(line.words[i + 1].id);
+			}
+		}
+
+		if (!warnings.has(wordObj.id)) {
+			const rawWord = wordObj.word.trim();
+			if (rawWord === "—") {
+				warnings.add(wordObj.id);
+			}
+		}
+
+		if (!warnings.has(wordObj.id)) {
+			const rawWord = wordObj.word;
+			const hasEmDash = rawWord.includes("—");
+			const endsWithEmDash = rawWord.endsWith("—");
+			if (hasEmDash && !endsWithEmDash) {
+				warnings.add(wordObj.id);
+			}
+		}
+
+		if (!warnings.has(wordObj.id)) {
+			const rawWord = wordObj.word;
+			const isLastWord = i === line.words.length - 1;
+			if (isLastWord && /^.+-$/.test(rawWord) && !/[^a-zA-Z]-/.test(rawWord)) {
+				warnings.add(wordObj.id);
+			}
+		}
 	}
 
 	return warnings;
@@ -508,6 +555,26 @@ export const getGrammarSuggestions = (
 		if (rawWord.endsWith(".") || rawWord.endsWith(",")) {
 			suggestions.push(rawWord.slice(0, -1).trim());
 		}
+	}
+
+	if (word.word.trim() === "—") {
+		suggestions.push("–");
+	}
+
+	const trimmedWord = word.word;
+	const hasEmDash = trimmedWord.includes("—");
+	const endsWithEmDash = trimmedWord.endsWith("—");
+	if (hasEmDash && !endsWithEmDash) {
+		suggestions.push(trimmedWord.replace("—", "-"));
+	}
+
+	const isLastWord = wordIndex === line.words.length - 1;
+	if (
+		isLastWord &&
+		/^.+-$/.test(trimmedWord) &&
+		!/[^a-zA-Z]-/.test(trimmedWord)
+	) {
+		suggestions.push(trimmedWord.slice(0, -1) + "—");
 	}
 
 	const result = [...new Set(suggestions)];

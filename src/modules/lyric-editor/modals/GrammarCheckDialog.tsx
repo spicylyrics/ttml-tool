@@ -128,6 +128,49 @@ export const GrammarCheckDialog = () => {
 						word.word.slice(firstAlphaIndex + 1);
 				}
 
+				if (!message) {
+					const trimmedWord = word.word.trim();
+					if (trimmedWord === "—") {
+						issueType = "ambiguous";
+						message = t(
+							"grammarCheck.emDash",
+							"Em dash (—) should be replaced with en dash (–)",
+						);
+						suggestion = "–";
+					}
+				}
+
+				if (!message) {
+					const rawWord = word.word;
+					const hasEmDash = rawWord.includes("—");
+					const endsWithEmDash = rawWord.endsWith("—");
+					if (hasEmDash && !endsWithEmDash) {
+						issueType = "ambiguous";
+						message = t(
+							"grammarCheck.wordHasEmDash",
+							"Word contains em dash (—), should use hyphen (-) for syllable breaks",
+						);
+						suggestion = rawWord.replace("—", "-");
+					}
+				}
+
+				if (!message) {
+					const rawWord = word.word;
+					const isLastWord = wordIndex === line.words.length - 1;
+					if (
+						isLastWord &&
+						/^.+-$/.test(rawWord) &&
+						!/[^a-zA-Z]-/.test(rawWord)
+					) {
+						issueType = "ambiguous";
+						message = t(
+							"grammarCheck.wordEndsWithHyphen",
+							"Word ending with hyphen (word-) should use em dash (—)",
+						);
+						suggestion = rawWord.slice(0, -1) + "—";
+					}
+				}
+
 				if (message) {
 					result.push({
 						type: issueType,
