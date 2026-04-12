@@ -432,18 +432,25 @@ export const collectPossibleGrammarWarnings = (
 			const currentWord = line.words[i].word;
 			const nextWord = line.words[i + 1].word;
 			if (
-				currentWord.endsWith("—") &&
+				(currentWord.endsWith("—") || currentWord.endsWith("–")) &&
 				nextWord &&
-				/^[A-Za-z]/.test(nextWord[0])
+				/[A-Za-zÁ-ÿ]/.test(nextWord[0])
 			) {
 				warnings.add(line.words[i].id);
 				warnings.add(line.words[i + 1].id);
+			}
+
+			// Detect internal em-dash when a single word contains an em dash between letters
+			if (!warnings.has(wordObj.id)) {
+				if (/[A-Za-zÁ-ÿ]+[—–][A-Za-zÁ-ÿ]+/.test(wordObj.word)) {
+					warnings.add(wordObj.id);
+				}
 			}
 			// Also handle case where dash occurs across token boundary (e.g., "God—stained" split)
 			if (
 				currentWord.includes("—") &&
 				nextWord &&
-				/^[A-Za-z]/.test(nextWord[0])
+				/[A-Za-zÁ-ÿ]/.test(nextWord[0])
 			) {
 				warnings.add(line.words[i].id);
 				warnings.add(line.words[i + 1].id);
