@@ -468,15 +468,11 @@ export const collectPossibleGrammarWarnings = (
 			const rawWord = wordObj.word;
 			const hasEmDash = rawWord.includes("—");
 			const endsWithEmDash = rawWord.endsWith("—");
+			const isLastWord = i === line.words.length - 1;
 			if (hasEmDash && !endsWithEmDash) {
 				warnings.add(wordObj.id);
 			}
-		}
-
-		if (!warnings.has(wordObj.id)) {
-			const rawWord = wordObj.word;
-			const isLastWord = i === line.words.length - 1;
-			if (isLastWord && /^.+-$/.test(rawWord) && !/[^a-zA-Z]-/.test(rawWord)) {
+			if (isLastWord && rawWord.endsWith("-")) {
 				warnings.add(wordObj.id);
 			}
 		}
@@ -554,6 +550,14 @@ export const getGrammarSuggestions = (
 			if (hasSpaceBetween || hasPunctuationBetween) {
 				suggestions.push("__REMOVE_REPEATED_WORD__");
 			}
+
+			// End-of-line: if the last word ends with a hyphen, suggest replacing with em dash
+			if (wordIndex === line.words.length - 1) {
+				const w = line.words[wordIndex].word.trim();
+				if (w.endsWith("-")) {
+					suggestions.push(w.slice(0, -1) + "—");
+				}
+			}
 		}
 	}
 
@@ -581,6 +585,10 @@ export const getGrammarSuggestions = (
 		/^.+-$/.test(trimmedWord) &&
 		!/[^a-zA-Z]-/.test(trimmedWord)
 	) {
+		suggestions.push(trimmedWord.slice(0, -1) + "—");
+	}
+
+	if (isLastWord && trimmedWord.endsWith("-")) {
 		suggestions.push(trimmedWord.slice(0, -1) + "—");
 	}
 
