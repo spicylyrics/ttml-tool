@@ -457,24 +457,14 @@ export const collectPossibleGrammarWarnings = (
 			}
 		}
 
-		if (!warnings.has(wordObj.id)) {
-			const rawWord = wordObj.word.trim();
-			if (rawWord === "—") {
-				warnings.add(wordObj.id);
-			}
+		// Detect internal em-dash in any word (em-dash between letters, not at ends)
+		if (/[A-Za-zÁ-ÿ]+[—–][A-Za-zÁ-ÿ]+/.test(wordObj.word)) {
+			warnings.add(wordObj.id);
 		}
 
-		if (!warnings.has(wordObj.id)) {
-			const rawWord = wordObj.word;
-			const hasEmDash = rawWord.includes("—");
-			const endsWithEmDash = rawWord.endsWith("—");
-			const isLastWord = i === line.words.length - 1;
-			if (hasEmDash && !endsWithEmDash) {
-				warnings.add(wordObj.id);
-			}
-			if (isLastWord && rawWord.endsWith("-")) {
-				warnings.add(wordObj.id);
-			}
+		// Detect trailing hyphen at end of line
+		if (i === line.words.length - 1 && wordObj.word.endsWith("-")) {
+			warnings.add(wordObj.id);
 		}
 	}
 
@@ -577,6 +567,11 @@ export const getGrammarSuggestions = (
 	const endsWithEmDash = trimmedWord.endsWith("—");
 	if (hasEmDash && !endsWithEmDash) {
 		suggestions.push(trimmedWord.replace("—", "-"));
+	}
+
+	// Suggestion for internal em-dash (word like "God—stained")
+	if (/[A-Za-zÁ-ÿ]+[—–][A-Za-zÁ-ÿ]+/.test(trimmedWord)) {
+		suggestions.push(trimmedWord.replace("—", "-").replace("–", "-"));
 	}
 
 	const isLastWord = wordIndex === line.words.length - 1;
