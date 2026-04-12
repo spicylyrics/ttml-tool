@@ -89,12 +89,19 @@ export const GeniusImportLyricsDialog = () => {
 	}, [query, geniusApiKey, t]);
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-const filterSlop = useCallback((text: string): string => {
+	const filterSlop = useCallback((text: string): string => {
 		let cleaned = text;
 
 		// Convert escaped newline/tab sequences first
 		cleaned = cleaned.replace(/\\n/g, "\n");
 		cleaned = cleaned.replace(/\\t/g, " ");
+
+		// Replace backslash-space patterns with a single space
+		// Handles both single backslash and escaped backslash from Genius
+		cleaned = cleaned.replace(/\\+ /g, " ");
+
+		// Replace any remaining backslash followed by anything with space
+		cleaned = cleaned.replace(/\\+/g, " ");
 
 		// Handle escaped quotes
 		cleaned = cleaned.replace(/\\"/g, '"');
@@ -112,7 +119,7 @@ const filterSlop = useCallback((text: string): string => {
 		const rawLines = cleaned.split("\n").map((l) => l.trim());
 
 		const slopPatterns = [
-            // ... keep your existing slop patterns here ...
+			// ... keep your existing slop patterns here ...
 			/^\[.*\]$/, // Section headers [Verse], [Chorus]
 			/Embed$/, // Genius embed artifact
 			/^\d+ Contributors?$/, // Contributor count
