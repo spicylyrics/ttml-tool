@@ -63,7 +63,9 @@
 			"romanLyric": "Romanizace",
 			"layoutMode": "Rozložení",
 			"auxiliaryLineDisplay": "Zobrazení pomocného řádku",
-			"previewPanel": "Náhledový panel"
+			"previewPanel": "Náhledový panel",
+			"grammarCheck": "Kontrola gramatiky",
+			"tools": "Kontrola"
 		},
 		"previewMode": {
 			"lyrics": "titulky",
@@ -590,5 +592,23 @@
 		"offlineReady": "Stránka úspěšně uložena do mezipaměti pro offline použití",
 		"updateRefresh": "Stránka aktualizována, obnovte pro použití nejnovější verze!",
 		"refresh": "Obnovit"
+	},
+	"grammarCheck": {
+		"title": "Kontrola gramatiky a pravopisu",
+		"history": "Historie",
+		"noIssues": "Žádné problémy nenalezeny!",
+		"issuesFound": "problémů nalezeno",
+		"noIssuesMessage": "Žádné problémy nenalezeny! Vaše texty vypadají dobře.",
+		"clearHistory": "Vymazat historii",
+		"noHistory": "Zatím nebyly provedeny žádné změny",
+		"fixed": "opraveno",
+		"ignored": "ignorováno",
+		"line": "Řádek",
+		"repeatedWord": "Detekováno opakované slovo",
+		"capitalization": "Slovo by mělo být velkým písmenem",
+		"undoLast": "Zpět poslední",
+		"ignoredWords": "Ignorovaná slova",
+		"clearIgnoredWords": "Vymazat vše",
+		"noIgnoredWords": "Žádná ignorovaná slova"
 	}
 }

@@ -31,6 +31,7 @@ export enum ToolMode {
 export const toolModeAtom = atom(ToolMode.Edit);
 
 export const showPreviewPanelAtom = atom(false);
+export const previewPanelWidthAtom = atomWithStorage("previewPanelWidth", 400);
 
 export const darkModeAtom = atom(DarkMode.Auto);
 export const isDarkThemeAtom = atom((get) => {

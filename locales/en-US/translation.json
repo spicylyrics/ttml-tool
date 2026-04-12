@@ -71,7 +71,9 @@
 			"romanLyric": "Romanization",
 			"layoutMode": "Layout",
 			"auxiliaryLineDisplay": "Auxiliary Line Display",
-			"previewPanel": "Preview Panel"
+			"previewPanel": "Preview Panel",
+			"grammarCheck": "Grammar Check",
+			"tools": "Check"
 		},
 		"previewMode": {
 			"lyrics": "Lyrics",
@@ -738,5 +740,22 @@
 		"noResult": "Enter a song name or artist to start.",
 		"changeKey": "Change API Key",
 		"back": "Back"
+	},
+	"grammarCheck": {
+		"title": "Grammar & Spelling Check",
+		"history": "History",
+		"noIssues": "No issues found!",
+		"issuesFound": "issues found",
+		"noIssuesMessage": "No issues found! Your lyrics look good.",
+		"clearHistory": "Clear History",
+		"noHistory": "No changes made yet",
+		"fixed": "fixed",
+		"ignored": "ignored",
+		"line": "Line",
+		"capitalization": "Word should be capitalized",
+		"undoLast": "Undo Last",
+		"ignoredWords": "Ignored Words",
+		"clearIgnoredWords": "Clear All",
+		"noIgnoredWords": "No ignored words"
 	}
 }

@@ -62,8 +62,10 @@
 			"translatedLyric": "Traducción",
 			"romanLyric": "Romanización",
 			"layoutMode": "Diseño",
-			"auxiliaryLineDisplay": "Mostrar línea auxiliar",
-			"previewPanel": "Panel de vista previa"
+			"auxiliaryLineDisplay": "Visualización de línea auxiliar",
+			"previewPanel": "Panel de vista previa",
+			"grammarCheck": "Revisión de gramática",
+			"tools": "Verificar"
 		},
 		"previewMode": {
 			"lyrics": "Letras",
@@ -590,5 +592,23 @@
 		"offlineReady": "Sitio almacenado en caché exitosamente para uso sin conexión",
 		"updateRefresh": "Sitio actualizado, ¡actualiza para usar la última versión!",
 		"refresh": "Actualizar"
+	},
+	"grammarCheck": {
+		"title": "Revisión de gramática y ortografía",
+		"history": "Historial",
+		"noIssues": "¡No se encontraron problemas!",
+		"issuesFound": "problemas encontrados",
+		"noIssuesMessage": "¡No se encontraron problemas! Tus letras se ven bien.",
+		"clearHistory": "Borrar historial",
+		"noHistory": "Aún no se han realizado cambios",
+		"fixed": "arreglado",
+		"ignored": "ignorado",
+		"line": "Línea",
+		"repeatedWord": "Palabra repetida detectada",
+		"capitalization": "La palabra debería estar capitalizada",
+		"undoLast": "Deshacer último",
+		"ignoredWords": "Palabras ignoradas",
+		"clearIgnoredWords": "Borrar todo",
+		"noIgnoredWords": "No hay palabras ignoradas"
 	}
 }

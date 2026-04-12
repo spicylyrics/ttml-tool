@@ -63,7 +63,9 @@
 			"romanLyric": "Romanisering",
 			"layoutMode": "Layout",
 			"auxiliaryLineDisplay": "Visning af hjælpelinje",
-			"previewPanel": "Preview-panel"
+			"previewPanel": "Preview-panel",
+			"grammarCheck": "Grammatik og stavekontrol",
+			"tools": "Kontroller"
 		},
 		"previewMode": {
 			"lyrics": "Sangtekster",
@@ -590,5 +592,23 @@
 		"offlineReady": "Websted succesfuldt cachet til offline brug",
 		"updateRefresh": "Websted opdateret, opdater for at bruge den seneste version!",
 		"refresh": "Opdater"
+	},
+	"grammarCheck": {
+		"title": "Grammatik og stavekontrol",
+		"history": "Historik",
+		"noIssues": "Ingen problemer fundet!",
+		"issuesFound": "problemer fundet",
+		"noIssuesMessage": "Ingen problemer fundet! Dine tekster ser godt ud.",
+		"clearHistory": "Ryd historik",
+		"noHistory": "Ingen ændringer foretaget endnu",
+		"fixed": "rettet",
+		"ignored": "ignoreret",
+		"line": "Linje",
+		"repeatedWord": "Gentaget ord registreret",
+		"capitalization": "Ordet bør være med stort forbogstav",
+		"undoLast": "Fortryd sidste",
+		"ignoredWords": "Ignorerede ord",
+		"clearIgnoredWords": "Ryd alle",
+		"noIgnoredWords": "Ingen ignorerede ord"
 	}
 }

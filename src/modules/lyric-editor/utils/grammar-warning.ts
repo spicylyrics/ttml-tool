@@ -1,55 +1,8 @@
 import type { LyricLine } from "$/types/ttml";
 
-const ENGLISH_AMBIGUOUS_WORDS = new Set([
-	"your",
-	"youre",
-	"their",
-	"there",
-	"theyre",
-	"its",
-	"it's",
-	"then",
-	"than",
-	"alot",
-	"lose",
-	"loose",
-	"affect",
-	"effect",
-	"a",
-	"an",
-]);
-
-// Top ~200 most common English words to catch basic typos
-const COMMON_ENGLISH_WORDS = new Set([
-	"the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at", 
-	"this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", 
-	"so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take", 
-	"people", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", "look", "only", "come", "its", "over", "think", "also", 
-	"back", "after", "use", "two", "how", "our", "work", "first", "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us",
-	"love", "life", "heart", "baby", "yeah", "night", "way", "away", "never", "always", "together", "world", "dream", "feel", "smile", "blue", "everything", "nothing", "something", "anything"
-]);
-
-const levenshteinDistance = (a: string, b: string): number => {
-	const matrix = Array.from({ length: a.length + 1 }, (_, i) => 
-		Array.from({ length: b.length + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0))
-	);
-
-	for (let i = 1; i <= a.length; i++) {
-		for (let j = 1; j <= b.length; j++) {
-			const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-			matrix[i][j] = Math.min(
-				matrix[i - 1][j] + 1,
-				matrix[i][j - 1] + 1,
-				matrix[i - 1][j - 1] + cost
-			);
-		}
-	}
-	return matrix[a.length][b.length];
-};
-
 const isLatin = (text: string): boolean => /[A-Za-z]/.test(text);
 
-const normalizeWord = (text: string): string => {
+export const normalizeWord = (text: string): string => {
 	const cleaned = text
 		.trim()
 		.toLowerCase()
@@ -62,30 +15,358 @@ export const isEnglishWord = (text: string): boolean => {
 	return cleaned.length > 0 && /^[a-z']+$/.test(cleaned) && isLatin(cleaned);
 };
 
-export const isWordMisspelled = (
-	word: string,
-	allWordsInLyrics?: Set<string>,
-): boolean => {
-	const current = normalizeWord(word);
-	if (!current) return false;
-
-	const inCommon = COMMON_ENGLISH_WORDS.has(current);
-	const inExisting = allWordsInLyrics?.has(current);
-
-	return !inCommon && !inExisting;
+export const isSpanishWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return (
+		cleaned.length > 0 && /^[a-záéíóúñü]+$/.test(cleaned) && isLatin(cleaned)
+	);
 };
 
-export const isEnglishLine = (line: LyricLine): boolean => {
+export const isFrenchWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return (
+		cleaned.length > 0 &&
+		/^[a-zàâäçéèêëïîôùûü]+$/.test(cleaned) &&
+		isLatin(cleaned)
+	);
+};
+
+export const isGermanWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return cleaned.length > 0 && /^[a-zäöüß]+$/.test(cleaned) && isLatin(cleaned);
+};
+
+export const isPortugueseWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return (
+		cleaned.length > 0 &&
+		/^[a-záéíóúàâãçêõ]+$/.test(cleaned) &&
+		isLatin(cleaned)
+	);
+};
+
+export const isPolishWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return (
+		cleaned.length > 0 && /^[a-ząćęłńóśźż]+$/.test(cleaned) && isLatin(cleaned)
+	);
+};
+
+export const isCzechWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return (
+		cleaned.length > 0 &&
+		/^[a-záčďéěíňóřšťúůýž]+$/.test(cleaned) &&
+		isLatin(cleaned)
+	);
+};
+
+export const isSlovakWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return (
+		cleaned.length > 0 &&
+		/^[a-záčďéěíňóřšťúýž]+$/.test(cleaned) &&
+		isLatin(cleaned)
+	);
+};
+
+export const isDanishWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return cleaned.length > 0 && /^[a-zæøå]+$/.test(cleaned) && isLatin(cleaned);
+};
+
+export const isRussianWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return cleaned.length > 0 && /^[а-яё]+$/.test(cleaned);
+};
+
+export const isIndonesianWord = (text: string): boolean => {
+	const cleaned = normalizeWord(text);
+	return cleaned.length > 0 && /^[a-z]+$/.test(cleaned) && isLatin(cleaned);
+};
+
+type LanguageCode =
+	| "en"
+	| "es"
+	| "fr"
+	| "de"
+	| "pt"
+	| "pl"
+	| "cs"
+	| "sk"
+	| "da"
+	| "ru"
+	| "id"
+	| "zh"
+	| "auto";
+
+const detectLanguageFromLine = (line: LyricLine): LanguageCode => {
 	if (line.language && line.language !== "auto" && line.language !== "off") {
-		return line.language.startsWith("en");
+		const lang = line.language.toLowerCase();
+		if (lang.startsWith("en")) return "en";
+		if (lang.startsWith("es")) return "es";
+		if (lang.startsWith("fr")) return "fr";
+		if (lang.startsWith("de")) return "de";
+		if (lang.startsWith("pt")) return "pt";
+		if (lang.startsWith("pl")) return "pl";
+		if (lang.startsWith("cs")) return "cs";
+		if (lang.startsWith("sk")) return "sk";
+		if (lang.startsWith("da")) return "da";
+		if (lang.startsWith("ru")) return "ru";
+		if (lang.startsWith("id")) return "id";
+		if (lang.startsWith("zh")) return "zh";
+	}
+	return "auto";
+};
+
+const detectLanguageFromContent = (line: LyricLine): LanguageCode => {
+	if (!line.words || line.words.length === 0) return "auto";
+
+	let latinCount = 0;
+	let cyrillicCount = 0;
+	let cjkCount = 0;
+
+	for (const word of line.words) {
+		const text = word.word;
+		if (/[a-zA-Z]/.test(text)) latinCount++;
+		if (/[а-яёА-ЯЁ]/.test(text)) cyrillicCount++;
+		if (/[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]/.test(text)) cjkCount++;
 	}
 
-	if (!line.words || line.words.length === 0) return false;
 	const total = line.words.length;
-	const englishCount = line.words.filter((word) =>
-		isEnglishWord(word.word),
-	).length;
-	return total > 0 && englishCount / total >= 0.4;
+	if (cjkCount / total >= 0.4) return "zh";
+	if (cyrillicCount / total >= 0.4) return "ru";
+
+	const hasSpanishChars = /[áéíóúñü¿¡]/i.test(
+		line.words.map((w) => w.word).join(" "),
+	);
+	const hasFrenchChars = /[àâäçéèêëïîôùûü]/i.test(
+		line.words.map((w) => w.word).join(" "),
+	);
+	const hasGermanChars = /[äöüß]/i.test(
+		line.words.map((w) => w.word).join(" "),
+	);
+	const hasPortugueseChars = /[ãõáéíóúàâçê]/i.test(
+		line.words.map((w) => w.word).join(" "),
+	);
+	const hasPolishChars = /[ąćęłńóśźż]/i.test(
+		line.words.map((w) => w.word).join(" "),
+	);
+	const hasCzechChars = /[áčďéěíňóřšťúůýž]/i.test(
+		line.words.map((w) => w.word).join(" "),
+	);
+	const hasDanishChars = /[æøå]/i.test(line.words.map((w) => w.word).join(" "));
+
+	if (hasSpanishChars) return "es";
+	if (hasPortugueseChars) return "pt";
+	if (hasFrenchChars) return "fr";
+	if (hasGermanChars) return "de";
+	if (hasPolishChars) return "pl";
+	if (hasCzechChars) return "cs";
+	if (hasDanishChars) return "da";
+
+	if (latinCount / total >= 0.4) return "en";
+
+	return "auto";
+};
+
+const getLineLanguage = (line: LyricLine): LanguageCode => {
+	const explicitLang = detectLanguageFromLine(line);
+	if (explicitLang !== "auto") return explicitLang;
+	return detectLanguageFromContent(line);
+};
+
+interface AmbiguousWordPair {
+	word: string;
+	suggestions: string[];
+	requiresContext?: boolean;
+}
+
+const ENGLISH_AMBIGUOUS_WORDS: AmbiguousWordPair[] = [
+	{ word: "your", suggestions: ["you're"] },
+	{ word: "youre", suggestions: ["your", "you're"] },
+	{ word: "their", suggestions: ["they're", "there"] },
+	{ word: "there", suggestions: ["their", "they're"] },
+	{ word: "theyre", suggestions: ["their", "there"] },
+	{ word: "its", suggestions: ["it's"] },
+	{ word: "it's", suggestions: ["its"] },
+	{ word: "then", suggestions: ["than"] },
+	{ word: "than", suggestions: ["then"] },
+	{ word: "alot", suggestions: ["a lot"] },
+	{ word: "lose", suggestions: ["loose"] },
+	{ word: "loose", suggestions: ["lose"] },
+	{ word: "affect", suggestions: ["effect"] },
+	{ word: "effect", suggestions: ["affect"] },
+	{ word: "to", suggestions: ["too", "two"] },
+	{ word: "too", suggestions: ["to", "two"] },
+	{ word: "wear", suggestions: ["where"] },
+	{ word: "where", suggestions: ["wear"] },
+	{ word: "here", suggestions: ["hear"] },
+	{ word: "hear", suggestions: ["here"] },
+	{ word: "sea", suggestions: ["see"] },
+	{ word: "see", suggestions: ["sea"] },
+];
+
+const SPANISH_AMBIGUOUS_WORDS: AmbiguousWordPair[] = [
+	{ word: "por", suggestions: ["para"] },
+	{ word: "para", suggestions: ["por"] },
+	{ word: "mas", suggestions: ["más"] },
+	{ word: "más", suggestions: ["mas"] },
+	{ word: "este", suggestions: ["esta", "esto"] },
+	{ word: "esta", suggestions: ["este", "esto"] },
+	{ word: "esto", suggestions: ["este", "esta"] },
+	{ word: "ese", suggestions: ["esa", "eso"] },
+	{ word: "esa", suggestions: ["ese", "eso"] },
+	{ word: "eso", suggestions: ["ese", "esa"] },
+	{ word: "tener", suggestions: ["tener que"] },
+	{ word: "hacer", suggestions: ["a hacer"] },
+	{ word: "si", suggestions: ["sí"] },
+	{ word: "sí", suggestions: ["si"] },
+	{ word: "tu", suggestions: ["tú"] },
+	{ word: "tú", suggestions: ["tu"] },
+	{ word: "el", suggestions: ["él"] },
+	{ word: "él", suggestions: ["el"] },
+	{ word: "del", suggestions: ["de el"] },
+	{ word: "solo", suggestions: ["sólo"] },
+	{ word: "sólo", suggestions: ["solo"] },
+	{ word: "aun", suggestions: ["aunque", "aún"] },
+	{ word: "aún", suggestions: ["aun", "aunque"] },
+	{ word: "aunque", suggestions: ["aun", "aún"] },
+];
+
+const FRENCH_AMBIGUOUS_WORDS: AmbiguousWordPair[] = [
+	{ word: "son", suggestions: ["sont", "son", "sa"] },
+	{ word: "sont", suggestions: ["son"] },
+	{ word: "sa", suggestions: ["son", "ça"] },
+	{ word: "ça", suggestions: ["sa"] },
+	{ word: "se", suggestions: ["ce"] },
+	{ word: "ce", suggestions: ["se", "c'est"] },
+	{ word: "c'est", suggestions: ["ce"] },
+	{ word: "peut", suggestions: ["peut-être"] },
+	{ word: "peut-être", suggestions: ["peut"] },
+	{ word: "plus", suggestions: ["plus"] },
+	{ word: "peu", suggestions: ["peux", "peut"] },
+	{ word: "ai", suggestions: ["a", "ais"] },
+	{ word: "a", suggestions: ["ai", "as"] },
+	{ word: "est", suggestions: ["et", "es", "était"] },
+	{ word: "et", suggestions: ["est"] },
+	{ word: "on", suggestions: ["ont"] },
+	{ word: "ont", suggestions: ["on"] },
+	{ word: "dont", suggestions: ["donc"] },
+	{ word: "donc", suggestions: ["dont"] },
+];
+
+const GERMAN_AMBIGUOUS_WORDS: AmbiguousWordPair[] = [
+	{ word: "das", suggestions: ["dass"] },
+	{ word: "dass", suggestions: ["das"] },
+	{ word: "zu", suggestions: ["zum", "zur"] },
+	{ word: "zum", suggestions: ["zu"] },
+	{ word: "zur", suggestions: ["zu"] },
+	{ word: "von", suggestions: ["vom"] },
+	{ word: "vom", suggestions: ["von"] },
+	{ word: "dann", suggestions: ["denn"] },
+	{ word: "denn", suggestions: ["dann"] },
+	{ word: "wenn", suggestions: ["als"] },
+	{ word: "als", suggestions: ["wenn"] },
+	{ word: "sei", suggestions: ["sey", "seid"] },
+	{ word: "ist", suggestions: ["es", "sind"] },
+	{ word: "es", suggestions: ["ist", "das"] },
+	{ word: "sind", suggestions: ["ist"] },
+	{ word: "hat", suggestions: ["hatte", "haben"] },
+	{ word: "hatte", suggestions: ["hat"] },
+	{ word: "haben", suggestions: ["hat"] },
+	{ word: "wird", suggestions: ["wurde"] },
+	{ word: "wurde", suggestions: ["wird"] },
+];
+
+const PORTUGUESE_AMBIGUOUS_WORDS: AmbiguousWordPair[] = [
+	{ word: "para", suggestions: ["por", "a"] },
+	{ word: "por", suggestions: ["para"] },
+	{ word: "mas", suggestions: ["mais"] },
+	{ word: "mais", suggestions: ["mas"] },
+	{ word: "esse", suggestions: ["essa", "isso"] },
+	{ word: "essa", suggestions: ["esse", "isso"] },
+	{ word: "isso", suggestions: ["esse", "essa"] },
+	{ word: "este", suggestions: ["esta", "isto"] },
+	{ word: "esta", suggestions: ["este", "isto"] },
+	{ word: "isto", suggestions: ["este", "esta"] },
+	{ word: "se", suggestions: ["é"] },
+	{ word: "é", suggestions: ["se"] },
+	{ word: "já", suggestions: ["ja"] },
+	{ word: "ja", suggestions: ["já"] },
+	{ word: "tu", suggestions: ["você"] },
+	{ word: "você", suggestions: ["tu"] },
+	{ word: "tem", suggestions: ["têm", "tem"] },
+	{ word: "têm", suggestions: ["tem"] },
+	{ word: "vem", suggestions: ["vêm", "vem"] },
+	{ word: "vêm", suggestions: ["vem"] },
+];
+
+const POLISH_AMBIGUOUS_WORDS: AmbiguousWordPair[] = [
+	{ word: "to", suggestions: ["też", "tej"] },
+	{ word: "też", suggestions: ["to", "tez"] },
+	{ word: "tez", suggestions: ["też"] },
+	{ word: "w", suggestions: ["we"] },
+	{ word: "we", suggestions: ["w"] },
+	{ word: "z", suggestions: ["ze", "za"] },
+	{ word: "ze", suggestions: ["z"] },
+	{ word: "za", suggestions: ["z"] },
+	{ word: "i", suggestions: ["i"] },
+	{ word: "lub", suggestions: ["albo"] },
+	{ word: "albo", suggestions: ["lub"] },
+	{ word: "ani", suggestions: ["ani"] },
+	{ word: "jest", suggestions: ["są"] },
+	{ word: "są", suggestions: ["jest"] },
+	{ word: "był", suggestions: ["była", "było"] },
+	{ word: "była", suggestions: ["był", "było"] },
+	{ word: "było", suggestions: ["był", "była"] },
+];
+
+const getAmbiguousWords = (language: LanguageCode): AmbiguousWordPair[] => {
+	switch (language) {
+		case "es":
+			return SPANISH_AMBIGUOUS_WORDS;
+		case "fr":
+			return FRENCH_AMBIGUOUS_WORDS;
+		case "de":
+			return GERMAN_AMBIGUOUS_WORDS;
+		case "pt":
+			return PORTUGUESE_AMBIGUOUS_WORDS;
+		case "pl":
+			return POLISH_AMBIGUOUS_WORDS;
+		default:
+			return ENGLISH_AMBIGUOUS_WORDS;
+	}
+};
+
+const normalizeForLanguage = (text: string, language: LanguageCode): string => {
+	const cleaned = text.trim().toLowerCase();
+
+	switch (language) {
+		case "es":
+			return cleaned.replace(/[áéíóúñü¿¡]/g, (c) =>
+				"áéíóúñü".includes(c) ? c : "aeiou".charAt("áéíóú".indexOf(c)),
+			);
+		case "fr":
+			return cleaned.replace(/[àâäçéèêëïîôùûü]/g, (c) => c);
+		case "de":
+			return cleaned.replace(/[äöüß]/g, (c) =>
+				"äöü".includes(c) ? c : "aou".charAt("äöü".indexOf(c)),
+			);
+		case "pt":
+			return cleaned.replace(/[ãõáéíóúàâçê]/g, (c) => c);
+		case "pl":
+			return cleaned.replace(/[ąćęłńóśźż]/g, (c) => c);
+		case "cs":
+		case "sk":
+			return cleaned.replace(/[áčďéěíňóřšťúůýž]/g, (c) => c);
+		case "da":
+			return cleaned.replace(/[æøå]/g, (c) => c);
+		case "ru":
+			return cleaned.replace(/[ёЁ]/g, (c) => (c === "ё" ? "е" : "Е"));
+		default:
+			return cleaned.replace(/[^a-z']/g, "");
+	}
 };
 
 export const collectPossibleGrammarWarnings = (
@@ -93,72 +374,57 @@ export const collectPossibleGrammarWarnings = (
 	ignoredWords: Set<string>,
 ): Set<string> => {
 	const warnings = new Set<string>();
-	if (!isEnglishLine(line)) return warnings;
+	const language = getLineLanguage(line);
 
 	for (let i = 0; i < line.words.length; i++) {
 		const wordObj = line.words[i];
-		const current = normalizeWord(wordObj.word);
+		const current = normalizeForLanguage(wordObj.word, language);
 		if (!current || ignoredWords.has(current)) continue;
 
-		// repeated words
 		if (i > 0) {
 			const prevRaw = line.words[i - 1].word;
 			const currentRaw = wordObj.word;
-			const prev = normalizeWord(prevRaw);
+			const prev = normalizeForLanguage(prevRaw, language);
 			if (prev && current === prev) {
-				const hasSpaceBetween =
-					/\s$/.test(prevRaw) || /^\s/.test(currentRaw);
+				const hasSpaceBetween = /\s$/.test(prevRaw) || /^\s/.test(currentRaw);
 				const hasPunctuationBetween =
 					/[.,!?;:]$/.test(prevRaw.trim()) ||
 					/^[.,!?;:]/.test(currentRaw.trim());
 				if (hasSpaceBetween || hasPunctuationBetween) {
 					warnings.add(line.words[i - 1].id);
-					warnings.add(line.words[i].id);
-				}
-			}
-		}
-
-		if (ENGLISH_AMBIGUOUS_WORDS.has(current)) {
-			warnings.add(wordObj.id);
-		}
-
-		if (current === "a" || current === "an") {
-			const nextWord = line.words[i + 1]?.word;
-			const next = normalizeWord(nextWord || "");
-			if (next) {
-				const startsWithVowel = /^[aeiou]/.test(next);
-				if (
-					(current === "a" && startsWithVowel) ||
-					(current === "an" && !startsWithVowel)
-				) {
 					warnings.add(wordObj.id);
-					if (line.words[i + 1]) warnings.add(line.words[i + 1].id);
 				}
 			}
 		}
 
-		// Basic typo detection: word is not in common list
-		if (current.length >= 3 && !COMMON_ENGLISH_WORDS.has(current)) {
-			// If it's a very short word, only flag it if it's very likely to be a typo
-			// (actually, let's just flag words not in COMMON_ENGLISH_WORDS)
-			warnings.add(wordObj.id);
+		const ambiguousWords = getAmbiguousWords(language);
+		const normalizedForCheck = normalizeForLanguage(wordObj.word, "en");
+		for (const amb of ambiguousWords) {
+			if (current === amb.word || normalizedForCheck === amb.word) {
+				warnings.add(wordObj.id);
+				break;
+			}
 		}
 
-		// Capitalization check for the first word of the line
+		// Check for lowercase at start of line
 		if (i === 0 && !warnings.has(wordObj.id)) {
-			const firstAlphaIndex = wordObj.word.search(/[a-zA-Z]/);
+			const firstAlphaIndex = wordObj.word.search(/[a-zA-Zа-яёÁ-ЯЁ]/);
 			if (firstAlphaIndex !== -1) {
 				const char = wordObj.word[firstAlphaIndex];
-				if (char === char.toLowerCase()) {
+				const isUpperCase =
+					language === "ru"
+						? char === char.toUpperCase() && /[А-ЯЁ]/.test(char)
+						: char === char.toUpperCase() && /[A-Z]/.test(char);
+				if (!isUpperCase) {
 					warnings.add(wordObj.id);
 				}
 			}
 		}
 
-		// Punctuation check for the last word of the line
-		if (i === line.words.length - 1 && !warnings.has(wordObj.id)) {
-			const rawWord = wordObj.word.trim();
-			if (rawWord.endsWith(".") || rawWord.endsWith(",")) {
+		// Check for capital letters in middle of line (not first word)
+		if (i > 0 && !warnings.has(wordObj.id)) {
+			const hasCapitalInMiddle = /[a-zA-Zà-ÿÀ-ÿ].*[A-ZÀ-Ý]/.test(wordObj.word);
+			if (hasCapitalInMiddle) {
 				warnings.add(wordObj.id);
 			}
 		}
@@ -167,10 +433,123 @@ export const collectPossibleGrammarWarnings = (
 	return warnings;
 };
 
+export const getGrammarSuggestions = (
+	line: LyricLine,
+	wordIndex: number,
+	_allWordsInLyrics?: Set<string>,
+): string[] => {
+	const suggestions: string[] = [];
+	const word = line.words[wordIndex];
+	if (!word) return suggestions;
+
+	const language = getLineLanguage(line);
+	const current = normalizeForLanguage(word.word, language);
+
+	const firstAlphaIndex = word.word.search(/[a-zA-Zа-яёÁ-ЯЁ]/);
+	if (wordIndex === 0 && firstAlphaIndex !== -1) {
+		const char = word.word[firstAlphaIndex];
+		const isUpperCase =
+			language === "ru"
+				? char === char.toUpperCase() && /[А-ЯЁ]/.test(char)
+				: char === char.toUpperCase() && /[A-Z]/.test(char);
+		if (!isUpperCase) {
+			let capitalized: string;
+			if (language === "ru") {
+				capitalized =
+					word.word.slice(0, firstAlphaIndex) +
+					char.toUpperCase() +
+					word.word.slice(firstAlphaIndex + 1);
+			} else {
+				capitalized =
+					word.word.slice(0, firstAlphaIndex) +
+					char.toUpperCase() +
+					word.word.slice(firstAlphaIndex + 1);
+			}
+			suggestions.push(capitalized);
+		}
+	}
+
+	// Suggestion: lowercase capital in middle of word
+	if (wordIndex > 0) {
+		const lowerMatch = word.word.match(/[a-zà-ÿ][A-ZÀ-Ý]/);
+		if (lowerMatch) {
+			const lowerIdx = word.word.search(/[a-zà-ÿ][A-ZÀ-Ý]/);
+			if (lowerIdx !== -1) {
+				const fixed =
+					word.word.slice(0, lowerIdx + 1) +
+					word.word.slice(lowerIdx + 1).toLowerCase();
+				suggestions.push(fixed);
+			}
+		}
+	}
+
+	const ambiguousWords = getAmbiguousWords(language);
+	for (const amb of ambiguousWords) {
+		if (current === amb.word) {
+			suggestions.push(...amb.suggestions);
+			break;
+		}
+	}
+
+	const normalizedForCheck = normalizeForLanguage(word.word, "en");
+	if (normalizedForCheck === "a" || normalizedForCheck === "an") {
+		const nextWord = line.words[wordIndex + 1]?.word;
+		const next = normalizeForLanguage(nextWord || "", "en");
+		if (next) {
+			const startsWithVowel = /^[aeiou]/.test(next);
+			if (normalizedForCheck === "a" && startsWithVowel) {
+				suggestions.push("an");
+			} else if (normalizedForCheck === "an" && !startsWithVowel) {
+				suggestions.push("a");
+			}
+		}
+	}
+
+	if (wordIndex > 0) {
+		const prevRaw = line.words[wordIndex - 1].word;
+		const currentRaw = word.word;
+		const prev = normalizeForLanguage(prevRaw, language);
+		if (prev && current === prev) {
+			const hasSpaceBetween = /\s$/.test(prevRaw) || /^\s/.test(currentRaw);
+			const hasPunctuationBetween =
+				/[.,!?;:]$/.test(prevRaw.trim()) || /^[.,!?;:]/.test(currentRaw.trim());
+			if (hasSpaceBetween || hasPunctuationBetween) {
+				suggestions.push("__REMOVE_REPEATED_WORD__");
+			}
+		}
+	}
+
+	const result = [...new Set(suggestions)];
+
+	if (wordIndex === 0) {
+		return result.map((s) => {
+			if (s.startsWith("__")) return s;
+			const firstAlpha = s.search(/[a-zA-Zа-яёÁ-ЯЁ]/);
+			if (firstAlpha !== -1) {
+				if (language === "ru") {
+					return (
+						s.slice(0, firstAlpha) +
+						s[firstAlpha].toUpperCase() +
+						s.slice(firstAlpha + 1)
+					);
+				}
+				return (
+					s.slice(0, firstAlpha) +
+					s[firstAlpha].toUpperCase() +
+					s.slice(firstAlpha + 1)
+				);
+			}
+			return s;
+		});
+	}
+
+	return result;
+};
+
 export const collectWarningsWithSuggestions = (
 	line: LyricLine,
 	ignoredWords: Set<string>,
-	allWordsInLyrics?: Set<string>,
+	_allWordsInLyrics?: Set<string>,
 ): Set<string> => {
 	const rawWarnings = collectPossibleGrammarWarnings(line, ignoredWords);
 	if (rawWarnings.size === 0) return rawWarnings;
@@ -182,7 +561,7 @@ export const collectWarningsWithSuggestions = (
 			const suggestions = getGrammarSuggestions(
 				line,
 				wordIndex,
-				allWordsInLyrics,
+				_allWordsInLyrics,
 			);
 			if (suggestions.length > 0) {
 				filteredWarnings.add(wordId);
@@ -190,129 +569,4 @@ export const collectWarningsWithSuggestions = (
 		}
 	}
 	return filteredWarnings;
-};
-
-export const getGrammarSuggestions = (
-	line: LyricLine,
-	wordIndex: number,
-	allWordsInLyrics?: Set<string>,
-): string[] => {
-	const suggestions: string[] = [];
-	const word = line.words[wordIndex];
-	if (!word) return suggestions;
-	const current = normalizeWord(word.word);
-
-	// For capitalization check
-	const firstAlphaIndex = word.word.search(/[a-zA-Z]/);
-	if (wordIndex === 0 && firstAlphaIndex !== -1) {
-		const char = word.word[firstAlphaIndex];
-		if (char === char.toLowerCase()) {
-			const capitalized =
-				word.word.slice(0, firstAlphaIndex) +
-				char.toUpperCase() +
-				word.word.slice(firstAlphaIndex + 1);
-			suggestions.push(capitalized);
-		}
-	}
-
-	// For a/an
-	if (current === "a" || current === "an") {
-		const nextWord = line.words[wordIndex + 1]?.word;
-		const next = normalizeWord(nextWord || "");
-		if (next) {
-			const startsWithVowel = /^[aeiou]/.test(next);
-			if (current === "a" && startsWithVowel) {
-				suggestions.push("an");
-			} else if (current === "an" && !startsWithVowel) {
-				suggestions.push("a");
-			}
-		}
-	}
-
-	// For ambiguous words, suggest common alternatives
-	if (ENGLISH_AMBIGUOUS_WORDS.has(current)) {
-		const alternatives: Record<string, string[]> = {
-			your: ["you're"],
-			youre: ["your"],
-			their: ["they're"],
-			there: ["their"],
-			theyre: ["their", "there"],
-			its: ["it's"],
-			"it's": ["its"],
-			alot: ["a lot"],
-			lose: ["loose"],
-			loose: ["lose"],
-			affect: ["effect"],
-			effect: ["affect"],
-		};
-		const alts = alternatives[current];
-		if (alts) suggestions.push(...alts);
-	}
-
-	if (wordIndex > 0) {
-		const prevRaw = line.words[wordIndex - 1].word;
-		const currentRaw = word.word;
-		const prev = normalizeWord(prevRaw);
-		if (prev && current === prev) {
-			const hasSpaceBetween =
-				/\s$/.test(prevRaw) || /^\s/.test(currentRaw);
-			const hasPunctuationBetween =
-				/[.,!?;:]$/.test(prevRaw.trim()) ||
-				/^[.,!?;:]/.test(currentRaw.trim());
-			if (hasSpaceBetween || hasPunctuationBetween) {
-				suggestions.push("__REMOVE_REPEATED_WORD__");
-			}
-		}
-	}
-
-	// Fuzzy matching for potential typos
-	if (current.length >= 3) {
-		const candidates = new Set([...COMMON_ENGLISH_WORDS]);
-		if (allWordsInLyrics) {
-			for (const w of allWordsInLyrics) candidates.add(w);
-		}
-
-		const matches: { word: string; dist: number }[] = [];
-		for (const cand of candidates) {
-			if (cand === current) continue;
-			// Only suggest words of similar length
-			if (Math.abs(cand.length - current.length) > 2) continue;
-			
-			const dist = levenshteinDistance(current, cand);
-			if (dist <= 1 || (current.length > 5 && dist <= 2)) {
-				matches.push({ word: cand, dist });
-			}
-		}
-
-		matches.sort((a, b) => a.dist - b.dist);
-		suggestions.push(...matches.slice(0, 3).map(m => m.word));
-	}
-
-	const result = [...new Set(suggestions)];
-
-	// If it's the first word of the line, capitalize all suggestions
-	if (wordIndex === 0) {
-		return result.map((s) => {
-			if (s.startsWith("__")) return s;
-			const firstAlphaIndex = s.search(/[a-zA-Z]/);
-			if (firstAlphaIndex !== -1) {
-				return (
-					s.slice(0, firstAlphaIndex) +
-					s[firstAlphaIndex].toUpperCase() +
-					s.slice(firstAlphaIndex + 1)
-				);
-			}
-			return s;
-		});
-	}
-
-	// For line-ending punctuation removal
-	if (wordIndex === line.words.length - 1) {
-		const rawWord = word.word.trim();
-		if (rawWord.endsWith(".") || rawWord.endsWith(",")) {
-			result.push(rawWord.slice(0, -1).trim());
-		}
-	}
-
-	return result;
 };

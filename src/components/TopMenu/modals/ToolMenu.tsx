@@ -58,11 +58,13 @@ export const ToolMenu = (props: ToolMenuProps) => {
 
 	return (
 		<DropdownMenu.Root>
-			<Toolbar.Button asChild
-			><DropdownMenu.Trigger style={props.triggerStyle}
-				><Button variant="soft" style={props.buttonStyle}>
+			<Toolbar.Button asChild>
+				<DropdownMenu.Trigger style={props.triggerStyle}>
+					<Button variant="soft" style={props.buttonStyle}>
 						<Trans i18nKey="topBar.menu.tool">工具</Trans>
-					</Button></DropdownMenu.Trigger></Toolbar.Button>
+					</Button>
+				</DropdownMenu.Trigger>
+			</Toolbar.Button>
 			<DropdownMenu.Content>
 				<ToolMenuItems />
 			</DropdownMenu.Content>

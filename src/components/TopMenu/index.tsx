@@ -20,6 +20,7 @@ import { HelpMenu } from "./modals/HelpMenu";
 import { HomeMenu } from "./modals/HomeMenu";
 import { ToolMenu } from "./modals/ToolMenu";
 import { useTopMenuActions } from "./useTopMenuActions";
+// top menu actions are used inside individual menu components
 
 const useWindowSize = () => {
 	const [windowSize, setWindowSize] = useState({
@@ -58,7 +59,9 @@ export const TopMenu: FC = () => {
 			registerKeyBindings(["Control", "Shift", "KeyZ"], menu.onRedo),
 			registerKeyBindings(["Shift", "Control", "KeyZ"], menu.onRedo),
 		];
-		return () => unbinds.forEach((u) => u());
+		return () => {
+			unbinds.forEach((unbind) => unbind());
+		};
 	}, [menu.onRedo]);
 	useKeyBindingAtom(keySelectAllAtom, menu.onUnselectAll, [menu.onUnselectAll]);
 	useKeyBindingAtom(keySelectAllAtom, menu.onSelectAll, [menu.onSelectAll]);

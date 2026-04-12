@@ -67,7 +67,9 @@
 			"romanLyric": "Lirik Romanisasi",
 			"layoutMode": "Mode Tata Letak",
 			"auxiliaryLineDisplay": "Tampilan Baris Tambahan",
-			"previewPanel": "Panel Pratinjau"
+			"previewPanel": "Panel Pratinjau",
+			"grammarCheck": "Pemeriksaan Tata Bahasa",
+			"tools": "Periksa"
 		},
 		"previewMode": {
 			"lyrics": "Lirik",
@@ -643,5 +645,23 @@
 		"bpm": "BPM",
 		"start": "Mulai",
 		"stop": "Selesai"
+	},
+	"grammarCheck": {
+		"title": "Pemeriksaan Tata Bahasa & Ejaan",
+		"history": "Riwayat",
+		"noIssues": "Tidak ada masalah ditemukan!",
+		"issuesFound": "masalah ditemukan",
+		"noIssuesMessage": "Tidak ada masalah ditemukan! Lirik Anda terlihat baik.",
+		"clearHistory": "Hapus Riwayat",
+		"noHistory": "Belum ada perubahan yang dilakukan",
+		"fixed": "diperbaiki",
+		"ignored": "diabaikan",
+		"line": "Baris",
+		"repeatedWord": "Kata berulang terdeteksi",
+		"capitalization": "Kata harus menggunakan huruf kapital",
+		"undoLast": "Batalkan Terakhir",
+		"ignoredWords": "Kata yang Diabaikan",
+		"clearIgnoredWords": "Hapus Semua",
+		"noIgnoredWords": "Tidak ada kata yang diabaikan"
 	}
 }

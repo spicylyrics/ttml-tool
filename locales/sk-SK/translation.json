@@ -63,7 +63,9 @@
 			"romanLyric": "Romanizácia",
 			"layoutMode": "Rozloženie",
 			"auxiliaryLineDisplay": "Zobrazenie pomocného riadku",
-			"previewPanel": "Náhľadový panel"
+			"previewPanel": "Náhľadový panel",
+			"grammarCheck": "Kontrola gramatiky",
+			"tools": "Kontrola"
 		},
 		"previewMode": {
 			"lyrics": "Texty",
@@ -590,5 +592,23 @@
 		"offlineReady": "Stránka úspešne uložená do vyrovnávacej pamäte pre offline použitie",
 		"updateRefresh": "Stránka aktualizovaná, obnovte pre použitie najnovšej verzie!",
 		"refresh": "Obnoviť"
+	},
+	"grammarCheck": {
+		"title": "Kontrola gramatiky a pravopisu",
+		"history": "História",
+		"noIssues": "Žiadne problémy!",
+		"issuesFound": "problémov nájdených",
+		"noIssuesMessage": "Žiadne problémy! Vaše texty vyzerajú dobre.",
+		"clearHistory": "Vymazať históriu",
+		"noHistory": "Zatiaľ žiadne zmeny",
+		"fixed": "opravené",
+		"ignored": "ignoresované",
+		"line": "Riadok",
+		"repeatedWord": "Opakované slovo",
+		"capitalization": "Slovo by malo byť veľké",
+		"undoLast": "Vrátiť posledné",
+		"ignoredWords": "Ignorované slová",
+		"clearIgnoredWords": "Vymazať všetky",
+		"noIgnoredWords": "Žiadne ignorované slová"
 	}
 }

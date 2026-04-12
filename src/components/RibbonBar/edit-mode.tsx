@@ -17,7 +17,6 @@ import {
 	RadioGroup,
 	Text,
 	TextField,
-	Switch,
 } from "@radix-ui/themes";
 import { atom, useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
@@ -48,9 +47,24 @@ import {
 	selectedWordsAtom,
 	showEndTimeAsDurationAtom,
 } from "$/states/main.ts";
+import { grammarCheckDialogAtom } from "$/modules/lyric-editor/modals/GrammarCheckDialog.tsx";
 import { type LyricLine, type LyricWord, newLyricLine } from "$/types/ttml";
 import { msToTimestamp, parseTimespan } from "$/utils/timestamp.ts";
 import { RibbonFrame, RibbonSection } from "./common";
+
+const GrammarCheckButton = () => {
+	const { t } = useTranslation();
+	const store = useStore();
+	return (
+		<Button
+			onClick={() => {
+				store.set(grammarCheckDialogAtom, true);
+			}}
+		>
+			{t("ribbonBar.editMode.grammarCheck", "语法检查")}
+		</Button>
+	);
+};
 
 const MULTIPLE_VALUES = Symbol("multiple-values");
 
@@ -861,6 +875,9 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 					label={t("ribbonBar.editMode.auxiliaryLineDisplay", "辅助行显示")}
 				>
 					<AuxiliaryDisplayField />
+				</RibbonSection>
+				<RibbonSection label={t("ribbonBar.editMode.tools", "工具")}>
+					<GrammarCheckButton />
 				</RibbonSection>
 			</RibbonFrame>
 		);

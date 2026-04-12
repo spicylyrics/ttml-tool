@@ -71,7 +71,9 @@
 			"romanLyric": "音译歌词",
 			"layoutMode": "布局模式",
 			"auxiliaryLineDisplay": "辅助行显示",
-			"previewPanel": "预览面板"
+			"previewPanel": "预览面板",
+			"grammarCheck": "语法检查",
+			"tools": "检查"
 		},
 		"previewMode": {
 			"lyrics": "歌词",
@@ -726,5 +728,23 @@
 		"noResult": "输入歌曲名称或艺术家以开始。",
 		"changeKey": "更改 API 密钥",
 		"back": "返回"
+	},
+	"grammarCheck": {
+		"title": "语法和拼写检查",
+		"history": "历史记录",
+		"noIssues": "未发现问题！",
+		"issuesFound": "个问题已发现",
+		"noIssuesMessage": "未发现问题！您的歌词看起来不错。",
+		"clearHistory": "清除历史",
+		"noHistory": "暂无更改记录",
+		"fixed": "已修复",
+		"ignored": "已忽略",
+		"line": "行",
+		"repeatedWord": "检测到重复单词",
+		"capitalization": "单词应该大写",
+		"undoLast": "撤销上次",
+		"ignoredWords": "忽略的词语",
+		"clearIgnoredWords": "清除全部",
+		"noIgnoredWords": "没有忽略的词语"
 	}
 }

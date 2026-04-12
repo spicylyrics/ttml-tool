@@ -63,7 +63,9 @@
 			"romanLyric": "Romanizacja",
 			"layoutMode": "Układ",
 			"auxiliaryLineDisplay": "Wyświetlanie linii pomocniczej",
-			"previewPanel": "Panel podglądu"
+			"previewPanel": "Panel podglądu",
+			"grammarCheck": "Sprawdzanie gramatyki",
+			"tools": "Sprawdź"
 		},
 		"previewMode": {
 			"lyrics": "Tekst",
@@ -590,5 +592,23 @@
 		"offlineReady": "Strona pomyślnie zapisana w pamięci podręcznej do użytku offline",
 		"updateRefresh": "Strona zaktualizowana, odśwież, aby użyć najnowszej wersji!",
 		"refresh": "Odśwież"
+	},
+	"grammarCheck": {
+		"title": "Sprawdzanie gramatyki i pisowni",
+		"history": "Historia",
+		"noIssues": "Nie znaleziono problemów!",
+		"issuesFound": "problemów znaleziono",
+		"noIssuesMessage": "Nie znaleziono problemów! Twoje teksty wyglądają dobrze.",
+		"clearHistory": "Wyczyść historię",
+		"noHistory": "Brak zmian",
+		"fixed": "naprawione",
+		"ignored": "zignorowane",
+		"line": "Linia",
+		"repeatedWord": "Wykryto powtórzone słowo",
+		"capitalization": "Słowo powinno być wielkie",
+		"undoLast": "Cofnij ostatnie",
+		"ignoredWords": "Ignorowane słowa",
+		"clearIgnoredWords": "Wyczyść wszystkie",
+		"noIgnoredWords": "Brak ignorowanych słów"
 	}
 }

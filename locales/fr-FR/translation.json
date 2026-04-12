@@ -63,7 +63,9 @@
 			"romanLyric": "Romanisation",
 			"layoutMode": "Disposition",
 			"auxiliaryLineDisplay": "Affichage de ligne auxiliaire",
-			"previewPanel": "Panneau d'aperçu"
+			"previewPanel": "Panneau d'aperçu",
+			"grammarCheck": "Vérification grammaticale",
+			"tools": "Vérifier"
 		},
 		"previewMode": {
 			"lyrics": "Paroles",
@@ -590,5 +592,23 @@
 		"offlineReady": "Site mis en cache avec succès pour une utilisation hors ligne",
 		"updateRefresh": "Site mis à jour, actualisez pour utiliser la dernière version !",
 		"refresh": "Actualiser"
+	},
+	"grammarCheck": {
+		"title": "Vérification grammaire et orthographe",
+		"history": "Historique",
+		"noIssues": "Aucun problème trouvé !",
+		"issuesFound": "problèmes trouvés",
+		"noIssuesMessage": "Aucun problème trouvé ! Vos paroles sont bonnes.",
+		"clearHistory": "Effacer l'historique",
+		"noHistory": "Aucun changement effectué",
+		"fixed": "corrigé",
+		"ignored": "ignoré",
+		"line": "Ligne",
+		"repeatedWord": "Mot répété détecté",
+		"capitalization": "Le mot devrait être en majuscule",
+		"undoLast": "Annuler le dernier",
+		"ignoredWords": "Mots ignorés",
+		"clearIgnoredWords": "Tout effacer",
+		"noIgnoredWords": "Aucun mot ignoré"
 	}
 }
