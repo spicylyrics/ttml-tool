@@ -93,3 +93,56 @@ describe("combine words", () => {
 		).toEqual(["haha", "ha"]);
 	});
 });
+
+describe("combine words romanization", () => {
+	const roman = (text: string, romanWord: string): LyricWord => ({
+		...word(text, 0, 1),
+		romanWord,
+	});
+
+	it("joins syllable romanizations directly", () => {
+		const words = [roman("君", "ki"), roman("み", "mi")];
+		const result = combineSelectedWords(
+			words,
+			new Set(words.map(({ id }) => id)),
+		);
+		expect(result[0].romanWord).toBe("kimi");
+	});
+
+	it("keeps one space across a word boundary", () => {
+		const words = [roman("君 ", "kimi"), roman("と", "to")];
+		expect(
+			combineSelectedWords(words, new Set(words.map(({ id }) => id)))[0]
+				.romanWord,
+		).toBe("kimi to");
+
+		const spaced = [roman("君", "kimi"), roman(" ", ""), roman("と", "to")];
+		expect(
+			combineSelectedWords(spaced, new Set(spaced.map(({ id }) => id)))[0]
+				.romanWord,
+		).toBe("kimi to");
+	});
+
+	it("skips missing romanizations without stray spaces", () => {
+		const words = [roman("あ ", ""), roman("い", "i"), roman("う", "")];
+		expect(
+			combineSelectedWords(words, new Set(words.map(({ id }) => id)))[0]
+				.romanWord,
+		).toBe("i");
+		const none = [roman("a", ""), roman("b", "")];
+		expect(
+			combineSelectedWords(none, new Set(none.map(({ id }) => id)))[0]
+				.romanWord,
+		).toBe("");
+	});
+
+	it("keeps romanization when combining matching sequences", () => {
+		const target = [roman("ko", ""), roman("re", "")];
+		const words = [roman("こ", "ko"), roman("れ", "re")];
+		words[0].word = "ko";
+		words[1].word = "re";
+		expect(
+			combineMatchingWordSequences(words, target, false)[0].romanWord,
+		).toBe("kore");
+	});
+});

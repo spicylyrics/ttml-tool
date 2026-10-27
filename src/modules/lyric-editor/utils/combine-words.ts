@@ -31,11 +31,34 @@ export function getCombineWordSelection(
 	};
 }
 
+/**
+ * Joins the parts' romanizations. A word boundary inside the selection (a
+ * whitespace-only word, or a part ending in whitespace) becomes one space when
+ * romanization sits on both sides of it; syllables of one word join directly.
+ */
+export function combineRomanWords(words: LyricWord[]): string {
+	let result = "";
+	let pendingSpace = false;
+	for (const word of words) {
+		const roman = word.romanWord.trim();
+		if (roman) {
+			if (pendingSpace && result) result += " ";
+			result += roman;
+			pendingSpace = false;
+		}
+		if (/\s$/u.test(word.word) || word.word.trim().length === 0) {
+			pendingSpace = true;
+		}
+	}
+	return result;
+}
+
 function createCombinedWord(words: LyricWord[]): LyricWord {
 	const combinedWord = newLyricWord();
 	combinedWord.word = words.map((word) => word.word).join("");
 	combinedWord.startTime = words[0].startTime;
 	combinedWord.endTime = words[words.length - 1].endTime;
+	combinedWord.romanWord = combineRomanWords(words);
 	return combinedWord;
 }
 
