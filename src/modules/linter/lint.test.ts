@@ -340,6 +340,11 @@ describe("tool policy on top of the bot", () => {
 			},
 		});
 	});
+	it("has nothing to say about a project with no lyrics yet", () => {
+		const result = lintLyric(lyricOf([line([])]));
+		expect(result).toMatchObject({ loads: true, failed: false, problems: [] });
+		expect(lintLyricAsBot(lyricOf([line([])])).loads).toBe(false);
+	});
 	it("reports a failed run instead of throwing", () => {
 		const broken = { metadata: [], lyricLines: null } as unknown as TTMLLyric;
 		expect(lintLyric(broken).failed).toBe(true);

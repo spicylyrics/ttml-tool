@@ -187,6 +187,14 @@ function guideSpellingProblems(lines: LyricLine[]): LintProblem[] {
 	}));
 }
 
+const EMPTY_RESULT: LyricLintResult = {
+	loads: true,
+	problems: [],
+	counts: { error: 0, warning: 0, hint: 0 },
+	omitted: 0,
+	failed: false,
+};
+
 function countBySeverity(problems: LintProblem[]): Record<Severity, number> {
 	const counts: Record<Severity, number> = { error: 0, warning: 0, hint: 0 };
 	for (const p of problems) counts[p.severity]++;
@@ -226,6 +234,9 @@ export function lintLyric(
 ): LyricLintResult {
 	const allowConsecutive = options.allowConsecutiveBackgroundLines ?? false;
 	try {
+		// A blank project isn't a submission yet; the bot would only say
+		// "no lyrics", and saving one shouldn't stop to ask.
+		if (!lyric.lyricLines.some(hasExportableLineContent)) return EMPTY_RESULT;
 		const bot = lintLyricAsBot(lyric, options);
 		const problems = applyToolPolicy(bot.problems, allowConsecutive);
 		if (bot.loads) problems.push(...guideSpellingProblems(lyric.lyricLines));
