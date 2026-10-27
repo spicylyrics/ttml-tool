@@ -1221,6 +1221,17 @@
     "prevWord": "Forrige ord",
     "nextWord": "Næste ord"
   },
+  "lineSync": {
+    "flagTitle": "Linjesynkronisering",
+    "flagDesc": "Lader hver sang times pr. ord eller pr. hel linje. I Linje-tilstand starter og afslutter F, G og H hele linjer.",
+    "timing": "Sangens timing",
+    "timingDesc": "Ord: hvert ord får sin egen tid. Linje: kun hele linjer times, og TTML eksporteres linjesynkroniseret.",
+    "word": "Ord",
+    "line": "Linje",
+    "confirmTitle": "Skift til linjetiming?",
+    "confirmDescription": "Hvert ord beholder sin tekst, men mister sin egen timing. Hver linje beholder sin start og slutning. Du kan fortryde det.",
+    "confirmAction": "Skift til Linje"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "slangordbog",

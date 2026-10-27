@@ -1,6 +1,7 @@
 import { useStore } from "jotai";
 import { type FC, useCallback } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
+import { keepInSyncedLineBounds } from "$/modules/line-sync/sync-clamp";
 import { distributeLineTime } from "$/modules/lyric-editor/utils/distribute-time";
 import {
 	findNextWord,
@@ -300,7 +301,10 @@ export const SyncKeyBinding: FC = () => {
 				setUnitStartTimeCloned(nextLine, location.wordIndex, currentTime);
 				nextLines[location.lineIndex] = nextLine;
 
-				return { ...state, lyricLines: nextLines };
+				return keepInSyncedLineBounds(store, prev, {
+					...state,
+					lyricLines: nextLines,
+				});
 			});
 		},
 		[store],
@@ -403,7 +407,10 @@ export const SyncKeyBinding: FC = () => {
 					nextLine.endTime = currentTime;
 					nextLines[location.lineIndex] = nextLine;
 
-					return { ...state, lyricLines: nextLines };
+					return keepInSyncedLineBounds(store, prev, {
+						...state,
+						lyricLines: nextLines,
+					});
 				});
 				moveToNextWord();
 				return;
@@ -486,7 +493,10 @@ export const SyncKeyBinding: FC = () => {
 				// The song's last word has no next line to close this one, so close it here.
 				if (!targetSelection) nextLines[iterLineIndex].endTime = currentTime;
 
-				return { ...state, lyricLines: nextLines };
+				return keepInSyncedLineBounds(store, prev, {
+					...state,
+					lyricLines: nextLines,
+				});
 			});
 			const _t3 = performance.now();
 
@@ -581,7 +591,10 @@ export const SyncKeyBinding: FC = () => {
 				if (location.isLastWord) nextLine.endTime = currentTime;
 				nextLines[location.lineIndex] = nextLine;
 
-				return { ...state, lyricLines: nextLines };
+				return keepInSyncedLineBounds(store, prev, {
+					...state,
+					lyricLines: nextLines,
+				});
 			});
 			moveToNextWord();
 		},

@@ -1221,6 +1221,17 @@
     "prevWord": "Poprzednie słowo",
     "nextWord": "Następne słowo"
   },
+  "lineSync": {
+    "flagTitle": "Synchronizacja linii",
+    "flagDesc": "Pozwala synchronizować każdy utwór słowami lub całymi liniami. W trybie Linia klawisze F, G i H rozpoczynają i kończą całe linie.",
+    "timing": "Synchronizacja utworu",
+    "timingDesc": "Słowo: każde słowo ma własny czas. Linia: synchronizowane są tylko całe linie, a TTML jest eksportowany jako synchronizowany liniami.",
+    "word": "Słowo",
+    "line": "Linia",
+    "confirmTitle": "Przełączyć na synchronizację liniami?",
+    "confirmDescription": "Każde słowo zachowa swój tekst, ale straci własny czas. Każda linia zachowa swój początek i koniec. Możesz to cofnąć.",
+    "confirmAction": "Przełącz na Linię"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "słownik slangu",

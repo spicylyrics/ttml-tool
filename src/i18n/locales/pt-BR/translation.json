@@ -1221,6 +1221,17 @@
     "prevWord": "Palavra anterior",
     "nextWord": "Próxima palavra"
   },
+  "lineSync": {
+    "flagTitle": "Sincronização por linha",
+    "flagDesc": "Permite sincronizar cada música por palavra ou por linha inteira. No modo Linha, F, G e H iniciam e terminam linhas inteiras.",
+    "timing": "Sincronização da música",
+    "timingDesc": "Palavra: cada palavra tem seu próprio tempo. Linha: só linhas inteiras são sincronizadas, e o TTML é exportado sincronizado por linha.",
+    "word": "Palavra",
+    "line": "Linha",
+    "confirmTitle": "Mudar para sincronização por linha?",
+    "confirmDescription": "Cada palavra mantém seu texto, mas perde seu próprio tempo. Cada linha mantém seu início e fim. Você pode desfazer isso.",
+    "confirmAction": "Mudar para Linha"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "dicionário de gírias",

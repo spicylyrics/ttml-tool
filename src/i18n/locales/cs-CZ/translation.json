@@ -1221,6 +1221,17 @@
     "prevWord": "Předchozí slovo",
     "nextWord": "Další slovo"
   },
+  "lineSync": {
+    "flagTitle": "Synchronizace po řádcích",
+    "flagDesc": "Umožní časovat každou skladbu po slovech nebo po celých řádcích. V režimu Řádek F, G a H začínají a ukončují celé řádky.",
+    "timing": "Časování skladby",
+    "timingDesc": "Slovo: každé slovo má vlastní čas. Řádek: časují se jen celé řádky a TTML se exportuje synchronizované po řádcích.",
+    "word": "Slovo",
+    "line": "Řádek",
+    "confirmTitle": "Přepnout na časování po řádcích?",
+    "confirmDescription": "Každé slovo si ponechá text, ale ztratí vlastní časování. Každý řádek si ponechá začátek a konec. Lze to vrátit zpět.",
+    "confirmAction": "Přepnout na Řádek"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "slangový slovník",
