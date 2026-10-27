@@ -1,5 +1,49 @@
 [
 	{
+		"version": "0.15.0",
+		"summary": "Searchable preferences",
+		"color": "iris",
+		"date": "2026-10-27",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Preferences search finds settings by their name or description, in your language",
+				"body": "Search used to know only a short list of English words for each page. It now looks through everything on every page, including descriptions, in whatever language the app is in. Accents are optional, so \"sincronizacion\" finds \"Sincronización\".",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "More Preferences explain what they do",
+				"body": "Autosave, its snapshot interval and limit, the Edit/Time playback switch, the Appearance layout picker and Background now have a one-line description, in every language.",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Dragging a word shows where it will land again",
+				"body": "The drop marker was hidden in the Spicy Lyrics design and the newer dark theme. It now shows as a bar between words in every theme, and no longer nudges the line while you drag.",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "The ribbon's Advanced switch shows whether it's on",
+				"body": "When it was on, the switch drew a white thumb on a white track in the Spicy Lyrics design, and in the classic look its track didn't slide. Both now match the other switches, and screen readers announce it as \"Advanced\".",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Audio bar times stay on one line on macOS",
+				"body": "The current time and duration no longer push their last digit onto a second line when the system's monospace font is wider than expected.",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "The empty editor's buttons line up when Projects is on",
+				"body": "With folder projects turned on, the four buttons (Start guide, Import lyrics, Open lyrics file, Projects) sit in an even two-by-two grid instead of one button wrapping onto its own line. Long translations wrap inside their button.",
+				"highlight": false
+			}
+		]
+	},
+	{
 		"version": "0.14.1",
 		"summary": "Desktop and spectrogram fixes",
 		"color": "blue",
