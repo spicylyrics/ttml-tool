@@ -912,6 +912,36 @@
       "projects": "Projekter"
     }
   },
+  "transcription": {
+    "modeBtn": "Transskriber",
+    "modeBtnDesc": "Skriv sangteksten som ren tekst, mens sangen spiller.",
+    "enable": "Fanen Transskriber",
+    "enableDesc": "Tilføj en Transskriber-fane til at skrive sangtekst som ren tekst, mens sangen spiller.",
+    "title": "Transskriber",
+    "stats": "{lines, plural, one {# linje} other {# linjer}}, {words, plural, one {# ord} other {# ord}}",
+    "tidy": "Ryd op i layout",
+    "export": "Eksportér",
+    "copyGenius": "Kopiér som Genius-tekst",
+    "copyPlain": "Kopiér som ren tekst",
+    "saveGenius": "Gem som Genius-tekst...",
+    "savePlain": "Gem som ren tekst...",
+    "sendToImport": "Importér i editoren...",
+    "textLabel": "Transskription",
+    "placeholder": "Skriv teksten, som du hører den, én linje pr. række. Sæt sektionsoverskrifter som [Verse 1] på deres egen række.",
+    "copied": "Kopieret til udklipsholderen.",
+    "copyFailed": "Kunne ikke kopiere teksten.",
+    "saveFailed": "Kunne ikke gemme filen.",
+    "textFiles": "Tekstfiler",
+    "keys": {
+      "label": "Genveje i tekstfeltet",
+      "playPause": "Afspil eller pause",
+      "back": "3 sekunder tilbage",
+      "forward": "3 sekunder frem",
+      "slower": "Langsommere",
+      "faster": "Hurtigere",
+      "resetSpeed": "Normal hastighed"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Automatisk gemt kl. {time}",

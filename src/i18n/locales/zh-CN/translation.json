@@ -912,6 +912,36 @@
       "projects": "项目"
     }
   },
+  "transcription": {
+    "modeBtn": "听写",
+    "modeBtnDesc": "边播放歌曲边以纯文本输入歌词。",
+    "enable": "听写标签页",
+    "enableDesc": "添加听写标签页，边播放歌曲边以纯文本输入歌词。",
+    "title": "听写",
+    "stats": "{lines, plural, other {# 行}}，{words, plural, other {# 个词}}",
+    "tidy": "整理排版",
+    "export": "导出",
+    "copyGenius": "复制为 Genius 格式文本",
+    "copyPlain": "复制为纯文本",
+    "saveGenius": "另存为 Genius 格式文本...",
+    "savePlain": "另存为纯文本...",
+    "sendToImport": "导入到编辑器...",
+    "textLabel": "听写文本",
+    "placeholder": "按听到的内容输入歌词，每行一句。像 [Verse 1] 这样的段落标题单独占一行。",
+    "copied": "已复制到剪贴板。",
+    "copyFailed": "无法复制文本。",
+    "saveFailed": "无法保存文件。",
+    "textFiles": "文本文件",
+    "keys": {
+      "label": "文本框内的快捷键",
+      "playPause": "播放或暂停",
+      "back": "后退 3 秒",
+      "forward": "前进 3 秒",
+      "slower": "减速",
+      "faster": "加速",
+      "resetSpeed": "正常速度"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "已在 {time} 自动保存",

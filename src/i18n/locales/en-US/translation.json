@@ -912,6 +912,36 @@
       "projects": "Projects"
     }
   },
+  "transcription": {
+    "modeBtn": "Transcribe",
+    "modeBtnDesc": "Type the lyrics as plain text while the song plays.",
+    "enable": "Transcribe tab",
+    "enableDesc": "Add a Transcribe tab for typing lyrics as plain text while the song plays.",
+    "title": "Transcribe",
+    "stats": "{lines, plural, one {# line} other {# lines}}, {words, plural, one {# word} other {# words}}",
+    "tidy": "Tidy layout",
+    "export": "Export",
+    "copyGenius": "Copy as Genius text",
+    "copyPlain": "Copy as plain text",
+    "saveGenius": "Save as Genius text...",
+    "savePlain": "Save as plain text...",
+    "sendToImport": "Import into the editor...",
+    "textLabel": "Transcript",
+    "placeholder": "Type the lyrics as you hear them, one line per row. Put section headers like [Verse 1] on their own row.",
+    "copied": "Copied to the clipboard.",
+    "copyFailed": "Couldn't copy the text.",
+    "saveFailed": "Couldn't save the file.",
+    "textFiles": "Text files",
+    "keys": {
+      "label": "Shortcuts in the text box",
+      "playPause": "Play or pause",
+      "back": "Back 3 seconds",
+      "forward": "Forward 3 seconds",
+      "slower": "Slower",
+      "faster": "Faster",
+      "resetSpeed": "Normal speed"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Autosaved at {time}",

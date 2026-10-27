@@ -136,6 +136,9 @@ const LyricLinesView = lazy(() => import("./modules/lyric-editor/components"));
 const PreviewModeSwitcher = lazy(
 	() => import("./components/PreviewModeSwitcher"),
 );
+const TranscriptionWorkspace = lazy(
+	() => import("./modules/transcription/components/TranscriptionWorkspace"),
+);
 const Dialogs = lazy(() => import("./components/Dialogs"));
 
 // The default toast bounce overshoots; the design slides in and out instead.
@@ -216,7 +219,9 @@ function App() {
 	// Preview mode already owns the entire editor area. Keep the sync preview
 	// pane's setting intact for when the user returns, but never render a second
 	// preview beside it.
-	const previewPanelVisible = showPreviewPanel && toolMode !== ToolMode.Preview;
+	const showsLyricLines =
+		toolMode !== ToolMode.Preview && toolMode !== ToolMode.Transcribe;
+	const previewPanelVisible = showPreviewPanel && showsLyricLines;
 	const customBackgroundImage = useAtomValue(customBackgroundImageAtom);
 	const customBackgroundOpacity = useAtomValue(customBackgroundOpacityAtom);
 	const customBackgroundMask = useAtomValue(customBackgroundMaskAtom);
@@ -702,7 +707,11 @@ function App() {
 					<Flex direction="column" height="100vh">
 						{appLayoutOrder.map((id) => {
 							if (id === "titlebar") return <TitleBar key="titlebar" />;
-							if (id === "ribbonbar") return <RibbonBar key="ribbonbar" />;
+							if (id === "ribbonbar")
+								// The transcription workspace carries its own toolbar.
+								return toolMode === ToolMode.Transcribe ? null : (
+									<RibbonBar key="ribbonbar" />
+								);
 							if (id === "editor") {
 								const editorContent = (
 									<Box flexGrow="1" overflow="hidden" key="editor-content">
@@ -745,7 +754,7 @@ function App() {
 													</Flex>
 												) : (
 													<AnimatePresence mode="wait">
-														{toolMode !== ToolMode.Preview && (
+														{showsLyricLines && (
 															<SuspensePlaceHolder key={toolMode}>
 																<motion.div
 																	layout="position"
@@ -778,6 +787,13 @@ function App() {
 																	>
 																		<PreviewModeSwitcher />
 																	</motion.div>
+																</Box>
+															</SuspensePlaceHolder>
+														)}
+														{toolMode === ToolMode.Transcribe && (
+															<SuspensePlaceHolder key="transcription">
+																<Box height="100%" key="transcription">
+																	<TranscriptionWorkspace />
 																</Box>
 															</SuspensePlaceHolder>
 														)}
