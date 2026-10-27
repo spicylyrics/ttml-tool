@@ -29,6 +29,7 @@ import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
+import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
 import { showPreviewPanelAtom } from "$/states/main";
 import {
 	BackgroundSyncControl,
@@ -323,6 +324,7 @@ export const WorkflowSettings = () => {
 				</Heading>
 				{toggles(editModeToggles)}
 			</Flex>
+			<RomanizationToolsSettings />
 			<Flex direction="column" gap="3">
 				<Heading size="4">
 					{t("settings.group.timeModeDisplay", "Time mode display")}

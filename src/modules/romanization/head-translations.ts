@@ -42,7 +42,7 @@ export function appendHeadTranslations(
 	const blocks = Array.from(metadataEl.children).filter(
 		(child) => child.tagName === "iTunesMetadata",
 	);
-	let itunesMeta = blocks.at(-1);
+	let itunesMeta = blocks[blocks.length - 1];
 	if (!itunesMeta) {
 		itunesMeta = doc.createElement("iTunesMetadata");
 		itunesMeta.setAttribute("xmlns", ITUNES_NAMESPACE);

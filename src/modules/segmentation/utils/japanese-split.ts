@@ -37,7 +37,7 @@ const joinsPrevious = (char: string, granularity: JapaneseGranularity) =>
 	(granularity !== "mora" && MORAIC_N.has(char));
 
 const lastChar = (token: string | undefined) =>
-	token ? Array.from(token).at(-1) : undefined;
+	token ? Array.from(token).pop() : undefined;
 
 function splitByCharacter(
 	text: string,
@@ -61,7 +61,7 @@ function splitByCharacter(
 			lastIsKana = true;
 			latinRun = false;
 		} else if (isPunctuation(char)) {
-			const previous = lastChar(tokens.at(-1));
+			const previous = lastChar(tokens[tokens.length - 1]);
 			if (previous && !isSpace(previous)) tokens[tokens.length - 1] += char;
 			else tokens.push(char);
 			lastIsKana = false;
@@ -102,7 +102,7 @@ function splitByWord(text: string): string[] {
 	const tokens: string[] = [];
 	for (const { segment } of wordSegmenter.segment(text)) {
 		const first = Array.from(segment)[0] ?? "";
-		const previous = lastChar(tokens.at(-1));
+		const previous = lastChar(tokens[tokens.length - 1]);
 		const previousIsText = !!previous && !isSpace(previous);
 		if (
 			previousIsText &&

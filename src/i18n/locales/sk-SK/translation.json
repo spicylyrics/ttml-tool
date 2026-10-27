@@ -1242,6 +1242,42 @@
     "applyToAll": "Použiť na všetky rovnaké slová",
     "caseSensitive": "Rozlišovať veľké a malé písmená"
   },
+  "romanizationTools": {
+    "group": "Prepis do latinky a delenie",
+    "flag": "Experimentálne nástroje na prepis",
+    "flagDesc": "Delenie angličtiny podľa pravidiel, veľkosť delenia japončiny, vloženie prepísanej stránky a export prekladov do hlavičky.",
+    "japaneseGranularity": "Veľkosť delenia japončiny",
+    "japaneseGranularityDesc": "Ako automatické delenie rozdelí japonský text. Malé kana, ー a っ zostanú pri svojej hláske.",
+    "granularity": {
+      "syllable": "Slabika",
+      "syllableDesc": "Jeden zvuk na časť, ん sa pripojí k predchádzajúcemu",
+      "mora": "Móra",
+      "moraDesc": "Jedna doba na časť, ん je samostatná časť",
+      "word": "Slovo",
+      "wordDesc": "Celé slová"
+    },
+    "translationFormat": "Export prekladov",
+    "translationFormatDesc": "Kam sa v exportovanom TTML ukladajú preklady. Spicy Lyrics číta len preklady v riadku.",
+    "format": {
+      "inline": "V riadku",
+      "inlineDesc": "V každom riadku, ako doteraz. Spicy Lyrics číta tento formát.",
+      "head": "Hlavička",
+      "headDesc": "V štýle Apple, v hlavičke súboru. Spicy Lyrics ich môže zobraziť ako prepis."
+    },
+    "translationLanguage": "Jazyk prekladu",
+    "translationLanguageDesc": "Jazykový kód prekladov v hlavičke, napríklad en alebo es.",
+    "paste": {
+      "button": "Vložiť prepis...",
+      "tooltip": "Doplní prepis k slovám zo stránky s prepísaným textom, napríklad z Genius.",
+      "title": "Vložiť prepísaný text",
+      "description": "Vložte stránku s prepísaným textom, jeden riadok na riadok textu. Hlavičky sekcií a prázdne riadky sa preskočia a riadky v pozadí zostanú bez zmeny.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Doplniť prepis",
+      "lineCountMismatch": "Stránka má {received} riadkov a text má {expected}. Pridajte alebo odstráňte riadky, aby sa zhodovali.",
+      "applied": "Prepis doplnený, počet riadkov: {count}.",
+      "check": "Niektoré slová boli odhadnuté. Skontrolujte riadky {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Časový posun",
     "amount": "Posun (ms)",
