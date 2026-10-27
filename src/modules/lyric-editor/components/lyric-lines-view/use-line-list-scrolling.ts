@@ -311,6 +311,7 @@ const modeAnchorLines: Record<ToolMode, number> = {
 	[ToolMode.Edit]: -1,
 	[ToolMode.Sync]: -1,
 	[ToolMode.Preview]: -1,
+	[ToolMode.Transcribe]: -1,
 };
 let sharedAnchorLineIndex = -1;
 const modeLeftState: Record<
@@ -320,4 +321,5 @@ const modeLeftState: Record<
 	[ToolMode.Edit]: null,
 	[ToolMode.Sync]: null,
 	[ToolMode.Preview]: null,
+	[ToolMode.Transcribe]: null,
 };
