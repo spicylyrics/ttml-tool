@@ -150,8 +150,7 @@ export interface TimingSourceCandidate {
 }
 
 const isTimedLine = (line: LyricLine) => line.endTime > line.startTime;
-const isTimedWord = (word: LyricWord) =>
-	word.startTime > 0 || word.endTime > 0;
+const isTimedWord = (word: LyricWord) => word.startTime > 0 || word.endTime > 0;
 
 /**
  * Sections whose timings could be copied onto `targetSectionId`: any other
@@ -339,7 +338,6 @@ export function applySectionTimings(
 export function sectionTimingAnchor(lyrics: TTMLLyric, sectionId: string) {
 	const bounds = getSectionBoundsById(lyrics.lyricLines, sectionId);
 	if (!bounds) return undefined;
-	return lyrics.lyricLines
-		.slice(bounds.start, bounds.end)
-		.find(isTimedLine)?.startTime;
+	return lyrics.lyricLines.slice(bounds.start, bounds.end).find(isTimedLine)
+		?.startTime;
 }

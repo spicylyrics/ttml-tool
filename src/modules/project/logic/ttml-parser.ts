@@ -590,8 +590,7 @@ export function parseLyric(
 	}
 
 	const songParts =
-		options.readSongParts &&
-		!metadata.some((m) => m.key === "amll:sections")
+		options.readSongParts && !metadata.some((m) => m.key === "amll:sections")
 			? createSongPartReader()
 			: undefined;
 	for (const lineEl of ttmlDoc.querySelectorAll("body p[begin][end]")) {

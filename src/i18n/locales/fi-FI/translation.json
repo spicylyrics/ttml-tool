@@ -1217,6 +1217,29 @@
     "addToNext": "Lisää luokittelemattomat rivit seuraavaan osioon",
     "section": "Osio"
   },
+  "sectionEditing": {
+    "toggleTitle": "Osioiden muokkaustyökalut",
+    "toggleDesc": "Napsauta osion otsikkoa nimetäksesi sen uudelleen tai vaihtaaksesi sen tyypin, aloita osio miltä tahansa riviltä ja kopioi ajoitukset toistuvien osioiden välillä. Lukee myös Applen kappaleen osat, kun avaat TTML-tiedoston. Osioita käyttää editori, ei Spicy Lyrics.",
+    "editHeader": "Nimeä uudelleen tai vaihda tyyppi: {label}",
+    "menu": "Osion toiminnot",
+    "startHere": "Aloita osio tästä",
+    "moveStartUp": "Siirrä alkua rivi ylöspäin",
+    "moveStartDown": "Siirrä alkua rivi alaspäin",
+    "applyTimings": "Käytä ajoituksia osiosta...",
+    "applyTitle": "Käytä ajoituksia toisesta osiosta",
+    "applyDesc": "Kopioi toisen osion ajoitukset tähän osioon. Rivit yhdistetään sanojen perusteella; vain vastaavat sanat saavat ajoituksen, muut jäävät ilman.",
+    "source": "Kopioi osiosta",
+    "suggested": "Ehdotettu",
+    "similarity": "{percent} % samoja sanoja",
+    "noSources": "Millään muulla osiolla ei ole vielä ajoituksia. Synkronoi ensin jokin osio.",
+    "anchor": "Aloituskohta",
+    "anchorSection": "Tämän osion ensimmäinen ajoitettu rivi ({time})",
+    "anchorPlayhead": "Toistokohta ({time})",
+    "refineNote": "Kopioidut ajoitukset ovat vasta lähtökohta. Toista osio ja korjaa kohdat, jotka eivät täsmää.",
+    "apply": "Käytä",
+    "applied": "Ajoitukset kopioitu {copied}/{total} riville. {untimed, plural, =0 {Kaikki sanat täsmäsivät.} one {# sana jäi ilman ajoitusta.} other {# sanaa jäi ilman ajoitusta.}}",
+    "nothingMatched": "Tämän osion rivit eivät vastaa toista osiota, joten mitään ei kopioitu."
+  },
   "touchSyncPanel": {
     "prevWord": "Edellinen sana",
     "nextWord": "Seuraava sana"
