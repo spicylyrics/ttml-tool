@@ -518,7 +518,7 @@ export function removeSectionMetadata(lyrics: TTMLLyric, sectionId: string) {
 	);
 }
 
-const sectionCategoryLabel = (category: LyricSectionCategory) =>
+export const sectionCategoryLabel = (category: LyricSectionCategory) =>
 	category
 		.split("-")
 		.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
