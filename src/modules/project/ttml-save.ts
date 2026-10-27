@@ -1,7 +1,12 @@
 import type { Atom, getDefaultStore } from "jotai";
 import { toast } from "react-toastify";
-import { audioEngine } from "$/modules/audio/audio-engine";
-import { currentTimeAtom } from "$/modules/audio/states";
+import { lintLyric } from "$/modules/linter/lint";
+import {
+	focusLyric,
+	lintOptionsAtom,
+	lintResultAtom,
+	problemsDialogAtom,
+} from "$/modules/linter/states";
 import {
 	allowConsecutiveBackgroundLinesAtom,
 	lyricTextNormalizationOptionsAtom,
@@ -11,8 +16,6 @@ import {
 	lyricLinesAtom,
 	markLyricsSavedAtom,
 	saveFileNameAtom,
-	selectedLinesAtom,
-	selectedWordsAtom,
 } from "$/states/main";
 import { saveFile } from "$/utils/fileSystem";
 import { error } from "$/utils/logging";
@@ -86,7 +89,34 @@ export async function withTTMLExport(
 				error(message, e);
 			}
 		};
+		// Recovery is a rescue path: it never waits on the checker.
+		const lint = recovery
+			? undefined
+			: lintLyric(lyric, store.get(lintOptionsAtom));
+		if (lint) store.set(lintResultAtom, lint);
+		const warnings = lint?.counts.warning ?? 0;
+		const errors = lint?.counts.error ?? 0;
+		const toastWarnings = () => {
+			if (!warnings) return;
+			try {
+				toast.warn(
+					t(
+						"linter.warningsToast",
+						"{count, plural, one {# warning to check. Open Problems} other {# warnings to check. Open Problems}}",
+						{ count: warnings },
+					),
+					{ onClick: () => store.set(problemsDialogAtom, true) },
+				);
+			} catch (e) {
+				error("Failed to show lint warnings", e);
+			}
+		};
 		const execute = async () => {
+			const written = await writePrepared();
+			if (written) toastWarnings();
+			return written;
+		};
+		const writePrepared = async () => {
 			try {
 				return await write({
 					lyric,
@@ -109,41 +139,60 @@ export async function withTTMLExport(
 				return false;
 			}
 		};
-		if (review.untimed) {
-			const { line, unit } = review.untimed;
-			const description = t(
-				"confirmDialog.untimedLyrics.description",
-				"Some lines or words have no timing yet. Fix them, or export anyway?",
+		const untimed = review.untimed;
+		if (untimed && recovery)
+			notify(
+				t(
+					"export.recoveryUntimed",
+					"This recovery export contains untimed lyrics. Check timing before submitting.",
+				),
 			);
-			if (recovery)
-				notify(
-					t(
-						"export.recoveryUntimed",
-						"This recovery export contains untimed lyrics. Check timing before submitting.",
-					),
-				);
-			else {
-				store.set(confirmDialogAtom, {
-					open: true,
-					title: t("confirmDialog.untimedLyrics.title", "Untimed lyrics found"),
-					description,
-					confirmText: t(
-						"confirmDialog.untimedLyrics.exportAnyway",
-						"Export anyway",
-					),
-					cancelText: t("confirmDialog.untimedLyrics.fixIt", "Fix it"),
-					onConfirm: () => {
-						void execute();
-					},
-					onCancel: () => {
-						store.set(selectedLinesAtom, new Set([line.id]));
-						store.set(selectedWordsAtom, new Set([unit.id]));
-						audioEngine.seekMusic(line.startTime / 1000);
-						store.set(currentTimeAtom, line.startTime);
-					},
-				});
-				return false;
-			}
+		else if (untimed || errors) {
+			// One dialog covers both: untimed words and checker errors.
+			const title = errors
+				? t(
+						"linter.exportGate.title",
+						"{count, plural, one {# error found} other {# errors found}}",
+						{ count: errors },
+					)
+				: t("confirmDialog.untimedLyrics.title", "Untimed lyrics found");
+			const description = !errors
+				? t(
+						"confirmDialog.untimedLyrics.description",
+						"Some lines or words have no timing yet. Fix them, or export anyway?",
+					)
+				: untimed
+					? t(
+							"linter.exportGate.descriptionUntimed",
+							"The checker found problems that block approval, and some lines or words have no timing yet. Fix them, or export anyway?",
+						)
+					: t(
+							"linter.exportGate.description",
+							"The checker found problems that block approval. Fix them, or export anyway?",
+						);
+			store.set(confirmDialogAtom, {
+				open: true,
+				title,
+				description,
+				confirmText: t(
+					"confirmDialog.untimedLyrics.exportAnyway",
+					"Export anyway",
+				),
+				cancelText: t("confirmDialog.untimedLyrics.fixIt", "Fix it"),
+				onConfirm: () => {
+					void execute();
+				},
+				onCancel: () => {
+					if (untimed)
+						focusLyric(store, {
+							lineId: untimed.line.id,
+							wordIds: [untimed.unit.id],
+							timeMs: untimed.line.startTime,
+						});
+					if (errors) store.set(problemsDialogAtom, true);
+				},
+			});
+			return false;
 		}
 		return await execute();
 	} catch (e) {

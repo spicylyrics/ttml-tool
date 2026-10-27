@@ -51,6 +51,7 @@
 		"compromise": "^14.16.0",
 		"compromise-speech": "^0.1.1",
 		"deep-freeze": "^0.0.1",
+		"fast-xml-parser": "^5.11.2",
 		"framer-motion": "^12.23.26",
 		"franc-min": "^6.2.0",
 		"gl-matrix": "4.0.0-beta.2",

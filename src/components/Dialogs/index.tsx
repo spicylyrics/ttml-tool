@@ -26,6 +26,7 @@ import { SuggestedSplitsDialog } from "$/modules/segmentation/components/Suggest
 import { SplitWordDialog } from "$/modules/segmentation/components/split-word.tsx";
 import { FontSelectionDialog } from "$/modules/settings/modals/FontSelectionDialog.tsx";
 import { SettingsDialog } from "$/modules/settings/modals/index.tsx";
+import { ProblemsDialog } from "$/modules/linter/ProblemsDialog.tsx";
 import { TTMLChecklistDialog } from "$/modules/ttml-checklist/TTMLChecklistDialog.tsx";
 import { ChangelogDialog } from "./changelog.tsx";
 import { ConfirmationDialog } from "./confirmation.tsx";
@@ -47,6 +48,7 @@ export const Dialogs = () => {
 			<ReplaceRomanizationDialog />
 			<LatencyTestDialog />
 			<TTMLChecklistDialog />
+			<ProblemsDialog />
 			<ConfirmationDialog />
 			<CreateProjectPromptDialog />
 			<HistoryRestoreDialog />

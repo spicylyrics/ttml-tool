@@ -1,0 +1,98 @@
+.group {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+
+.heading {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.row {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-1);
+	border-radius: var(--radius-4);
+}
+
+.main {
+	display: flex;
+	flex: 1;
+	min-width: 0;
+	align-items: flex-start;
+	gap: var(--space-2);
+	padding: var(--space-2);
+	border: 0;
+	border-radius: inherit;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	text-align: start;
+}
+
+button.main {
+	cursor: pointer;
+}
+
+button.main:hover {
+	background: var(--gray-a3);
+}
+
+button.main:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: -2px;
+}
+
+.text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.message {
+	overflow-wrap: anywhere;
+}
+
+.location {
+	font-variant-numeric: tabular-nums;
+}
+
+.icon {
+	display: inline-flex;
+	flex-shrink: 0;
+	padding-top: 2px;
+}
+
+/* Icon plus heading text carry the severity; color only reinforces it. */
+.icon[data-severity="error"],
+.heading[data-severity="error"] .icon {
+	color: var(--red-11);
+}
+
+.icon[data-severity="warning"],
+.heading[data-severity="warning"] .icon {
+	color: var(--amber-11);
+}
+
+.icon[data-severity="hint"],
+.heading[data-severity="hint"] .icon {
+	color: var(--accent-11);
+}
+
+.link {
+	flex-shrink: 0;
+	margin-top: var(--space-2);
+	margin-inline-end: var(--space-1);
+}

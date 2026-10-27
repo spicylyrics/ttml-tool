@@ -1,8 +1,9 @@
 import { Button, DropdownMenu } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { problemsDialogAtom } from "$/modules/linter/states";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
 import { useTopMenuActions } from "../useTopMenuActions";
 
@@ -18,6 +19,7 @@ const ToolMenuItems = () => {
 	const [spectrogramHoverSyncEnabled, setSpectrogramHoverSyncEnabled] = useAtom(
 		spectrogramHoverSyncEnabledAtom,
 	);
+	const setProblemsOpen = useSetAtom(problemsDialogAtom);
 
 	return (
 		<>
@@ -48,6 +50,9 @@ const ToolMenuItems = () => {
 			</DropdownMenu.CheckboxItem>
 			<DropdownMenu.Item onSelect={menu.onOpenLatencyTest}>
 				{t("settingsDialog.common.latencyTest", "音频/输入延迟测试")}
+			</DropdownMenu.Item>
+			<DropdownMenu.Item onSelect={() => setProblemsOpen(true)}>
+				{t("topBar.menu.problems", "Problems")}
 			</DropdownMenu.Item>
 			<DropdownMenu.Item onSelect={menu.onOpenTTMLChecklist}>
 				{t("topBar.menu.ttmlChecklist", "TTML checklist")}
