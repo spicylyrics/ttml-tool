@@ -8,7 +8,6 @@ export const GUIDE_SPELLING_RULE = "guide-spelling";
 
 export type GuideSpellingContext =
 	| "because"
-	| "until"
 	| "interjection"
 	| "gardenTool"
 	| "percocet";
@@ -19,14 +18,11 @@ const ENTRIES: {
 	context?: GuideSpellingContext;
 }[] = [
 	{ preferred: "'cause", variants: ["cause"], context: "because" },
-	{ preferred: "'til", variants: ["till"], context: "until" },
+	// "till" and plain "perk" are left out, as in the ttml-review checker:
+	// "till" is right in British English, "perk" is an everyday word.
 	{ preferred: "ayy", variants: ["aye", "ay"], context: "interjection" },
 	{ preferred: "ho", variants: ["hoe"], context: "gardenTool" },
-	{
-		preferred: "Perc'",
-		variants: ["perk", "perky", "percy"],
-		context: "percocet",
-	},
+	{ preferred: "Perc'", variants: ["perky", "percy"], context: "percocet" },
 	{ preferred: "lil'", variants: ["lil", "li'l"] },
 	{ preferred: "a.k.a.", variants: ["aka", "a.k.a"] },
 	{ preferred: "HAM", variants: ["h.a.m", "h.a.m."] },

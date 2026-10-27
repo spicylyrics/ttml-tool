@@ -1481,6 +1481,9 @@
       "description": "Kontrola našla problémy, ktoré bránia schváleniu. Opraviť ich, alebo napriek tomu exportovať?",
       "descriptionUntimed": "Kontrola našla problémy, ktoré bránia schváleniu, a niektoré riadky alebo slová ešte nemajú časovanie. Opraviť ich, alebo napriek tomu exportovať?"
     },
-    "guideSpelling": "\"{found}\": štandardný zápis je \"{preferred}\"{context, select, because { (keď znamená \"because\")} until { (skratka \"until\")} interjection { (citoslovce)} gardenTool { (\"hoe\" je motyka)} percocet { (keď ide o Percocet)} other {}}."
+    "guideSpelling": "\"{found}\": štandardný zápis je \"{preferred}\"{context, select, because { (keď znamená \"because\")} interjection { (citoslovce)} gardenTool { (\"hoe\" je motyka)} percocet { (keď ide o Percocet)} other {}}.",
+    "wordGap": "Medzera {gap} ms pred \"{word}\": nadväzujúce slová by mali zdieľať časovú značku. Nechajte ju, len ak ide o skutočnú pauzu.",
+    "spokenNumber": "\"{number}\" vyzerá ako bežné vyslovované číslo. Napíšte ho slovom, ak nejde o rok, čas, model, kaliber, 24/7, 5-0, 24K alebo meno.",
+    "decorativeSymbol": "Ozdobný symbol \"{symbol}\" v texte. Vynechajte ho."
   }
 }

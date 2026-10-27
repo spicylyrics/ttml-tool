@@ -1481,6 +1481,9 @@
       "description": "Sprawdzanie wykryło problemy, które blokują zatwierdzenie. Poprawić je czy mimo to eksportować?",
       "descriptionUntimed": "Sprawdzanie wykryło problemy, które blokują zatwierdzenie, a niektóre wersy lub słowa nie mają jeszcze synchronizacji. Poprawić je czy mimo to eksportować?"
     },
-    "guideSpelling": "\"{found}\": standardowa pisownia to \"{preferred}\"{context, select, because { (gdy znaczy \"because\")} until { (skrót od \"until\")} interjection { (wykrzyknik)} gardenTool { (\"hoe\" to motyka)} percocet { (gdy chodzi o Percocet)} other {}}."
+    "guideSpelling": "\"{found}\": standardowa pisownia to \"{preferred}\"{context, select, because { (gdy znaczy \"because\")} interjection { (wykrzyknik)} gardenTool { (\"hoe\" to motyka)} percocet { (gdy chodzi o Percocet)} other {}}.",
+    "wordGap": "Przerwa {gap} ms przed \"{word}\": ciągłe słowa powinny dzielić znacznik czasu. Zostaw ją tylko, jeśli to prawdziwa pauza.",
+    "spokenNumber": "\"{number}\" wygląda na zwykłą wymawianą liczbę. Zapisz ją słownie, chyba że to rok, godzina, model, kaliber, 24/7, 5-0, 24K lub nazwa.",
+    "decorativeSymbol": "Ozdobny symbol \"{symbol}\" w tekście. Usuń go."
   }
 }

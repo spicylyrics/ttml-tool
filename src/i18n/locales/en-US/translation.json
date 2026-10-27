@@ -1481,6 +1481,9 @@
       "description": "The checker found problems that block approval. Fix them, or export anyway?",
       "descriptionUntimed": "The checker found problems that block approval, and some lines or words have no timing yet. Fix them, or export anyway?"
     },
-    "guideSpelling": "\"{found}\": the standard spelling is \"{preferred}\"{context, select, because { when it means \"because\"} until { when it's short for \"until\"} interjection { for the interjection} gardenTool { (\"hoe\" is the garden tool)} percocet { when it means Percocet} other {}}."
+    "guideSpelling": "\"{found}\": the standard spelling is \"{preferred}\"{context, select, because { when it means \"because\"} interjection { for the interjection} gardenTool { (\"hoe\" is the garden tool)} percocet { when it means Percocet} other {}}.",
+    "wordGap": "{gap} ms gap before \"{word}\": continuous words should share a timestamp. Keep it only if it's a real pause.",
+    "spokenNumber": "\"{number}\" looks like an ordinary spoken number. Spell it out unless it's a year, time, model, caliber, 24/7, 5-0, 24K or a name.",
+    "decorativeSymbol": "Decorative symbol \"{symbol}\" in the lyrics. Leave it out."
   }
 }

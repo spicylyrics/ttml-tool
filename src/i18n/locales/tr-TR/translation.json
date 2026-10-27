@@ -1481,6 +1481,9 @@
       "description": "Denetim, onayı engelleyen sorunlar buldu. Düzeltilsin mi, yine de dışa aktarılsın mı?",
       "descriptionUntimed": "Denetim, onayı engelleyen sorunlar buldu ve bazı satır veya kelimeler henüz zamanlanmadı. Düzeltilsin mi, yine de dışa aktarılsın mı?"
     },
-    "guideSpelling": "\"{found}\": standart yazım \"{preferred}\"{context, select, because { (\"because\" anlamında)} until { (\"until\" kısaltması)} interjection { (ünlem)} gardenTool { (\"hoe\" çapa demektir)} percocet { (Percocet anlamında)} other {}}."
+    "guideSpelling": "\"{found}\": standart yazım \"{preferred}\"{context, select, because { (\"because\" anlamında)} interjection { (ünlem)} gardenTool { (\"hoe\" çapa demektir)} percocet { (Percocet anlamında)} other {}}.",
+    "wordGap": "\"{word}\" öncesinde {gap} ms boşluk: kesintisiz sözcükler aynı zaman damgasını paylaşmalı. Yalnızca gerçek bir duraklamaysa bırakın.",
+    "spokenNumber": "\"{number}\" sıradan, söylenen bir sayıya benziyor. Yıl, saat, model, kalibre, 24/7, 5-0, 24K veya bir ad değilse yazıyla yazın.",
+    "decorativeSymbol": "Sözlerde süs simgesi \"{symbol}\". Kaldırın."
   }
 }

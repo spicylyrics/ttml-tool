@@ -1481,6 +1481,9 @@
       "description": "Pemeriksaan menemukan masalah yang menghalangi persetujuan. Perbaiki, atau tetap ekspor?",
       "descriptionUntimed": "Pemeriksaan menemukan masalah yang menghalangi persetujuan, dan beberapa baris atau kata belum diberi waktu. Perbaiki, atau tetap ekspor?"
     },
-    "guideSpelling": "\"{found}\": ejaan standarnya adalah \"{preferred}\"{context, select, because { (jika berarti \"because\")} until { (singkatan dari \"until\")} interjection { (kata seru)} gardenTool { (\"hoe\" adalah cangkul)} percocet { (jika berarti Percocet)} other {}}."
+    "guideSpelling": "\"{found}\": ejaan standarnya adalah \"{preferred}\"{context, select, because { (jika berarti \"because\")} interjection { (kata seru)} gardenTool { (\"hoe\" adalah cangkul)} percocet { (jika berarti Percocet)} other {}}.",
+    "wordGap": "Jeda {gap} ms sebelum \"{word}\": kata yang bersambung sebaiknya berbagi stempel waktu. Biarkan hanya jika itu jeda sungguhan.",
+    "spokenNumber": "\"{number}\" terlihat seperti angka yang diucapkan biasa. Tulis dengan huruf kecuali itu tahun, jam, model, kaliber, 24/7, 5-0, 24K, atau nama.",
+    "decorativeSymbol": "Simbol dekoratif \"{symbol}\" di lirik. Hapus saja."
   }
 }

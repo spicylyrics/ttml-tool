@@ -1481,6 +1481,9 @@
       "description": "Verificarea a găsit probleme care blochează aprobarea. Le corectezi sau exporți oricum?",
       "descriptionUntimed": "Verificarea a găsit probleme care blochează aprobarea, iar unele versuri sau cuvinte nu sunt încă sincronizate. Le corectezi sau exporți oricum?"
     },
-    "guideSpelling": "\"{found}\": scrierea standard este \"{preferred}\"{context, select, because { (când înseamnă \"because\")} until { (prescurtare de la \"until\")} interjection { (interjecția)} gardenTool { (\"hoe\" este sapa)} percocet { (când se referă la Percocet)} other {}}."
+    "guideSpelling": "\"{found}\": scrierea standard este \"{preferred}\"{context, select, because { (când înseamnă \"because\")} interjection { (interjecția)} gardenTool { (\"hoe\" este sapa)} percocet { (când se referă la Percocet)} other {}}.",
+    "wordGap": "Pauză de {gap} ms înainte de \"{word}\": cuvintele continue ar trebui să aibă același marcaj de timp. Păstreaz-o doar dacă e o pauză reală.",
+    "spokenNumber": "\"{number}\" pare un număr rostit obișnuit. Scrie-l în litere, dacă nu e un an, o oră, un model, un calibru, 24/7, 5-0, 24K sau un nume.",
+    "decorativeSymbol": "Simbol decorativ \"{symbol}\" în versuri. Scoate-l."
   }
 }

@@ -1481,6 +1481,9 @@
       "description": "Tarkistus löysi ongelmia, jotka estävät hyväksynnän. Korjataanko ne vai viedäänkö silti?",
       "descriptionUntimed": "Tarkistus löysi ongelmia, jotka estävät hyväksynnän, ja joiltain riveiltä tai sanoilta puuttuu vielä ajoitus. Korjataanko ne vai viedäänkö silti?"
     },
-    "guideSpelling": "\"{found}\": vakiokirjoitusasu on \"{preferred}\"{context, select, because { (kun se tarkoittaa \"because\")} until { (lyhenne sanasta \"until\")} interjection { (huudahdus)} gardenTool { (\"hoe\" on kuokka)} percocet { (kun se tarkoittaa Percocetia)} other {}}."
+    "guideSpelling": "\"{found}\": vakiokirjoitusasu on \"{preferred}\"{context, select, because { (kun se tarkoittaa \"because\")} interjection { (huudahdus)} gardenTool { (\"hoe\" on kuokka)} percocet { (kun se tarkoittaa Percocetia)} other {}}.",
+    "wordGap": "{gap} ms tauko ennen sanaa \"{word}\": yhtenäisten sanojen pitäisi jakaa aikaleima. Jätä se vain, jos se on oikea tauko.",
+    "spokenNumber": "\"{number}\" näyttää tavalliselta lausutulta luvulta. Kirjoita se kirjaimin, ellei se ole vuosi, kellonaika, malli, kaliiperi, 24/7, 5-0, 24K tai nimi.",
+    "decorativeSymbol": "Koristemerkki \"{symbol}\" sanoissa. Jätä se pois."
   }
 }

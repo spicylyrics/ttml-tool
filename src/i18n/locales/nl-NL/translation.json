@@ -1481,6 +1481,9 @@
       "description": "De controle vond problemen die goedkeuring blokkeren. Oplossen of toch exporteren?",
       "descriptionUntimed": "De controle vond problemen die goedkeuring blokkeren, en sommige regels of woorden hebben nog geen timing. Oplossen of toch exporteren?"
     },
-    "guideSpelling": "\"{found}\": de standaardspelling is \"{preferred}\"{context, select, because { (als het \"because\" betekent)} until { (afkorting van \"until\")} interjection { (het tussenwerpsel)} gardenTool { (\"hoe\" is de schoffel)} percocet { (als het Percocet betekent)} other {}}."
+    "guideSpelling": "\"{found}\": de standaardspelling is \"{preferred}\"{context, select, because { (als het \"because\" betekent)} interjection { (het tussenwerpsel)} gardenTool { (\"hoe\" is de schoffel)} percocet { (als het Percocet betekent)} other {}}.",
+    "wordGap": "{gap} ms gat vóór \"{word}\": doorlopende woorden horen een tijdstempel te delen. Laat het alleen staan als het een echte pauze is.",
+    "spokenNumber": "\"{number}\" lijkt een gewoon uitgesproken getal. Schrijf het uit, tenzij het een jaartal, tijd, model, kaliber, 24/7, 5-0, 24K of naam is.",
+    "decorativeSymbol": "Decoratief symbool \"{symbol}\" in de tekst. Laat het weg."
   }
 }

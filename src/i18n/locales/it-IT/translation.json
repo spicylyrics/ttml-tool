@@ -1481,6 +1481,9 @@
       "description": "Il controllo ha trovato problemi che impediscono l'approvazione. Correggerli o esportare comunque?",
       "descriptionUntimed": "Il controllo ha trovato problemi che impediscono l'approvazione, e alcuni versi o parole non sono ancora sincronizzati. Correggerli o esportare comunque?"
     },
-    "guideSpelling": "\"{found}\": la grafia standard è \"{preferred}\"{context, select, because { (quando significa \"because\")} until { (abbreviazione di \"until\")} interjection { (l'interiezione)} gardenTool { (\"hoe\" è la zappa)} percocet { (quando indica il Percocet)} other {}}."
+    "guideSpelling": "\"{found}\": la grafia standard è \"{preferred}\"{context, select, because { (quando significa \"because\")} interjection { (l'interiezione)} gardenTool { (\"hoe\" è la zappa)} percocet { (quando indica il Percocet)} other {}}.",
+    "wordGap": "Spazio di {gap} ms prima di \"{word}\": le parole continue dovrebbero condividere lo stesso tempo. Lascialo solo se è una pausa reale.",
+    "spokenNumber": "\"{number}\" sembra un normale numero pronunciato. Scrivilo in lettere, a meno che non sia un anno, un orario, un modello, un calibro, 24/7, 5-0, 24K o un nome.",
+    "decorativeSymbol": "Simbolo decorativo \"{symbol}\" nel testo. Toglilo."
   }
 }

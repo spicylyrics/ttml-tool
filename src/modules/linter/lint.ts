@@ -7,6 +7,7 @@ import type { LyricLine, TTMLLyric } from "$/types/ttml";
 import type { LyricTextNormalizationOptions } from "$/utils/apostrophe-normalization";
 import { produceTTMLText } from "../project/logic/ttml-export";
 import { findGuideSpellings, GUIDE_SPELLING_RULE } from "./guide-spelling";
+import { toolRuleProblems } from "./tool-rules";
 import { type Finding, lintTtml, type Severity } from "./vendor";
 import type { Line, Syllable } from "./vendor/model";
 
@@ -28,6 +29,8 @@ export interface LintProblem {
 	timeMs?: number;
 	/** The bot shows these first, in bold. */
 	loud: boolean;
+	/** About a background vocal rather than the lead. */
+	onBackground?: boolean;
 }
 
 export interface LyricLintResult {
@@ -105,10 +108,11 @@ function toProblem(
 	const source = line?.key ? sources.get(line.key) : undefined;
 	let editorLine: LyricLine | undefined;
 	let syllables: Syllable[] = [];
-	if (line && source) {
-		const bgIndex = finding.background
+	const bgIndex =
+		line && finding.background
 			? line.backgrounds.indexOf(finding.background)
 			: -1;
+	if (line && source) {
 		if (bgIndex !== -1) {
 			editorLine = source.backgrounds[bgIndex];
 			syllables = finding.background?.syllables ?? [];
@@ -127,6 +131,7 @@ function toProblem(
 		wordIds: resolveWords(syllables, finding.marks, editorLine),
 		timeMs: time == null ? undefined : Math.round(time * 1000),
 		loud: finding.loud ?? false,
+		onBackground: bgIndex !== -1,
 	};
 }
 
@@ -141,17 +146,33 @@ export const BG_STRUCTURE_RULES = new Set([
 	"stacked-backgrounds",
 ]);
 
-/** Where the tool grades differently from the bot (TX24, 2026-10-27). */
+/**
+ * Where the tool grades differently from the bot (TX24, 2026-10-27): things
+ * the guides and the ttml-review checker say block approval are errors.
+ */
 const TOOL_SEVERITY: Record<string, Severity> = {
-	// Forbidden by the Uploading and TTML Rules, so they block approval.
 	"stretched-spelling": "error",
 	"bracketed-note": "error",
 	"section-label": "error",
 	"repeat-shorthand": "error",
 	"phrase-hyphen": "error",
+	ellipsis: "error",
+	"censor-format": "error",
+	"mixed-timing": "error",
+	"songwriters-missing": "error",
+	"zero-length": "error",
 	// A plain warning in the tool, not the bot's moderation banner.
 	"copied-text": "warning",
 };
+
+/**
+ * Overlaps inside a lead line are errors. On a background vocal the bot
+ * allows them, since two voices can share one.
+ */
+const LEAD_OVERLAP_RULES = new Set([
+	"syllable-overlap",
+	"syllables-out-of-order",
+]);
 
 function applyToolPolicy(
 	problems: LintProblem[],
@@ -160,7 +181,11 @@ function applyToolPolicy(
 	return problems
 		.filter((p) => !(allowConsecutive && BG_STRUCTURE_RULES.has(p.rule)))
 		.map((p) => {
-			const severity = TOOL_SEVERITY[p.rule];
+			const severity =
+				TOOL_SEVERITY[p.rule] ??
+				(LEAD_OVERLAP_RULES.has(p.rule) && !p.onBackground
+					? "error"
+					: undefined);
 			if (!severity) return p;
 			return { ...p, severity, loud: false };
 		});
@@ -239,7 +264,11 @@ export function lintLyric(
 		if (!lyric.lyricLines.some(hasExportableLineContent)) return EMPTY_RESULT;
 		const bot = lintLyricAsBot(lyric, options);
 		const problems = applyToolPolicy(bot.problems, allowConsecutive);
-		if (bot.loads) problems.push(...guideSpellingProblems(lyric.lyricLines));
+		if (bot.loads)
+			problems.push(
+				...guideSpellingProblems(lyric.lyricLines),
+				...toolRuleProblems(lyric.lyricLines),
+			);
 		return { ...bot, problems, counts: countBySeverity(problems) };
 	} catch {
 		return {

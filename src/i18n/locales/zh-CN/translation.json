@@ -1481,6 +1481,9 @@
       "description": "检查发现了会阻止通过审核的问题。要修复，还是仍然导出？",
       "descriptionUntimed": "检查发现了会阻止通过审核的问题，并且部分行或单词尚未打轴。要修复，还是仍然导出？"
     },
-    "guideSpelling": "\"{found}\"：标准写法是 \"{preferred}\"{context, select, because {（表示 \"because\" 时）} until {（\"until\" 的缩写）} interjection {（感叹词）} gardenTool {（\"hoe\" 指锄头）} percocet {（指 Percocet 时）} other {}}。"
+    "guideSpelling": "\"{found}\"：标准写法是 \"{preferred}\"{context, select, because {（表示 \"because\" 时）} interjection {（感叹词）} gardenTool {（\"hoe\" 指锄头）} percocet {（指 Percocet 时）} other {}}。",
+    "wordGap": "\"{word}\" 之前有 {gap} 毫秒间隙：连续的单词应共用同一时间戳。只有真正停顿时才保留。",
+    "spokenNumber": "\"{number}\" 看起来是普通的口语数字。除非是年份、时间、型号、口径、24/7、5-0、24K 或名称，否则请写成文字。",
+    "decorativeSymbol": "歌词中有装饰符号 \"{symbol}\"。请删除。"
   }
 }

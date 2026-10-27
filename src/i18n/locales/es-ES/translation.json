@@ -1481,6 +1481,9 @@
       "description": "La comprobación encontró problemas que impiden la aprobación. ¿Corregirlos o exportar de todos modos?",
       "descriptionUntimed": "La comprobación encontró problemas que impiden la aprobación, y algunas líneas o palabras aún no tienen sincronización. ¿Corregirlos o exportar de todos modos?"
     },
-    "guideSpelling": "\"{found}\": la ortografía estándar es \"{preferred}\"{context, select, because { (cuando significa \"because\")} until { (abreviatura de \"until\")} interjection { (la interjección)} gardenTool { (\"hoe\" es la azada)} percocet { (cuando se refiere a Percocet)} other {}}."
+    "guideSpelling": "\"{found}\": la ortografía estándar es \"{preferred}\"{context, select, because { (cuando significa \"because\")} interjection { (la interjección)} gardenTool { (\"hoe\" es la azada)} percocet { (cuando se refiere a Percocet)} other {}}.",
+    "wordGap": "Hueco de {gap} ms antes de \"{word}\": las palabras continuas deben compartir marca de tiempo. Déjalo solo si es una pausa real.",
+    "spokenNumber": "\"{number}\" parece un número hablado normal. Escríbelo con letras salvo que sea un año, una hora, un modelo, un calibre, 24/7, 5-0, 24K o un nombre.",
+    "decorativeSymbol": "Símbolo decorativo \"{symbol}\" en la letra. Quítalo."
   }
 }

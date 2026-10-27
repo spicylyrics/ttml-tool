@@ -1481,6 +1481,9 @@
       "description": "Tjekket fandt problemer, der forhindrer godkendelse. Vil du rette dem eller eksportere alligevel?",
       "descriptionUntimed": "Tjekket fandt problemer, der forhindrer godkendelse, og nogle linjer eller ord har endnu ingen timing. Vil du rette dem eller eksportere alligevel?"
     },
-    "guideSpelling": "\"{found}\": standardstavningen er \"{preferred}\"{context, select, because { (når det betyder \"because\")} until { (forkortet \"until\")} interjection { (udråbsordet)} gardenTool { (\"hoe\" er havehakken)} percocet { (når det betyder Percocet)} other {}}."
+    "guideSpelling": "\"{found}\": standardstavningen er \"{preferred}\"{context, select, because { (når det betyder \"because\")} interjection { (udråbsordet)} gardenTool { (\"hoe\" er havehakken)} percocet { (når det betyder Percocet)} other {}}.",
+    "wordGap": "{gap} ms mellemrum før \"{word}\": sammenhængende ord bør dele tidsstempel. Behold det kun, hvis det er en rigtig pause.",
+    "spokenNumber": "\"{number}\" ligner et almindeligt udtalt tal. Skriv det med bogstaver, medmindre det er et årstal, et klokkeslæt, en model, en kaliber, 24/7, 5-0, 24K eller et navn.",
+    "decorativeSymbol": "Dekorativt symbol \"{symbol}\" i teksten. Udelad det."
   }
 }

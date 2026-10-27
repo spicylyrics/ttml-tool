@@ -314,7 +314,7 @@ describe("tool policy on top of the bot", () => {
 				["I ", 1000, 1200],
 				["will ", 1200, 1400],
 				["wait ", 1400, 1600],
-				["till ", 1600, 1800],
+				["aye ", 1600, 1800],
 				["the ", 1800, 2000],
 				["end", 2000, 2400],
 			]),
@@ -336,8 +336,103 @@ describe("tool policy on top of the bot", () => {
 			wordIds: [lyric.lyricLines[0].words[3].id],
 			i18n: {
 				key: "linter.guideSpelling",
-				params: { found: "till", preferred: "'til", context: "until" },
+				params: { found: "aye", preferred: "ayy", context: "interjection" },
 			},
+		});
+	});
+	it("leaves 'till' and plain 'perk' alone, like the ttml-review checker", () => {
+		const lyric = lyricOf([
+			line([
+				["I ", 1000, 1200],
+				["will ", 1200, 1400],
+				["wait ", 1400, 1600],
+				["till ", 1600, 1800],
+				["the ", 1800, 2000],
+				["perk", 2000, 2400],
+			]),
+			line([
+				["You ", 3000, 3200],
+				["and ", 3200, 3400],
+				["me ", 3400, 3600],
+				["in ", 3600, 3800],
+				["the ", 3800, 4000],
+				["night", 4000, 4400],
+			]),
+		]);
+		expect(
+			lintLyric(lyric).problems.filter((p) => p.rule === "guide-spelling"),
+		).toEqual([]);
+	});
+	it("makes overlaps errors on lead lines, not on background vocals", () => {
+		const lead = line([
+			["Hello ", 1000, 1600],
+			["there", 1500, 2000],
+		]);
+		const bg = line(
+			[
+				["oh ", 1500, 1800],
+				["yeah", 1700, 2000],
+			],
+			{ isBG: true },
+		);
+		const overlaps = lintLyric(lyricOf([lead, bg])).problems.filter(
+			(p) => p.rule === "syllable-overlap",
+		);
+		expect(overlaps.find((p) => p.lineId === lead.id)?.severity).toBe("error");
+		expect(overlaps.find((p) => p.lineId === bg.id)?.severity).toBe("hint");
+	});
+	it("blocks on missing songwriters, ellipses and zero-length words", () => {
+		const result = lintLyric({
+			metadata: [],
+			lyricLines: [
+				line([
+					["Wait... ", 1000, 1000],
+					["for ", 1000, 1400],
+					["me", 1400, 1800],
+				]),
+			],
+		});
+		const severity = (rule: string) =>
+			result.problems.find((p) => p.rule === rule)?.severity;
+		expect(severity("songwriters-missing")).toBe("error");
+		expect(severity("ellipsis")).toBe("error");
+		expect(severity("zero-length")).toBe("error");
+	});
+	it("adds the ttml-review checker's gap, number and symbol hints", () => {
+		const lyric = lyricOf([
+			line([
+				["I ", 1000, 1200],
+				["got ", 1210, 1400],
+				["3 ", 1400, 1600],
+				["of ", 1600, 1800],
+				["them ", 1800, 2000],
+				["now ♪", 2000, 2400],
+			]),
+			line([
+				["You ", 3000, 3200],
+				["and ", 3200, 3400],
+				["me ", 3400, 3600],
+				["in ", 3600, 3800],
+				["the ", 3800, 4000],
+				["night", 4000, 4400],
+			]),
+		]);
+		const [first] = lyric.lyricLines;
+		const problems = lintLyric(lyric).problems;
+		expect(problems.find((p) => p.rule === "word-gap")).toMatchObject({
+			severity: "hint",
+			lineId: first.id,
+			wordIds: [first.words[0].id, first.words[1].id],
+			i18n: { key: "linter.wordGap", params: { gap: "10", word: "got" } },
+		});
+		expect(problems.find((p) => p.rule === "spoken-number")).toMatchObject({
+			severity: "hint",
+			wordIds: [first.words[2].id],
+			i18n: { params: { number: "3" } },
+		});
+		expect(problems.find((p) => p.rule === "decorative-symbol")).toMatchObject({
+			severity: "hint",
+			i18n: { params: { symbol: "♪" } },
 		});
 	});
 	it("has nothing to say about a project with no lyrics yet", () => {

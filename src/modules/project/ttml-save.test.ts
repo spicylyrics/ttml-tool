@@ -41,6 +41,7 @@ const document = (word = "hello"): TTMLLyric => ({
 	metadata: [
 		{ key: "artists", value: ["Artist"] },
 		{ key: "musicName", value: ["Title"] },
+		{ key: "songwriter", value: ["Writer One"] },
 	],
 	lyricLines: [
 		{
@@ -281,7 +282,8 @@ describe("shared TTML save action", () => {
 		await vi.waitFor(() => expect(saveFile).toHaveBeenCalledOnce());
 	});
 	it("shows one clickable warning toast after a save, without asking", async () => {
-		const store = setup();
+		// A no-break space inside the word is an odd-space warning.
+		const store = setup(document("hel lo"));
 		expect(await saveTTML(store, t)).toBe(true);
 		expect(store.get(confirmDialogAtom).open).toBe(false);
 		expect(toast.warn).toHaveBeenCalledOnce();
