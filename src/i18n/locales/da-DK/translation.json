@@ -812,6 +812,7 @@
       "learnedSplits": "Indlærte opdelinger…",
       "syncLineTimestamps": "Tilpas linjer til deres ord",
       "ttmlChecklist": "TTML-tjekliste",
+      "problems": "Problemer",
       "tool": "Værktøjer",
       "importLyric": {
         "import": "Importér sangtekster",
@@ -1456,5 +1457,30 @@
       "later": "Senere",
       "move": "Flyt mine data"
     }
+  },
+  "linter": {
+    "title": "Problemer",
+    "description": "Det, som Spicy Lyrics' tjekbot ville melde for denne eksport. Vælg et problem for at hoppe til linjen.",
+    "checking": "Tjekker...",
+    "failed": "Tjekket kunne ikke køre på dette projekt.",
+    "wontLoad": "Spicy Lyrics kan ikke indlæse filen, som den er.",
+    "none": "Ingen problemer fundet.",
+    "onlyHints": "Ingen fejl eller advarsler.",
+    "errors": "{count, plural, one {# fejl} other {# fejl}}",
+    "warnings": "{count, plural, one {# advarsel} other {# advarsler}}",
+    "hints": "{count, plural, one {# tip} other {# tips}}",
+    "showHints": "{count, plural, one {Vis # tip} other {Vis # tips}}",
+    "hideHints": "Skjul tips",
+    "omitted": "{count, plural, one {# fund mere vises ikke. Ret dem ovenfor først.} other {# fund mere vises ikke. Ret dem ovenfor først.}}",
+    "line": "Linje {line}",
+    "openGuide": "Åbn guiden til denne regel",
+    "englishNote": "Beskederne er på engelsk, så de svarer til Spicy Lyrics' tjekbot.",
+    "warningsToast": "{count, plural, one {# advarsel at tjekke. Åbn Problemer} other {# advarsler at tjekke. Åbn Problemer}}",
+    "exportGate": {
+      "title": "{count, plural, one {# fejl fundet} other {# fejl fundet}}",
+      "description": "Tjekket fandt problemer, der forhindrer godkendelse. Vil du rette dem eller eksportere alligevel?",
+      "descriptionUntimed": "Tjekket fandt problemer, der forhindrer godkendelse, og nogle linjer eller ord har endnu ingen timing. Vil du rette dem eller eksportere alligevel?"
+    },
+    "guideSpelling": "\"{found}\": standardstavningen er \"{preferred}\"{context, select, because { (når det betyder \"because\")} until { (forkortet \"until\")} interjection { (udråbsordet)} gardenTool { (\"hoe\" er havehakken)} percocet { (når det betyder Percocet)} other {}}."
   }
 }

@@ -812,6 +812,7 @@
       "learnedSplits": "Zapamiętane podziały…",
       "syncLineTimestamps": "Dopasuj wersy do ich słów",
       "ttmlChecklist": "Lista planowanych TTML",
+      "problems": "Problemy",
       "tool": "Narzędzia",
       "importLyric": {
         "import": "Importuj tekst",
@@ -1456,5 +1457,30 @@
       "later": "Później",
       "move": "Przenieś moje dane"
     }
+  },
+  "linter": {
+    "title": "Problemy",
+    "description": "To, co bot weryfikujący Spicy Lyrics zgłosiłby dla tego eksportu. Wybierz problem, aby przejść do jego wersu.",
+    "checking": "Sprawdzanie...",
+    "failed": "Nie udało się uruchomić sprawdzania dla tego projektu.",
+    "wontLoad": "Spicy Lyrics nie wczyta tego pliku w obecnej postaci.",
+    "none": "Nie znaleziono problemów.",
+    "onlyHints": "Brak błędów i ostrzeżeń.",
+    "errors": "{count, plural, one {# błąd} few {# błędy} many {# błędów} other {# błędu}}",
+    "warnings": "{count, plural, one {# ostrzeżenie} few {# ostrzeżenia} many {# ostrzeżeń} other {# ostrzeżenia}}",
+    "hints": "{count, plural, one {# wskazówka} few {# wskazówki} many {# wskazówek} other {# wskazówki}}",
+    "showHints": "{count, plural, one {Pokaż # wskazówkę} few {Pokaż # wskazówki} many {Pokaż # wskazówek} other {Pokaż # wskazówki}}",
+    "hideHints": "Ukryj wskazówki",
+    "omitted": "{count, plural, one {# kolejny wynik nie jest wymieniony. Najpierw popraw te powyżej.} few {# kolejne wyniki nie są wymienione. Najpierw popraw te powyżej.} many {# kolejnych wyników nie wymieniono. Najpierw popraw te powyżej.} other {# kolejnego wyniku nie wymieniono. Najpierw popraw te powyżej.}}",
+    "line": "Wers {line}",
+    "openGuide": "Otwórz przewodnik dla tej reguły",
+    "englishNote": "Komunikaty są po angielsku, aby zgadzały się z botem weryfikującym Spicy Lyrics.",
+    "warningsToast": "{count, plural, one {# ostrzeżenie do sprawdzenia. Otwórz Problemy} few {# ostrzeżenia do sprawdzenia. Otwórz Problemy} many {# ostrzeżeń do sprawdzenia. Otwórz Problemy} other {# ostrzeżenia do sprawdzenia. Otwórz Problemy}}",
+    "exportGate": {
+      "title": "{count, plural, one {Znaleziono # błąd} few {Znaleziono # błędy} many {Znaleziono # błędów} other {Znaleziono # błędu}}",
+      "description": "Sprawdzanie wykryło problemy, które blokują zatwierdzenie. Poprawić je czy mimo to eksportować?",
+      "descriptionUntimed": "Sprawdzanie wykryło problemy, które blokują zatwierdzenie, a niektóre wersy lub słowa nie mają jeszcze synchronizacji. Poprawić je czy mimo to eksportować?"
+    },
+    "guideSpelling": "\"{found}\": standardowa pisownia to \"{preferred}\"{context, select, because { (gdy znaczy \"because\")} until { (skrót od \"until\")} interjection { (wykrzyknik)} gardenTool { (\"hoe\" to motyka)} percocet { (gdy chodzi o Percocet)} other {}}."
   }
 }

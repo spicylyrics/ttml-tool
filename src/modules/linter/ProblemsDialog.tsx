@@ -98,7 +98,11 @@ function ProblemsContent() {
 		const position = (lineId?: string) =>
 			(lineId && lineNumbers.get(lineId)) || 0;
 		return [...result.problems]
-			.sort((a, b) => position(a.lineId) - position(b.lineId))
+			.sort(
+				(a, b) =>
+					position(a.lineId) - position(b.lineId) ||
+					(a.timeMs ?? 0) - (b.timeMs ?? 0),
+			)
 			.map((problem) => {
 				const line = problem.lineId
 					? lineNumbers.get(problem.lineId)
@@ -162,16 +166,24 @@ function ProblemsContent() {
 					{t("linter.none", "No problems found.")}
 				</Text>
 			) : (
-				<ScrollArea type="auto" scrollbars="vertical" style={{ maxHeight: "60vh" }}>
+				<ScrollArea
+					type="auto"
+					scrollbars="vertical"
+					style={{ maxHeight: "60vh" }}
+				>
 					<ProblemList
 						items={items}
 						hidden={showHints ? [] : ["hint"]}
 						linkLabel={t("linter.openGuide", "Open the guide for this rule")}
 						headings={{
 							error: (count) =>
-								t("linter.errors", "{count, plural, one {# error} other {# errors}}", {
-									count,
-								}),
+								t(
+									"linter.errors",
+									"{count, plural, one {# error} other {# errors}}",
+									{
+										count,
+									},
+								),
 							warning: (count) =>
 								t(
 									"linter.warnings",
@@ -179,9 +191,13 @@ function ProblemsContent() {
 									{ count },
 								),
 							hint: (count) =>
-								t("linter.hints", "{count, plural, one {# hint} other {# hints}}", {
-									count,
-								}),
+								t(
+									"linter.hints",
+									"{count, plural, one {# hint} other {# hints}}",
+									{
+										count,
+									},
+								),
 						}}
 					/>
 				</ScrollArea>

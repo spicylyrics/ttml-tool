@@ -812,6 +812,7 @@
       "learnedSplits": "Opitut jaot…",
       "syncLineTimestamps": "Sovita rivit sanojen aikoihin",
       "ttmlChecklist": "TTML-tarkistuslista",
+      "problems": "Ongelmat",
       "tool": "Työkalut",
       "importLyric": {
         "import": "Tuo sanoituksia",
@@ -1456,5 +1457,30 @@
       "later": "Myöhemmin",
       "move": "Siirrä tietoni"
     }
+  },
+  "linter": {
+    "title": "Ongelmat",
+    "description": "Mitä Spicy Lyricsin tarkistusbotti ilmoittaisi tästä viennistä. Valitse ongelma siirtyäksesi sen riville.",
+    "checking": "Tarkistetaan...",
+    "failed": "Tarkistusta ei voitu suorittaa tälle projektille.",
+    "wontLoad": "Spicy Lyrics ei voi ladata tätä tiedostoa sellaisenaan.",
+    "none": "Ongelmia ei löytynyt.",
+    "onlyHints": "Ei virheitä tai varoituksia.",
+    "errors": "{count, plural, one {# virhe} other {# virhettä}}",
+    "warnings": "{count, plural, one {# varoitus} other {# varoitusta}}",
+    "hints": "{count, plural, one {# vihje} other {# vihjettä}}",
+    "showHints": "{count, plural, one {Näytä # vihje} other {Näytä # vihjettä}}",
+    "hideHints": "Piilota vihjeet",
+    "omitted": "{count, plural, one {# havainto lisää ei näy listassa. Korjaa ensin yllä olevat.} other {# havaintoa lisää ei näy listassa. Korjaa ensin yllä olevat.}}",
+    "line": "Rivi {line}",
+    "openGuide": "Avaa tämän säännön ohje",
+    "englishNote": "Viestit ovat englanniksi, jotta ne vastaavat Spicy Lyricsin tarkistusbottia.",
+    "warningsToast": "{count, plural, one {# varoitus tarkistettavana. Avaa Ongelmat} other {# varoitusta tarkistettavana. Avaa Ongelmat}}",
+    "exportGate": {
+      "title": "{count, plural, one {# virhe löytyi} other {# virhettä löytyi}}",
+      "description": "Tarkistus löysi ongelmia, jotka estävät hyväksynnän. Korjataanko ne vai viedäänkö silti?",
+      "descriptionUntimed": "Tarkistus löysi ongelmia, jotka estävät hyväksynnän, ja joiltain riveiltä tai sanoilta puuttuu vielä ajoitus. Korjataanko ne vai viedäänkö silti?"
+    },
+    "guideSpelling": "\"{found}\": vakiokirjoitusasu on \"{preferred}\"{context, select, because { (kun se tarkoittaa \"because\")} until { (lyhenne sanasta \"until\")} interjection { (huudahdus)} gardenTool { (\"hoe\" on kuokka)} percocet { (kun se tarkoittaa Percocetia)} other {}}."
   }
 }

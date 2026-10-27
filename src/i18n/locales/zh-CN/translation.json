@@ -812,6 +812,7 @@
       "learnedSplits": "已学习的拆分…",
       "syncLineTimestamps": "将行时间与字时间对齐",
       "ttmlChecklist": "TTML 检查清单",
+      "problems": "问题",
       "tool": "工具",
       "importLyric": {
         "import": "导入歌词",
@@ -1456,5 +1457,30 @@
       "later": "稍后",
       "move": "迁移我的数据"
     }
+  },
+  "linter": {
+    "title": "问题",
+    "description": "Spicy Lyrics 审核机器人会对此导出报告的内容。选择一个问题即可跳转到对应行。",
+    "checking": "正在检查...",
+    "failed": "无法对此项目运行检查。",
+    "wontLoad": "Spicy Lyrics 无法按当前状态加载此文件。",
+    "none": "未发现问题。",
+    "onlyHints": "没有错误或警告。",
+    "errors": "{count, plural, other {# 个错误}}",
+    "warnings": "{count, plural, other {# 个警告}}",
+    "hints": "{count, plural, other {# 条提示}}",
+    "showHints": "{count, plural, other {显示 # 条提示}}",
+    "hideHints": "隐藏提示",
+    "omitted": "{count, plural, other {还有 # 条结果未列出。请先修复上面的问题。}}",
+    "line": "第 {line} 行",
+    "openGuide": "打开此规则的指南",
+    "englishNote": "消息保持英文，以便与 Spicy Lyrics 审核机器人一致。",
+    "warningsToast": "{count, plural, other {有 # 个警告需要检查。打开问题列表}}",
+    "exportGate": {
+      "title": "{count, plural, other {发现 # 个错误}}",
+      "description": "检查发现了会阻止通过审核的问题。要修复，还是仍然导出？",
+      "descriptionUntimed": "检查发现了会阻止通过审核的问题，并且部分行或单词尚未打轴。要修复，还是仍然导出？"
+    },
+    "guideSpelling": "\"{found}\"：标准写法是 \"{preferred}\"{context, select, because {（表示 \"because\" 时）} until {（\"until\" 的缩写）} interjection {（感叹词）} gardenTool {（\"hoe\" 指锄头）} percocet {（指 Percocet 时）} other {}}。"
   }
 }

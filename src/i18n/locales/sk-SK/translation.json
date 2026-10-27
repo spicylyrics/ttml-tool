@@ -812,6 +812,7 @@
       "learnedSplits": "Naučené delenia…",
       "syncLineTimestamps": "Prispôsobiť riadky ich slovám",
       "ttmlChecklist": "Zoznam plánovaných TTML",
+      "problems": "Problémy",
       "tool": "Nástroje",
       "importLyric": {
         "import": "Importovať text piesne",
@@ -1456,5 +1457,30 @@
       "later": "Neskôr",
       "move": "Presunúť moje dáta"
     }
+  },
+  "linter": {
+    "title": "Problémy",
+    "description": "Čo by o tomto exporte nahlásil kontrolný bot Spicy Lyrics. Vyberte problém a prejdite na jeho riadok.",
+    "checking": "Kontrolujem...",
+    "failed": "Kontrolu tohto projektu sa nepodarilo spustiť.",
+    "wontLoad": "Spicy Lyrics tento súbor v súčasnej podobe nenačíta.",
+    "none": "Nenašli sa žiadne problémy.",
+    "onlyHints": "Žiadne chyby ani upozornenia.",
+    "errors": "{count, plural, one {# chyba} few {# chyby} many {# chyby} other {# chýb}}",
+    "warnings": "{count, plural, one {# upozornenie} few {# upozornenia} many {# upozornenia} other {# upozornení}}",
+    "hints": "{count, plural, one {# tip} few {# tipy} many {# tipu} other {# tipov}}",
+    "showHints": "{count, plural, one {Zobraziť # tip} few {Zobraziť # tipy} many {Zobraziť # tipu} other {Zobraziť # tipov}}",
+    "hideHints": "Skryť tipy",
+    "omitted": "{count, plural, one {# ďalší nález nie je uvedený. Najprv opravte tie vyššie.} few {# ďalšie nálezy nie sú uvedené. Najprv opravte tie vyššie.} many {# ďalšieho nálezu nie je uvedeného. Najprv opravte tie vyššie.} other {# ďalších nálezov nie je uvedených. Najprv opravte tie vyššie.}}",
+    "line": "Riadok {line}",
+    "openGuide": "Otvoriť návod k tomuto pravidlu",
+    "englishNote": "Správy sú v angličtine, aby zodpovedali kontrolnému botovi Spicy Lyrics.",
+    "warningsToast": "{count, plural, one {# upozornenie na kontrolu. Otvoriť Problémy} few {# upozornenia na kontrolu. Otvoriť Problémy} many {# upozornenia na kontrolu. Otvoriť Problémy} other {# upozornení na kontrolu. Otvoriť Problémy}}",
+    "exportGate": {
+      "title": "{count, plural, one {Nájdená # chyba} few {Nájdené # chyby} many {Nájdenej # chyby} other {Nájdených # chýb}}",
+      "description": "Kontrola našla problémy, ktoré bránia schváleniu. Opraviť ich, alebo napriek tomu exportovať?",
+      "descriptionUntimed": "Kontrola našla problémy, ktoré bránia schváleniu, a niektoré riadky alebo slová ešte nemajú časovanie. Opraviť ich, alebo napriek tomu exportovať?"
+    },
+    "guideSpelling": "\"{found}\": štandardný zápis je \"{preferred}\"{context, select, because { (keď znamená \"because\")} until { (skratka \"until\")} interjection { (citoslovce)} gardenTool { (\"hoe\" je motyka)} percocet { (keď ide o Percocet)} other {}}."
   }
 }

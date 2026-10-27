@@ -812,6 +812,7 @@
       "learnedSplits": "Despărțiri învățate...",
       "syncLineTimestamps": "Potrivește versurile cu timpii cuvintelor",
       "ttmlChecklist": "Listă de TTML de creat",
+      "problems": "Probleme",
       "tool": "Unelte",
       "importLyric": {
         "import": "Importă versuri",
@@ -1456,5 +1457,30 @@
       "later": "Mai târziu",
       "move": "Mută datele mele"
     }
+  },
+  "linter": {
+    "title": "Probleme",
+    "description": "Ce ar raporta botul de verificare Spicy Lyrics pentru acest export. Selectează o problemă ca să mergi la versul ei.",
+    "checking": "Se verifică...",
+    "failed": "Verificarea nu a putut rula pe acest proiect.",
+    "wontLoad": "Spicy Lyrics nu poate încărca acest fișier așa cum este.",
+    "none": "Nu s-au găsit probleme.",
+    "onlyHints": "Nicio eroare sau avertizare.",
+    "errors": "{count, plural, one {# eroare} few {# erori} other {# de erori}}",
+    "warnings": "{count, plural, one {# avertizare} few {# avertizări} other {# de avertizări}}",
+    "hints": "{count, plural, one {# sugestie} few {# sugestii} other {# de sugestii}}",
+    "showHints": "{count, plural, one {Arată # sugestie} few {Arată # sugestii} other {Arată # de sugestii}}",
+    "hideHints": "Ascunde sugestiile",
+    "omitted": "{count, plural, one {Încă # rezultat nu este listat. Corectează-le mai întâi pe cele de mai sus.} few {Încă # rezultate nu sunt listate. Corectează-le mai întâi pe cele de mai sus.} other {Încă # de rezultate nu sunt listate. Corectează-le mai întâi pe cele de mai sus.}}",
+    "line": "Versul {line}",
+    "openGuide": "Deschide ghidul pentru această regulă",
+    "englishNote": "Mesajele sunt în engleză ca să corespundă botului de verificare Spicy Lyrics.",
+    "warningsToast": "{count, plural, one {# avertizare de verificat. Deschide Probleme} few {# avertizări de verificat. Deschide Probleme} other {# de avertizări de verificat. Deschide Probleme}}",
+    "exportGate": {
+      "title": "{count, plural, one {# eroare găsită} few {# erori găsite} other {# de erori găsite}}",
+      "description": "Verificarea a găsit probleme care blochează aprobarea. Le corectezi sau exporți oricum?",
+      "descriptionUntimed": "Verificarea a găsit probleme care blochează aprobarea, iar unele versuri sau cuvinte nu sunt încă sincronizate. Le corectezi sau exporți oricum?"
+    },
+    "guideSpelling": "\"{found}\": scrierea standard este \"{preferred}\"{context, select, because { (când înseamnă \"because\")} until { (prescurtare de la \"until\")} interjection { (interjecția)} gardenTool { (\"hoe\" este sapa)} percocet { (când se referă la Percocet)} other {}}."
   }
 }

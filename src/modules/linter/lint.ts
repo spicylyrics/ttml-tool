@@ -193,6 +193,28 @@ function countBySeverity(problems: LintProblem[]): Record<Severity, number> {
 	return counts;
 }
 
+/** The bot's findings for the export, mapped to editor ids, no tool policy. */
+export function lintLyricAsBot(
+	lyric: TTMLLyric,
+	options: LintOptions = {},
+): LyricLintResult {
+	const allowConsecutive = options.allowConsecutiveBackgroundLines ?? false;
+	const text = produceTTMLText(lyric, options.normalization, {
+		allowConsecutiveBackgroundLines: allowConsecutive,
+	});
+	const result = lintTtml(text);
+	const sources = paragraphSources(lyric.lyricLines, allowConsecutive);
+	return {
+		loads: result.loads !== false,
+		problems: result.findings.map((finding, index) =>
+			toProblem(finding, index, sources),
+		),
+		counts: result.counts,
+		omitted: result.omitted,
+		failed: false,
+	};
+}
+
 /**
  * Lints exactly what an export would write: the lyric goes through the
  * writer, and the vendored Spicy Lyrics bot linter reads the result. The
@@ -204,24 +226,10 @@ export function lintLyric(
 ): LyricLintResult {
 	const allowConsecutive = options.allowConsecutiveBackgroundLines ?? false;
 	try {
-		const text = produceTTMLText(lyric, options.normalization, {
-			allowConsecutiveBackgroundLines: allowConsecutive,
-		});
-		const result = lintTtml(text);
-		const sources = paragraphSources(lyric.lyricLines, allowConsecutive);
-		const fromBot = result.findings.map((finding, index) =>
-			toProblem(finding, index, sources),
-		);
-		const problems = applyToolPolicy(fromBot, allowConsecutive);
-		if (result.loads !== false)
-			problems.push(...guideSpellingProblems(lyric.lyricLines));
-		return {
-			loads: result.loads !== false,
-			problems,
-			counts: countBySeverity(problems),
-			omitted: result.omitted,
-			failed: false,
-		};
+		const bot = lintLyricAsBot(lyric, options);
+		const problems = applyToolPolicy(bot.problems, allowConsecutive);
+		if (bot.loads) problems.push(...guideSpellingProblems(lyric.lyricLines));
+		return { ...bot, problems, counts: countBySeverity(problems) };
 	} catch {
 		return {
 			loads: true,

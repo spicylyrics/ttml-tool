@@ -812,6 +812,7 @@
       "learnedSplits": "Découpages appris…",
       "syncLineTimestamps": "Ajuster les lignes à leurs mots",
       "ttmlChecklist": "Liste de contrôle TTML",
+      "problems": "Problèmes",
       "tool": "Outils",
       "importLyric": {
         "import": "Importer des paroles",
@@ -1456,5 +1457,30 @@
       "later": "Plus tard",
       "move": "Déplacer mes données"
     }
+  },
+  "linter": {
+    "title": "Problèmes",
+    "description": "Ce que le bot de vérification de Spicy Lyrics signalerait pour cet export. Sélectionnez un problème pour aller à sa ligne.",
+    "checking": "Vérification...",
+    "failed": "La vérification n’a pas pu s’exécuter sur ce projet.",
+    "wontLoad": "Spicy Lyrics ne peut pas charger ce fichier en l’état.",
+    "none": "Aucun problème trouvé.",
+    "onlyHints": "Aucune erreur ni aucun avertissement.",
+    "errors": "{count, plural, one {# erreur} many {# erreurs} other {# erreurs}}",
+    "warnings": "{count, plural, one {# avertissement} many {# avertissements} other {# avertissements}}",
+    "hints": "{count, plural, one {# suggestion} many {# suggestions} other {# suggestions}}",
+    "showHints": "{count, plural, one {Afficher # suggestion} many {Afficher # suggestions} other {Afficher # suggestions}}",
+    "hideHints": "Masquer les suggestions",
+    "omitted": "{count, plural, one {# autre résultat n’est pas listé. Corrigez d’abord ceux ci-dessus.} many {# autres résultats ne sont pas listés. Corrigez d’abord ceux ci-dessus.} other {# autres résultats ne sont pas listés. Corrigez d’abord ceux ci-dessus.}}",
+    "line": "Ligne {line}",
+    "openGuide": "Ouvrir le guide de cette règle",
+    "englishNote": "Les messages sont en anglais pour correspondre au bot de vérification de Spicy Lyrics.",
+    "warningsToast": "{count, plural, one {# avertissement à vérifier. Ouvrir Problèmes} many {# avertissements à vérifier. Ouvrir Problèmes} other {# avertissements à vérifier. Ouvrir Problèmes}}",
+    "exportGate": {
+      "title": "{count, plural, one {# erreur trouvée} many {# erreurs trouvées} other {# erreurs trouvées}}",
+      "description": "La vérification a trouvé des problèmes qui empêchent l’approbation. Les corriger ou exporter quand même ?",
+      "descriptionUntimed": "La vérification a trouvé des problèmes qui empêchent l’approbation, et certaines lignes ou certains mots n’ont pas encore de minutage. Les corriger ou exporter quand même ?"
+    },
+    "guideSpelling": "\"{found}\" : l’orthographe standard est \"{preferred}\"{context, select, because { (au sens de \"because\")} until { (abréviation de \"until\")} interjection { (l’interjection)} gardenTool { (\"hoe\" désigne la houe)} percocet { (au sens de Percocet)} other {}}."
   }
 }

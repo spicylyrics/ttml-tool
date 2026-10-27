@@ -48,7 +48,7 @@ You can also use the Tauri desktop version built via GitHub Actions; see the [La
 - **Snap to Playhead** — One-click synchronization that snaps lyric start times directly to the audio playhead position.
 - **Auto-Lyric Sanitizer** — Automatically strips Genius tags and cleans empty lines on import.
 - **Automatic Multilingual Phonetics** — Generate contextual Japanese, Mandarin, and Korean romanization with per-word readings, tone-aware Mandarin mapping, and mixed-language line support.
-- **Pre-Export Validator** — Checks for untimed or overlapping lyrics before saving.
+- **Problems Checker** — Runs the Spicy Lyrics review bot's checks on your export while you edit, lists errors, warnings and hints with guide links, and asks before saving a file with errors or untimed lyrics.
 - **Integrated Audio Bridge** — Built-in FFmpeg.wasm MP3-to-FLAC conversion to reduce decoding drift.
 - **Appearance Editor** — More than 40 visual parameters and theme presets for customizing the editor.
 - **Global Localization** — Full i18n support with community-driven translations.

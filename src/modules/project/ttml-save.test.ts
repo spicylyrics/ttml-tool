@@ -11,10 +11,14 @@ vi.mock("./folder-project/project-save", () => ({
 	saveLyricsOnly: vi.fn(),
 	saveProject: vi.fn(),
 }));
-vi.mock("react-toastify", () => ({ toast: { info: vi.fn(), error: vi.fn() } }));
+vi.mock("react-toastify", () => ({
+	toast: { info: vi.fn(), error: vi.fn(), warn: vi.fn() },
+}));
 vi.mock("$/utils/logging", () => ({ error: vi.fn(), log: vi.fn() }));
 
+import { toast } from "react-toastify";
 import { audioEngine } from "$/modules/audio/audio-engine";
+import { problemsDialogAtom } from "$/modules/linter/states";
 import { lyricTextNormalizationOptionsAtom } from "$/modules/settings/states";
 import { confirmDialogAtom } from "$/states/dialogs";
 import {
@@ -263,5 +267,34 @@ describe("shared TTML save action", () => {
 			expect.stringContaining("hello"),
 			expect.anything(),
 		);
+	});
+	it("asks before exporting checker errors and opens Problems on Fix it", async () => {
+		const store = setup(document("[Chorus]"));
+		expect(await saveTTML(store, t)).toBe(false);
+		expect(saveFile).not.toHaveBeenCalled();
+		const dialog = store.get(confirmDialogAtom);
+		expect(dialog.open).toBe(true);
+		expect(dialog.title).toContain("error");
+		dialog.onCancel?.();
+		expect(store.get(problemsDialogAtom)).toBe(true);
+		dialog.onConfirm?.();
+		await vi.waitFor(() => expect(saveFile).toHaveBeenCalledOnce());
+	});
+	it("shows one clickable warning toast after a save, without asking", async () => {
+		const store = setup();
+		expect(await saveTTML(store, t)).toBe(true);
+		expect(store.get(confirmDialogAtom).open).toBe(false);
+		expect(toast.warn).toHaveBeenCalledOnce();
+		const options = vi.mocked(toast.warn).mock.calls[0][1] as {
+			onClick: () => void;
+		};
+		options.onClick();
+		expect(store.get(problemsDialogAtom)).toBe(true);
+	});
+	it("never runs the checker gate in recovery", async () => {
+		const store = setup(document("[Chorus]"));
+		expect(await saveTTML(store, t, { recovery: true })).toBe(true);
+		expect(store.get(confirmDialogAtom).open).toBe(false);
+		expect(toast.warn).not.toHaveBeenCalled();
 	});
 });

@@ -812,6 +812,7 @@
       "learnedSplits": "Geleerde splitsingen…",
       "syncLineTimestamps": "Regeltijden afstemmen op woorden",
       "ttmlChecklist": "TTML-controlelijst",
+      "problems": "Problemen",
       "tool": "Hulpmiddelen",
       "importLyric": {
         "import": "Songteksten importeren",
@@ -1456,5 +1457,30 @@
       "later": "Later",
       "move": "Mijn gegevens verplaatsen"
     }
+  },
+  "linter": {
+    "title": "Problemen",
+    "description": "Wat de controlebot van Spicy Lyrics voor deze export zou melden. Selecteer een probleem om naar de regel te gaan.",
+    "checking": "Controleren...",
+    "failed": "De controle kon niet worden uitgevoerd op dit project.",
+    "wontLoad": "Spicy Lyrics kan dit bestand niet laden zoals het nu is.",
+    "none": "Geen problemen gevonden.",
+    "onlyHints": "Geen fouten of waarschuwingen.",
+    "errors": "{count, plural, one {# fout} other {# fouten}}",
+    "warnings": "{count, plural, one {# waarschuwing} other {# waarschuwingen}}",
+    "hints": "{count, plural, one {# tip} other {# tips}}",
+    "showHints": "{count, plural, one {# tip tonen} other {# tips tonen}}",
+    "hideHints": "Tips verbergen",
+    "omitted": "{count, plural, one {Nog # bevinding staat niet in de lijst. Los eerst de bovenstaande op.} other {Nog # bevindingen staan niet in de lijst. Los eerst de bovenstaande op.}}",
+    "line": "Regel {line}",
+    "openGuide": "Open de handleiding voor deze regel",
+    "englishNote": "Meldingen zijn in het Engels, zodat ze overeenkomen met de controlebot van Spicy Lyrics.",
+    "warningsToast": "{count, plural, one {# waarschuwing om na te kijken. Open Problemen} other {# waarschuwingen om na te kijken. Open Problemen}}",
+    "exportGate": {
+      "title": "{count, plural, one {# fout gevonden} other {# fouten gevonden}}",
+      "description": "De controle vond problemen die goedkeuring blokkeren. Oplossen of toch exporteren?",
+      "descriptionUntimed": "De controle vond problemen die goedkeuring blokkeren, en sommige regels of woorden hebben nog geen timing. Oplossen of toch exporteren?"
+    },
+    "guideSpelling": "\"{found}\": de standaardspelling is \"{preferred}\"{context, select, because { (als het \"because\" betekent)} until { (afkorting van \"until\")} interjection { (het tussenwerpsel)} gardenTool { (\"hoe\" is de schoffel)} percocet { (als het Percocet betekent)} other {}}."
   }
 }

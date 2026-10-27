@@ -115,11 +115,7 @@ function ProblemRow({
 	return (
 		<>
 			{item.onSelect ? (
-				<button
-					type="button"
-					className={styles.main}
-					onClick={item.onSelect}
-				>
+				<button type="button" className={styles.main} onClick={item.onSelect}>
 					{body}
 				</button>
 			) : (

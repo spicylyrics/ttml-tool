@@ -812,6 +812,7 @@
       "learnedSplits": "Learned splits…",
       "syncLineTimestamps": "Fit lines to their words",
       "ttmlChecklist": "TTML checklist",
+      "problems": "Problems",
       "tool": "Tools",
       "importLyric": {
         "import": "Import lyrics",
@@ -1456,5 +1457,30 @@
       "later": "Later",
       "move": "Move my data"
     }
+  },
+  "linter": {
+    "title": "Problems",
+    "description": "What the Spicy Lyrics review bot would report for this export. Select a problem to jump to its line.",
+    "checking": "Checking...",
+    "failed": "The checker couldn't run on this project.",
+    "wontLoad": "Spicy Lyrics can't load this file as it is.",
+    "none": "No problems found.",
+    "onlyHints": "No errors or warnings.",
+    "errors": "{count, plural, one {# error} other {# errors}}",
+    "warnings": "{count, plural, one {# warning} other {# warnings}}",
+    "hints": "{count, plural, one {# hint} other {# hints}}",
+    "showHints": "{count, plural, one {Show # hint} other {Show # hints}}",
+    "hideHints": "Hide hints",
+    "omitted": "{count, plural, one {# more finding isn't listed. Fix the ones above first.} other {# more findings aren't listed. Fix the ones above first.}}",
+    "line": "Line {line}",
+    "openGuide": "Open the guide for this rule",
+    "englishNote": "Messages are in English so they match the Spicy Lyrics review bot.",
+    "warningsToast": "{count, plural, one {# warning to check. Open Problems} other {# warnings to check. Open Problems}}",
+    "exportGate": {
+      "title": "{count, plural, one {# error found} other {# errors found}}",
+      "description": "The checker found problems that block approval. Fix them, or export anyway?",
+      "descriptionUntimed": "The checker found problems that block approval, and some lines or words have no timing yet. Fix them, or export anyway?"
+    },
+    "guideSpelling": "\"{found}\": the standard spelling is \"{preferred}\"{context, select, because { when it means \"because\"} until { when it's short for \"until\"} interjection { for the interjection} gardenTool { (\"hoe\" is the garden tool)} percocet { when it means Percocet} other {}}."
   }
 }

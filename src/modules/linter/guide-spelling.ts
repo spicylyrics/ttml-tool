@@ -73,8 +73,7 @@ export function isEnglishLyric(lines: LyricLine[]): boolean {
 	const words = text.toLowerCase().match(/[a-z']+/g) ?? [];
 	const markers = words.filter((w) => ENGLISH_MARKERS.has(w)).length;
 	return (
-		latin / letters.length >= 0.7 &&
-		markers / Math.max(words.length, 1) >= 0.15
+		latin / letters.length >= 0.7 && markers / Math.max(words.length, 1) >= 0.15
 	);
 }
 

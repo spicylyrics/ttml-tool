@@ -812,6 +812,7 @@
       "learnedSplits": "Öğrenilen bölmeler…",
       "syncLineTimestamps": "Satırları kelimelerine uydur",
       "ttmlChecklist": "TTML yapılacaklar listesi",
+      "problems": "Sorunlar",
       "tool": "Araçlar",
       "importLyric": {
         "import": "Şarkı sözlerini içe aktar",
@@ -1456,5 +1457,30 @@
       "later": "Sonra",
       "move": "Verilerimi taşı"
     }
+  },
+  "linter": {
+    "title": "Sorunlar",
+    "description": "Spicy Lyrics inceleme botunun bu dışa aktarım için bildireceği şeyler. Satırına gitmek için bir sorun seçin.",
+    "checking": "Denetleniyor...",
+    "failed": "Denetim bu projede çalıştırılamadı.",
+    "wontLoad": "Spicy Lyrics bu dosyayı bu haliyle yükleyemez.",
+    "none": "Sorun bulunamadı.",
+    "onlyHints": "Hata veya uyarı yok.",
+    "errors": "{count, plural, one {# hata} other {# hata}}",
+    "warnings": "{count, plural, one {# uyarı} other {# uyarı}}",
+    "hints": "{count, plural, one {# ipucu} other {# ipucu}}",
+    "showHints": "{count, plural, one {# ipucunu göster} other {# ipucunu göster}}",
+    "hideHints": "İpuçlarını gizle",
+    "omitted": "{count, plural, one {# bulgu daha listelenmedi. Önce yukarıdakileri düzeltin.} other {# bulgu daha listelenmedi. Önce yukarıdakileri düzeltin.}}",
+    "line": "Satır {line}",
+    "openGuide": "Bu kuralın kılavuzunu aç",
+    "englishNote": "Mesajlar, Spicy Lyrics inceleme botuyla aynı olsun diye İngilizcedir.",
+    "warningsToast": "{count, plural, one {Kontrol edilecek # uyarı. Sorunları aç} other {Kontrol edilecek # uyarı. Sorunları aç}}",
+    "exportGate": {
+      "title": "{count, plural, one {# hata bulundu} other {# hata bulundu}}",
+      "description": "Denetim, onayı engelleyen sorunlar buldu. Düzeltilsin mi, yine de dışa aktarılsın mı?",
+      "descriptionUntimed": "Denetim, onayı engelleyen sorunlar buldu ve bazı satır veya kelimeler henüz zamanlanmadı. Düzeltilsin mi, yine de dışa aktarılsın mı?"
+    },
+    "guideSpelling": "\"{found}\": standart yazım \"{preferred}\"{context, select, because { (\"because\" anlamında)} until { (\"until\" kısaltması)} interjection { (ünlem)} gardenTool { (\"hoe\" çapa demektir)} percocet { (Percocet anlamında)} other {}}."
   }
 }

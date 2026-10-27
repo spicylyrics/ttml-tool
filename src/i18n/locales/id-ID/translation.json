@@ -812,6 +812,7 @@
       "learnedSplits": "Pemisahan yang dipelajari…",
       "syncLineTimestamps": "Sesuaikan baris dengan waktu katanya",
       "ttmlChecklist": "Daftar periksa TTML",
+      "problems": "Masalah",
       "tool": "Alat",
       "importLyric": {
         "import": "Impor lirik",
@@ -1456,5 +1457,30 @@
       "later": "Nanti",
       "move": "Pindahkan dataku"
     }
+  },
+  "linter": {
+    "title": "Masalah",
+    "description": "Apa yang akan dilaporkan bot peninjau Spicy Lyrics untuk ekspor ini. Pilih masalah untuk melompat ke barisnya.",
+    "checking": "Memeriksa...",
+    "failed": "Pemeriksaan tidak dapat berjalan pada proyek ini.",
+    "wontLoad": "Spicy Lyrics tidak dapat memuat berkas ini apa adanya.",
+    "none": "Tidak ada masalah.",
+    "onlyHints": "Tidak ada kesalahan atau peringatan.",
+    "errors": "{count, plural, other {# kesalahan}}",
+    "warnings": "{count, plural, other {# peringatan}}",
+    "hints": "{count, plural, other {# saran}}",
+    "showHints": "{count, plural, other {Tampilkan # saran}}",
+    "hideHints": "Sembunyikan saran",
+    "omitted": "{count, plural, other {# temuan lain tidak ditampilkan. Perbaiki yang di atas terlebih dahulu.}}",
+    "line": "Baris {line}",
+    "openGuide": "Buka panduan untuk aturan ini",
+    "englishNote": "Pesan ditulis dalam bahasa Inggris agar sama dengan bot peninjau Spicy Lyrics.",
+    "warningsToast": "{count, plural, other {# peringatan perlu diperiksa. Buka Masalah}}",
+    "exportGate": {
+      "title": "{count, plural, other {# kesalahan ditemukan}}",
+      "description": "Pemeriksaan menemukan masalah yang menghalangi persetujuan. Perbaiki, atau tetap ekspor?",
+      "descriptionUntimed": "Pemeriksaan menemukan masalah yang menghalangi persetujuan, dan beberapa baris atau kata belum diberi waktu. Perbaiki, atau tetap ekspor?"
+    },
+    "guideSpelling": "\"{found}\": ejaan standarnya adalah \"{preferred}\"{context, select, because { (jika berarti \"because\")} until { (singkatan dari \"until\")} interjection { (kata seru)} gardenTool { (\"hoe\" adalah cangkul)} percocet { (jika berarti Percocet)} other {}}."
   }
 }

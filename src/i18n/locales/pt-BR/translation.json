@@ -812,6 +812,7 @@
       "learnedSplits": "Divisões aprendidas...",
       "syncLineTimestamps": "Ajustar linhas às suas palavras",
       "ttmlChecklist": "Lista de tarefas TTML",
+      "problems": "Problemas",
       "tool": "Ferramentas",
       "importLyric": {
         "import": "Importar letras",
@@ -1456,5 +1457,30 @@
       "later": "Mais tarde",
       "move": "Mover meus dados"
     }
+  },
+  "linter": {
+    "title": "Problemas",
+    "description": "O que o bot de revisão do Spicy Lyrics apontaria nesta exportação. Selecione um problema para ir até a linha dele.",
+    "checking": "Verificando...",
+    "failed": "Não foi possível executar a verificação neste projeto.",
+    "wontLoad": "O Spicy Lyrics não consegue carregar este arquivo como está.",
+    "none": "Nenhum problema encontrado.",
+    "onlyHints": "Nenhum erro ou aviso.",
+    "errors": "{count, plural, one {# erro} many {# erros} other {# erros}}",
+    "warnings": "{count, plural, one {# aviso} many {# avisos} other {# avisos}}",
+    "hints": "{count, plural, one {# dica} many {# dicas} other {# dicas}}",
+    "showHints": "{count, plural, one {Mostrar # dica} many {Mostrar # dicas} other {Mostrar # dicas}}",
+    "hideHints": "Ocultar dicas",
+    "omitted": "{count, plural, one {Mais # resultado não está listado. Corrija os de cima primeiro.} many {Mais # resultados não estão listados. Corrija os de cima primeiro.} other {Mais # resultados não estão listados. Corrija os de cima primeiro.}}",
+    "line": "Linha {line}",
+    "openGuide": "Abrir o guia desta regra",
+    "englishNote": "As mensagens estão em inglês para corresponder ao bot de revisão do Spicy Lyrics.",
+    "warningsToast": "{count, plural, one {# aviso para verificar. Abrir Problemas} many {# avisos para verificar. Abrir Problemas} other {# avisos para verificar. Abrir Problemas}}",
+    "exportGate": {
+      "title": "{count, plural, one {# erro encontrado} many {# erros encontrados} other {# erros encontrados}}",
+      "description": "A verificação encontrou problemas que impedem a aprovação. Corrigir ou exportar mesmo assim?",
+      "descriptionUntimed": "A verificação encontrou problemas que impedem a aprovação, e algumas linhas ou palavras ainda não foram sincronizadas. Corrigir ou exportar mesmo assim?"
+    },
+    "guideSpelling": "\"{found}\": a grafia padrão é \"{preferred}\"{context, select, because { (quando significa \"because\")} until { (abreviação de \"until\")} interjection { (a interjeição)} gardenTool { (\"hoe\" é a enxada)} percocet { (quando se refere ao Percocet)} other {}}."
   }
 }
