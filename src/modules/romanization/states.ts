@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { type Atom, atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import type { JapaneseGranularity } from "$/modules/segmentation/utils/japanese-split";
 
@@ -49,3 +49,18 @@ export const effectiveJapaneseGranularityAtom = atom((get) =>
 );
 
 export const pasteRomanizationDialogAtom = atom(false);
+
+/** Export options for the head-level translation format; empty when inline. */
+export function readTranslationExportOptions(store: {
+	get: <Value>(atom: Atom<Value>) => Value;
+}): { translationFormat?: "head"; translationLanguage?: string } {
+	try {
+		if (store.get(effectiveTranslationExportFormatAtom) !== "head") return {};
+		return {
+			translationFormat: "head",
+			translationLanguage: store.get(translationLanguageSettingAtom),
+		};
+	} catch {
+		return {};
+	}
+}
