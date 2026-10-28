@@ -24,9 +24,6 @@ import {
 	segmentationEngineAtom,
 	segmentationSplitEnglishAtom,
 } from "$/modules/segmentation/states";
-import { matchesSavedSyllabificationEngine } from "$/modules/segmentation/utils/detect-syllabification-engine";
-import { segmentLyricLines } from "$/modules/segmentation/utils/segmentation";
-import { SYLLABIFICATION_ENGINES } from "$/modules/segmentation/utils/syllabification-engines";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
 	advancedSegmentationDialogAtom,
@@ -327,7 +324,17 @@ export const useTopMenuActions = () => {
 		setAutoSegmentDialog(true);
 	}, [setAutoSegmentDialog]);
 
-	const onQuickAutoSegment = useCallback(() => {
+	const onQuickAutoSegment = useCallback(async () => {
+		// The syllabification engines are large; fetch them on first use.
+		const [
+			{ matchesSavedSyllabificationEngine },
+			{ segmentLyricLines },
+			{ SYLLABIFICATION_ENGINES },
+		] = await Promise.all([
+			import("$/modules/segmentation/utils/detect-syllabification-engine"),
+			import("$/modules/segmentation/utils/segmentation"),
+			import("$/modules/segmentation/utils/syllabification-engines"),
+		]);
 		if (
 			!matchesSavedSyllabificationEngine(
 				store.get(lyricLinesAtom).lyricLines,

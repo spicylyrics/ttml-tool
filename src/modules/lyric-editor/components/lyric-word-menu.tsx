@@ -5,7 +5,6 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { segmentationEngineAtom } from "$/modules/segmentation/states";
-import { segmentSelectedWords } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
 	combineWordsDialogAtom,
@@ -91,8 +90,12 @@ export const LyricWordMenu = ({
 			</ContextMenu.Item>
 			<ContextMenu.Item
 				disabled={selectedWordsSize === 0 || segmentationLoading}
-				onSelect={() => {
+				onSelect={async () => {
 					const selectedWordIds = store.get(selectedWordsAtom);
+					// The syllabification engines are large; fetch them on first use.
+					const { segmentSelectedWords } = await import(
+						"$/modules/segmentation/utils/segmentation"
+					);
 					let splitCount = 0;
 					editLyricLines((state) => {
 						splitCount = segmentSelectedWords(
