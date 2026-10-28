@@ -207,6 +207,16 @@
       "splitWordsHint": "Každú medzeru označí ako hranicu slova pre import."
     }
   },
+  "importSplit": {
+    "title": "Slabiky",
+    "later": "Rozdelím neskôr",
+    "laterHint": "Importuje celé slová. Rozdeľte ich neskôr v editore.",
+    "now": "Rozdeliť teraz",
+    "nowHint": "Označí slabiky v texte hneď, aby ste ich mohli pred importom opraviť.",
+    "checkFirst": "Nové slová dostali značky slabík. Skontrolujte ich a potom importujte.",
+    "setting": "Deliť slabiky pri importe",
+    "settingHint": "Pridá na obrazovku importu voľbu Rozdeliť teraz alebo Rozdelím neskôr. Rozdeliť teraz označí slabiky podľa vašich nastavení segmentácie a naučených delení a pred importom ich môžete opraviť."
+  },
   "lyricMarkup": {
     "section": "Sekcia: {label}",
     "joinSyllables": "Spojiť slabiky",

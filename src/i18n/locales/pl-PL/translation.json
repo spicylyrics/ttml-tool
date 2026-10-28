@@ -207,6 +207,16 @@
       "splitWordsHint": "Oznacza każdą spację jako granicę słowa przy imporcie."
     }
   },
+  "importSplit": {
+    "title": "Sylaby",
+    "later": "Podzielę później",
+    "laterHint": "Importuje całe słowa. Podziel je później w edytorze.",
+    "now": "Podziel teraz",
+    "nowHint": "Zaznacza sylaby w tekście od razu, aby można je było poprawić przed importem.",
+    "checkFirst": "Nowe słowa dostały znaczniki sylab. Sprawdź je, a potem importuj.",
+    "setting": "Dziel na sylaby podczas importu",
+    "settingHint": "Dodaje do ekranu importu wybór Podziel teraz lub Podzielę później. Podziel teraz zaznacza sylaby według ustawień segmentacji i wyuczonych podziałów, a przed importem możesz je poprawić."
+  },
   "lyricMarkup": {
     "section": "Sekcja: {label}",
     "joinSyllables": "Połącz sylaby",
