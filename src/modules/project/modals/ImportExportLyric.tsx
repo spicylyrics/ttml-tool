@@ -1,6 +1,5 @@
 import {
 	type LyricLine,
-	stringifyAss,
 	stringifyEslrc,
 	stringifyLrc,
 	stringifyLys,
@@ -17,6 +16,7 @@ import { lyricLinesAtom, saveFileNameAtom } from "$/states/main.ts";
 import { normalizeLyricText } from "$/utils/apostrophe-normalization";
 import { saveFile } from "$/utils/fileSystem.ts";
 import { error } from "$/utils/logging.ts";
+import { stringifyAss } from "$/utils/stringify-ass.ts";
 
 export const ImportExportLyric = ({
 	onSaveTtml,
