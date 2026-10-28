@@ -4,6 +4,8 @@ import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { ImportExportLyric } from "$/modules/project/modals/ImportExportLyric";
+import { CopyGeniusTextMenuItem } from "$/modules/projects-hub/components/TextExportItems";
+import { projectsHubEnabledAtom } from "$/modules/projects-hub/states";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { formatKeyBindings } from "$/utils/keybindings";
 import { useTopMenuActions } from "../useTopMenuActions";
@@ -17,6 +19,7 @@ const FileMenuItems = () => {
 	const menu = useTopMenuActions();
 	const { t } = useTranslation();
 	const folderProjectsEnabled = useAtomValue(folderProjectsEnabledAtom);
+	const projectsHubEnabled = useAtomValue(projectsHubEnabledAtom);
 
 	const getShortcut = (key: string[] | undefined) =>
 		key ? formatKeyBindings(key) : undefined;
@@ -47,9 +50,11 @@ const FileMenuItems = () => {
 				<Trans i18nKey="topBar.menu.saveLyric">保存 TTML 文件</Trans>
 			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
-			{folderProjectsEnabled && (
+			{(folderProjectsEnabled || projectsHubEnabled) && (
 				<DropdownMenu.Item onSelect={menu.onOpenProjects}>
-					{t("topBar.menu.projects", "Projects")}
+					{projectsHubEnabled
+						? t("projectsHub.menuProjects", "Projects...")
+						: t("topBar.menu.projects", "Projects")}
 				</DropdownMenu.Item>
 			)}
 			<DropdownMenu.Item onSelect={menu.onOpenHistoryRestore}>
@@ -63,6 +68,7 @@ const FileMenuItems = () => {
 					保存 TTML 文件到剪切板
 				</Trans>
 			</DropdownMenu.Item>
+			<CopyGeniusTextMenuItem />
 			<DropdownMenu.Separator />
 			<ImportExportLyric onSaveTtml={menu.onSaveFile} />
 		</>

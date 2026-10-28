@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { editModeToolsAtom } from "$/modules/lyric-editor/states/edit-mode-tools";
 import { swapDuetLinesAtom } from "$/modules/lyric-editor/utils/swap-duet";
+import { projectsHubEnabledAtom } from "$/modules/projects-hub/states";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
 import { lyricLinesAtom } from "$/states/main";
 import { useTopMenuActions } from "../useTopMenuActions";
@@ -22,6 +23,7 @@ type ToolMenuProps = {
 const ToolMenuItems = () => {
 	const { t } = useTranslation();
 	const menu = useTopMenuActions();
+	const projectsHubEnabled = useAtomValue(projectsHubEnabledAtom);
 	const [spectrogramHoverSyncEnabled, setSpectrogramHoverSyncEnabled] = useAtom(
 		spectrogramHoverSyncEnabledAtom,
 	);
@@ -68,7 +70,9 @@ const ToolMenuItems = () => {
 				{t("settingsDialog.common.latencyTest", "音频/输入延迟测试")}
 			</DropdownMenu.Item>
 			<DropdownMenu.Item onSelect={menu.onOpenTTMLChecklist}>
-				{t("topBar.menu.ttmlChecklist", "TTML checklist")}
+				{projectsHubEnabled
+					? t("projectsHub.songs.toolMenu", "To sync...")
+					: t("topBar.menu.ttmlChecklist", "TTML checklist")}
 			</DropdownMenu.Item>
 		</>
 	);

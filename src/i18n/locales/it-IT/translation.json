@@ -372,6 +372,82 @@
     "projectsFound": "{count, plural, one {# progetto trovato} many {# progetti trovati} other {# progetti trovati}}",
     "scanFailed": "Impossibile analizzare la cartella dell'area di lavoro"
   },
+  "projectsHub": {
+    "enable": "Elenco brani e schermata iniziale",
+    "enableDesc": "Aggiunge a Progetti un elenco Da sincronizzare e la scansione di una cartella, una schermata iniziale nell'editor vuoto, la proposta di riprendere l'ultima sessione all'avvio, l'apertura di TTML e audio con un solo trascinamento e l'esportazione come testo semplice o testo Genius.",
+    "menuProjects": "Progetti...",
+    "tabSongs": "Da sincronizzare",
+    "songs": {
+      "description": "I brani da sincronizzare dopo. Avvia un progetto da uno di essi: viene segnato come fatto quando esporti il TTML.",
+      "addManually": "Scrivilo",
+      "searchGenius": "Cerca su Genius",
+      "add": "Aggiungi all'elenco",
+      "added": "{song} è stato aggiunto all'elenco.",
+      "alreadyListed": "{song} è già nell'elenco.",
+      "searchFailed": "Impossibile cercare su Genius.",
+      "start": "Avvia progetto",
+      "started": "{song} avviato. Importa o scrivi il testo, poi carica l'audio.",
+      "startDirty": "Hai modifiche non salvate. Avviare {song} sostituisce il testo nell'editor.",
+      "markedDone": "{song} è stato segnato come fatto.",
+      "inProgress": "Avviato",
+      "empty": "Ancora niente da sincronizzare. Aggiungi il prossimo brano prima di dimenticarlo.",
+      "showNotes": "Mostra note",
+      "showCompleted": "Fatti ({count})",
+      "hideCompleted": "Nascondi fatti",
+      "markDone": "Fatto",
+      "reopen": "Riapri",
+      "edit": "Modifica brano",
+      "delete": "Rimuovi brano",
+      "toolMenu": "Da sincronizzare..."
+    },
+    "scan": {
+      "tab": "Scansiona cartella",
+      "select": "Cerca TTML in una cartella...",
+      "pairsTitle": "File che puoi collegare come progetti",
+      "pairsHint": "Un TTML e un file audio con lo stesso nome. Il collegamento lascia entrambi i file dove sono.",
+      "link": "Collega",
+      "linkAll": "Collega tutti",
+      "linked": "{name} è stato collegato come progetto.",
+      "linkedCount": "{count, plural, one {# progetto collegato} many {# progetti collegati} other {# progetti collegati}}",
+      "linkFailed": "Impossibile collegare {name}.",
+      "noPairs": "Nessun file TTML e audio con lo stesso nome.",
+      "scanning": "Ricerca dei file..."
+    },
+    "start": {
+      "title": "Inizia a sincronizzare",
+      "description": "Apri un progetto, scegli un brano dal tuo elenco o parti dal testo.",
+      "startedDescription": "Aggiungi il testo da testo semplice o da Genius, poi carica l'audio.",
+      "fromText": "Nuovo da testo",
+      "fromGenius": "Nuovo da Genius",
+      "openFile": "Apri file...",
+      "openFolder": "Apri progetto cartella...",
+      "projects": "Progetti...",
+      "recent": "Progetti recenti",
+      "songs": "Da sincronizzare",
+      "seeAll": "Vedi tutti",
+      "startSong": "Avvia progetto per {song}"
+    },
+    "resume": {
+      "title": "Riprendere da dove eri rimasto?",
+      "description": "{name} è stato modificato l'ultima volta il {time}. Il ripristino dalla cronologia conserva comunque ogni salvataggio automatico.",
+      "continue": "Riprendi",
+      "startFresh": "Ricomincia",
+      "restored": "{name} ripristinato."
+    },
+    "export": {
+      "plainText": "Testo semplice...",
+      "geniusText": "Testo Genius...",
+      "copyGenius": "Copia come testo Genius",
+      "copied": "Testo copiato in formato Genius.",
+      "copyFailed": "Impossibile copiare il testo.",
+      "saveFailed": "Impossibile salvare il file.",
+      "textFiles": "File di testo",
+      "empty": "Non c'è nessun testo da esportare."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# file saltato. Trascina un file di testo e un file audio alla volta.} many {# file saltati. Trascina un file di testo e un file audio alla volta.} other {# file saltati. Trascina un file di testo e un file audio alla volta.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Si applica alle barre Modifica, Sincronizzazione e Anteprima.",
     "tooltips": {

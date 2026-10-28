@@ -372,6 +372,82 @@
     "projectsFound": "{count, plural, one {Nalezen # projekt} few {Nalezeny # projekty} many {Nalezeno # projektu} other {Nalezeno # projektů}}",
     "scanFailed": "Složku pracovního prostoru se nepodařilo prohledat"
   },
+  "projectsHub": {
+    "enable": "Seznam skladeb a úvodní obrazovka",
+    "enableDesc": "Přidá do Projektů seznam K synchronizaci a prohledání složky, úvodní obrazovku do prázdného editoru, nabídku pokračovat v poslední relaci po spuštění, otevření TTML a zvuku jedním přetažením a export jako prostý text nebo text pro Genius.",
+    "menuProjects": "Projekty...",
+    "tabSongs": "K synchronizaci",
+    "songs": {
+      "description": "Skladby, které chcete synchronizovat příště. Založte z nich projekt a po exportu TTML se označí jako hotové.",
+      "addManually": "Zadat ručně",
+      "searchGenius": "Hledat na Genius",
+      "add": "Přidat do seznamu",
+      "added": "Skladba {song} byla přidána do seznamu.",
+      "alreadyListed": "Skladba {song} už v seznamu je.",
+      "searchFailed": "Hledání na Genius se nezdařilo.",
+      "start": "Založit projekt",
+      "started": "Skladba {song} založena. Importujte nebo napište text, pak načtěte zvuk.",
+      "startDirty": "Máte neuložené změny. Založením skladby {song} se nahradí text v editoru.",
+      "markedDone": "Skladba {song} je označena jako hotová.",
+      "inProgress": "Rozpracováno",
+      "empty": "Zatím tu nic není. Přidejte další skladbu, než ji zapomenete.",
+      "showNotes": "Zobrazit poznámky",
+      "showCompleted": "Hotové ({count})",
+      "hideCompleted": "Skrýt hotové",
+      "markDone": "Hotovo",
+      "reopen": "Znovu otevřít",
+      "edit": "Upravit skladbu",
+      "delete": "Odebrat skladbu",
+      "toolMenu": "K synchronizaci..."
+    },
+    "scan": {
+      "tab": "Prohledat složku",
+      "select": "Prohledat složku a najít TTML...",
+      "pairsTitle": "Soubory, které lze propojit jako projekty",
+      "pairsHint": "Soubor TTML a zvukový soubor se stejným názvem. Propojení nechá oba soubory na místě.",
+      "link": "Propojit",
+      "linkAll": "Propojit vše",
+      "linked": "{name} je propojeno jako projekt.",
+      "linkedCount": "{count, plural, one {Propojen # projekt} few {Propojeny # projekty} many {Propojeno # projektu} other {Propojeno # projektů}}",
+      "linkFailed": "{name} se nepodařilo propojit.",
+      "noPairs": "Nenašly se žádné soubory TTML a zvuku se stejným názvem.",
+      "scanning": "Hledám soubory..."
+    },
+    "start": {
+      "title": "Začít synchronizovat",
+      "description": "Otevřete projekt, vyberte skladbu ze seznamu nebo začněte od textu.",
+      "startedDescription": "Přidejte text z prostého textu nebo z Genius, pak načtěte zvuk.",
+      "fromText": "Nový z textu",
+      "fromGenius": "Nový z Genius",
+      "openFile": "Otevřít soubor...",
+      "openFolder": "Otevřít projekt ve složce...",
+      "projects": "Projekty...",
+      "recent": "Nedávné projekty",
+      "songs": "K synchronizaci",
+      "seeAll": "Zobrazit vše",
+      "startSong": "Založit projekt pro {song}"
+    },
+    "resume": {
+      "title": "Pokračovat, kde jste skončili?",
+      "description": "{name} bylo naposledy upraveno {time}. Obnovení z historie si každé automatické uložení ponechá v obou případech.",
+      "continue": "Pokračovat",
+      "startFresh": "Začít znovu",
+      "restored": "{name} obnoveno."
+    },
+    "export": {
+      "plainText": "Prostý text...",
+      "geniusText": "Text pro Genius...",
+      "copyGenius": "Kopírovat jako text pro Genius",
+      "copied": "Text byl zkopírován jako text pro Genius.",
+      "copyFailed": "Text se nepodařilo zkopírovat.",
+      "saveFailed": "Soubor se nepodařilo uložit.",
+      "textFiles": "Textové soubory",
+      "empty": "Není co exportovat."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {Přeskočen # soubor. Přetáhněte najednou jeden soubor s textem a jeden zvukový soubor.} few {Přeskočeny # soubory. Přetáhněte najednou jeden soubor s textem a jeden zvukový soubor.} many {Přeskočeno # souboru. Přetáhněte najednou jeden soubor s textem a jeden zvukový soubor.} other {Přeskočeno # souborů. Přetáhněte najednou jeden soubor s textem a jeden zvukový soubor.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Platí pro pásy karet Úpravy, Časování a Náhled.",
     "tooltips": {

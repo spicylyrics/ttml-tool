@@ -372,6 +372,82 @@
     "projectsFound": "{count, plural, one {Fandt # projekt} other {Fandt # projekter}}",
     "scanFailed": "Arbejdsområdemappen kunne ikke scannes"
   },
+  "projectsHub": {
+    "enable": "Sangliste og startskærm",
+    "enableDesc": "Tilføjer en Til synkronisering-liste og en mappescanning i Projekter, en startskærm i den tomme editor, et tilbud om at fortsætte sidste session ved opstart, åbning af TTML og lyd i ét træk og eksport som ren tekst eller Genius-tekst.",
+    "menuProjects": "Projekter...",
+    "tabSongs": "Til synkronisering",
+    "songs": {
+      "description": "Sange, du vil synkronisere næste gang. Start et projekt fra en, så markeres den som færdig, når du eksporterer TTML-filen.",
+      "addManually": "Skriv den ind",
+      "searchGenius": "Søg på Genius",
+      "add": "Føj til listen",
+      "added": "{song} er føjet til listen.",
+      "alreadyListed": "{song} er allerede på listen.",
+      "searchFailed": "Kunne ikke søge på Genius.",
+      "start": "Start projekt",
+      "started": "{song} er startet. Importér eller skriv teksten, og indlæs derefter lyden.",
+      "startDirty": "Du har ændringer, der ikke er gemt. Når du starter {song}, erstattes teksten i editoren.",
+      "markedDone": "{song} er markeret som færdig.",
+      "inProgress": "Startet",
+      "empty": "Intet at synkronisere endnu. Tilføj den næste sang, før du glemmer den.",
+      "showNotes": "Vis noter",
+      "showCompleted": "Færdige ({count})",
+      "hideCompleted": "Skjul færdige",
+      "markDone": "Færdig",
+      "reopen": "Genåbn",
+      "edit": "Rediger sang",
+      "delete": "Fjern sang",
+      "toolMenu": "Til synkronisering..."
+    },
+    "scan": {
+      "tab": "Scan mappe",
+      "select": "Scan en mappe for TTML-filer...",
+      "pairsTitle": "Filer, du kan sammenkæde som projekter",
+      "pairsHint": "En TTML-fil og en lydfil med samme navn. Sammenkædning lader begge filer blive, hvor de er.",
+      "link": "Sammenkæd",
+      "linkAll": "Sammenkæd alle",
+      "linked": "{name} er sammenkædet som et projekt.",
+      "linkedCount": "{count, plural, one {# projekt sammenkædet} other {# projekter sammenkædet}}",
+      "linkFailed": "Kunne ikke sammenkæde {name}.",
+      "noPairs": "Fandt ingen TTML- og lydfiler med samme navn.",
+      "scanning": "Leder efter filer..."
+    },
+    "start": {
+      "title": "Kom i gang med at synkronisere",
+      "description": "Åbn et projekt, vælg en sang fra din liste, eller start fra en tekst.",
+      "startedDescription": "Tilføj teksten fra ren tekst eller Genius, og indlæs derefter lyden.",
+      "fromText": "Ny fra tekst",
+      "fromGenius": "Ny fra Genius",
+      "openFile": "Åbn fil...",
+      "openFolder": "Åbn mappeprojekt...",
+      "projects": "Projekter...",
+      "recent": "Seneste projekter",
+      "songs": "Til synkronisering",
+      "seeAll": "Se alle",
+      "startSong": "Start projekt for {song}"
+    },
+    "resume": {
+      "title": "Fortsæt, hvor du slap?",
+      "description": "{name} blev sidst redigeret {time}. Gendan fra historik beholder alle automatiske gemninger uanset hvad.",
+      "continue": "Fortsæt",
+      "startFresh": "Start forfra",
+      "restored": "{name} er gendannet."
+    },
+    "export": {
+      "plainText": "Ren tekst...",
+      "geniusText": "Genius-tekst...",
+      "copyGenius": "Kopiér som Genius-tekst",
+      "copied": "Teksten er kopieret som Genius-tekst.",
+      "copyFailed": "Kunne ikke kopiere teksten.",
+      "saveFailed": "Kunne ikke gemme filen.",
+      "textFiles": "Tekstfiler",
+      "empty": "Der er ingen tekst at eksportere."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# fil sprunget over. Træk én tekstfil og én lydfil ad gangen.} other {# filer sprunget over. Træk én tekstfil og én lydfil ad gangen.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Gælder båndene Redigering, Timing og Forhåndsvisning.",
     "tooltips": {

@@ -32,6 +32,8 @@ import {
 	guideStepAtom,
 	guideWelcomeOpenAtom,
 } from "$/modules/onboarding/states";
+import { StartScreen } from "$/modules/projects-hub/components/StartScreen";
+import { projectsHubEnabledAtom } from "$/modules/projects-hub/states";
 import {
 	folderProjectsEnabledAtom,
 	geniusCategorizationEnabledAtom,
@@ -75,6 +77,7 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 	const setImportLyrics = useSetAtom(importLyricsDialogAtom);
 	const setProjectsDialog = useSetAtom(projectsDialogAtom);
 	const folderProjectsEnabled = useAtomValue(folderProjectsEnabledAtom);
+	const projectsHubEnabled = useAtomValue(projectsHubEnabledAtom);
 	const { onOpenFile } = useTopMenuActions();
 
 	useEffect(() => {
@@ -166,6 +169,20 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 		</>
 	);
 
+	if (editLyric.length === 0 && projectsHubEnabled)
+		return (
+			<Flex
+				data-guide-target="editor"
+				flexGrow="1"
+				align="center"
+				justify="center"
+				height="100%"
+				overflowY="auto"
+				ref={ref}
+			>
+				<StartScreen />
+			</Flex>
+		);
 	if (editLyric.length === 0)
 		return (
 			<Flex

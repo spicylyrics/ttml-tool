@@ -372,6 +372,82 @@
     "projectsFound": "{count, plural, other {Ditemukan # proyek}}",
     "scanFailed": "Gagal memindai folder ruang kerja"
   },
+  "projectsHub": {
+    "enable": "Daftar lagu dan layar awal",
+    "enableDesc": "Menambahkan daftar Untuk disinkronkan dan pemindaian folder ke Proyek, layar awal di editor kosong, tawaran melanjutkan sesi terakhir saat dibuka, membuka TTML dan audio dalam satu seretan, serta ekspor sebagai teks biasa atau teks Genius.",
+    "menuProjects": "Proyek...",
+    "tabSongs": "Untuk disinkronkan",
+    "songs": {
+      "description": "Lagu yang ingin Anda sinkronkan berikutnya. Mulai proyek dari salah satunya, dan lagu itu ditandai selesai saat Anda mengekspor TTML.",
+      "addManually": "Ketik sendiri",
+      "searchGenius": "Cari di Genius",
+      "add": "Tambahkan ke daftar",
+      "added": "{song} ditambahkan ke daftar.",
+      "alreadyListed": "{song} sudah ada di daftar.",
+      "searchFailed": "Tidak dapat mencari di Genius.",
+      "start": "Mulai proyek",
+      "started": "{song} dimulai. Impor atau ketik liriknya, lalu muat audionya.",
+      "startDirty": "Ada perubahan yang belum disimpan. Memulai {song} akan mengganti lirik di editor.",
+      "markedDone": "{song} ditandai selesai.",
+      "inProgress": "Dimulai",
+      "empty": "Belum ada yang perlu disinkronkan. Tambahkan lagu berikutnya sebelum Anda lupa.",
+      "showNotes": "Tampilkan catatan",
+      "showCompleted": "Selesai ({count})",
+      "hideCompleted": "Sembunyikan yang selesai",
+      "markDone": "Selesai",
+      "reopen": "Buka lagi",
+      "edit": "Edit lagu",
+      "delete": "Hapus lagu",
+      "toolMenu": "Untuk disinkronkan..."
+    },
+    "scan": {
+      "tab": "Pindai folder",
+      "select": "Pindai folder untuk TTML...",
+      "pairsTitle": "File yang dapat ditautkan sebagai proyek",
+      "pairsHint": "File TTML dan file audio dengan nama yang sama. Menautkan membiarkan kedua file tetap di tempatnya.",
+      "link": "Tautkan",
+      "linkAll": "Tautkan semua",
+      "linked": "{name} ditautkan sebagai proyek.",
+      "linkedCount": "{count, plural, other {# proyek ditautkan}}",
+      "linkFailed": "Tidak dapat menautkan {name}.",
+      "noPairs": "Tidak ditemukan file TTML dan audio dengan nama yang sama.",
+      "scanning": "Mencari file..."
+    },
+    "start": {
+      "title": "Mulai menyinkronkan",
+      "description": "Buka proyek, pilih lagu dari daftar Anda, atau mulai dari lirik.",
+      "startedDescription": "Tambahkan lirik dari teks atau Genius, lalu muat audionya.",
+      "fromText": "Baru dari teks",
+      "fromGenius": "Baru dari Genius",
+      "openFile": "Buka file...",
+      "openFolder": "Buka proyek folder...",
+      "projects": "Proyek...",
+      "recent": "Proyek terbaru",
+      "songs": "Untuk disinkronkan",
+      "seeAll": "Lihat semua",
+      "startSong": "Mulai proyek untuk {song}"
+    },
+    "resume": {
+      "title": "Lanjutkan dari terakhir kali?",
+      "description": "{name} terakhir diedit pada {time}. Pemulihan riwayat tetap menyimpan setiap simpanan otomatis apa pun pilihan Anda.",
+      "continue": "Lanjutkan",
+      "startFresh": "Mulai baru",
+      "restored": "{name} dipulihkan."
+    },
+    "export": {
+      "plainText": "Teks biasa...",
+      "geniusText": "Teks Genius...",
+      "copyGenius": "Salin sebagai teks Genius",
+      "copied": "Lirik disalin sebagai teks Genius.",
+      "copyFailed": "Tidak dapat menyalin lirik.",
+      "saveFailed": "Tidak dapat menyimpan file.",
+      "textFiles": "File teks",
+      "empty": "Tidak ada lirik untuk diekspor."
+    },
+    "drop": {
+      "skipped": "{count, plural, other {# file dilewati. Seret satu file lirik dan satu file audio sekaligus.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Berlaku untuk pita Edit, Sinkronisasi, dan Pratinjau.",
     "tooltips": {
