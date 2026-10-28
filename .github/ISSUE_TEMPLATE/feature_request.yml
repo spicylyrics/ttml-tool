@@ -1,0 +1,36 @@
+name: Feature request
+description: Suggest a new feature or a change to an existing one.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search the open issues first, in case someone already asked for it.
+        To talk an idea through before filing it, post in the #ttml-tool forum on the Spicy Lyrics Discord.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The task or problem, in your own words. For example, "syncing a duet takes too many clicks because ..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would help?
+      description: How you picture the feature working.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Workarounds you use now
+      description: Optional. Anything you do today to get around it.
+  - type: dropdown
+    id: app
+    attributes:
+      label: Where do you use the tool?
+      multiple: true
+      options:
+        - Website
+        - Desktop app
