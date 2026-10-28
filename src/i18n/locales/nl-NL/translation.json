@@ -1322,6 +1322,13 @@
     "title": "Controleer gedetecteerde secties",
     "lineCount": "{count, plural, one {# songtekstregel} other {# songtekstregels}}"
   },
+  "importInlineSections": {
+    "title": "Secties",
+    "hint": "Wijzigingen hier herschrijven de kopregels in de tekst.",
+    "mergeUp": "Samenvoegen met de sectie erboven",
+    "setting": "Secties naast de importtekst bewerken (experimenteel)",
+    "settingDesc": "Toont gevonden secties naast de songtekst in het importscherm en importeert in één stap, zonder de stap Secties controleren."
+  },
   "globalDragOverlay": {
     "title": "Loslaten om te laden"
   },

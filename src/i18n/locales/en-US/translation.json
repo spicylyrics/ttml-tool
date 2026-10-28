@@ -1322,6 +1322,13 @@
     "title": "Review detected sections",
     "lineCount": "{count, plural, one {# lyric line} other {# lyric lines}}"
   },
+  "importInlineSections": {
+    "title": "Sections",
+    "hint": "Changes here rewrite the header rows in the text.",
+    "mergeUp": "Merge into the section above",
+    "setting": "Edit sections next to the import text (experimental)",
+    "settingDesc": "List detected sections beside the lyrics on the import screen and import in one step, without the Review sections step."
+  },
   "globalDragOverlay": {
     "title": "Release to load"
   },

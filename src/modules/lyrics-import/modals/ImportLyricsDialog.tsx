@@ -52,6 +52,10 @@ import {
 import { error as logError } from "$/utils/logging.ts";
 import { ImportOptionsPanel } from "../components/ImportOptionsPanel";
 import {
+	InlineSectionList,
+	useInlineSectionsEnabled,
+} from "../components/InlineSectionList";
+import {
 	OnlineResults,
 	OnlineSearchBar,
 	PickedTrack,
@@ -65,6 +69,12 @@ import {
 	segmentImportText,
 	toSectionOverrides,
 } from "../logic/import-text";
+import {
+	listInlineSections,
+	mergeInlineSectionUp,
+	renameInlineSection,
+	retypeInlineSection,
+} from "../logic/inline-sections";
 import { type ImportTrack, searchOnlineLyrics } from "../logic/online-sources";
 import {
 	bgLyricPrefixAtom,
@@ -276,6 +286,24 @@ export const ImportLyricsDialog = () => {
 			return 0;
 		}
 	}, [deferredText, format, willMakeSections]);
+
+	// Experimental: sections are listed and edited beside the text, and
+	// Import skips the Review sections step.
+	const inlineSections = useInlineSectionsEnabled();
+	const showReviewStep = willMakeSections && !inlineSections;
+	const inlineSectionList = useMemo(
+		() =>
+			inlineSections && makeSections ? listInlineSections(deferredText) : [],
+		[deferredText, inlineSections, makeSections],
+	);
+	const editInline = (edit: (current: string) => string) => {
+		const next = edit(text);
+		if (next !== text) setText(next);
+	};
+	const handleImport = () =>
+		inlineSections && step === "edit"
+			? confirmAndImport(detectSections(text))
+			: handlePrimary();
 
 	// Keep review edits while the text under them changes.
 	useEffect(() => {
@@ -548,13 +576,34 @@ export const ImportLyricsDialog = () => {
 									onRestore={handleRestore}
 								/>
 							)}
+							{step === "edit" && inlineSectionList.length > 0 && (
+								<InlineSectionList
+									sections={inlineSectionList}
+									wordSeparator={format.wordSeparator}
+									onRename={(lineIndex, name) =>
+										editInline((current) =>
+											renameInlineSection(current, lineIndex, name),
+										)
+									}
+									onRetype={(lineIndex, category) =>
+										editInline((current) =>
+											retypeInlineSection(current, lineIndex, category),
+										)
+									}
+									onMergeUp={(lineIndex) =>
+										editInline((current) =>
+											mergeInlineSectionUp(current, lineIndex),
+										)
+									}
+								/>
+							)}
 						</div>
 					</ScrollArea>
 				</div>
 
 				<Flex align="center" justify="between" gap="3">
 					<Flex align="center" gap="4" minWidth="0">
-						{willMakeSections && (
+						{showReviewStep && (
 							<ol
 								className={styles.steps}
 								aria-label={t("importLyrics.stepsLabel", "Import steps")}
@@ -595,8 +644,8 @@ export const ImportLyricsDialog = () => {
 								</Button>
 							</Dialog.Close>
 						)}
-						<Button onClick={handlePrimary} disabled={lineCount === 0}>
-							{step === "edit" && willMakeSections
+						<Button onClick={handleImport} disabled={lineCount === 0}>
+							{step === "edit" && showReviewStep
 								? t("importLyrics.reviewSections", "Review sections")
 								: t("genius.importButton", "Import lyrics")}
 						</Button>

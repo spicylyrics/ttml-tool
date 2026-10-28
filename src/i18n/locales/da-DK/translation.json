@@ -1322,6 +1322,13 @@
     "title": "Gennemgå opdagede sektioner",
     "lineCount": "{count, plural, one {# sangtekstlinje} other {# sangtekstlinjer}}"
   },
+  "importInlineSections": {
+    "title": "Sektioner",
+    "hint": "Ændringer her omskriver overskriftslinjerne i teksten.",
+    "mergeUp": "Flet ind i sektionen ovenfor",
+    "setting": "Rediger sektioner ved siden af importteksten (eksperimentel)",
+    "settingDesc": "Vis fundne sektioner ved siden af teksten på importskærmen og importer i ét trin, uden trinnet Gennemgå sektioner."
+  },
   "globalDragOverlay": {
     "title": "Slip for at indlæse"
   },

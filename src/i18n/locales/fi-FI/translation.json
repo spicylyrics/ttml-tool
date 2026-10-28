@@ -1322,6 +1322,13 @@
     "title": "Tarkista havaitut osiot",
     "lineCount": "{count, plural, one {# sanoitusrivi} other {# sanoitusriviä}}"
   },
+  "importInlineSections": {
+    "title": "Osiot",
+    "hint": "Täällä tehdyt muutokset kirjoittavat tekstin otsikkorivit uudelleen.",
+    "mergeUp": "Yhdistä yllä olevaan osioon",
+    "setting": "Muokkaa osioita tuotavan tekstin vieressä (kokeellinen)",
+    "settingDesc": "Näyttää havaitut osiot sanoitusten vieressä tuontinäkymässä ja tuo yhdellä vaiheella ilman Tarkista osiot -vaihetta."
+  },
   "globalDragOverlay": {
     "title": "Vapauta ladataksesi"
   },

@@ -1,4 +1,5 @@
 import { Flex } from "@radix-ui/themes";
+import { ImportInlineSectionsSetting } from "$/modules/lyrics-import/components/ImportInlineSectionsSetting";
 import { AutosaveSection } from "./common/AutosaveSection";
 import { DisplaySection } from "./common/DisplaySection";
 import { ImportCleanupSection } from "./common/ImportCleanupSection";
@@ -31,6 +32,8 @@ export const SettingsCommonTab = ({
 			)}
 
 			{section === "files" && <ImportCleanupSection {...state} />}
+
+			{section === "files" && <ImportInlineSectionsSetting />}
 
 			{section === "files" && <ProjectsSection {...state} />}
 
