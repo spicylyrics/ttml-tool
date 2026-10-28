@@ -1371,6 +1371,13 @@
     "playPause": "Putar / jeda musik",
     "expandSpectrogram": "Perluas / ciutkan spektrogram"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Diperkirakan dari audio yang dimuat. Pada beberapa lagu bisa terbaca dua kali lipat atau setengahnya.",
+    "setting": "Tampilkan perkiraan tempo",
+    "settingDesc": "Memperkirakan BPM lagu setelah audio dimuat dan menampilkannya di ribbon Waktu."
+  },
   "latencyTestDialog": {
     "title": "Tes latensi",
     "latencyDisplay": {

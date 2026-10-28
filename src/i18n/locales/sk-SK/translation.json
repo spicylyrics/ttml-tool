@@ -1371,6 +1371,13 @@
     "playPause": "Prehrať / pozastaviť hudbu",
     "expandSpectrogram": "Rozbaliť / zbaliť spektrogram"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Odhadnuté z načítaného zvuku. Pri niektorých skladbách môže vyjsť dvojnásobné alebo polovičné.",
+    "setting": "Zobraziť odhadované tempo",
+    "settingDesc": "Po načítaní zvuku odhadne BPM skladby a zobrazí ho na páse Čas."
+  },
   "latencyTestDialog": {
     "title": "Test latencie",
     "latencyDisplay": {

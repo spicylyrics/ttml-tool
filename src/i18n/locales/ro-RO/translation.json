@@ -1371,6 +1371,13 @@
     "playPause": "Redare / pauză muzică",
     "expandSpectrogram": "Extinde / restrânge spectrograma"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Estimat din audio încărcat. La unele melodii poate ieși dublu sau jumătate.",
+    "setting": "Afișează tempoul estimat",
+    "settingDesc": "Estimează BPM-ul melodiei după ce se încarcă audio și îl afișează în panglica Timp."
+  },
   "latencyTestDialog": {
     "title": "Test de latență",
     "latencyDisplay": {

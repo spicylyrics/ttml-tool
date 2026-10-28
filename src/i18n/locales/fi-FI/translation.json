@@ -1371,6 +1371,13 @@
     "playPause": "Toista / keskeytä musiikki",
     "expandSpectrogram": "Laajenna / tiivistä spektrogrammi"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Arvioitu ladatusta äänestä. Joissakin kappaleissa arvio voi olla kaksinkertainen tai puolet.",
+    "setting": "Näytä arvioitu tempo",
+    "settingDesc": "Arvioi kappaleen BPM:n äänen latauduttua ja näyttää sen Aika-valikkonauhassa."
+  },
   "latencyTestDialog": {
     "title": "Viivetesti",
     "latencyDisplay": {

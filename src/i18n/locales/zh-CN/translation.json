@@ -1371,6 +1371,13 @@
     "playPause": "播放 / 暂停音乐",
     "expandSpectrogram": "展开 / 收起频谱图"
   },
+  "bpm": {
+    "label": "节奏",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "根据已加载的音频估算。部分歌曲可能会估成两倍或一半。",
+    "setting": "显示估算的节奏",
+    "settingDesc": "音频加载后估算歌曲的 BPM，并显示在打轴功能区中。"
+  },
   "latencyTestDialog": {
     "title": "延迟测试",
     "latencyDisplay": {

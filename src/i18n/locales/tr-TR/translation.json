@@ -1371,6 +1371,13 @@
     "playPause": "Müziği oynat/duraklat",
     "expandSpectrogram": "Spektrogramı genişlet/daralt"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Yüklenen sesten tahmin edilir. Bazı şarkılarda iki katı veya yarısı çıkabilir.",
+    "setting": "Tahmini tempoyu göster",
+    "settingDesc": "Ses yüklendikten sonra şarkının BPM değerini tahmin eder ve Zaman şeridinde gösterir."
+  },
   "latencyTestDialog": {
     "title": "Gecikme testi",
     "latencyDisplay": {
