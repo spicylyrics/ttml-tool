@@ -6,6 +6,7 @@
 import type { WordTimingProblem } from "$/modules/preview-problems/detect-word-timing-problems";
 import { collectFollowingBackgroundLines } from "$/modules/project/logic/ttml-writer";
 import type { LyricLine, LyricWord } from "$/types/ttml";
+import { sourceWordIds } from "./join-split-words";
 
 /** Word id to the timing problems the preview marks on it. */
 export type SpicyWordProblems = ReadonlyMap<
@@ -240,7 +241,11 @@ function makeTokens(
 	const tokens: SpicyToken[] = [];
 
 	for (const word of words) {
-		const wordProblems = problems?.get(word.id);
+		// A joined word carries the problems of every part it was joined from.
+		const partProblems = sourceWordIds(word).flatMap(
+			(id) => problems?.get(id) ?? [],
+		);
+		const wordProblems = partProblems.length > 0 ? partProblems : undefined;
 		const previous = tokens[tokens.length - 1];
 		if (/^\s*$/u.test(word.word)) {
 			if (previous && word.word.length > 0) previous.spaceAfter = true;
