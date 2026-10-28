@@ -1,6 +1,11 @@
 import { useAtomValue } from "jotai";
-import type { DependencyList } from "react";
-import { type KeyBindingCallback, useKeyBinding } from "$/utils/keybindings";
+import { type DependencyList, useEffect } from "react";
+import {
+	type KeyBindingCallback,
+	registerExtraKeyBindings,
+	useExtraKeyBindings,
+	useKeyBinding,
+} from "$/utils/keybindings";
 import type { KeyBindingCommand } from "./types";
 
 // biome-ignore lint/correctness/noUnusedVariables: JSDoc
@@ -19,6 +24,11 @@ export function useCommand(
 	enabled = true,
 ) {
 	const currentKeys = useAtomValue(command.atom);
+	const extraKeys = useExtraKeyBindings(command.atom);
 
 	useKeyBinding(enabled ? currentKeys : [], callback, deps);
+	useEffect(() => {
+		if (!enabled) return;
+		return registerExtraKeyBindings(currentKeys, extraKeys, callback);
+	}, [currentKeys, extraKeys, callback, enabled, ...deps]);
 }

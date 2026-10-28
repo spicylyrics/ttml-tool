@@ -4,6 +4,8 @@
  */
 import classNames from "classnames";
 import { memo, type RefObject } from "react";
+import { useTranslation } from "react-i18next";
+import type { WordTimingProblem } from "$/modules/preview-problems/detect-word-timing-problems";
 import styles from "./index.module.css";
 import {
 	groupSpicyTokens,
@@ -13,6 +15,17 @@ import {
 	type SpicyToken,
 } from "./model";
 import { rowGap, type SpicyVirtualRow } from "./useSpicyVirtualList";
+
+/** Tooltip and accessible label for each problem a word can be marked with. */
+const problemLabels: Record<WordTimingProblem, [string, string]> = {
+	untimed: ["previewProblems.untimed", "No timing in a timed line"],
+	endsBeforeStart: ["previewProblems.endsBeforeStart", "Ends before it starts"],
+	startsBeforeLine: [
+		"previewProblems.startsBeforeLine",
+		"Starts before its line",
+	],
+	endsAfterLine: ["previewProblems.endsAfterLine", "Ends after its line"],
+};
 
 type NodeMaps = {
 	lineNodes: RefObject<Map<string, HTMLDivElement>>;
@@ -77,6 +90,7 @@ const SpicyLineRow = memo(function SpicyLineRow({
 	showTranslation: boolean;
 	seek: (time: number) => void;
 }) {
+	const { t } = useTranslation();
 	const renderToken = (
 		line: SpicyLine,
 		word: SpicyToken,
@@ -87,6 +101,9 @@ const SpicyLineRow = memo(function SpicyLineRow({
 		const key = keyFor(line, word, wordIndex);
 		const letters = word.letters;
 		const className = letters ? styles.letterGroup : styles.word;
+		const problem = word.problems?.length
+			? word.problems.map((item) => t(...problemLabels[item])).join(". ")
+			: undefined;
 		return (
 			<span
 				key={key}
@@ -99,8 +116,12 @@ const SpicyLineRow = memo(function SpicyLineRow({
 					wordBoundary && styles.wordBoundary,
 					partOfWord && styles.partOfWord,
 					word.allowInternalWrap && styles.breakableToken,
+					problem && styles.timingProblem,
 				)}
 				dir={isRtl(word.text) ? "rtl" : undefined}
+				title={problem}
+				aria-label={problem ? `${word.text}: ${problem}` : undefined}
+				data-timing-problem={problem ? word.problems?.join(" ") : undefined}
 			>
 				{letters
 					? letters

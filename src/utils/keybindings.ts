@@ -1,4 +1,4 @@
-import { atom, type createStore, useAtomValue } from "jotai";
+import { type Atom, atom, type createStore, useAtomValue } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { type DependencyList, useEffect } from "react";
 import { warn } from "./logging.ts";
@@ -406,6 +406,49 @@ export function registerKeyBindingAtom(
 }
 
 /**
+ * Extra shortcuts for an action beyond its stored primary binding. The keyboard
+ * module installs the resolver; its atom reads `[]` while the feature is off.
+ */
+type ExtraKeyBindingsResolver = (
+	binding: ReturnType<typeof atomWithKeybindingStorage>,
+) => Atom<KeyBindingsConfig[]> | undefined;
+let extraKeyBindingsResolver: ExtraKeyBindingsResolver | undefined;
+const NO_EXTRA_KEY_BINDINGS = atom<KeyBindingsConfig[]>([]);
+
+export function setExtraKeyBindingsResolver(
+	resolver: ExtraKeyBindingsResolver | undefined,
+) {
+	extraKeyBindingsResolver = resolver;
+}
+
+export function useExtraKeyBindings(
+	thisAtom: ReturnType<typeof atomWithKeybindingStorage>,
+): KeyBindingsConfig[] {
+	return useAtomValue(
+		extraKeyBindingsResolver?.(thisAtom) ?? NO_EXTRA_KEY_BINDINGS,
+	);
+}
+
+/** Registers each extra shortcut once, skipping any that repeat the primary. */
+export function registerExtraKeyBindings(
+	primary: KeyBindingsConfig,
+	extras: readonly KeyBindingsConfig[],
+	callback: KeyBindingCallback,
+) {
+	const seen = new Set([getShortcutKey(primary)]);
+	const unregister: Array<() => void> = [];
+	for (const extra of extras) {
+		const joined = getShortcutKey(extra);
+		if (extra.length === 0 || seen.has(joined)) continue;
+		seen.add(joined);
+		unregister.push(registerKeyBindings(extra, callback));
+	}
+	return () => {
+		for (const fn of unregister) fn();
+	};
+}
+
+/**
  * @deprecated 请使用 useCommand
  */
 export function useKeyBindingAtom(
@@ -414,9 +457,19 @@ export function useKeyBindingAtom(
 	deps?: DependencyList,
 ): KeyBindingsConfig {
 	const keyBindings = useAtomValue(thisAtom);
+	const extraKeyBindings = useExtraKeyBindings(thisAtom);
 	useEffect(() => {
-		return registerKeyBindingAtom(thisAtom, keyBindings, callback);
-	}, [thisAtom, keyBindings, callback, ...(deps || [])]);
+		const unregister = registerKeyBindingAtom(thisAtom, keyBindings, callback);
+		const unregisterExtras = registerExtraKeyBindings(
+			keyBindings,
+			extraKeyBindings,
+			callback,
+		);
+		return () => {
+			unregister();
+			unregisterExtras();
+		};
+	}, [thisAtom, keyBindings, extraKeyBindings, callback, ...(deps || [])]);
 	return keyBindings;
 }
 
@@ -427,10 +480,16 @@ export function useDoubleKeyBindingAtom(
 	enabled = true,
 ): KeyBindingsConfig {
 	const keyBindings = useAtomValue(thisAtom);
+	const extraKeyBindings = useExtraKeyBindings(thisAtom);
 	useEffect(() => {
 		if (!enabled) return;
-		return registerDoubleKeyBindings(keyBindings, callback);
-	}, [keyBindings, callback, enabled, ...(deps || [])]);
+		const unregister = [keyBindings, ...extraKeyBindings].map((keys) =>
+			registerDoubleKeyBindings(keys, callback),
+		);
+		return () => {
+			for (const fn of unregister) fn();
+		};
+	}, [keyBindings, extraKeyBindings, callback, enabled, ...(deps || [])]);
 	return keyBindings;
 }
 

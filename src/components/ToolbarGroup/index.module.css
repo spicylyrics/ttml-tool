@@ -1,0 +1,31 @@
+.wrapper {
+	display: flex;
+	align-items: stretch;
+	gap: var(--space-2);
+	min-width: 0;
+}
+
+.separator {
+	align-self: center;
+	height: var(--space-5);
+}
+
+.column {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	gap: var(--space-1);
+	min-width: 0;
+}
+
+.group {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	min-width: 0;
+}
+
+.wrap {
+	flex-wrap: wrap;
+	row-gap: var(--space-2);
+}

@@ -11,18 +11,11 @@
 
 /// <reference types="vite/client" />
 
-declare module "virtual:i18next-loader" {
-	// One entry per locale folder, e.g. { "en-US": { translation: {...} } }.
-	const value: Record<
-		string,
-		{ translation: typeof import("../i18n/locales/en-US/translation.json") }
-	>;
-	export default value;
-}
-
 declare module "virtual:buildmeta" {
 	export const BUILD_TIME: string;
 	export const GIT_COMMIT: string;
+	/** `version` from package.json, kept in sync with the desktop build. */
+	export const APP_VERSION: string;
 }
 
 interface ImportMetaEnv {

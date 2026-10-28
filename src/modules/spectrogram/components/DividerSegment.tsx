@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import { useAtomValue, useSetAtom } from "jotai";
-import { type FC, useCallback, useContext } from "react";
+import { useSetAtom, useStore } from "jotai";
+import { type FC, memo, useCallback, useContext } from "react";
 import { processedLyricLinesAtom } from "$/modules/segmentation/utils/segment-processing.ts";
 import { timelineDragAtom } from "$/modules/spectrogram/states/dnd";
 import {
@@ -27,7 +27,7 @@ const HALF_DIVIDER_WIDTH_PX = DIVIDER_WIDTH_PX / 2;
 const NUDGE_MS = 10;
 const SHIFT_NUDGE_MS = 50;
 
-export const DividerSegment: FC<DividerSegmentProps> = ({
+const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 	lineId,
 	segmentIndex,
 	timeMs,
@@ -38,7 +38,7 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 	virtual = false,
 }) => {
 	const setTimelineDrag = useSetAtom(timelineDragAtom);
-	const processedLines = useAtomValue(processedLyricLinesAtom);
+	const store = useStore();
 	const { zoom } = useContext(SpectrogramContext);
 
 	const startDrag = useCallback(
@@ -93,7 +93,9 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 			event.preventDefault();
 			event.stopPropagation();
 
-			const lineBeingDragged = processedLines.find((l) => l.id === lineId);
+			const lineBeingDragged = store
+				.get(processedLyricLinesAtom)
+				.find((l) => l.id === lineId);
 			if (!lineBeingDragged) {
 				return;
 			}
@@ -116,7 +118,7 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 
 			commitUpdatedLine(updatedLine);
 		},
-		[lineId, processedLines, segmentIndex, timeMs, zoom, edge],
+		[lineId, store, segmentIndex, timeMs, zoom, edge],
 	);
 
 	if (timeMs == null || timeMs < 0 || lineStartTime == null) return null;
@@ -145,7 +147,6 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 	};
 
 	return (
-		// biome-ignore lint/a11y/useSemanticElements: <hr> 在这里不适用
 		<div
 			className={classNames(styles.divider, isTouching && styles.touching)}
 			style={dynamicStyles}
@@ -162,3 +163,5 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 		</div>
 	);
 };
+
+export const DividerSegment = memo(DividerSegmentImpl);

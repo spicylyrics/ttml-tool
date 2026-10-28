@@ -1,0 +1,268 @@
+.dialog {
+	--shell-sidebar: 248px;
+	width: min(1080px, calc(100vw - 32px));
+	height: min(780px, 88vh);
+	padding: 0;
+	overflow: hidden;
+}
+
+.root {
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	height: 100%;
+	min-height: 0;
+}
+
+/* The header shares the body's columns, so the search lines up with the
+   content and the title with the sidebar. */
+.header {
+	display: grid;
+	grid-template-columns: var(--shell-sidebar) minmax(0, 1fr) auto;
+	align-items: center;
+	column-gap: var(--space-3);
+	padding: var(--space-3) var(--space-4) var(--space-3) 0;
+	border-bottom: 1px solid var(--gray-a5);
+}
+
+.title {
+	margin: 0;
+	padding-inline: var(--space-4);
+	letter-spacing: -0.014em;
+	overflow-wrap: anywhere;
+}
+
+.search {
+	width: 100%;
+	max-width: 560px;
+}
+
+.close {
+	margin: 0;
+}
+
+.body {
+	display: grid;
+	grid-template-columns: var(--shell-sidebar) minmax(0, 1fr);
+	min-height: 0;
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	min-width: 0;
+	min-height: 0;
+	overflow-y: auto;
+	padding: var(--space-3) var(--space-2);
+	background: var(--gray-a2);
+	border-right: 1px solid var(--gray-a5);
+}
+
+.navigation {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+
+/* Labels wrap instead of running out of the sidebar: Russian and Finnish page
+   names don't fit one line. */
+.navigationItem {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-2);
+	width: 100%;
+	min-height: 36px;
+	margin: 0;
+	padding: var(--space-2) var(--space-3);
+	border: 0;
+	border-radius: var(--radius-3);
+	background: transparent;
+	color: var(--gray-11);
+	font: inherit;
+	font-size: var(--font-size-2);
+	font-weight: 500;
+	line-height: var(--line-height-2);
+	text-align: start;
+	white-space: normal;
+	overflow-wrap: anywhere;
+	hyphens: auto;
+	cursor: pointer;
+}
+
+.navigationItem:hover {
+	background: var(--gray-a3);
+	color: var(--gray-12);
+}
+
+.navigationItem:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: -2px;
+}
+
+.navigationItem[data-state="active"] {
+	background: var(--accent-a4);
+	color: var(--accent-11);
+}
+
+.navigationIcon {
+	display: inline-flex;
+	flex: 0 0 auto;
+	/* Centres the 18px icon on the first 20px line of the label. */
+	margin-top: 1px;
+}
+
+.navigationIcon svg {
+	width: 18px;
+	height: 18px;
+}
+
+.navigationLabel {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.count {
+	display: inline-flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+	min-width: 20px;
+	height: 20px;
+	padding: 0 var(--space-1);
+	border-radius: calc(9999px * var(--radius-factor));
+	background: var(--accent-a4);
+	color: var(--accent-11);
+	font-size: var(--font-size-1);
+	font-variant-numeric: tabular-nums;
+}
+
+.noResults {
+	padding: var(--space-2) var(--space-3);
+}
+
+.content {
+	min-width: 0;
+	overflow-y: auto;
+	padding: var(--space-5);
+}
+
+.content[data-empty] .tabContent {
+	display: none;
+}
+
+.empty {
+	margin-top: var(--space-6);
+}
+
+.tabContent {
+	outline: none;
+}
+
+/* While searching, every page stays mounted so its text can be read. */
+.tabContent[data-state="inactive"] {
+	display: none;
+}
+
+.page {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+	max-width: 760px;
+	margin: 0 auto;
+}
+
+.pageHeader {
+	padding-bottom: var(--space-1);
+}
+
+.pageBody {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+}
+
+/* Same density as the classic dialog, so a page looks alike in both. */
+.pageBody :global(.rt-Card) {
+	padding: var(--space-3);
+}
+
+.pageBody :global(.rt-Heading) {
+	line-height: 1.2;
+}
+
+/* Rows and headings a search filters out (set in PreferencesShell). The
+   doubled attribute outranks Radix's own display rules on Cards and Headings. */
+.pageBody [data-shell-search-hidden][data-shell-search-hidden] {
+	display: none;
+}
+
+.pageBody [data-shell-search-match] {
+	outline: 2px solid var(--accent-9);
+	outline-offset: 3px;
+	border-radius: var(--radius-3);
+}
+
+/* Spicy Lyrics design: solid chrome steps instead of a tint, and the 8px
+   control radius on the page tabs. */
+:global(:root[data-design="spicy-lyrics"]) .header,
+:global(:root[data-design="spicy-lyrics"]) .sidebar {
+	background: var(--sl-chrome);
+	border-color: var(--sl-border);
+}
+
+:global(:root[data-design="spicy-lyrics"]) .navigationItem {
+	border-radius: var(--radius-2);
+	transition: transform 150ms var(--sl-ease-out);
+}
+
+:global(:root[data-design="spicy-lyrics"])
+	.navigationItem[data-state="active"] {
+	background: var(--sl-accent-fill);
+	color: var(--sl-foreground);
+}
+
+:global(:root[data-design="spicy-lyrics"])
+	.navigationItem[data-state="active"]
+	.navigationIcon {
+	color: var(--accent-11);
+}
+
+/* Tabs aren't Radix buttons, so the global press scale skips them. Pointer
+   presses only, as with the buttons. */
+:global(:root[data-design="spicy-lyrics"])
+	.navigationItem:not(:focus-visible):active {
+	transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:global(:root[data-design="spicy-lyrics"])
+		.navigationItem:not(:focus-visible):active {
+		transform: none;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.header,
+	.sidebar {
+		border-color: var(--gray-a8);
+	}
+
+	.navigationItem {
+		color: var(--gray-12);
+	}
+
+	.navigationItem[data-state="active"] {
+		box-shadow: inset 0 0 0 1px var(--accent-9);
+	}
+}
+
+/* Below the 1024px desktop floor (a small window), give the content room. */
+@media (max-width: 900px) {
+	.dialog {
+		--shell-sidebar: 200px;
+	}
+
+	.content {
+		padding: var(--space-3);
+	}
+}

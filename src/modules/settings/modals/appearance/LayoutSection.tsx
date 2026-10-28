@@ -7,6 +7,8 @@ import {
 } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { Reorder } from "framer-motion";
+import { RibbonCustomizeSettingRow } from "$/components/RibbonBar/customize/RibbonCustomizeSettingRow";
+import { Relocatable } from "$/modules/settings/shell/relocated";
 import type { AppearanceSectionState } from "./sectionState";
 export const LayoutSection = ({
 	layoutOrder,
@@ -96,6 +98,9 @@ export const LayoutSection = ({
 						</Reorder.Item>
 					))}
 				</Reorder.Group>
+				<Relocatable setting={RibbonCustomizeSettingRow}>
+					<RibbonCustomizeSettingRow />
+				</Relocatable>
 			</Flex>
 		</Card>
 	</Flex>

@@ -8,6 +8,7 @@ import {
 import { assertSafePath } from "$/modules/project/folder-project/manifest";
 import { produceTTMLText } from "$/modules/project/logic/ttml-export";
 import { parseLyric } from "$/modules/project/logic/ttml-parser";
+import type { TTMLExportOptions } from "$/modules/project/logic/ttml-writer";
 import type { TTMLLyric } from "$/types/ttml";
 import type { LyricTextNormalizationOptions } from "$/utils/apostrophe-normalization";
 
@@ -41,7 +42,7 @@ export async function readProjectLyricFile(
 export function generateProjectTtmlText(
 	lyric: TTMLLyric,
 	normalizationOptions?: LyricTextNormalizationOptions,
-	options?: { allowConsecutiveBackgroundLines?: boolean },
+	options?: TTMLExportOptions,
 ): string {
 	return produceTTMLText(lyric, normalizationOptions, options);
 }
