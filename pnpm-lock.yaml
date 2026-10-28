@@ -152,15 +152,6 @@ importers:
       jotai-optics:
         specifier: ^0.4.0
         version: 0.4.0(jotai@2.16.0(@babel/core@7.28.5)(@babel/template@7.29.7)(@types/react@19.2.7)(react@19.2.3))(optics-ts@2.4.1)
-      kuromoji:
-        specifier: ^0.1.2
-        version: 0.1.2
-      kuroshiro:
-        specifier: ^1.2.0
-        version: 1.2.0
-      kuroshiro-analyzer-kuromoji:
-        specifier: ^1.1.0
-        version: 1.1.0
       pako:
         specifier: ^2.1.0
         version: 2.1.0
@@ -2147,9 +2138,6 @@ packages:
     resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
     engines: {node: '>=12'}
 
-  async@2.6.4:
-    resolution: {integrity: sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==}
-
   atob-lite@2.0.0:
     resolution: {integrity: sha512-LEeSAWeh2Gfa2FtlQE1shxQ8zi5F9GHarrGKz08TMdODD5T4eH6BMsvtnhbWZ+XQn+Gb6om/917ucvRu7l7ukw==}
 
@@ -2413,9 +2401,6 @@ packages:
   dotenv@16.6.1:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
-
-  doublearray@0.0.2:
-    resolution: {integrity: sha512-aw55FtZzT6AmiamEj2kvmR6BuFqvYgKZUkfQ7teqVRNqD5UE0rw8IeW/3gieHNKQ5sPuDKlljWEn4bzv5+1bHw==}
 
   dtype@2.0.0:
     resolution: {integrity: sha512-s2YVcLKdFGS0hpFqJaTwscsyt0E8nNFdmo73Ocd81xNPj4URI4rj6D60A+vFMIw7BXWlb4yRkEwfBqcZzPGiZg==}
@@ -2872,16 +2857,6 @@ packages:
   jsonfile@6.2.0:
     resolution: {integrity: sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg==}
 
-  kuromoji@0.1.2:
-    resolution: {integrity: sha512-V0dUf+C2LpcPEXhoHLMAop/bOht16Dyr+mDiIE39yX3vqau7p80De/koFqpiTcL1zzdZlc3xuHZ8u5gjYRfFaQ==}
-
-  kuroshiro-analyzer-kuromoji@1.1.0:
-    resolution: {integrity: sha512-BSJFhpsQdPwfFLfjKxfLA9iL+/PC6LCR9vgwgb5Jc7jZwk9ilX8SAV6CwhAQZY611tiuhbB52ONYKDO8hgY1bA==}
-
-  kuroshiro@1.2.0:
-    resolution: {integrity: sha512-yBGCK9oDOY3LGZ/KXaN9m7ADcAuSczOR2FoMRYwHLUlis3/o/uxdMVROAjENFO0NQJgALhIdWxI/vIBVrMCk9w==}
-    engines: {node: '>=6.5.0'}
-
   lead@4.0.0:
     resolution: {integrity: sha512-DpMa59o5uGUWWjruMp71e6knmwKU3jRBBn1kjuLWN9EeIOxNeSAwvHf03WIl8g/ZMR2oSQC9ej3yeLBwdDc/pg==}
     engines: {node: '>=10.13.0'}
@@ -2889,9 +2864,6 @@ packages:
   lilconfig@3.1.3:
     resolution: {integrity: sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==}
     engines: {node: '>=14'}
-
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
@@ -3822,9 +3794,6 @@ packages:
   yargs@16.2.0:
     resolution: {integrity: sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==}
     engines: {node: '>=10'}
-
-  zlibjs@0.3.1:
-    resolution: {integrity: sha512-+J9RrgTKOmlxFSDHo0pI1xM6BLVUv+o0ZT9ANtCxGkjIVCCUdx9alUF8Gm+dGLKbkkkidWIHFDZHDMpfITt4+w==}
 
 snapshots:
 
@@ -5614,10 +5583,6 @@ snapshots:
 
   assertion-error@2.0.1: {}
 
-  async@2.6.4:
-    dependencies:
-      lodash: 4.17.21
-
   atob-lite@2.0.0: {}
 
   b4a@1.7.3: {}
@@ -5886,8 +5851,6 @@ snapshots:
       dotenv: 16.6.1
 
   dotenv@16.6.1: {}
-
-  doublearray@0.0.2: {}
 
   dtype@2.0.0: {}
 
@@ -6408,25 +6371,9 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  kuromoji@0.1.2:
-    dependencies:
-      async: 2.6.4
-      doublearray: 0.0.2
-      zlibjs: 0.3.1
-
-  kuroshiro-analyzer-kuromoji@1.1.0:
-    dependencies:
-      kuromoji: 0.1.2
-
-  kuroshiro@1.2.0:
-    dependencies:
-      '@babel/runtime': 7.28.4
-
   lead@4.0.0: {}
 
   lilconfig@3.1.3: {}
-
-  lodash@4.17.21: {}
 
   lru-cache@10.4.3: {}
 
@@ -7375,5 +7322,3 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 20.2.9
-
-  zlibjs@0.3.1: {}

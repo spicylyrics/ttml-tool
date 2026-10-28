@@ -1,0 +1,73 @@
+name: Bug report
+description: Something in the TTML Tool is broken or behaves wrong.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Search the open issues first, in case someone already reported it.
+        For questions and help, use the #ttml-tool forum on the Spicy Lyrics Discord instead.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Shown in Preferences, on the About tab.
+      placeholder: "0.16.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: app
+    attributes:
+      label: Website or desktop app
+      options:
+        - Website (tool.spicylyrics.org)
+        - Desktop app
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      description: Only for the website. Name and version, if you know it.
+      placeholder: "Chrome 141"
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What you did, one step per line.
+      placeholder: |
+        1. Open a TTML file
+        2. Switch to Time mode
+        3. Press ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      description: Add screenshots, a screen recording or errors from the browser console if you have them.
+    validations:
+      required: true
+  - type: textarea
+    id: ttml
+    attributes:
+      label: TTML file
+      description: If the bug involves a specific song, paste the TTML here. GitHub doesn't accept .ttml attachments, so paste the text, or rename the file to .txt or zip it and attach that.
+      render: xml
