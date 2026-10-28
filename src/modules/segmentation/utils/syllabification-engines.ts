@@ -5,6 +5,7 @@ import syllabify from "syllabify";
 import syllabifyFr from "syllabify-fr";
 import prosodicDictionary from "../data/prosodic-dict.json";
 import type { SegmentationEngineId } from "../types";
+import { splitEnglishByRules } from "./english-rules";
 
 type DictionaryEntry = number | number[];
 
@@ -106,6 +107,10 @@ const prosodicSplit = (word: string) => {
 	}
 	return mergeContractionSuffix(compromiseSplit(word));
 };
+
+/** The experimental English path: rules first, the prosodic engine for anything else. */
+export const splitEnglishWithRules = (word: string) =>
+	splitEnglishByRules(word) ?? prosodicSplit(word);
 
 const isJapaneseCharacter = (char: string | undefined) =>
 	!!char &&

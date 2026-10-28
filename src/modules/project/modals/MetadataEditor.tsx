@@ -33,6 +33,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useLyricLinesWhileOpen } from "$/hooks/useLyricLinesWhileOpen.ts";
 import { getBetterGeniusCoverArt } from "$/modules/genius/utils/image";
+import { getGuideUrl } from "$/modules/onboarding/logic";
 import {
 	geniusSearchDialogAtom,
 	metadataEditorDialogAtom,
@@ -191,6 +192,29 @@ const MetadataEntry = memo(
 											{option?.label || entry.key}
 										</Text>
 									</Flex>
+								)}
+								{ii === 0 && option?.description && (
+									<Text
+										as="p"
+										size="1"
+										color="gray"
+										mt="1"
+										style={{ whiteSpace: "normal" }}
+									>
+										{option.description}
+										{option.learnMoreUrl && (
+											<>
+												{" "}
+												<a
+													href={option.learnMoreUrl}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													{t("helpText.learnMore", "Learn more")}
+												</a>
+											</>
+										)}
+									</Text>
 								)}
 							</td>
 							<td>
@@ -395,6 +419,10 @@ interface SelectOption {
 	label: string;
 	value: string;
 	icon: ReactNode;
+	/** Help text shown under the label, on the field's first row. */
+	description?: string;
+	/** Guide link appended to the description. */
+	learnMoreUrl?: string;
 	isLinkable?: true;
 	urlFormatter?: (value: string) => string | null;
 	validation?: {
@@ -430,6 +458,10 @@ export const MetadataEditor = () => {
 				label: t("metadataDialog.builtinOptions.artists", "Artists"),
 				value: "artists",
 				icon: <Person16Regular />,
+				description: t(
+					"helpText.metadataArtists",
+					'Who performs the song, as the track is credited on streaming services. Example: "Shake It Off" is by Taylor Swift.',
+				),
 				validation: {
 					verifier: (value: string) => !/^.+[,;&，；、].+$/.test(value),
 					message: t(
@@ -442,6 +474,11 @@ export const MetadataEditor = () => {
 				label: t("metadataDialog.builtinOptions.songwriter", "词曲作者"),
 				value: "songwriter",
 				icon: <Person16Regular />,
+				description: t(
+					"helpText.metadataSongwriter",
+					'Who wrote the music and lyrics, from the writing credits. Often different from the artists. Example: "Shake It Off" was written by Taylor Swift, Max Martin and Shellback.',
+				),
+				learnMoreUrl: getGuideUrl("songwriters"),
 				validation: {
 					verifier: (value: string) => !/^.+[,;&，；、].+$/.test(value),
 					message: t(

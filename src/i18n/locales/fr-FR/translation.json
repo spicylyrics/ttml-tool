@@ -3,6 +3,12 @@
     "changelogTitle": "Journal des modifications et mises à jour",
     "viewCommits": "Voir les commits sur GitHub"
   },
+  "updatedToast": {
+    "message": "Mis à jour vers la v{version}",
+    "seeChanges": "Voir les nouveautés",
+    "setting": "Afficher les nouveautés après une mise à jour",
+    "settingDesc": "Au premier démarrage sur une nouvelle version, affiche une courte notification avec un lien vers le journal des modifications."
+  },
   "app": {
     "error": {
       "title": "Oups, une erreur s'est produite !",
@@ -32,6 +38,16 @@
   "preview": {
     "untimedLines": "{count, plural, one {# ligne n’est pas encore minutée} many {# lignes ne sont pas encore minutées} other {# lignes ne sont pas encore minutées}}",
     "jumpToUntimed": "Synchroniser la première ligne non minutée"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# mot a un problème de minutage} many {# mots ont des problèmes de minutage} other {# mots ont des problèmes de minutage}}",
+    "jump": "Sélectionner le premier",
+    "setting": "Afficher les problèmes de minutage",
+    "settingDesc": "Marque en rouge, avec un contour en pointillés, les mots que l’aperçu Spicy masquerait ou jouerait mal à cause de leur minutage.",
+    "untimed": "Pas de minutage dans une ligne minutée",
+    "endsBeforeStart": "Se termine avant de commencer",
+    "startsBeforeLine": "Commence avant sa ligne",
+    "endsAfterLine": "Se termine après sa ligne"
   },
   "beginnerGuide": {
     "empty": {
@@ -191,6 +207,16 @@
       "splitWordsHint": "Marque chaque espace comme limite de mot pour l'importation."
     }
   },
+  "importSplit": {
+    "title": "Syllabes",
+    "later": "Je découperai plus tard",
+    "laterHint": "Importe les mots entiers. Découpez-les plus tard dans l’éditeur.",
+    "now": "Découper maintenant",
+    "nowHint": "Marque les syllabes dans le texte maintenant, pour que vous puissiez les corriger avant l’import.",
+    "checkFirst": "Les nouveaux mots ont reçu des marques de syllabe. Vérifiez-les, puis importez.",
+    "setting": "Découper en syllabes à l’import",
+    "settingHint": "Ajoute à l’écran d’import le choix Découper maintenant ou Je découperai plus tard. Découper maintenant marque les syllabes selon vos réglages de segmentation et les découpages appris, et vous pouvez les corriger avant l’import."
+  },
   "lyricMarkup": {
     "section": "Section : {label}",
     "joinSyllables": "Joindre les syllabes",
@@ -211,6 +237,29 @@
       "missingTranslation": "Traduction manquante",
       "missingRomanization": "Romanisation manquante"
     }
+  },
+  "editAsText": {
+    "menuItem": "Modifier en texte...",
+    "title": "Modifier en texte",
+    "description": "Modifiez toutes les paroles en texte brut. Les mots que vous ne changez pas gardent leur synchronisation.",
+    "textLabel": "Texte des paroles",
+    "summaryTitle": "Modifications",
+    "unchanged": "{count, plural, one {# ligne inchangée} many {# lignes inchangées} other {# lignes inchangées}}",
+    "edited": "{count, plural, one {# ligne modifiée} many {# lignes modifiées} other {# lignes modifiées}}",
+    "editedHint": "La synchronisation est conservée là où les mots correspondent.",
+    "moved": "{count, plural, one {# ligne déplacée} many {# lignes déplacées} other {# lignes déplacées}}",
+    "added": "{count, plural, one {# ligne ajoutée} many {# lignes ajoutées} other {# lignes ajoutées}}",
+    "removed": "{count, plural, one {# ligne supprimée} many {# lignes supprimées} other {# lignes supprimées}}",
+    "noChanges": "Aucune modification pour l'instant.",
+    "droppedTimings": "{count, plural, one {# mot synchronisé perd sa synchronisation} many {# mots synchronisés perdent leur synchronisation} other {# mots synchronisés perdent leur synchronisation}}",
+    "lineNumber": "Ligne {line}",
+    "more": "{count, plural, one {et # de plus} many {et # de plus} other {et # de plus}}",
+    "help": "Les nouveaux mots arrivent sans synchronisation. Les lignes seulement déplacées gardent leur synchronisation. Appliquer s'annule en une seule étape.",
+    "apply": "Appliquer",
+    "applied": "Texte appliqué. Annuler le rétablit en une seule étape.",
+    "failed": "Impossible d'appliquer le texte. Vérifiez-le et réessayez.",
+    "setting": "Modifier en texte",
+    "settingDesc": "Ajoute Modifier en texte au menu Édition : modifiez toutes les paroles en texte brut et gardez la synchronisation des mots que vous ne touchez pas."
   },
   "importChooser": {
     "options": {
@@ -279,6 +328,29 @@
       "copyPrevious": "Copier les temps précédents"
     }
   },
+  "logoColor": {
+    "title": "Couleur du logo",
+    "description": "Expérimental. Choisissez une couleur pour le logo de la barre de titre et de l'écran d'accueil du guide.",
+    "colorLabel": "Couleur",
+    "customLabel": "Couleur personnalisée du logo",
+    "designNote": "Le logo ne s'affiche qu'avec le design Spicy Lyrics activé.",
+    "presets": {
+      "default": "Par défaut",
+      "defaultDesc": "La couleur propre au design",
+      "lilac": "Lilas",
+      "lilacDesc": "Du logo v3",
+      "purple": "Violet",
+      "purpleDesc": "Du logo multicolore",
+      "red": "Rouge",
+      "redDesc": "Du logo v0.9",
+      "gold": "Or",
+      "green": "Vert",
+      "blue": "Bleu",
+      "white": "Blanc",
+      "custom": "Personnalisée",
+      "customDesc": "Choisissez n'importe quelle couleur"
+    }
+  },
   "common": {
     "close": "Fermer",
     "autoDetect": "Détection automatique",
@@ -332,6 +404,20 @@
       "title": "Sélectionnez un dossier d'espace de travail contenant des projets"
     }
   },
+  "commandPalette": {
+    "title": "Palette de commandes",
+    "placeholder": "Rechercher des commandes et des paramètres",
+    "noResults": "Aucune commande ni aucun paramètre correspondant",
+    "commandTag": "Commande",
+    "settingTag": "Préférences",
+    "hint": "Flèches pour se déplacer, Entrée pour exécuter, Échap pour fermer",
+    "notRunnable": "Impossible d'exécuter cette commande. Attribuez-lui un raccourci dans les Préférences, puis réessayez.",
+    "menu": "Palette de commandes...",
+    "shortcut": "Afficher - Ouvrir la palette de commandes",
+    "shortcutAlternate": "Afficher - Ouvrir la palette de commandes (raccourci alternatif)",
+    "settingLabel": "Palette de commandes",
+    "settingDesc": "Trouvez les commandes et les pages de paramètres par leur nom. Ouvrez-la avec {shortcut} ou depuis le menu Aide."
+  },
   "projectsDialog": {
     "title": "Projets",
     "tabProject": "Projet",
@@ -371,6 +457,82 @@
     "noProjectsFound": "Aucun projet trouvé dans ce dossier",
     "projectsFound": "{count, plural, one {# projet trouvé} many {# projets trouvés} other {# projets trouvés}}",
     "scanFailed": "Impossible d'analyser le dossier de l'espace de travail"
+  },
+  "projectsHub": {
+    "enable": "Liste de chansons et écran d'accueil",
+    "enableDesc": "Ajoute aux Projets une liste À synchroniser et l'analyse d'un dossier, un écran d'accueil dans l'éditeur vide, une proposition de reprendre la dernière session au lancement, l'ouverture d'un TTML et d'un audio en un seul glisser-déposer, et l'export en texte brut ou au format Genius.",
+    "menuProjects": "Projets...",
+    "tabSongs": "À synchroniser",
+    "songs": {
+      "description": "Les chansons à synchroniser ensuite. Démarrez un projet depuis l'une d'elles : elle est marquée comme terminée à l'export du TTML.",
+      "addManually": "La saisir",
+      "searchGenius": "Chercher sur Genius",
+      "add": "Ajouter à la liste",
+      "added": "{song} a été ajoutée à la liste.",
+      "alreadyListed": "{song} est déjà dans la liste.",
+      "searchFailed": "Impossible de chercher sur Genius.",
+      "start": "Démarrer le projet",
+      "started": "{song} démarrée. Importez ou tapez les paroles, puis chargez l'audio.",
+      "startDirty": "Vous avez des modifications non enregistrées. Démarrer {song} remplace les paroles de l'éditeur.",
+      "markedDone": "{song} est marquée comme terminée.",
+      "inProgress": "Démarrée",
+      "empty": "Rien à synchroniser pour l'instant. Ajoutez la prochaine chanson avant de l'oublier.",
+      "showNotes": "Afficher les notes",
+      "showCompleted": "Terminées ({count})",
+      "hideCompleted": "Masquer les terminées",
+      "markDone": "Terminée",
+      "reopen": "Rouvrir",
+      "edit": "Modifier la chanson",
+      "delete": "Retirer la chanson",
+      "toolMenu": "À synchroniser..."
+    },
+    "scan": {
+      "tab": "Analyser un dossier",
+      "select": "Chercher des TTML dans un dossier...",
+      "pairsTitle": "Fichiers à lier comme projets",
+      "pairsHint": "Un TTML et un fichier audio portant le même nom. Les lier laisse les deux fichiers à leur place.",
+      "link": "Lier",
+      "linkAll": "Tout lier",
+      "linked": "{name} est lié comme projet.",
+      "linkedCount": "{count, plural, one {# projet lié} many {# projets liés} other {# projets liés}}",
+      "linkFailed": "Impossible de lier {name}.",
+      "noPairs": "Aucun fichier TTML et audio portant le même nom.",
+      "scanning": "Recherche des fichiers..."
+    },
+    "start": {
+      "title": "Commencer à synchroniser",
+      "description": "Ouvrez un projet, choisissez une chanson de votre liste ou partez des paroles.",
+      "startedDescription": "Ajoutez les paroles depuis du texte ou Genius, puis chargez l'audio.",
+      "fromText": "Nouveau depuis du texte",
+      "fromGenius": "Nouveau depuis Genius",
+      "openFile": "Ouvrir un fichier...",
+      "openFolder": "Ouvrir un projet dossier...",
+      "projects": "Projets...",
+      "recent": "Projets récents",
+      "songs": "À synchroniser",
+      "seeAll": "Tout afficher",
+      "startSong": "Démarrer le projet pour {song}"
+    },
+    "resume": {
+      "title": "Reprendre là où vous en étiez ?",
+      "description": "{name} a été modifié pour la dernière fois le {time}. La restauration de l'historique garde toutes les sauvegardes automatiques dans les deux cas.",
+      "continue": "Reprendre",
+      "startFresh": "Repartir de zéro",
+      "restored": "{name} restauré."
+    },
+    "export": {
+      "plainText": "Texte brut...",
+      "geniusText": "Texte Genius...",
+      "copyGenius": "Copier au format Genius",
+      "copied": "Paroles copiées au format Genius.",
+      "copyFailed": "Impossible de copier les paroles.",
+      "saveFailed": "Impossible d'enregistrer le fichier.",
+      "textFiles": "Fichiers texte",
+      "empty": "Il n'y a aucune parole à exporter."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# fichier ignoré. Déposez un fichier de paroles et un fichier audio à la fois.} many {# fichiers ignorés. Déposez un fichier de paroles et un fichier audio à la fois.} other {# fichiers ignorés. Déposez un fichier de paroles et un fichier audio à la fois.}}"
+    }
   },
   "ribbonBar": {
     "advancedTooltip": "S’applique aux rubans Édition, Synchronisation et Aperçu.",
@@ -487,6 +649,33 @@
     },
     "loading": "Chargement du panneau…",
     "advanced": "Avancé"
+  },
+  "ribbonCustomize": {
+    "customize": "Personnaliser le ruban",
+    "customizeDesc": "Masquez, réorganisez ou épinglez les sections de ce ruban, ou placez-les dans Plus.",
+    "title": "Personnaliser ce ruban",
+    "hint": "Certaines sections n’apparaissent qu’avec une sélection ou quand Avancé est activé.",
+    "reset": "Réinitialiser",
+    "resetDone": "Ruban réinitialisé",
+    "pin": "Épingler {{name}} en tête",
+    "unpin": "Désépingler {{name}}",
+    "pinned": "Épinglée",
+    "moveUp": "Monter {{name}}",
+    "moveDown": "Descendre {{name}}",
+    "moved": "{{name}} est maintenant en position {{position}}",
+    "placement": {
+      "label": "Afficher {{name}} dans",
+      "ribbon": "Ruban",
+      "ribbonDesc": "L’afficher sur le ruban.",
+      "more": "Plus",
+      "moreDesc": "La garder dans le menu Plus, au bout du ruban.",
+      "hidden": "Masquée",
+      "hiddenDesc": "Ne l’afficher nulle part."
+    },
+    "more": "Plus",
+    "moreDesc": "Les sections que vous avez sorties du ruban.",
+    "settingLabel": "Rubans personnalisables",
+    "settingDesc": "Ajoute un bouton Personnaliser aux rubans Édition, Synchronisation et Aperçu, pour masquer, réorganiser ou épingler des sections, ou les placer dans un menu Plus."
   },
   "settings": {
     "common": {
@@ -838,11 +1027,40 @@
       "timingOverviewAutoScrollDesc": "La vue d’ensemble des temps suit la tête de lecture.",
       "vsyncDesc": "Met à jour les aperçus Standard et Toxi à chaque image au lieu d'environ 30 fois par seconde. Plus fluide, mais consomme plus de CPU.",
       "showFpsDesc": "Affiche un compteur d'images par seconde sur l'aperçu.",
-      "syncLevelDesc": "Mot : synchronisez chaque mot à mesure. Ligne : synchronisez des lignes entières et répartissez leurs mots uniformément pour une synchronisation approximative à affiner dans le spectrogramme.",
+      "syncLevelDesc": "Mot : synchronisez chaque mot à mesure. Ligne : synchronisez des lignes entières et répartissez leurs mots uniformément. Le mode Ligne enregistre toujours le minutage de chaque mot, pas des paroles synchronisées ligne par ligne : affinez donc les mots dans le spectrogramme.",
       "previewModeDesc": "Choisissez l'aperçu affiché dans l'onglet Aperçu.",
       "spicyBackgroundDesc": "Ce qui s'affiche derrière l'aperçu Spicy.",
       "fadeWidthDesc": "Douceur du bord du surlignage lorsqu'un mot se remplit dans les aperçus Standard et Toxi."
     }
+  },
+  "preferencesShell": {
+    "flagLabel": "Nouvelle disposition des Préférences",
+    "flagDesc": "Recherche en haut et barre latérale adaptée aux noms longs. Désactivez pour revenir à la disposition classique.",
+    "matchCount": "Réglages correspondants : {count}",
+    "noResults": "Aucun réglage ne correspond à « {query} »",
+    "noResultsDesc": "Essayez un autre mot ou effacez la recherche."
+  },
+  "preferencesPages": {
+    "editing": "Édition",
+    "editingDesc": "Ce que le mode Édition affiche sur chaque ligne et chaque mot.",
+    "syncing": "Synchronisation",
+    "syncingDesc": "Touches de synchronisation, décalages et ce que le mode Temps affiche.",
+    "preview": "Aperçu",
+    "previewDesc": "Ce que l'onglet Aperçu affiche et avec quelle fluidité il tourne.",
+    "audio": "Audio et spectrogramme",
+    "files": "Importation et fichiers",
+    "filesDesc": "Nettoyage à l'importation, exportation et projets de dossier.",
+    "backup": "Sauvegarde",
+    "backupDesc": "Historique d'enregistrement automatique et sauvegardes portables.",
+    "experimental": "Expérimental",
+    "experimentalDesc": "Fonctionnalités encore en cours. Chacune reste désactivée tant que vous ne l'activez pas.",
+    "turnAllOff": "Tout désactiver",
+    "turnAllOffLabel": "Désactiver toutes les fonctionnalités expérimentales de {area}",
+    "resetGroup": "Rétablir les valeurs par défaut",
+    "resetGroupLabel": "Rétablir les réglages de {group} par défaut",
+    "resetGroupTitle": "Rétablir les réglages de {group} ?",
+    "resetGroupDesc": "Ces réglages reviennent à leur valeur par défaut :",
+    "resetGroupConfirm": "Rétablir"
   },
   "timingOverview": {
     "start": "Début",
@@ -858,6 +1076,10 @@
     "order": "Ordre",
     "orderChronological": "Chronologique",
     "orderTextual": "Ordre du texte"
+  },
+  "joinSplitWords": {
+    "label": "Fusionner les mots découpés",
+    "description": "Affiche un mot chanté en plusieurs parties comme un seul mot lorsque les parties s'enchaînent régulièrement, comme le réglage Join Split Words de Spicy Lyrics."
   },
   "topBar": {
     "modeBtns": {
@@ -910,6 +1132,36 @@
       "spectrogramHoverSync": "Synchroniser à la position de la souris",
       "changelog": "Journal des modifications et mises à jour",
       "projects": "Projets"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Transcrire",
+    "modeBtnDesc": "Tapez les paroles en texte brut pendant la lecture.",
+    "enable": "Onglet Transcrire",
+    "enableDesc": "Ajoute un onglet Transcrire pour taper les paroles en texte brut pendant la lecture.",
+    "title": "Transcrire",
+    "stats": "{lines, plural, one {# ligne} many {# lignes} other {# lignes}}, {words, plural, one {# mot} many {# mots} other {# mots}}",
+    "tidy": "Ranger la mise en page",
+    "export": "Exporter",
+    "copyGenius": "Copier au format Genius",
+    "copyPlain": "Copier en texte brut",
+    "saveGenius": "Enregistrer au format Genius...",
+    "savePlain": "Enregistrer en texte brut...",
+    "sendToImport": "Importer dans l'éditeur...",
+    "textLabel": "Transcription",
+    "placeholder": "Tapez les paroles comme vous les entendez, une ligne par rangée. Mettez les en-têtes de section comme [Verse 1] sur leur propre rangée.",
+    "copied": "Copié dans le presse-papiers.",
+    "copyFailed": "Impossible de copier le texte.",
+    "saveFailed": "Impossible d'enregistrer le fichier.",
+    "textFiles": "Fichiers texte",
+    "keys": {
+      "label": "Raccourcis dans la zone de texte",
+      "playPause": "Lire ou mettre en pause",
+      "back": "Reculer de 3 secondes",
+      "forward": "Avancer de 3 secondes",
+      "slower": "Plus lent",
+      "faster": "Plus rapide",
+      "resetSpeed": "Vitesse normale"
     }
   },
   "header": {
@@ -1044,7 +1296,39 @@
       "audioDesc": "Lecture, égaliseur et affichage du spectrogramme."
     }
   },
-  "autoSegmentApplied": "Segmentation automatique avec {engine}",
+  "keyboardView": {
+    "title": "Clavier",
+    "flagTitle": "Vue clavier et touches secondaires",
+    "flagDesc": "Expérimental. Affiche vos raccourcis sur un clavier et permet à une action d'avoir plusieurs touches.",
+    "search": "Rechercher des actions",
+    "searchResults": "{count, plural, =0 {Aucune action ne correspond} one {# action correspond} many {# actions correspondent} other {# actions correspondent}}",
+    "layout": "Disposition du clavier",
+    "layoutAuto": "Automatique",
+    "layoutDetected": "Détectée : {layout}",
+    "layoutUnavailable": "Impossible de détecter la disposition ici, QWERTY est affiché",
+    "layerHint": "Cliquez sur une touche de modification, comme Maj, pour voir les raccourcis qui l'utilisent.",
+    "category": {
+      "sync": "Synchronisation",
+      "edit": "Édition",
+      "playback": "Lecture",
+      "navigation": "Navigation"
+    },
+    "free": "Libre",
+    "keyFree": "{key} : libre",
+    "keyActions": "{key} : {actions}",
+    "modifierLayer": "Afficher les raccourcis avec {key}",
+    "freeKey": "Rien n'utilise encore {key}.",
+    "assignLabel": "Action",
+    "assignPlaceholder": "Choisir une action...",
+    "assign": "Ajouter à {key}",
+    "changeKey": "Changer de touche",
+    "addKey": "Ajouter une deuxième touche",
+    "removeKey": "Retirer {key}",
+    "duplicateKey": "Cette touche est déjà définie pour cette action.",
+    "otherLayers": "Aussi sur cette touche",
+    "closePanel": "Fermer"
+  },
+  "autoSegmentApplied":"Segmentation automatique avec {engine}",
   "error": {
     "unsupportedFileFormat": "Format de fichier non pris en charge : {ext}",
     "openFileFailed": "Échec de l'ouverture du fichier",
@@ -1161,6 +1445,11 @@
     "addPresets": "Ajouter tous les champs standard",
     "clear": "Effacer"
   },
+  "helpText": {
+    "metadataArtists": "Qui interprète la chanson, tel que le titre est crédité sur les services de streaming. Exemple : « Shake It Off » est de Taylor Swift.",
+    "metadataSongwriter": "Qui a écrit la musique et les paroles, d'après les crédits d'écriture. Souvent différent des artistes. Exemple : « Shake It Off » a été écrit par Taylor Swift, Max Martin et Shellback.",
+    "learnMore": "En savoir plus"
+  },
   "lrclib": {
     "placeholder": "Titre de la chanson et artiste…",
     "notFound": "Aucun résultat trouvé, essayez d'autres mots-clés",
@@ -1183,6 +1472,12 @@
     "insertLine": "Insérer une nouvelle ligne ici",
     "insertWord": "Insérer un mot ici…"
   },
+  "editModeTools": {
+    "toggleTitle": "Outils du mode Édition",
+    "toggleDesc": "Découpe une ligne saisie en mots, inverse les lignes principales et de duo, et rouvre chaque projet là où vous avez quitté le mode Édition.",
+    "swapDuetAll": "Inverser les lignes principales et de duo",
+    "swapDuetSelected": "Inverser principal et duo"
+  },
   "lyricWordView": {
     "empty": "Vide",
     "spaceCount": "Espace ×{count}",
@@ -1191,6 +1486,14 @@
     "editingWordDesc": "Modifiez le mot ou appliquez les corrections rapides proposées.",
     "correctedWordPlaceholder": "Tapez le mot corrigé",
     "noSuggestions": "Aucune suggestion"
+  },
+  "timeModeEditing": {
+    "flagTitle": "Édition des mots en mode Synchronisation",
+    "flagDesc": "Scindez, combinez et remplacez des mots depuis le menu contextuel en mode Synchronisation. Une scission en deux parties se fait à la tête de lecture si elle est dans le mot.",
+    "doubleClickTimestamp": "Le double-clic modifie l'horodatage",
+    "doubleClickTimestampDesc": "Double-cliquez sur un mot en mode Synchronisation pour saisir son heure de début au lieu de son texte. Nécessite l'affichage des horodatages.",
+    "combinePrevious": "Combiner avec le mot précédent",
+    "combineNext": "Combiner avec le mot suivant"
   },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Catégoriser # ligne sélectionnée} many {Catégoriser # lignes sélectionnées} other {Catégoriser # lignes sélectionnées}}",
@@ -1217,9 +1520,43 @@
     "addToNext": "Ajouter des lignes non attribuées à la section suivante",
     "section": "Section"
   },
+  "sectionEditing": {
+    "toggleTitle": "Outils d'édition des sections",
+    "toggleDesc": "Cliquez sur l'en-tête d'une section pour la renommer ou changer son type, commencez une section sur n'importe quelle ligne et copiez le minutage entre sections répétées. Lit aussi les parties de morceau Apple à l'ouverture d'un TTML. Les sections servent à l'éditeur, pas à Spicy Lyrics.",
+    "editHeader": "Renommer ou changer le type de {label}",
+    "menu": "Actions de la section",
+    "startHere": "Commencer la section ici",
+    "moveStartUp": "Remonter le début d'une ligne",
+    "moveStartDown": "Descendre le début d'une ligne",
+    "applyTimings": "Appliquer le minutage de...",
+    "applyTitle": "Appliquer le minutage d'une autre section",
+    "applyDesc": "Copie le minutage d'une autre section sur celle-ci. Les lignes sont associées par leurs mots ; seuls les mots correspondants reçoivent un minutage, les autres restent sans minutage.",
+    "source": "Copier depuis",
+    "suggested": "Suggérée",
+    "similarity": "{percent} % de mots identiques",
+    "noSources": "Aucune autre section n'a encore de minutage. Synchronisez-en une d'abord.",
+    "anchor": "Commencer à",
+    "anchorSection": "La première ligne minutée de cette section ({time})",
+    "anchorPlayhead": "La tête de lecture ({time})",
+    "refineNote": "Le minutage copié n'est qu'un point de départ. Écoutez la section et corrigez ce qui cloche.",
+    "apply": "Appliquer",
+    "applied": "Minutage copié sur {copied} lignes sur {total}. {untimed, plural, =0 {Tous les mots correspondaient.} one {# mot est resté sans minutage.} many {# mots sont restés sans minutage.} other {# mots sont restés sans minutage.}}",
+    "nothingMatched": "Aucune ligne de cette section ne correspond à l'autre, donc rien n'a été copié."
+  },
   "touchSyncPanel": {
     "prevWord": "Mot précédent",
     "nextWord": "Mot suivant"
+  },
+  "lineSync": {
+    "flagTitle": "Synchronisation par ligne",
+    "flagDesc": "Permet de synchroniser chaque chanson par mot ou par ligne entière. En mode Ligne, F, G et H démarrent et terminent des lignes entières.",
+    "timing": "Synchronisation de la chanson",
+    "timingDesc": "Mot : chaque mot a son propre temps. Ligne : seules les lignes entières sont synchronisées, et le TTML est exporté synchronisé par ligne.",
+    "word": "Mot",
+    "line": "Ligne",
+    "confirmTitle": "Passer à la synchronisation par ligne ?",
+    "confirmDescription": "Chaque mot garde son texte mais perd son propre temps. Chaque ligne garde son début et sa fin. Vous pouvez annuler.",
+    "confirmAction": "Passer en Ligne"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
@@ -1241,6 +1578,42 @@
     "placeholder": "Nouvelle romanisation",
     "applyToAll": "Appliquer à tous les mots identiques",
     "caseSensitive": "Respecter la casse"
+  },
+  "romanizationTools": {
+    "group": "Romanisation et découpage",
+    "flag": "Outils de romanisation expérimentaux",
+    "flagDesc": "Découpage de l'anglais par règles, taille de découpage du japonais, collage d'une page romanisée et export des traductions dans l'en-tête.",
+    "japaneseGranularity": "Taille de découpage du japonais",
+    "japaneseGranularityDesc": "Comment le découpage automatique coupe les paroles japonaises. Les petits kana, ー et っ restent avec leur son.",
+    "granularity": {
+      "syllable": "Syllabe",
+      "syllableDesc": "Un son par partie, ん rejoint le son précédent",
+      "mora": "More",
+      "moraDesc": "Un temps par partie, ん forme sa propre partie",
+      "word": "Mot",
+      "wordDesc": "Mots entiers"
+    },
+    "translationFormat": "Export des traductions",
+    "translationFormatDesc": "Où vont les traductions dans le TTML exporté. Spicy Lyrics ne lit que les traductions dans la ligne.",
+    "format": {
+      "inline": "Dans la ligne",
+      "inlineDesc": "Dans chaque ligne, comme avant. Spicy Lyrics lit ce format.",
+      "head": "En-tête",
+      "headDesc": "Style Apple, dans l'en-tête du fichier. Spicy Lyrics peut les afficher comme romanisation."
+    },
+    "translationLanguage": "Langue de traduction",
+    "translationLanguageDesc": "Code de langue des traductions dans l'en-tête, par exemple en ou es.",
+    "paste": {
+      "button": "Coller la romanisation...",
+      "tooltip": "Remplit la romanisation de chaque mot depuis une page de paroles romanisées, comme celle de Genius.",
+      "title": "Coller des paroles romanisées",
+      "description": "Collez une page de paroles romanisées, une ligne par ligne de paroles. Les en-têtes de section et les lignes vides sont ignorés, et les lignes d'arrière-plan ne sont pas modifiées.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Remplir la romanisation",
+      "lineCountMismatch": "La page a {received} lignes et les paroles en ont {expected}. Ajoutez ou supprimez des lignes pour qu'elles correspondent.",
+      "applied": "Romanisation remplie : {count} lignes.",
+      "check": "Certains mots ont été devinés. Vérifiez les lignes {lines}."
+    }
   },
   "timeShiftDialog": {
     "title": "Décalage temporel",
@@ -1295,6 +1668,25 @@
     "noResult": "Entrez un nom de chanson ou un artiste pour commencer.",
     "howToGetKey": "Comment obtenir un jeton d’accès Genius",
     "changeKey": "Changer le jeton d’accès"
+  },
+  "referenceSidebar": {
+    "setting": "Panneau de référence",
+    "settingDesc": "Ancre l’aperçu et les paroles Genius du morceau à droite en Édition et Synchronisation. Remplace le panneau d’aperçu.",
+    "label": "Panneau de référence",
+    "collapse": "Réduire le panneau",
+    "tabs": {
+      "preview": "Aperçu",
+      "genius": "Genius",
+      "problems": "Problèmes"
+    },
+    "genius": {
+      "changeSong": "Changer de morceau",
+      "backToLyrics": "Retour aux paroles",
+      "searchFailed": "La recherche a échoué : {error}",
+      "loadFailed": "Impossible de charger les paroles : {error}",
+      "retry": "Réessayer",
+      "lyricsLabel": "Paroles Genius de {title}"
+    }
   },
   "textImportDialog": {
     "processLyrics": "Préparer les paroles",
@@ -1487,6 +1879,18 @@
     "openContributorProfile": "Ouvrir le profil GitHub de {name}",
     "unknown": "Inconnu"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Pistes séparées",
+    "settingDesc": "Affiche les lignes de chœurs sur leur propre piste sous les lignes principales. Les pistes servent uniquement à l'affichage : changez le rôle d'une ligne en mode édition.",
+    "menu": "Pistes",
+    "visibleLanes": "Afficher les pistes",
+    "duetLane": "Piste séparée pour le duo",
+    "lane": {
+      "main": "Principale",
+      "duet": "Duo",
+      "bg": "Chœurs"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Impossible de sélectionner ce temps de fin",
     "noAudioLoaded": "Veuillez charger un fichier audio pour afficher le spectrogramme",
@@ -1502,6 +1906,17 @@
       "4096": "4096 (maximum de détails)"
     },
     "height": "Hauteur d'affichage"
+  },
+  "spectrogramFollow": {
+    "toggle": "Suivre la tête de lecture",
+    "shortcut": "Spectrogramme - Activer/désactiver le suivi de la tête de lecture",
+    "setting": "Suivre la tête de lecture",
+    "settingDesc": "Fait défiler le spectrogramme pour garder la tête de lecture visible. Faire défiler ou glisser le met en pause jusqu'à ce que vous lanciez la lecture ou attendiez un instant. Ajoute un bouton à la barre du spectrogramme.",
+    "style": "Mode de suivi",
+    "page": "Par page",
+    "pageDesc": "Saute en avant quand la tête de lecture sort de la vue.",
+    "continuous": "Continu",
+    "continuousDesc": "Défile avec la tête de lecture et la garde au centre."
   },
   "export": {
     "recoveryUntimed": "Cet export de récupération contient des paroles non synchronisées. Vérifiez la synchronisation avant de l'envoyer.",

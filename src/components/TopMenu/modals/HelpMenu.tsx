@@ -3,6 +3,7 @@ import { useSetAtom } from "jotai";
 import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { CommandPaletteMenuItem } from "$/modules/command-palette/CommandPaletteMenuItem";
 import { guideWelcomeOpenAtom } from "$/modules/onboarding/states";
 import {
 	changelogDialogAtom,
@@ -30,6 +31,7 @@ const HelpMenuItems = () => {
 
 	return (
 		<>
+			<CommandPaletteMenuItem />
 			<DropdownMenu.Item onSelect={() => setGuideWelcomeOpen(true)}>
 				{t("beginnerGuide.menu", "Start guide")}
 			</DropdownMenu.Item>

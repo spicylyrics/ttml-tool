@@ -26,7 +26,7 @@ export const activeLineIdsAtom = selectAtom(
 
 export const audioBufferAtom = atom<AudioBuffer | null>(null);
 export const volumeAtom = atomWithStorage("volume", 0.5);
-const storedPlaybackRateAtom = atomWithMigratedStorage<number>(
+export const storedPlaybackRateAtom = atomWithMigratedStorage<number>(
 	"playbackRate",
 	1,
 	{ normalize: clampPlaybackRate },

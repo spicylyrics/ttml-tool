@@ -1,6 +1,10 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useMemo, useState } from "react";
 import {
+	effectiveJapaneseGranularityAtom,
+	romanizationToolsFlagAtom,
+} from "$/modules/romanization/states";
+import {
 	segmentationCustomRulesAtom,
 	segmentationEngineAtom,
 	segmentationIgnoreListTextAtom,
@@ -25,6 +29,8 @@ export const useSegmentationConfig = () => {
 	const ignoreListText = useAtomValue(segmentationIgnoreListTextAtom);
 	const customRules = useAtomValue(segmentationCustomRulesAtom);
 	const learnedRules = useAtomValue(segmentationLearnedRulesAtom);
+	const englishRules = useAtomValue(romanizationToolsFlagAtom);
+	const japaneseGranularity = useAtomValue(effectiveJapaneseGranularityAtom);
 
 	const [hyphenator, setHyphenator] = useState<HyphenatorFunc | undefined>();
 	const [isLoading, setIsLoading] = useState(false);
@@ -69,8 +75,12 @@ export const useSegmentationConfig = () => {
 			customRules,
 			learnedRules,
 			hyphenator,
+			...(englishRules ? { englishRules } : {}),
+			...(japaneseGranularity ? { japaneseGranularity } : {}),
 		};
 	}, [
+		englishRules,
+		japaneseGranularity,
 		engine,
 		splitCJK,
 		splitEnglish,

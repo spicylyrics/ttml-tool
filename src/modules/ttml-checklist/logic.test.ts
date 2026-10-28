@@ -72,4 +72,41 @@ describe("TTML checklist", () => {
 			},
 		]);
 	});
+
+	it("keeps song list link fields and drops malformed ones", () => {
+		const [linked, broken] = normalizeChecklistEntries([
+			{
+				id: "linked",
+				song: "Song",
+				createdAt: 2,
+				projectId: "p1",
+				projectDir: "C:/Projects/Song",
+				startedAt: 5,
+				geniusId: 42,
+			},
+			{
+				id: "broken",
+				song: "Other",
+				createdAt: 1,
+				projectId: "",
+				startedAt: Number.NaN,
+				geniusId: "42",
+			},
+		]);
+		expect(linked).toMatchObject({
+			projectId: "p1",
+			projectDir: "C:/Projects/Song",
+			startedAt: 5,
+			geniusId: 42,
+		});
+		expect(broken).not.toHaveProperty("projectId");
+		expect(broken).not.toHaveProperty("startedAt");
+		expect(broken).not.toHaveProperty("geniusId");
+		const edited = updateChecklistEntry([linked], "linked", {
+			song: "Song",
+			artist: "",
+			notes: "",
+		});
+		expect(edited[0]?.projectId).toBe("p1");
+	});
 });

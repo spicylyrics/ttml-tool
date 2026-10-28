@@ -3,6 +3,12 @@
     "changelogTitle": "Muutosloki ja päivitykset",
     "viewCommits": "Näytä muutokset GitHubissa"
   },
+  "updatedToast": {
+    "message": "Päivitetty versioon v{version}",
+    "seeChanges": "Katso muutokset",
+    "setting": "Näytä muutokset päivityksen jälkeen",
+    "settingDesc": "Kun sovellus käynnistyy ensimmäistä kertaa uudessa versiossa, näytetään lyhyt ilmoitus ja linkki muutoslokiin."
+  },
   "app": {
     "error": {
       "title": "Hups, tapahtui virhe!",
@@ -32,6 +38,16 @@
   "preview": {
     "untimedLines": "{count, plural, one {# riviltä puuttuu ajoitus} other {# riviltä puuttuu ajoitus}}",
     "jumpToUntimed": "Ajoita ensimmäinen ajoittamaton rivi"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# sanan ajoituksessa on ongelma} other {# sanan ajoituksessa on ongelmia}}",
+    "jump": "Valitse ensimmäinen",
+    "setting": "Näytä ajoitusongelmat",
+    "settingDesc": "Merkitsee punaisella ja katkoviivareunuksella sanat, jotka Spicy-esikatselu piilottaisi tai toistaisi väärin niiden ajoituksen vuoksi.",
+    "untimed": "Ei ajoitusta ajoitetulla rivillä",
+    "endsBeforeStart": "Päättyy ennen kuin alkaa",
+    "startsBeforeLine": "Alkaa ennen riviään",
+    "endsAfterLine": "Päättyy rivinsä jälkeen"
   },
   "beginnerGuide": {
     "empty": {
@@ -191,6 +207,16 @@
       "splitWordsHint": "Merkitsee jokaisen välilyönnin sanarajaksi tuontia varten."
     }
   },
+  "importSplit": {
+    "title": "Tavut",
+    "later": "Jaan myöhemmin",
+    "laterHint": "Tuo kokonaiset sanat. Jaa ne myöhemmin editorissa.",
+    "now": "Jaa nyt",
+    "nowHint": "Merkitsee tavut tekstiin heti, jotta voit korjata ne ennen tuontia.",
+    "checkFirst": "Uudet sanat saivat tavumerkit. Tarkista ne ja tuo sitten.",
+    "setting": "Jaa tavuihin tuonnin aikana",
+    "settingHint": "Lisää tuontinäkymään valinnan Jaa nyt tai Jaan myöhemmin. Jaa nyt merkitsee tavut segmentointiasetustesi ja opittujen jakojen mukaan, ja voit korjata ne ennen tuontia."
+  },
   "lyricMarkup": {
     "section": "Osio: {label}",
     "joinSyllables": "Yhdistä tavut",
@@ -211,6 +237,29 @@
       "missingTranslation": "Käännös puuttuu",
       "missingRomanization": "Latinisointi puuttuu"
     }
+  },
+  "editAsText": {
+    "menuItem": "Muokkaa tekstinä...",
+    "title": "Muokkaa tekstinä",
+    "description": "Muokkaa koko sanoitusta pelkkänä tekstinä. Sanat, joita et muuta, säilyttävät ajoituksensa.",
+    "textLabel": "Sanoitusteksti",
+    "summaryTitle": "Muutokset",
+    "unchanged": "{count, plural, one {# rivi ennallaan} other {# riviä ennallaan}}",
+    "edited": "{count, plural, one {# rivi muokattu} other {# riviä muokattu}}",
+    "editedHint": "Ajoitukset säilyvät, kun sanat täsmäävät.",
+    "moved": "{count, plural, one {# rivi siirretty} other {# riviä siirretty}}",
+    "added": "{count, plural, one {# rivi lisätty} other {# riviä lisätty}}",
+    "removed": "{count, plural, one {# rivi poistettu} other {# riviä poistettu}}",
+    "noChanges": "Ei vielä muutoksia.",
+    "droppedTimings": "{count, plural, one {# ajoitettu sana menettää ajoituksensa} other {# ajoitettua sanaa menettää ajoituksensa}}",
+    "lineNumber": "Rivi {line}",
+    "more": "{count, plural, one {ja # muu} other {ja # muuta}}",
+    "help": "Uudet sanat tulevat ilman ajoitusta. Pelkästään siirretyt rivit säilyttävät ajoituksensa. Käyttö kumotaan yhdellä askeleella.",
+    "apply": "Käytä",
+    "applied": "Teksti otettiin käyttöön. Kumoa palauttaa sen yhdellä askeleella.",
+    "failed": "Tekstiä ei voitu ottaa käyttöön. Tarkista se ja yritä uudelleen.",
+    "setting": "Muokkaa tekstinä",
+    "settingDesc": "Lisää Muokkaa-valikkoon kohdan Muokkaa tekstinä: muokkaa koko sanoitusta pelkkänä tekstinä ja säilytä koskemattomien sanojen ajoitus."
   },
   "importChooser": {
     "options": {
@@ -279,6 +328,29 @@
       "copyPrevious": "Kopioi edellinen ajoitus"
     }
   },
+  "logoColor": {
+    "title": "Logon väri",
+    "description": "Kokeellinen. Valitse logon väri otsikkopalkkiin ja oppaan aloitusnäyttöön.",
+    "colorLabel": "Väri",
+    "customLabel": "Mukautettu logon väri",
+    "designNote": "Logo näkyy vain, kun Spicy Lyrics -ulkoasu on käytössä.",
+    "presets": {
+      "default": "Oletus",
+      "defaultDesc": "Ulkoasun oma väri",
+      "lilac": "Liila",
+      "lilacDesc": "v3-logosta",
+      "purple": "Violetti",
+      "purpleDesc": "Monivärisestä logosta",
+      "red": "Punainen",
+      "redDesc": "v0.9-logosta",
+      "gold": "Kulta",
+      "green": "Vihreä",
+      "blue": "Sininen",
+      "white": "Valkoinen",
+      "custom": "Mukautettu",
+      "customDesc": "Valitse mikä tahansa väri"
+    }
+  },
   "common": {
     "close": "Sulje",
     "autoDetect": "Automaattinen tunnistus",
@@ -332,6 +404,20 @@
       "title": "Valitse projekteja sisältävä työtilakansio"
     }
   },
+  "commandPalette": {
+    "title": "Komentopaletti",
+    "placeholder": "Etsi komentoja ja asetuksia",
+    "noResults": "Ei vastaavia komentoja tai asetuksia",
+    "commandTag": "Komento",
+    "settingTag": "Asetukset",
+    "hint": "Nuolinäppäimet siirtävät, Enter suorittaa, Esc sulkee",
+    "notRunnable": "Komentoa ei voitu suorittaa. Anna sille pikanäppäin asetuksissa ja yritä uudelleen.",
+    "menu": "Komentopaletti...",
+    "shortcut": "Näkymä - Avaa komentopaletti",
+    "shortcutAlternate": "Näkymä - Avaa komentopaletti (vaihtoehtoinen pikanäppäin)",
+    "settingLabel": "Komentopaletti",
+    "settingDesc": "Etsi komentoja ja asetussivuja nimellä. Avaa se pikanäppäimellä {shortcut} tai Apua-valikosta."
+  },
   "projectsDialog": {
     "title": "Projektit",
     "tabProject": "Projekti",
@@ -371,6 +457,82 @@
     "noProjectsFound": "Tästä kansiosta ei löytynyt projekteja",
     "projectsFound": "{count, plural, one {Löytyi # projekti} other {Löytyi # projektia}}",
     "scanFailed": "Työtilakansion läpikäynti epäonnistui"
+  },
+  "projectsHub": {
+    "enable": "Kappalelista ja aloitusnäkymä",
+    "enableDesc": "Lisää Projekteihin Synkronoitavat-listan ja kansion haun, tyhjään editoriin aloitusnäkymän, käynnistyksessä kysymyksen viimeisen istunnon jatkamisesta, TTML:n ja äänen avaamisen yhdellä vedolla sekä viennin pelkkänä tekstinä tai Genius-tekstinä.",
+    "menuProjects": "Projektit...",
+    "tabSongs": "Synkronoitavat",
+    "songs": {
+      "description": "Kappaleet, jotka haluat synkronoida seuraavaksi. Aloita projekti kappaleesta, niin se merkitään valmiiksi, kun viet TTML:n.",
+      "addManually": "Kirjoita itse",
+      "searchGenius": "Hae Geniuksesta",
+      "add": "Lisää listaan",
+      "added": "{song} lisättiin listaan.",
+      "alreadyListed": "{song} on jo listalla.",
+      "searchFailed": "Geniuksesta ei voitu hakea.",
+      "start": "Aloita projekti",
+      "started": "{song} aloitettu. Tuo tai kirjoita sanat ja lataa sitten ääni.",
+      "startDirty": "Sinulla on tallentamattomia muutoksia. Kappaleen {song} aloittaminen korvaa editorin sanat.",
+      "markedDone": "{song} merkittiin valmiiksi.",
+      "inProgress": "Aloitettu",
+      "empty": "Ei vielä mitään synkronoitavaa. Lisää seuraava kappale ennen kuin unohdat sen.",
+      "showNotes": "Näytä muistiinpanot",
+      "showCompleted": "Valmiit ({count})",
+      "hideCompleted": "Piilota valmiit",
+      "markDone": "Valmis",
+      "reopen": "Avaa uudelleen",
+      "edit": "Muokkaa kappaletta",
+      "delete": "Poista kappale",
+      "toolMenu": "Synkronoitavat..."
+    },
+    "scan": {
+      "tab": "Hae kansiosta",
+      "select": "Hae TTML-tiedostoja kansiosta...",
+      "pairsTitle": "Tiedostot, jotka voi linkittää projekteiksi",
+      "pairsHint": "Samanniminen TTML- ja äänitiedosto. Linkitys jättää molemmat tiedostot paikoilleen.",
+      "link": "Linkitä",
+      "linkAll": "Linkitä kaikki",
+      "linked": "{name} linkitettiin projektiksi.",
+      "linkedCount": "{count, plural, one {# projekti linkitetty} other {# projektia linkitetty}}",
+      "linkFailed": "Tiedostoa {name} ei voitu linkittää.",
+      "noPairs": "Samannimisiä TTML- ja äänitiedostoja ei löytynyt.",
+      "scanning": "Etsitään tiedostoja..."
+    },
+    "start": {
+      "title": "Aloita synkronointi",
+      "description": "Avaa projekti, valitse kappale listaltasi tai aloita sanoista.",
+      "startedDescription": "Lisää sanat tekstistä tai Geniuksesta ja lataa sitten ääni.",
+      "fromText": "Uusi tekstistä",
+      "fromGenius": "Uusi Geniuksesta",
+      "openFile": "Avaa tiedosto...",
+      "openFolder": "Avaa kansioprojekti...",
+      "projects": "Projektit...",
+      "recent": "Viimeisimmät projektit",
+      "songs": "Synkronoitavat",
+      "seeAll": "Näytä kaikki",
+      "startSong": "Aloita projekti: {song}"
+    },
+    "resume": {
+      "title": "Jatketaanko siitä, mihin jäit?",
+      "description": "{name} muokattiin viimeksi {time}. Historiasta palautus säilyttää kaikki automaattiset tallennukset joka tapauksessa.",
+      "continue": "Jatka",
+      "startFresh": "Aloita alusta",
+      "restored": "{name} palautettiin."
+    },
+    "export": {
+      "plainText": "Pelkkä teksti...",
+      "geniusText": "Genius-teksti...",
+      "copyGenius": "Kopioi Genius-tekstinä",
+      "copied": "Sanat kopioitiin Genius-tekstinä.",
+      "copyFailed": "Sanoja ei voitu kopioida.",
+      "saveFailed": "Tiedostoa ei voitu tallentaa.",
+      "textFiles": "Tekstitiedostot",
+      "empty": "Vietäviä sanoja ei ole."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# tiedosto ohitettiin. Pudota kerralla yksi sanatiedosto ja yksi äänitiedosto.} other {# tiedostoa ohitettiin. Pudota kerralla yksi sanatiedosto ja yksi äänitiedosto.}}"
+    }
   },
   "ribbonBar": {
     "advancedTooltip": "Koskee Muokkaus-, Ajoitus- ja Esikatselu-valintanauhoja.",
@@ -487,6 +649,33 @@
     },
     "loading": "Ladataan paneelia...",
     "advanced": "Lisäasetukset"
+  },
+  "ribbonCustomize": {
+    "customize": "Mukauta valintanauhaa",
+    "customizeDesc": "Piilota, järjestä tai kiinnitä tämän valintanauhan osioita tai siirrä ne Lisää-valikkoon.",
+    "title": "Mukauta tätä valintanauhaa",
+    "hint": "Jotkin osiot näkyvät vain, kun jotain on valittuna tai Lisäasetukset on päällä.",
+    "reset": "Palauta",
+    "resetDone": "Valintanauha palautettu oletukseksi",
+    "pin": "Kiinnitä {{name}} alkuun",
+    "unpin": "Irrota {{name}}",
+    "pinned": "Kiinnitetty",
+    "moveUp": "Siirrä {{name}} ylös",
+    "moveDown": "Siirrä {{name}} alas",
+    "moved": "{{name}} on nyt kohdassa {{position}}",
+    "placement": {
+      "label": "Missä {{name}} näkyy",
+      "ribbon": "Valintanauha",
+      "ribbonDesc": "Näytä valintanauhassa.",
+      "more": "Lisää",
+      "moreDesc": "Pidä valintanauhan lopussa olevassa Lisää-valikossa.",
+      "hidden": "Piilotettu",
+      "hiddenDesc": "Älä näytä missään."
+    },
+    "more": "Lisää",
+    "moreDesc": "Osiot, jotka siirsit pois valintanauhasta.",
+    "settingLabel": "Mukautettavat valintanauhat",
+    "settingDesc": "Lisää Muokkaus-, Ajoitus- ja Esikatselu-valintanauhoihin Mukauta-painikkeen, jolla voit piilottaa, järjestää tai kiinnittää osioita tai siirtää ne Lisää-valikkoon."
   },
   "settings": {
     "common": {
@@ -838,11 +1027,40 @@
       "timingOverviewAutoScrollDesc": "Pidä ajoituskatsaus vieritettynä toistokohtaan.",
       "vsyncDesc": "Päivitä Standard- ja Toxi-esikatselut joka ruudulla noin 30 kertaa sekunnissa tapahtuvan päivityksen sijaan. Sulavampi, mutta kuormittaa suoritinta enemmän.",
       "showFpsDesc": "Näytä esikatselussa kuvataajuuslaskuri.",
-      "syncLevelDesc": "Sana: ajoita jokainen sana erikseen. Rivi: ajoita kokonaiset rivit ja jaa sanat tasaisesti alustavaksi ajoitukseksi, jota tarkennat spektrogrammissa.",
+      "syncLevelDesc": "Sana: ajoita jokainen sana erikseen. Rivi: ajoita kokonaiset rivit ja jaa sanat tasaisesti. Rivi-tilakin tallentaa sanakohtaiset ajat, ei rivikohtaisesti synkronoituja sanoituksia, joten tarkenna sanat spektrogrammissa.",
       "previewModeDesc": "Valitse, mikä esikatselu näkyy Esikatselu-välilehdellä.",
       "spicyBackgroundDesc": "Mitä Spicy-esikatselun taustalla näkyy.",
       "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa."
     }
+  },
+  "preferencesShell": {
+    "flagLabel": "Uusi asetusten asettelu",
+    "flagDesc": "Haku ylhäällä ja sivupalkki, johon pitkät nimet mahtuvat. Poista käytöstä palataksesi perinteiseen asetteluun.",
+    "matchCount": "Vastaavat asetukset: {count}",
+    "noResults": "Mikään asetus ei vastaa hakua \"{query}\"",
+    "noResultsDesc": "Kokeile toista sanaa tai tyhjennä haku."
+  },
+  "preferencesPages": {
+    "editing": "Muokkaus",
+    "editingDesc": "Mitä Muokkaa-tila näyttää jokaisella rivillä ja sanalla.",
+    "syncing": "Ajoitus",
+    "syncingDesc": "Ajoitusnäppäimet, siirrot ja mitä Aika-tila näyttää.",
+    "preview": "Esikatselu",
+    "previewDesc": "Mitä Esikatselu-välilehti näyttää ja kuinka sujuvasti se toimii.",
+    "audio": "Ääni ja spektrogrammi",
+    "files": "Tuonti ja tiedostot",
+    "filesDesc": "Tuonnin siivous, vienti ja kansioprojektit.",
+    "backup": "Varmuuskopio",
+    "backupDesc": "Automaattisen tallennuksen historia ja siirrettävät varmuuskopiot.",
+    "experimental": "Kokeellinen",
+    "experimentalDesc": "Vielä keskeneräisiä ominaisuuksia. Jokainen pysyy pois päältä, kunnes otat sen käyttöön.",
+    "turnAllOff": "Poista kaikki käytöstä",
+    "turnAllOffLabel": "Poista käytöstä kaikki kokeelliset ominaisuudet kohdassa {area}",
+    "resetGroup": "Palauta oletukset",
+    "resetGroupLabel": "Palauta kohdan {group} asetukset oletuksiin",
+    "resetGroupTitle": "Palautetaanko kohdan {group} asetukset?",
+    "resetGroupDesc": "Nämä asetukset palautuvat oletuksiin:",
+    "resetGroupConfirm": "Palauta"
   },
   "timingOverview": {
     "start": "Alku",
@@ -858,6 +1076,10 @@
     "order": "Järjestys",
     "orderChronological": "Kronologinen",
     "orderTextual": "Tekstijärjestys"
+  },
+  "joinSplitWords": {
+    "label": "Yhdistä jaetut sanat",
+    "description": "Näytä osissa laulettu sana yhtenä sanana, kun osat on ajoitettu tasaisesti, kuten Spicy Lyricsin Join Split Words -asetus."
   },
   "topBar": {
     "modeBtns": {
@@ -910,6 +1132,36 @@
       "spectrogramHoverSync": "Ajoita hiiren kohdalla",
       "changelog": "Muutosloki ja päivitykset",
       "projects": "Projektit"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Litteroi",
+    "modeBtnDesc": "Kirjoita sanat pelkkänä tekstinä kappaleen soidessa.",
+    "enable": "Litteroi-välilehti",
+    "enableDesc": "Lisää Litteroi-välilehti sanojen kirjoittamiseen pelkkänä tekstinä kappaleen soidessa.",
+    "title": "Litteroi",
+    "stats": "{lines, plural, one {# rivi} other {# riviä}}, {words, plural, one {# sana} other {# sanaa}}",
+    "tidy": "Siisti asettelu",
+    "export": "Vie",
+    "copyGenius": "Kopioi Genius-tekstinä",
+    "copyPlain": "Kopioi pelkkänä tekstinä",
+    "saveGenius": "Tallenna Genius-tekstinä...",
+    "savePlain": "Tallenna pelkkänä tekstinä...",
+    "sendToImport": "Tuo editoriin...",
+    "textLabel": "Litterointi",
+    "placeholder": "Kirjoita sanat niin kuin kuulet ne, yksi säe riville. Laita osien otsikot, kuten [Verse 1], omalle rivilleen.",
+    "copied": "Kopioitu leikepöydälle.",
+    "copyFailed": "Tekstiä ei voitu kopioida.",
+    "saveFailed": "Tiedostoa ei voitu tallentaa.",
+    "textFiles": "Tekstitiedostot",
+    "keys": {
+      "label": "Pikanäppäimet tekstikentässä",
+      "playPause": "Toista tai keskeytä",
+      "back": "3 sekuntia taaksepäin",
+      "forward": "3 sekuntia eteenpäin",
+      "slower": "Hitaammin",
+      "faster": "Nopeammin",
+      "resetSpeed": "Normaali nopeus"
     }
   },
   "header": {
@@ -1044,7 +1296,39 @@
       "audioDesc": "Toisto, taajuuskorjain ja spektrogrammin näyttö."
     }
   },
-  "autoSegmentApplied": "Automaattinen jako tehty moottorilla {engine}",
+  "keyboardView": {
+    "title": "Näppäimistö",
+    "flagTitle": "Näppäimistönäkymä ja toiset näppäimet",
+    "flagDesc": "Kokeellinen. Näyttää pikanäppäimesi näppäimistöllä ja antaa yhdelle toiminnolle useamman näppäimen.",
+    "search": "Hae toimintoja",
+    "searchResults": "{count, plural, =0 {Mikään toiminto ei vastaa} one {# toiminto vastaa} other {# toimintoa vastaa}}",
+    "layout": "Näppäimistöasettelu",
+    "layoutAuto": "Automaattinen",
+    "layoutDetected": "Tunnistettu: {layout}",
+    "layoutUnavailable": "Asettelua ei voi tunnistaa täällä, joten näytetään QWERTY",
+    "layerHint": "Napsauta muokkausnäppäintä, kuten Shift, nähdäksesi sitä käyttävät pikanäppäimet.",
+    "category": {
+      "sync": "Ajoitus",
+      "edit": "Muokkaus",
+      "playback": "Toisto",
+      "navigation": "Siirtyminen"
+    },
+    "free": "Vapaa",
+    "keyFree": "{key}: vapaa",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Näytä pikanäppäimet näppäimellä {key}",
+    "freeKey": "Mikään ei vielä käytä näppäintä {key}.",
+    "assignLabel": "Toiminto",
+    "assignPlaceholder": "Valitse toiminto...",
+    "assign": "Lisää näppäimeen {key}",
+    "changeKey": "Vaihda näppäin",
+    "addKey": "Lisää toinen näppäin",
+    "removeKey": "Poista {key}",
+    "duplicateKey": "Tämä näppäin on jo asetettu tälle toiminnolle.",
+    "otherLayers": "Myös tässä näppäimessä",
+    "closePanel": "Sulje"
+  },
+  "autoSegmentApplied":"Automaattinen jako tehty moottorilla {engine}",
   "error": {
     "unsupportedFileFormat": "Ei tuettu tiedostomuoto: {ext}",
     "openFileFailed": "Tiedoston avaaminen epäonnistui",
@@ -1161,6 +1445,11 @@
     "addPresets": "Lisää kaikki vakiokentät",
     "clear": "Tyhjennä"
   },
+  "helpText": {
+    "metadataArtists": "Kuka esittää kappaleen, kuten se on merkitty suoratoistopalveluissa. Esimerkki: ”Shake It Off” on Taylor Swiftin kappale.",
+    "metadataSongwriter": "Kuka kirjoitti musiikin ja sanat, tekijätietojen mukaan. Usein eri henkilöt kuin artistit. Esimerkki: ”Shake It Off” -kappaleen kirjoittivat Taylor Swift, Max Martin ja Shellback.",
+    "learnMore": "Lue lisää"
+  },
   "lrclib": {
     "placeholder": "Kappaleen nimi ja esittäjä…",
     "notFound": "Tuloksia ei löytynyt, kokeile eri avainsanoja",
@@ -1183,6 +1472,12 @@
     "insertLine": "Lisää uusi rivi tähän",
     "insertWord": "Lisää sana tähän…"
   },
+  "editModeTools": {
+    "toggleTitle": "Muokkaustilan työkalut",
+    "toggleDesc": "Jakaa kirjoitetun rivin sanoiksi, vaihtaa pää- ja duettorivit keskenään ja avaa jokaisen projektin kohdasta, johon jätit muokkaustilan.",
+    "swapDuetAll": "Vaihda pää- ja duettorivit",
+    "swapDuetSelected": "Vaihda pää- ja duettorivi"
+  },
   "lyricWordView": {
     "empty": "Tyhjä",
     "spaceCount": "Välilyönti ×{count}",
@@ -1191,6 +1486,14 @@
     "editingWordDesc": "Muokkaa sanaa tai käytä ehdotettuja pikakorjauksia.",
     "correctedWordPlaceholder": "Kirjoita korjattu sana",
     "noSuggestions": "Ei ehdotuksia"
+  },
+  "timeModeEditing": {
+    "flagTitle": "Sanojen muokkaus Ajoituksessa",
+    "flagDesc": "Jaa, yhdistä ja korvaa sanoja Ajoituksen hiiren oikean painikkeen valikosta. Kahteen osaan jako tehdään toistokohdan kohdalta, kun se on sanan sisällä.",
+    "doubleClickTimestamp": "Kaksoisnapsautus muokkaa aikaleimaa",
+    "doubleClickTimestampDesc": "Kaksoisnapsauta sanaa Ajoituksessa kirjoittaaksesi sen alkuajan tekstin sijaan. Vaatii aikaleimojen näyttämisen.",
+    "combinePrevious": "Yhdistä edelliseen sanaan",
+    "combineNext": "Yhdistä seuraavaan sanaan"
   },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Luokittele # valittu rivi} other {Luokittele # valittua riviä}}",
@@ -1217,9 +1520,43 @@
     "addToNext": "Lisää luokittelemattomat rivit seuraavaan osioon",
     "section": "Osio"
   },
+  "sectionEditing": {
+    "toggleTitle": "Osioiden muokkaustyökalut",
+    "toggleDesc": "Napsauta osion otsikkoa nimetäksesi sen uudelleen tai vaihtaaksesi sen tyypin, aloita osio miltä tahansa riviltä ja kopioi ajoitukset toistuvien osioiden välillä. Lukee myös Applen kappaleen osat, kun avaat TTML-tiedoston. Osioita käyttää editori, ei Spicy Lyrics.",
+    "editHeader": "Nimeä uudelleen tai vaihda tyyppi: {label}",
+    "menu": "Osion toiminnot",
+    "startHere": "Aloita osio tästä",
+    "moveStartUp": "Siirrä alkua rivi ylöspäin",
+    "moveStartDown": "Siirrä alkua rivi alaspäin",
+    "applyTimings": "Käytä ajoituksia osiosta...",
+    "applyTitle": "Käytä ajoituksia toisesta osiosta",
+    "applyDesc": "Kopioi toisen osion ajoitukset tähän osioon. Rivit yhdistetään sanojen perusteella; vain vastaavat sanat saavat ajoituksen, muut jäävät ilman.",
+    "source": "Kopioi osiosta",
+    "suggested": "Ehdotettu",
+    "similarity": "{percent} % samoja sanoja",
+    "noSources": "Millään muulla osiolla ei ole vielä ajoituksia. Synkronoi ensin jokin osio.",
+    "anchor": "Aloituskohta",
+    "anchorSection": "Tämän osion ensimmäinen ajoitettu rivi ({time})",
+    "anchorPlayhead": "Toistokohta ({time})",
+    "refineNote": "Kopioidut ajoitukset ovat vasta lähtökohta. Toista osio ja korjaa kohdat, jotka eivät täsmää.",
+    "apply": "Käytä",
+    "applied": "Ajoitukset kopioitu {copied}/{total} riville. {untimed, plural, =0 {Kaikki sanat täsmäsivät.} one {# sana jäi ilman ajoitusta.} other {# sanaa jäi ilman ajoitusta.}}",
+    "nothingMatched": "Tämän osion rivit eivät vastaa toista osiota, joten mitään ei kopioitu."
+  },
   "touchSyncPanel": {
     "prevWord": "Edellinen sana",
     "nextWord": "Seuraava sana"
+  },
+  "lineSync": {
+    "flagTitle": "Rivisynkronointi",
+    "flagDesc": "Jokaisen kappaleen voi ajastaa sanoittain tai kokonaisin rivein. Rivi-tilassa F, G ja H aloittavat ja lopettavat kokonaisia rivejä.",
+    "timing": "Kappaleen ajastus",
+    "timingDesc": "Sana: jokainen sana saa oman aikansa. Rivi: vain kokonaiset rivit ajastetaan, ja TTML viedään rivisynkronoituna.",
+    "word": "Sana",
+    "line": "Rivi",
+    "confirmTitle": "Vaihdetaanko riviajastukseen?",
+    "confirmDescription": "Jokainen sana säilyttää tekstinsä mutta menettää oman ajastuksensa. Jokainen rivi säilyttää alkunsa ja loppunsa. Voit kumota tämän.",
+    "confirmAction": "Vaihda riviin"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
@@ -1241,6 +1578,42 @@
     "placeholder": "Uusi latinalaistus",
     "applyToAll": "Käytä kaikkiin samanlaisiin sanoihin",
     "caseSensitive": "Erota kirjainkoko"
+  },
+  "romanizationTools": {
+    "group": "Latinisointi ja jakaminen",
+    "flag": "Kokeelliset latinisointityökalut",
+    "flagDesc": "Englannin sääntöpohjainen jakaminen, japanin jakokoko, latinisoidun sivun liittäminen ja käännösten vienti otsakkeeseen.",
+    "japaneseGranularity": "Japanin jakokoko",
+    "japaneseGranularityDesc": "Miten automaattinen jako jakaa japaninkielisen tekstin. Pienet kanat, ー ja っ pysyvät äänteensä kanssa.",
+    "granularity": {
+      "syllable": "Tavu",
+      "syllableDesc": "Yksi äänne osaa kohden, ん liittyy edelliseen",
+      "mora": "Mora",
+      "moraDesc": "Yksi isku osaa kohden, ん on oma osansa",
+      "word": "Sana",
+      "wordDesc": "Kokonaiset sanat"
+    },
+    "translationFormat": "Käännösten vienti",
+    "translationFormatDesc": "Mihin käännökset tallennetaan viedyssä TTML-tiedostossa. Spicy Lyrics lukee vain rivin sisäiset käännökset.",
+    "format": {
+      "inline": "Rivillä",
+      "inlineDesc": "Jokaisella rivillä, kuten ennenkin. Spicy Lyrics lukee tämän.",
+      "head": "Otsake",
+      "headDesc": "Applen tyyliin tiedoston otsakkeessa. Spicy Lyrics voi näyttää ne latinisointina."
+    },
+    "translationLanguage": "Käännöksen kieli",
+    "translationLanguageDesc": "Otsakkeen käännösten kielitunnus, kuten en tai es.",
+    "paste": {
+      "button": "Liitä latinisointi...",
+      "tooltip": "Täytä sanakohtainen latinisointi latinisoidulta sanoitussivulta, kuten Geniuksesta.",
+      "title": "Liitä latinisoidut sanat",
+      "description": "Liitä latinisoitu sanoitussivu, yksi rivi kutakin sanoitusriviä kohden. Osioiden otsikot ja tyhjät rivit ohitetaan, eikä taustarivejä muuteta.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Täytä latinisointi",
+      "lineCountMismatch": "Sivulla on {received} riviä ja sanoituksessa {expected}. Lisää tai poista rivejä, jotta määrät täsmäävät.",
+      "applied": "Latinisointi täytetty: {count} riviä.",
+      "check": "Joitakin sanoja arvattiin. Tarkista rivit {lines}."
+    }
   },
   "timeShiftDialog": {
     "title": "Ajoituksen siirto",
@@ -1295,6 +1668,25 @@
     "noResult": "Aloita kirjoittamalla kappaleen nimi tai esittäjä.",
     "howToGetKey": "Genius-käyttöoikeustunnuksen hankkiminen",
     "changeKey": "Vaihda käyttöoikeustunnus"
+  },
+  "referenceSidebar": {
+    "setting": "Viitepaneeli",
+    "settingDesc": "Kiinnittää esikatselun ja kappaleen Genius-sanoitukset oikealle Muokkaus- ja Ajoitus-tilassa. Korvaa esikatselupaneelin.",
+    "label": "Viitepaneeli",
+    "collapse": "Pienennä paneeli",
+    "tabs": {
+      "preview": "Esikatselu",
+      "genius": "Genius",
+      "problems": "Ongelmat"
+    },
+    "genius": {
+      "changeSong": "Vaihda kappale",
+      "backToLyrics": "Takaisin sanoituksiin",
+      "searchFailed": "Haku epäonnistui: {error}",
+      "loadFailed": "Sanoituksia ei voitu ladata: {error}",
+      "retry": "Yritä uudelleen",
+      "lyricsLabel": "Genius-sanoitukset: {title}"
+    }
   },
   "textImportDialog": {
     "processLyrics": "Käsittele sanoitukset",
@@ -1487,6 +1879,18 @@
     "openContributorProfile": "Avaa käyttäjän {name} GitHub-profiili",
     "unknown": "Tuntematon"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Erilliset raidat",
+    "settingDesc": "Näytä taustalaulurivit omalla raidallaan päärivien alla. Raidat ovat vain näyttöä varten: vaihda rivin rooli muokkaustilassa.",
+    "menu": "Raidat",
+    "visibleLanes": "Näytä raidat",
+    "duetLane": "Erillinen duettoraita",
+    "lane": {
+      "main": "Pää",
+      "duet": "Duetto",
+      "bg": "Tausta"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Tätä loppuaikaa ei voi valita",
     "noAudioLoaded": "Lataa äänitiedosto näyttääksesi spektrogrammin",
@@ -1502,6 +1906,17 @@
       "4096": "4096 (tarkin)"
     },
     "height": "Näyttökorkeus"
+  },
+  "spectrogramFollow": {
+    "toggle": "Seuraa toistokohtaa",
+    "shortcut": "Spektrogrammi - Toistokohdan seuraaminen päälle/pois",
+    "setting": "Seuraa toistokohtaa",
+    "settingDesc": "Vierittää spektrogrammia niin, että toistokohta pysyy näkyvissä. Vierittäminen tai vetäminen keskeyttää sen, kunnes painat toistoa tai odotat hetken. Lisää painikkeen spektrogrammin työkaluriville.",
+    "style": "Seuraamistapa",
+    "page": "Sivuittain",
+    "pageDesc": "Hyppää eteenpäin, kun toistokohta poistuu näkymästä.",
+    "continuous": "Jatkuva",
+    "continuousDesc": "Vierittää toistokohdan mukana ja pitää sen keskellä."
   },
   "export": {
     "recoveryUntimed": "Tämä palautusvienti sisältää ajoittamattomia sanoituksia. Tarkista ajoitus ennen lähettämistä.",
