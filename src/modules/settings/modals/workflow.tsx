@@ -10,6 +10,7 @@ import {
 	Flash24Regular,
 	Highlight24Regular,
 	Image24Regular,
+	LayerDiagonal24Regular,
 	NumberSymbol24Regular,
 	Options24Regular,
 	PanelRight24Regular,
@@ -28,6 +29,7 @@ import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section-editing";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import { showPreviewPanelAtom } from "$/states/main";
 import {
@@ -85,6 +87,14 @@ const editModeToggles: readonly ToggleRow[] = [
 		"Show more controls in the ribbon toolbar.",
 		<Options24Regular key="icon" />,
 		advancedRibbonControlsAtom,
+	],
+	[
+		"sectionEditing.toggleTitle",
+		"Section editing tools",
+		"sectionEditing.toggleDesc",
+		"Click a section header to rename or retype it, start a section on any line, and copy timings between repeated sections.",
+		<LayerDiagonal24Regular key="icon" />,
+		sectionEditingEnabledAtom,
 	],
 	[
 		"ribbonBar.editMode.showTranslation",

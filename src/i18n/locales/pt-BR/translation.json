@@ -1217,6 +1217,29 @@
     "addToNext": "Adicionar linhas não atribuídas à próxima seção",
     "section": "Seção"
   },
+  "sectionEditing": {
+    "toggleTitle": "Ferramentas de edição de seções",
+    "toggleDesc": "Clique no cabeçalho de uma seção para renomeá-la ou mudar o tipo, comece uma seção em qualquer linha e copie os tempos entre seções repetidas. Também lê as partes da música da Apple ao abrir um TTML. As seções são usadas pelo editor, não pelo Spicy Lyrics.",
+    "editHeader": "Renomear ou mudar o tipo de {label}",
+    "menu": "Ações da seção",
+    "startHere": "Iniciar seção aqui",
+    "moveStartUp": "Subir o início uma linha",
+    "moveStartDown": "Descer o início uma linha",
+    "applyTimings": "Aplicar tempos de...",
+    "applyTitle": "Aplicar tempos de outra seção",
+    "applyDesc": "Copia os tempos de outra seção para esta. As linhas são combinadas pelas palavras; só as palavras correspondentes recebem tempos e o resto fica sem tempo.",
+    "source": "Copiar de",
+    "suggested": "Sugerida",
+    "similarity": "{percent}% das palavras iguais",
+    "noSources": "Nenhuma outra seção tem tempos ainda. Sincronize uma primeiro.",
+    "anchor": "Começar em",
+    "anchorSection": "A primeira linha com tempo desta seção ({time})",
+    "anchorPlayhead": "O cursor de reprodução ({time})",
+    "refineNote": "Os tempos copiados são só um ponto de partida. Reproduza a seção e corrija o que estiver fora.",
+    "apply": "Aplicar",
+    "applied": "Tempos copiados para {copied} de {total} linhas. {untimed, plural, =0 {Todas as palavras correspondiam.} one {# palavra ficou sem tempo.} many {# palavras ficaram sem tempo.} other {# palavras ficaram sem tempo.}}",
+    "nothingMatched": "Nenhuma linha desta seção corresponde à outra, então nada foi copiado."
+  },
   "touchSyncPanel": {
     "prevWord": "Palavra anterior",
     "nextWord": "Próxima palavra"

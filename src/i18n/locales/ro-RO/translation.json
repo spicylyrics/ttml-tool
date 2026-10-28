@@ -1217,6 +1217,29 @@
     "addToNext": "Adaugă versurile neatribuite la secțiunea următoare",
     "section": "Secțiune"
   },
+  "sectionEditing": {
+    "toggleTitle": "Instrumente de editare a secțiunilor",
+    "toggleDesc": "Fă clic pe antetul unei secțiuni pentru a o redenumi sau a-i schimba tipul, începe o secțiune la orice vers și copiază sincronizările între secțiuni repetate. Citește și părțile melodiei din Apple când deschizi un TTML. Secțiunile sunt folosite de editor, nu de Spicy Lyrics.",
+    "editHeader": "Redenumește sau schimbă tipul pentru {label}",
+    "menu": "Acțiuni pentru secțiune",
+    "startHere": "Începe secțiunea aici",
+    "moveStartUp": "Mută începutul un vers în sus",
+    "moveStartDown": "Mută începutul un vers în jos",
+    "applyTimings": "Aplică sincronizările din...",
+    "applyTitle": "Aplică sincronizările din altă secțiune",
+    "applyDesc": "Copiază sincronizările altei secțiuni pe aceasta. Versurile sunt potrivite după cuvinte; doar cuvintele care se potrivesc primesc sincronizare, restul rămân nesincronizate.",
+    "source": "Copiază din",
+    "suggested": "Sugerată",
+    "similarity": "{percent}% cuvinte identice",
+    "noSources": "Nicio altă secțiune nu are încă sincronizări. Sincronizează mai întâi una.",
+    "anchor": "Începe la",
+    "anchorSection": "Primul vers sincronizat al acestei secțiuni ({time})",
+    "anchorPlayhead": "Capul de redare ({time})",
+    "refineNote": "Sincronizările copiate sunt doar un punct de plecare. Redă secțiunea și corectează ce nu se potrivește.",
+    "apply": "Aplică",
+    "applied": "Sincronizări copiate pentru {copied} din {total} versuri. {untimed, plural, =0 {Toate cuvintele s-au potrivit.} one {# cuvânt a rămas nesincronizat.} few {# cuvinte au rămas nesincronizate.} other {# de cuvinte au rămas nesincronizate.}}",
+    "nothingMatched": "Niciun vers din această secțiune nu se potrivește cu cealaltă, deci nu s-a copiat nimic."
+  },
   "touchSyncPanel": {
     "prevWord": "Cuvântul anterior",
     "nextWord": "Cuvântul următor"

@@ -1217,6 +1217,29 @@
     "addToNext": "Přidat nezařazené řádky do další sekce",
     "section": "Sekce"
   },
+  "sectionEditing": {
+    "toggleTitle": "Nástroje pro úpravu sekcí",
+    "toggleDesc": "Kliknutím na záhlaví sekce ji přejmenujete nebo změníte její typ, sekci můžete začít na libovolném řádku a časování můžete kopírovat mezi opakovanými sekcemi. Při otevření TTML se také načtou části písně z Apple. Sekce používá editor, ne Spicy Lyrics.",
+    "editHeader": "Přejmenovat nebo změnit typ: {label}",
+    "menu": "Akce sekce",
+    "startHere": "Začít sekci zde",
+    "moveStartUp": "Posunout začátek o řádek nahoru",
+    "moveStartDown": "Posunout začátek o řádek dolů",
+    "applyTimings": "Použít časování z...",
+    "applyTitle": "Použít časování z jiné sekce",
+    "applyDesc": "Zkopíruje do této sekce časování jiné sekce. Řádky se párují podle slov; časování dostanou jen shodná slova, ostatní zůstanou bez časování.",
+    "source": "Kopírovat z",
+    "suggested": "Doporučeno",
+    "similarity": "{percent} % shodných slov",
+    "noSources": "Zatím žádná jiná sekce nemá časování. Nejdřív nějakou synchronizujte.",
+    "anchor": "Začít u",
+    "anchorSection": "Prvního načasovaného řádku této sekce ({time})",
+    "anchorPlayhead": "Přehrávací hlavy ({time})",
+    "refineNote": "Zkopírované časování je jen výchozí bod. Sekci přehrajte a opravte, co nesedí.",
+    "apply": "Použít",
+    "applied": "Časování zkopírováno u {copied} z {total} řádků. {untimed, plural, =0 {Všechna slova se shodovala.} one {# slovo zůstalo bez časování.} few {# slova zůstala bez časování.} many {# slova zůstalo bez časování.} other {# slov zůstalo bez časování.}}",
+    "nothingMatched": "Žádný řádek v této sekci neodpovídá té druhé, takže se nic nezkopírovalo."
+  },
   "touchSyncPanel": {
     "prevWord": "Předchozí slovo",
     "nextWord": "Další slovo"

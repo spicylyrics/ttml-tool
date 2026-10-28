@@ -1217,6 +1217,29 @@
     "addToNext": "Aggiungi versi non assegnati alla sezione successiva",
     "section": "Sezione"
   },
+  "sectionEditing": {
+    "toggleTitle": "Strumenti di modifica delle sezioni",
+    "toggleDesc": "Fai clic sull'intestazione di una sezione per rinominarla o cambiarne il tipo, inizia una sezione su qualsiasi verso e copia i tempi tra sezioni ripetute. Legge anche le parti del brano Apple quando apri un TTML. Le sezioni servono all'editor, non a Spicy Lyrics.",
+    "editHeader": "Rinomina o cambia il tipo di {label}",
+    "menu": "Azioni della sezione",
+    "startHere": "Inizia la sezione qui",
+    "moveStartUp": "Sposta l'inizio su di un verso",
+    "moveStartDown": "Sposta l'inizio giù di un verso",
+    "applyTimings": "Applica i tempi da...",
+    "applyTitle": "Applica i tempi di un'altra sezione",
+    "applyDesc": "Copia i tempi di un'altra sezione su questa. I versi vengono abbinati in base alle parole; solo le parole corrispondenti ricevono i tempi, le altre restano senza tempi.",
+    "source": "Copia da",
+    "suggested": "Suggerita",
+    "similarity": "{percent}% di parole uguali",
+    "noSources": "Nessun'altra sezione ha ancora dei tempi. Sincronizzane prima una.",
+    "anchor": "Inizia da",
+    "anchorSection": "Il primo verso con tempi di questa sezione ({time})",
+    "anchorPlayhead": "La testina di riproduzione ({time})",
+    "refineNote": "I tempi copiati sono solo un punto di partenza. Riproduci la sezione e correggi ciò che non torna.",
+    "apply": "Applica",
+    "applied": "Tempi copiati su {copied} versi su {total}. {untimed, plural, =0 {Tutte le parole corrispondevano.} one {# parola è rimasta senza tempi.} many {# parole sono rimaste senza tempi.} other {# parole sono rimaste senza tempi.}}",
+    "nothingMatched": "Nessun verso di questa sezione corrisponde all'altra, quindi non è stato copiato nulla."
+  },
   "touchSyncPanel": {
     "prevWord": "Parola precedente",
     "nextWord": "Parola successiva"

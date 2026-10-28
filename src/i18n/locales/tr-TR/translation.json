@@ -1217,6 +1217,29 @@
     "addToNext": "Atanmamış satırları sonraki bölüme ekle",
     "section": "Bölüm"
   },
+  "sectionEditing": {
+    "toggleTitle": "Bölüm düzenleme araçları",
+    "toggleDesc": "Bir bölüm başlığına tıklayarak adını veya türünü değiştirin, istediğiniz satırda yeni bir bölüm başlatın ve tekrar eden bölümler arasında zamanlamaları kopyalayın. Bir TTML açtığınızda Apple şarkı bölümlerini de okur. Bölümleri Spicy Lyrics değil, düzenleyici kullanır.",
+    "editHeader": "{label} adını veya türünü değiştir",
+    "menu": "Bölüm eylemleri",
+    "startHere": "Bölümü buradan başlat",
+    "moveStartUp": "Başlangıcı bir satır yukarı taşı",
+    "moveStartDown": "Başlangıcı bir satır aşağı taşı",
+    "applyTimings": "Zamanlamaları şuradan uygula...",
+    "applyTitle": "Başka bir bölümden zamanlamaları uygula",
+    "applyDesc": "Başka bir bölümün zamanlamasını bu bölüme kopyalar. Satırlar kelimelerine göre eşleştirilir; yalnızca eşleşen kelimeler zamanlama alır, kalanlar zamanlamasız bırakılır.",
+    "source": "Kopyalanacak bölüm",
+    "suggested": "Önerilen",
+    "similarity": "%{percent} aynı kelime",
+    "noSources": "Henüz zamanlaması olan başka bölüm yok. Önce birini senkronize edin.",
+    "anchor": "Başlangıç noktası",
+    "anchorSection": "Bu bölümün zamanlanmış ilk satırı ({time})",
+    "anchorPlayhead": "Oynatma konumu ({time})",
+    "refineNote": "Kopyalanan zamanlamalar yalnızca bir başlangıç noktasıdır. Bölümü oynatın ve uymayanları düzeltin.",
+    "apply": "Uygula",
+    "applied": "Zamanlamalar {total} satırdan {copied} tanesine kopyalandı. {untimed, plural, =0 {Tüm kelimeler eşleşti.} one {# kelime zamanlamasız kaldı.} other {# kelime zamanlamasız kaldı.}}",
+    "nothingMatched": "Bu bölümdeki hiçbir satır diğer bölümle eşleşmiyor, bu yüzden hiçbir şey kopyalanmadı."
+  },
   "touchSyncPanel": {
     "prevWord": "Önceki kelime",
     "nextWord": "Sonraki kelime"
