@@ -844,6 +844,13 @@
       "fadeWidthDesc": "Cât de moale este marginea evidențierii când un cuvânt se umple în previzualizările Standard și Toxi."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Aspect nou pentru Preferințe",
+    "flagDesc": "Căutare sus și o bară laterală în care încap numele lungi. Dezactivează pentru a reveni la aspectul clasic.",
+    "matchCount": "Setări potrivite: {count}",
+    "noResults": "Nicio setare nu se potrivește cu „{query}”",
+    "noResultsDesc": "Încearcă alt cuvânt sau șterge căutarea."
+  },
   "timingOverview": {
     "start": "Început",
     "end": "Sfârșit",

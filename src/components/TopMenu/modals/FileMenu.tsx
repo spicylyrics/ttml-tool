@@ -4,6 +4,7 @@ import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { ImportExportLyric } from "$/modules/project/modals/ImportExportLyric";
+import { PreferencesFileMenuItem } from "$/modules/settings/shell/PreferencesFileMenuItem";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { formatKeyBindings } from "$/utils/keybindings";
 import { useTopMenuActions } from "../useTopMenuActions";
@@ -65,6 +66,7 @@ const FileMenuItems = () => {
 			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
 			<ImportExportLyric onSaveTtml={menu.onSaveFile} />
+			<PreferencesFileMenuItem />
 		</>
 	);
 };

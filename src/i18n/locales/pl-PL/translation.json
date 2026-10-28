@@ -844,6 +844,13 @@
       "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Nowy układ Preferencji",
+    "flagDesc": "Wyszukiwanie u góry i pasek boczny, w którym mieszczą się długie nazwy. Wyłącz, aby wrócić do klasycznego układu.",
+    "matchCount": "Pasujące ustawienia: {count}",
+    "noResults": "Żadne ustawienie nie pasuje do „{query}”",
+    "noResultsDesc": "Spróbuj innego słowa lub wyczyść wyszukiwanie."
+  },
   "timingOverview": {
     "start": "Początek",
     "end": "Koniec",

@@ -844,6 +844,13 @@
       "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "New Preferences layout",
+    "flagDesc": "Search on top and a sidebar that fits long names. Turn off to go back to the classic layout.",
+    "matchCount": "Matching settings: {count}",
+    "noResults": "No settings match \"{query}\"",
+    "noResultsDesc": "Try another word, or clear the search."
+  },
   "timingOverview": {
     "start": "Start",
     "end": "End",

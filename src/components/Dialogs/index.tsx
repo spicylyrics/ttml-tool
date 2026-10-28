@@ -23,7 +23,7 @@ import { LearnedSplitsDialog } from "$/modules/segmentation/components/LearnedSp
 import { SuggestedSplitsDialog } from "$/modules/segmentation/components/SuggestedSplits.tsx";
 import { SplitWordDialog } from "$/modules/segmentation/components/split-word.tsx";
 import { FontSelectionDialog } from "$/modules/settings/modals/FontSelectionDialog.tsx";
-import { SettingsDialog } from "$/modules/settings/modals/index.tsx";
+import { PreferencesDialog } from "$/modules/settings/shell/PreferencesDialog.tsx";
 import { TTMLChecklistDialog } from "$/modules/ttml-checklist/TTMLChecklistDialog.tsx";
 import { ChangelogDialog } from "./changelog.tsx";
 import { ConfirmationDialog } from "./confirmation.tsx";
@@ -35,7 +35,7 @@ export const Dialogs = () => {
 		<>
 			<ImportLyricsDialog />
 			<MetadataEditor />
-			<SettingsDialog />
+			<PreferencesDialog />
 			<SplitWordDialog />
 			<CombineWordsDialog />
 			<ReplaceWordDialog />

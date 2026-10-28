@@ -844,6 +844,13 @@
       "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Uusi asetusten asettelu",
+    "flagDesc": "Haku ylhäällä ja sivupalkki, johon pitkät nimet mahtuvat. Poista käytöstä palataksesi perinteiseen asetteluun.",
+    "matchCount": "Vastaavat asetukset: {count}",
+    "noResults": "Mikään asetus ei vastaa hakua \"{query}\"",
+    "noResultsDesc": "Kokeile toista sanaa tai tyhjennä haku."
+  },
   "timingOverview": {
     "start": "Alku",
     "end": "Loppu",

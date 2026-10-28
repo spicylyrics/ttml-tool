@@ -844,6 +844,13 @@
       "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Nieuwe indeling van Voorkeuren",
+    "flagDesc": "Zoeken bovenaan en een zijbalk waarin lange namen passen. Zet uit om terug te gaan naar de klassieke indeling.",
+    "matchCount": "Overeenkomende instellingen: {count}",
+    "noResults": "Geen instellingen gevonden voor \"{query}\"",
+    "noResultsDesc": "Probeer een ander woord of wis de zoekopdracht."
+  },
   "timingOverview": {
     "start": "Begin",
     "end": "Einde",

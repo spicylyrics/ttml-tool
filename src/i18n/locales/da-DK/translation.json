@@ -844,6 +844,13 @@
       "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Nyt layout for indstillinger",
+    "flagDesc": "Søgning øverst og en sidebjælke med plads til lange navne. Slå fra for at gå tilbage til det klassiske layout.",
+    "matchCount": "Matchende indstillinger: {count}",
+    "noResults": "Ingen indstillinger matcher \"{query}\"",
+    "noResultsDesc": "Prøv et andet ord, eller ryd søgningen."
+  },
   "timingOverview": {
     "start": "Start",
     "end": "Slut",

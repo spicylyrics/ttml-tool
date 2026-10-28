@@ -844,6 +844,13 @@
       "fadeWidthDesc": "Aký mäkký je okraj zvýraznenia pri vypĺňaní slova v náhľadoch Standard a Toxi."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Nové rozloženie predvolieb",
+    "flagDesc": "Vyhľadávanie hore a bočný panel, do ktorého sa zmestia dlhé názvy. Vypnutím sa vrátite ku klasickému rozloženiu.",
+    "matchCount": "Zodpovedajúce nastavenia: {count}",
+    "noResults": "Žiadne nastavenie nezodpovedá „{query}“",
+    "noResultsDesc": "Skúste iné slovo alebo vymažte vyhľadávanie."
+  },
   "timingOverview": {
     "start": "Začiatok",
     "end": "Koniec",
