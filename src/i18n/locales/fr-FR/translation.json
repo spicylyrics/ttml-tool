@@ -1383,6 +1383,14 @@
     "correctedWordPlaceholder": "Tapez le mot corrigé",
     "noSuggestions": "Aucune suggestion"
   },
+  "timeModeEditing": {
+    "flagTitle": "Édition des mots en mode Synchronisation",
+    "flagDesc": "Scindez, combinez et remplacez des mots depuis le menu contextuel en mode Synchronisation. Une scission en deux parties se fait à la tête de lecture si elle est dans le mot.",
+    "doubleClickTimestamp": "Le double-clic modifie l'horodatage",
+    "doubleClickTimestampDesc": "Double-cliquez sur un mot en mode Synchronisation pour saisir son heure de début au lieu de son texte. Nécessite l'affichage des horodatages.",
+    "combinePrevious": "Combiner avec le mot précédent",
+    "combineNext": "Combiner avec le mot suivant"
+  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Catégoriser # ligne sélectionnée} many {Catégoriser # lignes sélectionnées} other {Catégoriser # lignes sélectionnées}}",
     "categorizeTitle": "Catégoriser les lignes sélectionnées",

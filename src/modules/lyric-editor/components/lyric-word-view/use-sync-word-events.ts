@@ -33,6 +33,7 @@ export const useSyncWordEvents = ({
 	setEditingWordState,
 	setOpenSplitWordDialog,
 	editing,
+	doubleClickEditsTimestamp = false,
 }: {
 	line: LyricLine;
 	syncId: string;
@@ -55,6 +56,8 @@ export const useSyncWordEvents = ({
 	}) => void;
 	setOpenSplitWordDialog: (open: boolean) => void;
 	editing: ReturnType<typeof useSyncWordEditing>;
+	/** Double-click edits the start time instead of the text. */
+	doubleClickEditsTimestamp?: boolean;
 }) => {
 	const {
 		editingInput,
@@ -104,6 +107,11 @@ export const useSyncWordEvents = ({
 				word: word.word,
 			});
 			setOpenSplitWordDialog(true);
+			return;
+		}
+		if (doubleClickEditsTimestamp) {
+			setEditingInput(msToTimestamp(startTime));
+			setEditingTime("start");
 			return;
 		}
 		if (!enableTimeModeDoubleClickEdit) return;

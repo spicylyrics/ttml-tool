@@ -1383,6 +1383,14 @@
     "correctedWordPlaceholder": "Kirjoita korjattu sana",
     "noSuggestions": "Ei ehdotuksia"
   },
+  "timeModeEditing": {
+    "flagTitle": "Sanojen muokkaus Ajoituksessa",
+    "flagDesc": "Jaa, yhdistä ja korvaa sanoja Ajoituksen hiiren oikean painikkeen valikosta. Kahteen osaan jako tehdään toistokohdan kohdalta, kun se on sanan sisällä.",
+    "doubleClickTimestamp": "Kaksoisnapsautus muokkaa aikaleimaa",
+    "doubleClickTimestampDesc": "Kaksoisnapsauta sanaa Ajoituksessa kirjoittaaksesi sen alkuajan tekstin sijaan. Vaatii aikaleimojen näyttämisen.",
+    "combinePrevious": "Yhdistä edelliseen sanaan",
+    "combineNext": "Yhdistä seuraavaan sanaan"
+  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Luokittele # valittu rivi} other {Luokittele # valittua riviä}}",
     "categorizeTitle": "Luokittele valitut rivit",
