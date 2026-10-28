@@ -1000,7 +1000,7 @@
       "timingOverviewAutoScrollDesc": "Udržiavať prehľad časovania posunutý na pozíciu prehrávania.",
       "vsyncDesc": "Aktualizovať náhľady Standard a Toxi v každej snímke namiesto približne 30-krát za sekundu. Plynulejšie, ale náročnejšie na CPU.",
       "showFpsDesc": "Zobraziť v náhľade počítadlo snímok za sekundu.",
-      "syncLevelDesc": "Slová: časovať každé slovo zvlášť. Riadky: časovať celé riadky a rovnomerne rozložiť ich slová. Hrubé časovanie potom doladíte v spektrograme.",
+      "syncLevelDesc": "Slová: časovať každé slovo zvlášť. Riadky: časovať celé riadky a rovnomerne rozložiť ich slová. Aj režim Riadky ukladá časovanie slov, nie časovanie po riadkoch. Slová potom doladíte v spektrograme.",
       "previewModeDesc": "Vyberte, ktorý náhľad sa zobrazí na karte Náhľad.",
       "spicyBackgroundDesc": "Čo sa zobrazuje za náhľadom Spicy.",
       "fadeWidthDesc": "Aký mäkký je okraj zvýraznenia pri vypĺňaní slova v náhľadoch Standard a Toxi."
@@ -1391,6 +1391,11 @@
     "customKey": "Vlastné pole",
     "addPresets": "Pridať všetky štandardné polia",
     "clear": "Vymazať"
+  },
+  "helpText": {
+    "metadataArtists": "Kto skladbu interpretuje, podľa toho, ako je skladba uvedená v streamovacích službách. Príklad: „Shake It Off“ je od Taylor Swift.",
+    "metadataSongwriter": "Kto napísal hudbu a text, podľa autorských údajov. Často ide o iných ľudí ako interpreti. Príklad: „Shake It Off“ napísali Taylor Swift, Max Martin a Shellback.",
+    "learnMore": "Ďalšie informácie"
   },
   "lrclib": {
     "placeholder": "Názov skladby a interpret…",
