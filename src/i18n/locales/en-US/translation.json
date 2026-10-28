@@ -1274,6 +1274,17 @@
     "prevWord": "Previous word",
     "nextWord": "Next word"
   },
+  "lineSync": {
+    "flagTitle": "Line syncing",
+    "flagDesc": "Lets each song be timed by word or by whole line. In Line mode, F, G and H start and end whole lines.",
+    "timing": "Song timing",
+    "timingDesc": "Word: every word gets its own time. Line: only whole lines are timed, and the TTML is exported line-synced.",
+    "word": "Word",
+    "line": "Line",
+    "confirmTitle": "Switch to Line timing?",
+    "confirmDescription": "Every word keeps its text but loses its own timing. Each line keeps its start and end. You can undo this.",
+    "confirmAction": "Switch to Line"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "slang dictionary",

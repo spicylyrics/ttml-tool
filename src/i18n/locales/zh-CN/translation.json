@@ -1274,6 +1274,17 @@
     "prevWord": "上一个字",
     "nextWord": "下一个字"
   },
+  "lineSync": {
+    "flagTitle": "逐行打轴",
+    "flagDesc": "让每首歌可以逐字或按整行计时。在逐行模式下，F、G 和 H 开始和结束整行。",
+    "timing": "歌曲计时",
+    "timingDesc": "逐字：每个字都有自己的时间。逐行：只对整行计时，导出的 TTML 为逐行同步。",
+    "word": "逐字",
+    "line": "逐行",
+    "confirmTitle": "切换为逐行计时？",
+    "confirmDescription": "每个字保留文本，但会失去自己的时间。每行保留开始和结束时间。此操作可以撤销。",
+    "confirmAction": "切换为逐行"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "俚语词典",

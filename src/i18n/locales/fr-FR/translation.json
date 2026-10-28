@@ -1274,6 +1274,17 @@
     "prevWord": "Mot précédent",
     "nextWord": "Mot suivant"
   },
+  "lineSync": {
+    "flagTitle": "Synchronisation par ligne",
+    "flagDesc": "Permet de synchroniser chaque chanson par mot ou par ligne entière. En mode Ligne, F, G et H démarrent et terminent des lignes entières.",
+    "timing": "Synchronisation de la chanson",
+    "timingDesc": "Mot : chaque mot a son propre temps. Ligne : seules les lignes entières sont synchronisées, et le TTML est exporté synchronisé par ligne.",
+    "word": "Mot",
+    "line": "Ligne",
+    "confirmTitle": "Passer à la synchronisation par ligne ?",
+    "confirmDescription": "Chaque mot garde son texte mais perd son propre temps. Chaque ligne garde son début et sa fin. Vous pouvez annuler.",
+    "confirmAction": "Passer en Ligne"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "dictionnaire d'argot",

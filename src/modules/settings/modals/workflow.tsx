@@ -18,6 +18,7 @@ import {
 	Rename24Regular,
 	Sparkle24Regular,
 	TapSingle24Regular,
+	TextAlignLeft24Regular,
 	TextCaseTitle24Regular,
 	TextDescription24Regular,
 	TextEditStyle24Regular,
@@ -30,6 +31,7 @@ import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
 import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section-editing";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
@@ -215,6 +217,14 @@ const syncAidToggles: readonly ToggleRow[] = [
 		"Show on-screen Start, Next and End buttons for touch screens.",
 		<TapSingle24Regular key="icon" />,
 		showTouchSyncPanelAtom,
+	],
+	[
+		"lineSync.flagTitle",
+		"Line syncing",
+		"lineSync.flagDesc",
+		"Lets each song be timed by word or by whole line. In Line mode, F, G and H start and end whole lines.",
+		<TextAlignLeft24Regular key="icon" />,
+		lineSyncEnabledAtom,
 	],
 ];
 

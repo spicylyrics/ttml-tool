@@ -1274,6 +1274,17 @@
     "prevWord": "Vorig woord",
     "nextWord": "Volgend woord"
   },
+  "lineSync": {
+    "flagTitle": "Regelsynchronisatie",
+    "flagDesc": "Laat elk nummer per woord of per hele regel timen. In de modus Regel starten en beëindigen F, G en H hele regels.",
+    "timing": "Timing van het nummer",
+    "timingDesc": "Woord: elk woord krijgt een eigen tijd. Regel: alleen hele regels worden getimed en de TTML wordt per regel gesynchroniseerd geëxporteerd.",
+    "word": "Woord",
+    "line": "Regel",
+    "confirmTitle": "Overschakelen naar regeltiming?",
+    "confirmDescription": "Elk woord houdt zijn tekst maar verliest zijn eigen timing. Elke regel houdt zijn begin en einde. Je kunt dit ongedaan maken.",
+    "confirmAction": "Naar Regel"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "slangwoordenboek",
