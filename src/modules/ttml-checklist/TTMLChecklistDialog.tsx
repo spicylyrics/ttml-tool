@@ -28,9 +28,16 @@ type EntryFormProps = {
 	initial?: TTMLChecklistEntry;
 	onCancel?: () => void;
 	onSubmit: (input: { song: string; artist: string; notes: string }) => void;
+	/** Overrides the add button's text. */
+	submitLabel?: string;
 };
 
-const EntryForm = ({ initial, onCancel, onSubmit }: EntryFormProps) => {
+export const EntryForm = ({
+	initial,
+	onCancel,
+	onSubmit,
+	submitLabel,
+}: EntryFormProps) => {
 	const { t } = useTranslation();
 	const [song, setSong] = useState(initial?.song ?? "");
 	const [artist, setArtist] = useState(initial?.artist ?? "");
@@ -79,10 +86,11 @@ const EntryForm = ({ initial, onCancel, onSubmit }: EntryFormProps) => {
 						</Button>
 					)}
 					<Button type="submit" disabled={!valid}>
-						{t(
-							initial ? "ttmlChecklist.save" : "ttmlChecklist.add",
-							initial ? "Save" : "Add to checklist",
-						)}
+						{(!initial && submitLabel) ||
+							t(
+								initial ? "ttmlChecklist.save" : "ttmlChecklist.add",
+								initial ? "Save" : "Add to checklist",
+							)}
 					</Button>
 				</Flex>
 			</form>

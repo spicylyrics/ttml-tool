@@ -1,7 +1,17 @@
-import resources from "virtual:i18next-loader";
 import i18n from "i18next";
 import ICU from "i18next-icu";
 import { initReactI18next } from "react-i18next";
+import { PSEUDO_LOCALE, pseudoCatalog } from "./pseudo";
+import { fallbackLanguages } from "./regional";
+import resources from "./resources";
+
+// Dev builds get a pseudo-locale for overflow testing. It is added to the
+// shared resources object, so the language picker lists it too.
+if (import.meta.env.DEV) {
+	resources[PSEUDO_LOCALE] = {
+		translation: pseudoCatalog(resources["en-US"].translation),
+	};
+}
 
 // The repository is the translation source of truth; en-US defines the keys.
 type TranslationResource = typeof import("./locales/en-US/translation.json");
@@ -23,7 +33,7 @@ i18n
 	.init({
 		resources,
 		debug: import.meta.env.DEV,
-		fallbackLng: "en-US",
+		fallbackLng: fallbackLanguages,
 		interpolation: {
 			escapeValue: false,
 		},

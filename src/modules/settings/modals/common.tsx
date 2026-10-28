@@ -1,4 +1,6 @@
 import { Flex } from "@radix-ui/themes";
+import { CommandPaletteSetting } from "$/modules/command-palette/CommandPaletteSetting";
+import { ReferenceSidebarSetting } from "$/modules/reference-sidebar/ReferenceSidebarSetting";
 import { AutosaveSection } from "./common/AutosaveSection";
 import { DisplaySection } from "./common/DisplaySection";
 import { ImportCleanupSection } from "./common/ImportCleanupSection";
@@ -20,11 +22,15 @@ export const SettingsCommonTab = ({
 		<Flex direction="column" gap="4">
 			{section === "general" && <DisplaySection {...state} />}
 
+			{section === "general" && <CommandPaletteSetting />}
+
 			{section === "editor" && <SyncingSection {...state} />}
 
 			{section === "editor" && <PlaybackBehaviorSection {...state} />}
 
 			{section === "editor" && <WorkflowSettings />}
+
+			{section === "editor" && <ReferenceSidebarSetting />}
 
 			{section === "general" && import.meta.env.TAURI_ENV_PLATFORM && (
 				<PrivacySection {...state} />

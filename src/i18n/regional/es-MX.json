@@ -1,0 +1,213 @@
+{
+	"app": {
+		"error": {
+			"title": "¡Uy, ocurrió un error!",
+			"description": "Ocurrió un error en TTML Tool."
+		},
+		"empty": {
+			"description": "Agrega líneas desde la cinta de opciones superior, o abre o importa letras desde el menú Archivo."
+		}
+	},
+	"beginnerGuide": {
+		"beforeStart": {
+			"text": "Puedes adaptar el aspecto del editor a tu gusto. Haz clic abajo para abrir la configuración. Prueba la disposición sencilla o cambia a la avanzada para tener el control completo."
+		},
+		"genius": {
+			"step2": "2. Selecciona New API Client, ponle cualquier nombre reconocible y llena el campo obligatorio del sitio web de la app."
+		},
+		"steps": {
+			"audio": {
+				"waiting": "Usa \"Elegir audio\" abajo y espera a que termine la carga."
+			},
+			"review": {
+				"waitingEmptyLines": "Queda al menos una línea vacía. Elimínala o complétala antes de confirmar."
+			},
+			"sync": {
+				"description": "Entra en el modo Sincronización, selecciona la primera palabra, presiona Space y usa F para empezar, G entre palabras y H en pausas o finales de línea. Cada palabra debe tener tiempos válidos."
+			},
+			"songwriters": {
+				"title": "Agrega los compositores",
+				"description": "Abre los metadatos y usa \"Buscar compositores de Genius\", o agrega un valor Compositor por cada nombre real. La guía detecta cuando hay al menos uno guardado.",
+				"waiting": "Abre los metadatos y agrega al menos un valor Compositor que no esté vacío."
+			},
+			"test": {
+				"description": "Sube el archivo guardado en Spicy Lyrics y verifica el análisis, el formato y la sincronización."
+			}
+		}
+	},
+	"importLyrics": {
+		"splitHint": "Marca las sílabas con el separador de palabras según tu configuración de segmentación y tus divisiones aprendidas. Corrige las marcas en el texto antes de importar.",
+		"importSuccess": "{count, plural, one {Se importó # línea.} many {Se importaron # líneas.} other {Se importaron # líneas.}}",
+		"importFailed": "No se pudo leer esta letra. Revisa el texto y las opciones de formato del texto."
+	},
+	"confirmDialog": {
+		"useMetadataName": {
+			"description": "¿Usar \"{name}\" como nombre de archivo?"
+		}
+	},
+	"experimentalFeatures": {
+		"geniusCategorization": {
+			"noPreviousFound": "No se encontró una sección anterior del mismo tipo con tiempos."
+		}
+	},
+	"dialog": {
+		"createProjectPrompt": {
+			"link": "Mantener archivos en su lugar"
+		}
+	},
+	"projectsDialog": {
+		"linkedHint": "Proyectos que conservan su TTML y su audio en sus carpetas originales. Crea uno eligiendo Mantener archivos en su lugar cuando la app ofrezca crear un proyecto.",
+		"showBackup": "Mostrar ubicación del respaldo"
+	},
+	"ribbonBar": {
+		"tooltips": {
+			"newLyricLine": "Agrega una línea vacía al final de la letra.",
+			"romanize": "Completa la romanización de las líneas o palabras seleccionadas."
+		},
+		"syncMode": {
+			"manageQuickFixExclusions": {
+				"title": "Administrar exclusiones de correcciones rápidas",
+				"description": "Agrega palabras que se omitirán en las correcciones rápidas.",
+				"placeholder": "Ingresa la palabra a ignorar"
+			},
+			"spectrogramHoverSync": "Sincronizar en la posición del mouse"
+		}
+	},
+	"settings": {
+		"common": {
+			"syncJudgeModeDesc": "Qué momento de la pulsación se guarda como marca de tiempo. Predeterminado: Al presionar.",
+			"syncJudgeModeOptions": {
+				"firstKeyDown": "Al presionar",
+				"middleKey": "A mitad entre presionar y soltar",
+				"firstKeyDownLegacy": "Al presionar (antiguo)"
+			},
+			"keyBindingTriggerOptions": {
+				"keyDown": "Presionar la tecla"
+			},
+			"syncCommitOffsetDesc": "Desfase adicional solo para Siguiente (G por defecto), si siempre presionas demasiado pronto o demasiado tarde.",
+			"customBackgroundManage": "Configuración",
+			"spectrogramHoverSync": "Sincronizar en la posición del mouse"
+		},
+		"appearance": {
+			"advanced": {
+				"menuHoverColor": "Color del menú al pasar el mouse",
+				"lineHoverEffect": "Efecto de línea al pasar el mouse",
+				"legacySpaceLabelsDesc": "Muestra \"Espacio ×N\" en vez de celdas de espacio vacías compactas.",
+				"masterResetNote": "Restablece toda la configuración avanzada de esta página.",
+				"resetMaster": "Restablecer toda la configuración avanzada"
+			},
+			"resetDesc": "Restablece todos los colores, fondos, degradados y opciones personalizadas al tema predeterminado."
+		},
+		"assistant": {
+			"manualTimestampEditDesc": "Haz clic en una marca de tiempo en Sincronización para ingresar un valor."
+		},
+		"backup": {
+			"category": {
+				"settings": "Configuración"
+			},
+			"exportSuccess": "Respaldo exportado",
+			"exportFailed": "Error al exportar el respaldo",
+			"newerVersion": "Este respaldo fue creado por una versión más reciente",
+			"invalidFile": "Archivo de respaldo inválido o dañado",
+			"importSuccess": "Respaldo importado, recargando...",
+			"importFailed": "Error al importar el respaldo. Algunos datos pueden haberse aplicado parcialmente.",
+			"exportDesc": "Guarda tu configuración y tus datos en un archivo para restaurarlos más tarde o transferirlos a otro dispositivo.",
+			"exportButton": "Exportar respaldo",
+			"apiKeysWarning": "Las claves de API se guardan en texto plano en el archivo de respaldo. Mantenlo privado.",
+			"importDesc": "Restaura la configuración y los datos desde un archivo de respaldo. Los valores existentes serán reemplazados.",
+			"importButton": "Elegir archivo de respaldo..."
+		},
+		"spectrogram": {
+			"addStop": "Agregar punto de color"
+		}
+	},
+	"topBar": {
+		"menu": {
+			"spectrogramHoverSync": "Sincronizar en la posición del mouse"
+		}
+	},
+	"header": {
+		"backup": {
+			"restore": "Restaurar respaldo",
+			"confirmTitle": "¿Restaurar el respaldo vinculado?",
+			"confirmDescription": "El TTML original guardado antes de la primera sobrescritura reemplazará el archivo de canción actual y se eliminará el respaldo. Se perderán los cambios sin guardar del editor."
+		}
+	},
+	"contextMenu": {
+		"noSyllablesFound": "No se encontraron sílabas para dividir."
+	},
+	"settingsDialog": {
+		"search": "Buscar en la configuración",
+		"keybindings": {
+			"recording": "Presiona un atajo (Esc para cancelar)",
+			"autoSegmentDoublePressDesc": "Ejecuta la segmentación automática rápida solo al presionar su atajo dos veces seguidas."
+		},
+		"tab": {
+			"backup": "Respaldo"
+		},
+		"page": {
+			"filesDesc": "Limpieza al importar, historial de autoguardado y respaldos portátiles."
+		}
+	},
+	"error": {
+		"linkedProjectBackupFailed": "No se pudo respaldar el archivo TTML original, así que no se sobrescribió",
+		"linkedProjectNoBackup": "No se encontró ningún respaldo de este proyecto",
+		"folderProjectNoLyric": "Agrega un archivo de letra antes de guardar el proyecto"
+	},
+	"audio": {
+		"error": {
+			"contextStart": "El audio no pudo iniciarse. Intenta presionar Reproducir de nuevo."
+		}
+	},
+	"latencyTestDialog": {
+		"description": "Elige el tempo que prefieras y presiona {key} en cada pitido para medir el retraso entre el audio y tu entrada."
+	},
+	"metadataDialog": {
+		"fetchSongwriters": {
+			"error": "No se pudieron recuperar los compositores",
+			"noSongwriters": "No hay créditos de composición registrados para esta canción.",
+			"setupDesc": "Para obtener compositores, agrega tu token de acceso de Genius (Client Access Token). Puedes crearlo en el portal de desarrolladores de "
+		},
+		"addValue": "Agregar",
+		"builtinOptions": {
+			"artistsInvalidMsg": "Agrega una entrada por artista en vez de separar los nombres con comas o barras. Ignora este aviso si el nombre contiene esos signos.",
+			"songwriterInvalidMsg": "Agrega una entrada por compositor en vez de separar los nombres con comas o barras."
+		},
+		"addKeyValue": "Agregar campo",
+		"addPresets": "Agregar todos los campos estándar"
+	},
+	"lrclib": {
+		"notFound": "Sin resultados. Intenta con otras palabras clave."
+	},
+	"urbanDictionary": {
+		"noDefinitions": "No se encontraron definiciones para \"{word}\""
+	},
+	"timeStretchDialog": {
+		"audioReadError": "No se pudo leer la duración del archivo de audio seleccionado.",
+		"invalidDuration": "Ingresa una duración válida."
+	},
+	"genius": {
+		"notFound": "Sin resultados. Intenta con otras palabras clave.",
+		"noResult": "Ingresa una canción o un artista para empezar."
+	},
+	"advancedSegmentDialog": {
+		"learned": {
+			"input": "Ingresa una palabra para enseñar una división..."
+		}
+	},
+	"ttmlChecklist": {
+		"description": "Anota canciones e ideas que quieras sincronizar más adelante.",
+		"add": "Agregar a la lista",
+		"empty": "Aún no hay TTML pendientes. Agrega la próxima canción antes de que se te olvide."
+	},
+	"export": {
+		"recoveryReviewFailed": "No se pudieron ejecutar las verificaciones de sincronización. Revisa las letras recuperadas antes de enviarlas."
+	},
+	"domainMigration": {
+		"notice": {
+			"description": "Mueve allí tus proyectos y tu configuración ahora. Esta dirección pronto empezará a redirigir y los datos del navegador no pueden seguir una redirección.",
+			"counts": "Se encontraron {projects, plural, one {# proyecto} many {# proyectos} other {# proyectos}} y {settings, plural, one {# opción de configuración} many {# opciones de configuración} other {# opciones de configuración}} en esta dirección.",
+			"backup": "Descargar respaldo"
+		}
+	}
+}

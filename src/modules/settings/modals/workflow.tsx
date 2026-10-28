@@ -10,12 +10,15 @@ import {
 	Flash24Regular,
 	Highlight24Regular,
 	Image24Regular,
+	LayerDiagonal24Regular,
+	Mic24Regular,
 	NumberSymbol24Regular,
 	Options24Regular,
 	PanelRight24Regular,
 	Rename24Regular,
 	Sparkle24Regular,
 	TapSingle24Regular,
+	TextAlignLeft24Regular,
 	TextCaseTitle24Regular,
 	TextDescription24Regular,
 	TextEditStyle24Regular,
@@ -23,13 +26,26 @@ import {
 	Timeline24Regular,
 	TopSpeed24Regular,
 	Translate24Regular,
+	Wrench24Regular,
 } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
+import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section-editing";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
+import { PreviewProblemsSetting } from "$/modules/preview-problems/PreviewProblemsSetting";
+import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
+import {
+	Relocatable,
+	useRelocatedSettings,
+} from "$/modules/settings/shell/relocated";
+import { TimeModeEditingSettings } from "$/modules/time-mode-editing/TimeModeEditingSettings";
+import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import { showPreviewPanelAtom } from "$/states/main";
+// Relative on purpose: keeps this import apart from other settings rows' imports.
+import { editModeToolsAtom } from "../../lyric-editor/states/edit-mode-tools";
 import {
 	BackgroundSyncControl,
 	PreviewModeControl,
@@ -87,12 +103,28 @@ const editModeToggles: readonly ToggleRow[] = [
 		advancedRibbonControlsAtom,
 	],
 	[
+		"sectionEditing.toggleTitle",
+		"Section editing tools",
+		"sectionEditing.toggleDesc",
+		"Click a section header to rename or retype it, start a section on any line, and copy timings between repeated sections.",
+		<LayerDiagonal24Regular key="icon" />,
+		sectionEditingEnabledAtom,
+	],
+	[
 		"ribbonBar.editMode.showTranslation",
 		"Show translation line",
 		"settings.workflow.showTranslationDesc",
 		"Show a translation field under each lyric line.",
 		<Translate24Regular key="icon" />,
 		showLineTranslationAtom,
+	],
+	[
+		"editModeTools.toggleTitle",
+		"Edit mode tools",
+		"editModeTools.toggleDesc",
+		"Split a typed line into words, swap main and duet lines, and reopen each project where you left Edit mode.",
+		<Wrench24Regular key="icon" />,
+		editModeToolsAtom,
 	],
 	[
 		"ribbonBar.editMode.showRomanization",
@@ -109,6 +141,14 @@ const editModeToggles: readonly ToggleRow[] = [
 		"Show a romanization field on each word.",
 		<TextEditStyle24Regular key="icon" />,
 		showWordRomanizationInputAtom,
+	],
+	[
+		"transcription.enable",
+		"Transcribe tab",
+		"transcription.enableDesc",
+		"Add a Transcribe tab for typing lyrics as plain text while the song plays.",
+		<Mic24Regular key="icon" />,
+		transcriptionModeEnabledAtom,
 	],
 ];
 
@@ -195,6 +235,14 @@ const syncAidToggles: readonly ToggleRow[] = [
 		"Show on-screen Start, Next and End buttons for touch screens.",
 		<TapSingle24Regular key="icon" />,
 		showTouchSyncPanelAtom,
+	],
+	[
+		"lineSync.flagTitle",
+		"Line syncing",
+		"lineSync.flagDesc",
+		"Lets each song be timed by word or by whole line. In Line mode, F, G and H start and end whole lines.",
+		<TextAlignLeft24Regular key="icon" />,
+		lineSyncEnabledAtom,
 	],
 ];
 
@@ -300,36 +348,71 @@ const SettingRow = ({
 	return <Card>{asLabel ? <Text as="label">{row}</Text> : row}</Card>;
 };
 
-export const WorkflowSettings = () => {
+export type WorkflowGroupId =
+	| "editMode"
+	| "timeModeDisplay"
+	| "syncAids"
+	| "preview"
+	| "previewPerformance";
+
+/** One group's column, or nothing when the page doesn't show that group. */
+const WorkflowGroup = ({
+	show,
+	children,
+}: {
+	show: boolean;
+	children: ReactNode;
+}) =>
+	show ? (
+		<Flex direction="column" gap="3">
+			{children}
+		</Flex>
+	) : null;
+
+/** Every group by default; the Preferences shell splits them across pages. */
+export const WorkflowSettings = ({
+	groups,
+}: {
+	groups?: readonly WorkflowGroupId[];
+}) => {
 	const { t } = useTranslation();
 	const [fadeWidth, setFadeWidth] = useAtom(lyricWordFadeWidthAtom);
+	const relocated = useRelocatedSettings();
+	const shows = (group: WorkflowGroupId) => !groups || groups.includes(group);
 	const toggles = (rows: readonly ToggleRow[]) =>
-		rows.map(([titleKey, title, descKey, desc, icon, setting]) => (
-			<SettingRow
-				key={titleKey}
-				icon={icon}
-				title={t(titleKey, title)}
-				description={t(descKey, desc)}
-				asLabel
-			>
-				<SettingToggle setting={setting} />
-			</SettingRow>
-		));
+		rows
+			.filter((row) => !relocated.has(row[5]))
+			.map(([titleKey, title, descKey, desc, icon, setting]) => (
+				<SettingRow
+					key={titleKey}
+					icon={icon}
+					title={t(titleKey, title)}
+					description={t(descKey, desc)}
+					asLabel
+				>
+					<SettingToggle setting={setting} />
+				</SettingRow>
+			));
 	return (
 		<Flex direction="column" gap="4">
-			<Flex direction="column" gap="3">
+			<WorkflowGroup show={shows("editMode")}>
 				<Heading size="4">
 					{t("settings.group.editModeDisplay", "Edit mode")}
 				</Heading>
 				{toggles(editModeToggles)}
-			</Flex>
-			<Flex direction="column" gap="3">
+			</WorkflowGroup>
+			{shows("editMode") && (
+				<Relocatable setting={RomanizationToolsSettings}>
+					<RomanizationToolsSettings />
+				</Relocatable>
+			)}
+			<WorkflowGroup show={shows("timeModeDisplay")}>
 				<Heading size="4">
 					{t("settings.group.timeModeDisplay", "Time mode display")}
 				</Heading>
 				{toggles(timeModeDisplayToggles)}
-			</Flex>
-			<Flex direction="column" gap="3">
+			</WorkflowGroup>
+			<WorkflowGroup show={shows("syncAids")}>
 				<Heading size="4">
 					{t("settings.group.syncAids", "Syncing aids")}
 				</Heading>
@@ -354,8 +437,11 @@ export const WorkflowSettings = () => {
 					<BackgroundSyncControl variant="segmented" />
 				</SettingRow>
 				{toggles(syncAidToggles)}
-			</Flex>
-			<Flex direction="column" gap="3">
+				<Relocatable setting={TimeModeEditingSettings}>
+					<TimeModeEditingSettings />
+				</Relocatable>
+			</WorkflowGroup>
+			<WorkflowGroup show={shows("preview")}>
 				<Heading size="4">
 					{t("settings.group.previewControls", "Preview")}
 				</Heading>
@@ -380,6 +466,9 @@ export const WorkflowSettings = () => {
 					<SpicyBackgroundControl variant="segmented" />
 				</SettingRow>
 				{toggles(previewToggles)}
+				<Relocatable setting={PreviewProblemsSetting}>
+					<PreviewProblemsSetting />
+				</Relocatable>
 				<SettingRow
 					icon={<ArrowAutofitWidth24Regular />}
 					title={t("ribbonBar.previewMode.fadeWidth", "Fade width")}
@@ -400,13 +489,13 @@ export const WorkflowSettings = () => {
 						}}
 					/>
 				</SettingRow>
-			</Flex>
-			<Flex direction="column" gap="3">
+			</WorkflowGroup>
+			<WorkflowGroup show={shows("previewPerformance")}>
 				<Heading size="4">
 					{t("settings.group.previewPerformance", "Preview performance")}
 				</Heading>
 				{toggles(performanceToggles)}
-			</Flex>
+			</WorkflowGroup>
 		</Flex>
 	);
 };

@@ -15,15 +15,32 @@
  * 但是可能会有信息会丢失
  */
 
-import type { LyricLine, LyricWord, TTMLLyric } from "../../../types/ttml.ts";
+import type {
+	LyricLine,
+	LyricWord,
+	TimingMode,
+	TTMLLyric,
+} from "../../../types/ttml.ts";
 import {
 	type LyricTextNormalizationOptions,
 	normalizeLyricText,
 } from "../../../utils/apostrophe-normalization.ts";
 import { log } from "../../../utils/logging.ts";
 import { msToTimestamp } from "../../../utils/timestamp.ts";
+import {
+	appendHeadTranslations,
+	collectHeadTranslation,
+	type HeadTranslationMap,
+} from "../../romanization/head-translations.ts";
 
-export function shouldExportAsLineSynced(line: LyricLine): boolean {
+export function shouldExportAsLineSynced(
+	line: LyricLine,
+	timingMode?: TimingMode,
+): boolean {
+	// A song is timed one way, never mixed: Line mode writes every line as text,
+	// a song switched back to Word mode writes every line as words.
+	if (timingMode === "line") return true;
+	if (timingMode === "word") return false;
 	if (!line.isLineSynced) return false;
 
 	return line.words.filter((word) => word.word.trim().length > 0).length <= 1;
@@ -57,6 +74,10 @@ export function hasExportableLineContent(line: LyricLine): boolean {
 
 export interface TTMLExportOptions {
 	allowConsecutiveBackgroundLines?: boolean;
+	/** "head" writes Apple-style head translations instead of inline spans. */
+	translationFormat?: "inline" | "head";
+	/** `xml:lang` of head-level translations. */
+	translationLanguage?: string;
 }
 
 export default function exportTTMLText(
@@ -154,6 +175,8 @@ export default function exportTTMLText(
 	if (totalNonBlankWords === 0 || !hasAnyTiming) timingMode = "None";
 	else if (nonBlankWordCountsPerLine.some((c) => c > 1)) timingMode = "Word";
 	else timingMode = "Line";
+	if (ttmlLyric.timingMode === "line")
+		timingMode = lyric.some((l) => l.endTime > l.startTime) ? "Line" : "None";
 	ttRoot.setAttribute("itunes:timing", timingMode);
 
 	doc.appendChild(ttRoot);
@@ -209,6 +232,7 @@ export default function exportTTMLText(
 	for (const metadata of ttmlLyric.metadata) {
 		if (metadata.key === "songwriter") continue;
 		if (metadata.key === "amll:marks") continue; // We'll handle this separately
+		if (metadata.key === "amll:timingMode") continue;
 		for (const value of metadata.value) {
 			const metaEl = doc.createElement("amll:meta");
 			metaEl.setAttribute("key", metadata.key);
@@ -236,6 +260,13 @@ export default function exportTTMLText(
 		metadataEl.appendChild(metaEl);
 	}
 
+	if (ttmlLyric.timingMode) {
+		const metaEl = doc.createElement("amll:meta");
+		metaEl.setAttribute("key", "amll:timingMode");
+		metaEl.setAttribute("value", ttmlLyric.timingMode);
+		metadataEl.appendChild(metaEl);
+	}
+
 	head.appendChild(metadataEl);
 
 	let i = 0;
@@ -244,6 +275,8 @@ export default function exportTTMLText(
 		string,
 		{ main: LyricWord[]; backgrounds: LyricWord[][] }
 	>();
+	const headTranslations = options.translationFormat === "head";
+	const translationMap: HeadTranslationMap = new Map();
 
 	const guessDuration = lyric[lyric.length - 1]?.endTime ?? 0;
 	body.setAttribute("dur", msToTimestamp(guessDuration));
@@ -279,7 +312,7 @@ export default function exportTTMLText(
 
 			if (exportAsStandaloneBackground) {
 				// The line is emitted below as x-bg inside an otherwise empty p.
-			} else if (shouldExportAsLineSynced(line)) {
+			} else if (shouldExportAsLineSynced(line, ttmlLyric.timingMode)) {
 				lineP.appendChild(
 					doc.createTextNode(line.words.map((word) => word.word).join("")),
 				);
@@ -320,7 +353,12 @@ export default function exportTTMLText(
 				const bgLineSpan = doc.createElement("span");
 				bgLineSpan.setAttribute("ttm:role", "x-bg");
 
-				if (shouldExportAsLineSynced(bgLine)) {
+				if (shouldExportAsLineSynced(bgLine, ttmlLyric.timingMode)) {
+					// Line mode times background lines on their own, so keep their bounds.
+					if (ttmlLyric.timingMode === "line") {
+						bgLineSpan.setAttribute("begin", msToTimestamp(bgLine.startTime));
+						bgLineSpan.setAttribute("end", msToTimestamp(bgLine.endTime));
+					}
 					bgLineSpan.appendChild(
 						doc.createTextNode(
 							`(${bgLine.words.map((word) => word.word).join("")})`,
@@ -361,7 +399,7 @@ export default function exportTTMLText(
 					bgLineSpan.setAttribute("end", msToTimestamp(endTime));
 				}
 
-				if (bgLine.translatedLyric) {
+				if (!headTranslations && bgLine.translatedLyric) {
 					const span = doc.createElement("span");
 					span.setAttribute("ttm:role", "x-translation");
 					span.setAttribute("xml:lang", "zh-CN");
@@ -379,7 +417,14 @@ export default function exportTTMLText(
 				lineP.appendChild(bgLineSpan);
 			}
 
-			if (!exportAsStandaloneBackground && line.translatedLyric) {
+			if (headTranslations) {
+				collectHeadTranslation(
+					translationMap,
+					itunesKey,
+					exportAsStandaloneBackground ? "" : line.translatedLyric,
+					backgroundLines,
+				);
+			} else if (!exportAsStandaloneBackground && line.translatedLyric) {
 				const span = doc.createElement("span");
 				span.setAttribute("ttm:role", "x-translation");
 				span.setAttribute("xml:lang", "zh-CN");
@@ -479,6 +524,13 @@ export default function exportTTMLText(
 
 		metadataEl.appendChild(itunesMeta);
 	}
+
+	appendHeadTranslations(
+		doc,
+		metadataEl,
+		translationMap,
+		options.translationLanguage,
+	);
 
 	ttRoot.appendChild(body);
 	log("ttml document built", ttRoot);

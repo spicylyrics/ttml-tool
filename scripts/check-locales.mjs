@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -178,6 +178,67 @@ export function checkLocales(root) {
 	};
 }
 
+/**
+ * Check a regional override file (src/i18n/regional/<locale>.json). It holds
+ * only the strings that differ from its base catalog, so missing keys are
+ * fine; every key it has must exist in en-US, keep en-US's placeholders,
+ * follow en-US order and actually differ from the base.
+ */
+export function checkRegionalOverrides(source, overrides, locale, base) {
+	const english = flattenStrings(source);
+	const strings = flattenStrings(overrides);
+	const keys = Object.keys(strings);
+	// en-US restricted to the overridden keys, in en-US order, lets checkLocale
+	// report unknown keys, empty strings, placeholders and order.
+	const subset = Object.fromEntries(
+		Object.keys(english)
+			.filter((key) => keys.includes(key))
+			.map((key) => [key, english[key]]),
+	);
+	const errors = checkLocale(subset, strings, locale);
+	if (base) {
+		const inherited = flattenStrings(base);
+		for (const key of keys) {
+			if (inherited[key] === strings[key]) {
+				errors.push(`${locale}: ${key}: same as the base catalog`);
+			}
+		}
+	}
+	return errors;
+}
+
+/** Check every regional override file against en-US and its base catalog. */
+export function checkRegional(root, localeRoot) {
+	if (!existsSync(root)) return { locales: [], errors: [] };
+	const catalogs = readdirSync(localeRoot, { withFileTypes: true })
+		.filter((entry) => entry.isDirectory())
+		.map((entry) => entry.name);
+	const read = (locale) =>
+		JSON.parse(
+			readFileSync(resolve(localeRoot, locale, "translation.json"), "utf8"),
+		);
+	const locales = readdirSync(root)
+		.filter((name) => name.endsWith(".json"))
+		.map((name) => name.slice(0, -".json".length));
+	const errors = locales.flatMap((locale) => {
+		const language = locale.split("-")[0];
+		const base = catalogs.find(
+			(code) => code !== locale && code.split("-")[0] === language,
+		);
+		if (catalogs.includes(locale)) {
+			return [`${locale}: regional file duplicates a full catalog`];
+		}
+		if (!base) return [`${locale}: no full ${language} catalog to build on`];
+		return checkRegionalOverrides(
+			read("en-US"),
+			JSON.parse(readFileSync(resolve(root, `${locale}.json`), "utf8")),
+			locale,
+			read(base),
+		);
+	});
+	return { locales, errors };
+}
+
 // t("key"), i18next.t("key"), i18n.t("key") and <Trans i18nKey="key">.
 const KEY_USE =
 	/(?<![\w.$])(?:i18next\.|i18n\.)?t\(\s*(["'`])((?:\\.|(?!\1).)*?)\1|i18nKey=["']([^"']+)["']/g;
@@ -233,8 +294,13 @@ if (
 	const src = fileURLToPath(new URL("../src", import.meta.url));
 	const checked = checkLocales(root);
 	const { locales } = checked;
+	const regional = checkRegional(
+		fileURLToPath(new URL("../src/i18n/regional", import.meta.url)),
+		root,
+	);
 	const errors = [
 		...checked.errors,
+		...regional.errors,
 		...checkUsedKeys(
 			JSON.parse(
 				readFileSync(resolve(root, "en-US", "translation.json"), "utf8"),
@@ -247,7 +313,7 @@ if (
 		process.exitCode = 1;
 	} else {
 		console.log(
-			`Locale check passed: ${locales.length} catalogs, matching keys, order and placeholders; every key used in src exists.`,
+			`Locale check passed: ${locales.length} catalogs, matching keys, order and placeholders; ${regional.locales.length} regional override files valid; every key used in src exists.`,
 		);
 	}
 }
