@@ -372,6 +372,82 @@
     "projectsFound": "{count, plural, one {# project gevonden} other {# projecten gevonden}}",
     "scanFailed": "Werkruimtemap scannen mislukt"
   },
+  "projectsHub": {
+    "enable": "Nummerlijst en startscherm",
+    "enableDesc": "Voegt een lijst Te synchroniseren en een mapscan toe aan Projecten, een startscherm in de lege editor, een vraag om je laatste sessie bij het starten voort te zetten, TTML en audio openen met één keer slepen, en exporteren als platte tekst of Genius-tekst.",
+    "menuProjects": "Projecten...",
+    "tabSongs": "Te synchroniseren",
+    "songs": {
+      "description": "Nummers die je hierna wilt synchroniseren. Start er een project van, dan wordt het als klaar gemarkeerd als je de TTML exporteert.",
+      "addManually": "Zelf typen",
+      "searchGenius": "Zoeken op Genius",
+      "add": "Aan de lijst toevoegen",
+      "added": "{song} is aan de lijst toegevoegd.",
+      "alreadyListed": "{song} staat al op de lijst.",
+      "searchFailed": "Kon niet zoeken op Genius.",
+      "start": "Project starten",
+      "started": "{song} gestart. Importeer of typ de songtekst en laad daarna de audio.",
+      "startDirty": "Je hebt niet-opgeslagen wijzigingen. Als je {song} start, wordt de songtekst in de editor vervangen.",
+      "markedDone": "{song} is als klaar gemarkeerd.",
+      "inProgress": "Gestart",
+      "empty": "Nog niets te synchroniseren. Voeg het volgende nummer toe voordat je het vergeet.",
+      "showNotes": "Notities tonen",
+      "showCompleted": "Klaar ({count})",
+      "hideCompleted": "Klaar verbergen",
+      "markDone": "Klaar",
+      "reopen": "Heropenen",
+      "edit": "Nummer bewerken",
+      "delete": "Nummer verwijderen",
+      "toolMenu": "Te synchroniseren..."
+    },
+    "scan": {
+      "tab": "Map scannen",
+      "select": "Een map scannen op TTML's...",
+      "pairsTitle": "Bestanden die je als project kunt koppelen",
+      "pairsHint": "Een TTML en een audiobestand met dezelfde naam. Koppelen laat beide bestanden staan waar ze staan.",
+      "link": "Koppelen",
+      "linkAll": "Alles koppelen",
+      "linked": "{name} is als project gekoppeld.",
+      "linkedCount": "{count, plural, one {# project gekoppeld} other {# projecten gekoppeld}}",
+      "linkFailed": "Kon {name} niet koppelen.",
+      "noPairs": "Geen TTML- en audiobestanden met dezelfde naam gevonden.",
+      "scanning": "Bestanden zoeken..."
+    },
+    "start": {
+      "title": "Begin met synchroniseren",
+      "description": "Open een project, kies een nummer uit je lijst of begin met een songtekst.",
+      "startedDescription": "Voeg de songtekst toe uit tekst of Genius en laad daarna de audio.",
+      "fromText": "Nieuw vanuit tekst",
+      "fromGenius": "Nieuw vanuit Genius",
+      "openFile": "Bestand openen...",
+      "openFolder": "Mapproject openen...",
+      "projects": "Projecten...",
+      "recent": "Recente projecten",
+      "songs": "Te synchroniseren",
+      "seeAll": "Alles tonen",
+      "startSong": "Project starten voor {song}"
+    },
+    "resume": {
+      "title": "Verdergaan waar je was gebleven?",
+      "description": "{name} is voor het laatst bewerkt op {time}. Herstellen uit geschiedenis bewaart hoe dan ook elke automatische opslag.",
+      "continue": "Verdergaan",
+      "startFresh": "Opnieuw beginnen",
+      "restored": "{name} hersteld."
+    },
+    "export": {
+      "plainText": "Platte tekst...",
+      "geniusText": "Genius-tekst...",
+      "copyGenius": "Kopiëren als Genius-tekst",
+      "copied": "Songtekst gekopieerd als Genius-tekst.",
+      "copyFailed": "Kon de songtekst niet kopiëren.",
+      "saveFailed": "Kon het bestand niet opslaan.",
+      "textFiles": "Tekstbestanden",
+      "empty": "Er is geen songtekst om te exporteren."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# bestand overgeslagen. Sleep één songtekstbestand en één audiobestand tegelijk.} other {# bestanden overgeslagen. Sleep één songtekstbestand en één audiobestand tegelijk.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Geldt voor de linten Bewerken, Timing en Voorbeeld.",
     "tooltips": {

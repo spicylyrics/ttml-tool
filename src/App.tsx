@@ -109,6 +109,9 @@ import { AudioMetadataPrefill } from "./modules/project/audio-metadata";
 import { AutosaveManager } from "./modules/project/autosave/AutosaveManager.tsx";
 import { GlobalDragOverlay } from "./modules/project/modals/GlobalDragOverlay.tsx";
 import { type ExportTranslation, saveTTML } from "./modules/project/ttml-save";
+import { ProjectsHubEffects } from "./modules/projects-hub/components/ProjectsHubEffects";
+import { openDroppedFiles } from "./modules/projects-hub/open-dropped-files";
+import { projectsHubEnabledAtom } from "./modules/projects-hub/states";
 import { InterfaceScaleManager } from "./modules/settings/components/InterfaceScaleManager";
 import {
 	customBackgroundBlurAtom,
@@ -619,6 +622,14 @@ function App() {
 			setIsGlobalDragging(false);
 
 			const files = e.dataTransfer?.files;
+			if (files && files.length > 1 && store.get(projectsHubEnabledAtom)) {
+				void openDroppedFiles(
+					Array.from(files),
+					openFile,
+					(key, fallback, options) => t(key, fallback ?? key, options),
+				);
+				return;
+			}
 			if (files && files.length > 0) {
 				const file = files[0];
 				void attachDroppedFilePath(file).finally(() => openFile(file));
@@ -636,7 +647,7 @@ function App() {
 			window.removeEventListener("dragleave", handleDragLeave);
 			window.removeEventListener("drop", handleDrop);
 		};
-	}, [setIsGlobalDragging, openFile]);
+	}, [setIsGlobalDragging, openFile, store, t]);
 
 	return (
 		<Theme
@@ -700,6 +711,7 @@ function App() {
 				)}
 				<div className={styles.appContent}>
 					<AutosaveManager />
+					<ProjectsHubEffects />
 					<GlobalDragOverlay />
 					{toolMode === ToolMode.Sync && <SyncKeyBinding />}
 					<UrbanDictionaryKeybinding />

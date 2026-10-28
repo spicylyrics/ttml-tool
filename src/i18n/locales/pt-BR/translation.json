@@ -372,6 +372,82 @@
     "projectsFound": "{count, plural, one {# projeto encontrado} many {# projetos encontrados} other {# projetos encontrados}}",
     "scanFailed": "Falha ao verificar a pasta do espaço de trabalho"
   },
+  "projectsHub": {
+    "enable": "Lista de músicas e tela inicial",
+    "enableDesc": "Adiciona aos Projetos uma lista Para sincronizar e uma varredura de pasta, uma tela inicial no editor vazio, a opção de continuar a última sessão ao abrir, abrir TTML e áudio de uma só vez arrastando e exportar como texto simples ou texto do Genius.",
+    "menuProjects": "Projetos...",
+    "tabSongs": "Para sincronizar",
+    "songs": {
+      "description": "Músicas que você quer sincronizar em seguida. Comece um projeto a partir de uma, e ela é marcada como concluída quando você exportar o TTML.",
+      "addManually": "Digitar",
+      "searchGenius": "Buscar no Genius",
+      "add": "Adicionar à lista",
+      "added": "{song} foi adicionada à lista.",
+      "alreadyListed": "{song} já está na lista.",
+      "searchFailed": "Não foi possível buscar no Genius.",
+      "start": "Começar projeto",
+      "started": "{song} começada. Importe ou digite a letra e depois carregue o áudio.",
+      "startDirty": "Você tem alterações não salvas. Começar {song} substitui a letra no editor.",
+      "markedDone": "{song} foi marcada como concluída.",
+      "inProgress": "Começada",
+      "empty": "Nada para sincronizar ainda. Adicione a próxima música antes que você esqueça.",
+      "showNotes": "Mostrar notas",
+      "showCompleted": "Concluídas ({count})",
+      "hideCompleted": "Ocultar concluídas",
+      "markDone": "Concluída",
+      "reopen": "Reabrir",
+      "edit": "Editar música",
+      "delete": "Remover música",
+      "toolMenu": "Para sincronizar..."
+    },
+    "scan": {
+      "tab": "Varrer pasta",
+      "select": "Procurar TTMLs em uma pasta...",
+      "pairsTitle": "Arquivos que você pode vincular como projetos",
+      "pairsHint": "Um TTML e um arquivo de áudio com o mesmo nome. Vincular mantém os dois arquivos onde estão.",
+      "link": "Vincular",
+      "linkAll": "Vincular todos",
+      "linked": "{name} foi vinculado como projeto.",
+      "linkedCount": "{count, plural, one {# projeto vinculado} many {# projetos vinculados} other {# projetos vinculados}}",
+      "linkFailed": "Não foi possível vincular {name}.",
+      "noPairs": "Nenhum arquivo TTML e de áudio com o mesmo nome foi encontrado.",
+      "scanning": "Procurando arquivos..."
+    },
+    "start": {
+      "title": "Comece a sincronizar",
+      "description": "Abra um projeto, escolha uma música da sua lista ou comece pela letra.",
+      "startedDescription": "Adicione a letra a partir de texto ou do Genius e depois carregue o áudio.",
+      "fromText": "Novo a partir de texto",
+      "fromGenius": "Novo a partir do Genius",
+      "openFile": "Abrir arquivo...",
+      "openFolder": "Abrir projeto de pasta...",
+      "projects": "Projetos...",
+      "recent": "Projetos recentes",
+      "songs": "Para sincronizar",
+      "seeAll": "Ver tudo",
+      "startSong": "Começar projeto para {song}"
+    },
+    "resume": {
+      "title": "Continuar de onde parou?",
+      "description": "{name} foi editado pela última vez em {time}. Restaurar do histórico mantém todos os salvamentos automáticos de qualquer forma.",
+      "continue": "Continuar",
+      "startFresh": "Começar do zero",
+      "restored": "{name} restaurado."
+    },
+    "export": {
+      "plainText": "Texto simples...",
+      "geniusText": "Texto do Genius...",
+      "copyGenius": "Copiar como texto do Genius",
+      "copied": "Letra copiada como texto do Genius.",
+      "copyFailed": "Não foi possível copiar a letra.",
+      "saveFailed": "Não foi possível salvar o arquivo.",
+      "textFiles": "Arquivos de texto",
+      "empty": "Não há letra para exportar."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# arquivo ignorado. Solte um arquivo de letra e um de áudio por vez.} many {# arquivos ignorados. Solte um arquivo de letra e um de áudio por vez.} other {# arquivos ignorados. Solte um arquivo de letra e um de áudio por vez.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Aplica-se às faixas de Edição, Sincronização e Prévia.",
     "tooltips": {

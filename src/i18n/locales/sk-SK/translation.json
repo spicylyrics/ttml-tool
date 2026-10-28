@@ -372,6 +372,82 @@
     "projectsFound": "{count, plural, one {Našiel sa # projekt} few {Našli sa # projekty} many {Našlo sa # projektu} other {Našlo sa # projektov}}",
     "scanFailed": "Priečinok pracovného priestoru sa nepodarilo prehľadať"
   },
+  "projectsHub": {
+    "enable": "Zoznam skladieb a úvodná obrazovka",
+    "enableDesc": "Pridá do Projektov zoznam Na synchronizáciu a prehľadanie priečinka, úvodnú obrazovku do prázdneho editora, ponuku pokračovať v poslednej relácii po spustení, otvorenie TTML a zvuku jedným pretiahnutím a export ako obyčajný text alebo text pre Genius.",
+    "menuProjects": "Projekty...",
+    "tabSongs": "Na synchronizáciu",
+    "songs": {
+      "description": "Skladby, ktoré chcete synchronizovať nabudúce. Založte z nich projekt a po exporte TTML sa označia ako hotové.",
+      "addManually": "Zadať ručne",
+      "searchGenius": "Hľadať na Genius",
+      "add": "Pridať do zoznamu",
+      "added": "Skladba {song} bola pridaná do zoznamu.",
+      "alreadyListed": "Skladba {song} už v zozname je.",
+      "searchFailed": "Hľadanie na Genius zlyhalo.",
+      "start": "Založiť projekt",
+      "started": "Skladba {song} založená. Importujte alebo napíšte text, potom načítajte zvuk.",
+      "startDirty": "Máte neuložené zmeny. Založením skladby {song} sa nahradí text v editore.",
+      "markedDone": "Skladba {song} je označená ako hotová.",
+      "inProgress": "Rozpracované",
+      "empty": "Zatiaľ tu nič nie je. Pridajte ďalšiu skladbu, kým na ňu nezabudnete.",
+      "showNotes": "Zobraziť poznámky",
+      "showCompleted": "Hotové ({count})",
+      "hideCompleted": "Skryť hotové",
+      "markDone": "Hotovo",
+      "reopen": "Znova otvoriť",
+      "edit": "Upraviť skladbu",
+      "delete": "Odobrať skladbu",
+      "toolMenu": "Na synchronizáciu..."
+    },
+    "scan": {
+      "tab": "Prehľadať priečinok",
+      "select": "Hľadať TTML v priečinku...",
+      "pairsTitle": "Súbory, ktoré môžete prepojiť ako projekty",
+      "pairsHint": "Súbor TTML a zvukový súbor s rovnakým názvom. Prepojenie nechá oba súbory na mieste.",
+      "link": "Prepojiť",
+      "linkAll": "Prepojiť všetko",
+      "linked": "{name} je prepojené ako projekt.",
+      "linkedCount": "{count, plural, one {Prepojený # projekt} few {Prepojené # projekty} many {Prepojeného # projektu} other {Prepojených # projektov}}",
+      "linkFailed": "{name} sa nepodarilo prepojiť.",
+      "noPairs": "Nenašli sa žiadne súbory TTML a zvuku s rovnakým názvom.",
+      "scanning": "Hľadám súbory..."
+    },
+    "start": {
+      "title": "Začnite synchronizovať",
+      "description": "Otvorte projekt, vyberte skladbu zo zoznamu alebo začnite od textu.",
+      "startedDescription": "Pridajte text z obyčajného textu alebo z Genius, potom načítajte zvuk.",
+      "fromText": "Nový z textu",
+      "fromGenius": "Nový z Genius",
+      "openFile": "Otvoriť súbor...",
+      "openFolder": "Otvoriť projekt v priečinku...",
+      "projects": "Projekty...",
+      "recent": "Nedávne projekty",
+      "songs": "Na synchronizáciu",
+      "seeAll": "Zobraziť všetko",
+      "startSong": "Založiť projekt pre {song}"
+    },
+    "resume": {
+      "title": "Pokračovať, kde ste skončili?",
+      "description": "{name} bolo naposledy upravené {time}. Obnovenie z histórie si každé automatické uloženie ponechá v oboch prípadoch.",
+      "continue": "Pokračovať",
+      "startFresh": "Začať odznova",
+      "restored": "{name} obnovené."
+    },
+    "export": {
+      "plainText": "Obyčajný text...",
+      "geniusText": "Text pre Genius...",
+      "copyGenius": "Kopírovať ako text pre Genius",
+      "copied": "Text bol skopírovaný ako text pre Genius.",
+      "copyFailed": "Text sa nepodarilo skopírovať.",
+      "saveFailed": "Súbor sa nepodarilo uložiť.",
+      "textFiles": "Textové súbory",
+      "empty": "Nie je čo exportovať."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {Preskočený # súbor. Pretiahnite naraz jeden súbor s textom a jeden zvukový súbor.} few {Preskočené # súbory. Pretiahnite naraz jeden súbor s textom a jeden zvukový súbor.} many {Preskočeného # súboru. Pretiahnite naraz jeden súbor s textom a jeden zvukový súbor.} other {Preskočených # súborov. Pretiahnite naraz jeden súbor s textom a jeden zvukový súbor.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Platí pre pásy kariet Úpravy, Časovanie a Náhľad.",
     "tooltips": {
