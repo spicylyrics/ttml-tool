@@ -1000,7 +1000,7 @@
       "timingOverviewAutoScrollDesc": "La vue d’ensemble des temps suit la tête de lecture.",
       "vsyncDesc": "Met à jour les aperçus Standard et Toxi à chaque image au lieu d'environ 30 fois par seconde. Plus fluide, mais consomme plus de CPU.",
       "showFpsDesc": "Affiche un compteur d'images par seconde sur l'aperçu.",
-      "syncLevelDesc": "Mot : synchronisez chaque mot à mesure. Ligne : synchronisez des lignes entières et répartissez leurs mots uniformément pour une synchronisation approximative à affiner dans le spectrogramme.",
+      "syncLevelDesc": "Mot : synchronisez chaque mot à mesure. Ligne : synchronisez des lignes entières et répartissez leurs mots uniformément. Le mode Ligne enregistre toujours le minutage de chaque mot, pas des paroles synchronisées ligne par ligne : affinez donc les mots dans le spectrogramme.",
       "previewModeDesc": "Choisissez l'aperçu affiché dans l'onglet Aperçu.",
       "spicyBackgroundDesc": "Ce qui s'affiche derrière l'aperçu Spicy.",
       "fadeWidthDesc": "Douceur du bord du surlignage lorsqu'un mot se remplit dans les aperçus Standard et Toxi."
@@ -1391,6 +1391,11 @@
     "customKey": "Champ personnalisé",
     "addPresets": "Ajouter tous les champs standard",
     "clear": "Effacer"
+  },
+  "helpText": {
+    "metadataArtists": "Qui interprète la chanson, tel que le titre est crédité sur les services de streaming. Exemple : « Shake It Off » est de Taylor Swift.",
+    "metadataSongwriter": "Qui a écrit la musique et les paroles, d'après les crédits d'écriture. Souvent différent des artistes. Exemple : « Shake It Off » a été écrit par Taylor Swift, Max Martin et Shellback.",
+    "learnMore": "En savoir plus"
   },
   "lrclib": {
     "placeholder": "Titre de la chanson et artiste…",

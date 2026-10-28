@@ -1000,7 +1000,7 @@
       "timingOverviewAutoScrollDesc": "Utrzymuj przegląd czasów przewinięty do pozycji odtwarzania.",
       "vsyncDesc": "Aktualizuj podglądy Standard i Toxi w każdej klatce zamiast około 30 razy na sekundę. Płynniej, ale większe użycie CPU.",
       "showFpsDesc": "Pokaż licznik klatek na sekundę w podglądzie.",
-      "syncLevelDesc": "Słowa: ustawiaj czas każdego słowa. Wersy: ustawiaj czas całych wersów i rozkładaj słowa równomiernie. Tę wstępną synchronizację dopracujesz w spektrogramie.",
+      "syncLevelDesc": "Słowa: ustawiaj czas każdego słowa. Wersy: ustawiaj czas całych wersów i rozkładaj słowa równomiernie. Tryb Wersy nadal zapisuje czasy słów, a nie tekst synchronizowany wersami, więc słowa dopracujesz w spektrogramie.",
       "previewModeDesc": "Wybierz, który podgląd pokazuje karta Podgląd.",
       "spicyBackgroundDesc": "Co jest wyświetlane za podglądem Spicy.",
       "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi."
@@ -1391,6 +1391,11 @@
     "customKey": "Własne pole",
     "addPresets": "Dodaj wszystkie standardowe pola",
     "clear": "Wyczyść"
+  },
+  "helpText": {
+    "metadataArtists": "Kto wykonuje utwór, tak jak jest podpisany w serwisach streamingowych. Przykład: „Shake It Off” wykonuje Taylor Swift.",
+    "metadataSongwriter": "Kto napisał muzykę i tekst, według informacji o autorach. Często są to inne osoby niż wykonawcy. Przykład: „Shake It Off” napisali Taylor Swift, Max Martin i Shellback.",
+    "learnMore": "Dowiedz się więcej"
   },
   "lrclib": {
     "placeholder": "Tytuł utworu i wykonawca…",

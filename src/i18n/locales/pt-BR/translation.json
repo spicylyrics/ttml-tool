@@ -1000,7 +1000,7 @@
       "timingOverviewAutoScrollDesc": "A visão geral dos tempos acompanha o cursor de reprodução.",
       "vsyncDesc": "Atualiza as prévias Standard e Toxi a cada quadro em vez de cerca de 30 vezes por segundo. Mais suave, mas usa mais CPU.",
       "showFpsDesc": "Mostra um contador de quadros por segundo na prévia.",
-      "syncLevelDesc": "Palavra: sincronize cada palavra enquanto avança. Linha: sincronize linhas inteiras e distribua as palavras igualmente para obter uma sincronização aproximada, que você refina no espectrograma.",
+      "syncLevelDesc": "Palavra: sincronize cada palavra enquanto avança. Linha: sincronize linhas inteiras e distribua as palavras igualmente. Linha ainda salva o tempo de cada palavra, não uma letra sincronizada por linha, então refine as palavras no espectrograma.",
       "previewModeDesc": "Escolha qual prévia a aba Prévia mostra.",
       "spicyBackgroundDesc": "O que aparece atrás da prévia do Spicy.",
       "fadeWidthDesc": "Quão suave é a borda do destaque enquanto uma palavra é preenchida nas prévias Standard e Toxi."
@@ -1391,6 +1391,11 @@
     "customKey": "Campo personalizado",
     "addPresets": "Adicionar todos os campos padrão",
     "clear": "Limpar"
+  },
+  "helpText": {
+    "metadataArtists": "Quem interpreta a música, como a faixa é creditada nos serviços de streaming. Exemplo: \"Shake It Off\" é de Taylor Swift.",
+    "metadataSongwriter": "Quem escreveu a música e a letra, segundo os créditos de composição. Muitas vezes são pessoas diferentes dos artistas. Exemplo: \"Shake It Off\" foi escrita por Taylor Swift, Max Martin e Shellback.",
+    "learnMore": "Saiba mais"
   },
   "lrclib": {
     "placeholder": "Título da música e artista…",

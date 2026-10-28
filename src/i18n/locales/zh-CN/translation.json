@@ -1000,7 +1000,7 @@
       "timingOverviewAutoScrollDesc": "让时间轴概览始终滚动到播放位置。",
       "vsyncDesc": "每帧更新 Standard 和 Toxi 预览，而不是每秒约 30 次。更流畅，但占用更多 CPU。",
       "showFpsDesc": "在预览上显示帧率计数器。",
-      "syncLevelDesc": "字：逐字打轴。行：为整行打轴，并均匀分配字时间，生成粗略时间轴，再到频谱图中微调。",
+      "syncLevelDesc": "字：逐字打轴。行：为整行打轴，并均匀分配字时间。行模式保存的仍是逐字时间，而不是逐行歌词，之后到频谱图中微调各字。",
       "previewModeDesc": "选择预览标签页显示哪种预览。",
       "spicyBackgroundDesc": "Spicy 预览背后显示的内容。",
       "fadeWidthDesc": "Standard 和 Toxi 预览中字高亮填充边缘的柔和程度。"
@@ -1391,6 +1391,11 @@
     "customKey": "自定义字段",
     "addPresets": "添加所有标准字段",
     "clear": "清除"
+  },
+  "helpText": {
+    "metadataArtists": "演唱这首歌的人，按流媒体平台上的署名填写。例如：《Shake It Off》的歌手是 Taylor Swift。",
+    "metadataSongwriter": "创作词曲的人，按词曲作者署名填写，常与歌手不同。例如：《Shake It Off》的词曲作者是 Taylor Swift、Max Martin 和 Shellback。",
+    "learnMore": "了解更多"
   },
   "lrclib": {
     "placeholder": "歌曲名称和歌手…",
