@@ -10,7 +10,6 @@ import {
 import { useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import {
 	type KeyboardEvent,
-	useCallback,
 	useEffect,
 	useId,
 	useMemo,
@@ -19,7 +18,6 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { useCommand } from "$/modules/keyboard/hooks";
 import { getAllCommands } from "$/modules/keyboard/registry";
 import type { KeyBindingCommand } from "$/modules/keyboard/types";
 import { settingsSearchKeywords } from "$/modules/settings/logic/settings-search";
@@ -35,7 +33,6 @@ import { getPaletteCommands, PALETTE_COMMAND_IDS } from "./palette-commands";
 import { type RankableItem, rankPaletteItems } from "./ranking";
 import { runKeyboardCommand } from "./run-command";
 import {
-	commandPaletteEnabledAtom,
 	commandPaletteOpenAtom,
 	commandPaletteRecentAtom,
 	pushRecent,
@@ -58,12 +55,6 @@ const ShortcutKbd = ({ command }: { command: KeyBindingCommand }) => {
 	);
 };
 
-/** Mounted only while the flag is on, so nothing below binds keys when it's off. */
-export const CommandPalette = () => {
-	const enabled = useAtomValue(commandPaletteEnabledAtom);
-	return enabled ? <CommandPaletteDialog /> : null;
-};
-
 function eventShortcut(event: KeyboardEvent<HTMLElement>): string {
 	return getShortcutKey([
 		...(event.ctrlKey ? ["Control"] : []),
@@ -74,7 +65,11 @@ function eventShortcut(event: KeyboardEvent<HTMLElement>): string {
 	]);
 }
 
-const CommandPaletteDialog = () => {
+/**
+ * The palette itself, loaded the first time it opens. Its shortcuts live in
+ * `CommandPaletteHost.tsx` so they work before this chunk is fetched.
+ */
+export const CommandPaletteDialog = () => {
 	const { t } = useTranslation();
 	const store = useStore();
 	const [open, setOpen] = useAtom(commandPaletteOpenAtom);
@@ -88,9 +83,6 @@ const CommandPaletteDialog = () => {
 	const listId = useId();
 
 	const paletteCommands = useMemo(() => getPaletteCommands(), []);
-	const toggle = useCallback(() => setOpen((value) => !value), [setOpen]);
-	useCommand(paletteCommands.open, toggle, [toggle]);
-	useCommand(paletteCommands.openAlternate, toggle, [toggle]);
 
 	useEffect(() => {
 		if (!open) return;
