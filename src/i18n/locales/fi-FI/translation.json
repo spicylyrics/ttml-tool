@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Vanhat tilannekuvat",
     "untitledProjectName": "Nimetön projekti"
   },
+  "didYouKnow": {
+    "title": "Tiesitkö?",
+    "repeatedSection": "Toistuvat rivit voivat käyttää aiempaa ajoitusta. Valitse aiemmat rivit, siirrä toistokohdistin toiston alkuun ja valitse Monista toistokohdistimen kohdalle.",
+    "splitInTimeMode": "Voit jakaa sanan poistumatta Ajoitus-tilasta: pidä {modifier} pohjassa ja kaksoisnapsauta sanaa.",
+    "turnOff": "Älä näytä vinkkejä",
+    "setting": "Näytä vinkit",
+    "settingDesc": "Kun teet käsin jotain, mihin on nopeampi tapa, näytetään lyhyt vinkki. Jokainen vinkki näytetään vain kerran."
+  },
   "time": {
     "daysAgo": "{count, plural, one {# päivä sitten} other {# päivää sitten}}",
     "hoursAgo": "{count, plural, one {# tunti sitten} other {# tuntia sitten}}",

@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Staršie snímky",
     "untitledProjectName": "Projekt bez názvu"
   },
+  "didYouKnow": {
+    "title": "Vedeli ste?",
+    "repeatedSection": "Opakované riadky môžu prevziať skoršie časovanie. Vyberte skoršie riadky, umiestnite pozíciu prehrávania na začiatok opakovania a použite Duplikovať na pozíciu prehrávania.",
+    "splitInTimeMode": "Slovo môžete rozdeliť bez opustenia režimu Časovanie: podržte {modifier} a dvakrát naň kliknite.",
+    "turnOff": "Nezobrazovať tipy",
+    "setting": "Zobrazovať tipy",
+    "settingDesc": "Keď niečo urobíte ručne a existuje rýchlejší spôsob, zobrazí sa krátky tip. Každý tip sa zobrazí iba raz."
+  },
   "time": {
     "daysAgo": "{count, plural, one {Pred # dňom} few {Pred # dňami} many {Pred # dňa} other {Pred # dňami}}",
     "hoursAgo": "{count, plural, one {Pred # hodinou} few {Pred # hodinami} many {Pred # hodiny} other {Pred # hodinami}}",

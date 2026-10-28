@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Versiuni vechi",
     "untitledProjectName": "Proiect fără titlu"
   },
+  "didYouKnow": {
+    "title": "Știai că?",
+    "repeatedSection": "Versurile repetate pot refolosi sincronizarea anterioară. Selectează versurile anterioare, pune cursorul de redare unde începe repetiția și folosește Duplică la cursorul de redare.",
+    "splitInTimeMode": "Poți împărți un cuvânt fără să ieși din modul Sincronizare: ține apăsat {modifier} și dă dublu clic pe el.",
+    "turnOff": "Nu afișa sfaturi",
+    "setting": "Afișează sfaturi",
+    "settingDesc": "Când faci manual ceva ce are o cale mai rapidă, afișează un sfat scurt. Fiecare sfat apare o singură dată."
+  },
   "time": {
     "daysAgo": "{count, plural, one {Acum # zi} few {Acum # zile} other {Acum # de zile}}",
     "hoursAgo": "{count, plural, one {Acum # oră} few {Acum # ore} other {Acum # de ore}}",

@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Starsze migawki",
     "untitledProjectName": "Projekt bez tytułu"
   },
+  "didYouKnow": {
+    "title": "Czy wiesz, że...?",
+    "repeatedSection": "Powtarzające się wiersze mogą użyć wcześniejszej synchronizacji. Zaznacz wcześniejsze wiersze, ustaw pozycję odtwarzania na początku powtórzenia i użyj Duplikuj na pozycji odtwarzania.",
+    "splitInTimeMode": "Możesz podzielić słowo bez wychodzenia z trybu Synchronizacja: przytrzymaj {modifier} i kliknij je dwukrotnie.",
+    "turnOff": "Nie pokazuj wskazówek",
+    "setting": "Pokazuj wskazówki",
+    "settingDesc": "Gdy robisz coś ręcznie, a istnieje szybszy sposób, pokazuje krótką wskazówkę. Każda wskazówka pojawia się tylko raz."
+  },
   "time": {
     "daysAgo": "{count, plural, one {# dzień temu} few {# dni temu} many {# dni temu} other {# dnia temu}}",
     "hoursAgo": "{count, plural, one {# godzinę temu} few {# godziny temu} many {# godzin temu} other {# godziny temu}}",

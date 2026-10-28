@@ -1735,6 +1735,14 @@
     "legacyProjectName": "旧版快照",
     "untitledProjectName": "未命名项目"
   },
+  "didYouKnow": {
+    "title": "小提示",
+    "repeatedSection": "重复的歌词行可以沿用之前的时间轴。选中之前的歌词行，把播放指针移到重复开始的位置，然后使用“在播放指针处复制”。",
+    "splitInTimeMode": "无需离开打轴模式也能拆分单词：按住 {modifier} 并双击该单词。",
+    "turnOff": "不再显示提示",
+    "setting": "显示提示",
+    "settingDesc": "当你手动完成某件有更快捷方式的操作时，显示一条简短提示。每条提示只显示一次。"
+  },
   "time": {
     "daysAgo": "{count, plural, other {# 天前}}",
     "hoursAgo": "{count, plural, other {# 小时前}}",

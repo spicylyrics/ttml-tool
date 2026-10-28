@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Anciens instantanés",
     "untitledProjectName": "Projet sans titre"
   },
+  "didYouKnow": {
+    "title": "Le saviez-vous ?",
+    "repeatedSection": "Les lignes répétées peuvent reprendre une synchronisation précédente. Sélectionnez les lignes précédentes, placez la tête de lecture au début de la répétition et utilisez Dupliquer à la tête de lecture.",
+    "splitInTimeMode": "Vous pouvez scinder un mot sans quitter le mode Synchronisation : maintenez {modifier} et double-cliquez dessus.",
+    "turnOff": "Ne plus afficher les astuces",
+    "setting": "Afficher des astuces",
+    "settingDesc": "Quand vous faites à la main une action qui a un raccourci plus rapide, affiche une courte astuce. Chaque astuce ne s'affiche qu'une fois."
+  },
   "time": {
     "daysAgo": "{count, plural, one {Il y a # jour} many {Il y a # jours} other {Il y a # jours}}",
     "hoursAgo": "{count, plural, one {Il y a # heure} many {Il y a # heures} other {Il y a # heures}}",

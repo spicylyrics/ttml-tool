@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Snapshot lama",
     "untitledProjectName": "Proyek tanpa nama"
   },
+  "didYouKnow": {
+    "title": "Tahukah kamu?",
+    "repeatedSection": "Baris yang berulang bisa memakai ulang timing sebelumnya. Pilih baris sebelumnya, taruh penunjuk putar di awal pengulangan, lalu gunakan Gandakan di penunjuk putar.",
+    "splitInTimeMode": "Kamu bisa memecah kata tanpa keluar dari mode Sinkronisasi: tahan {modifier} lalu klik dua kali kata itu.",
+    "turnOff": "Jangan tampilkan tips",
+    "setting": "Tampilkan tips",
+    "settingDesc": "Saat kamu mengerjakan sesuatu secara manual yang punya cara lebih cepat, tampilkan tips singkat. Setiap tips hanya muncul sekali."
+  },
   "time": {
     "daysAgo": "{count, plural, other {# hari yang lalu}}",
     "hoursAgo": "{count, plural, other {# jam yang lalu}}",

@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Istantanee precedenti",
     "untitledProjectName": "Progetto senza titolo"
   },
+  "didYouKnow": {
+    "title": "Lo sapevi?",
+    "repeatedSection": "Le righe ripetute possono riutilizzare una sincronizzazione precedente. Seleziona le righe precedenti, porta il cursore di riproduzione all'inizio della ripetizione e usa Duplica al cursore di riproduzione.",
+    "splitInTimeMode": "Puoi dividere una parola senza uscire dalla modalità Sincronizzazione: tieni premuto {modifier} e fai doppio clic sulla parola.",
+    "turnOff": "Non mostrare suggerimenti",
+    "setting": "Mostra suggerimenti",
+    "settingDesc": "Quando fai a mano qualcosa che ha un modo più rapido, mostra un breve suggerimento. Ogni suggerimento appare una sola volta."
+  },
   "time": {
     "daysAgo": "{count, plural, one {# giorno fa} many {# giorni fa} other {# giorni fa}}",
     "hoursAgo": "{count, plural, one {# ora fa} many {# ore fa} other {# ore fa}}",

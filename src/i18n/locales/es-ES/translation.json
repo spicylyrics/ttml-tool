@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Instantáneas antiguas",
     "untitledProjectName": "Proyecto sin título"
   },
+  "didYouKnow": {
+    "title": "¿Sabías que...?",
+    "repeatedSection": "Las líneas que se repiten pueden reutilizar la sincronización anterior. Selecciona las líneas anteriores, coloca el cabezal donde empieza la repetición y usa Duplicar en el cabezal de reproducción.",
+    "splitInTimeMode": "Puedes dividir una palabra sin salir del modo Sincronización: mantén {modifier} y haz doble clic en ella.",
+    "turnOff": "No mostrar consejos",
+    "setting": "Mostrar consejos",
+    "settingDesc": "Cuando hagas a mano algo que tiene una forma más rápida, muestra un consejo breve. Cada consejo aparece una sola vez."
+  },
   "time": {
     "daysAgo": "{count, plural, one {Hace # día} many {Hace # días} other {Hace # días}}",
     "hoursAgo": "{count, plural, one {Hace # hora} many {Hace # horas} other {Hace # horas}}",

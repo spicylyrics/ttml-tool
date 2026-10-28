@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Oude momentopnamen",
     "untitledProjectName": "Naamloos project"
   },
+  "didYouKnow": {
+    "title": "Wist je dat?",
+    "repeatedSection": "Herhaalde regels kunnen eerdere timing hergebruiken. Selecteer de eerdere regels, zet de afspeelkop waar de herhaling begint en gebruik Dupliceren op afspeelkop.",
+    "splitInTimeMode": "Je kunt een woord splitsen zonder de Timing-modus te verlaten: houd {modifier} ingedrukt en dubbelklik op het woord.",
+    "turnOff": "Geen tips tonen",
+    "setting": "Tips tonen",
+    "settingDesc": "Als je iets met de hand doet dat sneller kan, verschijnt een korte tip. Elke tip verschijnt maar één keer."
+  },
   "time": {
     "daysAgo": "{count, plural, one {# dag geleden} other {# dagen geleden}}",
     "hoursAgo": "{count, plural, one {# uur geleden} other {# uur geleden}}",

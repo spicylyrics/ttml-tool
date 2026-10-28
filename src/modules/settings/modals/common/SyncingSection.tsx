@@ -14,6 +14,7 @@ import {
 	Switch,
 	Text,
 } from "@radix-ui/themes";
+import { DidYouKnowSetting } from "$/modules/did-you-know/DidYouKnowSetting";
 import { SyncJudgeMode } from "$/modules/settings/states";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
 import { KeyBindingTriggerMode } from "$/utils/keybindings";
@@ -236,5 +237,7 @@ export const SyncingSection = ({
 				</Flex>
 			</Text>
 		</Card>
+
+		<DidYouKnowSetting />
 	</Flex>
 );

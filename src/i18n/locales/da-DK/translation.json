@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Ældre øjebliksbilleder",
     "untitledProjectName": "Projekt uden titel"
   },
+  "didYouKnow": {
+    "title": "Vidste du?",
+    "repeatedSection": "Gentagne linjer kan genbruge tidligere timing. Vælg de tidligere linjer, sæt afspilningsmarkøren, hvor gentagelsen starter, og brug Duplikér ved afspilningsmarkør.",
+    "splitInTimeMode": "Du kan dele et ord uden at forlade Timing-tilstand: hold {modifier} nede, og dobbeltklik på det.",
+    "turnOff": "Vis ikke tips",
+    "setting": "Vis tips",
+    "settingDesc": "Når du gør noget i hånden, som har en hurtigere vej, vises et kort tip om det. Hvert tip vises kun én gang."
+  },
   "time": {
     "daysAgo": "{count, plural, one {# dag siden} other {# dage siden}}",
     "hoursAgo": "{count, plural, one {# time siden} other {# timer siden}}",

@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Eski anlık görüntüler",
     "untitledProjectName": "Adsız proje"
   },
+  "didYouKnow": {
+    "title": "Biliyor muydunuz?",
+    "repeatedSection": "Tekrarlanan satırlar önceki zamanlamayı yeniden kullanabilir. Önceki satırları seçin, oynatma konumunu tekrarın başladığı yere getirin ve Oynatma konumunda çoğalt seçeneğini kullanın.",
+    "splitInTimeMode": "Zamanla modundan çıkmadan bir kelimeyi bölebilirsiniz: {modifier} tuşunu basılı tutup kelimeye çift tıklayın.",
+    "turnOff": "İpuçlarını gösterme",
+    "setting": "İpuçlarını göster",
+    "settingDesc": "Daha hızlı bir yolu olan bir işi elle yaptığınızda kısa bir ipucu gösterir. Her ipucu yalnızca bir kez gösterilir."
+  },
   "time": {
     "daysAgo": "{count, plural, one {# gün önce} other {# gün önce}}",
     "hoursAgo": "{count, plural, one {# saat önce} other {# saat önce}}",

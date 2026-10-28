@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Instantâneos antigos",
     "untitledProjectName": "Projeto sem título"
   },
+  "didYouKnow": {
+    "title": "Você sabia?",
+    "repeatedSection": "Linhas repetidas podem reaproveitar a sincronização anterior. Selecione as linhas anteriores, coloque o cursor de reprodução onde a repetição começa e use Duplicar no cursor de reprodução.",
+    "splitInTimeMode": "Você pode dividir uma palavra sem sair do modo Sincronização: segure {modifier} e clique duas vezes nela.",
+    "turnOff": "Não mostrar dicas",
+    "setting": "Mostrar dicas",
+    "settingDesc": "Quando você faz à mão algo que tem um jeito mais rápido, mostra uma dica curta. Cada dica aparece só uma vez."
+  },
   "time": {
     "daysAgo": "{count, plural, one {Há # dia} many {Há # dias} other {Há # dias}}",
     "hoursAgo": "{count, plural, one {Há # hora} many {Há # horas} other {Há # horas}}",

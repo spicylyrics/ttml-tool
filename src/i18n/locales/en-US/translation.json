@@ -1735,6 +1735,14 @@
     "legacyProjectName": "Legacy snapshots",
     "untitledProjectName": "Untitled project"
   },
+  "didYouKnow": {
+    "title": "Did you know?",
+    "repeatedSection": "Repeated lines can reuse earlier timing. Select the earlier lines, put the playhead where the repeat starts, and use Duplicate at playhead.",
+    "splitInTimeMode": "You can split a word without leaving Time mode: hold {modifier} and double-click it.",
+    "turnOff": "Don't show tips",
+    "setting": "Show tips",
+    "settingDesc": "After you do something by hand that has a faster way, show a short tip about it. Each tip shows once."
+  },
   "time": {
     "daysAgo": "{count, plural, one {# day ago} other {# days ago}}",
     "hoursAgo": "{count, plural, one {# hour ago} other {# hours ago}}",
