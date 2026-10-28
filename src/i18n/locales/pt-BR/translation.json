@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Abrir o perfil do GitHub de {name}",
     "unknown": "Desconhecido"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Faixas separadas",
+    "settingDesc": "Mostra as linhas de vocais de apoio em uma faixa própria abaixo das linhas principais. As faixas são só para visualização: mude a função de uma linha no modo de edição.",
+    "menu": "Faixas",
+    "visibleLanes": "Mostrar faixas",
+    "duetLane": "Faixa separada para dueto",
+    "lane": {
+      "main": "Principal",
+      "duet": "Dueto",
+      "bg": "Apoio"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Não é possível selecionar este tempo de fim",
     "noAudioLoaded": "Por favor, carregue um arquivo de áudio para renderizar o espectrograma",

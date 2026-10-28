@@ -1738,6 +1738,18 @@
     "openContributorProfile": "GitHub-profiel van {name} openen",
     "unknown": "Onbekend"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Aparte sporen",
+    "settingDesc": "Toon achtergrondregels in een eigen spoor onder de hoofdregels. Sporen zijn alleen voor weergave: wijzig de rol van een regel in de bewerkmodus.",
+    "menu": "Sporen",
+    "visibleLanes": "Sporen tonen",
+    "duetLane": "Apart duetspoor",
+    "lane": {
+      "main": "Hoofd",
+      "duet": "Duet",
+      "bg": "Achtergrond"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Kan deze eindtijd niet selecteren",
     "noAudioLoaded": "Laad een audiobestand om het spectrogram te tonen",

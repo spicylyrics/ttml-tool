@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Deschide profilul GitHub al lui {name}",
     "unknown": "Necunoscut"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Piste separate",
+    "settingDesc": "Afișează versurile vocilor de fundal pe o pistă proprie, sub versurile principale. Pistele sunt doar pentru afișare: schimbă rolul unui vers în modul editare.",
+    "menu": "Piste",
+    "visibleLanes": "Arată pistele",
+    "duetLane": "Pistă separată pentru duet",
+    "lane": {
+      "main": "Principal",
+      "duet": "Duet",
+      "bg": "Fundal"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Nu se poate selecta acest timp de sfârșit",
     "noAudioLoaded": "Încarcă un fișier audio pentru a afișa spectrograma",

@@ -1738,6 +1738,18 @@
     "openContributorProfile": "{name} kullanıcısının GitHub profilini aç",
     "unknown": "Bilinmiyor"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Ayrı şeritler",
+    "settingDesc": "Arka vokal satırlarını ana satırların altında kendi şeritlerinde göster. Şeritler yalnızca görüntü içindir: bir satırın rolünü Düzenle modunda değiştirin.",
+    "menu": "Şeritler",
+    "visibleLanes": "Şeritleri göster",
+    "duetLane": "Ayrı düet şeridi",
+    "lane": {
+      "main": "Ana",
+      "duet": "Düet",
+      "bg": "Arka vokal"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Bu bitiş zamanı seçilemez",
     "noAudioLoaded": "Spektrogramı göstermek için ses dosyası yükleyin",

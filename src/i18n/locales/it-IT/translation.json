@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Apri il profilo GitHub di {name}",
     "unknown": "Sconosciuto"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Tracce separate",
+    "settingDesc": "Mostra i versi dei cori su una traccia propria sotto i versi principali. Le tracce servono solo alla visualizzazione: cambia il ruolo di un verso in modalità modifica.",
+    "menu": "Tracce",
+    "visibleLanes": "Mostra tracce",
+    "duetLane": "Traccia separata per il duetto",
+    "lane": {
+      "main": "Principale",
+      "duet": "Duetto",
+      "bg": "Cori"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Impossibile selezionare questo tempo di fine",
     "noAudioLoaded": "Carica un file audio per generare lo spettrogramma",

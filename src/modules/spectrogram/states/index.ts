@@ -109,6 +109,9 @@ export const spectrogramHoverTimeMsAtom = atom((get) => {
 	return hoverTimeS * 1000;
 });
 
+/** Stand-in for {@link spectrogramHoverTimeMsAtom} while a hook does not need the pointer. */
+export const idleHoverTimeMsAtom = atom(0);
+
 export const spectrogramHoverFrequencyAtom = atom((get) => {
 	const hoverPy = get(spectrogramHoverPyAtom);
 	const height = get(spectrogramHeightAtom);

@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Otwórz profil GitHub użytkownika {name}",
     "unknown": "Nieznany"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Osobne ścieżki",
+    "settingDesc": "Pokazuj wersy wokalu w tle na osobnej ścieżce pod głównymi wersami. Ścieżki służą tylko do podglądu: rolę wersu zmienisz w trybie edycji.",
+    "menu": "Ścieżki",
+    "visibleLanes": "Pokaż ścieżki",
+    "duetLane": "Osobna ścieżka duetu",
+    "lane": {
+      "main": "Główna",
+      "duet": "Duet",
+      "bg": "W tle"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Nie można wybrać tego czasu końcowego",
     "noAudioLoaded": "Wczytaj plik audio, aby zobaczyć spektrogram",

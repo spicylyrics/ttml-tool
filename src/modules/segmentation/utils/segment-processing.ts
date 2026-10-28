@@ -65,10 +65,20 @@ export function processSingleLine(line: LyricLine): ProcessedLyricLine {
 	};
 }
 
+// Atom updates must replace edited line objects (as Immer and keyboard sync do).
+const processedLineCache = new WeakMap<LyricLine, ProcessedLyricLine>();
+
 function createProcessedLyricLines(
 	dirtyLines: LyricLine[],
 ): ProcessedLyricLine[] {
-	return dirtyLines.map(processSingleLine);
+	return dirtyLines.map((line) => {
+		let processed = processedLineCache.get(line);
+		if (!processed) {
+			processed = processSingleLine(line);
+			processedLineCache.set(line, processed);
+		}
+		return processed;
+	});
 }
 
 export const processedLyricLinesAtom = atom<ProcessedLyricLine[]>((get) => {
