@@ -438,7 +438,7 @@
       "mode": "Mod",
       "standard": "Standard",
       "timing": "Zamanlama",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Basit şarkı sözleri",
       "forceLineRendering": "Satır senkronizasyonuyla göster",
       "background": "Arka plan",
@@ -843,7 +843,7 @@
       "timingOverviewAutoScrollDesc": "Zamanlama görünümünü oynatma konumuna göre kaydırır.",
       "vsyncDesc": "Standard ve Toxi önizlemelerini saniyede yaklaşık 30 kez yerine her karede günceller. Daha akıcıdır, ancak daha fazla CPU kullanır.",
       "showFpsDesc": "Önizlemede kare hızı sayacı gösterir.",
-      "syncLevelDesc": "Kelime: her kelimeyi ayrı zamanlayın. Satır: tüm satırı zamanlayıp kelimeleri eşit dağıtın. Bu kaba senkronizasyonu spektrogramda ince ayarlayabilirsiniz.",
+      "syncLevelDesc": "Kelime: her kelimeyi ayrı zamanlayın. Satır: tüm satırı zamanlayıp kelimeleri eşit dağıtın. Satır modu da her kelimenin zamanını kaydeder, satır senkronlu söz oluşturmaz; kelimeleri spektrogramda ince ayarlayın.",
       "previewModeDesc": "Önizleme sekmesinin hangi önizlemeyi göstereceğini seçin.",
       "spicyBackgroundDesc": "Spicy önizlemesinin arkasında ne görüneceği.",
       "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı."
@@ -1105,7 +1105,10 @@
     "volume": "Ses düzeyi",
     "playbackRate": "Oynatma hızı",
     "preservesPitch": "Ses perdesini koru",
-    "clickToLoadMusic": "Ses yüklemek için müzik simgesine tıklayın",
+    "audioMenu": "Ses ve oynatma",
+    "loadedAudio": "Yüklenen ses",
+    "replaceAudio": "Değiştir",
+    "resetSpeed": "1× değerine sıfırla",
     "playPause": "Müziği oynat/duraklat",
     "expandSpectrogram": "Spektrogramı genişlet/daralt"
   },
@@ -1165,6 +1168,11 @@
     "customKey": "Özel alan",
     "addPresets": "Tüm standart alanları ekle",
     "clear": "Temizle"
+  },
+  "helpText": {
+    "metadataArtists": "Şarkıyı seslendiren kişi, parçanın yayın hizmetlerinde listelendiği şekliyle. Örnek: \"Shake It Off\" Taylor Swift'in şarkısıdır.",
+    "metadataSongwriter": "Müziği ve sözleri yazan kişiler, yazar bilgilerine göre. Çoğu zaman sanatçılardan farklıdır. Örnek: \"Shake It Off\" şarkısını Taylor Swift, Max Martin ve Shellback yazdı.",
+    "openSongwritersGuide": "Söz yazarları rehberini aç"
   },
   "lrclib": {
     "placeholder": "Şarkı adı ve sanatçı…",

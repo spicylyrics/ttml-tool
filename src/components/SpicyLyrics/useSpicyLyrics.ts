@@ -24,11 +24,7 @@ import {
 	spicySimpleLyricsModeAtom,
 } from "$/modules/settings/states/preview";
 import { findSpicyScrollIndex } from "./active-line";
-import {
-	createSpicyAnimator,
-	type SlmAnimation,
-	type SpringSet,
-} from "./createSpicyAnimator";
+import { createSpicyAnimator, type SpringSet } from "./createSpicyAnimator";
 import type { Spring } from "./math";
 import { buildSpicyLines } from "./model";
 import { useCoverPalette, useKawarpBackground } from "./useBackground";
@@ -90,7 +86,6 @@ export function useSpicyLyrics() {
 	const wordNodes = useRef(new Map<string, HTMLElement>());
 	const springs = useRef(new Map<string, SpringSet>());
 	const lineGlowSprings = useRef(new Map<string, Spring>());
-	const slmAnimations = useRef(new Map<string, SlmAnimation>());
 	const lastTime = useRef(performance.now());
 	const [fps, setFps] = useState(0);
 	const fpsRef = useRef({ frames: 0, lastTime: performance.now() });
@@ -102,17 +97,6 @@ export function useSpicyLyrics() {
 		fpsRef.current = { frames: 0, lastTime: performance.now() };
 		setFps(0);
 	}, [showFps]);
-
-	useEffect(() => {
-		if (simple) return;
-		for (const [key, animation] of slmAnimations.current) {
-			animation.animation?.cancel();
-			wordNodes.current
-				.get(key)
-				?.style.removeProperty("--spicy-slm-gradient-position");
-		}
-		slmAnimations.current.clear();
-	}, [simple]);
 
 	const animator = useRef<ReturnType<typeof createSpicyAnimator>>(null);
 	const { rows, totalSize, measureRow, getTop } = useSpicyVirtualList(
@@ -157,7 +141,6 @@ export function useSpicyLyrics() {
 			wordNodes,
 			springs,
 			lineGlowSprings,
-			slmAnimations,
 			lastTime,
 			setFps,
 			fpsRef,

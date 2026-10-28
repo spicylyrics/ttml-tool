@@ -207,3 +207,9 @@
 	flex-shrink: 0;
 	white-space: nowrap;
 }
+
+/* Fixed-width column titles end in an ellipsis instead of spilling over. */
+.headerCell {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

@@ -54,15 +54,30 @@ function isLineSynced(line: LyricLine) {
 	return !!line.isLineSynced;
 }
 
+/**
+ * Spicy drops zero-width spaces, direction marks, word joiners and BOMs before
+ * it renders text: they would otherwise become empty letters with their own
+ * share of a held word. ZWJ and ZWNJ stay, since they shape Arabic, Indic and
+ * emoji text.
+ */
+const zeroWidth = new RegExp(
+	`[${String.fromCodePoint(0x200b, 0x200e, 0x200f, 0x2060, 0xfeff)}]`,
+	"gu",
+);
+export const stripZeroWidth = (text: string) => text.replace(zeroWidth, "");
+
 function lineText(line: LyricLine, romanized: boolean) {
-	if (romanized && line.romanLyric?.trim()) return line.romanLyric;
-	return line.words
-		.map((word) =>
-			romanized && word.romanWord.trim().length > 0
-				? word.romanWord
-				: word.word,
-		)
-		.join("");
+	if (romanized && line.romanLyric?.trim())
+		return stripZeroWidth(line.romanLyric);
+	return stripZeroWidth(
+		line.words
+			.map((word) =>
+				romanized && word.romanWord.trim().length > 0
+					? word.romanWord
+					: word.word,
+			)
+			.join(""),
+	);
 }
 
 /** Match Spicy's first-strong-character direction check. */
@@ -169,7 +184,9 @@ function makeToken(
 	// Spicy trims every syllable, and drops a background vocal's parentheses.
 	const clean = (value: string) =>
 		background ? value.trim().replace(/[()]/g, "").trim() : value.trim();
-	const text = clean(usesRomanization ? word.romanWord : word.word);
+	const text = stripZeroWidth(
+		clean(usesRomanization ? word.romanWord : word.word),
+	);
 	const allowInternalWrap = usesRomanization || isCjk(word.word) || isCjk(text);
 	const duration = word.endTime - word.startTime;
 	const letters = duration >= (simple ? 1050 : 1000) ? splitLetters(text) : [];

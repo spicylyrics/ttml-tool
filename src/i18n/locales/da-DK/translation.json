@@ -438,7 +438,7 @@
       "mode": "Tilstand",
       "standard": "Standard",
       "timing": "Timing",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Enkel sangteksttilstand",
       "forceLineRendering": "Vis som linjesynkroniseret",
       "background": "Baggrund",
@@ -843,7 +843,7 @@
       "timingOverviewAutoScrollDesc": "Hold tidsoversigten rullet til afspilningspositionen.",
       "vsyncDesc": "Opdater Standard- og Toxi-forhåndsvisningerne hvert billede i stedet for cirka 30 gange i sekundet. Mere flydende, men bruger mere CPU.",
       "showFpsDesc": "Vis en billedfrekvenstæller på forhåndsvisningen.",
-      "syncLevelDesc": "Ord: Synkronisér hvert ord. Linje: Synkronisér hele linjer, og fordel ordene jævnt som en grov timing, du finjusterer i spektrogrammet.",
+      "syncLevelDesc": "Ord: Synkronisér hvert ord. Linje: Synkronisér hele linjer, og fordel ordene jævnt. Linje gemmer stadig timing for hvert ord, ikke linjesynkroniseret tekst, så finjustér ordene i spektrogrammet.",
       "previewModeDesc": "Vælg, hvilken forhåndsvisning fanen Forhåndsvisning viser.",
       "spicyBackgroundDesc": "Hvad der vises bag Spicy-forhåndsvisningen.",
       "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne."
@@ -1105,7 +1105,10 @@
     "volume": "Lydstyrke",
     "playbackRate": "Afspilningshastighed",
     "preservesPitch": "Bevar tonehøjde",
-    "clickToLoadMusic": "Klik på musikikonet for at indlæse lyd",
+    "audioMenu": "Lyd og afspilning",
+    "loadedAudio": "Indlæst lyd",
+    "replaceAudio": "Erstat",
+    "resetSpeed": "Nulstil til 1×",
     "playPause": "Afspil / pause musik",
     "expandSpectrogram": "Udvid / skjul spektrogram"
   },
@@ -1165,6 +1168,11 @@
     "customKey": "Brugerdefineret felt",
     "addPresets": "Tilføj alle standardfelter",
     "clear": "Ryd"
+  },
+  "helpText": {
+    "metadataArtists": "Hvem der fremfører sangen, som nummeret er krediteret på streamingtjenester. Eksempel: \"Shake It Off\" er af Taylor Swift.",
+    "metadataSongwriter": "Hvem der skrev musikken og teksten, ifølge sangskriverkrediteringerne. Ofte andre end kunstnerne. Eksempel: \"Shake It Off\" er skrevet af Taylor Swift, Max Martin og Shellback.",
+    "openSongwritersGuide": "Åbn guiden om sangskrivere"
   },
   "lrclib": {
     "placeholder": "Sangtitel og kunstner…",

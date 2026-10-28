@@ -28,7 +28,8 @@ tauri-plugin-os = "2"
 tauri-plugin-shell = "2"
 tauri-plugin-decorum = "1"
 tauri-plugin-process = "2.3.1"
-tauri-plugin-dialog = "~2"
+# Portal backend so Linux shows the desktop's own file picker (zenity fallback).
+tauri-plugin-dialog = { version = "~2", default-features = false, features = ["xdg-portal"] }
 tauri-plugin-fs = "~2.4.5"
 tauri-plugin-persisted-scope = "2"
 

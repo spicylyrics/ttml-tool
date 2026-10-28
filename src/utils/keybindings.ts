@@ -326,6 +326,8 @@ export function isEditing(event: KeyboardEvent | MouseEvent) {
 			tagName === "INPUT" ||
 			tagName === "SELECT" ||
 			tagName === "TEXTAREA" ||
+			// A focused slider owns the arrow, Home/End and Page keys.
+			target?.getAttribute?.("role") === "slider" ||
 			!!currentKeyDownEvent ||
 			!!currentKeyUpEvent
 		);

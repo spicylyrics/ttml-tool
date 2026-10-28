@@ -10,7 +10,8 @@ import styles from "./index.module.css";
 import { MacOSSystemsControls } from "./macos.tsx";
 import { WindowsSystemsControls } from "./windows.tsx";
 
-export type WindowControlsVariant = "windows" | "macos";
+// "native": the window manager draws the title bar (Linux), so no buttons here.
+export type WindowControlsVariant = "windows" | "macos" | "native";
 
 export interface WindowControlsProps {
 	variant?: WindowControlsVariant;
@@ -47,7 +48,7 @@ export default function WindowControls(props: WindowControlsProps) {
 			case "darwin":
 				return setVariant("macos");
 			case "linux":
-				return setVariant("windows");
+				return setVariant("native");
 		}
 	}, [props.variant]);
 
@@ -109,7 +110,6 @@ export default function WindowControls(props: WindowControlsProps) {
 					onMinimized={onMinimized}
 				/>
 			);
-		} else if (variant === "gtk") {
 		} else {
 			return null;
 		}

@@ -1,6 +1,6 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import type { FC } from "react";
-import { useContext, useEffect, useRef } from "react";
+import { memo, useContext, useEffect, useMemo, useRef } from "react";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
 import {
 	type ProcessedLyricLine,
@@ -40,16 +40,40 @@ interface LyricTimelineOverlayProps {
 
 const SNAP_THRESHOLD_PX = 7;
 
-export const LyricTimelineOverlay: FC<LyricTimelineOverlayProps> = ({
+const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 	clientWidth,
 	hiddenLineIds,
 }) => {
 	const processedLines = useAtomValue(processedLyricLinesAtom);
+	const previewLine = useAtomValue(previewLineAtom);
+	const boundaries = useMemo(() => {
+		const starts = new Map<number, number>();
+		const ends = new Map<number, number>();
+		const byId = new Map<string, ProcessedLyricLine>();
+		for (const line of processedLines) {
+			starts.set(line.startTime, (starts.get(line.startTime) ?? 0) + 1);
+			ends.set(line.endTime, (ends.get(line.endTime) ?? 0) + 1);
+			byId.set(line.id, line);
+		}
+		return { starts, ends, byId };
+	}, [processedLines]);
+	const touchingStart = (line: ProcessedLyricLine, offset = 0) =>
+		(boundaries.ends.get(Math.max(0, line.startTime + offset)) ?? 0) >
+		Number(
+			boundaries.byId.get(line.id)?.endTime ===
+				Math.max(0, line.startTime + offset),
+		);
+	const touchingEnd = (line: ProcessedLyricLine, offset = 0) =>
+		(boundaries.starts.get(Math.max(0, line.endTime + offset)) ?? 0) >
+		Number(
+			boundaries.byId.get(line.id)?.startTime ===
+				Math.max(0, line.endTime + offset),
+		);
 	const [timelineDrag, setTimelineDrag] = useAtom(timelineDragAtom);
 	const setPreviewLine = useSetAtom(previewLineAtom);
 	const snapTargetsMs = useRef<number[]>([]);
-	const { scrollContainerRef, zoom, scrollLeft } =
-		useContext(SpectrogramContext);
+	const { scrollContainerRef, zoom } = useContext(SpectrogramContext);
+	const scrollLeft = useAtomValue(spectrogramScrollLeftAtom);
 
 	const showUnselectedLines = useAtomValue(showUnselectedLinesAtom);
 	const selectedLines = useAtomValue(selectedLinesAtom);
@@ -303,7 +327,16 @@ export const LyricTimelineOverlay: FC<LyricTimelineOverlayProps> = ({
 	return (
 		<div className={styles.overlay}>
 			{linesToRender.map((line) => (
-				<LyricLineSegment key={line.id} line={line} allLines={processedLines} />
+				<LyricLineSegment
+					key={line.id}
+					line={line}
+					isTouchingStart={touchingStart(
+						previewLine?.id === line.id ? previewLine : line,
+					)}
+					isTouchingEnd={touchingEnd(
+						previewLine?.id === line.id ? previewLine : line,
+					)}
+				/>
 			))}
 			{previewActive &&
 				previewOffset !== 0 &&
@@ -354,7 +387,8 @@ export const LyricTimelineOverlay: FC<LyricTimelineOverlayProps> = ({
 						<LyricLineSegment
 							key={`ghost-${line.id}`}
 							line={line}
-							allLines={processedLines}
+							isTouchingStart={touchingStart(line, previewOffset)}
+							isTouchingEnd={touchingEnd(line, previewOffset)}
 							isGhost
 							offset={previewOffset}
 						/>
@@ -363,3 +397,5 @@ export const LyricTimelineOverlay: FC<LyricTimelineOverlayProps> = ({
 		</div>
 	);
 };
+
+export const LyricTimelineOverlay = memo(LyricTimelineOverlayImpl);

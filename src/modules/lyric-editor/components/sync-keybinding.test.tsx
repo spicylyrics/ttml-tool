@@ -4,6 +4,7 @@ import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vitest";
 import type { SyncLane } from "$/modules/lyric-editor/utils/lyric-states";
+import { processedLyricLinesAtom } from "$/modules/segmentation/utils/segment-processing";
 import { smartLastWordAtom } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
 import {
@@ -87,6 +88,35 @@ function press(key: object, seconds: number) {
 }
 
 describe("normal-word sync controls", () => {
+	it.each([
+		keySyncNextAtom,
+		keySyncEndAtom,
+	])("updates the timeline after each completed span without waiting for line end", (key) => {
+		const view = mount();
+		try {
+			press(keySyncStartAtom, 1);
+			const before = view.store.get(processedLyricLinesAtom);
+			expect(before[0].segments).toEqual([]);
+			press(key, 2);
+			const after = view.store.get(processedLyricLinesAtom);
+			expect(after[0]).toMatchObject({ startTime: 1000, endTime: 2000 });
+			expect(after[0].segments).toEqual([
+				expect.objectContaining({
+					id: view.words[0].id,
+					type: "word",
+					startTime: 1000,
+					endTime: 2000,
+				}),
+			]);
+			expect(view.store.get(lyricLinesAtom).lyricLines[0].endTime).toBe(0);
+			expect(view.store.get(selectedLinesAtom)).toEqual(
+				new Set([view.first.id]),
+			);
+		} finally {
+			view.cleanup();
+		}
+	});
+
 	it("F starts, G commits and advances past spaces, and H ends the last word", () => {
 		const view = mount();
 		try {

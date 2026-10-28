@@ -1,4 +1,3 @@
-import resources from "virtual:i18next-loader";
 import {
 	LocalLanguage24Regular,
 	VideoBackgroundEffect24Regular,
@@ -12,6 +11,7 @@ import {
 	Switch,
 	Text,
 } from "@radix-ui/themes";
+import resources from "$/i18n/resources";
 import { getLanguageName, getTranslationProgress } from "./language";
 import type { CommonSettings } from "./useCommonSettings";
 export const DisplaySection = ({

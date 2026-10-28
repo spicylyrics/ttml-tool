@@ -438,7 +438,7 @@
       "mode": "Modo",
       "standard": "Standard",
       "timing": "Tiempos",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Letras simples",
       "forceLineRendering": "Mostrar sincronización por líneas",
       "background": "Fondo",
@@ -843,7 +843,7 @@
       "timingOverviewAutoScrollDesc": "La vista general de tiempos sigue al cabezal de reproducción.",
       "vsyncDesc": "Actualiza las vistas previas Standard y Toxi en cada fotograma en lugar de unas 30 veces por segundo. Más fluido, pero usa más CPU.",
       "showFpsDesc": "Muestra un contador de fotogramas por segundo en la vista previa.",
-      "syncLevelDesc": "Palabra: sincroniza cada palabra al avanzar. Línea: sincroniza líneas enteras y reparte sus palabras por igual para obtener una sincronización aproximada que ajustarás en el espectrograma.",
+      "syncLevelDesc": "Palabra: sincroniza cada palabra al avanzar. Línea: sincroniza líneas enteras y reparte sus palabras por igual. Línea sigue guardando tiempos por palabra, no letras sincronizadas por línea, así que ajusta las palabras en el espectrograma.",
       "previewModeDesc": "Elige qué vista previa muestra la pestaña Vista previa.",
       "spicyBackgroundDesc": "Lo que se muestra detrás de la vista previa de Spicy.",
       "fadeWidthDesc": "Qué tan suave es el borde del resaltado mientras se llena una palabra en las vistas previas Standard y Toxi."
@@ -1105,7 +1105,10 @@
     "volume": "Volumen",
     "playbackRate": "Velocidad de reproducción",
     "preservesPitch": "Mantener el tono",
-    "clickToLoadMusic": "Haz clic en el icono musical para cargar audio",
+    "audioMenu": "Audio y reproducción",
+    "loadedAudio": "Audio cargado",
+    "replaceAudio": "Reemplazar",
+    "resetSpeed": "Restablecer a 1×",
     "playPause": "Reproducir/pausar música",
     "expandSpectrogram": "Expandir/contraer espectrograma"
   },
@@ -1165,6 +1168,11 @@
     "customKey": "Campo personalizado",
     "addPresets": "Añadir todos los campos estándar",
     "clear": "Borrar"
+  },
+  "helpText": {
+    "metadataArtists": "Quién interpreta la canción, tal como aparece acreditada en los servicios de streaming. Ejemplo: \"Shake It Off\" es de Taylor Swift.",
+    "metadataSongwriter": "Quién escribió la música y la letra, según los créditos de composición. Suele ser distinto de los artistas. Ejemplo: \"Shake It Off\" lo escribieron Taylor Swift, Max Martin y Shellback.",
+    "openSongwritersGuide": "Abrir la guía de compositores"
   },
   "lrclib": {
     "placeholder": "Título de la canción y artista…",

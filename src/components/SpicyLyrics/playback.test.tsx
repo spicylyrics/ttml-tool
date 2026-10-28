@@ -56,10 +56,6 @@ import { globalStore } from "$/states/store";
 import { newLyricLine, newLyricWord } from "$/types/ttml";
 import { SpicyLyrics } from ".";
 
-const originalAnimate = Object.getOwnPropertyDescriptor(
-	HTMLElement.prototype,
-	"animate",
-);
 const originalScrollTo = Object.getOwnPropertyDescriptor(
 	HTMLElement.prototype,
 	"scrollTo",
@@ -124,9 +120,6 @@ afterEach(() => {
 	testEngine.dispatchEvent(new Event("music-pause"));
 	vi.unstubAllGlobals();
 	vi.restoreAllMocks();
-	if (originalAnimate)
-		Object.defineProperty(HTMLElement.prototype, "animate", originalAnimate);
-	else Reflect.deleteProperty(HTMLElement.prototype, "animate");
 	if (originalScrollTo)
 		Object.defineProperty(HTMLElement.prototype, "scrollTo", originalScrollTo);
 	else Reflect.deleteProperty(HTMLElement.prototype, "scrollTo");
@@ -147,19 +140,6 @@ describe("Spicy shared-clock rendering", () => {
 		vi.stubGlobal("cancelAnimationFrame", (id: number) => frames.delete(id));
 		vi.stubGlobal("scrollTo", vi.fn());
 		stubLayout();
-		const animations: Array<{
-			currentTime: number | null;
-			pause: ReturnType<typeof vi.fn>;
-			cancel: ReturnType<typeof vi.fn>;
-		}> = [];
-		Object.defineProperty(HTMLElement.prototype, "animate", {
-			configurable: true,
-			value: vi.fn(() => {
-				const animation = { currentTime: 0, pause: vi.fn(), cancel: vi.fn() };
-				animations.push(animation);
-				return animation;
-			}),
-		});
 		const word = {
 			...newLyricWord(),
 			word: "Hi",
@@ -187,6 +167,17 @@ describe("Spicy shared-clock rendering", () => {
 			);
 			const line = container.querySelector("[data-state]");
 			expect(line?.getAttribute("data-state")).toBe("not-sung");
+			// In Simple Lyrics mode the word's fill edge is written every frame
+			// from its progress, -50% + 120% of it. (Normally this one-second
+			// word is held and fills letter by letter.)
+			const fill = () =>
+				Number.parseFloat(
+					line
+						?.querySelector<HTMLElement>("span")
+						?.style.getPropertyValue("--spicy-slm-gradient-position") ?? "",
+				);
+			// Spicy draws this mode 33.5ms behind the playhead.
+			const fillAt = (ms: number) => -50 + 120 * ((ms - 33.5 - 1000) / 1000);
 			// At 950ms, the former +100ms playing lead marked this line active.
 			await act(async () => {
 				testEngine.musicPlaying = true;
@@ -203,10 +194,7 @@ describe("Spicy shared-clock rendering", () => {
 			expect(globalStore.get(currentTimeAtom)).toBe(1500);
 			expect(playbackClock.getSnapshot()).toBe(1.5);
 			expect(line?.getAttribute("data-state")).toBe("active");
-			if (simple) {
-				expect(animations[animations.length - 1]?.currentTime).toBe(500);
-				expect(animations[animations.length - 1]?.pause).toHaveBeenCalled();
-			}
+			if (simple) expect(fill()).toBeCloseTo(fillAt(1500));
 			await act(async () => {
 				testEngine.musicPlaying = false;
 				testEngine.dispatchEvent(new Event("music-pause"));
@@ -217,8 +205,7 @@ describe("Spicy shared-clock rendering", () => {
 				testEngine.dispatchEvent(new Event("music-seeked"));
 			});
 			expect(globalStore.get(currentTimeAtom)).toBe(1750);
-			if (simple)
-				expect(animations[animations.length - 1]?.currentTime).toBe(750);
+			if (simple) expect(fill()).toBeCloseTo(fillAt(1750));
 			expect(frames.size).toBe(0);
 			await act(async () => {
 				testEngine.musicPlaying = true;
@@ -230,8 +217,7 @@ describe("Spicy shared-clock rendering", () => {
 				for (const callback of callbacks) callback(32);
 			});
 			expect(globalStore.get(currentTimeAtom)).toBe(1800);
-			if (simple)
-				expect(animations[animations.length - 1]?.currentTime).toBe(800);
+			if (simple) expect(fill()).toBeCloseTo(fillAt(1800));
 			await act(async () => {
 				testEngine.musicPlaying = false;
 				testEngine.interpolatedCurrentTime = 0;

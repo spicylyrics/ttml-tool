@@ -57,7 +57,9 @@ export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
 					</ActionTooltip>
 				</RibbonSection>
 				{previewModeType === PreviewModeType.Spicy && (
-					<RibbonSection label={t("ribbonBar.previewMode.spicy", "Spicy")}>
+					<RibbonSection
+						label={t("ribbonBar.previewMode.spicy", "Spicy Lyrics")}
+					>
 						<Grid
 							columns="max-content auto"
 							gap="2"

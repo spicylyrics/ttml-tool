@@ -438,7 +438,7 @@
       "mode": "Tila",
       "standard": "Standard",
       "timing": "Ajoitus",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Yksinkertainen sanoitustila",
       "forceLineRendering": "Näytä rivikohtaisesti ajoitettuna",
       "background": "Tausta",
@@ -843,7 +843,7 @@
       "timingOverviewAutoScrollDesc": "Pidä ajoituskatsaus vieritettynä toistokohtaan.",
       "vsyncDesc": "Päivitä Standard- ja Toxi-esikatselut joka ruudulla noin 30 kertaa sekunnissa tapahtuvan päivityksen sijaan. Sulavampi, mutta kuormittaa suoritinta enemmän.",
       "showFpsDesc": "Näytä esikatselussa kuvataajuuslaskuri.",
-      "syncLevelDesc": "Sana: ajoita jokainen sana erikseen. Rivi: ajoita kokonaiset rivit ja jaa sanat tasaisesti alustavaksi ajoitukseksi, jota tarkennat spektrogrammissa.",
+      "syncLevelDesc": "Sana: ajoita jokainen sana erikseen. Rivi: ajoita kokonaiset rivit ja jaa sanat tasaisesti. Rivi-tilakin tallentaa sanakohtaiset ajat, ei rivikohtaisesti synkronoituja sanoituksia, joten tarkenna sanat spektrogrammissa.",
       "previewModeDesc": "Valitse, mikä esikatselu näkyy Esikatselu-välilehdellä.",
       "spicyBackgroundDesc": "Mitä Spicy-esikatselun taustalla näkyy.",
       "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa."
@@ -1105,7 +1105,10 @@
     "volume": "Äänenvoimakkuus",
     "playbackRate": "Toistonopeus",
     "preservesPitch": "Säilytä sävelkorkeus",
-    "clickToLoadMusic": "Lataa ääni napsauttamalla musiikkikuvaketta",
+    "audioMenu": "Ääni ja toisto",
+    "loadedAudio": "Ladattu ääni",
+    "replaceAudio": "Korvaa",
+    "resetSpeed": "Palauta 1×",
     "playPause": "Toista / keskeytä musiikki",
     "expandSpectrogram": "Laajenna / tiivistä spektrogrammi"
   },
@@ -1165,6 +1168,11 @@
     "customKey": "Mukautettu kenttä",
     "addPresets": "Lisää kaikki vakiokentät",
     "clear": "Tyhjennä"
+  },
+  "helpText": {
+    "metadataArtists": "Kuka esittää kappaleen, kuten se on merkitty suoratoistopalveluissa. Esimerkki: ”Shake It Off” on Taylor Swiftin kappale.",
+    "metadataSongwriter": "Kuka kirjoitti musiikin ja sanat, tekijätietojen mukaan. Usein eri henkilöt kuin artistit. Esimerkki: ”Shake It Off” -kappaleen kirjoittivat Taylor Swift, Max Martin ja Shellback.",
+    "openSongwritersGuide": "Avaa lauluntekijäopas"
   },
   "lrclib": {
     "placeholder": "Kappaleen nimi ja esittäjä…",

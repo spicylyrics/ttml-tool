@@ -59,4 +59,4 @@ All active code and translation contributions are welcome! We also welcome bug r
 
 For questions, bug reports and ideas, you can also post in [#ttml-tool](https://discord.com/channels/1369992682214264993/1558259984318603334) on the [Spicy Lyrics Discord](https://discord.com/invite/uqgXU5wh8j) (join first, then the channel link works).
 
-If you want to provide a new language translation, please refer to [`./src/i18n/index.ts`](./src/i18n/index.ts) and [`./locales/zh-CN/translation.json`](./locales/zh-CN/translation.json)!
+If you want to provide a new language translation, please refer to [`./src/i18n/index.ts`](./src/i18n/index.ts) and [`./src/i18n/locales/en-US/translation.json`](./src/i18n/locales/en-US/translation.json)!

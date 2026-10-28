@@ -12,6 +12,7 @@ import {
 	Text,
 	Tooltip,
 } from "@radix-ui/themes";
+import { memo } from "react";
 import { OptionPicker } from "$/components/OptionPicker";
 import type { useAudioSpectrogram } from "../hooks/useAudioSpectrogram";
 import styles from "./AudioSpectrogram.module.css";
@@ -19,7 +20,7 @@ import { FrequencyRuler } from "./FrequencyRuler.tsx";
 
 type SpectrogramState = ReturnType<typeof useAudioSpectrogram>;
 
-export function SpectrogramGainSidebar({
+function GainSidebar({
 	gain,
 	setGain,
 	minGain,
@@ -79,7 +80,7 @@ export function SpectrogramGainSidebar({
 	);
 }
 
-export function SpectrogramSettingsSidebar({
+function SettingsSidebar({
 	t,
 	showUnselectedLines,
 	setShowUnselectedLines,
@@ -182,3 +183,8 @@ export function SpectrogramSettingsSidebar({
 		</div>
 	);
 }
+
+// Memoized so pointer movement and playback over the spectrogram don't
+// re-render these controls.
+export const SpectrogramGainSidebar = memo(GainSidebar);
+export const SpectrogramSettingsSidebar = memo(SettingsSidebar);
