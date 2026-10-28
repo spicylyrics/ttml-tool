@@ -1104,6 +1104,13 @@
     "playPause": "Lecture / pause de la musique",
     "expandSpectrogram": "Développer / réduire le spectrogramme"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Estimé à partir de l'audio chargé. Sur certains morceaux, il peut être doublé ou divisé par deux.",
+    "setting": "Afficher le tempo estimé",
+    "settingDesc": "Estime le BPM du morceau une fois l'audio chargé et l'affiche dans le ruban Temps."
+  },
   "latencyTestDialog": {
     "title": "Test de latence",
     "latencyDisplay": {

@@ -1104,6 +1104,13 @@
     "playPause": "Muziek afspelen / onderbreken",
     "expandSpectrogram": "Uitvouwen / samenvouwen spectrogram"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Geschat op basis van de geladen audio. Bij sommige nummers kan het dubbel of de helft zijn.",
+    "setting": "Geschat tempo tonen",
+    "settingDesc": "Schat de BPM van het nummer nadat de audio is geladen en toont die in het lint Tijd."
+  },
   "latencyTestDialog": {
     "title": "Latentietest",
     "latencyDisplay": {

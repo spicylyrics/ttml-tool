@@ -4,6 +4,7 @@ import {
 	MAX_PLAYBACK_RATE,
 	MIN_PLAYBACK_RATE,
 } from "$/modules/audio/utils/playback-rate";
+import { BpmDisplaySetting } from "$/modules/bpm/components/BpmDisplaySetting";
 import type { CommonSettings } from "./useCommonSettings";
 export const PlaybackSection = ({
 	volume,
@@ -71,5 +72,7 @@ export const PlaybackSection = ({
 				</Box>
 			</Flex>
 		</Card>
+
+		<BpmDisplaySetting />
 	</Flex>
 );
