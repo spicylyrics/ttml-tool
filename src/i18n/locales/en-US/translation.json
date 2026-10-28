@@ -1296,6 +1296,25 @@
     "howToGetKey": "How to get a Genius access token",
     "changeKey": "Change access token"
   },
+  "referenceSidebar": {
+    "setting": "Reference sidebar",
+    "settingDesc": "Dock the preview and the song's Genius lyrics on the right in Edit and Time mode. Replaces the Preview panel.",
+    "label": "Reference sidebar",
+    "collapse": "Collapse sidebar",
+    "tabs": {
+      "preview": "Preview",
+      "genius": "Genius",
+      "problems": "Problems"
+    },
+    "genius": {
+      "changeSong": "Change song",
+      "backToLyrics": "Back to lyrics",
+      "searchFailed": "Search failed: {error}",
+      "loadFailed": "Could not load the lyrics: {error}",
+      "retry": "Try again",
+      "lyricsLabel": "Genius lyrics for {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Process lyrics",
     "processedSuccess": "Lyrics prepared for syllable syncing.",

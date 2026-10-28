@@ -1296,6 +1296,25 @@
     "howToGetKey": "Cum obții un token de acces Genius",
     "changeKey": "Schimbă tokenul de acces"
   },
+  "referenceSidebar": {
+    "setting": "Panou de referință",
+    "settingDesc": "Fixează în dreapta previzualizarea și versurile Genius ale piesei în Editare și Sincronizare. Înlocuiește panoul de previzualizare.",
+    "label": "Panou de referință",
+    "collapse": "Restrânge panoul",
+    "tabs": {
+      "preview": "Previzualizare",
+      "genius": "Genius",
+      "problems": "Probleme"
+    },
+    "genius": {
+      "changeSong": "Schimbă piesa",
+      "backToLyrics": "Înapoi la versuri",
+      "searchFailed": "Căutarea a eșuat: {error}",
+      "loadFailed": "Versurile nu au putut fi încărcate: {error}",
+      "retry": "Încearcă din nou",
+      "lyricsLabel": "Versuri Genius pentru {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Procesează versurile",
     "processedSuccess": "Versurile sunt pregătite pentru sincronizarea pe silabe.",

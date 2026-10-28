@@ -1296,6 +1296,25 @@
     "howToGetKey": "Genius-käyttöoikeustunnuksen hankkiminen",
     "changeKey": "Vaihda käyttöoikeustunnus"
   },
+  "referenceSidebar": {
+    "setting": "Viitepaneeli",
+    "settingDesc": "Kiinnittää esikatselun ja kappaleen Genius-sanoitukset oikealle Muokkaus- ja Ajoitus-tilassa. Korvaa esikatselupaneelin.",
+    "label": "Viitepaneeli",
+    "collapse": "Pienennä paneeli",
+    "tabs": {
+      "preview": "Esikatselu",
+      "genius": "Genius",
+      "problems": "Ongelmat"
+    },
+    "genius": {
+      "changeSong": "Vaihda kappale",
+      "backToLyrics": "Takaisin sanoituksiin",
+      "searchFailed": "Haku epäonnistui: {error}",
+      "loadFailed": "Sanoituksia ei voitu ladata: {error}",
+      "retry": "Yritä uudelleen",
+      "lyricsLabel": "Genius-sanoitukset: {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Käsittele sanoitukset",
     "processedSuccess": "Sanoitukset on valmisteltu tavukohtaiseen ajoitukseen.",

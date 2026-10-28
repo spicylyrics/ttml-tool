@@ -1296,6 +1296,25 @@
     "howToGetKey": "Comment obtenir un jeton d’accès Genius",
     "changeKey": "Changer le jeton d’accès"
   },
+  "referenceSidebar": {
+    "setting": "Panneau de référence",
+    "settingDesc": "Ancre l’aperçu et les paroles Genius du morceau à droite en Édition et Synchronisation. Remplace le panneau d’aperçu.",
+    "label": "Panneau de référence",
+    "collapse": "Réduire le panneau",
+    "tabs": {
+      "preview": "Aperçu",
+      "genius": "Genius",
+      "problems": "Problèmes"
+    },
+    "genius": {
+      "changeSong": "Changer de morceau",
+      "backToLyrics": "Retour aux paroles",
+      "searchFailed": "La recherche a échoué : {error}",
+      "loadFailed": "Impossible de charger les paroles : {error}",
+      "retry": "Réessayer",
+      "lyricsLabel": "Paroles Genius de {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Préparer les paroles",
     "processedSuccess": "Paroles prêtes pour la synchronisation par syllabe.",
