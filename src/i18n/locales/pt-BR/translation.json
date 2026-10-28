@@ -1197,6 +1197,14 @@
     "correctedWordPlaceholder": "Digite a palavra corrigida",
     "noSuggestions": "Nenhuma sugestão"
   },
+  "timeModeEditing": {
+    "flagTitle": "Edição de palavras no modo Sincronização",
+    "flagDesc": "Divida, combine e substitua palavras pelo menu de clique direito no modo Sincronização. Uma divisão em duas partes acontece no cursor de reprodução quando ele está dentro da palavra.",
+    "doubleClickTimestamp": "Clique duplo edita o carimbo de tempo",
+    "doubleClickTimestampDesc": "Clique duas vezes em uma palavra no modo Sincronização para digitar o tempo inicial em vez do texto. Os carimbos de tempo precisam estar visíveis.",
+    "combinePrevious": "Combinar com a palavra anterior",
+    "combineNext": "Combinar com a próxima palavra"
+  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Categorizar # linha selecionada} many {Categorizar # linhas selecionadas} other {Categorizar # linhas selecionadas}}",
     "categorizeTitle": "Categorizar linhas selecionadas",
@@ -1225,6 +1233,17 @@
   "touchSyncPanel": {
     "prevWord": "Palavra anterior",
     "nextWord": "Próxima palavra"
+  },
+  "lineSync": {
+    "flagTitle": "Sincronização por linha",
+    "flagDesc": "Permite sincronizar cada música por palavra ou por linha inteira. No modo Linha, F, G e H iniciam e terminam linhas inteiras.",
+    "timing": "Sincronização da música",
+    "timingDesc": "Palavra: cada palavra tem seu próprio tempo. Linha: só linhas inteiras são sincronizadas, e o TTML é exportado sincronizado por linha.",
+    "word": "Palavra",
+    "line": "Linha",
+    "confirmTitle": "Mudar para sincronização por linha?",
+    "confirmDescription": "Cada palavra mantém seu texto, mas perde seu próprio tempo. Cada linha mantém seu início e fim. Você pode desfazer isso.",
+    "confirmAction": "Mudar para Linha"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

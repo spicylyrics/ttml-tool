@@ -1197,6 +1197,14 @@
     "correctedWordPlaceholder": "Wpisz poprawione słowo",
     "noSuggestions": "Żadnych sugestii"
   },
+  "timeModeEditing": {
+    "flagTitle": "Edycja słów w trybie Synchronizacja",
+    "flagDesc": "Dziel, łącz i zastępuj słowa z menu kontekstowego w trybie Synchronizacja. Podział na dwie części następuje w miejscu odtwarzania, jeśli jest ono wewnątrz słowa.",
+    "doubleClickTimestamp": "Dwuklik edytuje znacznik czasu",
+    "doubleClickTimestampDesc": "Kliknij dwukrotnie słowo w trybie Synchronizacja, aby wpisać czas początku zamiast tekstu. Wymaga widocznych znaczników czasu.",
+    "combinePrevious": "Połącz z poprzednim słowem",
+    "combineNext": "Połącz z następnym słowem"
+  },
   "sectionActions": {
     "categorizeSelected": "Przypisz kategorię do {count, plural, one {# zaznaczonego wersu} few {# zaznaczonych wersów} many {# zaznaczonych wersów} other {# zaznaczonego wersu}}",
     "categorizeTitle": "Przypisz kategorię zaznaczonym wersom",
@@ -1225,6 +1233,17 @@
   "touchSyncPanel": {
     "prevWord": "Poprzednie słowo",
     "nextWord": "Następne słowo"
+  },
+  "lineSync": {
+    "flagTitle": "Synchronizacja linii",
+    "flagDesc": "Pozwala synchronizować każdy utwór słowami lub całymi liniami. W trybie Linia klawisze F, G i H rozpoczynają i kończą całe linie.",
+    "timing": "Synchronizacja utworu",
+    "timingDesc": "Słowo: każde słowo ma własny czas. Linia: synchronizowane są tylko całe linie, a TTML jest eksportowany jako synchronizowany liniami.",
+    "word": "Słowo",
+    "line": "Linia",
+    "confirmTitle": "Przełączyć na synchronizację liniami?",
+    "confirmDescription": "Każde słowo zachowa swój tekst, ale straci własny czas. Każda linia zachowa swój początek i koniec. Możesz to cofnąć.",
+    "confirmAction": "Przełącz na Linię"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

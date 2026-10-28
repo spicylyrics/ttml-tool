@@ -16,6 +16,7 @@ import {
 	Rename24Regular,
 	Sparkle24Regular,
 	TapSingle24Regular,
+	TextAlignLeft24Regular,
 	TextCaseTitle24Regular,
 	TextDescription24Regular,
 	TextEditStyle24Regular,
@@ -28,7 +29,9 @@ import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
+import { TimeModeEditingSettings } from "$/modules/time-mode-editing/TimeModeEditingSettings";
 import { showPreviewPanelAtom } from "$/states/main";
 import {
 	BackgroundSyncControl,
@@ -196,6 +199,14 @@ const syncAidToggles: readonly ToggleRow[] = [
 		<TapSingle24Regular key="icon" />,
 		showTouchSyncPanelAtom,
 	],
+	[
+		"lineSync.flagTitle",
+		"Line syncing",
+		"lineSync.flagDesc",
+		"Lets each song be timed by word or by whole line. In Line mode, F, G and H start and end whole lines.",
+		<TextAlignLeft24Regular key="icon" />,
+		lineSyncEnabledAtom,
+	],
 ];
 
 const previewToggles: readonly ToggleRow[] = [
@@ -354,6 +365,7 @@ export const WorkflowSettings = () => {
 					<BackgroundSyncControl variant="segmented" />
 				</SettingRow>
 				{toggles(syncAidToggles)}
+				<TimeModeEditingSettings />
 			</Flex>
 			<Flex direction="column" gap="3">
 				<Heading size="4">

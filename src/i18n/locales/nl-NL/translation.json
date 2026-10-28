@@ -1197,6 +1197,14 @@
     "correctedWordPlaceholder": "Typ het gecorrigeerde woord",
     "noSuggestions": "Geen suggesties"
   },
+  "timeModeEditing": {
+    "flagTitle": "Woorden bewerken in Timing",
+    "flagDesc": "Splits, voeg samen en vervang woorden via het rechtermuisknopmenu in Timing. Een splitsing in twee delen valt op de afspeelpositie als die binnen het woord ligt.",
+    "doubleClickTimestamp": "Dubbelklikken bewerkt de tijdstempel",
+    "doubleClickTimestampDesc": "Dubbelklik in Timing op een woord om de begintijd te typen in plaats van de tekst. Tijdstempels moeten zichtbaar zijn.",
+    "combinePrevious": "Samenvoegen met vorig woord",
+    "combineNext": "Samenvoegen met volgend woord"
+  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {# geselecteerde regel categoriseren} other {# geselecteerde regels categoriseren}}",
     "categorizeTitle": "Geselecteerde regels categoriseren",
@@ -1225,6 +1233,17 @@
   "touchSyncPanel": {
     "prevWord": "Vorig woord",
     "nextWord": "Volgend woord"
+  },
+  "lineSync": {
+    "flagTitle": "Regelsynchronisatie",
+    "flagDesc": "Laat elk nummer per woord of per hele regel timen. In de modus Regel starten en beëindigen F, G en H hele regels.",
+    "timing": "Timing van het nummer",
+    "timingDesc": "Woord: elk woord krijgt een eigen tijd. Regel: alleen hele regels worden getimed en de TTML wordt per regel gesynchroniseerd geëxporteerd.",
+    "word": "Woord",
+    "line": "Regel",
+    "confirmTitle": "Overschakelen naar regeltiming?",
+    "confirmDescription": "Elk woord houdt zijn tekst maar verliest zijn eigen timing. Elke regel houdt zijn begin en einde. Je kunt dit ongedaan maken.",
+    "confirmAction": "Naar Regel"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

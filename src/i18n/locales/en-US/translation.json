@@ -1197,6 +1197,14 @@
     "correctedWordPlaceholder": "Type the corrected word",
     "noSuggestions": "No suggestions"
   },
+  "timeModeEditing": {
+    "flagTitle": "Word editing in Time mode",
+    "flagDesc": "Split, combine and replace words from the right-click menu in Time mode. A two-part split lands at the playhead when it is inside the word.",
+    "doubleClickTimestamp": "Double-click edits the timestamp",
+    "doubleClickTimestampDesc": "Double-click a word in Time mode to type its start time instead of its text. Needs timestamps shown.",
+    "combinePrevious": "Combine with previous word",
+    "combineNext": "Combine with next word"
+  },
   "sectionActions": {
     "categorizeSelected": "Categorize selected {count, plural, one {line} other {lines}}",
     "categorizeTitle": "Categorize selected lines",
@@ -1225,6 +1233,17 @@
   "touchSyncPanel": {
     "prevWord": "Previous word",
     "nextWord": "Next word"
+  },
+  "lineSync": {
+    "flagTitle": "Line syncing",
+    "flagDesc": "Lets each song be timed by word or by whole line. In Line mode, F, G and H start and end whole lines.",
+    "timing": "Song timing",
+    "timingDesc": "Word: every word gets its own time. Line: only whole lines are timed, and the TTML is exported line-synced.",
+    "word": "Word",
+    "line": "Line",
+    "confirmTitle": "Switch to Line timing?",
+    "confirmDescription": "Every word keeps its text but loses its own timing. Each line keeps its start and end. You can undo this.",
+    "confirmAction": "Switch to Line"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
