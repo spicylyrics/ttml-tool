@@ -115,10 +115,6 @@ function InlineSectionRow({
 					onBlur={commit}
 					onKeyDown={(event) => {
 						if (event.key === "Enter") commit();
-						if (event.key === "Escape" && draft !== section.text) {
-							event.stopPropagation();
-							setDraft(section.text);
-						}
 					}}
 				/>
 				<Select.Root
