@@ -115,6 +115,10 @@ import { type ExportTranslation, saveTTML } from "./modules/project/ttml-save";
 import { ProjectsHubEffects } from "./modules/projects-hub/components/ProjectsHubEffects";
 import { openDroppedFiles } from "./modules/projects-hub/open-dropped-files";
 import { projectsHubEnabledAtom } from "./modules/projects-hub/states";
+import {
+	legacyPreviewPanelShownAtom,
+	referenceSidebarEnabledAtom,
+} from "./modules/reference-sidebar/states";
 import { InterfaceScaleManager } from "./modules/settings/components/InterfaceScaleManager";
 import {
 	customBackgroundBlurAtom,
@@ -131,7 +135,6 @@ import {
 	isDarkThemeAtom,
 	isGlobalFileDraggingAtom,
 	lyricLinesAtom,
-	showPreviewPanelAtom,
 	ToolMode,
 	toolModeAtom,
 } from "./states/main.ts";
@@ -147,6 +150,9 @@ const TranscriptionWorkspace = lazy(
 	() => import("./modules/transcription/components/TranscriptionWorkspace"),
 );
 const Dialogs = lazy(() => import("./components/Dialogs"));
+const ReferenceSidebar = lazy(
+	() => import("./modules/reference-sidebar/ReferenceSidebar"),
+);
 
 // The default toast bounce overshoots; the design slides in and out instead.
 const spicyLyricsToastTransition = cssTransition({
@@ -222,7 +228,8 @@ function App() {
 	const spicyLyricsDesign = useAtomValue(spicyLyricsDesignAtom);
 	const toolMode = useAtomValue(toolModeAtom);
 	const showTouchSyncPanel = useAtomValue(showTouchSyncPanelAtom);
-	const showPreviewPanel = useAtomValue(showPreviewPanelAtom);
+	const showPreviewPanel = useAtomValue(legacyPreviewPanelShownAtom);
+	const referenceSidebarEnabled = useAtomValue(referenceSidebarEnabledAtom);
 	// Preview mode already owns the entire editor area. Keep the sync preview
 	// pane's setting intact for when the user returns, but never render a second
 	// preview beside it.
@@ -817,6 +824,11 @@ function App() {
 													</AnimatePresence>
 												)}
 											</Box>
+											{referenceSidebarEnabled && (
+												<Suspense fallback={null}>
+													<ReferenceSidebar />
+												</Suspense>
+											)}
 										</Flex>
 									</Box>
 								);

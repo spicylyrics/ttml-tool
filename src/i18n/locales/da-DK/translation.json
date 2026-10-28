@@ -1616,6 +1616,25 @@
     "howToGetKey": "Sådan får du et Genius-adgangstoken",
     "changeKey": "Skift adgangstoken"
   },
+  "referenceSidebar": {
+    "setting": "Referencepanel",
+    "settingDesc": "Fastgør forhåndsvisningen og sangens tekst fra Genius til højre i Redigering og Timing. Erstatter forhåndsvisningspanelet.",
+    "label": "Referencepanel",
+    "collapse": "Fold panelet sammen",
+    "tabs": {
+      "preview": "Forhåndsvisning",
+      "genius": "Genius",
+      "problems": "Problemer"
+    },
+    "genius": {
+      "changeSong": "Skift sang",
+      "backToLyrics": "Tilbage til teksten",
+      "searchFailed": "Søgningen mislykkedes: {error}",
+      "loadFailed": "Kunne ikke indlæse teksten: {error}",
+      "retry": "Prøv igen",
+      "lyricsLabel": "Tekst fra Genius til {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Behandl sangtekster",
     "processedSuccess": "Sangteksten er klar til stavelsessynkronisering.",

@@ -1616,6 +1616,25 @@
     "howToGetKey": "Jak uzyskać token dostępu Genius",
     "changeKey": "Zmień token dostępu"
   },
+  "referenceSidebar": {
+    "setting": "Panel referencyjny",
+    "settingDesc": "Przypina podgląd i tekst utworu z Genius po prawej w trybie Edycja i Synchronizacja. Zastępuje panel podglądu.",
+    "label": "Panel referencyjny",
+    "collapse": "Zwiń panel",
+    "tabs": {
+      "preview": "Podgląd",
+      "genius": "Genius",
+      "problems": "Problemy"
+    },
+    "genius": {
+      "changeSong": "Zmień utwór",
+      "backToLyrics": "Wróć do tekstu",
+      "searchFailed": "Wyszukiwanie nie powiodło się: {error}",
+      "loadFailed": "Nie udało się wczytać tekstu: {error}",
+      "retry": "Spróbuj ponownie",
+      "lyricsLabel": "Tekst z Genius: {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Przetwórz tekst",
     "processedSuccess": "Tekst przygotowany do synchronizacji sylab.",

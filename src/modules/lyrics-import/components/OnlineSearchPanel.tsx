@@ -25,12 +25,15 @@ export function OnlineSearchBar({
 	onQueryChange,
 	onSearch,
 	searching,
+	autoFocus = true,
 }: {
 	source: OnlineImportSource;
 	query: string;
 	onQueryChange: (query: string) => void;
 	onSearch: () => void;
 	searching: boolean;
+	/** Off where the bar sits beside the editor, so it doesn't take focus from it. */
+	autoFocus?: boolean;
 }) {
 	const { t } = useTranslation();
 	const [geniusApiKey, setGeniusApiKey] = useAtom(geniusApiKeyAtom);
@@ -80,7 +83,7 @@ export function OnlineSearchBar({
 	return (
 		<Flex gap="2" align="center">
 			<TextField.Root
-				autoFocus
+				autoFocus={autoFocus}
 				style={{ flex: 1 }}
 				placeholder={t("lrclib.placeholder", "Song title and artist...")}
 				aria-label={t("common.search", "Search")}

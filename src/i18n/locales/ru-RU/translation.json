@@ -1616,6 +1616,25 @@
     "howToGetKey": "Как получить токен доступа Genius",
     "changeKey": "Изменить токен доступа"
   },
+  "referenceSidebar": {
+    "setting": "Справочная панель",
+    "settingDesc": "Закрепляет предпросмотр и текст песни с Genius справа в режимах Правка и Синхронизация. Заменяет панель предпросмотра.",
+    "label": "Справочная панель",
+    "collapse": "Свернуть панель",
+    "tabs": {
+      "preview": "Предпросмотр",
+      "genius": "Genius",
+      "problems": "Проблемы"
+    },
+    "genius": {
+      "changeSong": "Сменить песню",
+      "backToLyrics": "Назад к тексту",
+      "searchFailed": "Поиск не удался: {error}",
+      "loadFailed": "Не удалось загрузить текст: {error}",
+      "retry": "Повторить",
+      "lyricsLabel": "Текст с Genius: {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Обработать текст",
     "processedSuccess": "Текст подготовлен для синхронизации по слогам.",
