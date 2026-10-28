@@ -1894,6 +1894,13 @@
       "bg": "Achtergrond"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Eén greep voor het regeleinde",
+    "settingDesc": "Toont één greep waar een regel en het laatste woord samen eindigen, en slepen verplaatst beide. Slepen met Alt verplaatst er maar één. Waar ze verschillen, is het einde van het laatste woord een korte balk en het regeleinde een hoge.",
+    "mergedHandle": "Einde van de regel en het laatste woord. Sleep met Alt om er maar één te verplaatsen.",
+    "wordEndHandle": "Einde van het laatste woord",
+    "lineEndHandle": "Regeleinde"
+  },
   "spectrogram": {
     "invalidEndTime": "Kan deze eindtijd niet selecteren",
     "noAudioLoaded": "Laad een audiobestand om het spectrogram te tonen",

@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { useAtomValue, useSetAtom, useStore } from "jotai";
 import React, { type FC, memo, useCallback, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import type { ProcessedLyricLine } from "$/modules/segmentation/utils/segment-processing.ts";
 import { spectrogramScrollLeftAtom } from "$/modules/spectrogram/states";
 import {
@@ -8,12 +9,14 @@ import {
 	selectedWordIdAtom,
 	timelineDragAtom,
 } from "$/modules/spectrogram/states/dnd.ts";
+import { spectrogramLineEndHandlesAtom } from "$/modules/spectrogram/states/line-end-handles.ts";
+import { getLineEndDividers } from "$/modules/spectrogram/utils/line-end-handles.ts";
 import {
 	getDividerEdge,
 	hasOverlappedStart,
 } from "$/modules/spectrogram/utils/timeline-mutations.ts";
 import { editingTimeFieldAtom, selectedLinesAtom } from "$/states/main.ts";
-import { DividerSegment } from "./DividerSegment.tsx";
+import { DividerSegment, type LineEndRole } from "./DividerSegment.tsx";
 import { GapSegment } from "./GapSegment.tsx";
 import styles from "./LyricLineSegment.module.css";
 import { LyricWordSegment } from "./LyricWordSegment.tsx";
@@ -41,6 +44,8 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 	const store = useStore();
 	const editingTimeField = useAtomValue(editingTimeFieldAtom);
 	const setTimelineDrag = useSetAtom(timelineDragAtom);
+	const lineEndHandlesEnabled = useAtomValue(spectrogramLineEndHandlesAtom);
+	const { t } = useTranslation();
 
 	let displayLine: ProcessedLyricLine;
 	if (!isGhost && previewLine && previewLine.id === line.id) {
@@ -117,6 +122,29 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 		cursor: isGhost ? "default" : "auto",
 	};
 
+	const lineEndDividers =
+		lineEndHandlesEnabled && !isGhost
+			? getLineEndDividers(segments, displayLine.endTime, zoom, isTouchingEnd)
+			: null;
+	const lineEndLabel = (role: LineEndRole) =>
+		role === "merged"
+			? t(
+					"spectrogramLineEnds.mergedHandle",
+					"Line and last word end. Alt-drag to move only one.",
+				)
+			: role === "word"
+				? t("spectrogramLineEnds.wordEndHandle", "Last word end")
+				: t("spectrogramLineEnds.lineEndHandle", "Line end");
+	const lineEnd = lineEndDividers && {
+		hidden: lineEndDividers.hidden,
+		props: new Map(
+			[...lineEndDividers.props].map(([index, props]) => [
+				index,
+				{ ...props, ariaLabel: lineEndLabel(props.lineEndRole) },
+			]),
+		),
+	};
+
 	return (
 		<div
 			className={classNames(
@@ -173,7 +201,7 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 							isGhost={isGhost}
 						/>
 					)}
-					{!isGhost && (
+					{!isGhost && !lineEnd?.hidden.has(index) && (
 						<DividerSegment
 							key={`divider-${segment.id}`}
 							lineId={displayLine.id}
@@ -183,6 +211,7 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 							segmentsLength={segmentsLength}
 							isTouching={index === segmentsLength - 1 ? isTouchingEnd : false}
 							edge={getDividerEdge(segments, index, displayLine.endTime)}
+							{...lineEnd?.props.get(index)}
 						/>
 					)}
 				</React.Fragment>

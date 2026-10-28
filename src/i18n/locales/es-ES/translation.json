@@ -1894,6 +1894,13 @@
       "bg": "Fondo"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Un solo control de fin de línea",
+    "settingDesc": "Muestra un solo control donde una línea y su última palabra terminan a la vez, y al arrastrarlo se mueven ambos. Arrastrar con Alt mueve solo uno. Donde no coinciden, el fin de la última palabra es una barra corta y el fin de la línea una alta.",
+    "mergedHandle": "Fin de la línea y de la última palabra. Arrastra con Alt para mover solo uno.",
+    "wordEndHandle": "Fin de la última palabra",
+    "lineEndHandle": "Fin de la línea"
+  },
   "spectrogram": {
     "invalidEndTime": "No se puede seleccionar este tiempo final",
     "noAudioLoaded": "Carga un archivo de audio para mostrar el espectrograma",

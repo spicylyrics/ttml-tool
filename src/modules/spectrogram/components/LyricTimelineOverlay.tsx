@@ -26,6 +26,7 @@ import {
 	isTouchingLaneStart,
 	type SpectrogramLaneKind,
 } from "$/modules/spectrogram/utils/lanes.ts";
+import { getUpdatedLineForMergedEnd } from "$/modules/spectrogram/utils/line-end-handles.ts";
 import {
 	commitUpdatedLine,
 	getUpdatedLineForDivider,
@@ -179,15 +180,21 @@ const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 						if (closestSnapTime !== null) newTime = closestSnapTime;
 					}
 
-					const preview = getUpdatedLineForDivider(
-						lineBeingDragged,
-						segmentIndex,
-						newTime,
-						isGapCreation,
-						zoom,
-						lockedGapDirection,
-						edge,
-					);
+					const preview = timelineDrag.mergedLineEnd
+						? getUpdatedLineForMergedEnd(
+								lineBeingDragged,
+								newTime,
+								isGapCreation,
+							)
+						: getUpdatedLineForDivider(
+								lineBeingDragged,
+								segmentIndex,
+								newTime,
+								isGapCreation,
+								zoom,
+								lockedGapDirection,
+								edge,
+							);
 					setPreviewLine(preview);
 					break;
 				}

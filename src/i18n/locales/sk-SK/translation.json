@@ -1894,6 +1894,13 @@
       "bg": "Sprievod"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Jeden úchyt konca riadka",
+    "settingDesc": "Kde riadok a jeho posledné slovo končia spolu, zobrazí jeden úchyt, ktorý posunie oboje. Ťahanie s Alt posunie len jedno z nich. Kde sa líšia, koniec posledného slova je krátka čiara a koniec riadka vysoká.",
+    "mergedHandle": "Koniec riadka a posledného slova. Ťahaním s Alt posuniete len jedno.",
+    "wordEndHandle": "Koniec posledného slova",
+    "lineEndHandle": "Koniec riadka"
+  },
   "spectrogram": {
     "invalidEndTime": "Nemožno vybrať tento čas konca",
     "noAudioLoaded": "Načítajte zvukový súbor na zobrazenie spektrogramu",

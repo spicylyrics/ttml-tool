@@ -1894,6 +1894,13 @@
       "bg": "背景人声"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "合并行尾手柄",
+    "settingDesc": "当一行与其最后一个词同时结束时只显示一个手柄，拖动会同时移动两者。按住 Alt 拖动只移动其中一个。两者不同时，最后一个词的结尾显示为短条，行尾显示为长条。",
+    "mergedHandle": "行尾与最后一个词的结尾。按住 Alt 拖动只移动其中一个。",
+    "wordEndHandle": "最后一个词的结尾",
+    "lineEndHandle": "行尾"
+  },
   "spectrogram": {
     "invalidEndTime": "不能选择此结束时间",
     "noAudioLoaded": "加载音频文件以显示频谱图",

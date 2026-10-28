@@ -1894,6 +1894,13 @@
       "bg": "Arka vokal"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Tek satır sonu tutamacı",
+    "settingDesc": "Bir satır ve son kelimesi birlikte bittiğinde tek bir tutamaç gösterir ve sürüklemek ikisini birden taşır. Alt ile sürüklemek yalnızca birini taşır. Farklı olduklarında son kelimenin sonu kısa, satırın sonu uzun bir çubuktur.",
+    "mergedHandle": "Satırın ve son kelimenin sonu. Yalnızca birini taşımak için Alt ile sürükleyin.",
+    "wordEndHandle": "Son kelimenin sonu",
+    "lineEndHandle": "Satır sonu"
+  },
   "spectrogram": {
     "invalidEndTime": "Bu bitiş zamanı seçilemez",
     "noAudioLoaded": "Spektrogramı göstermek için ses dosyası yükleyin",

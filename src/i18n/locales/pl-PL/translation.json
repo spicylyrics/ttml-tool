@@ -1894,6 +1894,13 @@
       "bg": "W tle"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Jeden uchwyt końca wiersza",
+    "settingDesc": "Pokazuje jeden uchwyt tam, gdzie wiersz i jego ostatnie słowo kończą się razem, a przeciągnięcie przesuwa oba. Przeciąganie z Alt przesuwa tylko jedno. Gdy się różnią, koniec ostatniego słowa to krótka kreska, a koniec wiersza wysoka.",
+    "mergedHandle": "Koniec wiersza i ostatniego słowa. Przeciągnij z Alt, aby przesunąć tylko jedno.",
+    "wordEndHandle": "Koniec ostatniego słowa",
+    "lineEndHandle": "Koniec wiersza"
+  },
   "spectrogram": {
     "invalidEndTime": "Nie można wybrać tego czasu końcowego",
     "noAudioLoaded": "Wczytaj plik audio, aby zobaczyć spektrogram",

@@ -1894,6 +1894,13 @@
       "bg": "Apoio"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Uma só alça de fim de linha",
+    "settingDesc": "Mostra uma só alça onde uma linha e sua última palavra terminam juntas, e arrastá-la move as duas. Arrastar com Alt move só uma. Onde são diferentes, o fim da última palavra é uma barra curta e o fim da linha uma alta.",
+    "mergedHandle": "Fim da linha e da última palavra. Arraste com Alt para mover só um.",
+    "wordEndHandle": "Fim da última palavra",
+    "lineEndHandle": "Fim da linha"
+  },
   "spectrogram": {
     "invalidEndTime": "Não é possível selecionar este tempo de fim",
     "noAudioLoaded": "Por favor, carregue um arquivo de áudio para renderizar o espectrograma",

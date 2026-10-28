@@ -1894,6 +1894,13 @@
       "bg": "Chœurs"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Une seule poignée de fin de ligne",
+    "settingDesc": "Affiche une seule poignée là où une ligne et son dernier mot finissent ensemble, et la faire glisser déplace les deux. Glisser avec Alt n'en déplace qu'un. Quand ils diffèrent, la fin du dernier mot est une barre courte et la fin de la ligne une barre haute.",
+    "mergedHandle": "Fin de la ligne et du dernier mot. Glissez avec Alt pour n'en déplacer qu'un.",
+    "wordEndHandle": "Fin du dernier mot",
+    "lineEndHandle": "Fin de la ligne"
+  },
   "spectrogram": {
     "invalidEndTime": "Impossible de sélectionner ce temps de fin",
     "noAudioLoaded": "Veuillez charger un fichier audio pour afficher le spectrogramme",

@@ -1894,6 +1894,13 @@
       "bg": "Cori"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Un'unica maniglia di fine riga",
+    "settingDesc": "Mostra un'unica maniglia dove una riga e la sua ultima parola finiscono insieme, e trascinarla le sposta entrambe. Trascinare con Alt ne sposta solo una. Dove sono diverse, la fine dell'ultima parola è una barra corta e la fine della riga una alta.",
+    "mergedHandle": "Fine della riga e dell'ultima parola. Trascina con Alt per spostarne solo una.",
+    "wordEndHandle": "Fine dell'ultima parola",
+    "lineEndHandle": "Fine della riga"
+  },
   "spectrogram": {
     "invalidEndTime": "Impossibile selezionare questo tempo di fine",
     "noAudioLoaded": "Carica un file audio per generare lo spettrogramma",

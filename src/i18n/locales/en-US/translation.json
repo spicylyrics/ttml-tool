@@ -1894,6 +1894,13 @@
       "bg": "Background"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Single line-end handle",
+    "settingDesc": "Shows one handle where a line and its last word end together, and dragging it moves both. Alt-drag moves only one. Where they differ, the last word's end is a short bar and the line end a tall one.",
+    "mergedHandle": "Line and last word end. Alt-drag to move only one.",
+    "wordEndHandle": "Last word end",
+    "lineEndHandle": "Line end"
+  },
   "spectrogram": {
     "invalidEndTime": "Cannot select this end time",
     "noAudioLoaded": "Load an audio file to show the spectrogram",

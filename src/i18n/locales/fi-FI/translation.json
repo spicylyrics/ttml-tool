@@ -1894,6 +1894,13 @@
       "bg": "Tausta"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Yksi rivin lopun kahva",
+    "settingDesc": "Näyttää yhden kahvan, kun rivi ja sen viimeinen sana päättyvät yhtä aikaa, ja vetäminen siirtää molempia. Alt-veto siirtää vain toista. Kun ne eroavat, viimeisen sanan loppu on lyhyt palkki ja rivin loppu korkea.",
+    "mergedHandle": "Rivin ja viimeisen sanan loppu. Siirrä vain toista Alt-vedolla.",
+    "wordEndHandle": "Viimeisen sanan loppu",
+    "lineEndHandle": "Rivin loppu"
+  },
   "spectrogram": {
     "invalidEndTime": "Tätä loppuaikaa ei voi valita",
     "noAudioLoaded": "Lataa äänitiedosto näyttääksesi spektrogrammin",

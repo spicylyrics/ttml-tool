@@ -1894,6 +1894,13 @@
       "bg": "Latar"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Satu pegangan akhir baris",
+    "settingDesc": "Menampilkan satu pegangan saat baris dan kata terakhirnya berakhir bersamaan, dan menyeretnya menggeser keduanya. Seret dengan Alt hanya menggeser salah satunya. Jika berbeda, akhir kata terakhir berupa garis pendek dan akhir baris garis tinggi.",
+    "mergedHandle": "Akhir baris dan kata terakhir. Seret dengan Alt untuk menggeser salah satunya saja.",
+    "wordEndHandle": "Akhir kata terakhir",
+    "lineEndHandle": "Akhir baris"
+  },
   "spectrogram": {
     "invalidEndTime": "Tidak dapat memilih waktu akhir ini",
     "noAudioLoaded": "Muat file audio untuk menampilkan spektrogram",

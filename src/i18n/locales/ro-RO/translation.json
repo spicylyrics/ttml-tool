@@ -1894,6 +1894,13 @@
       "bg": "Fundal"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Un singur mâner de final de rând",
+    "settingDesc": "Afișează un singur mâner acolo unde un rând și ultimul său cuvânt se termină împreună, iar tragerea lui le mută pe amândouă. Tragerea cu Alt mută doar unul. Unde diferă, finalul ultimului cuvânt este o bară scurtă, iar finalul rândului una înaltă.",
+    "mergedHandle": "Finalul rândului și al ultimului cuvânt. Trage cu Alt ca să muți doar unul.",
+    "wordEndHandle": "Finalul ultimului cuvânt",
+    "lineEndHandle": "Finalul rândului"
+  },
   "spectrogram": {
     "invalidEndTime": "Nu se poate selecta acest timp de sfârșit",
     "noAudioLoaded": "Încarcă un fișier audio pentru a afișa spectrograma",

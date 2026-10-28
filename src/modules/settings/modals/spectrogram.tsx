@@ -1,5 +1,6 @@
 import {
 	Add20Regular,
+	ArrowStepInRight24Regular,
 	Delete20Regular,
 	Layer24Regular,
 } from "@fluentui/react-icons";
@@ -22,6 +23,7 @@ import {
 	selectedPaletteIdAtom,
 } from "$/modules/spectrogram/states";
 import { spectrogramLanesEnabledAtom } from "$/modules/spectrogram/states/lanes.ts";
+import { spectrogramLineEndHandlesAtom } from "$/modules/spectrogram/states/line-end-handles.ts";
 import { SettingToggle } from "../components/WorkflowControls";
 
 export const SettingsSpectrogramTab = () => {
@@ -103,6 +105,32 @@ export const SettingsSpectrogramTab = () => {
 									</Text>
 								</Flex>
 								<SettingToggle setting={spectrogramLanesEnabledAtom} />
+							</Flex>
+						</Box>
+					</Flex>
+				</Text>
+			</Card>
+			<Card>
+				<Text as="label">
+					<Flex gap="3" align="center">
+						<ArrowStepInRight24Regular />
+						<Box flexGrow="1">
+							<Flex align="center" justify="between" gap="4">
+								<Flex direction="column" gap="1">
+									<Text>
+										{t(
+											"spectrogramLineEnds.settingTitle",
+											"Single line-end handle",
+										)}
+									</Text>
+									<Text size="1" color="gray">
+										{t(
+											"spectrogramLineEnds.settingDesc",
+											"Shows one handle where a line and its last word end together, and dragging it moves both. Alt-drag moves only one. Where they differ, the last word's end is a short bar and the line end a tall one.",
+										)}
+									</Text>
+								</Flex>
+								<SettingToggle setting={spectrogramLineEndHandlesAtom} />
 							</Flex>
 						</Box>
 					</Flex>

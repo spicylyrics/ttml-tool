@@ -3,6 +3,7 @@ import { useSetAtom, useStore } from "jotai";
 import { type FC, memo, useCallback, useContext } from "react";
 import { processedLyricLinesAtom } from "$/modules/segmentation/utils/segment-processing.ts";
 import { timelineDragAtom } from "$/modules/spectrogram/states/dnd";
+import { getUpdatedLineForMergedEnd } from "$/modules/spectrogram/utils/line-end-handles";
 import {
 	commitUpdatedLine,
 	type DividerEdge,
@@ -20,7 +21,21 @@ interface DividerSegmentProps {
 	isTouching: boolean;
 	edge?: DividerEdge;
 	virtual?: boolean;
+	/** Line-end handle kind while the line-end handles flag is on. */
+	lineEndRole?: LineEndRole;
+	/** Hit zone override, relative to `timeMs` in px. The 2px bar stays where it was. */
+	hitOffsetPx?: number;
+	hitWidthPx?: number;
+	ariaLabel?: string;
 }
+
+export type LineEndRole = "merged" | "word" | "line";
+
+const lineEndRoleClass: Record<LineEndRole, string | undefined> = {
+	merged: styles.mergedEnd,
+	word: styles.wordEnd,
+	line: styles.lineEnd,
+};
 
 const DIVIDER_WIDTH_PX = 15;
 const HALF_DIVIDER_WIDTH_PX = DIVIDER_WIDTH_PX / 2;
@@ -36,7 +51,12 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 	isTouching,
 	edge = "shared",
 	virtual = false,
+	lineEndRole,
+	hitOffsetPx,
+	hitWidthPx,
+	ariaLabel,
 }) => {
+	const mergedLineEnd = lineEndRole === "merged";
 	const setTimelineDrag = useSetAtom(timelineDragAtom);
 	const store = useStore();
 	const { zoom } = useContext(SpectrogramContext);
@@ -57,9 +77,10 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 				startX: e.clientX,
 				isGapCreation: edge === "shared" && e.altKey,
 				virtual: virtual,
+				mergedLineEnd,
 			});
 		},
-		[lineId, segmentIndex, edge, setTimelineDrag, zoom, virtual],
+		[lineId, segmentIndex, edge, setTimelineDrag, zoom, virtual, mergedLineEnd],
 	);
 
 	// The timeline blocks mouse focus elsewhere, so drop it on any outside click
@@ -106,19 +127,21 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 					? timeMs + nudgeAmount
 					: timeMs - nudgeAmount;
 
-			const updatedLine = getUpdatedLineForDivider(
-				lineBeingDragged,
-				segmentIndex,
-				newTime,
-				false,
-				zoom,
-				null,
-				edge,
-			);
+			const updatedLine = mergedLineEnd
+				? getUpdatedLineForMergedEnd(lineBeingDragged, newTime)
+				: getUpdatedLineForDivider(
+						lineBeingDragged,
+						segmentIndex,
+						newTime,
+						false,
+						zoom,
+						null,
+						edge,
+					);
 
 			commitUpdatedLine(updatedLine);
 		},
-		[lineId, store, segmentIndex, timeMs, zoom, edge],
+		[lineId, store, segmentIndex, timeMs, zoom, edge, mergedLineEnd],
 	);
 
 	if (timeMs == null || timeMs < 0 || lineStartTime == null) return null;
@@ -139,16 +162,32 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 		handleOffsetPx = -HALF_DIVIDER_WIDTH_PX;
 	}
 
-	const left = timePx + handleOffsetPx;
+	let left = timePx + handleOffsetPx;
+	let width = handleWidthPx;
+	let barStyle: React.CSSProperties | undefined;
+
+	if (hitOffsetPx !== undefined && hitWidthPx !== undefined) {
+		// Widen the grab area only; keep the bar where the classic handle draws it.
+		const barShiftPx =
+			handleOffsetPx + handleWidthPx / 2 - (hitOffsetPx + hitWidthPx / 2);
+		left = timePx + hitOffsetPx;
+		width = hitWidthPx;
+		barStyle = { transform: `translateX(${barShiftPx}px)` };
+	}
 
 	const dynamicStyles = {
 		left: `${left}px`,
-		width: `${handleWidthPx}px`,
+		width: `${width}px`,
 	};
 
 	return (
 		<div
-			className={classNames(styles.divider, isTouching && styles.touching)}
+			className={classNames(
+				styles.divider,
+				isTouching && styles.touching,
+				lineEndRole && lineEndRoleClass[lineEndRole],
+			)}
+			aria-label={ariaLabel}
 			style={dynamicStyles}
 			onMouseDown={startDrag}
 			onContextMenu={(e) => e.preventDefault()}
@@ -159,7 +198,7 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 			onKeyDown={handleKeyDown}
 			onFocus={releaseFocusOnOutsideClick}
 		>
-			<div className={styles.dividerLine} />
+			<div className={styles.dividerLine} style={barStyle} />
 		</div>
 	);
 };

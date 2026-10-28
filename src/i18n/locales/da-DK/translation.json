@@ -1894,6 +1894,13 @@
       "bg": "Baggrund"
     }
   },
+  "spectrogramLineEnds": {
+    "settingTitle": "Ét håndtag for linjeslut",
+    "settingDesc": "Viser ét håndtag, hvor en linje og dens sidste ord slutter samtidig, og træk flytter begge. Træk med Alt flytter kun det ene. Hvor de er forskellige, er det sidste ords slut en kort streg og linjens slut en høj.",
+    "mergedHandle": "Slut på linje og sidste ord. Træk med Alt for kun at flytte det ene.",
+    "wordEndHandle": "Slut på sidste ord",
+    "lineEndHandle": "Linjens slut"
+  },
   "spectrogram": {
     "invalidEndTime": "Kan ikke vælge denne sluttid",
     "noAudioLoaded": "Indlæs en lydfil for at vise spektrogrammet",
