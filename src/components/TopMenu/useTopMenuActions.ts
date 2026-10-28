@@ -64,6 +64,7 @@ import {
 	undoLyricLinesAtom,
 } from "$/states/main.ts";
 import { openFileWithDialog } from "$/utils/fileDialog.ts";
+import { importWithReload } from "$/utils/import-with-reload";
 import { error, log } from "$/utils/logging.ts";
 import { createHistoryActionGate } from "./history-action-gate";
 
@@ -326,15 +327,19 @@ export const useTopMenuActions = () => {
 
 	const onQuickAutoSegment = useCallback(async () => {
 		// The syllabification engines are large; fetch them on first use.
+		const engines = await importWithReload(() =>
+			Promise.all([
+				import("$/modules/segmentation/utils/detect-syllabification-engine"),
+				import("$/modules/segmentation/utils/segmentation"),
+				import("$/modules/segmentation/utils/syllabification-engines"),
+			]),
+		).catch(() => null);
+		if (!engines) return;
 		const [
 			{ matchesSavedSyllabificationEngine },
 			{ segmentLyricLines },
 			{ SYLLABIFICATION_ENGINES },
-		] = await Promise.all([
-			import("$/modules/segmentation/utils/detect-syllabification-engine"),
-			import("$/modules/segmentation/utils/segmentation"),
-			import("$/modules/segmentation/utils/syllabification-engines"),
-		]);
+		] = engines;
 		if (
 			!matchesSavedSyllabificationEngine(
 				store.get(lyricLinesAtom).lyricLines,

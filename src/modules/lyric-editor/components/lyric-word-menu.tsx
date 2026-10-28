@@ -24,6 +24,7 @@ import {
 	newLyricLine,
 	newLyricWord,
 } from "$/types/ttml";
+import { importWithReload } from "$/utils/import-with-reload";
 import { getPhoneticSyllables } from "$/utils/phonetic";
 import {
 	combineWordsApplyToAllAtom,
@@ -93,9 +94,11 @@ export const LyricWordMenu = ({
 				onSelect={async () => {
 					const selectedWordIds = store.get(selectedWordsAtom);
 					// The syllabification engines are large; fetch them on first use.
-					const { segmentSelectedWords } = await import(
-						"$/modules/segmentation/utils/segmentation"
-					);
+					const segmentation = await importWithReload(
+						() => import("$/modules/segmentation/utils/segmentation"),
+					).catch(() => null);
+					if (!segmentation) return;
+					const { segmentSelectedWords } = segmentation;
 					let splitCount = 0;
 					editLyricLines((state) => {
 						splitCount = segmentSelectedWords(
