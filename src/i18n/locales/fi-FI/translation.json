@@ -1055,6 +1055,10 @@
     "orderChronological": "Kronologinen",
     "orderTextual": "Tekstijärjestys"
   },
+  "joinSplitWords": {
+    "label": "Yhdistä jaetut sanat",
+    "description": "Näytä osissa laulettu sana yhtenä sanana, kun osat on ajoitettu tasaisesti, kuten Spicy Lyricsin Join Split Words -asetus."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Muokkaus",

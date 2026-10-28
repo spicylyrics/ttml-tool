@@ -1055,6 +1055,10 @@
     "orderChronological": "По времени",
     "orderTextual": "По тексту"
   },
+  "joinSplitWords": {
+    "label": "Объединять разделённые слова",
+    "description": "Показывать слово, спетое по частям, одним словом, если части идут равномерно, как настройка Join Split Words в Spicy Lyrics."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Правка",

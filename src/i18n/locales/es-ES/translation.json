@@ -1055,6 +1055,10 @@
     "orderChronological": "Cronológico",
     "orderTextual": "Orden del texto"
   },
+  "joinSplitWords": {
+    "label": "Unir palabras divididas",
+    "description": "Muestra una palabra cantada por partes como una sola cuando las partes encajan de forma uniforme, como el ajuste Join Split Words de Spicy Lyrics."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Edición",

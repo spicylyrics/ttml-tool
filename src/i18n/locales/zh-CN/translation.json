@@ -1055,6 +1055,10 @@
     "orderChronological": "按时间顺序",
     "orderTextual": "按文本顺序"
   },
+  "joinSplitWords": {
+    "label": "合并拆分的单词",
+    "description": "当单词各部分的时间分布均匀时，将分段演唱的单词显示为一个词，与 Spicy Lyrics 的 Join Split Words 设置相同。"
+  },
   "topBar": {
     "modeBtns": {
       "edit": "编辑",
