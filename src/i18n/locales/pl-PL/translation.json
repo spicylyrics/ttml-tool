@@ -3,6 +3,12 @@
     "changelogTitle": "Lista zmian i aktualizacje",
     "viewCommits": "Zobacz commity na GitHubie"
   },
+  "updatedToast": {
+    "message": "Zaktualizowano do v{version}",
+    "seeChanges": "Zobacz zmiany",
+    "setting": "Pokazuj zmiany po aktualizacji",
+    "settingDesc": "Przy pierwszym uruchomieniu nowej wersji pokazuje krótkie powiadomienie z linkiem do listy zmian."
+  },
   "app": {
     "error": {
       "title": "Ups, wystąpił błąd!",

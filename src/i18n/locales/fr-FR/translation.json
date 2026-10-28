@@ -3,6 +3,12 @@
     "changelogTitle": "Journal des modifications et mises à jour",
     "viewCommits": "Voir les commits sur GitHub"
   },
+  "updatedToast": {
+    "message": "Mis à jour vers la v{version}",
+    "seeChanges": "Voir les nouveautés",
+    "setting": "Afficher les nouveautés après une mise à jour",
+    "settingDesc": "Au premier démarrage sur une nouvelle version, affiche une courte notification avec un lien vers le journal des modifications."
+  },
   "app": {
     "error": {
       "title": "Oups, une erreur s'est produite !",

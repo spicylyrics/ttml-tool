@@ -3,6 +3,12 @@
     "changelogTitle": "Log perubahan & pembaruan",
     "viewCommits": "Lihat commit di GitHub"
   },
+  "updatedToast": {
+    "message": "Diperbarui ke v{version}",
+    "seeChanges": "Lihat perubahan",
+    "setting": "Tampilkan perubahan setelah pembaruan",
+    "settingDesc": "Saat aplikasi pertama kali dibuka di versi baru, tampilkan pemberitahuan singkat dengan tautan ke log perubahan."
+  },
   "app": {
     "error": {
       "title": "Aduh, terjadi kesalahan!",

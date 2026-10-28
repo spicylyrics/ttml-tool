@@ -3,6 +3,12 @@
     "changelogTitle": "Changelog & updates",
     "viewCommits": "View Commits on GitHub"
   },
+  "updatedToast": {
+    "message": "Updated to v{version}",
+    "seeChanges": "See what changed",
+    "setting": "Show what changed after an update",
+    "settingDesc": "The first time the app starts on a new version, show a short notice with a link to the changelog."
+  },
   "app": {
     "error": {
       "title": "Something went wrong",

@@ -3,6 +3,12 @@
     "changelogTitle": "Muutosloki ja päivitykset",
     "viewCommits": "Näytä muutokset GitHubissa"
   },
+  "updatedToast": {
+    "message": "Päivitetty versioon v{version}",
+    "seeChanges": "Katso muutokset",
+    "setting": "Näytä muutokset päivityksen jälkeen",
+    "settingDesc": "Kun sovellus käynnistyy ensimmäistä kertaa uudessa versiossa, näytetään lyhyt ilmoitus ja linkki muutoslokiin."
+  },
   "app": {
     "error": {
       "title": "Hups, tapahtui virhe!",

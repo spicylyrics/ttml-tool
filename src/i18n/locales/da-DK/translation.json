@@ -3,6 +3,12 @@
     "changelogTitle": "Ændringslog og opdateringer",
     "viewCommits": "Se commits på GitHub"
   },
+  "updatedToast": {
+    "message": "Opdateret til v{version}",
+    "seeChanges": "Se hvad der er ændret",
+    "setting": "Vis hvad der er ændret efter en opdatering",
+    "settingDesc": "Første gang appen starter på en ny version, vises en kort besked med et link til ændringsloggen."
+  },
   "app": {
     "error": {
       "title": "Ups, der opstod en fejl!",

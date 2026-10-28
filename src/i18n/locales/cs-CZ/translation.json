@@ -3,6 +3,12 @@
     "changelogTitle": "Seznam změn a aktualizace",
     "viewCommits": "Zobrazit commity na GitHubu"
   },
+  "updatedToast": {
+    "message": "Aktualizováno na v{version}",
+    "seeChanges": "Co se změnilo",
+    "setting": "Po aktualizaci ukázat, co se změnilo",
+    "settingDesc": "Při prvním spuštění nové verze zobrazí krátké oznámení s odkazem na seznam změn."
+  },
   "app": {
     "error": {
       "title": "Jejda, došlo k chybě!",

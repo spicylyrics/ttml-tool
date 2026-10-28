@@ -3,6 +3,12 @@
     "changelogTitle": "Değişiklik günlüğü ve güncellemeler",
     "viewCommits": "GitHub'daki commit'leri görüntüle"
   },
+  "updatedToast": {
+    "message": "v{version} sürümüne güncellendi",
+    "seeChanges": "Neler değişti",
+    "setting": "Güncellemeden sonra neyin değiştiğini göster",
+    "settingDesc": "Uygulama yeni bir sürümde ilk kez açıldığında, değişiklik günlüğüne bağlantı içeren kısa bir bildirim gösterir."
+  },
   "app": {
     "error": {
       "title": "Hay aksi, bir hata oluştu!",
