@@ -1,8 +1,9 @@
-import resources from "virtual:i18next-loader";
 import i18n from "i18next";
 import ICU from "i18next-icu";
 import { initReactI18next } from "react-i18next";
 import { PSEUDO_LOCALE, pseudoCatalog } from "./pseudo";
+import { fallbackLanguages } from "./regional";
+import resources from "./resources";
 
 // Dev builds get a pseudo-locale for overflow testing. It is added to the
 // shared resources object, so the language picker lists it too.
@@ -32,7 +33,7 @@ i18n
 	.init({
 		resources,
 		debug: import.meta.env.DEV,
-		fallbackLng: "en-US",
+		fallbackLng: fallbackLanguages,
 		interpolation: {
 			escapeValue: false,
 		},

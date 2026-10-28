@@ -1,7 +1,7 @@
-import resources from "virtual:i18next-loader";
 import { useAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import resources from "$/i18n/resources";
 import { playbackRateAtom, volumeAtom } from "$/modules/audio/states";
 import {
 	allowConsecutiveBackgroundLinesAtom,
