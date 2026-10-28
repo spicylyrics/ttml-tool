@@ -1306,6 +1306,42 @@
     "applyToAll": "Appliquer à tous les mots identiques",
     "caseSensitive": "Respecter la casse"
   },
+  "romanizationTools": {
+    "group": "Romanisation et découpage",
+    "flag": "Outils de romanisation expérimentaux",
+    "flagDesc": "Découpage de l'anglais par règles, taille de découpage du japonais, collage d'une page romanisée et export des traductions dans l'en-tête.",
+    "japaneseGranularity": "Taille de découpage du japonais",
+    "japaneseGranularityDesc": "Comment le découpage automatique coupe les paroles japonaises. Les petits kana, ー et っ restent avec leur son.",
+    "granularity": {
+      "syllable": "Syllabe",
+      "syllableDesc": "Un son par partie, ん rejoint le son précédent",
+      "mora": "More",
+      "moraDesc": "Un temps par partie, ん forme sa propre partie",
+      "word": "Mot",
+      "wordDesc": "Mots entiers"
+    },
+    "translationFormat": "Export des traductions",
+    "translationFormatDesc": "Où vont les traductions dans le TTML exporté. Spicy Lyrics ne lit que les traductions dans la ligne.",
+    "format": {
+      "inline": "Dans la ligne",
+      "inlineDesc": "Dans chaque ligne, comme avant. Spicy Lyrics lit ce format.",
+      "head": "En-tête",
+      "headDesc": "Style Apple, dans l'en-tête du fichier. Spicy Lyrics peut les afficher comme romanisation."
+    },
+    "translationLanguage": "Langue de traduction",
+    "translationLanguageDesc": "Code de langue des traductions dans l'en-tête, par exemple en ou es.",
+    "paste": {
+      "button": "Coller la romanisation...",
+      "tooltip": "Remplit la romanisation de chaque mot depuis une page de paroles romanisées, comme celle de Genius.",
+      "title": "Coller des paroles romanisées",
+      "description": "Collez une page de paroles romanisées, une ligne par ligne de paroles. Les en-têtes de section et les lignes vides sont ignorés, et les lignes d'arrière-plan ne sont pas modifiées.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Remplir la romanisation",
+      "lineCountMismatch": "La page a {received} lignes et les paroles en ont {expected}. Ajoutez ou supprimez des lignes pour qu'elles correspondent.",
+      "applied": "Romanisation remplie : {count} lignes.",
+      "check": "Certains mots ont été devinés. Vérifiez les lignes {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Décalage temporel",
     "amount": "Décalage (ms)",

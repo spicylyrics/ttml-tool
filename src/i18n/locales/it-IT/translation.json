@@ -1306,6 +1306,42 @@
     "applyToAll": "Applica a tutte le parole identiche",
     "caseSensitive": "Distingui maiuscole e minuscole"
   },
+  "romanizationTools": {
+    "group": "Romanizzazione e divisione",
+    "flag": "Strumenti di romanizzazione sperimentali",
+    "flagDesc": "Divisione dell'inglese a regole, dimensione di divisione del giapponese, incolla di una pagina romanizzata ed esportazione delle traduzioni nell'intestazione.",
+    "japaneseGranularity": "Dimensione di divisione del giapponese",
+    "japaneseGranularityDesc": "Come la divisione automatica taglia i testi giapponesi. I kana piccoli, ー e っ restano con il loro suono.",
+    "granularity": {
+      "syllable": "Sillaba",
+      "syllableDesc": "Un suono per parte, ん si unisce al suono precedente",
+      "mora": "Mora",
+      "moraDesc": "Un battito per parte, ん è una parte a sé",
+      "word": "Parola",
+      "wordDesc": "Parole intere"
+    },
+    "translationFormat": "Esportazione delle traduzioni",
+    "translationFormatDesc": "Dove vanno le traduzioni nel TTML esportato. Spicy Lyrics legge solo le traduzioni nella riga.",
+    "format": {
+      "inline": "Nella riga",
+      "inlineDesc": "In ogni riga, come prima. Spicy Lyrics legge questo.",
+      "head": "Intestazione",
+      "headDesc": "Stile Apple, nell'intestazione del file. Spicy Lyrics potrebbe mostrarle come romanizzazione."
+    },
+    "translationLanguage": "Lingua della traduzione",
+    "translationLanguageDesc": "Codice lingua delle traduzioni nell'intestazione, come en o es.",
+    "paste": {
+      "button": "Incolla romanizzazione...",
+      "tooltip": "Compila la romanizzazione di ogni parola da una pagina di testo romanizzato, come quella di Genius.",
+      "title": "Incolla testo romanizzato",
+      "description": "Incolla una pagina di testo romanizzato, una riga per ogni riga del testo. Le intestazioni di sezione e le righe vuote vengono saltate e le righe di sottofondo restano invariate.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Compila romanizzazione",
+      "lineCountMismatch": "La pagina ha {received} righe e il testo ne ha {expected}. Aggiungi o rimuovi righe perché corrispondano.",
+      "applied": "Romanizzazione compilata: {count} righe.",
+      "check": "Alcune parole sono state stimate. Controlla le righe {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Sposta tempi",
     "amount": "Scostamento (ms)",

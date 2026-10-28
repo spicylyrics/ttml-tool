@@ -34,6 +34,7 @@ import { useTranslation } from "react-i18next";
 import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
 import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section-editing";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
+import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
 import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import { showPreviewPanelAtom } from "$/states/main";
 import {
@@ -353,6 +354,7 @@ export const WorkflowSettings = () => {
 				</Heading>
 				{toggles(editModeToggles)}
 			</Flex>
+			<RomanizationToolsSettings />
 			<Flex direction="column" gap="3">
 				<Heading size="4">
 					{t("settings.group.timeModeDisplay", "Time mode display")}

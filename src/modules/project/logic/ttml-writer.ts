@@ -27,6 +27,11 @@ import {
 } from "../../../utils/apostrophe-normalization.ts";
 import { log } from "../../../utils/logging.ts";
 import { msToTimestamp } from "../../../utils/timestamp.ts";
+import {
+	appendHeadTranslations,
+	collectHeadTranslation,
+	type HeadTranslationMap,
+} from "../../romanization/head-translations.ts";
 
 export function shouldExportAsLineSynced(
 	line: LyricLine,
@@ -69,6 +74,10 @@ export function hasExportableLineContent(line: LyricLine): boolean {
 
 export interface TTMLExportOptions {
 	allowConsecutiveBackgroundLines?: boolean;
+	/** "head" writes Apple-style head translations instead of inline spans. */
+	translationFormat?: "inline" | "head";
+	/** `xml:lang` of head-level translations. */
+	translationLanguage?: string;
 }
 
 export default function exportTTMLText(
@@ -266,6 +275,8 @@ export default function exportTTMLText(
 		string,
 		{ main: LyricWord[]; backgrounds: LyricWord[][] }
 	>();
+	const headTranslations = options.translationFormat === "head";
+	const translationMap: HeadTranslationMap = new Map();
 
 	const guessDuration = lyric[lyric.length - 1]?.endTime ?? 0;
 	body.setAttribute("dur", msToTimestamp(guessDuration));
@@ -388,7 +399,7 @@ export default function exportTTMLText(
 					bgLineSpan.setAttribute("end", msToTimestamp(endTime));
 				}
 
-				if (bgLine.translatedLyric) {
+				if (!headTranslations && bgLine.translatedLyric) {
 					const span = doc.createElement("span");
 					span.setAttribute("ttm:role", "x-translation");
 					span.setAttribute("xml:lang", "zh-CN");
@@ -406,7 +417,14 @@ export default function exportTTMLText(
 				lineP.appendChild(bgLineSpan);
 			}
 
-			if (!exportAsStandaloneBackground && line.translatedLyric) {
+			if (headTranslations) {
+				collectHeadTranslation(
+					translationMap,
+					itunesKey,
+					exportAsStandaloneBackground ? "" : line.translatedLyric,
+					backgroundLines,
+				);
+			} else if (!exportAsStandaloneBackground && line.translatedLyric) {
 				const span = doc.createElement("span");
 				span.setAttribute("ttm:role", "x-translation");
 				span.setAttribute("xml:lang", "zh-CN");
@@ -506,6 +524,13 @@ export default function exportTTMLText(
 
 		metadataEl.appendChild(itunesMeta);
 	}
+
+	appendHeadTranslations(
+		doc,
+		metadataEl,
+		translationMap,
+		options.translationLanguage,
+	);
 
 	ttRoot.appendChild(body);
 	log("ttml document built", ttRoot);

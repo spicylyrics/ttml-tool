@@ -1306,6 +1306,42 @@
     "applyToAll": "Tüm özdeş kelimelere uygula",
     "caseSensitive": "Büyük/küçük harfe duyarlı"
   },
+  "romanizationTools": {
+    "group": "Romanizasyon ve bölme",
+    "flag": "Deneysel romanizasyon araçları",
+    "flagDesc": "Kurala dayalı İngilizce bölme, Japonca bölme boyutu, romanize edilmiş sayfa yapıştırma ve çevirileri başlığa aktarma.",
+    "japaneseGranularity": "Japonca bölme boyutu",
+    "japaneseGranularityDesc": "Otomatik bölmenin Japonca sözleri nasıl ayıracağı. Küçük kana, ー ve っ kendi seslerinin yanında kalır.",
+    "granularity": {
+      "syllable": "Hece",
+      "syllableDesc": "Parça başına bir ses, ん önceki sese katılır",
+      "mora": "Mora",
+      "moraDesc": "Parça başına bir vuruş, ん ayrı bir parçadır",
+      "word": "Kelime",
+      "wordDesc": "Tam kelimeler"
+    },
+    "translationFormat": "Çeviri aktarımı",
+    "translationFormatDesc": "Çevirilerin aktarılan TTML'de nereye yazılacağı. Spicy Lyrics yalnızca satır içi çevirileri okur.",
+    "format": {
+      "inline": "Satır içi",
+      "inlineDesc": "Her satırda, önceki gibi. Spicy Lyrics bunu okur.",
+      "head": "Başlık",
+      "headDesc": "Apple tarzı, dosya başlığında. Spicy Lyrics bunları romanizasyon olarak gösterebilir."
+    },
+    "translationLanguage": "Çeviri dili",
+    "translationLanguageDesc": "Başlıktaki çevirilerin dil kodu, örneğin en veya es.",
+    "paste": {
+      "button": "Romanizasyon yapıştır...",
+      "tooltip": "Kelime başına romanizasyonu Genius gibi romanize edilmiş bir söz sayfasından doldurur.",
+      "title": "Romanize sözleri yapıştır",
+      "description": "Romanize edilmiş bir söz sayfası yapıştırın, her söz satırı için bir satır. Bölüm başlıkları ve boş satırlar atlanır, arka plan satırlarına dokunulmaz.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Romanizasyonu doldur",
+      "lineCountMismatch": "Sayfada {received} satır, sözlerde {expected} satır var. Eşleşmeleri için satır ekleyin veya silin.",
+      "applied": "Romanizasyon dolduruldu: {count} satır.",
+      "check": "Bazı kelimeler tahmin edildi. {lines} numaralı satırları kontrol edin."
+    }
+  },
   "timeShiftDialog": {
     "title": "Zaman kaydırma",
     "amount": "Kayma (ms)",

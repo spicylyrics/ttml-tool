@@ -2,6 +2,7 @@ import type { Atom, getDefaultStore } from "jotai";
 import { toast } from "react-toastify";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { currentTimeAtom } from "$/modules/audio/states";
+import { readTranslationExportOptions } from "$/modules/romanization/states";
 import {
 	allowConsecutiveBackgroundLinesAtom,
 	lyricTextNormalizationOptionsAtom,
@@ -100,6 +101,7 @@ export async function withTTMLExport(
 									allowConsecutiveBackgroundLinesAtom,
 									recovery,
 								) ?? (recovery ? true : undefined),
+							...readTranslationExportOptions(store),
 						},
 					),
 				});

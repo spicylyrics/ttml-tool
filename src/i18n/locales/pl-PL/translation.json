@@ -1306,6 +1306,42 @@
     "applyToAll": "Zastosuj do wszystkich identycznych słów",
     "caseSensitive": "Uwzględniaj wielkość liter"
   },
+  "romanizationTools": {
+    "group": "Latynizacja i dzielenie",
+    "flag": "Eksperymentalne narzędzia latynizacji",
+    "flagDesc": "Dzielenie angielskiego według reguł, wielkość podziału japońskiego, wklejanie zlatynizowanej strony i eksport tłumaczeń do nagłówka.",
+    "japaneseGranularity": "Wielkość podziału japońskiego",
+    "japaneseGranularityDesc": "Jak automatyczne dzielenie tnie japoński tekst. Małe kana, ー i っ zostają przy swoim dźwięku.",
+    "granularity": {
+      "syllable": "Sylaba",
+      "syllableDesc": "Jeden dźwięk na część, ん dołącza do poprzedniego",
+      "mora": "Mora",
+      "moraDesc": "Jedno uderzenie na część, ん jest osobną częścią",
+      "word": "Słowo",
+      "wordDesc": "Całe słowa"
+    },
+    "translationFormat": "Eksport tłumaczeń",
+    "translationFormatDesc": "Gdzie trafiają tłumaczenia w eksportowanym TTML. Spicy Lyrics czyta tylko tłumaczenia w wierszu.",
+    "format": {
+      "inline": "W wierszu",
+      "inlineDesc": "W każdym wierszu, jak dotąd. Spicy Lyrics czyta ten format.",
+      "head": "Nagłówek",
+      "headDesc": "W stylu Apple, w nagłówku pliku. Spicy Lyrics może pokazać je jako latynizację."
+    },
+    "translationLanguage": "Język tłumaczenia",
+    "translationLanguageDesc": "Kod języka tłumaczeń w nagłówku, na przykład en lub es.",
+    "paste": {
+      "button": "Wklej latynizację...",
+      "tooltip": "Uzupełnij latynizację słów ze strony ze zlatynizowanym tekstem, np. z Genius.",
+      "title": "Wklej zlatynizowany tekst",
+      "description": "Wklej stronę ze zlatynizowanym tekstem, jeden wiersz na każdy wiersz tekstu. Nagłówki sekcji i puste wiersze są pomijane, a wiersze w tle zostają bez zmian.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Uzupełnij latynizację",
+      "lineCountMismatch": "Strona ma {received} wierszy, a tekst ma {expected}. Dodaj lub usuń wiersze, aby się zgadzały.",
+      "applied": "Uzupełniono latynizację, liczba wierszy: {count}.",
+      "check": "Niektóre słowa zostały odgadnięte. Sprawdź wiersze {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Przesunięcie czasowe",
     "amount": "Przesunięcie (ms)",
