@@ -361,6 +361,20 @@
       "title": "Selecciona una carpeta de espacio de trabajo que contenga proyectos"
     }
   },
+  "commandPalette": {
+    "title": "Paleta de comandos",
+    "placeholder": "Buscar comandos y ajustes",
+    "noResults": "No hay comandos ni ajustes coincidentes",
+    "commandTag": "Comando",
+    "settingTag": "Preferencias",
+    "hint": "Flechas para moverte, Intro para ejecutar, Esc para cerrar",
+    "notRunnable": "No se pudo ejecutar el comando. Asígnale un atajo en Preferencias y vuelve a intentarlo.",
+    "menu": "Paleta de comandos...",
+    "shortcut": "Ver - Abrir la paleta de comandos",
+    "shortcutAlternate": "Ver - Abrir la paleta de comandos (atajo alternativo)",
+    "settingLabel": "Paleta de comandos",
+    "settingDesc": "Busca comandos y páginas de ajustes por su nombre. Ábrela con {shortcut} o desde el menú Ayuda."
+  },
   "projectsDialog": {
     "title": "Proyectos",
     "tabProject": "Proyecto",

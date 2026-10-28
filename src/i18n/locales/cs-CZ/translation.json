@@ -361,6 +361,20 @@
       "title": "Vyberte složku pracovního prostoru s projekty"
     }
   },
+  "commandPalette": {
+    "title": "Paleta příkazů",
+    "placeholder": "Hledat příkazy a nastavení",
+    "noResults": "Žádné odpovídající příkazy ani nastavení",
+    "commandTag": "Příkaz",
+    "settingTag": "Předvolby",
+    "hint": "Šipkami se posunete, Enter spustí, Esc zavře",
+    "notRunnable": "Příkaz se nepodařilo spustit. Přiřaďte mu zkratku v Předvolbách a zkuste to znovu.",
+    "menu": "Paleta příkazů...",
+    "shortcut": "Zobrazení – otevřít paletu příkazů",
+    "shortcutAlternate": "Zobrazení – otevřít paletu příkazů (alternativní zkratka)",
+    "settingLabel": "Paleta příkazů",
+    "settingDesc": "Najděte příkazy a stránky nastavení podle názvu. Otevřete ji zkratkou {shortcut} nebo z nabídky Nápověda."
+  },
   "projectsDialog": {
     "title": "Projekty",
     "tabProject": "Projekt",

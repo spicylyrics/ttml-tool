@@ -361,6 +361,20 @@
       "title": "Seleziona una cartella dell'area di lavoro che contiene progetti"
     }
   },
+  "commandPalette": {
+    "title": "Tavolozza dei comandi",
+    "placeholder": "Cerca comandi e impostazioni",
+    "noResults": "Nessun comando o impostazione corrispondente",
+    "commandTag": "Comando",
+    "settingTag": "Impostazioni",
+    "hint": "Frecce per spostarti, Invio per eseguire, Esc per chiudere",
+    "notRunnable": "Impossibile eseguire il comando. Assegnagli una scorciatoia nelle Impostazioni e riprova.",
+    "menu": "Tavolozza dei comandi...",
+    "shortcut": "Vista - Apri la tavolozza dei comandi",
+    "shortcutAlternate": "Vista - Apri la tavolozza dei comandi (scorciatoia alternativa)",
+    "settingLabel": "Tavolozza dei comandi",
+    "settingDesc": "Trova comandi e pagine delle impostazioni per nome. Aprila con {shortcut} o dal menu Aiuto."
+  },
   "projectsDialog": {
     "title": "Progetti",
     "tabProject": "Progetto",

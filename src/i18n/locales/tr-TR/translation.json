@@ -361,6 +361,20 @@
       "title": "Proje içeren bir çalışma alanı klasörü seçin"
     }
   },
+  "commandPalette": {
+    "title": "Komut paleti",
+    "placeholder": "Komutlarda ve ayarlarda ara",
+    "noResults": "Eşleşen komut veya ayar yok",
+    "commandTag": "Komut",
+    "settingTag": "Tercihler",
+    "hint": "Ok tuşlarıyla gezinin, Enter ile çalıştırın, Esc ile kapatın",
+    "notRunnable": "Komut çalıştırılamadı. Tercihler'den ona bir kısayol atayın ve tekrar deneyin.",
+    "menu": "Komut paleti...",
+    "shortcut": "Görünüm - Komut paletini aç",
+    "shortcutAlternate": "Görünüm - Komut paletini aç (alternatif kısayol)",
+    "settingLabel": "Komut paleti",
+    "settingDesc": "Komutları ve ayar sayfalarını adıyla bulun. {shortcut} ile veya Yardım menüsünden açın."
+  },
   "projectsDialog": {
     "title": "Projeler",
     "tabProject": "Proje",

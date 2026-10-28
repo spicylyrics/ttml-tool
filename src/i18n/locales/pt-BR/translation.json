@@ -361,6 +361,20 @@
       "title": "Selecione uma pasta de espaço de trabalho com projetos"
     }
   },
+  "commandPalette": {
+    "title": "Paleta de comandos",
+    "placeholder": "Buscar comandos e configurações",
+    "noResults": "Nenhum comando ou configuração correspondente",
+    "commandTag": "Comando",
+    "settingTag": "Preferências",
+    "hint": "Setas para mover, Enter para executar, Esc para fechar",
+    "notRunnable": "Não foi possível executar o comando. Atribua um atalho a ele nas Preferências e tente de novo.",
+    "menu": "Paleta de comandos...",
+    "shortcut": "Ver - Abrir paleta de comandos",
+    "shortcutAlternate": "Ver - Abrir paleta de comandos (atalho alternativo)",
+    "settingLabel": "Paleta de comandos",
+    "settingDesc": "Encontre comandos e páginas de configurações pelo nome. Abra com {shortcut} ou pelo menu Ajuda."
+  },
   "projectsDialog": {
     "title": "Projetos",
     "tabProject": "Projeto",

@@ -361,6 +361,20 @@
       "title": "Vælg en arbejdsområdemappe med projekter"
     }
   },
+  "commandPalette": {
+    "title": "Kommandopalet",
+    "placeholder": "Søg i kommandoer og indstillinger",
+    "noResults": "Ingen matchende kommandoer eller indstillinger",
+    "commandTag": "Kommando",
+    "settingTag": "Indstillinger",
+    "hint": "Piletaster flytter, Enter kører, Esc lukker",
+    "notRunnable": "Kommandoen kunne ikke køres. Giv den en genvej i Indstillinger, og prøv igen.",
+    "menu": "Kommandopalet...",
+    "shortcut": "Vis - Åbn kommandopaletten",
+    "shortcutAlternate": "Vis - Åbn kommandopaletten (alternativ genvej)",
+    "settingLabel": "Kommandopalet",
+    "settingDesc": "Find kommandoer og indstillingssider efter navn. Åbn den med {shortcut} eller fra menuen Hjælp."
+  },
   "projectsDialog": {
     "title": "Projekter",
     "tabProject": "Projekt",
