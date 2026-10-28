@@ -39,8 +39,11 @@ export function GeniusRomanizedFinder({
 	const [searching, setSearching] = useState(false);
 	const [loadingId, setLoadingId] = useState<number | null>(null);
 	const [problem, setProblem] = useState("");
+	const [needsToken, setNeedsToken] = useState(false);
 
-	if (!geniusApiKey) {
+	// Only ask for a token once someone tries to search, so the dialog still
+	// reads as a paste box first.
+	if (needsToken && !geniusApiKey) {
 		return (
 			<Flex direction="column" gap="2">
 				<Text size="2" weight="medium">
@@ -83,6 +86,10 @@ export function GeniusRomanizedFinder({
 
 	const search = async () => {
 		if (!title.trim() || searching) return;
+		if (!geniusApiKey) {
+			setNeedsToken(true);
+			return;
+		}
 		setSearching(true);
 		setProblem("");
 		try {
