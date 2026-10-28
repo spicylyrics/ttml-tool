@@ -115,6 +115,8 @@ const RENDERED = [
 	"syncing",
 	"preview",
 	"files",
+	"audio",
+	"keybinding",
 	"experimental",
 ];
 
