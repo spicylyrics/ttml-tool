@@ -1055,6 +1055,10 @@
     "orderChronological": "Chronologisch",
     "orderTextual": "Tekstvolgorde"
   },
+  "joinSplitWords": {
+    "label": "Gesplitste woorden samenvoegen",
+    "description": "Toon een woord dat in delen wordt gezongen als één woord wanneer de delen gelijkmatig aansluiten, zoals de instelling Join Split Words in Spicy Lyrics."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Bewerken",

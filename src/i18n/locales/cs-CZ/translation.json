@@ -1055,6 +1055,10 @@
     "orderChronological": "Podle času",
     "orderTextual": "Podle textu"
   },
+  "joinSplitWords": {
+    "label": "Spojit rozdělená slova",
+    "description": "Zobrazit slovo zpívané po částech jako jedno slovo, když jsou části rovnoměrně načasované, jako nastavení Join Split Words ve Spicy Lyrics."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Úpravy",

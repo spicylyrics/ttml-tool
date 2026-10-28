@@ -1055,6 +1055,10 @@
     "orderChronological": "Chronologique",
     "orderTextual": "Ordre du texte"
   },
+  "joinSplitWords": {
+    "label": "Fusionner les mots découpés",
+    "description": "Affiche un mot chanté en plusieurs parties comme un seul mot lorsque les parties s'enchaînent régulièrement, comme le réglage Join Split Words de Spicy Lyrics."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Édition",

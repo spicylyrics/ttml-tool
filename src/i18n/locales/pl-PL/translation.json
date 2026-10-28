@@ -1055,6 +1055,10 @@
     "orderChronological": "Według czasu",
     "orderTextual": "Według tekstu"
   },
+  "joinSplitWords": {
+    "label": "Łącz podzielone słowa",
+    "description": "Pokaż słowo śpiewane w częściach jako jedno słowo, gdy części są rozłożone równomiernie, jak ustawienie Join Split Words w Spicy Lyrics."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Edycja",

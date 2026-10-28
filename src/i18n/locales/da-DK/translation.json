@@ -1055,6 +1055,10 @@
     "orderChronological": "Kronologisk",
     "orderTextual": "Tekstrækkefølge"
   },
+  "joinSplitWords": {
+    "label": "Saml opdelte ord",
+    "description": "Vis et ord, der synges i dele, som ét ord, når delene passer jævnt sammen, som indstillingen Join Split Words i Spicy Lyrics."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Redigering",

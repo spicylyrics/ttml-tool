@@ -1055,6 +1055,10 @@
     "orderChronological": "Kronologis",
     "orderTextual": "Urutan teks"
   },
+  "joinSplitWords": {
+    "label": "Gabungkan kata terpisah",
+    "description": "Tampilkan kata yang dinyanyikan per bagian sebagai satu kata jika bagian-bagiannya selaras, seperti pengaturan Join Split Words di Spicy Lyrics."
+  },
   "topBar": {
     "modeBtns": {
       "edit": "Edit",
