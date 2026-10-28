@@ -119,15 +119,23 @@ export function rankRomanizedCandidates(
 
 type RomanizedSearchApi = Pick<typeof GeniusApi, "search">;
 
-/** Searches Genius for romanized versions of a song and ranks them. */
+/**
+ * Searches Genius for romanized versions of a song and ranks them. One failed
+ * query still returns the other's results; it only throws when all fail.
+ */
 export async function findRomanizedCandidates(
 	song: RomanizedSong,
 	apiKey: string,
 	api: RomanizedSearchApi = GeniusApi,
 ): Promise<RomanizedCandidate[]> {
-	const responses = await Promise.all(
+	const settled = await Promise.allSettled(
 		buildRomanizedQueries(song).map((query) => api.search(query, apiKey)),
 	);
+	const responses = settled.flatMap((result) =>
+		result.status === "fulfilled" ? [result.value] : [],
+	);
+	const failure = settled.find((result) => result.status === "rejected");
+	if (responses.length === 0 && failure) throw failure.reason;
 	const hits = responses.flatMap(({ response }) =>
 		response.hits.filter((hit) => hit.type === "song").map((hit) => hit.result),
 	);

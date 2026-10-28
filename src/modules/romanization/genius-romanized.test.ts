@@ -164,7 +164,24 @@ describe("findRomanizedCandidates", () => {
 		expect(candidates.map((candidate) => candidate.id)).toEqual([11]);
 	});
 
-	it("passes search failures through", async () => {
+	it("keeps the other query's results when one search fails", async () => {
+		const search = vi
+			.fn()
+			.mockRejectedValueOnce(new Error("500"))
+			.mockResolvedValueOnce(
+				response([
+					hit(
+						13,
+						"YOASOBI - アイドル (Idol) (Romanized)",
+						GENIUS_ROMANIZATIONS_ARTIST,
+					),
+				]),
+			);
+		const candidates = await findRomanizedCandidates(idol, "token", { search });
+		expect(candidates.map((candidate) => candidate.id)).toEqual([13]);
+	});
+
+	it("passes search failures through when every search fails", async () => {
 		const search = vi.fn().mockRejectedValue(new Error("401"));
 		await expect(
 			findRomanizedCandidates(idol, "bad", { search }),
