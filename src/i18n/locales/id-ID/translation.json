@@ -1306,6 +1306,42 @@
     "applyToAll": "Terapkan ke semua kata yang sama",
     "caseSensitive": "Cocokkan huruf besar/kecil"
   },
+  "romanizationTools": {
+    "group": "Romanisasi dan pemisahan",
+    "flag": "Alat romanisasi eksperimental",
+    "flagDesc": "Pemisahan bahasa Inggris berbasis aturan, ukuran pemisahan bahasa Jepang, menempel halaman romanisasi, dan ekspor terjemahan di bagian head.",
+    "japaneseGranularity": "Ukuran pemisahan bahasa Jepang",
+    "japaneseGranularityDesc": "Cara pemisahan otomatis memotong lirik Jepang. Kana kecil, ー, dan っ tetap bersama bunyinya.",
+    "granularity": {
+      "syllable": "Suku kata",
+      "syllableDesc": "Satu bunyi per bagian, ん ikut bunyi sebelumnya",
+      "mora": "Mora",
+      "moraDesc": "Satu ketukan per bagian, ん menjadi bagian sendiri",
+      "word": "Kata",
+      "wordDesc": "Kata utuh"
+    },
+    "translationFormat": "Ekspor terjemahan",
+    "translationFormatDesc": "Letak terjemahan di TTML yang diekspor. Spicy Lyrics hanya membaca terjemahan di dalam baris.",
+    "format": {
+      "inline": "Di baris",
+      "inlineDesc": "Di setiap baris, seperti sebelumnya. Spicy Lyrics membaca ini.",
+      "head": "Head",
+      "headDesc": "Gaya Apple, di bagian head file. Spicy Lyrics mungkin menampilkannya sebagai romanisasi."
+    },
+    "translationLanguage": "Bahasa terjemahan",
+    "translationLanguageDesc": "Kode bahasa untuk terjemahan di head, seperti en atau es.",
+    "paste": {
+      "button": "Tempel romanisasi...",
+      "tooltip": "Isi romanisasi per kata dari halaman lirik yang sudah diromanisasi, seperti di Genius.",
+      "title": "Tempel lirik romanisasi",
+      "description": "Tempel halaman lirik romanisasi, satu baris per baris lirik. Judul bagian dan baris kosong dilewati, dan baris latar tidak diubah.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Isi romanisasi",
+      "lineCountMismatch": "Halaman punya {received} baris, liriknya punya {expected}. Tambah atau hapus baris agar jumlahnya sama.",
+      "applied": "Romanisasi diisi: {count} baris.",
+      "check": "Beberapa kata hanya perkiraan. Periksa baris {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Geser waktu",
     "amount": "Offset (ms)",

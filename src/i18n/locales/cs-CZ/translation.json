@@ -1306,6 +1306,42 @@
     "applyToAll": "Použít na všechna stejná slova",
     "caseSensitive": "Rozlišovat velká a malá písmena"
   },
+  "romanizationTools": {
+    "group": "Přepis do latinky a dělení",
+    "flag": "Experimentální nástroje pro přepis",
+    "flagDesc": "Dělení angličtiny podle pravidel, velikost dělení japonštiny, vložení přepsané stránky a export překladů do hlavičky.",
+    "japaneseGranularity": "Velikost dělení japonštiny",
+    "japaneseGranularityDesc": "Jak automatické dělení rozdělí japonský text. Malá kana, ー a っ zůstanou u své hlásky.",
+    "granularity": {
+      "syllable": "Slabika",
+      "syllableDesc": "Jeden zvuk na část, ん se připojí k předchozímu",
+      "mora": "Móra",
+      "moraDesc": "Jedna doba na část, ん je samostatná část",
+      "word": "Slovo",
+      "wordDesc": "Celá slova"
+    },
+    "translationFormat": "Export překladů",
+    "translationFormatDesc": "Kam se v exportovaném TTML ukládají překlady. Spicy Lyrics čte jen překlady v řádku.",
+    "format": {
+      "inline": "V řádku",
+      "inlineDesc": "V každém řádku, jako dosud. Spicy Lyrics čte tento formát.",
+      "head": "Hlavička",
+      "headDesc": "Ve stylu Apple, v hlavičce souboru. Spicy Lyrics je může zobrazit jako přepis."
+    },
+    "translationLanguage": "Jazyk překladu",
+    "translationLanguageDesc": "Jazykový kód překladů v hlavičce, například en nebo es.",
+    "paste": {
+      "button": "Vložit přepis...",
+      "tooltip": "Doplní přepis ke slovům ze stránky s přepsaným textem, třeba z Genius.",
+      "title": "Vložit přepsaný text",
+      "description": "Vložte stránku s přepsaným textem, jeden řádek na řádek textu. Záhlaví sekcí a prázdné řádky se přeskočí a řádky v pozadí zůstanou beze změny.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Doplnit přepis",
+      "lineCountMismatch": "Stránka má {received} řádků a text má {expected}. Přidejte nebo odeberte řádky, aby se shodovaly.",
+      "applied": "Přepis doplněn, počet řádků: {count}.",
+      "check": "Některá slova byla odhadnuta. Zkontrolujte řádky {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Časový posun",
     "amount": "Posun (ms)",

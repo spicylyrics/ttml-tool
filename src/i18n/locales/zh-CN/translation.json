@@ -1306,6 +1306,42 @@
     "applyToAll": "应用到所有相同的字",
     "caseSensitive": "区分大小写"
   },
+  "romanizationTools": {
+    "group": "罗马音与拆分",
+    "flag": "实验性罗马音工具",
+    "flagDesc": "基于规则的英语拆分、日语拆分粒度、粘贴罗马音歌词页，以及将翻译导出到文件头。",
+    "japaneseGranularity": "日语拆分粒度",
+    "japaneseGranularityDesc": "自动拆分如何切分日语歌词。小假名、ー 和 っ 会与所属的音保持在一起。",
+    "granularity": {
+      "syllable": "音节",
+      "syllableDesc": "每部分一个音，ん 并入前一个音",
+      "mora": "音拍",
+      "moraDesc": "每部分一拍，ん 单独成一部分",
+      "word": "词",
+      "wordDesc": "整个词"
+    },
+    "translationFormat": "翻译导出",
+    "translationFormatDesc": "翻译在导出的 TTML 中的位置。Spicy Lyrics 只读取行内翻译。",
+    "format": {
+      "inline": "行内",
+      "inlineDesc": "写在每一行中，与以前相同。Spicy Lyrics 读取这种格式。",
+      "head": "文件头",
+      "headDesc": "Apple 风格，写在文件头中。Spicy Lyrics 可能会把它显示为罗马音。"
+    },
+    "translationLanguage": "翻译语言",
+    "translationLanguageDesc": "文件头翻译的语言代码，例如 en 或 es。",
+    "paste": {
+      "button": "粘贴罗马音...",
+      "tooltip": "从罗马音歌词页（例如 Genius）填写每个词的罗马音。",
+      "title": "粘贴罗马音歌词",
+      "description": "粘贴罗马音歌词页，每行对应一行歌词。会跳过段落标题和空行，背景行保持不变。",
+      "placeholder": "Kimi no na wo...",
+      "apply": "填写罗马音",
+      "lineCountMismatch": "该页面有 {received} 行，歌词有 {expected} 行。请添加或删除行，使两者一致。",
+      "applied": "已填写罗马音：{count} 行。",
+      "check": "部分词是推测的。请检查第 {lines} 行。"
+    }
+  },
   "timeShiftDialog": {
     "title": "时间平移",
     "amount": "偏移量 (ms)",
