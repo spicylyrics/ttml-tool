@@ -1245,6 +1245,12 @@
     "insertLine": "Indsæt ny linje her",
     "insertWord": "Indsæt ord her…"
   },
+  "editModeTools": {
+    "toggleTitle": "Værktøjer til redigeringstilstand",
+    "toggleDesc": "Del en indtastet linje i ord, byt om på hoved- og duetlinjer, og åbn hvert projekt der, hvor du forlod redigeringstilstand.",
+    "swapDuetAll": "Byt om på hoved- og duetlinjer",
+    "swapDuetSelected": "Byt om på hoved og duet"
+  },
   "lyricWordView": {
     "empty": "Tom",
     "spaceCount": "Mellemrum ×{count}",

@@ -1245,6 +1245,12 @@
     "insertLine": "在此处插入新行",
     "insertWord": "在此处插入字…"
   },
+  "editModeTools": {
+    "toggleTitle": "编辑模式工具",
+    "toggleDesc": "将输入的整行拆分为单词，互换主唱行与对唱行，并在重新打开项目时回到上次离开编辑模式的位置。",
+    "swapDuetAll": "互换主唱行与对唱行",
+    "swapDuetSelected": "互换主唱与对唱"
+  },
   "lyricWordView": {
     "empty": "空白",
     "spaceCount": "空格 ×{count}",

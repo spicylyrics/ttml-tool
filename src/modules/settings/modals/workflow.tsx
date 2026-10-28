@@ -26,6 +26,7 @@ import {
 	Timeline24Regular,
 	TopSpeed24Regular,
 	Translate24Regular,
+	Wrench24Regular,
 } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
@@ -37,6 +38,8 @@ import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
 import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import { showPreviewPanelAtom } from "$/states/main";
+// Relative on purpose: keeps this import apart from other settings rows' imports.
+import { editModeToolsAtom } from "../../lyric-editor/states/edit-mode-tools";
 import {
 	BackgroundSyncControl,
 	PreviewModeControl,
@@ -108,6 +111,14 @@ const editModeToggles: readonly ToggleRow[] = [
 		"Show a translation field under each lyric line.",
 		<Translate24Regular key="icon" />,
 		showLineTranslationAtom,
+	],
+	[
+		"editModeTools.toggleTitle",
+		"Edit mode tools",
+		"editModeTools.toggleDesc",
+		"Split a typed line into words, swap main and duet lines, and reopen each project where you left Edit mode.",
+		<Wrench24Regular key="icon" />,
+		editModeToolsAtom,
 	],
 	[
 		"ribbonBar.editMode.showRomanization",

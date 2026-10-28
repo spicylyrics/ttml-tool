@@ -1245,6 +1245,12 @@
     "insertLine": "Inserir nova linha aqui",
     "insertWord": "Inserir palavra aqui…"
   },
+  "editModeTools": {
+    "toggleTitle": "Ferramentas do modo Edição",
+    "toggleDesc": "Divide uma linha digitada em palavras, troca as linhas principais e de dueto e reabre cada projeto onde você deixou o modo Edição.",
+    "swapDuetAll": "Trocar linhas principais e de dueto",
+    "swapDuetSelected": "Trocar principal e dueto"
+  },
   "lyricWordView": {
     "empty": "Vazio",
     "spaceCount": "Espaço ×{count}",

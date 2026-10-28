@@ -1245,6 +1245,12 @@
     "insertLine": "Buraya yeni satır ekle",
     "insertWord": "Buraya kelime ekle…"
   },
+  "editModeTools": {
+    "toggleTitle": "Düzenleme modu araçları",
+    "toggleDesc": "Yazılan bir satırı kelimelere böler, ana ve düet satırlarını değiştirir ve her projeyi Düzenleme modundan ayrıldığınız yerde açar.",
+    "swapDuetAll": "Ana ve düet satırlarını değiştir",
+    "swapDuetSelected": "Ana ve düeti değiştir"
+  },
   "lyricWordView": {
     "empty": "Boş",
     "spaceCount": "Boşluk ×{count}",
