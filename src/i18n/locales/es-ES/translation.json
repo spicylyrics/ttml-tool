@@ -1596,6 +1596,12 @@
       "lineCountMismatch": "La página tiene {received} líneas y la letra tiene {expected}. Añade o quita líneas para que coincidan.",
       "applied": "Romanización rellenada: {count} líneas.",
       "check": "Algunas palabras se han estimado. Revisa las líneas {lines}."
+    },
+    "genius": {
+      "find": "Buscar en Genius",
+      "titleLabel": "Título de la canción",
+      "none": "No se encontró ninguna página romanizada. Prueba con el título tal como lo escribe Genius.",
+      "failed": "Genius no respondió: {message}"
     }
   },
   "timeShiftDialog": {

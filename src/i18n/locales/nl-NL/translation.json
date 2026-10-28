@@ -1596,6 +1596,12 @@
       "lineCountMismatch": "De pagina heeft {received} regels en de tekst heeft er {expected}. Voeg regels toe of verwijder ze zodat ze overeenkomen.",
       "applied": "Romanisering ingevuld: {count} regels.",
       "check": "Sommige woorden zijn geschat. Controleer regel {lines}."
+    },
+    "genius": {
+      "find": "Zoeken op Genius",
+      "titleLabel": "Titel van het nummer",
+      "none": "Geen geromaniseerde pagina gevonden. Probeer de titel zoals Genius die schrijft.",
+      "failed": "Genius gaf geen antwoord: {message}"
     }
   },
   "timeShiftDialog": {

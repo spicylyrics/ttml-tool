@@ -1596,6 +1596,12 @@
       "lineCountMismatch": "Sayfada {received} satır, sözlerde {expected} satır var. Eşleşmeleri için satır ekleyin veya silin.",
       "applied": "Romanizasyon dolduruldu: {count} satır.",
       "check": "Bazı kelimeler tahmin edildi. {lines} numaralı satırları kontrol edin."
+    },
+    "genius": {
+      "find": "Genius'ta bul",
+      "titleLabel": "Şarkı adı",
+      "none": "Romanize sayfa bulunamadı. Adı Genius'un yazdığı gibi deneyin.",
+      "failed": "Genius yanıt vermedi: {message}"
     }
   },
   "timeShiftDialog": {

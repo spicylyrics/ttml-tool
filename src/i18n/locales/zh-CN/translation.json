@@ -1596,6 +1596,12 @@
       "lineCountMismatch": "该页面有 {received} 行，歌词有 {expected} 行。请添加或删除行，使两者一致。",
       "applied": "已填写罗马音：{count} 行。",
       "check": "部分词是推测的。请检查第 {lines} 行。"
+    },
+    "genius": {
+      "find": "在 Genius 上查找",
+      "titleLabel": "歌曲名",
+      "none": "未找到罗马音页面。请尝试 Genius 上的标题写法。",
+      "failed": "Genius 没有响应：{message}"
     }
   },
   "timeShiftDialog": {

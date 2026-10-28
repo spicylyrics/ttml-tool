@@ -1596,6 +1596,12 @@
       "lineCountMismatch": "La pagina ha {received} righe e il testo ne ha {expected}. Aggiungi o rimuovi righe perché corrispondano.",
       "applied": "Romanizzazione compilata: {count} righe.",
       "check": "Alcune parole sono state stimate. Controlla le righe {lines}."
+    },
+    "genius": {
+      "find": "Cerca su Genius",
+      "titleLabel": "Titolo del brano",
+      "none": "Nessuna pagina romanizzata trovata. Prova il titolo come lo scrive Genius.",
+      "failed": "Genius non ha risposto: {message}"
     }
   },
   "timeShiftDialog": {

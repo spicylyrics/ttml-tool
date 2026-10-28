@@ -1596,6 +1596,12 @@
       "lineCountMismatch": "Strona ma {received} wierszy, a tekst ma {expected}. Dodaj lub usuń wiersze, aby się zgadzały.",
       "applied": "Uzupełniono latynizację, liczba wierszy: {count}.",
       "check": "Niektóre słowa zostały odgadnięte. Sprawdź wiersze {lines}."
+    },
+    "genius": {
+      "find": "Znajdź w Genius",
+      "titleLabel": "Tytuł utworu",
+      "none": "Nie znaleziono strony z latynizacją. Spróbuj tytułu w zapisie Genius.",
+      "failed": "Genius nie odpowiedział: {message}"
     }
   },
   "timeShiftDialog": {
