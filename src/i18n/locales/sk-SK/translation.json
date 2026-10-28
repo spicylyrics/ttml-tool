@@ -1192,6 +1192,14 @@
     "correctedWordPlaceholder": "Napíšte opravené slovo",
     "noSuggestions": "Žiadne návrhy"
   },
+  "timeModeEditing": {
+    "flagTitle": "Úpravy slov v režime Časovanie",
+    "flagDesc": "Rozdeľujte, zlučujte a nahrádzajte slová z kontextovej ponuky v režime Časovanie. Rozdelenie na dve časti nastane na pozícii prehrávania, ak je vnútri slova.",
+    "doubleClickTimestamp": "Dvojklik upraví časovú značku",
+    "doubleClickTimestampDesc": "Dvojklikom na slovo v režime Časovanie zadáte jeho počiatočný čas namiesto textu. Vyžaduje zobrazené časové značky.",
+    "combinePrevious": "Zlúčiť s predchádzajúcim slovom",
+    "combineNext": "Zlúčiť s nasledujúcim slovom"
+  },
   "sectionActions": {
     "categorizeSelected": "Zaradiť {count, plural, one {# vybraný riadok} few {# vybrané riadky} many {# vybraného riadka} other {# vybraných riadkov}}",
     "categorizeTitle": "Zaradiť vybrané riadky",

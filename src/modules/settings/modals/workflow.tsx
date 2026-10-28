@@ -31,6 +31,7 @@ import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
+import { TimeModeEditingSettings } from "$/modules/time-mode-editing/TimeModeEditingSettings";
 import { showPreviewPanelAtom } from "$/states/main";
 import {
 	BackgroundSyncControl,
@@ -364,6 +365,7 @@ export const WorkflowSettings = () => {
 					<BackgroundSyncControl variant="segmented" />
 				</SettingRow>
 				{toggles(syncAidToggles)}
+				<TimeModeEditingSettings />
 			</Flex>
 			<Flex direction="column" gap="3">
 				<Heading size="4">

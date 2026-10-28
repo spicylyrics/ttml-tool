@@ -1192,6 +1192,14 @@
     "correctedWordPlaceholder": "Wpisz poprawione słowo",
     "noSuggestions": "Żadnych sugestii"
   },
+  "timeModeEditing": {
+    "flagTitle": "Edycja słów w trybie Synchronizacja",
+    "flagDesc": "Dziel, łącz i zastępuj słowa z menu kontekstowego w trybie Synchronizacja. Podział na dwie części następuje w miejscu odtwarzania, jeśli jest ono wewnątrz słowa.",
+    "doubleClickTimestamp": "Dwuklik edytuje znacznik czasu",
+    "doubleClickTimestampDesc": "Kliknij dwukrotnie słowo w trybie Synchronizacja, aby wpisać czas początku zamiast tekstu. Wymaga widocznych znaczników czasu.",
+    "combinePrevious": "Połącz z poprzednim słowem",
+    "combineNext": "Połącz z następnym słowem"
+  },
   "sectionActions": {
     "categorizeSelected": "Przypisz kategorię do {count, plural, one {# zaznaczonego wersu} few {# zaznaczonych wersów} many {# zaznaczonych wersów} other {# zaznaczonego wersu}}",
     "categorizeTitle": "Przypisz kategorię zaznaczonym wersom",

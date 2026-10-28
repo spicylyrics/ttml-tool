@@ -1192,6 +1192,14 @@
     "correctedWordPlaceholder": "Düzeltilen kelimeyi yazın",
     "noSuggestions": "Öneri yok"
   },
+  "timeModeEditing": {
+    "flagTitle": "Zamanla modunda kelime düzenleme",
+    "flagDesc": "Zamanla modunda sağ tık menüsünden kelimeleri bölün, birleştirin ve değiştirin. İki parçalı bölme, oynatma konumu kelimenin içindeyse orada yapılır.",
+    "doubleClickTimestamp": "Çift tıklama zaman damgasını düzenler",
+    "doubleClickTimestampDesc": "Zamanla modunda bir kelimenin metni yerine başlangıç zamanını yazmak için üzerine çift tıklayın. Zaman damgalarının gösterilmesi gerekir.",
+    "combinePrevious": "Önceki kelimeyle birleştir",
+    "combineNext": "Sonraki kelimeyle birleştir"
+  },
   "sectionActions": {
     "categorizeSelected": "Seçili {count, plural, one {# satırı} other {# satırı}} kategorilere ayır",
     "categorizeTitle": "Seçili satırları kategorilere ayır",
