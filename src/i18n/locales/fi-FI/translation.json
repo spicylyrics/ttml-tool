@@ -1040,6 +1040,23 @@
     "noResults": "Mikään asetus ei vastaa hakua \"{query}\"",
     "noResultsDesc": "Kokeile toista sanaa tai tyhjennä haku."
   },
+  "preferencesPages": {
+    "editing": "Muokkaus",
+    "editingDesc": "Mitä Muokkaa-tila näyttää jokaisella rivillä ja sanalla.",
+    "syncing": "Ajoitus",
+    "syncingDesc": "Ajoitusnäppäimet, siirrot ja mitä Aika-tila näyttää.",
+    "preview": "Esikatselu",
+    "previewDesc": "Mitä Esikatselu-välilehti näyttää ja kuinka sujuvasti se toimii.",
+    "audio": "Ääni ja spektrogrammi",
+    "files": "Tuonti ja tiedostot",
+    "filesDesc": "Tuonnin siivous, vienti ja kansioprojektit.",
+    "backup": "Varmuuskopio",
+    "backupDesc": "Automaattisen tallennuksen historia ja siirrettävät varmuuskopiot.",
+    "experimental": "Kokeellinen",
+    "experimentalDesc": "Vielä keskeneräisiä ominaisuuksia. Jokainen pysyy pois päältä, kunnes otat sen käyttöön.",
+    "turnAllOff": "Poista kaikki käytöstä",
+    "turnAllOffLabel": "Poista käytöstä kaikki kokeelliset ominaisuudet kohdassa {area}"
+  },
   "timingOverview": {
     "start": "Alku",
     "end": "Loppu",

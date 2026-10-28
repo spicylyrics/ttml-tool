@@ -37,6 +37,10 @@ import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import { PreviewProblemsSetting } from "$/modules/preview-problems/PreviewProblemsSetting";
 import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
+import {
+	Relocatable,
+	useRelocatedSettings,
+} from "$/modules/settings/shell/relocated";
 import { TimeModeEditingSettings } from "$/modules/time-mode-editing/TimeModeEditingSettings";
 import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import { showPreviewPanelAtom } from "$/states/main";
@@ -344,37 +348,71 @@ const SettingRow = ({
 	return <Card>{asLabel ? <Text as="label">{row}</Text> : row}</Card>;
 };
 
-export const WorkflowSettings = () => {
+export type WorkflowGroupId =
+	| "editMode"
+	| "timeModeDisplay"
+	| "syncAids"
+	| "preview"
+	| "previewPerformance";
+
+/** One group's column, or nothing when the page doesn't show that group. */
+const WorkflowGroup = ({
+	show,
+	children,
+}: {
+	show: boolean;
+	children: ReactNode;
+}) =>
+	show ? (
+		<Flex direction="column" gap="3">
+			{children}
+		</Flex>
+	) : null;
+
+/** Every group by default; the Preferences shell splits them across pages. */
+export const WorkflowSettings = ({
+	groups,
+}: {
+	groups?: readonly WorkflowGroupId[];
+}) => {
 	const { t } = useTranslation();
 	const [fadeWidth, setFadeWidth] = useAtom(lyricWordFadeWidthAtom);
+	const relocated = useRelocatedSettings();
+	const shows = (group: WorkflowGroupId) => !groups || groups.includes(group);
 	const toggles = (rows: readonly ToggleRow[]) =>
-		rows.map(([titleKey, title, descKey, desc, icon, setting]) => (
-			<SettingRow
-				key={titleKey}
-				icon={icon}
-				title={t(titleKey, title)}
-				description={t(descKey, desc)}
-				asLabel
-			>
-				<SettingToggle setting={setting} />
-			</SettingRow>
-		));
+		rows
+			.filter((row) => !relocated.has(row[5]))
+			.map(([titleKey, title, descKey, desc, icon, setting]) => (
+				<SettingRow
+					key={titleKey}
+					icon={icon}
+					title={t(titleKey, title)}
+					description={t(descKey, desc)}
+					asLabel
+				>
+					<SettingToggle setting={setting} />
+				</SettingRow>
+			));
 	return (
 		<Flex direction="column" gap="4">
-			<Flex direction="column" gap="3">
+			<WorkflowGroup show={shows("editMode")}>
 				<Heading size="4">
 					{t("settings.group.editModeDisplay", "Edit mode")}
 				</Heading>
 				{toggles(editModeToggles)}
-			</Flex>
-			<RomanizationToolsSettings />
-			<Flex direction="column" gap="3">
+			</WorkflowGroup>
+			{shows("editMode") && (
+				<Relocatable setting={RomanizationToolsSettings}>
+					<RomanizationToolsSettings />
+				</Relocatable>
+			)}
+			<WorkflowGroup show={shows("timeModeDisplay")}>
 				<Heading size="4">
 					{t("settings.group.timeModeDisplay", "Time mode display")}
 				</Heading>
 				{toggles(timeModeDisplayToggles)}
-			</Flex>
-			<Flex direction="column" gap="3">
+			</WorkflowGroup>
+			<WorkflowGroup show={shows("syncAids")}>
 				<Heading size="4">
 					{t("settings.group.syncAids", "Syncing aids")}
 				</Heading>
@@ -399,9 +437,11 @@ export const WorkflowSettings = () => {
 					<BackgroundSyncControl variant="segmented" />
 				</SettingRow>
 				{toggles(syncAidToggles)}
-				<TimeModeEditingSettings />
-			</Flex>
-			<Flex direction="column" gap="3">
+				<Relocatable setting={TimeModeEditingSettings}>
+					<TimeModeEditingSettings />
+				</Relocatable>
+			</WorkflowGroup>
+			<WorkflowGroup show={shows("preview")}>
 				<Heading size="4">
 					{t("settings.group.previewControls", "Preview")}
 				</Heading>
@@ -426,7 +466,9 @@ export const WorkflowSettings = () => {
 					<SpicyBackgroundControl variant="segmented" />
 				</SettingRow>
 				{toggles(previewToggles)}
-				<PreviewProblemsSetting />
+				<Relocatable setting={PreviewProblemsSetting}>
+					<PreviewProblemsSetting />
+				</Relocatable>
 				<SettingRow
 					icon={<ArrowAutofitWidth24Regular />}
 					title={t("ribbonBar.previewMode.fadeWidth", "Fade width")}
@@ -447,13 +489,13 @@ export const WorkflowSettings = () => {
 						}}
 					/>
 				</SettingRow>
-			</Flex>
-			<Flex direction="column" gap="3">
+			</WorkflowGroup>
+			<WorkflowGroup show={shows("previewPerformance")}>
 				<Heading size="4">
 					{t("settings.group.previewPerformance", "Preview performance")}
 				</Heading>
 				{toggles(performanceToggles)}
-			</Flex>
+			</WorkflowGroup>
 		</Flex>
 	);
 };

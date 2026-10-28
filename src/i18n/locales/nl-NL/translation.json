@@ -1040,6 +1040,23 @@
     "noResults": "Geen instellingen gevonden voor \"{query}\"",
     "noResultsDesc": "Probeer een ander woord of wis de zoekopdracht."
   },
+  "preferencesPages": {
+    "editing": "Bewerken",
+    "editingDesc": "Wat de modus Bewerken op elke regel en elk woord toont.",
+    "syncing": "Synchroniseren",
+    "syncingDesc": "Timingtoetsen, verschuivingen en wat de modus Tijd toont.",
+    "preview": "Voorbeeld",
+    "previewDesc": "Wat het tabblad Voorbeeld toont en hoe soepel het loopt.",
+    "audio": "Audio en spectrogram",
+    "files": "Importeren en bestanden",
+    "filesDesc": "Opschonen bij importeren, exporteren en mapprojecten.",
+    "backup": "Back-up",
+    "backupDesc": "Geschiedenis van automatisch opslaan en draagbare back-ups.",
+    "experimental": "Experimenteel",
+    "experimentalDesc": "Functies waaraan nog gewerkt wordt. Elke functie blijft uit tot je hem aanzet.",
+    "turnAllOff": "Alles uitzetten",
+    "turnAllOffLabel": "Alle experimentele functies onder {area} uitzetten"
+  },
   "timingOverview": {
     "start": "Begin",
     "end": "Einde",

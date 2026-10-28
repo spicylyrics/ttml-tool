@@ -140,12 +140,6 @@
 	padding: var(--space-2) var(--space-3);
 }
 
-.flag {
-	margin-top: auto;
-	padding: var(--space-3) var(--space-2) var(--space-1);
-	border-top: 1px solid var(--gray-a5);
-}
-
 .content {
 	min-width: 0;
 	overflow-y: auto;
@@ -216,10 +210,6 @@
 	border-color: var(--sl-border);
 }
 
-:global(:root[data-design="spicy-lyrics"]) .flag {
-	border-color: var(--sl-border);
-}
-
 :global(:root[data-design="spicy-lyrics"]) .navigationItem {
 	border-radius: var(--radius-2);
 	transition: transform 150ms var(--sl-ease-out);
@@ -253,8 +243,7 @@
 
 @media (prefers-contrast: more) {
 	.header,
-	.sidebar,
-	.flag {
+	.sidebar {
 		border-color: var(--gray-a8);
 	}
 

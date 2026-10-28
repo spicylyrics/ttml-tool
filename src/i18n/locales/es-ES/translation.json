@@ -1040,6 +1040,23 @@
     "noResults": "Ningún ajuste coincide con «{query}»",
     "noResultsDesc": "Prueba otra palabra o borra la búsqueda."
   },
+  "preferencesPages": {
+    "editing": "Edición",
+    "editingDesc": "Lo que muestra el modo Edición en cada línea y palabra.",
+    "syncing": "Sincronización",
+    "syncingDesc": "Teclas de sincronización, desfases y lo que muestra el modo Tiempo.",
+    "preview": "Vista previa",
+    "previewDesc": "Lo que muestra la pestaña Vista previa y con qué fluidez funciona.",
+    "audio": "Audio y espectrograma",
+    "files": "Importación y archivos",
+    "filesDesc": "Limpieza al importar, exportación y proyectos de carpeta.",
+    "backup": "Copia de seguridad",
+    "backupDesc": "Historial de autoguardado y copias de seguridad portátiles.",
+    "experimental": "Experimental",
+    "experimentalDesc": "Funciones aún en desarrollo. Cada una sigue desactivada hasta que la actives.",
+    "turnAllOff": "Desactivar todo",
+    "turnAllOffLabel": "Desactivar todas las funciones experimentales de {area}"
+  },
   "timingOverview": {
     "start": "Inicio",
     "end": "Fin",

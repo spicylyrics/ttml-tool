@@ -1040,6 +1040,23 @@
     "noResults": "No settings match \"{query}\"",
     "noResultsDesc": "Try another word, or clear the search."
   },
+  "preferencesPages": {
+    "editing": "Editing",
+    "editingDesc": "What Edit mode shows on each line and word.",
+    "syncing": "Syncing",
+    "syncingDesc": "Timing keys, offsets, and what Time mode shows.",
+    "preview": "Preview",
+    "previewDesc": "What the Preview tab shows and how smoothly it runs.",
+    "audio": "Audio & spectrogram",
+    "files": "Import & files",
+    "filesDesc": "Import cleanup, export, and folder projects.",
+    "backup": "Backup",
+    "backupDesc": "Autosave history and portable backups.",
+    "experimental": "Experimental",
+    "experimentalDesc": "Features still in progress. Each stays off until you turn it on.",
+    "turnAllOff": "Turn all off",
+    "turnAllOffLabel": "Turn off every experimental feature under {area}"
+  },
   "timingOverview": {
     "start": "Start",
     "end": "End",

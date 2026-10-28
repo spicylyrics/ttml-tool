@@ -1040,6 +1040,23 @@
     "noResults": "\"{query}\" ile eşleşen ayar yok",
     "noResultsDesc": "Başka bir kelime deneyin veya aramayı temizleyin."
   },
+  "preferencesPages": {
+    "editing": "Düzenleme",
+    "editingDesc": "Düzenleme modunun her satırda ve kelimede gösterdikleri.",
+    "syncing": "Senkronizasyon",
+    "syncingDesc": "Zamanlama tuşları, kaydırmalar ve Zaman modunun gösterdikleri.",
+    "preview": "Önizleme",
+    "previewDesc": "Önizleme sekmesinin gösterdikleri ve ne kadar akıcı çalıştığı.",
+    "audio": "Ses ve spektrogram",
+    "files": "İçe aktarma ve dosyalar",
+    "filesDesc": "İçe aktarırken temizleme, dışa aktarma ve klasör projeleri.",
+    "backup": "Yedek",
+    "backupDesc": "Otomatik kaydetme geçmişi ve taşınabilir yedekler.",
+    "experimental": "Deneysel",
+    "experimentalDesc": "Hâlâ geliştirilen özellikler. Her biri siz açana kadar kapalı kalır.",
+    "turnAllOff": "Hepsini kapat",
+    "turnAllOffLabel": "{area} altındaki tüm deneysel özellikleri kapat"
+  },
   "timingOverview": {
     "start": "Başlangıç",
     "end": "Bitiş",

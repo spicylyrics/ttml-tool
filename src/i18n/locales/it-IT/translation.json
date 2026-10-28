@@ -1040,6 +1040,23 @@
     "noResults": "Nessuna impostazione corrisponde a \"{query}\"",
     "noResultsDesc": "Prova un'altra parola o cancella la ricerca."
   },
+  "preferencesPages": {
+    "editing": "Modifica",
+    "editingDesc": "Cosa mostra la modalità Modifica su ogni riga e parola.",
+    "syncing": "Sincronizzazione",
+    "syncingDesc": "Tasti di sincronizzazione, offset e cosa mostra la modalità Tempo.",
+    "preview": "Anteprima",
+    "previewDesc": "Cosa mostra la scheda Anteprima e quanto è fluida.",
+    "audio": "Audio e spettrogramma",
+    "files": "Importazione e file",
+    "filesDesc": "Pulizia all'importazione, esportazione e progetti cartella.",
+    "backup": "Backup",
+    "backupDesc": "Cronologia del salvataggio automatico e backup portatili.",
+    "experimental": "Sperimentale",
+    "experimentalDesc": "Funzioni ancora in lavorazione. Ognuna resta disattivata finché non la attivi.",
+    "turnAllOff": "Disattiva tutto",
+    "turnAllOffLabel": "Disattiva tutte le funzioni sperimentali in {area}"
+  },
   "timingOverview": {
     "start": "Inizio",
     "end": "Fine",

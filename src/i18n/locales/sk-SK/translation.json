@@ -1040,6 +1040,23 @@
     "noResults": "Žiadne nastavenie nezodpovedá „{query}“",
     "noResultsDesc": "Skúste iné slovo alebo vymažte vyhľadávanie."
   },
+  "preferencesPages": {
+    "editing": "Úpravy",
+    "editingDesc": "Čo režim Úpravy zobrazuje pri každom riadku a slove.",
+    "syncing": "Synchronizácia",
+    "syncingDesc": "Klávesy na časovanie, posuny a čo zobrazuje režim Čas.",
+    "preview": "Náhľad",
+    "previewDesc": "Čo zobrazuje karta Náhľad a ako plynulo beží.",
+    "audio": "Zvuk a spektrogram",
+    "files": "Import a súbory",
+    "filesDesc": "Čistenie pri importe, export a priečinkové projekty.",
+    "backup": "Záloha",
+    "backupDesc": "História automatického ukladania a prenosné zálohy.",
+    "experimental": "Experimentálne",
+    "experimentalDesc": "Funkcie, na ktorých sa ešte pracuje. Každá zostane vypnutá, kým ju nezapnete.",
+    "turnAllOff": "Vypnúť všetko",
+    "turnAllOffLabel": "Vypnúť všetky experimentálne funkcie v sekcii {area}"
+  },
   "timingOverview": {
     "start": "Začiatok",
     "end": "Koniec",
