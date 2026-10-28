@@ -36,6 +36,12 @@ async function startApp() {
 		throw new Error("Could not find root element");
 	}
 
+	// Render in the user's language from the first paint. i18nReady also
+	// resolves when a catalog fails to load; en-US is used then.
+	await i18nReady.catch((error) => {
+		console.error("Error loading the interface language:", error);
+	});
+
 	if (isMigrationPath(window.location.pathname)) {
 		createRoot(rootEl).render(
 			<StrictMode>
@@ -61,12 +67,6 @@ async function startApp() {
 	Sentry.init({
 		dsn: import.meta.env.SENTRY_DSN,
 		integrations: [],
-	});
-
-	// Render in the user's language from the first paint. i18nReady also
-	// resolves when a catalog fails to load; en-US is used then.
-	await i18nReady.catch((error) => {
-		console.error("Error loading the interface language:", error);
 	});
 
 	createRoot(rootEl).render(
