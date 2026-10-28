@@ -1074,7 +1074,39 @@
       "audioDesc": "Reprodução, equalizador e exibição do espectrograma."
     }
   },
-  "autoSegmentApplied": "Segmentado automaticamente com {engine}",
+  "keyboardView": {
+    "title": "Teclado",
+    "flagTitle": "Visão do teclado e segundas teclas",
+    "flagDesc": "Experimental. Mostra seus atalhos em um teclado e permite que uma ação tenha mais de uma tecla.",
+    "search": "Buscar ações",
+    "searchResults": "{count, plural, =0 {Nenhuma ação corresponde} one {# ação corresponde} many {# ações correspondem} other {# ações correspondem}}",
+    "layout": "Layout do teclado",
+    "layoutAuto": "Automático",
+    "layoutDetected": "Detectado: {layout}",
+    "layoutUnavailable": "Não é possível detectar o layout aqui, então o QWERTY é mostrado",
+    "layerHint": "Clique em uma tecla modificadora, como Shift, para ver os atalhos que a usam.",
+    "category": {
+      "sync": "Sincronização",
+      "edit": "Edição",
+      "playback": "Reprodução",
+      "navigation": "Navegação"
+    },
+    "free": "Livre",
+    "keyFree": "{key}: livre",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Mostrar atalhos com {key}",
+    "freeKey": "Nada usa {key} ainda.",
+    "assignLabel": "Ação",
+    "assignPlaceholder": "Escolha uma ação...",
+    "assign": "Adicionar a {key}",
+    "changeKey": "Trocar tecla",
+    "addKey": "Adicionar segunda tecla",
+    "removeKey": "Remover {key}",
+    "duplicateKey": "Essa tecla já está definida para esta ação.",
+    "otherLayers": "Também nesta tecla",
+    "closePanel": "Fechar"
+  },
+  "autoSegmentApplied":"Segmentado automaticamente com {engine}",
   "error": {
     "unsupportedFileFormat": "Formato de arquivo não suportado: {ext}",
     "openFileFailed": "Falha ao abrir arquivo",

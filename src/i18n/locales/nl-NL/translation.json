@@ -1074,7 +1074,39 @@
       "audioDesc": "Afspelen, equalizer en spectrogramweergave."
     }
   },
-  "autoSegmentApplied": "Automatisch gesegmenteerd met {engine}",
+  "keyboardView": {
+    "title": "Toetsenbord",
+    "flagTitle": "Toetsenbordweergave en tweede toetsen",
+    "flagDesc": "Experimenteel. Toont je sneltoetsen op een toetsenbord en laat één actie meer dan één toets hebben.",
+    "search": "Acties zoeken",
+    "searchResults": "{count, plural, =0 {Geen acties gevonden} one {# actie gevonden} other {# acties gevonden}}",
+    "layout": "Toetsenbordindeling",
+    "layoutAuto": "Automatisch",
+    "layoutDetected": "Gevonden: {layout}",
+    "layoutUnavailable": "De indeling kan hier niet worden bepaald, dus QWERTY wordt getoond",
+    "layerHint": "Klik op een aanpassingstoets, zoals Shift, om de sneltoetsen te zien die hem gebruiken.",
+    "category": {
+      "sync": "Synchronisatie",
+      "edit": "Bewerken",
+      "playback": "Afspelen",
+      "navigation": "Navigatie"
+    },
+    "free": "Vrij",
+    "keyFree": "{key}: vrij",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Sneltoetsen met {key} tonen",
+    "freeKey": "Nog niets gebruikt {key}.",
+    "assignLabel": "Actie",
+    "assignPlaceholder": "Kies een actie...",
+    "assign": "Toevoegen aan {key}",
+    "changeKey": "Toets wijzigen",
+    "addKey": "Tweede toets toevoegen",
+    "removeKey": "{key} verwijderen",
+    "duplicateKey": "Die toets is al ingesteld voor deze actie.",
+    "otherLayers": "Ook op deze toets",
+    "closePanel": "Sluiten"
+  },
+  "autoSegmentApplied":"Automatisch gesegmenteerd met {engine}",
   "error": {
     "unsupportedFileFormat": "Niet-ondersteunde bestandsindeling: {ext}",
     "openFileFailed": "Kan bestand niet openen",

@@ -1074,7 +1074,39 @@
       "audioDesc": "Redare, egalizator și afișarea spectrogramei."
     }
   },
-  "autoSegmentApplied": "Segmentat automat cu {engine}",
+  "keyboardView": {
+    "title": "Tastatură",
+    "flagTitle": "Vizualizare tastatură și taste secundare",
+    "flagDesc": "Experimental. Îți arată scurtăturile pe o tastatură și permite unei acțiuni să aibă mai multe taste.",
+    "search": "Caută acțiuni",
+    "searchResults": "{count, plural, =0 {Nicio acțiune nu se potrivește} one {# acțiune se potrivește} few {# acțiuni se potrivesc} other {# de acțiuni se potrivesc}}",
+    "layout": "Aspectul tastaturii",
+    "layoutAuto": "Automat",
+    "layoutDetected": "Detectat: {layout}",
+    "layoutUnavailable": "Aspectul nu poate fi detectat aici, așa că se afișează QWERTY",
+    "layerHint": "Apasă pe o tastă modificatoare, cum ar fi Shift, ca să vezi scurtăturile care o folosesc.",
+    "category": {
+      "sync": "Sincronizare",
+      "edit": "Editare",
+      "playback": "Redare",
+      "navigation": "Navigare"
+    },
+    "free": "Liberă",
+    "keyFree": "{key}: liberă",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Arată scurtăturile cu {key}",
+    "freeKey": "Nimic nu folosește încă {key}.",
+    "assignLabel": "Acțiune",
+    "assignPlaceholder": "Alege o acțiune...",
+    "assign": "Adaugă la {key}",
+    "changeKey": "Schimbă tasta",
+    "addKey": "Adaugă a doua tastă",
+    "removeKey": "Elimină {key}",
+    "duplicateKey": "Tasta aceasta este deja setată pentru această acțiune.",
+    "otherLayers": "Tot pe această tastă",
+    "closePanel": "Închide"
+  },
+  "autoSegmentApplied":"Segmentat automat cu {engine}",
   "error": {
     "unsupportedFileFormat": "Format de fișier nesuportat: {ext}",
     "openFileFailed": "Nu s-a putut deschide fișierul",

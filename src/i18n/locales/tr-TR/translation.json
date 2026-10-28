@@ -1074,7 +1074,39 @@
       "audioDesc": "Oynatma, ekolayzer ve spektrogram görünümü."
     }
   },
-  "autoSegmentApplied": "{engine} ile otomatik bölündü",
+  "keyboardView": {
+    "title": "Klavye",
+    "flagTitle": "Klavye görünümü ve ikinci tuşlar",
+    "flagDesc": "Deneysel. Kısayollarınızı bir klavye üzerinde gösterir ve bir eyleme birden fazla tuş vermenizi sağlar.",
+    "search": "Eylem ara",
+    "searchResults": "{count, plural, =0 {Eşleşen eylem yok} one {# eylem eşleşiyor} other {# eylem eşleşiyor}}",
+    "layout": "Klavye düzeni",
+    "layoutAuto": "Otomatik",
+    "layoutDetected": "Algılanan: {layout}",
+    "layoutUnavailable": "Düzen burada algılanamıyor, bu yüzden QWERTY gösteriliyor",
+    "layerHint": "Onu kullanan kısayolları görmek için Shift gibi bir değiştirici tuşa tıklayın.",
+    "category": {
+      "sync": "Senkron",
+      "edit": "Düzenleme",
+      "playback": "Oynatma",
+      "navigation": "Gezinme"
+    },
+    "free": "Boş",
+    "keyFree": "{key}: boş",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "{key} ile kısayolları göster",
+    "freeKey": "{key} henüz hiçbir şey tarafından kullanılmıyor.",
+    "assignLabel": "Eylem",
+    "assignPlaceholder": "Bir eylem seçin...",
+    "assign": "{key} tuşuna ekle",
+    "changeKey": "Tuşu değiştir",
+    "addKey": "İkinci tuş ekle",
+    "removeKey": "{key} tuşunu kaldır",
+    "duplicateKey": "Bu tuş bu eylem için zaten ayarlı.",
+    "otherLayers": "Bu tuşta ayrıca",
+    "closePanel": "Kapat"
+  },
+  "autoSegmentApplied":"{engine} ile otomatik bölündü",
   "error": {
     "unsupportedFileFormat": "Desteklenmeyen dosya biçimi: {ext}",
     "openFileFailed": "Dosya açılamadı",

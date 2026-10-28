@@ -1074,7 +1074,39 @@
       "audioDesc": "Afspilning, equalizer og spektrogramvisning."
     }
   },
-  "autoSegmentApplied": "Automatisk opdelt med {engine}",
+  "keyboardView": {
+    "title": "Tastatur",
+    "flagTitle": "Tastaturvisning og ekstra taster",
+    "flagDesc": "Eksperimentel. Viser dine genveje på et tastatur og lader en handling have mere end én tast.",
+    "search": "Søg i handlinger",
+    "searchResults": "{count, plural, =0 {Ingen handlinger passer} one {# handling passer} other {# handlinger passer}}",
+    "layout": "Tastaturlayout",
+    "layoutAuto": "Automatisk",
+    "layoutDetected": "Fundet: {layout}",
+    "layoutUnavailable": "Layoutet kan ikke findes her, så QWERTY vises",
+    "layerHint": "Klik på en ændringstast som Shift for at se de genveje, der bruger den.",
+    "category": {
+      "sync": "Synkronisering",
+      "edit": "Redigering",
+      "playback": "Afspilning",
+      "navigation": "Navigation"
+    },
+    "free": "Ledig",
+    "keyFree": "{key}: ledig",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Vis genveje med {key}",
+    "freeKey": "Intet bruger {key} endnu.",
+    "assignLabel": "Handling",
+    "assignPlaceholder": "Vælg en handling...",
+    "assign": "Tilføj til {key}",
+    "changeKey": "Skift tast",
+    "addKey": "Tilføj ekstra tast",
+    "removeKey": "Fjern {key}",
+    "duplicateKey": "Den tast er allerede sat til denne handling.",
+    "otherLayers": "Også på denne tast",
+    "closePanel": "Luk"
+  },
+  "autoSegmentApplied":"Automatisk opdelt med {engine}",
   "error": {
     "unsupportedFileFormat": "Ikke-understøttet filformat: {ext}",
     "openFileFailed": "Kunne ikke åbne fil",

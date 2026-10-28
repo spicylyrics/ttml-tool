@@ -1074,7 +1074,39 @@
       "audioDesc": "Playback, equalizer, and spectrogram display."
     }
   },
-  "autoSegmentApplied": "Auto-segmented with {engine}",
+  "keyboardView": {
+    "title": "Keyboard",
+    "flagTitle": "Keyboard view and second keys",
+    "flagDesc": "Experimental. Shows your shortcuts on a keyboard and lets one action have more than one key.",
+    "search": "Search actions",
+    "searchResults": "{count, plural, =0 {No actions match} one {# action matches} other {# actions match}}",
+    "layout": "Keyboard layout",
+    "layoutAuto": "Automatic",
+    "layoutDetected": "Detected: {layout}",
+    "layoutUnavailable": "Can't detect the layout here, so QWERTY is shown",
+    "layerHint": "Click a modifier key, such as Shift, to see the shortcuts that use it.",
+    "category": {
+      "sync": "Sync",
+      "edit": "Edit",
+      "playback": "Playback",
+      "navigation": "Navigation"
+    },
+    "free": "Free",
+    "keyFree": "{key}: free",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Show shortcuts with {key}",
+    "freeKey": "Nothing uses {key} yet.",
+    "assignLabel": "Action",
+    "assignPlaceholder": "Choose an action...",
+    "assign": "Add to {key}",
+    "changeKey": "Change key",
+    "addKey": "Add second key",
+    "removeKey": "Remove {key}",
+    "duplicateKey": "That key is already set for this action.",
+    "otherLayers": "Also on this key",
+    "closePanel": "Close"
+  },
+  "autoSegmentApplied":"Auto-segmented with {engine}",
   "error": {
     "unsupportedFileFormat": "Unsupported file format: {ext}",
     "openFileFailed": "Failed to open file",
