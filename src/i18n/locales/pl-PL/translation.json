@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# wers nie ma jeszcze synchronizacji} few {# wersy nie mają jeszcze synchronizacji} many {# wersów nie ma jeszcze synchronizacji} other {# wersu nie ma jeszcze synchronizacji}}",
     "jumpToUntimed": "Synchronizuj pierwszy wers bez czasów"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# słowo ma problem z synchronizacją} few {# słowa mają problemy z synchronizacją} many {# słów ma problemy z synchronizacją} other {# słowa ma problemy z synchronizacją}}",
+    "jump": "Zaznacz pierwsze",
+    "setting": "Pokazuj problemy z synchronizacją",
+    "settingDesc": "Oznacza na czerwono, z przerywanym obrysem, słowa, które podgląd Spicy ukryłby lub odtworzył źle z powodu ich czasów.",
+    "untimed": "Brak czasów w zsynchronizowanym wersie",
+    "endsBeforeStart": "Kończy się, zanim się zacznie",
+    "startsBeforeLine": "Zaczyna się przed swoim wersem",
+    "endsAfterLine": "Kończy się po swoim wersie"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Otwórz plik z tekstem",

@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, other {# baris belum diberi waktu}}",
     "jumpToUntimed": "Sinkronkan baris pertama yang belum diberi waktu"
   },
+  "previewProblems": {
+    "count": "{count, plural, other {# kata punya masalah waktu}}",
+    "jump": "Pilih yang pertama",
+    "setting": "Tampilkan masalah waktu",
+    "settingDesc": "Tandai dengan warna merah dan garis putus-putus kata yang akan disembunyikan atau diputar salah oleh pratinjau Spicy karena waktunya.",
+    "untimed": "Tanpa waktu di baris yang sudah diberi waktu",
+    "endsBeforeStart": "Berakhir sebelum dimulai",
+    "startsBeforeLine": "Dimulai sebelum barisnya",
+    "endsAfterLine": "Berakhir setelah barisnya"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Buka file lirik",

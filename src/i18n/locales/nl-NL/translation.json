@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# regel heeft nog geen timing} other {# regels hebben nog geen timing}}",
     "jumpToUntimed": "Synchroniseer de eerste regel zonder timing"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# woord heeft een timingprobleem} other {# woorden hebben timingproblemen}}",
+    "jump": "Selecteer het eerste",
+    "setting": "Timingproblemen tonen",
+    "settingDesc": "Markeert woorden die de Spicy-voorvertoning door hun timing zou verbergen of verkeerd zou afspelen, in rood met een gestippelde rand.",
+    "untimed": "Geen timing in een getimede regel",
+    "endsBeforeStart": "Eindigt voordat het begint",
+    "startsBeforeLine": "Begint voor zijn regel",
+    "endsAfterLine": "Eindigt na zijn regel"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Songtekstbestand openen",

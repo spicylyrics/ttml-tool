@@ -35,6 +35,7 @@ import { useTranslation } from "react-i18next";
 import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
 import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section-editing";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
+import { PreviewProblemsSetting } from "$/modules/preview-problems/PreviewProblemsSetting";
 import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
 import { TimeModeEditingSettings } from "$/modules/time-mode-editing/TimeModeEditingSettings";
 import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
@@ -425,6 +426,7 @@ export const WorkflowSettings = () => {
 					<SpicyBackgroundControl variant="segmented" />
 				</SettingRow>
 				{toggles(previewToggles)}
+				<PreviewProblemsSetting />
 				<SettingRow
 					icon={<ArrowAutofitWidth24Regular />}
 					title={t("ribbonBar.previewMode.fadeWidth", "Fade width")}

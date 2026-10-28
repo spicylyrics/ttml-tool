@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, other {# 行尚未打轴}}",
     "jumpToUntimed": "为第一条未打轴的歌词行打轴"
   },
+  "previewProblems": {
+    "count": "{count, plural, other {# 个词存在时间问题}}",
+    "jump": "选中第一个",
+    "setting": "显示时间问题",
+    "settingDesc": "用红色和虚线框标出因时间设置而会在 Spicy 预览中被隐藏或播放错误的词。",
+    "untimed": "在已打轴的行中没有时间",
+    "endsBeforeStart": "结束时间早于开始时间",
+    "startsBeforeLine": "开始时间早于所在行",
+    "endsAfterLine": "结束时间晚于所在行"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "打开歌词文件",

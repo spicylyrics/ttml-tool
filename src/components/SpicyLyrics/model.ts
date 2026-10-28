@@ -2,8 +2,16 @@
  * Adapted from the Spicy Lyrics renderer (AGPL-3.0-or-later).
  * Original project: https://github.com/Spikerko/Spicy-Lyrics
  */
+
+import type { WordTimingProblem } from "$/modules/preview-problems/detect-word-timing-problems";
 import { collectFollowingBackgroundLines } from "$/modules/project/logic/ttml-writer";
 import type { LyricLine, LyricWord } from "$/types/ttml";
+
+/** Word id to the timing problems the preview marks on it. */
+export type SpicyWordProblems = ReadonlyMap<
+	string,
+	readonly WordTimingProblem[]
+>;
 
 export interface SpicyToken {
 	id: string;
@@ -15,6 +23,8 @@ export interface SpicyToken {
 	spaceAfter?: boolean;
 	breakAfter?: boolean;
 	allowInternalWrap?: boolean;
+	/** Set only while the preview marks timing problems. */
+	problems?: readonly WordTimingProblem[];
 }
 
 export interface SpicyTokenLayoutItem {
@@ -208,20 +218,34 @@ function makeTokens(
 	simple: boolean,
 	romanized: boolean,
 	background: boolean,
+	problems?: SpicyWordProblems,
 ): SpicyToken[] {
 	const tokens: SpicyToken[] = [];
 
 	for (const word of words) {
+		const wordProblems = problems?.get(word.id);
 		const previous = tokens[tokens.length - 1];
 		if (/^\s*$/u.test(word.word)) {
 			if (previous && word.word.length > 0) previous.spaceAfter = true;
 			continue;
 		}
 		if (previous && /^\s/u.test(word.word)) previous.spaceAfter = true;
-		if (!validWord(word.startTime, word.endTime)) continue;
+		// A word ending before it starts is dropped, unless problems are being
+		// shown: then it renders as a zero-length word at its start.
+		const shown =
+			wordProblems?.includes("endsBeforeStart") &&
+			Number.isFinite(word.startTime) &&
+			Number.isFinite(word.endTime);
+		if (!validWord(word.startTime, word.endTime) && !shown) continue;
 
-		const token = makeToken(word, simple, romanized, background);
+		const token = makeToken(
+			shown ? { ...word, endTime: word.startTime } : word,
+			simple,
+			romanized,
+			background,
+		);
 		if (token.text.length === 0) continue;
+		if (wordProblems) token.problems = wordProblems;
 		if (/[\s,]$/u.test(word.word)) token.spaceAfter = true;
 		tokens.push(token);
 	}
@@ -303,6 +327,7 @@ export function groupVocals(
 	romanized: boolean,
 	forceLineSynced = false,
 	allowConsecutiveBackgrounds = false,
+	problems?: SpicyWordProblems,
 ): SpicyVocalGroup[] {
 	const lines = source.filter((line) =>
 		validLine(line.startTime, line.endTime),
@@ -318,7 +343,7 @@ export function groupVocals(
 		isBackground: background,
 		isDuet: !!line.isDuet,
 		translation: line.translatedLyric || undefined,
-		words: makeTokens(line.words, simple, romanized, background),
+		words: makeTokens(line.words, simple, romanized, background, problems),
 	});
 
 	for (let index = 0; index < lines.length; index++) {
@@ -389,6 +414,7 @@ export function buildSpicyLines(
 	romanized: boolean,
 	forceLineSynced = false,
 	allowConsecutiveBackgrounds = false,
+	problems?: SpicyWordProblems,
 ): SpicyLine[] {
 	const groups = groupVocals(
 		source,
@@ -396,6 +422,7 @@ export function buildSpicyLines(
 		romanized,
 		forceLineSynced,
 		allowConsecutiveBackgrounds,
+		problems,
 	);
 	const result: SpicyLine[] = [];
 	const first = groups[0]?.lead;

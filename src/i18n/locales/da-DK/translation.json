@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# linje mangler timing} other {# linjer mangler timing}}",
     "jumpToUntimed": "Sæt tider for første linje uden timing"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# ord har et timingproblem} other {# ord har timingproblemer}}",
+    "jump": "Vælg det første",
+    "setting": "Vis timingproblemer",
+    "settingDesc": "Markér ord, som Spicy-forhåndsvisningen ville skjule eller afspille forkert på grund af deres timing, med rødt og en stiplet kant.",
+    "untimed": "Ingen timing i en linje med timing",
+    "endsBeforeStart": "Slutter, før det starter",
+    "startsBeforeLine": "Starter før sin linje",
+    "endsAfterLine": "Slutter efter sin linje"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Åbn sangtekstfil",

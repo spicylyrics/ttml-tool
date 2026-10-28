@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# line has no timing yet} other {# lines have no timing yet}}",
     "jumpToUntimed": "Time the first untimed line"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# word has a timing problem} other {# words have timing problems}}",
+    "jump": "Select the first one",
+    "setting": "Show timing problems",
+    "settingDesc": "Mark words the Spicy preview would hide or play wrong because of their timing, in red with a dashed outline.",
+    "untimed": "No timing in a timed line",
+    "endsBeforeStart": "Ends before it starts",
+    "startsBeforeLine": "Starts before its line",
+    "endsAfterLine": "Ends after its line"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Open lyrics file",
