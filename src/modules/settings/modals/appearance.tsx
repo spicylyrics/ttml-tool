@@ -1,4 +1,5 @@
 import { Flex } from "@radix-ui/themes";
+import { LogoColorSection } from "$/modules/logo-color/LogoColorSection";
 import { AppearanceEditorMode } from "$/modules/settings/states/index.ts";
 import { AppearanceEditorModeSection } from "./appearance/AppearanceEditorModeSection";
 import { BackgroundSection } from "./appearance/BackgroundSection";
@@ -35,6 +36,7 @@ export const SettingsAppearanceTab = () => {
 	return (
 		<Flex direction="column" gap="4">
 			<SpicyLyricsDesignSection {...state} />
+			<LogoColorSection />
 			<AppearanceEditorModeSection {...state} />
 
 			<PresetsSection {...state} />

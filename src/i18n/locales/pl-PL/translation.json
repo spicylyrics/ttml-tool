@@ -285,6 +285,29 @@
       "copyPrevious": "Kopiuj poprzednie czasy"
     }
   },
+  "logoColor": {
+    "title": "Kolor logo",
+    "description": "Eksperymentalne. Wybierz kolor logo na pasku tytułu i na ekranie powitalnym przewodnika.",
+    "colorLabel": "Kolor",
+    "customLabel": "Własny kolor logo",
+    "designNote": "Logo jest widoczne tylko przy włączonym wyglądzie Spicy Lyrics.",
+    "presets": {
+      "default": "Domyślny",
+      "defaultDesc": "Własny kolor wyglądu",
+      "lilac": "Liliowy",
+      "lilacDesc": "Z logo v3",
+      "purple": "Fioletowy",
+      "purpleDesc": "Z wielokolorowego logo",
+      "red": "Czerwony",
+      "redDesc": "Z logo v0.9",
+      "gold": "Złoty",
+      "green": "Zielony",
+      "blue": "Niebieski",
+      "white": "Biały",
+      "custom": "Własny",
+      "customDesc": "Wybierz dowolny kolor"
+    }
+  },
   "common": {
     "close": "Zamknij",
     "autoDetect": "Automatyczne wykrywanie",

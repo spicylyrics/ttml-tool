@@ -285,6 +285,29 @@
       "copyPrevious": "Copiază timpii anteriori"
     }
   },
+  "logoColor": {
+    "title": "Culoarea logoului",
+    "description": "Experimental. Alege o culoare pentru logo în bara de titlu și pe ecranul de bun venit al ghidului.",
+    "colorLabel": "Culoare",
+    "customLabel": "Culoare personalizată pentru logo",
+    "designNote": "Logoul apare doar cu designul Spicy Lyrics activat.",
+    "presets": {
+      "default": "Implicit",
+      "defaultDesc": "Culoarea proprie a designului",
+      "lilac": "Liliachiu",
+      "lilacDesc": "Din logoul v3",
+      "purple": "Mov",
+      "purpleDesc": "Din logoul multicolor",
+      "red": "Roșu",
+      "redDesc": "Din logoul v0.9",
+      "gold": "Auriu",
+      "green": "Verde",
+      "blue": "Albastru",
+      "white": "Alb",
+      "custom": "Personalizat",
+      "customDesc": "Alege orice culoare"
+    }
+  },
   "common": {
     "close": "Închide",
     "autoDetect": "Detectare automată",

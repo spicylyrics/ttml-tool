@@ -285,6 +285,29 @@
       "copyPrevious": "Copiar tiempos anteriores"
     }
   },
+  "logoColor": {
+    "title": "Color del logotipo",
+    "description": "Experimental. Elige un color para el logotipo de la barra de título y de la pantalla de bienvenida de la guía.",
+    "colorLabel": "Color",
+    "customLabel": "Color personalizado del logotipo",
+    "designNote": "El logotipo solo se muestra con el diseño de Spicy Lyrics activado.",
+    "presets": {
+      "default": "Predeterminado",
+      "defaultDesc": "El color propio del diseño",
+      "lilac": "Lila",
+      "lilacDesc": "Del logotipo v3",
+      "purple": "Morado",
+      "purpleDesc": "Del logotipo multicolor",
+      "red": "Rojo",
+      "redDesc": "Del logotipo v0.9",
+      "gold": "Dorado",
+      "green": "Verde",
+      "blue": "Azul",
+      "white": "Blanco",
+      "custom": "Personalizado",
+      "customDesc": "Elige cualquier color"
+    }
+  },
   "common": {
     "close": "Cerrar",
     "autoDetect": "Detección automática",

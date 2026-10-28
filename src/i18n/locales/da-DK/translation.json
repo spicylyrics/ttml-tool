@@ -285,6 +285,29 @@
       "copyPrevious": "Kopiér forrige timing"
     }
   },
+  "logoColor": {
+    "title": "Logofarve",
+    "description": "Eksperimentel. Vælg en farve til logoet i titellinjen og på guidens velkomstskærm.",
+    "colorLabel": "Farve",
+    "customLabel": "Brugerdefineret logofarve",
+    "designNote": "Logoet vises kun, når Spicy Lyrics-designet er slået til.",
+    "presets": {
+      "default": "Standard",
+      "defaultDesc": "Designets egen farve",
+      "lilac": "Syrenlilla",
+      "lilacDesc": "Fra v3-logoet",
+      "purple": "Lilla",
+      "purpleDesc": "Fra det flerfarvede logo",
+      "red": "Rød",
+      "redDesc": "Fra v0.9-logoet",
+      "gold": "Guld",
+      "green": "Grøn",
+      "blue": "Blå",
+      "white": "Hvid",
+      "custom": "Brugerdefineret",
+      "customDesc": "Vælg en hvilken som helst farve"
+    }
+  },
   "common": {
     "close": "Luk",
     "autoDetect": "Automatisk registrering",

@@ -285,6 +285,29 @@
       "copyPrevious": "Vorige timing kopiëren"
     }
   },
+  "logoColor": {
+    "title": "Logokleur",
+    "description": "Experimenteel. Kies een kleur voor het logo in de titelbalk en op het welkomstscherm van de gids.",
+    "colorLabel": "Kleur",
+    "customLabel": "Aangepaste logokleur",
+    "designNote": "Het logo is alleen te zien als het Spicy Lyrics-ontwerp aan staat.",
+    "presets": {
+      "default": "Standaard",
+      "defaultDesc": "De eigen kleur van het ontwerp",
+      "lilac": "Lila",
+      "lilacDesc": "Uit het v3-logo",
+      "purple": "Paars",
+      "purpleDesc": "Uit het veelkleurige logo",
+      "red": "Rood",
+      "redDesc": "Uit het v0.9-logo",
+      "gold": "Goud",
+      "green": "Groen",
+      "blue": "Blauw",
+      "white": "Wit",
+      "custom": "Aangepast",
+      "customDesc": "Kies een willekeurige kleur"
+    }
+  },
   "common": {
     "close": "Sluiten",
     "autoDetect": "Automatische detectie",

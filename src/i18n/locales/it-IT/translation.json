@@ -285,6 +285,29 @@
       "copyPrevious": "Copia tempi precedenti"
     }
   },
+  "logoColor": {
+    "title": "Colore del logo",
+    "description": "Sperimentale. Scegli un colore per il logo nella barra del titolo e nella schermata di benvenuto della guida.",
+    "colorLabel": "Colore",
+    "customLabel": "Colore personalizzato del logo",
+    "designNote": "Il logo appare solo con il design Spicy Lyrics attivo.",
+    "presets": {
+      "default": "Predefinito",
+      "defaultDesc": "Il colore proprio del design",
+      "lilac": "Lilla",
+      "lilacDesc": "Dal logo v3",
+      "purple": "Viola",
+      "purpleDesc": "Dal logo multicolore",
+      "red": "Rosso",
+      "redDesc": "Dal logo v0.9",
+      "gold": "Oro",
+      "green": "Verde",
+      "blue": "Blu",
+      "white": "Bianco",
+      "custom": "Personalizzato",
+      "customDesc": "Scegli qualsiasi colore"
+    }
+  },
   "common": {
     "close": "Chiudi",
     "autoDetect": "Rileva automaticamente",

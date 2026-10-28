@@ -285,6 +285,29 @@
       "copyPrevious": "Copy previous timing"
     }
   },
+  "logoColor": {
+    "title": "Logo color",
+    "description": "Experimental. Pick a color for the logo in the title bar and on the guide's welcome screen.",
+    "colorLabel": "Color",
+    "customLabel": "Custom logo color",
+    "designNote": "The logo only shows with the Spicy Lyrics design on.",
+    "presets": {
+      "default": "Default",
+      "defaultDesc": "The design's own color",
+      "lilac": "Lilac",
+      "lilacDesc": "From the v3 logo",
+      "purple": "Purple",
+      "purpleDesc": "From the multicolor logo",
+      "red": "Red",
+      "redDesc": "From the v0.9 logo",
+      "gold": "Gold",
+      "green": "Green",
+      "blue": "Blue",
+      "white": "White",
+      "custom": "Custom",
+      "customDesc": "Pick any color"
+    }
+  },
   "common": {
     "close": "Close",
     "autoDetect": "Auto-detect",
