@@ -1846,6 +1846,20 @@
     "apply": "Öneriyi uygula",
     "noSuggestions": "Bu içerik için otomatik bölme önerisi yok."
   },
+  "changelogScreen": {
+    "setting": "Yeni değişiklik günlüğü ekranı",
+    "settingDesc": "Her sürümü, önce öne çıkanlar sonra yeni, değişen ve düzeltilenler olacak şekilde bir kart olarak göster. Kapalıyken mevcut değişiklik günlüğü kalır.",
+    "viewLabel": "Göster",
+    "viewAll": "Tümü",
+    "viewHighlights": "Öne çıkanlar",
+    "highlights": "Öne çıkanlar",
+    "latest": "En yeni",
+    "sectionNew": "Yeni",
+    "sectionChanged": "Değişti",
+    "sectionFixed": "Düzeltildi",
+    "close": "Kapat",
+    "empty": "Gösterilecek sürüm yok."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Apple Music tarzı şarkı sözleri için kelime kelime TTML düzenleyicisi ve zamanlama aracı",

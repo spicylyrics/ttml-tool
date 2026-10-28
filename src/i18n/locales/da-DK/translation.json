@@ -1846,6 +1846,20 @@
     "apply": "Anvend forslag",
     "noSuggestions": "Der er ingen tilgængelige automatiske opdelingsforslag for dette indhold."
   },
+  "changelogScreen": {
+    "setting": "Ny ændringslogskærm",
+    "settingDesc": "Vis hver udgivelse som et kort med højdepunkterne først og derefter, hvad der er nyt, ændret og rettet. Slået fra beholder den nuværende ændringslog.",
+    "viewLabel": "Vis",
+    "viewAll": "Alt",
+    "viewHighlights": "Højdepunkter",
+    "highlights": "Højdepunkter",
+    "latest": "Nyeste",
+    "sectionNew": "Nyt",
+    "sectionChanged": "Ændret",
+    "sectionFixed": "Rettet",
+    "close": "Luk",
+    "empty": "Ingen udgivelser at vise."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Et værktøj til redigering og synkronisering af TTML-sangtekster ord for ord i stil med Apple Music",

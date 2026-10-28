@@ -9,16 +9,19 @@ import {
 	Text,
 } from "@radix-ui/themes";
 import { open } from "@tauri-apps/plugin-shell";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useTranslation } from "react-i18next";
 import changelog from "$/data/changelog.json";
 import legacy from "$/data/changelog-legacy.json";
+import { ChangelogScreen } from "$/modules/changelog/ChangelogScreen.tsx";
+import { changelogScreenAtom } from "$/modules/changelog/states.ts";
 import { changelogDialogAtom } from "$/states/dialogs.ts";
 import { ChangeMarkdown, releaseColor } from "./change-notes.tsx";
 
 export function ChangelogDialog() {
 	const { t } = useTranslation();
 	const [isOpen, setIsOpen] = useAtom(changelogDialogAtom);
+	const useNewScreen = useAtomValue(changelogScreenAtom);
 
 	const openGitHub = async () => {
 		const repoUrl = "https://github.com/spicylyrics/ttml-tool/commits/main";
@@ -28,6 +31,13 @@ export function ChangelogDialog() {
 			window.open(repoUrl, "_blank");
 		}
 	};
+
+	if (useNewScreen)
+		return (
+			<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+				<ChangelogScreen onOpenCommits={openGitHub} />
+			</Dialog.Root>
+		);
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>

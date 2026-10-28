@@ -1846,6 +1846,20 @@
     "apply": "Aplică sugestia",
     "noSuggestions": "Nu sunt disponibile sugestii de împărțire automată pentru acest conținut."
   },
+  "changelogScreen": {
+    "setting": "Ecran nou pentru noutăți",
+    "settingDesc": "Afișează fiecare versiune ca un card, cu punctele importante mai întâi, apoi ce e nou, schimbat și reparat. Dezactivat păstrează jurnalul de modificări actual.",
+    "viewLabel": "Afișează",
+    "viewAll": "Tot",
+    "viewHighlights": "Puncte importante",
+    "highlights": "Puncte importante",
+    "latest": "Cea mai nouă",
+    "sectionNew": "Nou",
+    "sectionChanged": "Schimbat",
+    "sectionFixed": "Reparat",
+    "close": "Închide",
+    "empty": "Nu există versiuni de afișat."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Editor TTML pentru sincronizarea versurilor cuvânt cu cuvânt în stilul Apple Music",

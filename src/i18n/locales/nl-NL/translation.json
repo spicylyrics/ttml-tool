@@ -1846,6 +1846,20 @@
     "apply": "Suggestie toepassen",
     "noSuggestions": "Er zijn geen automatische splitsingssuggesties beschikbaar voor deze inhoud."
   },
+  "changelogScreen": {
+    "setting": "Nieuw scherm voor wijzigingen",
+    "settingDesc": "Toon elke versie als een kaart met de hoogtepunten bovenaan, daarna wat nieuw, gewijzigd en opgelost is. Uit houdt het huidige wijzigingslogboek.",
+    "viewLabel": "Toon",
+    "viewAll": "Alles",
+    "viewHighlights": "Hoogtepunten",
+    "highlights": "Hoogtepunten",
+    "latest": "Nieuwste",
+    "sectionNew": "Nieuw",
+    "sectionChanged": "Gewijzigd",
+    "sectionFixed": "Opgelost",
+    "close": "Sluiten",
+    "empty": "Geen versies om te tonen."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Een TTML-editor om songteksten woord voor woord te bewerken en te synchroniseren in Apple Music-stijl",

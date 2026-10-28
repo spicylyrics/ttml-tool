@@ -1846,6 +1846,20 @@
     "apply": "Apply suggestion",
     "noSuggestions": "No automated split suggestions available for this content."
   },
+  "changelogScreen": {
+    "setting": "New changelog screen",
+    "settingDesc": "Show each release as a card with its highlights first, then what's new, changed and fixed. Off keeps the current changelog.",
+    "viewLabel": "Show",
+    "viewAll": "Everything",
+    "viewHighlights": "Highlights",
+    "highlights": "Highlights",
+    "latest": "Latest",
+    "sectionNew": "New",
+    "sectionChanged": "Changed",
+    "sectionFixed": "Fixed",
+    "close": "Close",
+    "empty": "No releases to show."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "A word-by-word TTML editor and timing tool for Apple Music-like lyrics",

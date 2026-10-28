@@ -1846,6 +1846,20 @@
     "apply": "Appliquer la suggestion",
     "noSuggestions": "Aucune suggestion de découpage automatique pour ce contenu."
   },
+  "changelogScreen": {
+    "setting": "Nouvel écran des nouveautés",
+    "settingDesc": "Affiche chaque version sous forme de carte, avec les points forts d'abord, puis ce qui est nouveau, modifié et corrigé. Désactivé conserve le journal des modifications actuel.",
+    "viewLabel": "Afficher",
+    "viewAll": "Tout",
+    "viewHighlights": "Points forts",
+    "highlights": "Points forts",
+    "latest": "Dernière",
+    "sectionNew": "Nouveau",
+    "sectionChanged": "Modifié",
+    "sectionFixed": "Corrigé",
+    "close": "Fermer",
+    "empty": "Aucune version à afficher."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Éditeur TTML pour synchroniser les paroles mot par mot dans le style d’Apple Music",

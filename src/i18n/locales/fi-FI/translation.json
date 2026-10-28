@@ -1846,6 +1846,20 @@
     "apply": "Käytä ehdotusta",
     "noSuggestions": "Tälle sisällölle ei ole saatavilla automaattisia jakoehdotuksia."
   },
+  "changelogScreen": {
+    "setting": "Uusi muutoslokinäkymä",
+    "settingDesc": "Näytä jokainen julkaisu korttina: ensin kohokohdat, sitten uudet, muuttuneet ja korjatut asiat. Pois päältä säilyttää nykyisen muutoslokin.",
+    "viewLabel": "Näytä",
+    "viewAll": "Kaikki",
+    "viewHighlights": "Kohokohdat",
+    "highlights": "Kohokohdat",
+    "latest": "Uusin",
+    "sectionNew": "Uutta",
+    "sectionChanged": "Muutettu",
+    "sectionFixed": "Korjattu",
+    "close": "Sulje",
+    "empty": "Ei näytettäviä julkaisuja."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Sanakohtainen TTML-editori ja ajoitustyökalu Apple Musicin kaltaisille sanoituksille",

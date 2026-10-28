@@ -1846,6 +1846,20 @@
     "apply": "Použiť návrh",
     "noSuggestions": "Pre tento obsah nie sú k dispozícii žiadne automatické návrhy na rozdelenie."
   },
+  "changelogScreen": {
+    "setting": "Nová obrazovka zoznamu zmien",
+    "settingDesc": "Zobrazí každé vydanie ako kartu: najprv hlavné novinky, potom čo je nové, zmenené a opravené. Vypnuté ponechá súčasný zoznam zmien.",
+    "viewLabel": "Zobraziť",
+    "viewAll": "Všetko",
+    "viewHighlights": "Hlavné novinky",
+    "highlights": "Hlavné novinky",
+    "latest": "Najnovšie",
+    "sectionNew": "Nové",
+    "sectionChanged": "Zmenené",
+    "sectionFixed": "Opravené",
+    "close": "Zavrieť",
+    "empty": "Žiadne vydania na zobrazenie."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Editor TTML a nástroj na časovanie textov po slovách v štýle Apple Music",

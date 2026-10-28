@@ -1846,6 +1846,20 @@
     "apply": "Terapkan saran",
     "noSuggestions": "Tidak ada saran pemisahan otomatis yang tersedia untuk konten ini."
   },
+  "changelogScreen": {
+    "setting": "Layar log perubahan baru",
+    "settingDesc": "Tampilkan setiap rilis sebagai kartu dengan sorotan lebih dulu, lalu apa yang baru, diubah, dan diperbaiki. Nonaktif mempertahankan log perubahan saat ini.",
+    "viewLabel": "Tampilkan",
+    "viewAll": "Semua",
+    "viewHighlights": "Sorotan",
+    "highlights": "Sorotan",
+    "latest": "Terbaru",
+    "sectionNew": "Baru",
+    "sectionChanged": "Diubah",
+    "sectionFixed": "Diperbaiki",
+    "close": "Tutup",
+    "empty": "Tidak ada rilis untuk ditampilkan."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Editor TTML dan alat sinkronisasi lirik per kata bergaya Apple Music",
