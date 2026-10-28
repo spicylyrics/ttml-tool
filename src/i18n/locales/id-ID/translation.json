@@ -650,6 +650,33 @@
     "loading": "Memuat panel...",
     "advanced": "Lanjutan"
   },
+  "ribbonCustomize": {
+    "customize": "Sesuaikan pita",
+    "customizeDesc": "Sembunyikan, urutkan ulang, atau sematkan bagian pita ini, atau pindahkan ke Lainnya.",
+    "title": "Sesuaikan pita ini",
+    "hint": "Beberapa bagian hanya muncul saat ada pilihan atau saat Lanjutan aktif.",
+    "reset": "Atur ulang",
+    "resetDone": "Pita dikembalikan ke bawaan",
+    "pin": "Sematkan {{name}} di depan",
+    "unpin": "Lepas sematan {{name}}",
+    "pinned": "Disematkan",
+    "moveUp": "Pindahkan {{name}} ke atas",
+    "moveDown": "Pindahkan {{name}} ke bawah",
+    "moved": "{{name}} sekarang di posisi {{position}}",
+    "placement": {
+      "label": "Tampilkan {{name}} di",
+      "ribbon": "Pita",
+      "ribbonDesc": "Tampilkan di pita.",
+      "more": "Lainnya",
+      "moreDesc": "Simpan di menu Lainnya di ujung pita.",
+      "hidden": "Tersembunyi",
+      "hiddenDesc": "Jangan tampilkan di mana pun."
+    },
+    "more": "Lainnya",
+    "moreDesc": "Bagian yang Anda pindahkan dari pita.",
+    "settingLabel": "Pita yang bisa disesuaikan",
+    "settingDesc": "Menambahkan tombol Sesuaikan ke pita Edit, Sinkronisasi, dan Pratinjau untuk menyembunyikan, mengurutkan ulang, atau menyematkan bagian, atau memindahkannya ke menu Lainnya."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Menyorot secara visual baris lirik yang sedang diputar dalam mode yang dipilih.",
