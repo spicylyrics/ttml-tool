@@ -1276,6 +1276,12 @@
       "lineCountMismatch": "Halaman punya {received} baris, liriknya punya {expected}. Tambah atau hapus baris agar jumlahnya sama.",
       "applied": "Romanisasi diisi: {count} baris.",
       "check": "Beberapa kata hanya perkiraan. Periksa baris {lines}."
+    },
+    "genius": {
+      "find": "Cari di Genius",
+      "titleLabel": "Judul lagu",
+      "none": "Halaman romanisasi tidak ditemukan. Coba judul seperti yang ditulis Genius.",
+      "failed": "Genius tidak menjawab: {message}"
     }
   },
   "timeShiftDialog": {

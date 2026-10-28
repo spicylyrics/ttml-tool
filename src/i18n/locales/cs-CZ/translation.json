@@ -1276,6 +1276,12 @@
       "lineCountMismatch": "Stránka má {received} řádků a text má {expected}. Přidejte nebo odeberte řádky, aby se shodovaly.",
       "applied": "Přepis doplněn, počet řádků: {count}.",
       "check": "Některá slova byla odhadnuta. Zkontrolujte řádky {lines}."
+    },
+    "genius": {
+      "find": "Najít na Genius",
+      "titleLabel": "Název skladby",
+      "none": "Romanizovaná stránka nebyla nalezena. Zkuste název tak, jak ho píše Genius.",
+      "failed": "Genius neodpověděl: {message}"
     }
   },
   "timeShiftDialog": {

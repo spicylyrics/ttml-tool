@@ -1276,6 +1276,12 @@
       "lineCountMismatch": "The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
       "applied": "Romanization filled: {count} lines.",
       "check": "Some words were guessed. Check lines {lines}."
+    },
+    "genius": {
+      "find": "Find on Genius",
+      "titleLabel": "Song title",
+      "none": "No romanized page found. Try the title as Genius writes it.",
+      "failed": "Genius did not answer: {message}"
     }
   },
   "timeShiftDialog": {

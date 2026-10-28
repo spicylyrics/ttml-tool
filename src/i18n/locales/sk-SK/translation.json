@@ -1276,6 +1276,12 @@
       "lineCountMismatch": "Stránka má {received} riadkov a text má {expected}. Pridajte alebo odstráňte riadky, aby sa zhodovali.",
       "applied": "Prepis doplnený, počet riadkov: {count}.",
       "check": "Niektoré slová boli odhadnuté. Skontrolujte riadky {lines}."
+    },
+    "genius": {
+      "find": "Nájsť na Genius",
+      "titleLabel": "Názov skladby",
+      "none": "Romanizovaná stránka sa nenašla. Skúste názov tak, ako ho píše Genius.",
+      "failed": "Genius neodpovedal: {message}"
     }
   },
   "timeShiftDialog": {

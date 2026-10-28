@@ -1276,6 +1276,12 @@
       "lineCountMismatch": "Siden har {received} linjer, og teksten har {expected}. Tilføj eller fjern linjer, så de passer.",
       "applied": "Romanisering udfyldt: {count} linjer.",
       "check": "Nogle ord blev gættet. Tjek linje {lines}."
+    },
+    "genius": {
+      "find": "Find på Genius",
+      "titleLabel": "Sangtitel",
+      "none": "Ingen romaniseret side fundet. Prøv titlen, som Genius skriver den.",
+      "failed": "Genius svarede ikke: {message}"
     }
   },
   "timeShiftDialog": {

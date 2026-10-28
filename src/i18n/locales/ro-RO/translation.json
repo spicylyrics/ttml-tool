@@ -1276,6 +1276,12 @@
       "lineCountMismatch": "Pagina are {received} rânduri, iar versurile au {expected}. Adaugă sau șterge rânduri ca să se potrivească.",
       "applied": "Romanizare completată, număr de rânduri: {count}.",
       "check": "Unele cuvinte au fost estimate. Verifică rândurile {lines}."
+    },
+    "genius": {
+      "find": "Caută pe Genius",
+      "titleLabel": "Titlul piesei",
+      "none": "Nu s-a găsit nicio pagină romanizată. Încearcă titlul așa cum îl scrie Genius.",
+      "failed": "Genius nu a răspuns: {message}"
     }
   },
   "timeShiftDialog": {

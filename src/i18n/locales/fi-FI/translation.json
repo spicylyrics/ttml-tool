@@ -1276,6 +1276,12 @@
       "lineCountMismatch": "Sivulla on {received} riviä ja sanoituksessa {expected}. Lisää tai poista rivejä, jotta määrät täsmäävät.",
       "applied": "Latinisointi täytetty: {count} riviä.",
       "check": "Joitakin sanoja arvattiin. Tarkista rivit {lines}."
+    },
+    "genius": {
+      "find": "Etsi Geniuksesta",
+      "titleLabel": "Kappaleen nimi",
+      "none": "Romanisoitua sivua ei löytynyt. Kokeile nimeä Geniuksen kirjoitusasussa.",
+      "failed": "Genius ei vastannut: {message}"
     }
   },
   "timeShiftDialog": {

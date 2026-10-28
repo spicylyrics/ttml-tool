@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { lyricLinesAtom } from "$/states/main";
 import { alignRomanizedPage } from "./align-romanized";
+import { GeniusRomanizedFinder } from "./GeniusRomanizedFinder";
 import { pasteRomanizationDialogAtom } from "./states";
 
 /** Fills per-word romanization from a pasted romanized lyric page. */
@@ -85,6 +86,12 @@ export const PasteRomanizationDialog = memo(() => {
 					)}
 				</Dialog.Description>
 				<Flex direction="column" gap="3">
+					<GeniusRomanizedFinder
+						onLyrics={(lyrics) => {
+							setText(lyrics);
+							setProblem("");
+						}}
+					/>
 					<TextArea
 						value={text}
 						onChange={(event) => {
