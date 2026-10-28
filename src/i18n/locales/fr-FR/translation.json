@@ -29,6 +29,11 @@
   "onlineImport": {
     "noLyricsLabel": "Aucune parole disponible pour ce morceau."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Disposition compacte",
+    "tightLayoutDesc": "Réduit l’espace vide et rend les lignes de chœurs plus faciles à lire."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# ligne n’est pas encore minutée} many {# lignes ne sont pas encore minutées} other {# lignes ne sont pas encore minutées}}",
     "jumpToUntimed": "Synchroniser la première ligne non minutée"

@@ -29,6 +29,11 @@
   "onlineImport": {
     "noLyricsLabel": "Geen songteksten beschikbaar voor dit nummer."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Compacte indeling",
+    "tightLayoutDesc": "Minder lege ruimte en beter leesbare achtergrondregels."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# regel heeft nog geen timing} other {# regels hebben nog geen timing}}",
     "jumpToUntimed": "Synchroniseer de eerste regel zonder timing"

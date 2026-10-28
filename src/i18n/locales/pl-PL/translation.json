@@ -29,6 +29,11 @@
   "onlineImport": {
     "noLyricsLabel": "Brak tekstu dla tego utworu."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Zwarty układ",
+    "tightLayoutDesc": "Mniej pustego miejsca i czytelniejsze wersy wokalu w tle."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# wers nie ma jeszcze synchronizacji} few {# wersy nie mają jeszcze synchronizacji} many {# wersów nie ma jeszcze synchronizacji} other {# wersu nie ma jeszcze synchronizacji}}",
     "jumpToUntimed": "Synchronizuj pierwszy wers bez czasów"

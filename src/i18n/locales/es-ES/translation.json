@@ -29,6 +29,11 @@
   "onlineImport": {
     "noLyricsLabel": "No hay letras disponibles para esta pista."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Diseño compacto",
+    "tightLayoutDesc": "Deja menos espacio vacío y hace más fáciles de leer las líneas de voces de fondo."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# línea aún no tiene sincronización} many {# líneas aún no tienen sincronización} other {# líneas aún no tienen sincronización}}",
     "jumpToUntimed": "Sincronizar la primera línea pendiente"

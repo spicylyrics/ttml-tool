@@ -29,6 +29,11 @@
   "onlineImport": {
     "noLyricsLabel": "Ingen tilgængelige tekster til dette nummer."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Kompakt layout",
+    "tightLayoutDesc": "Brug mindre tom plads, og gør baggrundslinjer lettere at læse."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# linje mangler timing} other {# linjer mangler timing}}",
     "jumpToUntimed": "Sæt tider for første linje uden timing"
