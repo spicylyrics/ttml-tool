@@ -191,6 +191,16 @@
       "splitWordsHint": "Marchează fiecare spațiu ca limită de cuvânt pentru import."
     }
   },
+  "importSplit": {
+    "title": "Silabe",
+    "later": "Despart mai târziu",
+    "laterHint": "Importă cuvinte întregi. Desparte-le mai târziu în editor.",
+    "now": "Desparte acum",
+    "nowHint": "Marchează acum silabele în text, ca să le poți corecta înainte de import.",
+    "checkFirst": "Cuvintele noi au primit semne de silabă. Verifică-le, apoi importă.",
+    "setting": "Desparte în silabe la import",
+    "settingHint": "Adaugă pe ecranul de import alegerea Desparte acum sau Despart mai târziu. Desparte acum marchează silabele cu setările tale de segmentare și despărțirile învățate, iar tu le poți corecta înainte de import."
+  },
   "lyricMarkup": {
     "section": "Secțiune: {label}",
     "joinSyllables": "Unește silabele",

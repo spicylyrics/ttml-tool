@@ -13,11 +13,12 @@ import {
 	Text,
 	TextField,
 } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { OptionPicker } from "$/components/OptionPicker";
 import type { LyricPrepOptions } from "$/utils/lyric-prep";
+import { importSplitChoiceEnabledAtom, importSplitModeAtom } from "../flags";
 import type {
 	ImportContentMode,
 	ImportLineSeparatorMode,
@@ -114,6 +115,49 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
 	);
 }
 
+/** "Split now" or "I'll split later" for this import. Behind a flag. */
+function SplitChoice({
+	canSplit,
+	onSplit,
+}: {
+	canSplit: boolean;
+	onSplit: () => void;
+}) {
+	const { t } = useTranslation();
+	const enabled = useAtomValue(importSplitChoiceEnabledAtom);
+	const [mode, setMode] = useAtom(importSplitModeAtom);
+	if (!enabled) return null;
+	const hint =
+		mode === "now"
+			? t(
+					"importSplit.nowHint",
+					"Marks syllables in the text now, so you can fix them before importing.",
+				)
+			: t(
+					"importSplit.laterHint",
+					"Imports whole words. Split them in the editor later.",
+				);
+	return (
+		<Group title={t("importSplit.title", "Syllables")}>
+			<OptionPicker
+				variant="segmented"
+				fullWidth
+				label={t("importSplit.title", "Syllables")}
+				value={mode}
+				onValueChange={(value) => {
+					setMode(value);
+					if (value === "now" && canSplit) onSplit();
+				}}
+				options={[
+					{ value: "later", label: t("importSplit.later", "I'll split later") },
+					{ value: "now", label: t("importSplit.now", "Split now") },
+				]}
+			/>
+			<Hint>{hint}</Hint>
+		</Group>
+	);
+}
+
 export function ImportOptionsPanel({
 	headerCount,
 	makeSections,
@@ -180,6 +224,8 @@ export function ImportOptionsPanel({
 					/>
 				</Flex>
 			</Group>
+
+			<SplitChoice canSplit={canSplit} onSplit={onSplit} />
 
 			{headerCount > 0 && (
 				<Group

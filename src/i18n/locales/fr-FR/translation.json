@@ -191,6 +191,16 @@
       "splitWordsHint": "Marque chaque espace comme limite de mot pour l'importation."
     }
   },
+  "importSplit": {
+    "title": "Syllabes",
+    "later": "Je découperai plus tard",
+    "laterHint": "Importe les mots entiers. Découpez-les plus tard dans l’éditeur.",
+    "now": "Découper maintenant",
+    "nowHint": "Marque les syllabes dans le texte maintenant, pour que vous puissiez les corriger avant l’import.",
+    "checkFirst": "Les nouveaux mots ont reçu des marques de syllabe. Vérifiez-les, puis importez.",
+    "setting": "Découper en syllabes à l’import",
+    "settingHint": "Ajoute à l’écran d’import le choix Découper maintenant ou Je découperai plus tard. Découper maintenant marque les syllabes selon vos réglages de segmentation et les découpages appris, et vous pouvez les corriger avant l’import."
+  },
   "lyricMarkup": {
     "section": "Section : {label}",
     "joinSyllables": "Joindre les syllabes",

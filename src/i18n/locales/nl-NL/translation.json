@@ -191,6 +191,16 @@
       "splitWordsHint": "Markeert elke spatie als woordgrens voor de import."
     }
   },
+  "importSplit": {
+    "title": "Lettergrepen",
+    "later": "Ik splits later",
+    "laterHint": "Importeert hele woorden. Splits ze later in de editor.",
+    "now": "Nu splitsen",
+    "nowHint": "Markeert nu de lettergrepen in de tekst, zodat je ze voor het importeren kunt verbeteren.",
+    "checkFirst": "Nieuwe woorden hebben lettergreepmarkeringen gekregen. Controleer ze en importeer dan.",
+    "setting": "Lettergrepen splitsen bij importeren",
+    "settingHint": "Voegt de keuze Nu splitsen of Ik splits later toe aan het importscherm. Nu splitsen markeert lettergrepen met je segmentatie-instellingen en geleerde splitsingen, en je kunt ze voor het importeren verbeteren."
+  },
   "lyricMarkup": {
     "section": "Sectie: {label}",
     "joinSyllables": "Lettergrepen samenvoegen",

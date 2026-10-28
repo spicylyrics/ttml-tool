@@ -191,6 +191,16 @@
       "splitWordsHint": "Her boşluğu içe aktarma için kelime sınırı olarak işaretler."
     }
   },
+  "importSplit": {
+    "title": "Heceler",
+    "later": "Sonra bölerim",
+    "laterHint": "Kelimeleri bütün olarak içe aktarır. Onları sonra düzenleyicide bölün.",
+    "now": "Şimdi böl",
+    "nowHint": "Heceleri metinde hemen işaretler, böylece içe aktarmadan önce düzeltebilirsiniz.",
+    "checkFirst": "Yeni kelimelere hece işaretleri eklendi. Kontrol edin, sonra içe aktarın.",
+    "setting": "İçe aktarırken hecelere böl",
+    "settingHint": "İçe aktarma ekranına Şimdi böl veya Sonra bölerim seçeneğini ekler. Şimdi böl, heceleri bölümleme ayarlarınız ve öğrenilmiş bölmelerle işaretler; içe aktarmadan önce düzeltebilirsiniz."
+  },
   "lyricMarkup": {
     "section": "Bölüm: {label}",
     "joinSyllables": "Heceleri birleştir",

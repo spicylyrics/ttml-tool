@@ -191,6 +191,16 @@
       "splitWordsHint": "Segna ogni spazio come confine di parola per l'importazione."
     }
   },
+  "importSplit": {
+    "title": "Sillabe",
+    "later": "Divido dopo",
+    "laterHint": "Importa parole intere. Dividile dopo nell'editor.",
+    "now": "Dividi ora",
+    "nowHint": "Segna ora le sillabe nel testo, così puoi correggerle prima di importare.",
+    "checkFirst": "Le nuove parole hanno i segni di sillaba. Controllali, poi importa.",
+    "setting": "Dividi in sillabe durante l'importazione",
+    "settingHint": "Aggiunge alla schermata di importazione la scelta Dividi ora o Divido dopo. Dividi ora segna le sillabe con le tue impostazioni di segmentazione e le divisioni apprese, e puoi correggerle prima di importare."
+  },
   "lyricMarkup": {
     "section": "Sezione: {label}",
     "joinSyllables": "Unisci sillabe",

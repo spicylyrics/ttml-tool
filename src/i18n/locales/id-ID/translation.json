@@ -191,6 +191,16 @@
       "splitWordsHint": "Menandai setiap spasi sebagai batas kata untuk impor."
     }
   },
+  "importSplit": {
+    "title": "Suku kata",
+    "later": "Pisahkan nanti",
+    "laterHint": "Mengimpor kata utuh. Pisahkan nanti di editor.",
+    "now": "Pisahkan sekarang",
+    "nowHint": "Menandai suku kata di teks sekarang, agar bisa diperbaiki sebelum diimpor.",
+    "checkFirst": "Kata baru diberi tanda suku kata. Periksa dulu, lalu impor.",
+    "setting": "Pisahkan suku kata saat mengimpor",
+    "settingHint": "Menambahkan pilihan Pisahkan sekarang atau Pisahkan nanti ke layar impor. Pisahkan sekarang menandai suku kata dengan pengaturan segmentasi dan pemisahan yang dipelajari, dan Anda bisa memperbaikinya sebelum mengimpor."
+  },
   "lyricMarkup": {
     "section": "Bagian: {label}",
     "joinSyllables": "Gabungkan suku kata",

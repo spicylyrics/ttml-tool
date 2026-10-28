@@ -29,7 +29,6 @@ import {
 	applyConfirmedImportMetadataAtom,
 	loadedAudioSongAtom,
 } from "$/modules/project/song-metadata-state";
-import { segmentWord } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
 	geniusApiKeyAtom,
@@ -44,7 +43,6 @@ import {
 	selectedLinesAtom,
 	selectedWordsAtom,
 } from "$/states/main.ts";
-import { newLyricWord } from "$/types/ttml";
 import {
 	normalizeImportedLyricApostrophes,
 	normalizeImportedLyricCyrillicEs,
@@ -57,15 +55,16 @@ import {
 	PickedTrack,
 } from "../components/OnlineSearchPanel";
 import { SectionReviewPanel } from "../components/SectionReviewPanel";
+import { importSplitChoiceEnabledAtom, importSplitModeAtom } from "../flags";
 import {
 	detectSections,
 	importTextToLines,
 	mergeReviewedSections,
 	type ReviewedSection,
-	segmentImportText,
 	toSectionOverrides,
 } from "../logic/import-text";
 import { type ImportTrack, searchOnlineLyrics } from "../logic/online-sources";
+import { splitImportText } from "../logic/split-import-text";
 import {
 	bgLyricPrefixAtom,
 	enableSpecialPrefixAtom,
@@ -137,6 +136,7 @@ export const ImportLyricsDialog = () => {
 		setStep("edit");
 		setConfirming(false);
 		setMakeSections(store.get(geniusCategorizationEnabledAtom));
+		store.set(importSplitModeAtom, "later");
 	}, [isOpen, store]);
 
 	// Tags can arrive after the dialog opens; only replace a query we filled in.
@@ -237,11 +237,7 @@ export const ImportLyricsDialog = () => {
 
 	const handleSplit = () => {
 		const changed = transformText(
-			segmentImportText(text, format, (word) =>
-				segmentWord({ ...newLyricWord(), word }, segmentationConfig).map(
-					(part) => part.word,
-				),
-			),
+			splitImportText(text, format, segmentationConfig),
 		);
 		if (changed)
 			toast.success(
@@ -400,6 +396,24 @@ export const ImportLyricsDialog = () => {
 	};
 
 	const handlePrimary = () => {
+		// "Split now": words added since the split get marked first, and the
+		// user checks them before pressing Import again.
+		if (
+			step === "edit" &&
+			store.get(importSplitChoiceEnabledAtom) &&
+			store.get(importSplitModeAtom) === "now" &&
+			!segmentationLoading &&
+			!!format.wordSeparator &&
+			transformText(splitImportText(text, format, segmentationConfig))
+		) {
+			toast.info(
+				t(
+					"importSplit.checkFirst",
+					"New words got syllable marks. Check them, then import.",
+				),
+			);
+			return;
+		}
 		if (step === "edit" && willMakeSections) {
 			setReviewed(detectSections(text));
 			setStep("review");

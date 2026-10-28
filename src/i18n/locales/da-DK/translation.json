@@ -191,6 +191,16 @@
       "splitWordsHint": "Markerer hvert mellemrum som en ordgrænse til importen."
     }
   },
+  "importSplit": {
+    "title": "Stavelser",
+    "later": "Jeg opdeler senere",
+    "laterHint": "Importerer hele ord. Opdel dem senere i editoren.",
+    "now": "Opdel nu",
+    "nowHint": "Markerer stavelser i teksten nu, så du kan rette dem før import.",
+    "checkFirst": "Nye ord har fået stavelsesmarkeringer. Tjek dem, og importér så.",
+    "setting": "Opdel stavelser under import",
+    "settingHint": "Tilføjer valget Opdel nu eller Jeg opdeler senere til importskærmen. Opdel nu markerer stavelser med dine segmenteringsindstillinger og lærte opdelinger, og du kan rette dem før import."
+  },
   "lyricMarkup": {
     "section": "Sektion: {label}",
     "joinSyllables": "Saml stavelser",

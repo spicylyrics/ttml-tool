@@ -191,6 +191,16 @@
       "splitWordsHint": "Marca cada espaço como limite de palavra para a importação."
     }
   },
+  "importSplit": {
+    "title": "Sílabas",
+    "later": "Divido depois",
+    "laterHint": "Importa palavras inteiras. Divida-as depois no editor.",
+    "now": "Dividir agora",
+    "nowHint": "Marca as sílabas no texto agora, para você corrigi-las antes de importar.",
+    "checkFirst": "As palavras novas receberam marcas de sílaba. Confira e depois importe.",
+    "setting": "Dividir sílabas ao importar",
+    "settingHint": "Adiciona à tela de importação a escolha Dividir agora ou Divido depois. Dividir agora marca as sílabas com suas configurações de segmentação e as divisões aprendidas, e você pode corrigi-las antes de importar."
+  },
   "lyricMarkup": {
     "section": "Seção: {label}",
     "joinSyllables": "Juntar sílabas",
