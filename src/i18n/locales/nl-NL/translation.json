@@ -3,6 +3,12 @@
     "changelogTitle": "Wijzigingslogboek en updates",
     "viewCommits": "Commits bekijken op GitHub"
   },
+  "updatedToast": {
+    "message": "Bijgewerkt naar v{version}",
+    "seeChanges": "Bekijk wat er is veranderd",
+    "setting": "Na een update laten zien wat er is veranderd",
+    "settingDesc": "Toont bij de eerste start van een nieuwe versie een korte melding met een link naar het wijzigingslogboek."
+  },
   "app": {
     "error": {
       "title": "Oeps, er is een fout opgetreden!",

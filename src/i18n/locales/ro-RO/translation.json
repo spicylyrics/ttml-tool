@@ -3,6 +3,12 @@
     "changelogTitle": "Jurnal de modificări și actualizări",
     "viewCommits": "Vezi commit-urile pe GitHub"
   },
+  "updatedToast": {
+    "message": "Actualizat la v{version}",
+    "seeChanges": "Vezi ce s-a schimbat",
+    "setting": "Arată ce s-a schimbat după o actualizare",
+    "settingDesc": "La prima pornire pe o versiune nouă, afișează o notificare scurtă cu un link către jurnalul de modificări."
+  },
   "app": {
     "error": {
       "title": "Ups, a apărut o eroare!",

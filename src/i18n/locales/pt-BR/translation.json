@@ -3,6 +3,12 @@
     "changelogTitle": "Registro de alterações e atualizações",
     "viewCommits": "Ver commits no GitHub"
   },
+  "updatedToast": {
+    "message": "Atualizado para a v{version}",
+    "seeChanges": "Ver o que mudou",
+    "setting": "Mostrar o que mudou após uma atualização",
+    "settingDesc": "Na primeira vez que o app abrir em uma nova versão, mostra um aviso curto com um link para o registro de alterações."
+  },
   "app": {
     "error": {
       "title": "Ops, ocorreu um erro!",

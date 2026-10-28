@@ -3,6 +3,12 @@
     "changelogTitle": "更新日志与更新",
     "viewCommits": "在 GitHub 上查看提交"
   },
+  "updatedToast": {
+    "message": "已更新到 v{version}",
+    "seeChanges": "查看更新内容",
+    "setting": "更新后显示更新内容",
+    "settingDesc": "新版本首次启动时，显示一条简短通知，并附带更新日志链接。"
+  },
   "app": {
     "error": {
       "title": "诶呀，出错了！",
