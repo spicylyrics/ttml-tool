@@ -24,9 +24,6 @@ import {
 	segmentationEngineAtom,
 	segmentationSplitEnglishAtom,
 } from "$/modules/segmentation/states";
-import { matchesSavedSyllabificationEngine } from "$/modules/segmentation/utils/detect-syllabification-engine";
-import { segmentLyricLines } from "$/modules/segmentation/utils/segmentation";
-import { SYLLABIFICATION_ENGINES } from "$/modules/segmentation/utils/syllabification-engines";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
 	advancedSegmentationDialogAtom,
@@ -67,6 +64,7 @@ import {
 	undoLyricLinesAtom,
 } from "$/states/main.ts";
 import { openFileWithDialog } from "$/utils/fileDialog.ts";
+import { importWithReload } from "$/utils/import-with-reload";
 import { error, log } from "$/utils/logging.ts";
 import { createHistoryActionGate } from "./history-action-gate";
 
@@ -327,7 +325,21 @@ export const useTopMenuActions = () => {
 		setAutoSegmentDialog(true);
 	}, [setAutoSegmentDialog]);
 
-	const onQuickAutoSegment = useCallback(() => {
+	const onQuickAutoSegment = useCallback(async () => {
+		// The syllabification engines are large; fetch them on first use.
+		const engines = await importWithReload(() =>
+			Promise.all([
+				import("$/modules/segmentation/utils/detect-syllabification-engine"),
+				import("$/modules/segmentation/utils/segmentation"),
+				import("$/modules/segmentation/utils/syllabification-engines"),
+			]),
+		).catch(() => null);
+		if (!engines) return;
+		const [
+			{ matchesSavedSyllabificationEngine },
+			{ segmentLyricLines },
+			{ SYLLABIFICATION_ENGINES },
+		] = engines;
 		if (
 			!matchesSavedSyllabificationEngine(
 				store.get(lyricLinesAtom).lyricLines,

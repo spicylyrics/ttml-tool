@@ -28,10 +28,7 @@ const hyphenationLanguages = [
 	["pl", "Polish", false],
 ] as const;
 
-export const getHyphenationLanguage = (engine: SegmentationEngineId) =>
-	engine.startsWith("hyphenation-")
-		? engine.slice("hyphenation-".length)
-		: undefined;
+export { getHyphenationLanguage } from "./hyphenation-language";
 
 const dictionary = new Map<string, DictionaryEntry>(
 	Object.entries(prosodicDictionary as Record<string, DictionaryEntry>),

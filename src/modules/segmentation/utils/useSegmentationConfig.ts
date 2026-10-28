@@ -17,7 +17,7 @@ import {
 } from "../states";
 import type { HyphenatorFunc, SegmentationConfig } from "../types";
 import { loadHyphenator } from "../utils/hyphen-loader";
-import { getHyphenationLanguage } from "./syllabification-engines";
+import { getHyphenationLanguage } from "./hyphenation-language";
 
 export const useSegmentationConfig = () => {
 	const splitCJK = useAtomValue(segmentationSplitCJKAtom);
