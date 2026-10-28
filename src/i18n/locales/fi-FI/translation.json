@@ -1245,6 +1245,12 @@
     "insertLine": "Lisää uusi rivi tähän",
     "insertWord": "Lisää sana tähän…"
   },
+  "editModeTools": {
+    "toggleTitle": "Muokkaustilan työkalut",
+    "toggleDesc": "Jakaa kirjoitetun rivin sanoiksi, vaihtaa pää- ja duettorivit keskenään ja avaa jokaisen projektin kohdasta, johon jätit muokkaustilan.",
+    "swapDuetAll": "Vaihda pää- ja duettorivit",
+    "swapDuetSelected": "Vaihda pää- ja duettorivi"
+  },
   "lyricWordView": {
     "empty": "Tyhjä",
     "spaceCount": "Välilyönti ×{count}",

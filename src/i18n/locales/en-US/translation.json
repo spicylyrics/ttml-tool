@@ -1245,6 +1245,12 @@
     "insertLine": "Insert new line here",
     "insertWord": "Insert word here…"
   },
+  "editModeTools": {
+    "toggleTitle": "Edit mode tools",
+    "toggleDesc": "Split a typed line into words, swap main and duet lines, and reopen each project where you left Edit mode.",
+    "swapDuetAll": "Swap main and duet lines",
+    "swapDuetSelected": "Swap main and duet"
+  },
   "lyricWordView": {
     "empty": "Empty",
     "spaceCount": "Space ×{count}",

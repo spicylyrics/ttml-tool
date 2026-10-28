@@ -1245,6 +1245,12 @@
     "insertLine": "Vložit nový řádek zde",
     "insertWord": "Vložit slovo zde…"
   },
+  "editModeTools": {
+    "toggleTitle": "Nástroje režimu úprav",
+    "toggleDesc": "Rozdělí napsaný řádek na slova, prohodí hlavní a duetové řádky a otevře každý projekt tam, kde jste opustili režim úprav.",
+    "swapDuetAll": "Prohodit hlavní a duetové řádky",
+    "swapDuetSelected": "Prohodit hlavní a duet"
+  },
   "lyricWordView": {
     "empty": "Prázdné",
     "spaceCount": "Mezera ×{count}",

@@ -1245,6 +1245,12 @@
     "insertLine": "Inserează un vers aici",
     "insertWord": "Introdu un cuvânt aici…"
   },
+  "editModeTools": {
+    "toggleTitle": "Instrumente pentru modul Editare",
+    "toggleDesc": "Împarte un vers tastat în cuvinte, inversează versurile principale cu cele de duet și redeschide fiecare proiect unde ai lăsat modul Editare.",
+    "swapDuetAll": "Inversează versurile principale și de duet",
+    "swapDuetSelected": "Inversează principal și duet"
+  },
   "lyricWordView": {
     "empty": "Gol",
     "spaceCount": "Spațiu ×{count}",

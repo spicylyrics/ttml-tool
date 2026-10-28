@@ -1245,6 +1245,12 @@
     "insertLine": "Insérer une nouvelle ligne ici",
     "insertWord": "Insérer un mot ici…"
   },
+  "editModeTools": {
+    "toggleTitle": "Outils du mode Édition",
+    "toggleDesc": "Découpe une ligne saisie en mots, inverse les lignes principales et de duo, et rouvre chaque projet là où vous avez quitté le mode Édition.",
+    "swapDuetAll": "Inverser les lignes principales et de duo",
+    "swapDuetSelected": "Inverser principal et duo"
+  },
   "lyricWordView": {
     "empty": "Vide",
     "spaceCount": "Espace ×{count}",

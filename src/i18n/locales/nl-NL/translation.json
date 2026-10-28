@@ -1245,6 +1245,12 @@
     "insertLine": "Voeg hier een nieuwe regel in",
     "insertWord": "Woord hier invoegen…"
   },
+  "editModeTools": {
+    "toggleTitle": "Hulpmiddelen voor bewerkmodus",
+    "toggleDesc": "Splitst een getypte regel in woorden, wisselt hoofd- en duetregels om en opent elk project waar je de bewerkmodus verliet.",
+    "swapDuetAll": "Hoofd- en duetregels omwisselen",
+    "swapDuetSelected": "Hoofd en duet omwisselen"
+  },
   "lyricWordView": {
     "empty": "Leeg",
     "spaceCount": "Spatie ×{count}",

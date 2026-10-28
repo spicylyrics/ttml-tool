@@ -1245,6 +1245,12 @@
     "insertLine": "Inserisci un nuovo verso qui",
     "insertWord": "Inserisci una parola qui…"
   },
+  "editModeTools": {
+    "toggleTitle": "Strumenti della modalità Modifica",
+    "toggleDesc": "Divide in parole una riga digitata, scambia le righe principali e del duetto e riapre ogni progetto dove avevi lasciato la modalità Modifica.",
+    "swapDuetAll": "Scambia righe principali e del duetto",
+    "swapDuetSelected": "Scambia principale e duetto"
+  },
   "lyricWordView": {
     "empty": "Vuoto",
     "spaceCount": "Spazio ×{count}",

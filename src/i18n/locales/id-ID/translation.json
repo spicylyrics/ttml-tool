@@ -1245,6 +1245,12 @@
     "insertLine": "Sisipkan baris baru di sini",
     "insertWord": "Sisipkan kata di sini…"
   },
+  "editModeTools": {
+    "toggleTitle": "Alat mode Edit",
+    "toggleDesc": "Memecah baris yang diketik menjadi kata, menukar baris utama dan duet, dan membuka setiap proyek di posisi terakhir mode Edit.",
+    "swapDuetAll": "Tukar baris utama dan duet",
+    "swapDuetSelected": "Tukar utama dan duet"
+  },
   "lyricWordView": {
     "empty": "Kosong",
     "spaceCount": "Spasi ×{count}",

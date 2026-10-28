@@ -1,10 +1,17 @@
 import { Button, DropdownMenu } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { editModeToolsAtom } from "$/modules/lyric-editor/states/edit-mode-tools";
+import { swapDuetLinesAtom } from "$/modules/lyric-editor/utils/swap-duet";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
+import { lyricLinesAtom } from "$/states/main";
 import { useTopMenuActions } from "../useTopMenuActions";
+
+const hasLyricLinesAtom = atom(
+	(get) => get(lyricLinesAtom).lyricLines.length > 0,
+);
 
 type ToolMenuProps = {
 	variant: "toolbar" | "submenu";
@@ -18,6 +25,9 @@ const ToolMenuItems = () => {
 	const [spectrogramHoverSyncEnabled, setSpectrogramHoverSyncEnabled] = useAtom(
 		spectrogramHoverSyncEnabledAtom,
 	);
+	const editModeTools = useAtomValue(editModeToolsAtom);
+	const hasLines = useAtomValue(hasLyricLinesAtom);
+	const swapDuetLines = useSetAtom(swapDuetLinesAtom);
 
 	return (
 		<>
@@ -40,6 +50,14 @@ const ToolMenuItems = () => {
 			<DropdownMenu.Item onSelect={menu.onSyncLineTimestamps}>
 				{t("topBar.menu.syncLineTimestamps", "Fit lines to their words")}
 			</DropdownMenu.Item>
+			{editModeTools && (
+				<DropdownMenu.Item
+					disabled={!hasLines}
+					onSelect={() => swapDuetLines()}
+				>
+					{t("editModeTools.swapDuetAll", "Swap main and duet lines")}
+				</DropdownMenu.Item>
+			)}
 			<DropdownMenu.CheckboxItem
 				checked={spectrogramHoverSyncEnabled}
 				onCheckedChange={setSpectrogramHoverSyncEnabled}

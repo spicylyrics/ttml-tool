@@ -1245,6 +1245,12 @@
     "insertLine": "Wstaw tutaj nowy wers",
     "insertWord": "Wstaw słowo tutaj…"
   },
+  "editModeTools": {
+    "toggleTitle": "Narzędzia trybu edycji",
+    "toggleDesc": "Dzieli wpisany wers na słowa, zamienia wersy główne i duetu oraz otwiera każdy projekt tam, gdzie opuszczono tryb edycji.",
+    "swapDuetAll": "Zamień wersy główne i duetu",
+    "swapDuetSelected": "Zamień główny i duet"
+  },
   "lyricWordView": {
     "empty": "Pusty",
     "spaceCount": "Spacja ×{count}",
