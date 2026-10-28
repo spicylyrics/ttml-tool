@@ -1,4 +1,0 @@
-<tt xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:itunes="http://music.apple.com/lyric-ttml-internal" itunes:timing="Word"><head><metadata><ttm:agent type="person" xml:id="v1"/><ttm:agent type="person" xml:id="v2"/></metadata></head><body><div>
-<p begin="00:01.000" end="00:03.000" ttm:agent="v2" itunes:key="L1"><span begin="00:01.000" end="00:03.000">Lead</span><span ttm:role="x-bg"><span begin="00:01.500" end="00:02.500">(first)</span></span><span ttm:role="x-bg"><span begin="00:02.500" end="00:04.000">(second)</span></span></p>
-<p begin="00:04.200" end="00:05.000" ttm:agent="v1" itunes:key="L2"><span begin="00:04.200" end="00:05.000">Next</span></p>
-</div></body></tt>

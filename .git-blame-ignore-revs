@@ -1,5 +1,0 @@
-# Mechanical formatting commits, skipped by `git blame`.
-# Enable locally with: git config blame.ignoreRevsFile .git-blame-ignore-revs
-
-# style: format the codebase and sort imports with biome
-c27bafefd68679f8310b8264cd5d207ba06d17f6

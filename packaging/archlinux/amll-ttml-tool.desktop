@@ -1,8 +1,0 @@
-[Desktop Entry]
-Categories=AudioVideo;Audio;AudioVideoEditing;
-Exec=amll-ttml-tool %U
-Icon=amll-ttml-tool
-Name=Spicy Lyrics TTML Tool
-Comment=Syllable lyric editor for Apple Music-like lyrics
-Terminal=false
-Type=Application
