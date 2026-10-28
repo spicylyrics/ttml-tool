@@ -218,6 +218,29 @@
       "missingRomanization": "Mangler romanisering"
     }
   },
+  "editAsText": {
+    "menuItem": "Rediger som tekst...",
+    "title": "Rediger som tekst",
+    "description": "Rediger hele sangteksten som almindelig tekst. Ord, du ikke ændrer, beholder deres timing.",
+    "textLabel": "Sangtekst",
+    "summaryTitle": "Ændringer",
+    "unchanged": "{count, plural, one {# linje uændret} other {# linjer uændret}}",
+    "edited": "{count, plural, one {# linje redigeret} other {# linjer redigeret}}",
+    "editedHint": "Timing bevares, hvor ordene matcher.",
+    "moved": "{count, plural, one {# linje flyttet} other {# linjer flyttet}}",
+    "added": "{count, plural, one {# linje tilføjet} other {# linjer tilføjet}}",
+    "removed": "{count, plural, one {# linje fjernet} other {# linjer fjernet}}",
+    "noChanges": "Ingen ændringer endnu.",
+    "droppedTimings": "{count, plural, one {# timet ord mister sin timing} other {# timede ord mister deres timing}}",
+    "lineNumber": "Linje {line}",
+    "more": "{count, plural, one {og # mere} other {og # mere}}",
+    "help": "Nye ord kommer ind uden timing. Linjer, der kun er flyttet, beholder deres timing. Anvend er ét fortrydelsestrin.",
+    "apply": "Anvend",
+    "applied": "Teksten er anvendt. Fortryd fjerner den i ét trin.",
+    "failed": "Teksten kunne ikke anvendes. Tjek den, og prøv igen.",
+    "setting": "Rediger som tekst",
+    "settingDesc": "Tilføjer Rediger som tekst til menuen Rediger: ret hele sangteksten som almindelig tekst, og behold timingen for de ord, du ikke rører."
+  },
   "importChooser": {
     "options": {
       "plainText": {

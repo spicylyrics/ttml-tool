@@ -218,6 +218,29 @@
       "missingRomanization": "Romanizasyon eksik"
     }
   },
+  "editAsText": {
+    "menuItem": "Metin olarak düzenle...",
+    "title": "Metin olarak düzenle",
+    "description": "Şarkı sözlerinin tamamını düz metin olarak düzenleyin. Değiştirmediğiniz kelimeler zamanlamasını korur.",
+    "textLabel": "Şarkı sözü metni",
+    "summaryTitle": "Değişiklikler",
+    "unchanged": "{count, plural, one {# satır değişmedi} other {# satır değişmedi}}",
+    "edited": "{count, plural, one {# satır düzenlendi} other {# satır düzenlendi}}",
+    "editedHint": "Kelimelerin eşleştiği yerlerde zamanlama korunur.",
+    "moved": "{count, plural, one {# satır taşındı} other {# satır taşındı}}",
+    "added": "{count, plural, one {# satır eklendi} other {# satır eklendi}}",
+    "removed": "{count, plural, one {# satır kaldırıldı} other {# satır kaldırıldı}}",
+    "noChanges": "Henüz değişiklik yok.",
+    "droppedTimings": "{count, plural, one {# zamanlanmış kelime zamanlamasını kaybeder} other {# zamanlanmış kelime zamanlamasını kaybeder}}",
+    "lineNumber": "Satır {line}",
+    "more": "{count, plural, one {ve # tane daha} other {ve # tane daha}}",
+    "help": "Yeni kelimeler zamanlamasız gelir. Yalnızca taşınan satırlar zamanlamasını korur. Uygula tek adımda geri alınır.",
+    "apply": "Uygula",
+    "applied": "Metin uygulandı. Geri al tek adımda eski haline döndürür.",
+    "failed": "Metin uygulanamadı. Kontrol edip tekrar deneyin.",
+    "setting": "Metin olarak düzenle",
+    "settingDesc": "Düzenle menüsüne Metin olarak düzenle ekler: şarkı sözlerinin tamamını düz metin olarak değiştirin, dokunmadığınız kelimelerin zamanlaması korunsun."
+  },
   "importChooser": {
     "options": {
       "plainText": {

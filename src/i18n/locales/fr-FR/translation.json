@@ -218,6 +218,29 @@
       "missingRomanization": "Romanisation manquante"
     }
   },
+  "editAsText": {
+    "menuItem": "Modifier en texte...",
+    "title": "Modifier en texte",
+    "description": "Modifiez toutes les paroles en texte brut. Les mots que vous ne changez pas gardent leur synchronisation.",
+    "textLabel": "Texte des paroles",
+    "summaryTitle": "Modifications",
+    "unchanged": "{count, plural, one {# ligne inchangée} many {# lignes inchangées} other {# lignes inchangées}}",
+    "edited": "{count, plural, one {# ligne modifiée} many {# lignes modifiées} other {# lignes modifiées}}",
+    "editedHint": "La synchronisation est conservée là où les mots correspondent.",
+    "moved": "{count, plural, one {# ligne déplacée} many {# lignes déplacées} other {# lignes déplacées}}",
+    "added": "{count, plural, one {# ligne ajoutée} many {# lignes ajoutées} other {# lignes ajoutées}}",
+    "removed": "{count, plural, one {# ligne supprimée} many {# lignes supprimées} other {# lignes supprimées}}",
+    "noChanges": "Aucune modification pour l'instant.",
+    "droppedTimings": "{count, plural, one {# mot synchronisé perd sa synchronisation} many {# mots synchronisés perdent leur synchronisation} other {# mots synchronisés perdent leur synchronisation}}",
+    "lineNumber": "Ligne {line}",
+    "more": "{count, plural, one {et # de plus} many {et # de plus} other {et # de plus}}",
+    "help": "Les nouveaux mots arrivent sans synchronisation. Les lignes seulement déplacées gardent leur synchronisation. Appliquer s'annule en une seule étape.",
+    "apply": "Appliquer",
+    "applied": "Texte appliqué. Annuler le rétablit en une seule étape.",
+    "failed": "Impossible d'appliquer le texte. Vérifiez-le et réessayez.",
+    "setting": "Modifier en texte",
+    "settingDesc": "Ajoute Modifier en texte au menu Édition : modifiez toutes les paroles en texte brut et gardez la synchronisation des mots que vous ne touchez pas."
+  },
   "importChooser": {
     "options": {
       "plainText": {

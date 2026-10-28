@@ -218,6 +218,29 @@
       "missingRomanization": "Romanisasi kosong"
     }
   },
+  "editAsText": {
+    "menuItem": "Edit sebagai teks...",
+    "title": "Edit sebagai teks",
+    "description": "Edit seluruh lirik sebagai teks biasa. Kata yang tidak Anda ubah tetap mempertahankan timing-nya.",
+    "textLabel": "Teks lirik",
+    "summaryTitle": "Perubahan",
+    "unchanged": "{count, plural, other {# baris tidak berubah}}",
+    "edited": "{count, plural, other {# baris diedit}}",
+    "editedHint": "Timing dipertahankan jika katanya cocok.",
+    "moved": "{count, plural, other {# baris dipindah}}",
+    "added": "{count, plural, other {# baris ditambahkan}}",
+    "removed": "{count, plural, other {# baris dihapus}}",
+    "noChanges": "Belum ada perubahan.",
+    "droppedTimings": "{count, plural, other {# kata bertiming kehilangan timing-nya}}",
+    "lineNumber": "Baris {line}",
+    "more": "{count, plural, other {dan # lainnya}}",
+    "help": "Kata baru masuk tanpa timing. Baris yang hanya dipindah tetap mempertahankan timing-nya. Terapkan adalah satu langkah urungkan.",
+    "apply": "Terapkan",
+    "applied": "Teks diterapkan. Urungkan mengembalikannya dalam satu langkah.",
+    "failed": "Teks tidak dapat diterapkan. Periksa lalu coba lagi.",
+    "setting": "Edit sebagai teks",
+    "settingDesc": "Menambahkan Edit sebagai teks ke menu Edit: ubah seluruh lirik sebagai teks biasa dan pertahankan timing kata yang tidak Anda sentuh."
+  },
   "importChooser": {
     "options": {
       "plainText": {

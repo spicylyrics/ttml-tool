@@ -218,6 +218,29 @@
       "missingRomanization": "Romanizzazione mancante"
     }
   },
+  "editAsText": {
+    "menuItem": "Modifica come testo...",
+    "title": "Modifica come testo",
+    "description": "Modifica l'intero testo come testo semplice. Le parole che non cambi mantengono la sincronizzazione.",
+    "textLabel": "Testo della canzone",
+    "summaryTitle": "Modifiche",
+    "unchanged": "{count, plural, one {# riga invariata} many {# righe invariate} other {# righe invariate}}",
+    "edited": "{count, plural, one {# riga modificata} many {# righe modificate} other {# righe modificate}}",
+    "editedHint": "La sincronizzazione resta dove le parole corrispondono.",
+    "moved": "{count, plural, one {# riga spostata} many {# righe spostate} other {# righe spostate}}",
+    "added": "{count, plural, one {# riga aggiunta} many {# righe aggiunte} other {# righe aggiunte}}",
+    "removed": "{count, plural, one {# riga rimossa} many {# righe rimosse} other {# righe rimosse}}",
+    "noChanges": "Ancora nessuna modifica.",
+    "droppedTimings": "{count, plural, one {# parola sincronizzata perde la sincronizzazione} many {# parole sincronizzate perdono la sincronizzazione} other {# parole sincronizzate perdono la sincronizzazione}}",
+    "lineNumber": "Riga {line}",
+    "more": "{count, plural, one {e # altra} many {e altre #} other {e altre #}}",
+    "help": "Le parole nuove entrano senza sincronizzazione. Le righe solo spostate mantengono la sincronizzazione. Applica si annulla in un solo passaggio.",
+    "apply": "Applica",
+    "applied": "Testo applicato. Annulla lo ripristina in un solo passaggio.",
+    "failed": "Impossibile applicare il testo. Controllalo e riprova.",
+    "setting": "Modifica come testo",
+    "settingDesc": "Aggiunge Modifica come testo al menu Modifica: cambia l'intero testo come testo semplice e mantieni la sincronizzazione delle parole che non tocchi."
+  },
   "importChooser": {
     "options": {
       "plainText": {

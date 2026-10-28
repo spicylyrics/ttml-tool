@@ -218,6 +218,29 @@
       "missingRomanization": "Romanisering ontbreekt"
     }
   },
+  "editAsText": {
+    "menuItem": "Bewerken als tekst...",
+    "title": "Bewerken als tekst",
+    "description": "Bewerk de hele songtekst als platte tekst. Woorden die je niet wijzigt, houden hun timing.",
+    "textLabel": "Songtekst",
+    "summaryTitle": "Wijzigingen",
+    "unchanged": "{count, plural, one {# regel ongewijzigd} other {# regels ongewijzigd}}",
+    "edited": "{count, plural, one {# regel bewerkt} other {# regels bewerkt}}",
+    "editedHint": "Timing blijft behouden waar woorden overeenkomen.",
+    "moved": "{count, plural, one {# regel verplaatst} other {# regels verplaatst}}",
+    "added": "{count, plural, one {# regel toegevoegd} other {# regels toegevoegd}}",
+    "removed": "{count, plural, one {# regel verwijderd} other {# regels verwijderd}}",
+    "noChanges": "Nog geen wijzigingen.",
+    "droppedTimings": "{count, plural, one {# getimed woord verliest zijn timing} other {# getimede woorden verliezen hun timing}}",
+    "lineNumber": "Regel {line}",
+    "more": "{count, plural, one {en # meer} other {en # meer}}",
+    "help": "Nieuwe woorden komen binnen zonder timing. Regels die alleen verplaatst zijn, houden hun timing. Toepassen is één stap ongedaan maken.",
+    "apply": "Toepassen",
+    "applied": "Tekst toegepast. Ongedaan maken draait het in één stap terug.",
+    "failed": "Kan de tekst niet toepassen. Controleer hem en probeer het opnieuw.",
+    "setting": "Bewerken als tekst",
+    "settingDesc": "Voegt Bewerken als tekst toe aan het menu Bewerken: wijzig de hele songtekst als platte tekst en behoud de timing van woorden die je niet aanraakt."
+  },
   "importChooser": {
     "options": {
       "plainText": {

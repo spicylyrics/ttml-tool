@@ -218,6 +218,29 @@
       "missingRomanization": "Missing romanization"
     }
   },
+  "editAsText": {
+    "menuItem": "Edit as text...",
+    "title": "Edit as text",
+    "description": "Edit the whole lyrics as plain text. Words you don't change keep their timing.",
+    "textLabel": "Lyrics text",
+    "summaryTitle": "Changes",
+    "unchanged": "{count, plural, one {# line unchanged} other {# lines unchanged}}",
+    "edited": "{count, plural, one {# line edited} other {# lines edited}}",
+    "editedHint": "Timings are kept where words match.",
+    "moved": "{count, plural, one {# line moved} other {# lines moved}}",
+    "added": "{count, plural, one {# line added} other {# lines added}}",
+    "removed": "{count, plural, one {# line removed} other {# lines removed}}",
+    "noChanges": "No changes yet.",
+    "droppedTimings": "{count, plural, one {# timed word loses its timing} other {# timed words lose their timing}}",
+    "lineNumber": "Line {line}",
+    "more": "{count, plural, one {and # more} other {and # more}}",
+    "help": "New words come in untimed. Lines that only moved keep their timing. Apply is one undo step.",
+    "apply": "Apply",
+    "applied": "Applied the text. Undo reverts it in one step.",
+    "failed": "Couldn't apply the text. Check it and try again.",
+    "setting": "Edit as text",
+    "settingDesc": "Adds Edit as text to the Edit menu: change the whole lyrics as plain text and keep the timing of words you don't touch."
+  },
   "importChooser": {
     "options": {
       "plainText": {
