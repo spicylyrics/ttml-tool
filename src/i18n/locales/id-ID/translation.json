@@ -1045,6 +1045,23 @@
     "noResults": "Tidak ada pengaturan yang cocok dengan \"{query}\"",
     "noResultsDesc": "Coba kata lain, atau hapus pencarian."
   },
+  "preferencesPages": {
+    "editing": "Pengeditan",
+    "editingDesc": "Apa yang ditampilkan mode Edit pada setiap baris dan kata.",
+    "syncing": "Sinkronisasi",
+    "syncingDesc": "Tombol sinkronisasi, offset, dan apa yang ditampilkan mode Waktu.",
+    "preview": "Pratinjau",
+    "previewDesc": "Apa yang ditampilkan tab Pratinjau dan seberapa mulus jalannya.",
+    "audio": "Audio & spektrogram",
+    "files": "Impor & file",
+    "filesDesc": "Pembersihan saat impor, ekspor, dan proyek folder.",
+    "backup": "Cadangan",
+    "backupDesc": "Riwayat simpan otomatis dan cadangan portabel.",
+    "experimental": "Eksperimental",
+    "experimentalDesc": "Fitur yang masih dikerjakan. Setiap fitur tetap nonaktif sampai Anda mengaktifkannya.",
+    "turnAllOff": "Nonaktifkan semua",
+    "turnAllOffLabel": "Nonaktifkan semua fitur eksperimental di {area}"
+  },
   "timingOverview": {
     "start": "Awal",
     "end": "Akhir",

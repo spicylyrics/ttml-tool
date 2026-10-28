@@ -1045,6 +1045,23 @@
     "noResults": "Aucun réglage ne correspond à « {query} »",
     "noResultsDesc": "Essayez un autre mot ou effacez la recherche."
   },
+  "preferencesPages": {
+    "editing": "Édition",
+    "editingDesc": "Ce que le mode Édition affiche sur chaque ligne et chaque mot.",
+    "syncing": "Synchronisation",
+    "syncingDesc": "Touches de synchronisation, décalages et ce que le mode Temps affiche.",
+    "preview": "Aperçu",
+    "previewDesc": "Ce que l'onglet Aperçu affiche et avec quelle fluidité il tourne.",
+    "audio": "Audio et spectrogramme",
+    "files": "Importation et fichiers",
+    "filesDesc": "Nettoyage à l'importation, exportation et projets de dossier.",
+    "backup": "Sauvegarde",
+    "backupDesc": "Historique d'enregistrement automatique et sauvegardes portables.",
+    "experimental": "Expérimental",
+    "experimentalDesc": "Fonctionnalités encore en cours. Chacune reste désactivée tant que vous ne l'activez pas.",
+    "turnAllOff": "Tout désactiver",
+    "turnAllOffLabel": "Désactiver toutes les fonctionnalités expérimentales de {area}"
+  },
   "timingOverview": {
     "start": "Début",
     "end": "Fin",

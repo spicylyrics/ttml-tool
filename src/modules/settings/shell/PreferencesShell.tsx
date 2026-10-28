@@ -13,18 +13,15 @@ import {
 import { useTranslation } from "react-i18next";
 import { EmptyState } from "$/components/EmptyState";
 import { settingsDialogAtom, settingsTabAtom } from "$/states/dialogs.ts";
-import {
-	matchesSettingsSearch,
-	settingsSearchKeywords,
-} from "../logic/settings-search";
+import { matchesSettingsSearch } from "../logic/settings-search";
 import styles from "./PreferencesShell.module.css";
+import { resolveShellPage } from "./page-map";
 import {
 	applySearchVisibility,
 	clearSearchVisibility,
 	collectPageElements,
 } from "./page-snapshot";
 import { getShellPages, ShellPages } from "./pages";
-import { ShellFlagToggle } from "./ShellFlagToggle";
 import {
 	isSearchQuery,
 	type PageSnapshot,
@@ -32,9 +29,6 @@ import {
 	sameSnapshots,
 	searchSettingsPages,
 } from "./search";
-
-/** Old tab ids that deep links may still set; they lived on General. */
-const RETIRED_TABS = ["assistant", "ai", "dev"];
 
 function pageBody(pane: Element, value: string) {
 	return pane.querySelector(`[data-shell-page-body="${value}"]`);
@@ -53,14 +47,15 @@ export const PreferencesShell = memo(() => {
 	const searchRef = useRef<HTMLInputElement>(null);
 	const contentRef = useRef<HTMLElement>(null);
 	const { t } = useTranslation();
-	const displayedTab = RETIRED_TABS.includes(activeTab) ? "common" : activeTab;
+	// Classic ids (and old ones) from deep links map onto the shell's pages.
+	const displayedTab = resolveShellPage(activeTab);
 	const pages = useMemo(() => getShellPages(t), [t]);
 	const searchablePages = useMemo(
 		() =>
 			pages.map((page) => ({
 				value: page.value,
 				label: page.label,
-				keywords: settingsSearchKeywords[page.value] ?? "",
+				keywords: page.keywords,
 			})),
 		[pages],
 	);
@@ -296,7 +291,6 @@ export const PreferencesShell = memo(() => {
 									)}
 								</Text>
 							)}
-							<ShellFlagToggle className={styles.flag} />
 						</aside>
 
 						<main

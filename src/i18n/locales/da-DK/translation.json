@@ -1045,6 +1045,23 @@
     "noResults": "Ingen indstillinger matcher \"{query}\"",
     "noResultsDesc": "Prøv et andet ord, eller ryd søgningen."
   },
+  "preferencesPages": {
+    "editing": "Redigering",
+    "editingDesc": "Hvad Rediger-tilstand viser på hver linje og hvert ord.",
+    "syncing": "Synkronisering",
+    "syncingDesc": "Timingtaster, forskydninger og hvad Tid-tilstand viser.",
+    "preview": "Forhåndsvisning",
+    "previewDesc": "Hvad fanen Forhåndsvisning viser, og hvor jævnt den kører.",
+    "audio": "Lyd og spektrogram",
+    "files": "Import og filer",
+    "filesDesc": "Oprydning ved import, eksport og mappeprojekter.",
+    "backup": "Backup",
+    "backupDesc": "Historik for automatisk lagring og flytbare backups.",
+    "experimental": "Eksperimentelt",
+    "experimentalDesc": "Funktioner, der stadig er under udvikling. Hver forbliver slået fra, indtil du slår den til.",
+    "turnAllOff": "Slå alle fra",
+    "turnAllOffLabel": "Slå alle eksperimentelle funktioner under {area} fra"
+  },
   "timingOverview": {
     "start": "Start",
     "end": "Slut",

@@ -1045,6 +1045,23 @@
     "noResults": "没有与“{query}”匹配的设置",
     "noResultsDesc": "换个词试试，或清除搜索。"
   },
+  "preferencesPages": {
+    "editing": "编辑",
+    "editingDesc": "编辑模式在每一行和每个词上显示的内容。",
+    "syncing": "打轴",
+    "syncingDesc": "打轴按键、偏移量，以及时间模式显示的内容。",
+    "preview": "预览",
+    "previewDesc": "预览标签页显示的内容及其流畅度。",
+    "audio": "音频与频谱图",
+    "files": "导入与文件",
+    "filesDesc": "导入清理、导出和文件夹项目。",
+    "backup": "备份",
+    "backupDesc": "自动保存历史和便携备份。",
+    "experimental": "实验性功能",
+    "experimentalDesc": "仍在开发中的功能。每项功能在你开启之前都保持关闭。",
+    "turnAllOff": "全部关闭",
+    "turnAllOffLabel": "关闭{area}下的所有实验性功能"
+  },
   "timingOverview": {
     "start": "开始",
     "end": "结束",

@@ -24,7 +24,7 @@ import { getAllCommands } from "$/modules/keyboard/registry";
 import type { KeyBindingCommand } from "$/modules/keyboard/types";
 import { settingsSearchKeywords } from "$/modules/settings/logic/settings-search";
 import { settingsDialogAtom, settingsTabAtom } from "$/states/dialogs.ts";
-import { toolModeAtom } from "$/states/main.ts";
+import { ToolMode, toolModeAtom } from "$/states/main.ts";
 import {
 	formatKeyBindings,
 	getShortcutKey,

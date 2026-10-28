@@ -6,6 +6,7 @@ import {
 import { Box, Card, Flex, Heading, Switch, Text } from "@radix-ui/themes";
 import { EditAsTextSetting } from "$/modules/edit-as-text/components/EditAsTextSetting";
 import { ImportSplitChoiceSetting } from "$/modules/lyrics-import/components/ImportSplitChoiceSetting";
+import { Relocatable } from "$/modules/settings/shell/relocated";
 import type { CommonSettings } from "./useCommonSettings";
 export const ImportCleanupSection = ({
 	normalizeApostrophesOnImport,
@@ -28,7 +29,9 @@ export const ImportCleanupSection = ({
 	<Flex direction="column" gap="2">
 		<Heading size="4">{t("settings.group.import", "Import & export")}</Heading>
 
-		<ImportSplitChoiceSetting />
+		<Relocatable setting={ImportSplitChoiceSetting}>
+			<ImportSplitChoiceSetting />
+		</Relocatable>
 
 		<Card>
 			<Text as="label">
@@ -120,6 +123,8 @@ export const ImportCleanupSection = ({
 			</Text>
 		</Card>
 
-		<EditAsTextSetting />
+		<Relocatable setting={EditAsTextSetting}>
+			<EditAsTextSetting />
+		</Relocatable>
 	</Flex>
 );

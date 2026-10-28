@@ -1045,6 +1045,23 @@
     "noResults": "Żadne ustawienie nie pasuje do „{query}”",
     "noResultsDesc": "Spróbuj innego słowa lub wyczyść wyszukiwanie."
   },
+  "preferencesPages": {
+    "editing": "Edycja",
+    "editingDesc": "Co tryb Edycja pokazuje przy każdym wierszu i słowie.",
+    "syncing": "Synchronizacja",
+    "syncingDesc": "Klawisze synchronizacji, przesunięcia i co pokazuje tryb Czas.",
+    "preview": "Podgląd",
+    "previewDesc": "Co pokazuje karta Podgląd i jak płynnie działa.",
+    "audio": "Dźwięk i spektrogram",
+    "files": "Import i pliki",
+    "filesDesc": "Czyszczenie przy imporcie, eksport i projekty folderów.",
+    "backup": "Kopia zapasowa",
+    "backupDesc": "Historia autozapisu i przenośne kopie zapasowe.",
+    "experimental": "Eksperymentalne",
+    "experimentalDesc": "Funkcje, nad którymi wciąż trwają prace. Każda pozostaje wyłączona, dopóki jej nie włączysz.",
+    "turnAllOff": "Wyłącz wszystkie",
+    "turnAllOffLabel": "Wyłącz wszystkie funkcje eksperymentalne w sekcji {area}"
+  },
   "timingOverview": {
     "start": "Początek",
     "end": "Koniec",

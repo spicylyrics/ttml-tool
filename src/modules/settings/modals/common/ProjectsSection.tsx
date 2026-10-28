@@ -1,6 +1,7 @@
 import { Folder24Regular, Save24Regular } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Switch, Text } from "@radix-ui/themes";
 import { ProjectsHubToggle } from "$/modules/projects-hub/components/ProjectsHubToggle";
+import { Relocatable } from "$/modules/settings/shell/relocated";
 import type { CommonSettings } from "./useCommonSettings";
 export const ProjectsSection = ({
 	folderProjectsAutosave,
@@ -77,6 +78,8 @@ export const ProjectsSection = ({
 			</Text>
 		</Card>
 
-		<ProjectsHubToggle />
+		<Relocatable setting={ProjectsHubToggle}>
+			<ProjectsHubToggle />
+		</Relocatable>
 	</Flex>
 );

@@ -2,16 +2,23 @@ import { Switch } from "@radix-ui/themes";
 import { useAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import { FieldRow } from "$/components/FieldRow";
+import { settingsTabAtom } from "$/states/dialogs.ts";
+import { toClassicPage } from "./page-map";
 import { preferencesShellEnabledAtom } from "./states";
 
 /**
  * Switches Preferences between the classic dialog and the new shell. Shown at
- * the bottom of both sidebars, so the layout can be tried and turned back off
- * from the place it changes.
+ * the bottom of the classic sidebar and on the shell's Experimental page.
  */
 export const ShellFlagToggle = ({ className }: { className?: string }) => {
 	const { t } = useTranslation();
 	const [enabled, setEnabled] = useAtom(preferencesShellEnabledAtom);
+	const [tab, setTab] = useAtom(settingsTabAtom);
+	const onCheckedChange = (next: boolean) => {
+		// The classic dialog has no Experimental (or Editing, Backup...) page.
+		if (!next) setTab(toClassicPage(tab));
+		setEnabled(next);
+	};
 	return (
 		<FieldRow
 			className={className}
@@ -26,7 +33,7 @@ export const ShellFlagToggle = ({ className }: { className?: string }) => {
 					id={controlId}
 					aria-describedby={descriptionId}
 					checked={enabled}
-					onCheckedChange={setEnabled}
+					onCheckedChange={onCheckedChange}
 				/>
 			)}
 		</FieldRow>

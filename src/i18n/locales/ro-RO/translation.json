@@ -1045,6 +1045,23 @@
     "noResults": "Nicio setare nu se potrivește cu „{query}”",
     "noResultsDesc": "Încearcă alt cuvânt sau șterge căutarea."
   },
+  "preferencesPages": {
+    "editing": "Editare",
+    "editingDesc": "Ce afișează modul Editare pe fiecare rând și cuvânt.",
+    "syncing": "Sincronizare",
+    "syncingDesc": "Taste de sincronizare, decalaje și ce afișează modul Timp.",
+    "preview": "Previzualizare",
+    "previewDesc": "Ce afișează fila Previzualizare și cât de fluid rulează.",
+    "audio": "Audio și spectrogramă",
+    "files": "Import și fișiere",
+    "filesDesc": "Curățare la import, export și proiecte din foldere.",
+    "backup": "Copie de rezervă",
+    "backupDesc": "Istoricul salvării automate și copii de rezervă portabile.",
+    "experimental": "Experimental",
+    "experimentalDesc": "Funcții încă în lucru. Fiecare rămâne dezactivată până o activezi.",
+    "turnAllOff": "Dezactivează tot",
+    "turnAllOffLabel": "Dezactivează toate funcțiile experimentale din {area}"
+  },
   "timingOverview": {
     "start": "Început",
     "end": "Sfârșit",
