@@ -207,6 +207,16 @@
       "splitWordsHint": "Merkitsee jokaisen välilyönnin sanarajaksi tuontia varten."
     }
   },
+  "importSplit": {
+    "title": "Tavut",
+    "later": "Jaan myöhemmin",
+    "laterHint": "Tuo kokonaiset sanat. Jaa ne myöhemmin editorissa.",
+    "now": "Jaa nyt",
+    "nowHint": "Merkitsee tavut tekstiin heti, jotta voit korjata ne ennen tuontia.",
+    "checkFirst": "Uudet sanat saivat tavumerkit. Tarkista ne ja tuo sitten.",
+    "setting": "Jaa tavuihin tuonnin aikana",
+    "settingHint": "Lisää tuontinäkymään valinnan Jaa nyt tai Jaan myöhemmin. Jaa nyt merkitsee tavut segmentointiasetustesi ja opittujen jakojen mukaan, ja voit korjata ne ennen tuontia."
+  },
   "lyricMarkup": {
     "section": "Osio: {label}",
     "joinSyllables": "Yhdistä tavut",
