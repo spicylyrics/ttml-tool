@@ -110,7 +110,9 @@ export const PreferencesShell = memo(() => {
 	const visiblePages = pages.filter(
 		(page) => resultByPage.get(page.value)?.visible,
 	);
-	const nothingFound = searching && visiblePages.length === 0;
+	// Wait for the pages' text, or a text-only match flashes "nothing found".
+	const nothingFound =
+		searching && snapshots !== null && visiblePages.length === 0;
 
 	// Hide the rows a search filters out. Only attributes change, which the
 	// observer above ignores, so this can't loop.
