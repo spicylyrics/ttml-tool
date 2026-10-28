@@ -218,6 +218,29 @@
       "missingRomanization": "Falta romanização"
     }
   },
+  "editAsText": {
+    "menuItem": "Editar como texto...",
+    "title": "Editar como texto",
+    "description": "Edite a letra inteira como texto simples. As palavras que você não mudar mantêm a sincronização.",
+    "textLabel": "Texto da letra",
+    "summaryTitle": "Alterações",
+    "unchanged": "{count, plural, one {# linha sem alteração} many {# linhas sem alteração} other {# linhas sem alteração}}",
+    "edited": "{count, plural, one {# linha editada} many {# linhas editadas} other {# linhas editadas}}",
+    "editedHint": "A sincronização é mantida onde as palavras coincidem.",
+    "moved": "{count, plural, one {# linha movida} many {# linhas movidas} other {# linhas movidas}}",
+    "added": "{count, plural, one {# linha adicionada} many {# linhas adicionadas} other {# linhas adicionadas}}",
+    "removed": "{count, plural, one {# linha removida} many {# linhas removidas} other {# linhas removidas}}",
+    "noChanges": "Nenhuma alteração ainda.",
+    "droppedTimings": "{count, plural, one {# palavra sincronizada perde a sincronização} many {# palavras sincronizadas perdem a sincronização} other {# palavras sincronizadas perdem a sincronização}}",
+    "lineNumber": "Linha {line}",
+    "more": "{count, plural, one {e mais #} many {e mais #} other {e mais #}}",
+    "help": "Palavras novas entram sem sincronização. Linhas que só foram movidas mantêm a sincronização. Aplicar é desfeito em um único passo.",
+    "apply": "Aplicar",
+    "applied": "Texto aplicado. Desfazer reverte em um único passo.",
+    "failed": "Não foi possível aplicar o texto. Confira e tente de novo.",
+    "setting": "Editar como texto",
+    "settingDesc": "Adiciona Editar como texto ao menu Editar: altere a letra inteira como texto simples e mantenha a sincronização das palavras que você não mexer."
+  },
   "importChooser": {
     "options": {
       "plainText": {

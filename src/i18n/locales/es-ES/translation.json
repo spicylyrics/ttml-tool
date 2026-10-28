@@ -218,6 +218,29 @@
       "missingRomanization": "Falta romanización"
     }
   },
+  "editAsText": {
+    "menuItem": "Editar como texto...",
+    "title": "Editar como texto",
+    "description": "Edita toda la letra como texto sin formato. Las palabras que no cambies conservan su sincronización.",
+    "textLabel": "Texto de la letra",
+    "summaryTitle": "Cambios",
+    "unchanged": "{count, plural, one {# línea sin cambios} many {# líneas sin cambios} other {# líneas sin cambios}}",
+    "edited": "{count, plural, one {# línea editada} many {# líneas editadas} other {# líneas editadas}}",
+    "editedHint": "La sincronización se conserva donde las palabras coinciden.",
+    "moved": "{count, plural, one {# línea movida} many {# líneas movidas} other {# líneas movidas}}",
+    "added": "{count, plural, one {# línea añadida} many {# líneas añadidas} other {# líneas añadidas}}",
+    "removed": "{count, plural, one {# línea eliminada} many {# líneas eliminadas} other {# líneas eliminadas}}",
+    "noChanges": "Aún no hay cambios.",
+    "droppedTimings": "{count, plural, one {# palabra sincronizada pierde su sincronización} many {# palabras sincronizadas pierden su sincronización} other {# palabras sincronizadas pierden su sincronización}}",
+    "lineNumber": "Línea {line}",
+    "more": "{count, plural, one {y # más} many {y # más} other {y # más}}",
+    "help": "Las palabras nuevas entran sin sincronizar. Las líneas que solo se movieron conservan su sincronización. Aplicar es un solo paso de deshacer.",
+    "apply": "Aplicar",
+    "applied": "Texto aplicado. Deshacer lo revierte en un solo paso.",
+    "failed": "No se pudo aplicar el texto. Revísalo e inténtalo de nuevo.",
+    "setting": "Editar como texto",
+    "settingDesc": "Añade Editar como texto al menú Editar: cambia toda la letra como texto sin formato y conserva la sincronización de las palabras que no toques."
+  },
   "importChooser": {
     "options": {
       "plainText": {

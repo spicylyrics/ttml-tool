@@ -218,6 +218,29 @@
       "missingRomanization": "Lipsește romanizarea"
     }
   },
+  "editAsText": {
+    "menuItem": "Editează ca text...",
+    "title": "Editează ca text",
+    "description": "Editează toate versurile ca text simplu. Cuvintele pe care nu le schimbi își păstrează sincronizarea.",
+    "textLabel": "Textul versurilor",
+    "summaryTitle": "Modificări",
+    "unchanged": "{count, plural, one {# rând neschimbat} few {# rânduri neschimbate} other {# de rânduri neschimbate}}",
+    "edited": "{count, plural, one {# rând editat} few {# rânduri editate} other {# de rânduri editate}}",
+    "editedHint": "Sincronizarea se păstrează acolo unde cuvintele se potrivesc.",
+    "moved": "{count, plural, one {# rând mutat} few {# rânduri mutate} other {# de rânduri mutate}}",
+    "added": "{count, plural, one {# rând adăugat} few {# rânduri adăugate} other {# de rânduri adăugate}}",
+    "removed": "{count, plural, one {# rând eliminat} few {# rânduri eliminate} other {# de rânduri eliminate}}",
+    "noChanges": "Nicio modificare încă.",
+    "droppedTimings": "{count, plural, one {# cuvânt sincronizat își pierde sincronizarea} few {# cuvinte sincronizate își pierd sincronizarea} other {# de cuvinte sincronizate își pierd sincronizarea}}",
+    "lineNumber": "Rândul {line}",
+    "more": "{count, plural, one {și încă #} few {și încă #} other {și încă #}}",
+    "help": "Cuvintele noi intră fără sincronizare. Rândurile doar mutate își păstrează sincronizarea. Aplicarea se anulează într-un singur pas.",
+    "apply": "Aplică",
+    "applied": "Text aplicat. Anularea îl readuce într-un singur pas.",
+    "failed": "Textul nu a putut fi aplicat. Verifică-l și încearcă din nou.",
+    "setting": "Editează ca text",
+    "settingDesc": "Adaugă Editează ca text în meniul Editare: modifică toate versurile ca text simplu și păstrează sincronizarea cuvintelor pe care nu le atingi."
+  },
   "importChooser": {
     "options": {
       "plainText": {

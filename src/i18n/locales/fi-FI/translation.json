@@ -218,6 +218,29 @@
       "missingRomanization": "Latinisointi puuttuu"
     }
   },
+  "editAsText": {
+    "menuItem": "Muokkaa tekstinä...",
+    "title": "Muokkaa tekstinä",
+    "description": "Muokkaa koko sanoitusta pelkkänä tekstinä. Sanat, joita et muuta, säilyttävät ajoituksensa.",
+    "textLabel": "Sanoitusteksti",
+    "summaryTitle": "Muutokset",
+    "unchanged": "{count, plural, one {# rivi ennallaan} other {# riviä ennallaan}}",
+    "edited": "{count, plural, one {# rivi muokattu} other {# riviä muokattu}}",
+    "editedHint": "Ajoitukset säilyvät, kun sanat täsmäävät.",
+    "moved": "{count, plural, one {# rivi siirretty} other {# riviä siirretty}}",
+    "added": "{count, plural, one {# rivi lisätty} other {# riviä lisätty}}",
+    "removed": "{count, plural, one {# rivi poistettu} other {# riviä poistettu}}",
+    "noChanges": "Ei vielä muutoksia.",
+    "droppedTimings": "{count, plural, one {# ajoitettu sana menettää ajoituksensa} other {# ajoitettua sanaa menettää ajoituksensa}}",
+    "lineNumber": "Rivi {line}",
+    "more": "{count, plural, one {ja # muu} other {ja # muuta}}",
+    "help": "Uudet sanat tulevat ilman ajoitusta. Pelkästään siirretyt rivit säilyttävät ajoituksensa. Käyttö kumotaan yhdellä askeleella.",
+    "apply": "Käytä",
+    "applied": "Teksti otettiin käyttöön. Kumoa palauttaa sen yhdellä askeleella.",
+    "failed": "Tekstiä ei voitu ottaa käyttöön. Tarkista se ja yritä uudelleen.",
+    "setting": "Muokkaa tekstinä",
+    "settingDesc": "Lisää Muokkaa-valikkoon kohdan Muokkaa tekstinä: muokkaa koko sanoitusta pelkkänä tekstinä ja säilytä koskemattomien sanojen ajoitus."
+  },
   "importChooser": {
     "options": {
       "plainText": {

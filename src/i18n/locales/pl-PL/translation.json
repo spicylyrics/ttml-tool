@@ -218,6 +218,29 @@
       "missingRomanization": "Brak latynizacji"
     }
   },
+  "editAsText": {
+    "menuItem": "Edytuj jako tekst...",
+    "title": "Edytuj jako tekst",
+    "description": "Edytuj cały tekst piosenki jako zwykły tekst. Słowa, których nie zmienisz, zachowują synchronizację.",
+    "textLabel": "Tekst piosenki",
+    "summaryTitle": "Zmiany",
+    "unchanged": "{count, plural, one {# wiersz bez zmian} few {# wiersze bez zmian} many {# wierszy bez zmian} other {# wiersza bez zmian}}",
+    "edited": "{count, plural, one {# edytowany wiersz} few {# edytowane wiersze} many {# edytowanych wierszy} other {# edytowanego wiersza}}",
+    "editedHint": "Synchronizacja zostaje tam, gdzie słowa się zgadzają.",
+    "moved": "{count, plural, one {# przeniesiony wiersz} few {# przeniesione wiersze} many {# przeniesionych wierszy} other {# przeniesionego wiersza}}",
+    "added": "{count, plural, one {# dodany wiersz} few {# dodane wiersze} many {# dodanych wierszy} other {# dodanego wiersza}}",
+    "removed": "{count, plural, one {# usunięty wiersz} few {# usunięte wiersze} many {# usuniętych wierszy} other {# usuniętego wiersza}}",
+    "noChanges": "Na razie brak zmian.",
+    "droppedTimings": "{count, plural, one {# zsynchronizowane słowo traci synchronizację} few {# zsynchronizowane słowa tracą synchronizację} many {# zsynchronizowanych słów traci synchronizację} other {# zsynchronizowanego słowa traci synchronizację}}",
+    "lineNumber": "Wiersz {line}",
+    "more": "{count, plural, one {i # więcej} few {i # więcej} many {i # więcej} other {i # więcej}}",
+    "help": "Nowe słowa trafiają bez synchronizacji. Wiersze, które tylko przeniesiono, zachowują synchronizację. Zastosowanie cofniesz jednym krokiem.",
+    "apply": "Zastosuj",
+    "applied": "Tekst zastosowany. Cofnij przywraca poprzedni stan jednym krokiem.",
+    "failed": "Nie udało się zastosować tekstu. Sprawdź go i spróbuj ponownie.",
+    "setting": "Edytuj jako tekst",
+    "settingDesc": "Dodaje Edytuj jako tekst do menu Edycja: zmieniaj cały tekst piosenki jako zwykły tekst i zachowaj synchronizację słów, których nie ruszasz."
+  },
   "importChooser": {
     "options": {
       "plainText": {

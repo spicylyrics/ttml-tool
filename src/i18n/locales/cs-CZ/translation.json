@@ -218,6 +218,29 @@
       "missingRomanization": "Chybí romanizace"
     }
   },
+  "editAsText": {
+    "menuItem": "Upravit jako text...",
+    "title": "Upravit jako text",
+    "description": "Upravte celý text písně jako prostý text. Slova, která nezměníte, si ponechají časování.",
+    "textLabel": "Text písně",
+    "summaryTitle": "Změny",
+    "unchanged": "{count, plural, one {# řádek beze změny} few {# řádky beze změny} many {# řádku beze změny} other {# řádků beze změny}}",
+    "edited": "{count, plural, one {# upravený řádek} few {# upravené řádky} many {# upraveného řádku} other {# upravených řádků}}",
+    "editedHint": "Časování zůstane tam, kde se slova shodují.",
+    "moved": "{count, plural, one {# přesunutý řádek} few {# přesunuté řádky} many {# přesunutého řádku} other {# přesunutých řádků}}",
+    "added": "{count, plural, one {# přidaný řádek} few {# přidané řádky} many {# přidaného řádku} other {# přidaných řádků}}",
+    "removed": "{count, plural, one {# odebraný řádek} few {# odebrané řádky} many {# odebraného řádku} other {# odebraných řádků}}",
+    "noChanges": "Zatím žádné změny.",
+    "droppedTimings": "{count, plural, one {# načasované slovo přijde o časování} few {# načasovaná slova přijdou o časování} many {# načasovaného slova přijde o časování} other {# načasovaných slov přijde o časování}}",
+    "lineNumber": "Řádek {line}",
+    "more": "{count, plural, one {a # další} few {a # další} many {a # dalšího} other {a # dalších}}",
+    "help": "Nová slova přijdou bez časování. Řádky, které se jen přesunuly, si časování ponechají. Použití vrátíte jedním krokem zpět.",
+    "apply": "Použít",
+    "applied": "Text byl použit. Jedním krokem zpět ho vrátíte.",
+    "failed": "Text se nepodařilo použít. Zkontrolujte ho a zkuste to znovu.",
+    "setting": "Upravit jako text",
+    "settingDesc": "Přidá do nabídky Úpravy položku Upravit jako text: celý text písně upravíte jako prostý text a slova, na která nesáhnete, si ponechají časování."
+  },
   "importChooser": {
     "options": {
       "plainText": {

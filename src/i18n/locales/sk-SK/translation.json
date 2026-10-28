@@ -218,6 +218,29 @@
       "missingRomanization": "Chýba romanizácia"
     }
   },
+  "editAsText": {
+    "menuItem": "Upraviť ako text...",
+    "title": "Upraviť ako text",
+    "description": "Upravte celý text piesne ako obyčajný text. Slová, ktoré nezmeníte, si ponechajú časovanie.",
+    "textLabel": "Text piesne",
+    "summaryTitle": "Zmeny",
+    "unchanged": "{count, plural, one {# riadok bez zmeny} few {# riadky bez zmeny} many {# riadka bez zmeny} other {# riadkov bez zmeny}}",
+    "edited": "{count, plural, one {# upravený riadok} few {# upravené riadky} many {# upraveného riadka} other {# upravených riadkov}}",
+    "editedHint": "Časovanie zostane tam, kde sa slová zhodujú.",
+    "moved": "{count, plural, one {# presunutý riadok} few {# presunuté riadky} many {# presunutého riadka} other {# presunutých riadkov}}",
+    "added": "{count, plural, one {# pridaný riadok} few {# pridané riadky} many {# pridaného riadka} other {# pridaných riadkov}}",
+    "removed": "{count, plural, one {# odstránený riadok} few {# odstránené riadky} many {# odstráneného riadka} other {# odstránených riadkov}}",
+    "noChanges": "Zatiaľ žiadne zmeny.",
+    "droppedTimings": "{count, plural, one {# načasované slovo príde o časovanie} few {# načasované slová prídu o časovanie} many {# načasovaného slova príde o časovanie} other {# načasovaných slov príde o časovanie}}",
+    "lineNumber": "Riadok {line}",
+    "more": "{count, plural, one {a # ďalší} few {a # ďalšie} many {a # ďalšieho} other {a # ďalších}}",
+    "help": "Nové slová prídu bez časovania. Riadky, ktoré sa len presunuli, si časovanie ponechajú. Použitie vrátite jedným krokom späť.",
+    "apply": "Použiť",
+    "applied": "Text bol použitý. Jedným krokom späť ho vrátite.",
+    "failed": "Text sa nepodarilo použiť. Skontrolujte ho a skúste to znova.",
+    "setting": "Upraviť ako text",
+    "settingDesc": "Pridá do ponuky Úpravy položku Upraviť ako text: celý text piesne upravíte ako obyčajný text a slová, na ktoré nesiahnete, si ponechajú časovanie."
+  },
   "importChooser": {
     "options": {
       "plainText": {
