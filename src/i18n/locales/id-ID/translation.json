@@ -285,6 +285,29 @@
       "copyPrevious": "Salin waktu sebelumnya"
     }
   },
+  "logoColor": {
+    "title": "Warna logo",
+    "description": "Eksperimental. Pilih warna logo di bilah judul dan di layar sambutan panduan.",
+    "colorLabel": "Warna",
+    "customLabel": "Warna logo kustom",
+    "designNote": "Logo hanya tampil saat desain Spicy Lyrics aktif.",
+    "presets": {
+      "default": "Bawaan",
+      "defaultDesc": "Warna bawaan desain",
+      "lilac": "Lila",
+      "lilacDesc": "Dari logo v3",
+      "purple": "Ungu",
+      "purpleDesc": "Dari logo multiwarna",
+      "red": "Merah",
+      "redDesc": "Dari logo v0.9",
+      "gold": "Emas",
+      "green": "Hijau",
+      "blue": "Biru",
+      "white": "Putih",
+      "custom": "Kustom",
+      "customDesc": "Pilih warna apa saja"
+    }
+  },
   "common": {
     "close": "Tutup",
     "autoDetect": "Deteksi otomatis",

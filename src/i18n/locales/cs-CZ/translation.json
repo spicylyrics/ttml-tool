@@ -285,6 +285,29 @@
       "copyPrevious": "Kopírovat předchozí časování"
     }
   },
+  "logoColor": {
+    "title": "Barva loga",
+    "description": "Experimentální. Vyberte barvu loga v záhlaví okna a na úvodní obrazovce průvodce.",
+    "colorLabel": "Barva",
+    "customLabel": "Vlastní barva loga",
+    "designNote": "Logo se zobrazuje jen se zapnutým designem Spicy Lyrics.",
+    "presets": {
+      "default": "Výchozí",
+      "defaultDesc": "Vlastní barva designu",
+      "lilac": "Šeříková",
+      "lilacDesc": "Z loga v3",
+      "purple": "Fialová",
+      "purpleDesc": "Z vícebarevného loga",
+      "red": "Červená",
+      "redDesc": "Z loga v0.9",
+      "gold": "Zlatá",
+      "green": "Zelená",
+      "blue": "Modrá",
+      "white": "Bílá",
+      "custom": "Vlastní",
+      "customDesc": "Vyberte libovolnou barvu"
+    }
+  },
   "common": {
     "close": "Zavřít",
     "autoDetect": "Automatická detekce",

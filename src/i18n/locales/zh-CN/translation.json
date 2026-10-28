@@ -285,6 +285,29 @@
       "copyPrevious": "复制上一段时间"
     }
   },
+  "logoColor": {
+    "title": "Logo 颜色",
+    "description": "实验性功能。为标题栏和引导欢迎页中的 Logo 选择颜色。",
+    "colorLabel": "颜色",
+    "customLabel": "自定义 Logo 颜色",
+    "designNote": "Logo 仅在启用 Spicy Lyrics 设计时显示。",
+    "presets": {
+      "default": "默认",
+      "defaultDesc": "设计自带的颜色",
+      "lilac": "淡紫",
+      "lilacDesc": "来自 v3 Logo",
+      "purple": "紫色",
+      "purpleDesc": "来自多色 Logo",
+      "red": "红色",
+      "redDesc": "来自 v0.9 Logo",
+      "gold": "金色",
+      "green": "绿色",
+      "blue": "蓝色",
+      "white": "白色",
+      "custom": "自定义",
+      "customDesc": "选择任意颜色"
+    }
+  },
   "common": {
     "close": "关闭",
     "autoDetect": "自动检测",

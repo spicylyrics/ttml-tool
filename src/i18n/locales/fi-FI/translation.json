@@ -285,6 +285,29 @@
       "copyPrevious": "Kopioi edellinen ajoitus"
     }
   },
+  "logoColor": {
+    "title": "Logon väri",
+    "description": "Kokeellinen. Valitse logon väri otsikkopalkkiin ja oppaan aloitusnäyttöön.",
+    "colorLabel": "Väri",
+    "customLabel": "Mukautettu logon väri",
+    "designNote": "Logo näkyy vain, kun Spicy Lyrics -ulkoasu on käytössä.",
+    "presets": {
+      "default": "Oletus",
+      "defaultDesc": "Ulkoasun oma väri",
+      "lilac": "Liila",
+      "lilacDesc": "v3-logosta",
+      "purple": "Violetti",
+      "purpleDesc": "Monivärisestä logosta",
+      "red": "Punainen",
+      "redDesc": "v0.9-logosta",
+      "gold": "Kulta",
+      "green": "Vihreä",
+      "blue": "Sininen",
+      "white": "Valkoinen",
+      "custom": "Mukautettu",
+      "customDesc": "Valitse mikä tahansa väri"
+    }
+  },
   "common": {
     "close": "Sulje",
     "autoDetect": "Automaattinen tunnistus",
