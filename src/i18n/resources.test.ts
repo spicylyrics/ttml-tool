@@ -1,13 +1,12 @@
 import { createInstance } from "i18next";
 import ICU from "i18next-icu";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { getTranslationProgress } from "$/modules/settings/modals/common/language";
 import { importWithReload } from "$/utils/import-with-reload";
 import enUS from "./locales/en-US/translation.json";
 import esES from "./locales/es-ES/translation.json";
 import frFR from "./locales/fr-FR/translation.json";
 import plPL from "./locales/pl-PL/translation.json";
-import { fallbackLanguages } from "./regional";
 import esMX from "./regional/es-MX.json";
 import {
 	type createCatalogReader as CreateCatalogReader,
@@ -17,7 +16,12 @@ import {
 	listLanguages,
 	loadTranslationProgress,
 } from "./resources";
-import { startupLanguage } from "./startup-language";
+import {
+	initI18n,
+	STARTUP_LANGUAGE_TIMEOUT_MS,
+	startupLanguage,
+	waitForStartupLanguage,
+} from "./startup-language";
 
 vi.mock("$/utils/import-with-reload", () => ({
 	importWithReload: vi.fn((factory: () => Promise<unknown>) => factory()),
@@ -33,17 +37,15 @@ function fakeLoaders() {
 	} satisfies Loaders;
 }
 
-async function startI18n(lng: string | undefined, loaders: Loaders) {
-	const i18n = createInstance()
+function createI18n(loaders: Loaders) {
+	return createInstance()
 		.use(ICU)
 		.use(createLocaleBackend(createCatalogReader(loaders, { "es-MX": esMX })));
-	await i18n.init({
-		resources: { "en-US": { translation: enUS } },
-		partialBundledLanguages: true,
-		lng,
-		fallbackLng: fallbackLanguages,
-		interpolation: { escapeValue: false },
-	});
+}
+
+async function startI18n(lng: string | undefined, loaders: Loaders) {
+	const i18n = createI18n(loaders);
+	await initI18n(i18n, { "en-US": { translation: enUS } }, lng);
 	return i18n;
 }
 
@@ -139,6 +141,67 @@ describe("lazy catalogs", () => {
 		const read = createCatalogReader(fakeLoaders(), {});
 		await read("pl-PL");
 		expect(importWithReload).toHaveBeenCalledTimes(1);
+	});
+});
+
+describe("startup timeout", () => {
+	afterEach(() => vi.useRealTimers());
+
+	it("renders in en-US when the catalog never arrives", async () => {
+		vi.useFakeTimers();
+		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+		const i18n = createI18n({
+			...fakeLoaders(),
+			"fr-FR": () => new Promise<typeof frFR>(() => {}),
+		});
+		const ready = initI18n(i18n, { "en-US": { translation: enUS } }, "fr-FR");
+		let rendered = false;
+		const wait = waitForStartupLanguage(ready).then(() => {
+			rendered = true;
+		});
+		await vi.advanceTimersByTimeAsync(STARTUP_LANGUAGE_TIMEOUT_MS - 1);
+		expect(rendered).toBe(false);
+		await vi.advanceTimersByTimeAsync(1);
+		await wait;
+		expect(rendered).toBe(true);
+		expect(i18n.isInitialized).toBe(true);
+		expect(i18n.t("common.save")).toBe(enUS.common.save);
+		warn.mockRestore();
+	});
+
+	it("switches to the language when its catalog arrives late", async () => {
+		vi.useFakeTimers();
+		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+		let arrive: (catalog: typeof frFR) => void = () => {};
+		const i18n = createI18n({
+			...fakeLoaders(),
+			"fr-FR": () =>
+				new Promise<typeof frFR>((resolve) => {
+					arrive = resolve;
+				}),
+		});
+		const ready = initI18n(i18n, { "en-US": { translation: enUS } }, "fr-FR");
+		const wait = waitForStartupLanguage(ready);
+		await vi.advanceTimersByTimeAsync(STARTUP_LANGUAGE_TIMEOUT_MS);
+		await wait;
+		expect(i18n.t("common.save")).toBe(enUS.common.save);
+		const changed = vi.fn();
+		i18n.on("languageChanged", changed);
+		arrive(frFR);
+		await ready;
+		expect(changed).toHaveBeenCalledWith("fr-FR");
+		expect(i18n.resolvedLanguage).toBe("fr-FR");
+		expect(i18n.t("common.save")).toBe(frFR.common.save);
+		warn.mockRestore();
+	});
+
+	it("does not wait for the timeout when the catalog is quick", async () => {
+		vi.useFakeTimers();
+		const i18n = createI18n(fakeLoaders());
+		const ready = initI18n(i18n, { "en-US": { translation: enUS } }, "pl-PL");
+		await waitForStartupLanguage(ready);
+		expect(i18n.resolvedLanguage).toBe("pl-PL");
+		expect(vi.getTimerCount()).toBe(0);
 	});
 });
 
