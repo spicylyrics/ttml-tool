@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# riviltä puuttuu ajoitus} other {# riviltä puuttuu ajoitus}}",
     "jumpToUntimed": "Ajoita ensimmäinen ajoittamaton rivi"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# sanan ajoituksessa on ongelma} other {# sanan ajoituksessa on ongelmia}}",
+    "jump": "Valitse ensimmäinen",
+    "setting": "Näytä ajoitusongelmat",
+    "settingDesc": "Merkitsee punaisella ja katkoviivareunuksella sanat, jotka Spicy-esikatselu piilottaisi tai toistaisi väärin niiden ajoituksen vuoksi.",
+    "untimed": "Ei ajoitusta ajoitetulla rivillä",
+    "endsBeforeStart": "Päättyy ennen kuin alkaa",
+    "startsBeforeLine": "Alkaa ennen riviään",
+    "endsAfterLine": "Päättyy rivinsä jälkeen"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Avaa sanoitustiedosto",

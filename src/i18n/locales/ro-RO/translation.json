@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# vers nu este încă sincronizat} few {# versuri nu sunt încă sincronizate} other {# de versuri nu sunt încă sincronizate}}",
     "jumpToUntimed": "Sincronizează primul vers fără timpi"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# cuvânt are o problemă de sincronizare} few {# cuvinte au probleme de sincronizare} other {# de cuvinte au probleme de sincronizare}}",
+    "jump": "Selectează primul",
+    "setting": "Arată problemele de sincronizare",
+    "settingDesc": "Marchează cu roșu, cu un contur punctat, cuvintele pe care previzualizarea Spicy le-ar ascunde sau le-ar reda greșit din cauza timpilor.",
+    "untimed": "Fără timpi într-un vers sincronizat",
+    "endsBeforeStart": "Se termină înainte să înceapă",
+    "startsBeforeLine": "Începe înaintea versului său",
+    "endsAfterLine": "Se termină după versul său"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Deschide un fișier cu versuri",

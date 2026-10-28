@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# verso non è ancora sincronizzato} many {# versi non sono ancora sincronizzati} other {# versi non sono ancora sincronizzati}}",
     "jumpToUntimed": "Sincronizza il primo verso senza tempi"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# parola ha un problema di tempi} many {# parole hanno problemi di tempi} other {# parole hanno problemi di tempi}}",
+    "jump": "Seleziona la prima",
+    "setting": "Mostra problemi di tempi",
+    "settingDesc": "Segna in rosso, con un contorno tratteggiato, le parole che l'anteprima Spicy nasconderebbe o riprodurrebbe male a causa dei loro tempi.",
+    "untimed": "Senza tempi in un verso sincronizzato",
+    "endsBeforeStart": "Finisce prima di iniziare",
+    "startsBeforeLine": "Inizia prima del suo verso",
+    "endsAfterLine": "Finisce dopo il suo verso"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Apri il file dei testi",

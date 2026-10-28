@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# línea aún no tiene sincronización} many {# líneas aún no tienen sincronización} other {# líneas aún no tienen sincronización}}",
     "jumpToUntimed": "Sincronizar la primera línea pendiente"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# palabra tiene un problema de sincronización} many {# palabras tienen problemas de sincronización} other {# palabras tienen problemas de sincronización}}",
+    "jump": "Seleccionar la primera",
+    "setting": "Mostrar problemas de sincronización",
+    "settingDesc": "Marca en rojo y con un contorno discontinuo las palabras que la vista previa de Spicy ocultaría o reproduciría mal por su sincronización.",
+    "untimed": "Sin sincronización en una línea sincronizada",
+    "endsBeforeStart": "Termina antes de empezar",
+    "startsBeforeLine": "Empieza antes que su línea",
+    "endsAfterLine": "Termina después que su línea"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Abrir archivo de letras",

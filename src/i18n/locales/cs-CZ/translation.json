@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# řádek zatím nemá časování} few {# řádky zatím nemají časování} many {# řádku zatím nemá časování} other {# řádků zatím nemá časování}}",
     "jumpToUntimed": "Nastavit časy prvního řádku bez časování"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# slovo má problém s časováním} few {# slova mají problém s časováním} many {# slova má problém s časováním} other {# slov má problém s časováním}}",
+    "jump": "Vybrat první",
+    "setting": "Zobrazit problémy s časováním",
+    "settingDesc": "Označí červeně a čárkovaným obrysem slova, která by náhled Spicy kvůli jejich časování skryl nebo přehrál špatně.",
+    "untimed": "Nemá časování v časovaném řádku",
+    "endsBeforeStart": "Končí dřív, než začne",
+    "startsBeforeLine": "Začíná před svým řádkem",
+    "endsAfterLine": "Končí po svém řádku"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Otevřít soubor s textem písně",

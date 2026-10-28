@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# satır henüz zamanlanmamış} other {# satır henüz zamanlanmamış}}",
     "jumpToUntimed": "Zamanlanmamış ilk satırı senkronize et"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# kelimede zamanlama sorunu var} other {# kelimede zamanlama sorunu var}}",
+    "jump": "İlkini seç",
+    "setting": "Zamanlama sorunlarını göster",
+    "settingDesc": "Spicy önizlemesinin zamanlaması yüzünden gizleyeceği ya da yanlış oynatacağı kelimeleri kırmızıyla ve kesikli bir çerçeveyle işaretler.",
+    "untimed": "Zamanlanmış satırda zamanlaması yok",
+    "endsBeforeStart": "Başlamadan önce bitiyor",
+    "startsBeforeLine": "Satırından önce başlıyor",
+    "endsAfterLine": "Satırından sonra bitiyor"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Şarkı sözü dosyasını aç",

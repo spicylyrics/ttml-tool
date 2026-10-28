@@ -39,6 +39,16 @@
     "untimedLines": "{count, plural, one {# ligne n’est pas encore minutée} many {# lignes ne sont pas encore minutées} other {# lignes ne sont pas encore minutées}}",
     "jumpToUntimed": "Synchroniser la première ligne non minutée"
   },
+  "previewProblems": {
+    "count": "{count, plural, one {# mot a un problème de minutage} many {# mots ont des problèmes de minutage} other {# mots ont des problèmes de minutage}}",
+    "jump": "Sélectionner le premier",
+    "setting": "Afficher les problèmes de minutage",
+    "settingDesc": "Marque en rouge, avec un contour en pointillés, les mots que l’aperçu Spicy masquerait ou jouerait mal à cause de leur minutage.",
+    "untimed": "Pas de minutage dans une ligne minutée",
+    "endsBeforeStart": "Se termine avant de commencer",
+    "startsBeforeLine": "Commence avant sa ligne",
+    "endsAfterLine": "Se termine après sa ligne"
+  },
   "beginnerGuide": {
     "empty": {
       "open": "Ouvrir le fichier de paroles",

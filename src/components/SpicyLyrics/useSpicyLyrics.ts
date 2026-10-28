@@ -10,6 +10,7 @@ import { audioCoverArtAtom, currentTimeAtom } from "$/modules/audio/states";
 import { getTimingMode } from "$/modules/line-sync/timing-mode";
 import { playbackClock } from "$/modules/playback-clock";
 import { usePreviewScroll } from "$/modules/playback-clock/use-preview-scroll";
+import { previewTimingProblemsAtom } from "$/modules/preview-problems/states";
 import { customBackgroundImageAtom } from "$/modules/settings/modals/customBackground";
 import {
 	allowConsecutiveBackgroundLinesAtom,
@@ -54,6 +55,15 @@ export function useSpicyLyrics() {
 		allowConsecutiveBackgroundLinesAtom,
 	);
 	const setCurrentTime = useSetAtom(currentTimeAtom);
+	// Empty unless "Show timing problems" is on; then flagged words are marked.
+	const timingProblems = useAtomValue(previewTimingProblemsAtom);
+	const problems = useMemo(
+		() =>
+			timingProblems.length > 0
+				? new Map(timingProblems.map((issue) => [issue.wordId, issue.problems]))
+				: undefined,
+		[timingProblems],
+	);
 	const lines = useMemo(
 		() =>
 			buildSpicyLines(
@@ -62,6 +72,7 @@ export function useSpicyLyrics() {
 				romanized,
 				forceLineSynced,
 				allowConsecutiveBackgrounds,
+				problems,
 			),
 		[
 			lyrics.lyricLines,
@@ -69,6 +80,7 @@ export function useSpicyLyrics() {
 			romanized,
 			forceLineSynced,
 			allowConsecutiveBackgrounds,
+			problems,
 		],
 	);
 	const hasDuetLines = useMemo(
