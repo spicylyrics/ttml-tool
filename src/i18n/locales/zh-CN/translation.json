@@ -1365,6 +1365,14 @@
     "correctedWordPlaceholder": "输入更正的单词",
     "noSuggestions": "无建议"
   },
+  "timeModeEditing": {
+    "flagTitle": "打轴模式中编辑字",
+    "flagDesc": "在打轴模式中通过右键菜单拆分、合并和替换字。若播放位置在字内，拆成两段时会在播放位置处拆分。",
+    "doubleClickTimestamp": "双击编辑时间戳",
+    "doubleClickTimestampDesc": "在打轴模式中双击字即可输入其开始时间，而不是修改文本。需要显示时间戳。",
+    "combinePrevious": "与上一个字合并",
+    "combineNext": "与下一个字合并"
+  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, other {为选中的 # 行分类}}",
     "categorizeTitle": "为选中行分类",

@@ -1365,6 +1365,14 @@
     "correctedWordPlaceholder": "Typ het gecorrigeerde woord",
     "noSuggestions": "Geen suggesties"
   },
+  "timeModeEditing": {
+    "flagTitle": "Woorden bewerken in Timing",
+    "flagDesc": "Splits, voeg samen en vervang woorden via het rechtermuisknopmenu in Timing. Een splitsing in twee delen valt op de afspeelpositie als die binnen het woord ligt.",
+    "doubleClickTimestamp": "Dubbelklikken bewerkt de tijdstempel",
+    "doubleClickTimestampDesc": "Dubbelklik in Timing op een woord om de begintijd te typen in plaats van de tekst. Tijdstempels moeten zichtbaar zijn.",
+    "combinePrevious": "Samenvoegen met vorig woord",
+    "combineNext": "Samenvoegen met volgend woord"
+  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {# geselecteerde regel categoriseren} other {# geselecteerde regels categoriseren}}",
     "categorizeTitle": "Geselecteerde regels categoriseren",

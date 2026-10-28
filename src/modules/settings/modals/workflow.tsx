@@ -36,6 +36,7 @@ import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
 import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section-editing";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
+import { TimeModeEditingSettings } from "$/modules/time-mode-editing/TimeModeEditingSettings";
 import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import { showPreviewPanelAtom } from "$/states/main";
 // Relative on purpose: keeps this import apart from other settings rows' imports.
@@ -397,6 +398,7 @@ export const WorkflowSettings = () => {
 					<BackgroundSyncControl variant="segmented" />
 				</SettingRow>
 				{toggles(syncAidToggles)}
+				<TimeModeEditingSettings />
 			</Flex>
 			<Flex direction="column" gap="3">
 				<Heading size="4">

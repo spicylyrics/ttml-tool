@@ -1365,6 +1365,14 @@
     "correctedWordPlaceholder": "Indtast det rettede ord",
     "noSuggestions": "Ingen forslag"
   },
+  "timeModeEditing": {
+    "flagTitle": "Ordredigering i Timing",
+    "flagDesc": "Del, kombiner og erstat ord fra højrekliksmenuen i Timing. En deling i to dele sker ved afspilningspositionen, når den er inde i ordet.",
+    "doubleClickTimestamp": "Dobbeltklik redigerer tidsstemplet",
+    "doubleClickTimestampDesc": "Dobbeltklik på et ord i Timing for at skrive starttiden i stedet for teksten. Kræver, at tidsstempler vises.",
+    "combinePrevious": "Kombiner med forrige ord",
+    "combineNext": "Kombiner med næste ord"
+  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Kategorisér # valgt linje} other {Kategorisér # valgte linjer}}",
     "categorizeTitle": "Kategoriser valgte linjer",

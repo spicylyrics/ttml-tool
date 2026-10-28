@@ -1365,6 +1365,14 @@
     "correctedWordPlaceholder": "Digita la parola corretta",
     "noSuggestions": "Nessun suggerimento"
   },
+  "timeModeEditing": {
+    "flagTitle": "Modifica delle parole in Sincronizzazione",
+    "flagDesc": "Dividi, unisci e sostituisci parole dal menu contestuale in Sincronizzazione. Una divisione in due parti avviene alla testina di riproduzione se si trova dentro la parola.",
+    "doubleClickTimestamp": "Il doppio clic modifica il timestamp",
+    "doubleClickTimestampDesc": "Fai doppio clic su una parola in Sincronizzazione per scriverne l'inizio invece del testo. Richiede i timestamp visibili.",
+    "combinePrevious": "Unisci alla parola precedente",
+    "combineNext": "Unisci alla parola successiva"
+  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Categorizza # verso selezionato} many {Categorizza # versi selezionati} other {Categorizza # versi selezionati}}",
     "categorizeTitle": "Categorizza i versi selezionati",
