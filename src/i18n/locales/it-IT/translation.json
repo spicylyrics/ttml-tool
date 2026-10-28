@@ -912,6 +912,36 @@
       "projects": "Progetti"
     }
   },
+  "transcription": {
+    "modeBtn": "Trascrivi",
+    "modeBtnDesc": "Scrivi il testo come testo semplice mentre il brano suona.",
+    "enable": "Scheda Trascrivi",
+    "enableDesc": "Aggiunge una scheda Trascrivi per scrivere il testo come testo semplice mentre il brano suona.",
+    "title": "Trascrivi",
+    "stats": "{lines, plural, one {# riga} many {# righe} other {# righe}}, {words, plural, one {# parola} many {# parole} other {# parole}}",
+    "tidy": "Riordina il layout",
+    "export": "Esporta",
+    "copyGenius": "Copia come testo Genius",
+    "copyPlain": "Copia come testo semplice",
+    "saveGenius": "Salva come testo Genius...",
+    "savePlain": "Salva come testo semplice...",
+    "sendToImport": "Importa nell'editor...",
+    "textLabel": "Trascrizione",
+    "placeholder": "Scrivi il testo come lo senti, un verso per riga. Metti le intestazioni di sezione come [Verse 1] su una riga a parte.",
+    "copied": "Copiato negli appunti.",
+    "copyFailed": "Impossibile copiare il testo.",
+    "saveFailed": "Impossibile salvare il file.",
+    "textFiles": "File di testo",
+    "keys": {
+      "label": "Scorciatoie nella casella di testo",
+      "playPause": "Riproduci o metti in pausa",
+      "back": "Indietro di 3 secondi",
+      "forward": "Avanti di 3 secondi",
+      "slower": "Più lento",
+      "faster": "Più veloce",
+      "resetSpeed": "Velocità normale"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Salvato automaticamente alle {time}",

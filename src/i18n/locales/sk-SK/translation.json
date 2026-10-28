@@ -912,6 +912,36 @@
       "projects": "Projekty"
     }
   },
+  "transcription": {
+    "modeBtn": "Prepis",
+    "modeBtnDesc": "Píšte text piesne ako obyčajný text, kým skladba hrá.",
+    "enable": "Karta Prepis",
+    "enableDesc": "Pridá kartu Prepis na písanie textu piesne ako obyčajného textu, kým skladba hrá.",
+    "title": "Prepis",
+    "stats": "{lines, plural, one {# riadok} few {# riadky} many {# riadka} other {# riadkov}}, {words, plural, one {# slovo} few {# slová} many {# slova} other {# slov}}",
+    "tidy": "Upraviť rozloženie",
+    "export": "Exportovať",
+    "copyGenius": "Kopírovať ako text Genius",
+    "copyPlain": "Kopírovať ako obyčajný text",
+    "saveGenius": "Uložiť ako text Genius...",
+    "savePlain": "Uložiť ako obyčajný text...",
+    "sendToImport": "Importovať do editora...",
+    "textLabel": "Prepis",
+    "placeholder": "Píšte text tak, ako ho počujete, jeden verš na riadok. Hlavičky sekcií ako [Verse 1] dajte na samostatný riadok.",
+    "copied": "Skopírované do schránky.",
+    "copyFailed": "Text sa nepodarilo skopírovať.",
+    "saveFailed": "Súbor sa nepodarilo uložiť.",
+    "textFiles": "Textové súbory",
+    "keys": {
+      "label": "Skratky v textovom poli",
+      "playPause": "Prehrať alebo pozastaviť",
+      "back": "Späť o 3 sekundy",
+      "forward": "Dopredu o 3 sekundy",
+      "slower": "Pomalšie",
+      "faster": "Rýchlejšie",
+      "resetSpeed": "Normálna rýchlosť"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Automaticky uložené o {time}",

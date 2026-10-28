@@ -157,6 +157,7 @@ const modeLabels: Record<ToolMode, string> = {
 	[ToolMode.Edit]: "Editing",
 	[ToolMode.Sync]: "Syncing",
 	[ToolMode.Preview]: "Previewing",
+	[ToolMode.Transcribe]: "Transcribing",
 };
 
 const truncateDiscordText = (value: string) =>

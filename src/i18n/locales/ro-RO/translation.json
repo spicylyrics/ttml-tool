@@ -912,6 +912,36 @@
       "projects": "Proiecte"
     }
   },
+  "transcription": {
+    "modeBtn": "Transcrie",
+    "modeBtnDesc": "Scrie versurile ca text simplu în timp ce melodia rulează.",
+    "enable": "Fila Transcrie",
+    "enableDesc": "Adaugă o filă Transcrie pentru a scrie versurile ca text simplu în timp ce melodia rulează.",
+    "title": "Transcrie",
+    "stats": "{lines, plural, one {# rând} few {# rânduri} other {# de rânduri}}, {words, plural, one {# cuvânt} few {# cuvinte} other {# de cuvinte}}",
+    "tidy": "Aranjează textul",
+    "export": "Exportă",
+    "copyGenius": "Copiază ca text Genius",
+    "copyPlain": "Copiază ca text simplu",
+    "saveGenius": "Salvează ca text Genius...",
+    "savePlain": "Salvează ca text simplu...",
+    "sendToImport": "Importă în editor...",
+    "textLabel": "Transcriere",
+    "placeholder": "Scrie versurile așa cum le auzi, un vers pe rând. Pune titlurile de secțiune precum [Verse 1] pe un rând separat.",
+    "copied": "Copiat în clipboard.",
+    "copyFailed": "Textul nu a putut fi copiat.",
+    "saveFailed": "Fișierul nu a putut fi salvat.",
+    "textFiles": "Fișiere text",
+    "keys": {
+      "label": "Comenzi rapide în caseta de text",
+      "playPause": "Redă sau pune pe pauză",
+      "back": "Înapoi 3 secunde",
+      "forward": "Înainte 3 secunde",
+      "slower": "Mai încet",
+      "faster": "Mai repede",
+      "resetSpeed": "Viteză normală"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Salvat automat la {time}",

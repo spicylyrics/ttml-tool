@@ -912,6 +912,36 @@
       "projects": "Projets"
     }
   },
+  "transcription": {
+    "modeBtn": "Transcrire",
+    "modeBtnDesc": "Tapez les paroles en texte brut pendant la lecture.",
+    "enable": "Onglet Transcrire",
+    "enableDesc": "Ajoute un onglet Transcrire pour taper les paroles en texte brut pendant la lecture.",
+    "title": "Transcrire",
+    "stats": "{lines, plural, one {# ligne} many {# lignes} other {# lignes}}, {words, plural, one {# mot} many {# mots} other {# mots}}",
+    "tidy": "Ranger la mise en page",
+    "export": "Exporter",
+    "copyGenius": "Copier au format Genius",
+    "copyPlain": "Copier en texte brut",
+    "saveGenius": "Enregistrer au format Genius...",
+    "savePlain": "Enregistrer en texte brut...",
+    "sendToImport": "Importer dans l'éditeur...",
+    "textLabel": "Transcription",
+    "placeholder": "Tapez les paroles comme vous les entendez, une ligne par rangée. Mettez les en-têtes de section comme [Verse 1] sur leur propre rangée.",
+    "copied": "Copié dans le presse-papiers.",
+    "copyFailed": "Impossible de copier le texte.",
+    "saveFailed": "Impossible d'enregistrer le fichier.",
+    "textFiles": "Fichiers texte",
+    "keys": {
+      "label": "Raccourcis dans la zone de texte",
+      "playPause": "Lire ou mettre en pause",
+      "back": "Reculer de 3 secondes",
+      "forward": "Avancer de 3 secondes",
+      "slower": "Plus lent",
+      "faster": "Plus rapide",
+      "resetSpeed": "Vitesse normale"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Enregistré automatiquement à {time}",
