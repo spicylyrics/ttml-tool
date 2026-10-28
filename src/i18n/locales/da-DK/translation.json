@@ -1526,6 +1526,17 @@
     },
     "height": "Visningshøjde"
   },
+  "spectrogramFollow": {
+    "toggle": "Følg afspilningshovedet",
+    "shortcut": "Spektrogram - Følg afspilningshovedet til/fra",
+    "setting": "Følg afspilningshovedet",
+    "settingDesc": "Ruller spektrogrammet, så afspilningshovedet forbliver synligt. Rulning eller træk sætter det på pause, indtil du trykker afspil eller venter et øjeblik. Tilføjer en knap til spektrogrammets værktøjslinje.",
+    "style": "Følgemåde",
+    "page": "Side for side",
+    "pageDesc": "Springer frem, når afspilningshovedet forlader visningen.",
+    "continuous": "Løbende",
+    "continuousDesc": "Ruller med afspilningshovedet og holder det i midten."
+  },
   "export": {
     "recoveryUntimed": "Denne gendannede eksport indeholder tekster uden timing. Tjek timingen, før du indsender.",
     "recoveryReviewFailed": "Timingtjek kunne ikke køres. Gennemgå de gendannede tekster, før du indsender."

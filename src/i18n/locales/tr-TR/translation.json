@@ -1526,6 +1526,17 @@
     },
     "height": "Görünüm yüksekliği"
   },
+  "spectrogramFollow": {
+    "toggle": "Oynatma imlecini takip et",
+    "shortcut": "Spektrogram - Oynatma imlecini takibi aç/kapat",
+    "setting": "Oynatma imlecini takip et",
+    "settingDesc": "Oynatma imleci görünür kalsın diye spektrogramı kaydırır. Kaydırmak veya sürüklemek, oynatmaya basana ya da bir süre bekleyene kadar takibi duraklatır. Spektrogram araç çubuğuna bir düğme ekler.",
+    "style": "Takip biçimi",
+    "page": "Sayfa sayfa",
+    "pageDesc": "İmleç görünümden çıkınca ileri atlar.",
+    "continuous": "Sürekli",
+    "continuousDesc": "İmleçle birlikte kayar ve onu ortada tutar."
+  },
   "export": {
     "recoveryUntimed": "Bu kurtarma dışa aktarımı zamanlanmamış sözler içeriyor. Göndermeden önce zamanlamayı kontrol edin.",
     "recoveryReviewFailed": "Zamanlama kontrolleri çalıştırılamadı. Göndermeden önce kurtarılan sözleri gözden geçirin."

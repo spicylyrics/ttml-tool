@@ -1526,6 +1526,17 @@
     },
     "height": "Weergavehoogte"
   },
+  "spectrogramFollow": {
+    "toggle": "Afspeelkop volgen",
+    "shortcut": "Spectrogram - Afspeelkop volgen aan/uit",
+    "setting": "Afspeelkop volgen",
+    "settingDesc": "Scrolt het spectrogram zodat de afspeelkop zichtbaar blijft. Scrollen of slepen pauzeert dit tot je op afspelen drukt of het even laat rusten. Voegt een knop toe aan de spectrogramwerkbalk.",
+    "style": "Volgstijl",
+    "page": "Per pagina",
+    "pageDesc": "Springt vooruit wanneer de afspeelkop uit beeld gaat.",
+    "continuous": "Doorlopend",
+    "continuousDesc": "Scrolt mee met de afspeelkop en houdt die in het midden."
+  },
   "export": {
     "recoveryUntimed": "Deze herstelexport bevat ongetimede songteksten. Controleer de timing voordat je instuurt.",
     "recoveryReviewFailed": "Timingcontroles konden niet worden uitgevoerd. Controleer de herstelde songteksten voordat je instuurt."

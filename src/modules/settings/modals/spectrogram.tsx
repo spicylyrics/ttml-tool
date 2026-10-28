@@ -3,6 +3,7 @@ import { Button, Flex, Select, Text, TextField } from "@radix-ui/themes";
 import { useAtom } from "jotai";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FollowPlayheadSettings } from "$/modules/spectrogram/components/FollowPlayheadSettings";
 import {
 	customPaletteStopsAtom,
 	predefinedPalettes,
@@ -69,6 +70,7 @@ export const SettingsSpectrogramTab = () => {
 
 	return (
 		<Flex direction="column" gap="4">
+			<FollowPlayheadSettings />
 			<Text as="label">
 				<Flex direction="column" gap="2" align="start">
 					<Text>{t("settings.spectrogram.palette", "Color palette")}</Text>

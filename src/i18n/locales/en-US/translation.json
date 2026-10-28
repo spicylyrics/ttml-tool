@@ -1526,6 +1526,17 @@
     },
     "height": "Display height"
   },
+  "spectrogramFollow": {
+    "toggle": "Follow playhead",
+    "shortcut": "Spectrogram - Follow playhead on/off",
+    "setting": "Follow the playhead",
+    "settingDesc": "Scrolls the spectrogram to keep the playhead in view. Scrolling or dragging pauses it until you press play or leave it for a moment. Adds a toggle to the spectrogram toolbar.",
+    "style": "Follow style",
+    "page": "Page",
+    "pageDesc": "Jumps ahead when the playhead leaves the view.",
+    "continuous": "Continuous",
+    "continuousDesc": "Scrolls with the playhead and keeps it centered."
+  },
   "export": {
     "recoveryUntimed": "This recovery export contains untimed lyrics. Check timing before submitting.",
     "recoveryReviewFailed": "Timing checks could not run. Review the recovered lyrics before submitting."

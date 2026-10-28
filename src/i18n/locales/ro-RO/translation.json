@@ -1526,6 +1526,17 @@
     },
     "height": "Înălțimea afișajului"
   },
+  "spectrogramFollow": {
+    "toggle": "Urmărește cursorul de redare",
+    "shortcut": "Spectrogramă - Activează/dezactivează urmărirea cursorului de redare",
+    "setting": "Urmărește cursorul de redare",
+    "settingDesc": "Derulează spectrograma ca cursorul de redare să rămână vizibil. Derularea sau tragerea o pune pe pauză până apeși redare sau o lași un moment. Adaugă un buton în bara spectrogramei.",
+    "style": "Mod de urmărire",
+    "page": "Pe pagini",
+    "pageDesc": "Sare înainte când cursorul iese din vizualizare.",
+    "continuous": "Continuu",
+    "continuousDesc": "Derulează odată cu cursorul și îl ține în centru."
+  },
   "export": {
     "recoveryUntimed": "Acest export de recuperare conține versuri nesincronizate. Verifică sincronizarea înainte de trimitere.",
     "recoveryReviewFailed": "Verificările de sincronizare nu au putut rula. Revizuiește versurile recuperate înainte de trimitere."

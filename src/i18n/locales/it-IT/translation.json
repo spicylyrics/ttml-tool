@@ -1526,6 +1526,17 @@
     },
     "height": "Altezza di visualizzazione"
   },
+  "spectrogramFollow": {
+    "toggle": "Segui la testina",
+    "shortcut": "Spettrogramma: attiva/disattiva il segui testina",
+    "setting": "Segui la testina di riproduzione",
+    "settingDesc": "Scorre lo spettrogramma per tenere visibile la testina. Scorrere o trascinare lo mette in pausa finché non premi play o lo lasci per un momento. Aggiunge un pulsante alla barra dello spettrogramma.",
+    "style": "Modalità di scorrimento",
+    "page": "Per pagina",
+    "pageDesc": "Salta avanti quando la testina esce dalla vista.",
+    "continuous": "Continuo",
+    "continuousDesc": "Scorre con la testina e la tiene al centro."
+  },
   "export": {
     "recoveryUntimed": "Questa esportazione di recupero contiene testi non sincronizzati. Controlla la sincronizzazione prima di inviarla.",
     "recoveryReviewFailed": "Non è stato possibile eseguire i controlli di sincronizzazione. Rivedi i testi recuperati prima di inviarli."

@@ -1526,6 +1526,17 @@
     },
     "height": "Výška zobrazení"
   },
+  "spectrogramFollow": {
+    "toggle": "Sledovat přehrávací hlavu",
+    "shortcut": "Spektrogram – zapnout/vypnout sledování přehrávací hlavy",
+    "setting": "Sledovat přehrávací hlavu",
+    "settingDesc": "Posouvá spektrogram tak, aby přehrávací hlava zůstala vidět. Posouvání nebo tažení sledování pozastaví, dokud nespustíte přehrávání nebo chvíli nečekáte. Přidá přepínač do panelu spektrogramu.",
+    "style": "Způsob sledování",
+    "page": "Po stránkách",
+    "pageDesc": "Skočí dopředu, když přehrávací hlava opustí zobrazení.",
+    "continuous": "Plynule",
+    "continuousDesc": "Posouvá se s přehrávací hlavou a drží ji uprostřed."
+  },
   "export": {
     "recoveryUntimed": "Tento obnovený export obsahuje nečasované texty. Před odesláním zkontrolujte časování.",
     "recoveryReviewFailed": "Kontrolu časování nebylo možné spustit. Před odesláním zkontrolujte obnovené texty."

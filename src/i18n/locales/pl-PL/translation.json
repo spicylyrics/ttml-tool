@@ -1526,6 +1526,17 @@
     },
     "height": "Wysokość widoku"
   },
+  "spectrogramFollow": {
+    "toggle": "Podążaj za głowicą",
+    "shortcut": "Spektrogram – włącz/wyłącz podążanie za głowicą",
+    "setting": "Podążaj za głowicą odtwarzania",
+    "settingDesc": "Przewija spektrogram, aby głowica była widoczna. Przewijanie lub przeciąganie wstrzymuje to, dopóki nie wciśniesz odtwarzania albo nie odczekasz chwili. Dodaje przycisk do paska spektrogramu.",
+    "style": "Sposób podążania",
+    "page": "Stronami",
+    "pageDesc": "Przeskakuje dalej, gdy głowica opuści widok.",
+    "continuous": "Płynnie",
+    "continuousDesc": "Przewija razem z głowicą i trzyma ją na środku."
+  },
   "export": {
     "recoveryUntimed": "Ten odzyskany eksport zawiera niezsynchronizowane teksty. Sprawdź synchronizację przed wysłaniem.",
     "recoveryReviewFailed": "Nie udało się uruchomić sprawdzania synchronizacji. Przejrzyj odzyskane teksty przed wysłaniem."
