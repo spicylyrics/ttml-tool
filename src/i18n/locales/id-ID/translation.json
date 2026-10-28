@@ -1343,6 +1343,13 @@
     "title": "Tinjau bagian yang terdeteksi",
     "lineCount": "{count, plural, other {# baris lirik}}"
   },
+  "importInlineSections": {
+    "title": "Bagian",
+    "hint": "Perubahan di sini menulis ulang baris judul di teks.",
+    "mergeUp": "Gabungkan ke bagian di atas",
+    "setting": "Edit bagian di samping teks impor (eksperimental)",
+    "settingDesc": "Tampilkan bagian yang terdeteksi di samping lirik pada layar impor dan impor dalam satu langkah, tanpa langkah Tinjau bagian."
+  },
   "globalDragOverlay": {
     "title": "Lepaskan di sini untuk memuat"
   },

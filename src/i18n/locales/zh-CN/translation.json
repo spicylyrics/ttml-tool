@@ -1343,6 +1343,13 @@
     "title": "检查识别出的分段",
     "lineCount": "{count, plural, other {# 行歌词}}"
   },
+  "importInlineSections": {
+    "title": "段落",
+    "hint": "在此处的更改会改写文本中的标题行。",
+    "mergeUp": "合并到上方段落",
+    "setting": "在导入文本旁编辑段落（实验性）",
+    "settingDesc": "在导入界面的歌词旁列出检测到的段落，并一步完成导入，跳过“检查段落”步骤。"
+  },
   "globalDragOverlay": {
     "title": "松开以加载"
   },

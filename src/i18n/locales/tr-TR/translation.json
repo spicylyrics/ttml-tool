@@ -1343,6 +1343,13 @@
     "title": "Algılanan bölümleri incele",
     "lineCount": "{count, plural, one {# şarkı sözü satırı} other {# şarkı sözü satırı}}"
   },
+  "importInlineSections": {
+    "title": "Bölümler",
+    "hint": "Buradaki değişiklikler metindeki başlık satırlarını yeniden yazar.",
+    "mergeUp": "Üstteki bölümle birleştir",
+    "setting": "Bölümleri içe aktarma metninin yanında düzenle (deneysel)",
+    "settingDesc": "Algılanan bölümleri içe aktarma ekranında şarkı sözlerinin yanında gösterir ve Bölümleri gözden geçir adımı olmadan tek adımda içe aktarır."
+  },
   "globalDragOverlay": {
     "title": "Yüklemek için bırakın"
   },

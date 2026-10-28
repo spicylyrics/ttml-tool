@@ -1,0 +1,33 @@
+.hint {
+	color: var(--gray-11);
+}
+
+.section {
+	padding: var(--space-2);
+	border: 1px solid var(--gray-a5);
+	border-radius: var(--radius-4);
+	background-color: var(--gray-a2);
+}
+
+.section[data-unsure] {
+	border-color: var(--amber-a7);
+}
+
+.label {
+	flex: 1;
+	min-width: 0;
+}
+
+.count {
+	flex-shrink: 0;
+}
+
+.warning {
+	color: var(--amber-11);
+}
+
+@media (prefers-contrast: more) {
+	.section {
+		border-color: var(--gray-a8);
+	}
+}

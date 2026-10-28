@@ -1343,6 +1343,13 @@
     "title": "Przejrzyj wykryte sekcje",
     "lineCount": "{count, plural, one {# wers tekstu} few {# wersy tekstu} many {# wersów tekstu} other {# wersu tekstu}}"
   },
+  "importInlineSections": {
+    "title": "Sekcje",
+    "hint": "Zmiany tutaj przepisują wiersze nagłówków w tekście.",
+    "mergeUp": "Scal z sekcją powyżej",
+    "setting": "Edytuj sekcje obok importowanego tekstu (eksperymentalne)",
+    "settingDesc": "Pokazuje wykryte sekcje obok tekstu na ekranie importu i importuje w jednym kroku, bez kroku Przejrzyj sekcje."
+  },
   "globalDragOverlay": {
     "title": "Upuść, aby załadować"
   },

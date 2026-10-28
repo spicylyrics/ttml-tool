@@ -1343,6 +1343,13 @@
     "title": "Revisar seções detectadas",
     "lineCount": "{count, plural, one {# linha de letra} many {# linhas de letra} other {# linhas de letra}}"
   },
+  "importInlineSections": {
+    "title": "Seções",
+    "hint": "As alterações aqui reescrevem as linhas de cabeçalho no texto.",
+    "mergeUp": "Mesclar com a seção acima",
+    "setting": "Editar seções ao lado do texto de importação (experimental)",
+    "settingDesc": "Mostra as seções detectadas ao lado da letra na tela de importação e importa em uma etapa, sem a etapa Revisar seções."
+  },
   "globalDragOverlay": {
     "title": "Solte para carregar"
   },

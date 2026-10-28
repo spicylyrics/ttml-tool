@@ -1343,6 +1343,13 @@
     "title": "Kontrola nalezených sekcí",
     "lineCount": "{count, plural, one {# řádek textu} few {# řádky textu} many {# řádku textu} other {# řádků textu}}"
   },
+  "importInlineSections": {
+    "title": "Sekce",
+    "hint": "Změny zde přepíší řádky záhlaví v textu.",
+    "mergeUp": "Sloučit se sekcí výše",
+    "setting": "Upravovat sekce vedle importovaného textu (experimentální)",
+    "settingDesc": "Zobrazí nalezené sekce vedle textu na obrazovce importu a importuje v jednom kroku, bez kroku Kontrola sekcí."
+  },
   "globalDragOverlay": {
     "title": "Uvolněte pro načtení"
   },
