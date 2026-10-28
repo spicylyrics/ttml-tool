@@ -26,6 +26,7 @@ import type {
 } from "../../../types/ttml.ts";
 import { log } from "../../../utils/logging.ts";
 import { parseTimespan } from "../../../utils/timestamp.ts";
+import { createSongPartReader } from "./song-part.ts";
 
 interface RomanWord {
 	startTime: number;
@@ -203,7 +204,15 @@ function createWordFromSpanElement(
 	return word;
 }
 
-export function parseLyric(ttmlText: string): TTMLLyric {
+export interface ParseLyricOptions {
+	/** Turn Apple's `itunes:song-part` into sections when there are no `amll:sections`. */
+	readSongParts?: boolean;
+}
+
+export function parseLyric(
+	ttmlText: string,
+	options: ParseLyricOptions = {},
+): TTMLLyric {
 	const domParser = new DOMParser();
 	const ttmlDoc: XMLDocument = domParser.parseFromString(
 		ttmlText,
@@ -580,8 +589,18 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 		appendParentBeforeNestedLines(lyricLines, nestedStartIndex, line);
 	}
 
+	const songParts =
+		options.readSongParts && !metadata.some((m) => m.key === "amll:sections")
+			? createSongPartReader()
+			: undefined;
 	for (const lineEl of ttmlDoc.querySelectorAll("body p[begin][end]")) {
-		parseLineElement(lineEl, false, false, null);
+		parseLineElement(
+			lineEl,
+			false,
+			false,
+			null,
+			songParts?.sectionIdFor(lineEl, (el) => getAttr(el, "song-part")),
+		);
 	}
 
 	const marks: Mark[] = [];
@@ -614,6 +633,7 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 			// Optional section metadata should never make an otherwise valid TTML fail.
 		}
 	}
+	if (!sections && songParts?.sections.length) sections = songParts.sections;
 
 	return {
 		metadata: metadata.filter(

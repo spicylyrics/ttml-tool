@@ -1217,6 +1217,29 @@
     "addToNext": "Dodaj nieprzypisane wersy do następnej sekcji",
     "section": "Sekcja"
   },
+  "sectionEditing": {
+    "toggleTitle": "Narzędzia edycji sekcji",
+    "toggleDesc": "Kliknij nagłówek sekcji, aby zmienić jej nazwę lub typ, rozpocznij sekcję w dowolnym wersie i kopiuj czasy między powtarzającymi się sekcjami. Podczas otwierania pliku TTML odczytuje też części utworu z Apple. Sekcje są używane przez edytor, nie przez Spicy Lyrics.",
+    "editHeader": "Zmień nazwę lub typ: {label}",
+    "menu": "Akcje sekcji",
+    "startHere": "Zacznij sekcję tutaj",
+    "moveStartUp": "Przesuń początek o wers w górę",
+    "moveStartDown": "Przesuń początek o wers w dół",
+    "applyTimings": "Zastosuj czasy z...",
+    "applyTitle": "Zastosuj czasy z innej sekcji",
+    "applyDesc": "Kopiuje czasy innej sekcji do tej. Wersy są dopasowywane po słowach; czasy dostają tylko pasujące słowa, pozostałe zostają bez czasu.",
+    "source": "Kopiuj z",
+    "suggested": "Sugerowana",
+    "similarity": "{percent}% takich samych słów",
+    "noSources": "Żadna inna sekcja nie ma jeszcze czasów. Najpierw zsynchronizuj jedną.",
+    "anchor": "Zacznij od",
+    "anchorSection": "Pierwszego wersu z czasem w tej sekcji ({time})",
+    "anchorPlayhead": "Głowicy odtwarzania ({time})",
+    "refineNote": "Skopiowane czasy to tylko punkt wyjścia. Odtwórz sekcję i popraw to, co nie pasuje.",
+    "apply": "Zastosuj",
+    "applied": "Skopiowano czasy do {copied} z {total} wersów. {untimed, plural, =0 {Wszystkie słowa pasowały.} one {# słowo zostało bez czasu.} few {# słowa zostały bez czasu.} many {# słów zostało bez czasu.} other {# słowa zostało bez czasu.}}",
+    "nothingMatched": "Żaden wers w tej sekcji nie pasuje do tamtej, więc nic nie skopiowano."
+  },
   "touchSyncPanel": {
     "prevWord": "Poprzednie słowo",
     "nextWord": "Następne słowo"
