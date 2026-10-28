@@ -650,6 +650,33 @@
     "loading": "Carregando painel...",
     "advanced": "Avançado"
   },
+  "ribbonCustomize": {
+    "customize": "Personalizar faixa",
+    "customizeDesc": "Oculte, reordene ou fixe as seções desta faixa, ou mova-as para Mais.",
+    "title": "Personalizar esta faixa",
+    "hint": "Algumas seções só aparecem com uma seleção ou com Avançado ativado.",
+    "reset": "Redefinir",
+    "resetDone": "Faixa redefinida para o padrão",
+    "pin": "Fixar {{name}} no início",
+    "unpin": "Desafixar {{name}}",
+    "pinned": "Fixada",
+    "moveUp": "Mover {{name}} para cima",
+    "moveDown": "Mover {{name}} para baixo",
+    "moved": "{{name}} agora está na posição {{position}}",
+    "placement": {
+      "label": "Mostrar {{name}} em",
+      "ribbon": "Faixa",
+      "ribbonDesc": "Mostrar na faixa.",
+      "more": "Mais",
+      "moreDesc": "Deixar no menu Mais, no fim da faixa.",
+      "hidden": "Oculta",
+      "hiddenDesc": "Não mostrar em lugar nenhum."
+    },
+    "more": "Mais",
+    "moreDesc": "Seções que você tirou da faixa.",
+    "settingLabel": "Faixas personalizáveis",
+    "settingDesc": "Adiciona um botão Personalizar às faixas de Edição, Sincronização e Prévia, para ocultar, reordenar ou fixar seções, ou movê-las para um menu Mais."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Destaca visualmente a linha da letra que está sendo reproduzida no modo selecionado.",

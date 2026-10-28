@@ -650,6 +650,33 @@
     "loading": "Panel yükleniyor...",
     "advanced": "Gelişmiş"
   },
+  "ribbonCustomize": {
+    "customize": "Şeridi özelleştir",
+    "customizeDesc": "Bu şeridin bölümlerini gizleyin, yeniden sıralayın, sabitleyin veya Diğer'e taşıyın.",
+    "title": "Bu şeridi özelleştir",
+    "hint": "Bazı bölümler yalnızca bir seçim varken veya Gelişmiş açıkken görünür.",
+    "reset": "Sıfırla",
+    "resetDone": "Şerit varsayılana sıfırlandı",
+    "pin": "{{name}} öğesini başa sabitle",
+    "unpin": "{{name}} sabitlemesini kaldır",
+    "pinned": "Sabitlendi",
+    "moveUp": "{{name}} öğesini yukarı taşı",
+    "moveDown": "{{name}} öğesini aşağı taşı",
+    "moved": "{{name}} artık {{position}}. sırada",
+    "placement": {
+      "label": "{{name}} nerede gösterilsin",
+      "ribbon": "Şerit",
+      "ribbonDesc": "Şeritte göster.",
+      "more": "Diğer",
+      "moreDesc": "Şeridin sonundaki Diğer menüsünde tut.",
+      "hidden": "Gizli",
+      "hiddenDesc": "Hiçbir yerde gösterme."
+    },
+    "more": "Diğer",
+    "moreDesc": "Şeritten çıkardığınız bölümler.",
+    "settingLabel": "Özelleştirilebilir şeritler",
+    "settingDesc": "Düzenle, Zamanla ve Önizleme şeritlerine bir Özelleştir düğmesi ekler; bölümleri gizleyebilir, yeniden sıralayabilir, sabitleyebilir veya bir Diğer menüsüne taşıyabilirsiniz."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Seçili modda o anda çalınan satırı vurgular.",

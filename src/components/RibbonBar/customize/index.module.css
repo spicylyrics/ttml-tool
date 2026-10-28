@@ -1,0 +1,79 @@
+.controlsColumn {
+	align-self: stretch;
+	padding-inline: var(--space-1);
+}
+
+.morePopover {
+	max-width: min(720px, calc(100vw - var(--space-6)));
+}
+
+.customizePopover {
+	width: min(460px, calc(100vw - var(--space-6)));
+	max-height: min(70vh, 640px);
+	overflow-y: auto;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	min-height: var(--space-7);
+	padding: var(--space-1) var(--space-2) var(--space-1) var(--space-3);
+	border-radius: var(--radius-4);
+	background-color: var(--gray-a2);
+}
+
+.row[data-pinned] {
+	background-color: var(--accent-a3);
+}
+
+/* Sections that aren't on the ribbon read as secondary, with the picker saying where they are. */
+.row[data-placement="hidden"] .name,
+.row[data-placement="more"] .name {
+	color: var(--gray-11);
+}
+
+.name {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.status {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
+}
+
+.controls {
+	flex-shrink: 0;
+}
+
+.srOnly {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+@media (prefers-contrast: more) {
+	.row {
+		outline: 1px solid var(--gray-a8);
+		outline-offset: -1px;
+	}
+}

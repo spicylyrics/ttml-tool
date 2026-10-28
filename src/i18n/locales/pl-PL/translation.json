@@ -650,6 +650,33 @@
     "loading": "Ładowanie panelu...",
     "advanced": "Zaawansowane"
   },
+  "ribbonCustomize": {
+    "customize": "Dostosuj wstążkę",
+    "customizeDesc": "Ukryj, zmień kolejność lub przypnij sekcje tej wstążki albo przenieś je do menu Więcej.",
+    "title": "Dostosuj tę wstążkę",
+    "hint": "Niektóre sekcje pojawiają się tylko po zaznaczeniu czegoś lub z włączoną opcją Zaawansowane.",
+    "reset": "Przywróć",
+    "resetDone": "Przywrócono domyślną wstążkę",
+    "pin": "Przypnij {{name}} na początku",
+    "unpin": "Odepnij {{name}}",
+    "pinned": "Przypięta",
+    "moveUp": "Przesuń {{name}} w górę",
+    "moveDown": "Przesuń {{name}} w dół",
+    "moved": "{{name}} jest teraz na pozycji {{position}}",
+    "placement": {
+      "label": "Gdzie pokazać {{name}}",
+      "ribbon": "Wstążka",
+      "ribbonDesc": "Pokaż na wstążce.",
+      "more": "Więcej",
+      "moreDesc": "Trzymaj w menu Więcej na końcu wstążki.",
+      "hidden": "Ukryta",
+      "hiddenDesc": "Nie pokazuj nigdzie."
+    },
+    "more": "Więcej",
+    "moreDesc": "Sekcje przeniesione ze wstążki.",
+    "settingLabel": "Wstążki do dostosowania",
+    "settingDesc": "Dodaje przycisk Dostosuj do wstążek Edycja, Synchronizacja i Podgląd, aby ukrywać, zmieniać kolejność lub przypinać sekcje albo przenosić je do menu Więcej."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Podświetla wers odtwarzany w wybranym trybie.",

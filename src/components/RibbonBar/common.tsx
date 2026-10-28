@@ -11,15 +11,28 @@
 
 import { Flex, Grid, Separator } from "@radix-ui/themes";
 import { motion } from "framer-motion";
+import { useAtomValue } from "jotai";
 import {
 	type FC,
+	Fragment,
 	forwardRef,
+	isValidElement,
 	type PropsWithChildren,
 	type ReactNode,
 	useEffect,
 	useImperativeHandle,
+	useMemo,
 	useRef,
 } from "react";
+import { useTranslation } from "react-i18next";
+import type { RibbonMode } from "./customize/catalog";
+import { arrangeRibbon, type RibbonEntry } from "./customize/layout";
+import { RibbonCustomizeControls } from "./customize/RibbonCustomizeControls";
+import {
+	ribbonCustomizeEnabledAtom,
+	useRibbonLayout,
+	useRibbonMode,
+} from "./customize/states";
 
 export const RibbonSection: FC<PropsWithChildren<{ label: ReactNode }>> = ({
 	children,
@@ -97,12 +110,77 @@ const RibbonHeightReserve: FC<{ rows: number }> = ({ rows }) => (
 	</Flex>
 );
 
+/**
+ * Works out which catalog section a child is: a `key` that is a catalog id
+ * (for components that wrap a section), or a RibbonSection whose label is the
+ * translation of a catalog id. Section files don't need to change.
+ */
+function sectionIdOf(
+	child: ReactNode,
+	catalog: ReadonlySet<string>,
+	labelToId: ReadonlyMap<string, string>,
+): string | null {
+	if (!isValidElement(child)) return null;
+	if (typeof child.key === "string" && catalog.has(child.key)) return child.key;
+	const label = (child.props as { label?: unknown }).label;
+	if (child.type === RibbonSection && typeof label === "string") {
+		return labelToId.get(label) ?? null;
+	}
+	return null;
+}
+
+/**
+ * The children of a ribbon with the user's layout applied. This reorders the
+ * real elements (not CSS `order`), so Tab follows what the user sees.
+ */
+const CustomizedRibbonChildren: FC<{
+	mode: RibbonMode;
+	children: ReactNode;
+}> = ({ mode, children }) => {
+	const { t, i18n } = useTranslation();
+	const { catalog, layout } = useRibbonLayout(mode);
+	const language = i18n.language;
+	const labelToId = useMemo(
+		() =>
+			new Map<string, string>(
+				catalog.map((id) => [t(id, { lng: language }), id]),
+			),
+		[catalog, t, language],
+	);
+	const catalogSet = useMemo(() => new Set(catalog), [catalog]);
+
+	// Positions in the children array stay put while conditional sections come
+	// and go, so they make stable keys for anything that isn't a section.
+	const list: ReactNode[] = Array.isArray(children) ? children : [children];
+	const entries: RibbonEntry[] = [];
+	list.forEach((child, index) => {
+		if (child === null || child === undefined || typeof child === "boolean") {
+			return;
+		}
+		entries.push({ index, id: sectionIdOf(child, catalogSet, labelToId) });
+	});
+	const ids = new Map(entries.map((entry) => [entry.index, entry.id]));
+	const { inline, overflow } = arrangeRibbon(entries, layout);
+	const render = (index: number) => (
+		<Fragment key={ids.get(index) ?? `child-${index}`}>{list[index]}</Fragment>
+	);
+
+	return (
+		<>
+			{inline.map(render)}
+			<RibbonCustomizeControls mode={mode} overflow={overflow.map(render)} />
+		</>
+	);
+};
+
 export const RibbonFrame = forwardRef<
 	HTMLDivElement,
 	PropsWithChildren<{ reserveControlRows?: number }>
 >(({ children, reserveControlRows }, ref) => {
 	const frameRef = useRef<HTMLDivElement>(null);
 	useImperativeHandle(ref, () => frameRef.current as HTMLDivElement, []);
+	const mode = useRibbonMode();
+	const customizeEnabled = useAtomValue(ribbonCustomizeEnabledAtom);
 
 	useEffect(() => {
 		const frame = frameRef.current;
@@ -181,7 +259,13 @@ export const RibbonFrame = forwardRef<
 				{reserveControlRows && (
 					<RibbonHeightReserve rows={reserveControlRows} />
 				)}
-				{children}
+				{customizeEnabled && mode !== null ? (
+					<CustomizedRibbonChildren mode={mode}>
+						{children}
+					</CustomizedRibbonChildren>
+				) : (
+					children
+				)}
 			</motion.div>
 		</Flex>
 	);
