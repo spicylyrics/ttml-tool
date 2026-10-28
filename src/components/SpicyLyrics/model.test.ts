@@ -411,3 +411,54 @@ describe("Spicy timing problem marks", () => {
 		expect([backwards.startTime, backwards.endTime]).toEqual([1_600, 1_600]);
 	});
 });
+
+describe("Spicy zero-width handling", () => {
+	const zwsp = String.fromCodePoint(0x200b);
+	const wordJoiner = String.fromCodePoint(0x2060);
+	const zwnj = String.fromCodePoint(0x200c);
+	const line = (words: Array<[string, number, number]>) => ({
+		...newLyricLine(),
+		id: "line",
+		startTime: 0,
+		endTime: 3_000,
+		words: words.map(([word, startTime, endTime], index) => ({
+			...newLyricWord(),
+			id: `w${index}`,
+			word,
+			startTime,
+			endTime,
+		})),
+	});
+
+	it("drops a syllable that is only a zero-width space", () => {
+		const [spicy] = buildSpicyLines(
+			[
+				line([
+					["Hi ", 0, 500],
+					[zwsp, 500, 600],
+					["there", 600, 900],
+				]),
+			],
+			false,
+			false,
+		);
+		expect(spicy.words.map((word) => word.text)).toEqual(["Hi", "there"]);
+	});
+
+	it("gives a held word no empty letter for an invisible mark", () => {
+		const [spicy] = buildSpicyLines(
+			[line([[`lo${zwsp}ve${wordJoiner}`, 0, 2_000]])],
+			false,
+			false,
+		);
+		expect(spicy.words[0].text).toBe("love");
+		expect(spicy.words[0].letters).toEqual(["l", "o", "v", "e"]);
+	});
+
+	it("keeps the joiners that shape a word", () => {
+		// Persian "mi" + ZWNJ + "ravam": the ZWNJ keeps the first part unjoined.
+		const word = `می${zwnj}روم`;
+		const [spicy] = buildSpicyLines([line([[word, 0, 400]])], false, false);
+		expect(spicy.words[0].text).toBe(word);
+	});
+});

@@ -47,12 +47,17 @@
 	overflow: hidden;
 	color: white;
 	background: #111;
-	/* Spicy's own face first, as in Spicy Lyrics; glyphs it lacks (CJK and
-	 * other scripts) fall back to the user's preview font, never the UI font,
-	 * so the preview looks the same with the app design on or off. */
+	/* With the default font, Spicy's own face comes first, as in Spicy Lyrics;
+	 * glyphs it lacks (CJK and other scripts) fall back to the preview font,
+	 * never the UI font, so the preview looks the same with the app design on
+	 * or off. */
 	font-family:
 		"SpicyLyrics", "Noto Sans Georgian", "VazirmatnRegular",
 		var(--preview-font-family, sans-serif);
+}
+/* A font the user picked in Appearance wins over Spicy's. */
+.userFont {
+	font-family: var(--preview-font-family, sans-serif);
 }
 
 .fpsCounter {
