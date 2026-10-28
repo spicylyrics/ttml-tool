@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Abrir el perfil de GitHub de {name}",
     "unknown": "Desconocido"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Pistas separadas",
+    "settingDesc": "Muestra las líneas de voces de fondo en su propia pista bajo las líneas principales. Las pistas solo sirven para ver: cambia el rol de una línea en el modo de edición.",
+    "menu": "Pistas",
+    "visibleLanes": "Mostrar pistas",
+    "duetLane": "Pista aparte para el dueto",
+    "lane": {
+      "main": "Principal",
+      "duet": "Dueto",
+      "bg": "Fondo"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "No se puede seleccionar este tiempo final",
     "noAudioLoaded": "Carga un archivo de audio para mostrar el espectrograma",

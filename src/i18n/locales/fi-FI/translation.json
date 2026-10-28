@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Avaa käyttäjän {name} GitHub-profiili",
     "unknown": "Tuntematon"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Erilliset raidat",
+    "settingDesc": "Näytä taustalaulurivit omalla raidallaan päärivien alla. Raidat ovat vain näyttöä varten: vaihda rivin rooli muokkaustilassa.",
+    "menu": "Raidat",
+    "visibleLanes": "Näytä raidat",
+    "duetLane": "Erillinen duettoraita",
+    "lane": {
+      "main": "Pää",
+      "duet": "Duetto",
+      "bg": "Tausta"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Tätä loppuaikaa ei voi valita",
     "noAudioLoaded": "Lataa äänitiedosto näyttääksesi spektrogrammin",

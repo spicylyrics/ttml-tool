@@ -1,7 +1,8 @@
 import classNames from "classnames";
-import { useAtomValue, useSetAtom } from "jotai";
-import React, { type FC, useCallback, useContext } from "react";
+import { useAtomValue, useSetAtom, useStore } from "jotai";
+import React, { type FC, memo, useCallback, useContext } from "react";
 import type { ProcessedLyricLine } from "$/modules/segmentation/utils/segment-processing.ts";
+import { spectrogramScrollLeftAtom } from "$/modules/spectrogram/states";
 import {
 	previewLineAtom,
 	selectedWordIdAtom,
@@ -20,22 +21,24 @@ import { SpectrogramContext } from "./SpectrogramContext.ts";
 
 interface LyricLineSegmentProps {
 	line: ProcessedLyricLine;
-	allLines: ProcessedLyricLine[];
+	isTouchingStart: boolean;
+	isTouchingEnd: boolean;
 	isGhost?: boolean;
 	offset?: number;
 }
 
-export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
+const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 	line,
-	allLines,
+	isTouchingStart,
+	isTouchingEnd,
 	isGhost = false,
 	offset = 0,
 }) => {
 	const previewLine = useAtomValue(previewLineAtom);
 	const setSelectedLines = useSetAtom(selectedLinesAtom);
 	const setSelectedWordId = useSetAtom(selectedWordIdAtom);
-	const { scrollContainerRef, zoom, scrollLeft } =
-		useContext(SpectrogramContext);
+	const { scrollContainerRef, zoom } = useContext(SpectrogramContext);
+	const store = useStore();
 	const editingTimeField = useAtomValue(editingTimeFieldAtom);
 	const setTimelineDrag = useSetAtom(timelineDragAtom);
 
@@ -62,6 +65,7 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 
 			const rect = scrollContainer.getBoundingClientRect();
 			const mouseXPx = e.clientX - rect.left;
+			const scrollLeft = store.get(spectrogramScrollLeftAtom);
 			const initialMouseTimeMS = ((scrollLeft + mouseXPx) / zoom) * 1000;
 
 			setTimelineDrag({
@@ -81,7 +85,7 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 			setSelectedLines,
 			setSelectedWordId,
 			scrollContainerRef,
-			scrollLeft,
+			store,
 			zoom,
 			setTimelineDrag,
 		],
@@ -107,13 +111,6 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 		return null;
 	}
 
-	const isTouchingStart = allLines.some(
-		(l) => l.id !== line.id && l.endTime === startTime,
-	);
-	const isTouchingEnd = allLines.some(
-		(l) => l.id !== line.id && l.startTime === endTime,
-	);
-
 	const dynamicStyles = {
 		left: `${left}px`,
 		width: `${width}px`,
@@ -121,7 +118,6 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 	};
 
 	return (
-		// biome-ignore lint/a11y/useSemanticElements: <button> 不适用
 		<div
 			className={classNames(
 				styles.lineSegment,
@@ -194,3 +190,5 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 		</div>
 	);
 };
+
+export const LyricLineSegment = memo(LyricLineSegmentImpl);

@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Ouvrir le profil GitHub de {name}",
     "unknown": "Inconnu"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Pistes séparées",
+    "settingDesc": "Affiche les lignes de chœurs sur leur propre piste sous les lignes principales. Les pistes servent uniquement à l'affichage : changez le rôle d'une ligne en mode édition.",
+    "menu": "Pistes",
+    "visibleLanes": "Afficher les pistes",
+    "duetLane": "Piste séparée pour le duo",
+    "lane": {
+      "main": "Principale",
+      "duet": "Duo",
+      "bg": "Chœurs"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Impossible de sélectionner ce temps de fin",
     "noAudioLoaded": "Veuillez charger un fichier audio pour afficher le spectrogramme",

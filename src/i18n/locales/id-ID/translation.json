@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Buka profil GitHub {name}",
     "unknown": "Tidak diketahui"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Jalur terpisah",
+    "settingDesc": "Tampilkan baris vokal latar di jalurnya sendiri di bawah baris utama. Jalur hanya untuk tampilan: ubah peran baris di mode edit.",
+    "menu": "Jalur",
+    "visibleLanes": "Tampilkan jalur",
+    "duetLane": "Jalur duet terpisah",
+    "lane": {
+      "main": "Utama",
+      "duet": "Duet",
+      "bg": "Latar"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Tidak dapat memilih waktu akhir ini",
     "noAudioLoaded": "Muat file audio untuk menampilkan spektrogram",

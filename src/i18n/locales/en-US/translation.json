@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Open {name}'s GitHub profile",
     "unknown": "Unknown"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Separate lanes",
+    "settingDesc": "Draw background lines in their own row under the main lines. Lanes are view-only: change a line's role in Edit mode.",
+    "menu": "Lanes",
+    "visibleLanes": "Show lanes",
+    "duetLane": "Separate duet lane",
+    "lane": {
+      "main": "Main",
+      "duet": "Duet",
+      "bg": "Background"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Cannot select this end time",
     "noAudioLoaded": "Load an audio file to show the spectrogram",

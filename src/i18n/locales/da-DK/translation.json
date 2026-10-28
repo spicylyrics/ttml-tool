@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Åbn GitHub-profilen for {name}",
     "unknown": "Ukendt"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Separate spor",
+    "settingDesc": "Vis baggrundslinjer i deres eget spor under hovedlinjerne. Spor er kun til visning: skift en linjes rolle i redigeringstilstand.",
+    "menu": "Spor",
+    "visibleLanes": "Vis spor",
+    "duetLane": "Separat duetspor",
+    "lane": {
+      "main": "Hoved",
+      "duet": "Duet",
+      "bg": "Baggrund"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Kan ikke vælge denne sluttid",
     "noAudioLoaded": "Indlæs en lydfil for at vise spektrogrammet",

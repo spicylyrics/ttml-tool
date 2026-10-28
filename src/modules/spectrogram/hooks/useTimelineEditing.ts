@@ -15,7 +15,7 @@ import {
 	requestFocusAtom,
 	selectedLinesAtom,
 } from "$/states/main.ts";
-import { spectrogramHoverTimeMsAtom } from "../states";
+import { idleHoverTimeMsAtom, spectrogramHoverTimeMsAtom } from "../states";
 
 export function useTimelineEditing(scrollLeft: number, zoom: number) {
 	const editingTimeField = useAtomValue(editingTimeFieldAtom);
@@ -24,7 +24,13 @@ export function useTimelineEditing(scrollLeft: number, zoom: number) {
 	const rawLyricLines = useAtomValue(lyricLinesAtom);
 	const setRequestFocus = useSetAtom(requestFocusAtom);
 	const [pendingStartTime, setPendingStartTime] = useState<number | null>(null);
-	const hoverTimeMs = useAtomValue(spectrogramHoverTimeMsAtom);
+	// Only follow the pointer while picking an end time; otherwise every mouse
+	// move would re-render the whole spectrogram panel.
+	const hoverTimeMs = useAtomValue(
+		editingTimeField?.field === "endTime"
+			? spectrogramHoverTimeMsAtom
+			: idleHoverTimeMsAtom,
+	);
 
 	const referenceStartTime = useMemo(() => {
 		if (pendingStartTime !== null) return pendingStartTime;

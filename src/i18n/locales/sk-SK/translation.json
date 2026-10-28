@@ -1738,6 +1738,18 @@
     "openContributorProfile": "Otvoriť GitHub profil používateľa {name}",
     "unknown": "Neznámy"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Oddelené stopy",
+    "settingDesc": "Zobrazí sprievodné riadky vo vlastnej stope pod hlavnými riadkami. Stopy slúžia len na zobrazenie: rolu riadka zmeníte v režime úprav.",
+    "menu": "Stopy",
+    "visibleLanes": "Zobraziť stopy",
+    "duetLane": "Samostatná stopa pre duet",
+    "lane": {
+      "main": "Hlavná",
+      "duet": "Duet",
+      "bg": "Sprievod"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Nemožno vybrať tento čas konca",
     "noAudioLoaded": "Načítajte zvukový súbor na zobrazenie spektrogramu",

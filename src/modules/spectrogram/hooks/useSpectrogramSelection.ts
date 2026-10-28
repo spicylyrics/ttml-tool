@@ -2,16 +2,21 @@ import { useAtom, useAtomValue } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 import { editingTimeFieldAtom } from "$/states/main.ts";
 import {
+	idleHoverTimeMsAtom,
 	spectrogramHoverTimeMsAtom,
 	spectrogramSelectionAtom,
 } from "../states";
 
 export function useSpectrogramSelection(scrollLeft: number, zoom: number) {
 	const [selection, setSelection] = useAtom(spectrogramSelectionAtom);
-	const hoverTimeMs = useAtomValue(spectrogramHoverTimeMsAtom);
 	const editingTimeField = useAtomValue(editingTimeFieldAtom);
 
 	const [isSelecting, setIsSelecting] = useState(false);
+	// Only follow the pointer while dragging a selection; otherwise every mouse
+	// move would re-render the whole spectrogram panel.
+	const hoverTimeMs = useAtomValue(
+		isSelecting ? spectrogramHoverTimeMsAtom : idleHoverTimeMsAtom,
+	);
 	const [selectionStartMs, setSelectionStartMs] = useState<number | null>(null);
 
 	const handleSelectionMouseDown = useCallback(
