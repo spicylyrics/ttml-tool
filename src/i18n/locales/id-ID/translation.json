@@ -361,6 +361,20 @@
       "title": "Pilih folder ruang kerja yang berisi proyek"
     }
   },
+  "commandPalette": {
+    "title": "Palet perintah",
+    "placeholder": "Cari perintah dan pengaturan",
+    "noResults": "Tidak ada perintah atau pengaturan yang cocok",
+    "commandTag": "Perintah",
+    "settingTag": "Preferensi",
+    "hint": "Tombol panah untuk berpindah, Enter untuk menjalankan, Esc untuk menutup",
+    "notRunnable": "Perintah tidak dapat dijalankan. Beri pintasan di Preferensi, lalu coba lagi.",
+    "menu": "Palet perintah...",
+    "shortcut": "Tampilan - Buka palet perintah",
+    "shortcutAlternate": "Tampilan - Buka palet perintah (pintasan alternatif)",
+    "settingLabel": "Palet perintah",
+    "settingDesc": "Temukan perintah dan halaman pengaturan berdasarkan nama. Buka dengan {shortcut} atau dari menu Bantuan."
+  },
   "projectsDialog": {
     "title": "Proyek",
     "tabProject": "Proyek",

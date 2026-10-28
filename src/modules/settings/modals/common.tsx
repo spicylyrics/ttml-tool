@@ -1,4 +1,5 @@
 import { Flex } from "@radix-ui/themes";
+import { CommandPaletteSetting } from "$/modules/command-palette/CommandPaletteSetting";
 import { AutosaveSection } from "./common/AutosaveSection";
 import { DisplaySection } from "./common/DisplaySection";
 import { ImportCleanupSection } from "./common/ImportCleanupSection";
@@ -19,6 +20,8 @@ export const SettingsCommonTab = ({
 	return (
 		<Flex direction="column" gap="4">
 			{section === "general" && <DisplaySection {...state} />}
+
+			{section === "general" && <CommandPaletteSetting />}
 
 			{section === "editor" && <SyncingSection {...state} />}
 

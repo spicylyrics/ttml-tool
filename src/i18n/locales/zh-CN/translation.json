@@ -361,6 +361,20 @@
       "title": "选择包含项目的工作区文件夹"
     }
   },
+  "commandPalette": {
+    "title": "命令面板",
+    "placeholder": "搜索命令和设置",
+    "noResults": "没有匹配的命令或设置",
+    "commandTag": "命令",
+    "settingTag": "偏好设置",
+    "hint": "方向键移动，Enter 运行，Esc 关闭",
+    "notRunnable": "无法运行此命令。请在偏好设置中为它指定快捷键后重试。",
+    "menu": "命令面板...",
+    "shortcut": "视图 - 打开命令面板",
+    "shortcutAlternate": "视图 - 打开命令面板（备用快捷键）",
+    "settingLabel": "命令面板",
+    "settingDesc": "按名称查找命令和设置页面。使用 {shortcut} 或从帮助菜单打开。"
+  },
   "projectsDialog": {
     "title": "项目",
     "tabProject": "项目",

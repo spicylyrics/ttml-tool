@@ -1,0 +1,59 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	max-height: min(420px, 52vh);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+/* Keyboard moves the selection here, so it changes color only: no motion, no layout shift. */
+.option {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	min-height: 36px;
+	padding: var(--space-1) var(--space-3);
+	border-radius: var(--radius-4);
+	cursor: default;
+	user-select: none;
+}
+
+.option[aria-selected="true"] {
+	background: var(--accent-a4);
+}
+
+.label {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tag {
+	flex-shrink: 0;
+}
+
+.shortcut {
+	flex-shrink: 0;
+}
+
+.empty {
+	padding: var(--space-4) var(--space-3);
+	text-align: center;
+}
+
+@media (prefers-contrast: more) {
+	.option[aria-selected="true"] {
+		background: var(--accent-a6);
+		outline: 1px solid var(--accent-9);
+		outline-offset: -1px;
+	}
+}

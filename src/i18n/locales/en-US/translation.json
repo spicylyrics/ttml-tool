@@ -361,6 +361,20 @@
       "title": "Select a workspace folder containing projects"
     }
   },
+  "commandPalette": {
+    "title": "Command palette",
+    "placeholder": "Search commands and settings",
+    "noResults": "No matching commands or settings",
+    "commandTag": "Command",
+    "settingTag": "Preferences",
+    "hint": "Arrow keys to move, Enter to run, Esc to close",
+    "notRunnable": "Couldn't run this command. Give it a shortcut in Preferences, then try again.",
+    "menu": "Command palette...",
+    "shortcut": "View - Open command palette",
+    "shortcutAlternate": "View - Open command palette (alternate shortcut)",
+    "settingLabel": "Command palette",
+    "settingDesc": "Find commands and settings pages by name. Open it with {shortcut} or from the Help menu."
+  },
   "projectsDialog": {
     "title": "Projects",
     "tabProject": "Project",

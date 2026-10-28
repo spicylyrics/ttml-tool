@@ -361,6 +361,20 @@
       "title": "Kies een werkruimtemap met projecten"
     }
   },
+  "commandPalette": {
+    "title": "Opdrachtpalet",
+    "placeholder": "Opdrachten en instellingen zoeken",
+    "noResults": "Geen overeenkomende opdrachten of instellingen",
+    "commandTag": "Opdracht",
+    "settingTag": "Voorkeuren",
+    "hint": "Pijltjestoetsen om te bewegen, Enter om uit te voeren, Esc om te sluiten",
+    "notRunnable": "Kan deze opdracht niet uitvoeren. Geef hem een sneltoets in Voorkeuren en probeer het opnieuw.",
+    "menu": "Opdrachtpalet...",
+    "shortcut": "Beeld - Opdrachtpalet openen",
+    "shortcutAlternate": "Beeld - Opdrachtpalet openen (alternatieve sneltoets)",
+    "settingLabel": "Opdrachtpalet",
+    "settingDesc": "Zoek opdrachten en instellingenpagina's op naam. Open het met {shortcut} of via het menu Hulp."
+  },
   "projectsDialog": {
     "title": "Projecten",
     "tabProject": "Project",
