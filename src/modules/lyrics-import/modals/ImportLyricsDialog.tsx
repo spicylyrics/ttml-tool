@@ -29,7 +29,6 @@ import {
 	applyConfirmedImportMetadataAtom,
 	loadedAudioSongAtom,
 } from "$/modules/project/song-metadata-state";
-import { segmentWord } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
 	geniusApiKeyAtom,
@@ -44,7 +43,6 @@ import {
 	selectedLinesAtom,
 	selectedWordsAtom,
 } from "$/states/main.ts";
-import { newLyricWord } from "$/types/ttml";
 import {
 	normalizeImportedLyricApostrophes,
 	normalizeImportedLyricCyrillicEs,
@@ -52,25 +50,37 @@ import {
 import { error as logError } from "$/utils/logging.ts";
 import { ImportOptionsPanel } from "../components/ImportOptionsPanel";
 import {
+	InlineSectionList,
+	useInlineSectionsEnabled,
+} from "../components/InlineSectionList";
+import {
 	OnlineResults,
 	OnlineSearchBar,
 	PickedTrack,
 } from "../components/OnlineSearchPanel";
 import { SectionReviewPanel } from "../components/SectionReviewPanel";
+import { importSplitChoiceEnabledAtom, importSplitModeAtom } from "../flags";
 import {
 	detectSections,
 	importTextToLines,
 	mergeReviewedSections,
 	type ReviewedSection,
-	segmentImportText,
 	toSectionOverrides,
 } from "../logic/import-text";
+import {
+	listInlineSections,
+	mergeInlineSectionUp,
+	renameInlineSection,
+	retypeInlineSection,
+} from "../logic/inline-sections";
 import { type ImportTrack, searchOnlineLyrics } from "../logic/online-sources";
+import { splitImportText } from "../logic/split-import-text";
 import {
 	bgLyricPrefixAtom,
 	enableSpecialPrefixAtom,
 	fetchImportedSongwritersAtom,
 	importLyricsSourceAtom,
+	importTextAtom,
 	importTextFormatAtom,
 	processStepsAtom,
 	wordSeparatorAtom,
@@ -79,7 +89,6 @@ import { prioritizeMatchingTracks } from "../track-duration";
 import styles from "./ImportLyricsDialog.module.css";
 
 // Kept outside the dialog so closing it doesn't lose a draft.
-const importTextAtom = atom("");
 const originalTextAtom = atom<string | null>(null);
 const pickedTrackAtom = atom<ImportTrack | null>(null);
 
@@ -137,6 +146,7 @@ export const ImportLyricsDialog = () => {
 		setStep("edit");
 		setConfirming(false);
 		setMakeSections(store.get(geniusCategorizationEnabledAtom));
+		store.set(importSplitModeAtom, "later");
 	}, [isOpen, store]);
 
 	// Tags can arrive after the dialog opens; only replace a query we filled in.
@@ -237,11 +247,7 @@ export const ImportLyricsDialog = () => {
 
 	const handleSplit = () => {
 		const changed = transformText(
-			segmentImportText(text, format, (word) =>
-				segmentWord({ ...newLyricWord(), word }, segmentationConfig).map(
-					(part) => part.word,
-				),
-			),
+			splitImportText(text, format, segmentationConfig),
 		);
 		if (changed)
 			toast.success(
@@ -276,6 +282,24 @@ export const ImportLyricsDialog = () => {
 			return 0;
 		}
 	}, [deferredText, format, willMakeSections]);
+
+	// Experimental: sections are listed and edited beside the text, and
+	// Import skips the Review sections step.
+	const inlineSections = useInlineSectionsEnabled();
+	const showReviewStep = willMakeSections && !inlineSections;
+	const inlineSectionList = useMemo(
+		() =>
+			inlineSections && makeSections ? listInlineSections(deferredText) : [],
+		[deferredText, inlineSections, makeSections],
+	);
+	const editInline = (edit: (current: string) => string) => {
+		const next = edit(text);
+		if (next !== text) setText(next);
+	};
+	const handleImport = () =>
+		inlineSections && step === "edit"
+			? confirmAndImport(detectSections(text))
+			: handlePrimary();
 
 	// Keep review edits while the text under them changes.
 	useEffect(() => {
@@ -400,6 +424,24 @@ export const ImportLyricsDialog = () => {
 	};
 
 	const handlePrimary = () => {
+		// "Split now": words added since the split get marked first, and the
+		// user checks them before pressing Import again.
+		if (
+			step === "edit" &&
+			store.get(importSplitChoiceEnabledAtom) &&
+			store.get(importSplitModeAtom) === "now" &&
+			!segmentationLoading &&
+			!!format.wordSeparator &&
+			transformText(splitImportText(text, format, segmentationConfig))
+		) {
+			toast.info(
+				t(
+					"importSplit.checkFirst",
+					"New words got syllable marks. Check them, then import.",
+				),
+			);
+			return;
+		}
 		if (step === "edit" && willMakeSections) {
 			setReviewed(detectSections(text));
 			setStep("review");
@@ -548,13 +590,34 @@ export const ImportLyricsDialog = () => {
 									onRestore={handleRestore}
 								/>
 							)}
+							{step === "edit" && inlineSectionList.length > 0 && (
+								<InlineSectionList
+									sections={inlineSectionList}
+									wordSeparator={format.wordSeparator}
+									onRename={(lineIndex, name) =>
+										editInline((current) =>
+											renameInlineSection(current, lineIndex, name),
+										)
+									}
+									onRetype={(lineIndex, category) =>
+										editInline((current) =>
+											retypeInlineSection(current, lineIndex, category),
+										)
+									}
+									onMergeUp={(lineIndex) =>
+										editInline((current) =>
+											mergeInlineSectionUp(current, lineIndex),
+										)
+									}
+								/>
+							)}
 						</div>
 					</ScrollArea>
 				</div>
 
 				<Flex align="center" justify="between" gap="3">
 					<Flex align="center" gap="4" minWidth="0">
-						{willMakeSections && (
+						{showReviewStep && (
 							<ol
 								className={styles.steps}
 								aria-label={t("importLyrics.stepsLabel", "Import steps")}
@@ -595,8 +658,8 @@ export const ImportLyricsDialog = () => {
 								</Button>
 							</Dialog.Close>
 						)}
-						<Button onClick={handlePrimary} disabled={lineCount === 0}>
-							{step === "edit" && willMakeSections
+						<Button onClick={handleImport} disabled={lineCount === 0}>
+							{step === "edit" && showReviewStep
 								? t("importLyrics.reviewSections", "Review sections")
 								: t("genius.importButton", "Import lyrics")}
 						</Button>

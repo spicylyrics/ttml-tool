@@ -3,6 +3,12 @@
     "changelogTitle": "Değişiklik günlüğü ve güncellemeler",
     "viewCommits": "GitHub'daki commit'leri görüntüle"
   },
+  "updatedToast": {
+    "message": "v{version} sürümüne güncellendi",
+    "seeChanges": "Neler değişti",
+    "setting": "Güncellemeden sonra neyin değiştiğini göster",
+    "settingDesc": "Uygulama yeni bir sürümde ilk kez açıldığında, değişiklik günlüğüne bağlantı içeren kısa bir bildirim gösterir."
+  },
   "app": {
     "error": {
       "title": "Hay aksi, bir hata oluştu!",
@@ -29,9 +35,24 @@
   "onlineImport": {
     "noLyricsLabel": "Bu parça için şarkı sözü mevcut değil."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Sıkı yerleşim",
+    "tightLayoutDesc": "Daha az boş alan kullanır ve arka vokal satırlarını daha kolay okunur yapar."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# satır henüz zamanlanmamış} other {# satır henüz zamanlanmamış}}",
     "jumpToUntimed": "Zamanlanmamış ilk satırı senkronize et"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# kelimede zamanlama sorunu var} other {# kelimede zamanlama sorunu var}}",
+    "jump": "İlkini seç",
+    "setting": "Zamanlama sorunlarını göster",
+    "settingDesc": "Spicy önizlemesinin zamanlaması yüzünden gizleyeceği ya da yanlış oynatacağı kelimeleri kırmızıyla ve kesikli bir çerçeveyle işaretler.",
+    "untimed": "Zamanlanmış satırda zamanlaması yok",
+    "endsBeforeStart": "Başlamadan önce bitiyor",
+    "startsBeforeLine": "Satırından önce başlıyor",
+    "endsAfterLine": "Satırından sonra bitiyor"
   },
   "beginnerGuide": {
     "empty": {
@@ -191,6 +212,16 @@
       "splitWordsHint": "Her boşluğu içe aktarma için kelime sınırı olarak işaretler."
     }
   },
+  "importSplit": {
+    "title": "Heceler",
+    "later": "Sonra bölerim",
+    "laterHint": "Kelimeleri bütün olarak içe aktarır. Onları sonra düzenleyicide bölün.",
+    "now": "Şimdi böl",
+    "nowHint": "Heceleri metinde hemen işaretler, böylece içe aktarmadan önce düzeltebilirsiniz.",
+    "checkFirst": "Yeni kelimelere hece işaretleri eklendi. Kontrol edin, sonra içe aktarın.",
+    "setting": "İçe aktarırken hecelere böl",
+    "settingHint": "İçe aktarma ekranına Şimdi böl veya Sonra bölerim seçeneğini ekler. Şimdi böl, heceleri bölümleme ayarlarınız ve öğrenilmiş bölmelerle işaretler; içe aktarmadan önce düzeltebilirsiniz."
+  },
   "lyricMarkup": {
     "section": "Bölüm: {label}",
     "joinSyllables": "Heceleri birleştir",
@@ -211,6 +242,29 @@
       "missingTranslation": "Çeviri eksik",
       "missingRomanization": "Romanizasyon eksik"
     }
+  },
+  "editAsText": {
+    "menuItem": "Metin olarak düzenle...",
+    "title": "Metin olarak düzenle",
+    "description": "Şarkı sözlerinin tamamını düz metin olarak düzenleyin. Değiştirmediğiniz kelimeler zamanlamasını korur.",
+    "textLabel": "Şarkı sözü metni",
+    "summaryTitle": "Değişiklikler",
+    "unchanged": "{count, plural, one {# satır değişmedi} other {# satır değişmedi}}",
+    "edited": "{count, plural, one {# satır düzenlendi} other {# satır düzenlendi}}",
+    "editedHint": "Kelimelerin eşleştiği yerlerde zamanlama korunur.",
+    "moved": "{count, plural, one {# satır taşındı} other {# satır taşındı}}",
+    "added": "{count, plural, one {# satır eklendi} other {# satır eklendi}}",
+    "removed": "{count, plural, one {# satır kaldırıldı} other {# satır kaldırıldı}}",
+    "noChanges": "Henüz değişiklik yok.",
+    "droppedTimings": "{count, plural, one {# zamanlanmış kelime zamanlamasını kaybeder} other {# zamanlanmış kelime zamanlamasını kaybeder}}",
+    "lineNumber": "Satır {line}",
+    "more": "{count, plural, one {ve # tane daha} other {ve # tane daha}}",
+    "help": "Yeni kelimeler zamanlamasız gelir. Yalnızca taşınan satırlar zamanlamasını korur. Uygula tek adımda geri alınır.",
+    "apply": "Uygula",
+    "applied": "Metin uygulandı. Geri al tek adımda eski haline döndürür.",
+    "failed": "Metin uygulanamadı. Kontrol edip tekrar deneyin.",
+    "setting": "Metin olarak düzenle",
+    "settingDesc": "Düzenle menüsüne Metin olarak düzenle ekler: şarkı sözlerinin tamamını düz metin olarak değiştirin, dokunmadığınız kelimelerin zamanlaması korunsun."
   },
   "importChooser": {
     "options": {
@@ -279,6 +333,29 @@
       "copyPrevious": "Önceki zamanlamayı kopyala"
     }
   },
+  "logoColor": {
+    "title": "Logo rengi",
+    "description": "Deneysel. Başlık çubuğundaki ve rehberin karşılama ekranındaki logo için bir renk seçin.",
+    "colorLabel": "Renk",
+    "customLabel": "Özel logo rengi",
+    "designNote": "Logo yalnızca Spicy Lyrics tasarımı açıkken görünür.",
+    "presets": {
+      "default": "Varsayılan",
+      "defaultDesc": "Tasarımın kendi rengi",
+      "lilac": "Leylak",
+      "lilacDesc": "v3 logosundan",
+      "purple": "Mor",
+      "purpleDesc": "Çok renkli logodan",
+      "red": "Kırmızı",
+      "redDesc": "v0.9 logosundan",
+      "gold": "Altın",
+      "green": "Yeşil",
+      "blue": "Mavi",
+      "white": "Beyaz",
+      "custom": "Özel",
+      "customDesc": "İstediğiniz rengi seçin"
+    }
+  },
   "common": {
     "close": "Kapat",
     "autoDetect": "Otomatik algıla",
@@ -332,6 +409,20 @@
       "title": "Proje içeren bir çalışma alanı klasörü seçin"
     }
   },
+  "commandPalette": {
+    "title": "Komut paleti",
+    "placeholder": "Komutlarda ve ayarlarda ara",
+    "noResults": "Eşleşen komut veya ayar yok",
+    "commandTag": "Komut",
+    "settingTag": "Tercihler",
+    "hint": "Ok tuşlarıyla gezinin, Enter ile çalıştırın, Esc ile kapatın",
+    "notRunnable": "Komut çalıştırılamadı. Tercihler'den ona bir kısayol atayın ve tekrar deneyin.",
+    "menu": "Komut paleti...",
+    "shortcut": "Görünüm - Komut paletini aç",
+    "shortcutAlternate": "Görünüm - Komut paletini aç (alternatif kısayol)",
+    "settingLabel": "Komut paleti",
+    "settingDesc": "Komutları ve ayar sayfalarını adıyla bulun. {shortcut} ile veya Yardım menüsünden açın."
+  },
   "projectsDialog": {
     "title": "Projeler",
     "tabProject": "Proje",
@@ -371,6 +462,82 @@
     "noProjectsFound": "Bu klasörde proje bulunamadı",
     "projectsFound": "{count, plural, one {# proje bulundu} other {# proje bulundu}}",
     "scanFailed": "Çalışma alanı klasörü taranamadı"
+  },
+  "projectsHub": {
+    "enable": "Şarkı listesi ve başlangıç ekranı",
+    "enableDesc": "Projeler'e Senkronlanacaklar listesi ve klasör tarama, boş düzenleyiciye bir başlangıç ekranı, açılışta son oturuma devam etme sorusu, TTML ve sesi tek sürüklemede açma ile düz metin veya Genius metni olarak dışa aktarma ekler.",
+    "menuProjects": "Projeler...",
+    "tabSongs": "Senkronlanacaklar",
+    "songs": {
+      "description": "Sırada senkronlamak istediğiniz şarkılar. Birinden proje başlatın; TTML'yi dışa aktardığınızda tamamlandı olarak işaretlenir.",
+      "addManually": "Elle yaz",
+      "searchGenius": "Genius'ta ara",
+      "add": "Listeye ekle",
+      "added": "{song} listeye eklendi.",
+      "alreadyListed": "{song} zaten listede.",
+      "searchFailed": "Genius'ta arama yapılamadı.",
+      "start": "Projeyi başlat",
+      "started": "{song} başlatıldı. Sözleri içe aktarın veya yazın, ardından sesi yükleyin.",
+      "startDirty": "Kaydedilmemiş değişiklikleriniz var. {song} başlatılırsa düzenleyicideki sözler değiştirilir.",
+      "markedDone": "{song} tamamlandı olarak işaretlendi.",
+      "inProgress": "Başlatıldı",
+      "empty": "Henüz senkronlanacak bir şey yok. Unutmadan sıradaki şarkıyı ekleyin.",
+      "showNotes": "Notları göster",
+      "showCompleted": "Tamamlananlar ({count})",
+      "hideCompleted": "Tamamlananları gizle",
+      "markDone": "Tamamlandı",
+      "reopen": "Yeniden aç",
+      "edit": "Şarkıyı düzenle",
+      "delete": "Şarkıyı kaldır",
+      "toolMenu": "Senkronlanacaklar..."
+    },
+    "scan": {
+      "tab": "Klasörü tara",
+      "select": "Bir klasörde TTML ara...",
+      "pairsTitle": "Proje olarak bağlayabileceğiniz dosyalar",
+      "pairsHint": "Aynı adlı bir TTML ve bir ses dosyası. Bağlamak iki dosyayı da yerinde bırakır.",
+      "link": "Bağla",
+      "linkAll": "Tümünü bağla",
+      "linked": "{name} proje olarak bağlandı.",
+      "linkedCount": "{count, plural, one {# proje bağlandı} other {# proje bağlandı}}",
+      "linkFailed": "{name} bağlanamadı.",
+      "noPairs": "Aynı adlı TTML ve ses dosyası bulunamadı.",
+      "scanning": "Dosyalar aranıyor..."
+    },
+    "start": {
+      "title": "Senkronlamaya başlayın",
+      "description": "Bir proje açın, listenizden bir şarkı seçin veya sözlerden başlayın.",
+      "startedDescription": "Sözleri metinden veya Genius'tan ekleyin, ardından sesi yükleyin.",
+      "fromText": "Metinden yeni",
+      "fromGenius": "Genius'tan yeni",
+      "openFile": "Dosya aç...",
+      "openFolder": "Klasör projesi aç...",
+      "projects": "Projeler...",
+      "recent": "Son projeler",
+      "songs": "Senkronlanacaklar",
+      "seeAll": "Tümünü gör",
+      "startSong": "{song} için projeyi başlat"
+    },
+    "resume": {
+      "title": "Kaldığınız yerden devam edilsin mi?",
+      "description": "{name} en son {time} tarihinde düzenlendi. Geçmişten geri yükleme her iki durumda da tüm otomatik kayıtları saklar.",
+      "continue": "Devam et",
+      "startFresh": "Sıfırdan başla",
+      "restored": "{name} geri yüklendi."
+    },
+    "export": {
+      "plainText": "Düz metin...",
+      "geniusText": "Genius metni...",
+      "copyGenius": "Genius metni olarak kopyala",
+      "copied": "Sözler Genius metni olarak kopyalandı.",
+      "copyFailed": "Sözler kopyalanamadı.",
+      "saveFailed": "Dosya kaydedilemedi.",
+      "textFiles": "Metin dosyaları",
+      "empty": "Dışa aktarılacak söz yok."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# dosya atlandı. Aynı anda bir söz dosyası ve bir ses dosyası bırakın.} other {# dosya atlandı. Aynı anda bir söz dosyası ve bir ses dosyası bırakın.}}"
+    }
   },
   "ribbonBar": {
     "advancedTooltip": "Düzenle, Zamanla ve Önizleme şeritleri için geçerlidir.",
@@ -487,6 +654,33 @@
     },
     "loading": "Panel yükleniyor...",
     "advanced": "Gelişmiş"
+  },
+  "ribbonCustomize": {
+    "customize": "Şeridi özelleştir",
+    "customizeDesc": "Bu şeridin bölümlerini gizleyin, yeniden sıralayın, sabitleyin veya Diğer'e taşıyın.",
+    "title": "Bu şeridi özelleştir",
+    "hint": "Bazı bölümler yalnızca bir seçim varken veya Gelişmiş açıkken görünür.",
+    "reset": "Sıfırla",
+    "resetDone": "Şerit varsayılana sıfırlandı",
+    "pin": "{{name}} öğesini başa sabitle",
+    "unpin": "{{name}} sabitlemesini kaldır",
+    "pinned": "Sabitlendi",
+    "moveUp": "{{name}} öğesini yukarı taşı",
+    "moveDown": "{{name}} öğesini aşağı taşı",
+    "moved": "{{name}} artık {{position}}. sırada",
+    "placement": {
+      "label": "{{name}} nerede gösterilsin",
+      "ribbon": "Şerit",
+      "ribbonDesc": "Şeritte göster.",
+      "more": "Diğer",
+      "moreDesc": "Şeridin sonundaki Diğer menüsünde tut.",
+      "hidden": "Gizli",
+      "hiddenDesc": "Hiçbir yerde gösterme."
+    },
+    "more": "Diğer",
+    "moreDesc": "Şeritten çıkardığınız bölümler.",
+    "settingLabel": "Özelleştirilebilir şeritler",
+    "settingDesc": "Düzenle, Zamanla ve Önizleme şeritlerine bir Özelleştir düğmesi ekler; bölümleri gizleyebilir, yeniden sıralayabilir, sabitleyebilir veya bir Diğer menüsüne taşıyabilirsiniz."
   },
   "settings": {
     "common": {
@@ -838,11 +1032,35 @@
       "timingOverviewAutoScrollDesc": "Zamanlama görünümünü oynatma konumuna göre kaydırır.",
       "vsyncDesc": "Standard ve Toxi önizlemelerini saniyede yaklaşık 30 kez yerine her karede günceller. Daha akıcıdır, ancak daha fazla CPU kullanır.",
       "showFpsDesc": "Önizlemede kare hızı sayacı gösterir.",
-      "syncLevelDesc": "Kelime: her kelimeyi ayrı zamanlayın. Satır: tüm satırı zamanlayıp kelimeleri eşit dağıtın. Bu kaba senkronizasyonu spektrogramda ince ayarlayabilirsiniz.",
+      "syncLevelDesc": "Kelime: her kelimeyi ayrı zamanlayın. Satır: tüm satırı zamanlayıp kelimeleri eşit dağıtın. Satır modu da her kelimenin zamanını kaydeder, satır senkronlu söz oluşturmaz; kelimeleri spektrogramda ince ayarlayın.",
       "previewModeDesc": "Önizleme sekmesinin hangi önizlemeyi göstereceğini seçin.",
       "spicyBackgroundDesc": "Spicy önizlemesinin arkasında ne görüneceği.",
       "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı."
     }
+  },
+  "preferencesShell": {
+    "flagLabel": "Yeni Tercihler düzeni",
+    "flagDesc": "Arama üstte ve uzun adların sığdığı bir kenar çubuğu. Klasik düzene dönmek için kapatın.",
+    "matchCount": "Eşleşen ayarlar: {count}",
+    "noResults": "\"{query}\" ile eşleşen ayar yok",
+    "noResultsDesc": "Başka bir kelime deneyin veya aramayı temizleyin."
+  },
+  "preferencesPages": {
+    "editing": "Düzenleme",
+    "editingDesc": "Düzenleme modunun her satırda ve kelimede gösterdikleri.",
+    "syncing": "Senkronizasyon",
+    "syncingDesc": "Zamanlama tuşları, kaydırmalar ve Zaman modunun gösterdikleri.",
+    "preview": "Önizleme",
+    "previewDesc": "Önizleme sekmesinin gösterdikleri ve ne kadar akıcı çalıştığı.",
+    "audio": "Ses ve spektrogram",
+    "files": "İçe aktarma ve dosyalar",
+    "filesDesc": "İçe aktarırken temizleme, dışa aktarma ve klasör projeleri.",
+    "backup": "Yedek",
+    "backupDesc": "Otomatik kaydetme geçmişi ve taşınabilir yedekler.",
+    "experimental": "Deneysel",
+    "experimentalDesc": "Hâlâ geliştirilen özellikler. Her biri siz açana kadar kapalı kalır.",
+    "turnAllOff": "Hepsini kapat",
+    "turnAllOffLabel": "{area} altındaki tüm deneysel özellikleri kapat"
   },
   "timingOverview": {
     "start": "Başlangıç",
@@ -858,6 +1076,10 @@
     "order": "Sıra",
     "orderChronological": "Zamana göre",
     "orderTextual": "Metne göre"
+  },
+  "joinSplitWords": {
+    "label": "Bölünmüş kelimeleri birleştir",
+    "description": "Parçalar halinde söylenen bir kelimeyi, parçalar düzenli şekilde hizalandığında tek kelime olarak gösterir; Spicy Lyrics'teki Join Split Words ayarı gibi."
   },
   "topBar": {
     "modeBtns": {
@@ -910,6 +1132,36 @@
       "spectrogramHoverSync": "Fare konumunda senkronize et",
       "changelog": "Değişiklik günlüğü ve güncellemeler",
       "projects": "Projeler"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Yazıya dök",
+    "modeBtnDesc": "Şarkı çalarken sözleri düz metin olarak yazın.",
+    "enable": "Yazıya dök sekmesi",
+    "enableDesc": "Şarkı çalarken sözleri düz metin olarak yazmak için bir Yazıya dök sekmesi ekler.",
+    "title": "Yazıya dök",
+    "stats": "{lines, plural, one {# satır} other {# satır}}, {words, plural, one {# kelime} other {# kelime}}",
+    "tidy": "Düzeni topla",
+    "export": "Dışa aktar",
+    "copyGenius": "Genius metni olarak kopyala",
+    "copyPlain": "Düz metin olarak kopyala",
+    "saveGenius": "Genius metni olarak kaydet...",
+    "savePlain": "Düz metin olarak kaydet...",
+    "sendToImport": "Düzenleyiciye aktar...",
+    "textLabel": "Döküm",
+    "placeholder": "Sözleri duyduğunuz gibi, her satıra bir dize olacak şekilde yazın. [Verse 1] gibi bölüm başlıklarını ayrı bir satıra koyun.",
+    "copied": "Panoya kopyalandı.",
+    "copyFailed": "Metin kopyalanamadı.",
+    "saveFailed": "Dosya kaydedilemedi.",
+    "textFiles": "Metin dosyaları",
+    "keys": {
+      "label": "Metin kutusundaki kısayollar",
+      "playPause": "Oynat veya duraklat",
+      "back": "3 saniye geri",
+      "forward": "3 saniye ileri",
+      "slower": "Daha yavaş",
+      "faster": "Daha hızlı",
+      "resetSpeed": "Normal hız"
     }
   },
   "header": {
@@ -1044,7 +1296,39 @@
       "audioDesc": "Oynatma, ekolayzer ve spektrogram görünümü."
     }
   },
-  "autoSegmentApplied": "{engine} ile otomatik bölündü",
+  "keyboardView": {
+    "title": "Klavye",
+    "flagTitle": "Klavye görünümü ve ikinci tuşlar",
+    "flagDesc": "Deneysel. Kısayollarınızı bir klavye üzerinde gösterir ve bir eyleme birden fazla tuş vermenizi sağlar.",
+    "search": "Eylem ara",
+    "searchResults": "{count, plural, =0 {Eşleşen eylem yok} one {# eylem eşleşiyor} other {# eylem eşleşiyor}}",
+    "layout": "Klavye düzeni",
+    "layoutAuto": "Otomatik",
+    "layoutDetected": "Algılanan: {layout}",
+    "layoutUnavailable": "Düzen burada algılanamıyor, bu yüzden QWERTY gösteriliyor",
+    "layerHint": "Onu kullanan kısayolları görmek için Shift gibi bir değiştirici tuşa tıklayın.",
+    "category": {
+      "sync": "Senkron",
+      "edit": "Düzenleme",
+      "playback": "Oynatma",
+      "navigation": "Gezinme"
+    },
+    "free": "Boş",
+    "keyFree": "{key}: boş",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "{key} ile kısayolları göster",
+    "freeKey": "{key} henüz hiçbir şey tarafından kullanılmıyor.",
+    "assignLabel": "Eylem",
+    "assignPlaceholder": "Bir eylem seçin...",
+    "assign": "{key} tuşuna ekle",
+    "changeKey": "Tuşu değiştir",
+    "addKey": "İkinci tuş ekle",
+    "removeKey": "{key} tuşunu kaldır",
+    "duplicateKey": "Bu tuş bu eylem için zaten ayarlı.",
+    "otherLayers": "Bu tuşta ayrıca",
+    "closePanel": "Kapat"
+  },
+  "autoSegmentApplied":"{engine} ile otomatik bölündü",
   "error": {
     "unsupportedFileFormat": "Desteklenmeyen dosya biçimi: {ext}",
     "openFileFailed": "Dosya açılamadı",
@@ -1104,6 +1388,13 @@
     "playPause": "Müziği oynat/duraklat",
     "expandSpectrogram": "Spektrogramı genişlet/daralt"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Yüklenen sesten tahmin edilir. Bazı şarkılarda iki katı veya yarısı çıkabilir.",
+    "setting": "Tahmini tempoyu göster",
+    "settingDesc": "Ses yüklendikten sonra şarkının BPM değerini tahmin eder ve Zaman şeridinde gösterir."
+  },
   "latencyTestDialog": {
     "title": "Gecikme testi",
     "latencyDisplay": {
@@ -1161,6 +1452,11 @@
     "addPresets": "Tüm standart alanları ekle",
     "clear": "Temizle"
   },
+  "helpText": {
+    "metadataArtists": "Şarkıyı seslendiren kişi, parçanın yayın hizmetlerinde listelendiği şekliyle. Örnek: \"Shake It Off\" Taylor Swift'in şarkısıdır.",
+    "metadataSongwriter": "Müziği ve sözleri yazan kişiler, yazar bilgilerine göre. Çoğu zaman sanatçılardan farklıdır. Örnek: \"Shake It Off\" şarkısını Taylor Swift, Max Martin ve Shellback yazdı.",
+    "learnMore": "Daha fazla bilgi"
+  },
   "lrclib": {
     "placeholder": "Şarkı adı ve sanatçı…",
     "notFound": "Sonuç yok. Farklı anahtar kelimeler deneyin.",
@@ -1183,6 +1479,12 @@
     "insertLine": "Buraya yeni satır ekle",
     "insertWord": "Buraya kelime ekle…"
   },
+  "editModeTools": {
+    "toggleTitle": "Düzenleme modu araçları",
+    "toggleDesc": "Yazılan bir satırı kelimelere böler, ana ve düet satırlarını değiştirir ve her projeyi Düzenleme modundan ayrıldığınız yerde açar.",
+    "swapDuetAll": "Ana ve düet satırlarını değiştir",
+    "swapDuetSelected": "Ana ve düeti değiştir"
+  },
   "lyricWordView": {
     "empty": "Boş",
     "spaceCount": "Boşluk ×{count}",
@@ -1191,6 +1493,14 @@
     "editingWordDesc": "Kelimeyi düzenleyin veya önerilen hızlı düzeltmeleri uygulayın.",
     "correctedWordPlaceholder": "Düzeltilen kelimeyi yazın",
     "noSuggestions": "Öneri yok"
+  },
+  "timeModeEditing": {
+    "flagTitle": "Zamanla modunda kelime düzenleme",
+    "flagDesc": "Zamanla modunda sağ tık menüsünden kelimeleri bölün, birleştirin ve değiştirin. İki parçalı bölme, oynatma konumu kelimenin içindeyse orada yapılır.",
+    "doubleClickTimestamp": "Çift tıklama zaman damgasını düzenler",
+    "doubleClickTimestampDesc": "Zamanla modunda bir kelimenin metni yerine başlangıç zamanını yazmak için üzerine çift tıklayın. Zaman damgalarının gösterilmesi gerekir.",
+    "combinePrevious": "Önceki kelimeyle birleştir",
+    "combineNext": "Sonraki kelimeyle birleştir"
   },
   "sectionActions": {
     "categorizeSelected": "Seçili {count, plural, one {# satırı} other {# satırı}} kategorilere ayır",
@@ -1217,9 +1527,43 @@
     "addToNext": "Atanmamış satırları sonraki bölüme ekle",
     "section": "Bölüm"
   },
+  "sectionEditing": {
+    "toggleTitle": "Bölüm düzenleme araçları",
+    "toggleDesc": "Bir bölüm başlığına tıklayarak adını veya türünü değiştirin, istediğiniz satırda yeni bir bölüm başlatın ve tekrar eden bölümler arasında zamanlamaları kopyalayın. Bir TTML açtığınızda Apple şarkı bölümlerini de okur. Bölümleri Spicy Lyrics değil, düzenleyici kullanır.",
+    "editHeader": "{label} adını veya türünü değiştir",
+    "menu": "Bölüm eylemleri",
+    "startHere": "Bölümü buradan başlat",
+    "moveStartUp": "Başlangıcı bir satır yukarı taşı",
+    "moveStartDown": "Başlangıcı bir satır aşağı taşı",
+    "applyTimings": "Zamanlamaları şuradan uygula...",
+    "applyTitle": "Başka bir bölümden zamanlamaları uygula",
+    "applyDesc": "Başka bir bölümün zamanlamasını bu bölüme kopyalar. Satırlar kelimelerine göre eşleştirilir; yalnızca eşleşen kelimeler zamanlama alır, kalanlar zamanlamasız bırakılır.",
+    "source": "Kopyalanacak bölüm",
+    "suggested": "Önerilen",
+    "similarity": "%{percent} aynı kelime",
+    "noSources": "Henüz zamanlaması olan başka bölüm yok. Önce birini senkronize edin.",
+    "anchor": "Başlangıç noktası",
+    "anchorSection": "Bu bölümün zamanlanmış ilk satırı ({time})",
+    "anchorPlayhead": "Oynatma konumu ({time})",
+    "refineNote": "Kopyalanan zamanlamalar yalnızca bir başlangıç noktasıdır. Bölümü oynatın ve uymayanları düzeltin.",
+    "apply": "Uygula",
+    "applied": "Zamanlamalar {total} satırdan {copied} tanesine kopyalandı. {untimed, plural, =0 {Tüm kelimeler eşleşti.} one {# kelime zamanlamasız kaldı.} other {# kelime zamanlamasız kaldı.}}",
+    "nothingMatched": "Bu bölümdeki hiçbir satır diğer bölümle eşleşmiyor, bu yüzden hiçbir şey kopyalanmadı."
+  },
   "touchSyncPanel": {
     "prevWord": "Önceki kelime",
     "nextWord": "Sonraki kelime"
+  },
+  "lineSync": {
+    "flagTitle": "Satır senkronizasyonu",
+    "flagDesc": "Her şarkının kelime kelime ya da tam satırlarla zamanlanmasını sağlar. Satır modunda F, G ve H tam satırları başlatır ve bitirir.",
+    "timing": "Şarkı zamanlaması",
+    "timingDesc": "Kelime: her kelimenin kendi zamanı olur. Satır: yalnızca tam satırlar zamanlanır ve TTML satır senkronlu olarak dışa aktarılır.",
+    "word": "Kelime",
+    "line": "Satır",
+    "confirmTitle": "Satır zamanlamasına geçilsin mi?",
+    "confirmDescription": "Her kelime metnini korur ama kendi zamanlamasını kaybeder. Her satır başlangıcını ve bitişini korur. Bunu geri alabilirsin.",
+    "confirmAction": "Satıra geç"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
@@ -1241,6 +1585,48 @@
     "placeholder": "Yeni Latin harflerine çeviri",
     "applyToAll": "Tüm özdeş kelimelere uygula",
     "caseSensitive": "Büyük/küçük harfe duyarlı"
+  },
+  "romanizationTools": {
+    "group": "Romanizasyon ve bölme",
+    "flag": "Deneysel romanizasyon araçları",
+    "flagDesc": "Kurala dayalı İngilizce bölme, Japonca bölme boyutu, romanize edilmiş sayfa yapıştırma ve çevirileri başlığa aktarma.",
+    "japaneseGranularity": "Japonca bölme boyutu",
+    "japaneseGranularityDesc": "Otomatik bölmenin Japonca sözleri nasıl ayıracağı. Küçük kana, ー ve っ kendi seslerinin yanında kalır.",
+    "granularity": {
+      "syllable": "Hece",
+      "syllableDesc": "Parça başına bir ses, ん önceki sese katılır",
+      "mora": "Mora",
+      "moraDesc": "Parça başına bir vuruş, ん ayrı bir parçadır",
+      "word": "Kelime",
+      "wordDesc": "Tam kelimeler"
+    },
+    "translationFormat": "Çeviri aktarımı",
+    "translationFormatDesc": "Çevirilerin aktarılan TTML'de nereye yazılacağı. Spicy Lyrics yalnızca satır içi çevirileri okur.",
+    "format": {
+      "inline": "Satır içi",
+      "inlineDesc": "Her satırda, önceki gibi. Spicy Lyrics bunu okur.",
+      "head": "Başlık",
+      "headDesc": "Apple tarzı, dosya başlığında. Spicy Lyrics bunları romanizasyon olarak gösterebilir."
+    },
+    "translationLanguage": "Çeviri dili",
+    "translationLanguageDesc": "Başlıktaki çevirilerin dil kodu, örneğin en veya es.",
+    "paste": {
+      "button": "Romanizasyon yapıştır...",
+      "tooltip": "Kelime başına romanizasyonu Genius gibi romanize edilmiş bir söz sayfasından doldurur.",
+      "title": "Romanize sözleri yapıştır",
+      "description": "Romanize edilmiş bir söz sayfası yapıştırın, her söz satırı için bir satır. Bölüm başlıkları ve boş satırlar atlanır, arka plan satırlarına dokunulmaz.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Romanizasyonu doldur",
+      "lineCountMismatch": "Sayfada {received} satır, sözlerde {expected} satır var. Eşleşmeleri için satır ekleyin veya silin.",
+      "applied": "Romanizasyon dolduruldu: {count} satır.",
+      "check": "Bazı kelimeler tahmin edildi. {lines} numaralı satırları kontrol edin."
+    },
+    "genius": {
+      "find": "Genius'ta bul",
+      "titleLabel": "Şarkı adı",
+      "none": "Romanize sayfa bulunamadı. Adı Genius'un yazdığı gibi deneyin.",
+      "failed": "Genius yanıt vermedi: {message}"
+    }
   },
   "timeShiftDialog": {
     "title": "Zaman kaydırma",
@@ -1296,6 +1682,25 @@
     "howToGetKey": "Genius erişim belirteci nasıl alınır",
     "changeKey": "Erişim belirtecini değiştir"
   },
+  "referenceSidebar": {
+    "setting": "Başvuru paneli",
+    "settingDesc": "Düzenle ve Zamanla modunda önizlemeyi ve şarkının Genius sözlerini sağa sabitler. Önizleme panelinin yerini alır.",
+    "label": "Başvuru paneli",
+    "collapse": "Paneli daralt",
+    "tabs": {
+      "preview": "Önizleme",
+      "genius": "Genius",
+      "problems": "Sorunlar"
+    },
+    "genius": {
+      "changeSong": "Şarkıyı değiştir",
+      "backToLyrics": "Sözlere dön",
+      "searchFailed": "Arama başarısız: {error}",
+      "loadFailed": "Sözler yüklenemedi: {error}",
+      "retry": "Tekrar dene",
+      "lyricsLabel": "{title} için Genius sözleri"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Şarkı sözlerini işle",
     "processedSuccess": "Şarkı sözleri hece senkronizasyonu için hazırlandı.",
@@ -1322,6 +1727,13 @@
     "title": "Algılanan bölümleri incele",
     "lineCount": "{count, plural, one {# şarkı sözü satırı} other {# şarkı sözü satırı}}"
   },
+  "importInlineSections": {
+    "title": "Bölümler",
+    "hint": "Buradaki değişiklikler metindeki başlık satırlarını yeniden yazar.",
+    "mergeUp": "Üstteki bölümle birleştir",
+    "setting": "Bölümleri içe aktarma metninin yanında düzenle (deneysel)",
+    "settingDesc": "Algılanan bölümleri içe aktarma ekranında şarkı sözlerinin yanında gösterir ve Bölümleri gözden geçir adımı olmadan tek adımda içe aktarır."
+  },
   "globalDragOverlay": {
     "title": "Yüklemek için bırakın"
   },
@@ -1346,6 +1758,14 @@
   "autosave": {
     "legacyProjectName": "Eski anlık görüntüler",
     "untitledProjectName": "Adsız proje"
+  },
+  "didYouKnow": {
+    "title": "Biliyor muydunuz?",
+    "repeatedSection": "Tekrarlanan satırlar önceki zamanlamayı yeniden kullanabilir. Önceki satırları seçin, oynatma konumunu tekrarın başladığı yere getirin ve Oynatma konumunda çoğalt seçeneğini kullanın.",
+    "splitInTimeMode": "Zamanla modundan çıkmadan bir kelimeyi bölebilirsiniz: {modifier} tuşunu basılı tutup kelimeye çift tıklayın.",
+    "turnOff": "İpuçlarını gösterme",
+    "setting": "İpuçlarını göster",
+    "settingDesc": "Daha hızlı bir yolu olan bir işi elle yaptığınızda kısa bir ipucu gösterir. Her ipucu yalnızca bir kez gösterilir."
   },
   "time": {
     "daysAgo": "{count, plural, one {# gün önce} other {# gün önce}}",
@@ -1465,6 +1885,20 @@
     "apply": "Öneriyi uygula",
     "noSuggestions": "Bu içerik için otomatik bölme önerisi yok."
   },
+  "changelogScreen": {
+    "setting": "Yeni değişiklik günlüğü ekranı",
+    "settingDesc": "Her sürümü, önce öne çıkanlar sonra yeni, değişen ve düzeltilenler olacak şekilde bir kart olarak göster. Kapalıyken mevcut değişiklik günlüğü kalır.",
+    "viewLabel": "Göster",
+    "viewAll": "Tümü",
+    "viewHighlights": "Öne çıkanlar",
+    "highlights": "Öne çıkanlar",
+    "latest": "En yeni",
+    "sectionNew": "Yeni",
+    "sectionChanged": "Değişti",
+    "sectionFixed": "Düzeltildi",
+    "close": "Kapat",
+    "empty": "Gösterilecek sürüm yok."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Apple Music tarzı şarkı sözleri için kelime kelime TTML düzenleyicisi ve zamanlama aracı",
@@ -1487,6 +1921,25 @@
     "openContributorProfile": "{name} kullanıcısının GitHub profilini aç",
     "unknown": "Bilinmiyor"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Ayrı şeritler",
+    "settingDesc": "Arka vokal satırlarını ana satırların altında kendi şeritlerinde göster. Şeritler yalnızca görüntü içindir: bir satırın rolünü Düzenle modunda değiştirin.",
+    "menu": "Şeritler",
+    "visibleLanes": "Şeritleri göster",
+    "duetLane": "Ayrı düet şeridi",
+    "lane": {
+      "main": "Ana",
+      "duet": "Düet",
+      "bg": "Arka vokal"
+    }
+  },
+  "spectrogramLineEnds": {
+    "settingTitle": "Tek satır sonu tutamacı",
+    "settingDesc": "Bir satır ve son kelimesi birlikte bittiğinde tek bir tutamaç gösterir ve sürüklemek ikisini birden taşır. Alt ile sürüklemek yalnızca birini taşır. Farklı olduklarında son kelimenin sonu kısa, satırın sonu uzun bir çubuktur.",
+    "mergedHandle": "Satırın ve son kelimenin sonu. Yalnızca birini taşımak için Alt ile sürükleyin.",
+    "wordEndHandle": "Son kelimenin sonu",
+    "lineEndHandle": "Satır sonu"
+  },
   "spectrogram": {
     "invalidEndTime": "Bu bitiş zamanı seçilemez",
     "noAudioLoaded": "Spektrogramı göstermek için ses dosyası yükleyin",
@@ -1502,6 +1955,17 @@
       "4096": "4096 (en fazla ayrıntı)"
     },
     "height": "Görünüm yüksekliği"
+  },
+  "spectrogramFollow": {
+    "toggle": "Oynatma imlecini takip et",
+    "shortcut": "Spektrogram - Oynatma imlecini takibi aç/kapat",
+    "setting": "Oynatma imlecini takip et",
+    "settingDesc": "Oynatma imleci görünür kalsın diye spektrogramı kaydırır. Kaydırmak veya sürüklemek, oynatmaya basana ya da bir süre bekleyene kadar takibi duraklatır. Spektrogram araç çubuğuna bir düğme ekler.",
+    "style": "Takip biçimi",
+    "page": "Sayfa sayfa",
+    "pageDesc": "İmleç görünümden çıkınca ileri atlar.",
+    "continuous": "Sürekli",
+    "continuousDesc": "İmleçle birlikte kayar ve onu ortada tutar."
   },
   "export": {
     "recoveryUntimed": "Bu kurtarma dışa aktarımı zamanlanmamış sözler içeriyor. Göndermeden önce zamanlamayı kontrol edin.",

@@ -343,3 +343,91 @@
 	transition: none !important;
 	filter: none !important;
 }
+
+/* ── Toxi tight layout (toxiTightLayout flag, off by default) ────────────
+   Layout and ink only. No new transitions, animations or filters, and the
+   active and inactive states share every size and spacing, so a line change
+   never reflows. Selectors start with `.isToxi.isToxiTight` so they outrank
+   the `!important` Toxi and background-line rules above. */
+.isToxi.isToxiTight {
+	/* Use the user's preview font, like the Spicy and Standard previews. */
+	font-family: var(
+		--preview-font-family,
+		var(--default-font-family, "Inter", -apple-system, sans-serif)
+	);
+}
+
+/* One centered column instead of 22% gutters on each side. */
+.isToxi.isToxiTight .header {
+	padding: 20px max(24px, calc((100% - 880px) / 2)) 8px;
+}
+
+.isToxi.isToxiTight .lyricsViewport {
+	padding: 0 max(24px, calc((100% - 880px) / 2));
+}
+
+.isToxi.isToxiTight .lineGroup {
+	padding: 10px 0;
+	margin-bottom: 0;
+	/* Full size at rest: the old 0.9 scale left a gap around every line. */
+	transform: scale(1);
+}
+
+.isToxi.isToxiTight .lineGroupActive {
+	/* Small enough to stay inside the column gutter. */
+	transform: scale(1.02);
+}
+
+.isToxi.isToxiTight .wordsContainer {
+	row-gap: 2px;
+}
+
+.isToxi.isToxiTight .lineDuetR .wordsContainer {
+	padding-right: 0;
+}
+
+.isToxi.isToxiTight .wordStatic,
+.isToxi.isToxiTight .word {
+	line-height: 1.15;
+	padding: 0.08em 0;
+}
+
+/* Unsung ink. Upcoming lines were close to invisible (10% white at 35%
+   opacity), so the column looked empty. */
+.isToxi.isToxiTight .wordStatic {
+	color: rgba(255, 255, 255, 0.5);
+	opacity: 1;
+}
+
+.isToxi.isToxiTight .word {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.isToxi.isToxiTight .wordActive {
+	/* background-image, not the shorthand, so background-clip: text stays. */
+	background-image: linear-gradient(
+		to right,
+		#fff var(--progress),
+		rgba(255, 255, 255, 0.5) calc(var(--progress) + var(--fade-width))
+	);
+}
+
+/* Background lines: smaller and lighter than the main line, upright, set
+   close under it and indented, with the same ink as the main line. */
+.isToxi.isToxiTight .lineBG {
+	margin-top: 0;
+	padding-inline-start: 1.5rem;
+	font-style: normal;
+}
+
+.isToxi.isToxiTight .lineBG.lineDuetR {
+	padding-inline-start: 0;
+	padding-inline-end: 1.5rem;
+}
+
+.isToxi.isToxiTight .lineBG .wordStatic,
+.isToxi.isToxiTight .lineBG .word {
+	font-size: 1.7rem !important;
+	font-weight: 600;
+	opacity: 1;
+}

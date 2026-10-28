@@ -3,6 +3,12 @@
     "changelogTitle": "Seznam změn a aktualizace",
     "viewCommits": "Zobrazit commity na GitHubu"
   },
+  "updatedToast": {
+    "message": "Aktualizováno na v{version}",
+    "seeChanges": "Co se změnilo",
+    "setting": "Po aktualizaci ukázat, co se změnilo",
+    "settingDesc": "Při prvním spuštění nové verze zobrazí krátké oznámení s odkazem na seznam změn."
+  },
   "app": {
     "error": {
       "title": "Jejda, došlo k chybě!",
@@ -29,9 +35,24 @@
   "onlineImport": {
     "noLyricsLabel": "Pro tuto skladbu nejsou k dispozici žádné texty."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Úsporné rozvržení",
+    "tightLayoutDesc": "Méně prázdného místa a lépe čitelné doprovodné řádky."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# řádek zatím nemá časování} few {# řádky zatím nemají časování} many {# řádku zatím nemá časování} other {# řádků zatím nemá časování}}",
     "jumpToUntimed": "Nastavit časy prvního řádku bez časování"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# slovo má problém s časováním} few {# slova mají problém s časováním} many {# slova má problém s časováním} other {# slov má problém s časováním}}",
+    "jump": "Vybrat první",
+    "setting": "Zobrazit problémy s časováním",
+    "settingDesc": "Označí červeně a čárkovaným obrysem slova, která by náhled Spicy kvůli jejich časování skryl nebo přehrál špatně.",
+    "untimed": "Nemá časování v časovaném řádku",
+    "endsBeforeStart": "Končí dřív, než začne",
+    "startsBeforeLine": "Začíná před svým řádkem",
+    "endsAfterLine": "Končí po svém řádku"
   },
   "beginnerGuide": {
     "empty": {
@@ -191,6 +212,16 @@
       "splitWordsHint": "Každou mezeru označí jako hranici slova pro import."
     }
   },
+  "importSplit": {
+    "title": "Slabiky",
+    "later": "Rozdělím později",
+    "laterHint": "Importuje celá slova. Rozdělte je později v editoru.",
+    "now": "Rozdělit teď",
+    "nowHint": "Označí slabiky v textu hned, abyste je mohli před importem opravit.",
+    "checkFirst": "Nová slova dostala značky slabik. Zkontrolujte je a pak importujte.",
+    "setting": "Dělit slabiky při importu",
+    "settingHint": "Přidá na obrazovku importu volbu Rozdělit teď nebo Rozdělím později. Rozdělit teď označí slabiky podle vašeho nastavení segmentace a naučených dělení a před importem je můžete opravit."
+  },
   "lyricMarkup": {
     "section": "Sekce: {label}",
     "joinSyllables": "Spojit slabiky",
@@ -211,6 +242,29 @@
       "missingTranslation": "Chybí překlad",
       "missingRomanization": "Chybí romanizace"
     }
+  },
+  "editAsText": {
+    "menuItem": "Upravit jako text...",
+    "title": "Upravit jako text",
+    "description": "Upravte celý text písně jako prostý text. Slova, která nezměníte, si ponechají časování.",
+    "textLabel": "Text písně",
+    "summaryTitle": "Změny",
+    "unchanged": "{count, plural, one {# řádek beze změny} few {# řádky beze změny} many {# řádku beze změny} other {# řádků beze změny}}",
+    "edited": "{count, plural, one {# upravený řádek} few {# upravené řádky} many {# upraveného řádku} other {# upravených řádků}}",
+    "editedHint": "Časování zůstane tam, kde se slova shodují.",
+    "moved": "{count, plural, one {# přesunutý řádek} few {# přesunuté řádky} many {# přesunutého řádku} other {# přesunutých řádků}}",
+    "added": "{count, plural, one {# přidaný řádek} few {# přidané řádky} many {# přidaného řádku} other {# přidaných řádků}}",
+    "removed": "{count, plural, one {# odebraný řádek} few {# odebrané řádky} many {# odebraného řádku} other {# odebraných řádků}}",
+    "noChanges": "Zatím žádné změny.",
+    "droppedTimings": "{count, plural, one {# načasované slovo přijde o časování} few {# načasovaná slova přijdou o časování} many {# načasovaného slova přijde o časování} other {# načasovaných slov přijde o časování}}",
+    "lineNumber": "Řádek {line}",
+    "more": "{count, plural, one {a # další} few {a # další} many {a # dalšího} other {a # dalších}}",
+    "help": "Nová slova přijdou bez časování. Řádky, které se jen přesunuly, si časování ponechají. Použití vrátíte jedním krokem zpět.",
+    "apply": "Použít",
+    "applied": "Text byl použit. Jedním krokem zpět ho vrátíte.",
+    "failed": "Text se nepodařilo použít. Zkontrolujte ho a zkuste to znovu.",
+    "setting": "Upravit jako text",
+    "settingDesc": "Přidá do nabídky Úpravy položku Upravit jako text: celý text písně upravíte jako prostý text a slova, na která nesáhnete, si ponechají časování."
   },
   "importChooser": {
     "options": {
@@ -279,6 +333,29 @@
       "copyPrevious": "Kopírovat předchozí časování"
     }
   },
+  "logoColor": {
+    "title": "Barva loga",
+    "description": "Experimentální. Vyberte barvu loga v záhlaví okna a na úvodní obrazovce průvodce.",
+    "colorLabel": "Barva",
+    "customLabel": "Vlastní barva loga",
+    "designNote": "Logo se zobrazuje jen se zapnutým designem Spicy Lyrics.",
+    "presets": {
+      "default": "Výchozí",
+      "defaultDesc": "Vlastní barva designu",
+      "lilac": "Šeříková",
+      "lilacDesc": "Z loga v3",
+      "purple": "Fialová",
+      "purpleDesc": "Z vícebarevného loga",
+      "red": "Červená",
+      "redDesc": "Z loga v0.9",
+      "gold": "Zlatá",
+      "green": "Zelená",
+      "blue": "Modrá",
+      "white": "Bílá",
+      "custom": "Vlastní",
+      "customDesc": "Vyberte libovolnou barvu"
+    }
+  },
   "common": {
     "close": "Zavřít",
     "autoDetect": "Automatická detekce",
@@ -332,6 +409,20 @@
       "title": "Vyberte složku pracovního prostoru s projekty"
     }
   },
+  "commandPalette": {
+    "title": "Paleta příkazů",
+    "placeholder": "Hledat příkazy a nastavení",
+    "noResults": "Žádné odpovídající příkazy ani nastavení",
+    "commandTag": "Příkaz",
+    "settingTag": "Předvolby",
+    "hint": "Šipkami se posunete, Enter spustí, Esc zavře",
+    "notRunnable": "Příkaz se nepodařilo spustit. Přiřaďte mu zkratku v Předvolbách a zkuste to znovu.",
+    "menu": "Paleta příkazů...",
+    "shortcut": "Zobrazení – otevřít paletu příkazů",
+    "shortcutAlternate": "Zobrazení – otevřít paletu příkazů (alternativní zkratka)",
+    "settingLabel": "Paleta příkazů",
+    "settingDesc": "Najděte příkazy a stránky nastavení podle názvu. Otevřete ji zkratkou {shortcut} nebo z nabídky Nápověda."
+  },
   "projectsDialog": {
     "title": "Projekty",
     "tabProject": "Projekt",
@@ -371,6 +462,82 @@
     "noProjectsFound": "V této složce nebyly nalezeny žádné projekty",
     "projectsFound": "{count, plural, one {Nalezen # projekt} few {Nalezeny # projekty} many {Nalezeno # projektu} other {Nalezeno # projektů}}",
     "scanFailed": "Složku pracovního prostoru se nepodařilo prohledat"
+  },
+  "projectsHub": {
+    "enable": "Seznam skladeb a úvodní obrazovka",
+    "enableDesc": "Přidá do Projektů seznam K synchronizaci a prohledání složky, úvodní obrazovku do prázdného editoru, nabídku pokračovat v poslední relaci po spuštění, otevření TTML a zvuku jedním přetažením a export jako prostý text nebo text pro Genius.",
+    "menuProjects": "Projekty...",
+    "tabSongs": "K synchronizaci",
+    "songs": {
+      "description": "Skladby, které chcete synchronizovat příště. Založte z nich projekt a po exportu TTML se označí jako hotové.",
+      "addManually": "Zadat ručně",
+      "searchGenius": "Hledat na Genius",
+      "add": "Přidat do seznamu",
+      "added": "Skladba {song} byla přidána do seznamu.",
+      "alreadyListed": "Skladba {song} už v seznamu je.",
+      "searchFailed": "Hledání na Genius se nezdařilo.",
+      "start": "Založit projekt",
+      "started": "Skladba {song} založena. Importujte nebo napište text, pak načtěte zvuk.",
+      "startDirty": "Máte neuložené změny. Založením skladby {song} se nahradí text v editoru.",
+      "markedDone": "Skladba {song} je označena jako hotová.",
+      "inProgress": "Rozpracováno",
+      "empty": "Zatím tu nic není. Přidejte další skladbu, než ji zapomenete.",
+      "showNotes": "Zobrazit poznámky",
+      "showCompleted": "Hotové ({count})",
+      "hideCompleted": "Skrýt hotové",
+      "markDone": "Hotovo",
+      "reopen": "Znovu otevřít",
+      "edit": "Upravit skladbu",
+      "delete": "Odebrat skladbu",
+      "toolMenu": "K synchronizaci..."
+    },
+    "scan": {
+      "tab": "Prohledat složku",
+      "select": "Prohledat složku a najít TTML...",
+      "pairsTitle": "Soubory, které lze propojit jako projekty",
+      "pairsHint": "Soubor TTML a zvukový soubor se stejným názvem. Propojení nechá oba soubory na místě.",
+      "link": "Propojit",
+      "linkAll": "Propojit vše",
+      "linked": "{name} je propojeno jako projekt.",
+      "linkedCount": "{count, plural, one {Propojen # projekt} few {Propojeny # projekty} many {Propojeno # projektu} other {Propojeno # projektů}}",
+      "linkFailed": "{name} se nepodařilo propojit.",
+      "noPairs": "Nenašly se žádné soubory TTML a zvuku se stejným názvem.",
+      "scanning": "Hledám soubory..."
+    },
+    "start": {
+      "title": "Začít synchronizovat",
+      "description": "Otevřete projekt, vyberte skladbu ze seznamu nebo začněte od textu.",
+      "startedDescription": "Přidejte text z prostého textu nebo z Genius, pak načtěte zvuk.",
+      "fromText": "Nový z textu",
+      "fromGenius": "Nový z Genius",
+      "openFile": "Otevřít soubor...",
+      "openFolder": "Otevřít projekt ve složce...",
+      "projects": "Projekty...",
+      "recent": "Nedávné projekty",
+      "songs": "K synchronizaci",
+      "seeAll": "Zobrazit vše",
+      "startSong": "Založit projekt pro {song}"
+    },
+    "resume": {
+      "title": "Pokračovat, kde jste skončili?",
+      "description": "{name} bylo naposledy upraveno {time}. Obnovení z historie si každé automatické uložení ponechá v obou případech.",
+      "continue": "Pokračovat",
+      "startFresh": "Začít znovu",
+      "restored": "{name} obnoveno."
+    },
+    "export": {
+      "plainText": "Prostý text...",
+      "geniusText": "Text pro Genius...",
+      "copyGenius": "Kopírovat jako text pro Genius",
+      "copied": "Text byl zkopírován jako text pro Genius.",
+      "copyFailed": "Text se nepodařilo zkopírovat.",
+      "saveFailed": "Soubor se nepodařilo uložit.",
+      "textFiles": "Textové soubory",
+      "empty": "Není co exportovat."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {Přeskočen # soubor. Přetáhněte najednou jeden soubor s textem a jeden zvukový soubor.} few {Přeskočeny # soubory. Přetáhněte najednou jeden soubor s textem a jeden zvukový soubor.} many {Přeskočeno # souboru. Přetáhněte najednou jeden soubor s textem a jeden zvukový soubor.} other {Přeskočeno # souborů. Přetáhněte najednou jeden soubor s textem a jeden zvukový soubor.}}"
+    }
   },
   "ribbonBar": {
     "advancedTooltip": "Platí pro pásy karet Úpravy, Časování a Náhled.",
@@ -487,6 +654,33 @@
     },
     "loading": "Načítání panelu...",
     "advanced": "Pokročilé"
+  },
+  "ribbonCustomize": {
+    "customize": "Přizpůsobit pás karet",
+    "customizeDesc": "Skryjte, přeuspořádejte nebo připněte oddíly tohoto pásu karet, nebo je přesuňte do nabídky Další.",
+    "title": "Přizpůsobit tento pás karet",
+    "hint": "Některé oddíly se zobrazí jen při výběru nebo se zapnutou volbou Pokročilé.",
+    "reset": "Obnovit",
+    "resetDone": "Pás karet obnoven na výchozí",
+    "pin": "Připnout {{name}} na začátek",
+    "unpin": "Odepnout {{name}}",
+    "pinned": "Připnuto",
+    "moveUp": "Posunout {{name}} nahoru",
+    "moveDown": "Posunout {{name}} dolů",
+    "moved": "{{name}} je nyní na pozici {{position}}",
+    "placement": {
+      "label": "Kde zobrazit {{name}}",
+      "ribbon": "Pás karet",
+      "ribbonDesc": "Zobrazit na pásu karet.",
+      "more": "Další",
+      "moreDesc": "Ponechat v nabídce Další na konci pásu karet.",
+      "hidden": "Skryto",
+      "hiddenDesc": "Nikde nezobrazovat."
+    },
+    "more": "Další",
+    "moreDesc": "Oddíly, které jste přesunuli z pásu karet.",
+    "settingLabel": "Přizpůsobitelné pásy karet",
+    "settingDesc": "Přidá tlačítko Přizpůsobit na pásy karet Úpravy, Časování a Náhled, kterým můžete oddíly skrýt, přeuspořádat, připnout nebo přesunout do nabídky Další."
   },
   "settings": {
     "common": {
@@ -838,11 +1032,35 @@
       "timingOverviewAutoScrollDesc": "Udržovat přehled časování posunutý na pozici přehrávání.",
       "vsyncDesc": "Aktualizovat náhledy Standard a Toxi v každém snímku místo zhruba 30krát za sekundu. Plynulejší, ale náročnější na CPU.",
       "showFpsDesc": "Zobrazit v náhledu počítadlo snímků za sekundu.",
-      "syncLevelDesc": "Slova: časovat každé slovo zvlášť. Řádky: časovat celé řádky a rovnoměrně rozložit jejich slova. Hrubé časování pak doladíte ve spektrogramu.",
+      "syncLevelDesc": "Slova: časovat každé slovo zvlášť. Řádky: časovat celé řádky a rovnoměrně rozložit jejich slova. I režim Řádky ukládá časování slov, ne časování po řádcích. Slova pak doladíte ve spektrogramu.",
       "previewModeDesc": "Vyberte, který náhled se zobrazí na kartě Náhled.",
       "spicyBackgroundDesc": "Co se zobrazuje za náhledem Spicy.",
       "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi."
     }
+  },
+  "preferencesShell": {
+    "flagLabel": "Nové rozvržení předvoleb",
+    "flagDesc": "Vyhledávání nahoře a postranní panel, do kterého se vejdou dlouhé názvy. Vypnutím se vrátíte ke klasickému rozvržení.",
+    "matchCount": "Odpovídající nastavení: {count}",
+    "noResults": "Žádné nastavení neodpovídá „{query}“",
+    "noResultsDesc": "Zkuste jiné slovo nebo vymažte hledání."
+  },
+  "preferencesPages": {
+    "editing": "Úpravy",
+    "editingDesc": "Co režim Úpravy zobrazuje u každého řádku a slova.",
+    "syncing": "Synchronizace",
+    "syncingDesc": "Klávesy pro časování, posuny a co zobrazuje režim Čas.",
+    "preview": "Náhled",
+    "previewDesc": "Co zobrazuje karta Náhled a jak plynule běží.",
+    "audio": "Zvuk a spektrogram",
+    "files": "Import a soubory",
+    "filesDesc": "Čištění při importu, export a složkové projekty.",
+    "backup": "Záloha",
+    "backupDesc": "Historie automatického ukládání a přenosné zálohy.",
+    "experimental": "Experimentální",
+    "experimentalDesc": "Funkce, na kterých se ještě pracuje. Každá zůstane vypnutá, dokud ji nezapnete.",
+    "turnAllOff": "Vypnout vše",
+    "turnAllOffLabel": "Vypnout všechny experimentální funkce v sekci {area}"
   },
   "timingOverview": {
     "start": "Začátek",
@@ -858,6 +1076,10 @@
     "order": "Pořadí",
     "orderChronological": "Podle času",
     "orderTextual": "Podle textu"
+  },
+  "joinSplitWords": {
+    "label": "Spojit rozdělená slova",
+    "description": "Zobrazit slovo zpívané po částech jako jedno slovo, když jsou části rovnoměrně načasované, jako nastavení Join Split Words ve Spicy Lyrics."
   },
   "topBar": {
     "modeBtns": {
@@ -910,6 +1132,36 @@
       "spectrogramHoverSync": "Synchronizovat na pozici myši",
       "changelog": "Seznam změn a aktualizace",
       "projects": "Projekty"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Přepis",
+    "modeBtnDesc": "Pište text písně jako prostý text, zatímco skladba hraje.",
+    "enable": "Karta Přepis",
+    "enableDesc": "Přidá kartu Přepis pro psaní textu písně jako prostého textu, zatímco skladba hraje.",
+    "title": "Přepis",
+    "stats": "{lines, plural, one {# řádek} few {# řádky} many {# řádku} other {# řádků}}, {words, plural, one {# slovo} few {# slova} many {# slova} other {# slov}}",
+    "tidy": "Upravit rozložení",
+    "export": "Exportovat",
+    "copyGenius": "Kopírovat jako text Genius",
+    "copyPlain": "Kopírovat jako prostý text",
+    "saveGenius": "Uložit jako text Genius...",
+    "savePlain": "Uložit jako prostý text...",
+    "sendToImport": "Importovat do editoru...",
+    "textLabel": "Přepis",
+    "placeholder": "Pište text tak, jak ho slyšíte, jeden verš na řádek. Záhlaví sekcí jako [Verse 1] dejte na samostatný řádek.",
+    "copied": "Zkopírováno do schránky.",
+    "copyFailed": "Text se nepodařilo zkopírovat.",
+    "saveFailed": "Soubor se nepodařilo uložit.",
+    "textFiles": "Textové soubory",
+    "keys": {
+      "label": "Zkratky v textovém poli",
+      "playPause": "Přehrát nebo pozastavit",
+      "back": "Zpět o 3 sekundy",
+      "forward": "Vpřed o 3 sekundy",
+      "slower": "Pomaleji",
+      "faster": "Rychleji",
+      "resetSpeed": "Normální rychlost"
     }
   },
   "header": {
@@ -1044,7 +1296,39 @@
       "audioDesc": "Přehrávání, ekvalizér a zobrazení spektrogramu."
     }
   },
-  "autoSegmentApplied": "Automaticky rozděleno pomocí {engine}",
+  "keyboardView": {
+    "title": "Klávesnice",
+    "flagTitle": "Zobrazení klávesnice a druhé klávesy",
+    "flagDesc": "Experimentální. Zobrazí zkratky na klávesnici a umožní jedné akci mít více kláves.",
+    "search": "Hledat akce",
+    "searchResults": "{count, plural, =0 {Žádná akce neodpovídá} one {Odpovídá # akce} few {Odpovídají # akce} many {Odpovídá # akce} other {Odpovídá # akcí}}",
+    "layout": "Rozložení klávesnice",
+    "layoutAuto": "Automaticky",
+    "layoutDetected": "Zjištěno: {layout}",
+    "layoutUnavailable": "Rozložení zde nelze zjistit, zobrazuje se QWERTY",
+    "layerHint": "Klikněte na modifikační klávesu, například Shift, a uvidíte zkratky, které ji používají.",
+    "category": {
+      "sync": "Časování",
+      "edit": "Úpravy",
+      "playback": "Přehrávání",
+      "navigation": "Navigace"
+    },
+    "free": "Volná",
+    "keyFree": "{key}: volná",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Zobrazit zkratky s {key}",
+    "freeKey": "{key} zatím nic nepoužívá.",
+    "assignLabel": "Akce",
+    "assignPlaceholder": "Vyberte akci...",
+    "assign": "Přidat na {key}",
+    "changeKey": "Změnit klávesu",
+    "addKey": "Přidat druhou klávesu",
+    "removeKey": "Odebrat {key}",
+    "duplicateKey": "Tato klávesa je už pro tuto akci nastavena.",
+    "otherLayers": "Také na této klávese",
+    "closePanel": "Zavřít"
+  },
+  "autoSegmentApplied":"Automaticky rozděleno pomocí {engine}",
   "error": {
     "unsupportedFileFormat": "Nepodporovaný formát souboru: {ext}",
     "openFileFailed": "Nepodařilo se otevřít soubor",
@@ -1104,6 +1388,13 @@
     "playPause": "Přehrát / pozastavit hudbu",
     "expandSpectrogram": "Rozbalit / sbalit spektrogram"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Odhadnuto z načteného zvuku. U některých skladeb může vyjít dvojnásobné nebo poloviční.",
+    "setting": "Zobrazit odhadované tempo",
+    "settingDesc": "Po načtení zvuku odhadne BPM skladby a zobrazí ho na pásu Čas."
+  },
   "latencyTestDialog": {
     "title": "Test latence",
     "latencyDisplay": {
@@ -1161,6 +1452,11 @@
     "addPresets": "Přidat všechna standardní pole",
     "clear": "Vymazat"
   },
+  "helpText": {
+    "metadataArtists": "Kdo skladbu interpretuje, podle toho, jak je skladba uvedena ve streamovacích službách. Příklad: „Shake It Off“ je od Taylor Swift.",
+    "metadataSongwriter": "Kdo napsal hudbu a text, podle autorských údajů. Často jde o jiné lidi než interpreti. Příklad: „Shake It Off“ napsali Taylor Swift, Max Martin a Shellback.",
+    "learnMore": "Další informace"
+  },
   "lrclib": {
     "placeholder": "Název skladby a interpret…",
     "notFound": "Žádné výsledky, zkuste jiná klíčová slova",
@@ -1183,6 +1479,12 @@
     "insertLine": "Vložit nový řádek zde",
     "insertWord": "Vložit slovo zde…"
   },
+  "editModeTools": {
+    "toggleTitle": "Nástroje režimu úprav",
+    "toggleDesc": "Rozdělí napsaný řádek na slova, prohodí hlavní a duetové řádky a otevře každý projekt tam, kde jste opustili režim úprav.",
+    "swapDuetAll": "Prohodit hlavní a duetové řádky",
+    "swapDuetSelected": "Prohodit hlavní a duet"
+  },
   "lyricWordView": {
     "empty": "Prázdné",
     "spaceCount": "Mezera ×{count}",
@@ -1191,6 +1493,14 @@
     "editingWordDesc": "Upravte slovo nebo použijte navržené rychlé opravy.",
     "correctedWordPlaceholder": "Zadejte opravené slovo",
     "noSuggestions": "Žádné návrhy"
+  },
+  "timeModeEditing": {
+    "flagTitle": "Úpravy slov v režimu Časování",
+    "flagDesc": "Rozdělujte, slučujte a nahrazujte slova z kontextové nabídky v režimu Časování. Rozdělení na dvě části proběhne na pozici přehrávání, pokud je uvnitř slova.",
+    "doubleClickTimestamp": "Dvojklik upraví časovou značku",
+    "doubleClickTimestampDesc": "Dvojklikem na slovo v režimu Časování zadáte jeho počáteční čas místo textu. Vyžaduje zobrazené časové značky.",
+    "combinePrevious": "Sloučit s předchozím slovem",
+    "combineNext": "Sloučit s dalším slovem"
   },
   "sectionActions": {
     "categorizeSelected": "Zařadit {count, plural, one {# vybraný řádek} few {# vybrané řádky} many {# vybraného řádku} other {# vybraných řádků}}",
@@ -1217,9 +1527,43 @@
     "addToNext": "Přidat nezařazené řádky do další sekce",
     "section": "Sekce"
   },
+  "sectionEditing": {
+    "toggleTitle": "Nástroje pro úpravu sekcí",
+    "toggleDesc": "Kliknutím na záhlaví sekce ji přejmenujete nebo změníte její typ, sekci můžete začít na libovolném řádku a časování můžete kopírovat mezi opakovanými sekcemi. Při otevření TTML se také načtou části písně z Apple. Sekce používá editor, ne Spicy Lyrics.",
+    "editHeader": "Přejmenovat nebo změnit typ: {label}",
+    "menu": "Akce sekce",
+    "startHere": "Začít sekci zde",
+    "moveStartUp": "Posunout začátek o řádek nahoru",
+    "moveStartDown": "Posunout začátek o řádek dolů",
+    "applyTimings": "Použít časování z...",
+    "applyTitle": "Použít časování z jiné sekce",
+    "applyDesc": "Zkopíruje do této sekce časování jiné sekce. Řádky se párují podle slov; časování dostanou jen shodná slova, ostatní zůstanou bez časování.",
+    "source": "Kopírovat z",
+    "suggested": "Doporučeno",
+    "similarity": "{percent} % shodných slov",
+    "noSources": "Zatím žádná jiná sekce nemá časování. Nejdřív nějakou synchronizujte.",
+    "anchor": "Začít u",
+    "anchorSection": "Prvního načasovaného řádku této sekce ({time})",
+    "anchorPlayhead": "Přehrávací hlavy ({time})",
+    "refineNote": "Zkopírované časování je jen výchozí bod. Sekci přehrajte a opravte, co nesedí.",
+    "apply": "Použít",
+    "applied": "Časování zkopírováno u {copied} z {total} řádků. {untimed, plural, =0 {Všechna slova se shodovala.} one {# slovo zůstalo bez časování.} few {# slova zůstala bez časování.} many {# slova zůstalo bez časování.} other {# slov zůstalo bez časování.}}",
+    "nothingMatched": "Žádný řádek v této sekci neodpovídá té druhé, takže se nic nezkopírovalo."
+  },
   "touchSyncPanel": {
     "prevWord": "Předchozí slovo",
     "nextWord": "Další slovo"
+  },
+  "lineSync": {
+    "flagTitle": "Synchronizace po řádcích",
+    "flagDesc": "Umožní časovat každou skladbu po slovech nebo po celých řádcích. V režimu Řádek F, G a H začínají a ukončují celé řádky.",
+    "timing": "Časování skladby",
+    "timingDesc": "Slovo: každé slovo má vlastní čas. Řádek: časují se jen celé řádky a TTML se exportuje synchronizované po řádcích.",
+    "word": "Slovo",
+    "line": "Řádek",
+    "confirmTitle": "Přepnout na časování po řádcích?",
+    "confirmDescription": "Každé slovo si ponechá text, ale ztratí vlastní časování. Každý řádek si ponechá začátek a konec. Lze to vrátit zpět.",
+    "confirmAction": "Přepnout na Řádek"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
@@ -1241,6 +1585,48 @@
     "placeholder": "Nový přepis do latinky",
     "applyToAll": "Použít na všechna stejná slova",
     "caseSensitive": "Rozlišovat velká a malá písmena"
+  },
+  "romanizationTools": {
+    "group": "Přepis do latinky a dělení",
+    "flag": "Experimentální nástroje pro přepis",
+    "flagDesc": "Dělení angličtiny podle pravidel, velikost dělení japonštiny, vložení přepsané stránky a export překladů do hlavičky.",
+    "japaneseGranularity": "Velikost dělení japonštiny",
+    "japaneseGranularityDesc": "Jak automatické dělení rozdělí japonský text. Malá kana, ー a っ zůstanou u své hlásky.",
+    "granularity": {
+      "syllable": "Slabika",
+      "syllableDesc": "Jeden zvuk na část, ん se připojí k předchozímu",
+      "mora": "Móra",
+      "moraDesc": "Jedna doba na část, ん je samostatná část",
+      "word": "Slovo",
+      "wordDesc": "Celá slova"
+    },
+    "translationFormat": "Export překladů",
+    "translationFormatDesc": "Kam se v exportovaném TTML ukládají překlady. Spicy Lyrics čte jen překlady v řádku.",
+    "format": {
+      "inline": "V řádku",
+      "inlineDesc": "V každém řádku, jako dosud. Spicy Lyrics čte tento formát.",
+      "head": "Hlavička",
+      "headDesc": "Ve stylu Apple, v hlavičce souboru. Spicy Lyrics je může zobrazit jako přepis."
+    },
+    "translationLanguage": "Jazyk překladu",
+    "translationLanguageDesc": "Jazykový kód překladů v hlavičce, například en nebo es.",
+    "paste": {
+      "button": "Vložit přepis...",
+      "tooltip": "Doplní přepis ke slovům ze stránky s přepsaným textem, třeba z Genius.",
+      "title": "Vložit přepsaný text",
+      "description": "Vložte stránku s přepsaným textem, jeden řádek na řádek textu. Záhlaví sekcí a prázdné řádky se přeskočí a řádky v pozadí zůstanou beze změny.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Doplnit přepis",
+      "lineCountMismatch": "Stránka má {received} řádků a text má {expected}. Přidejte nebo odeberte řádky, aby se shodovaly.",
+      "applied": "Přepis doplněn, počet řádků: {count}.",
+      "check": "Některá slova byla odhadnuta. Zkontrolujte řádky {lines}."
+    },
+    "genius": {
+      "find": "Najít na Genius",
+      "titleLabel": "Název skladby",
+      "none": "Romanizovaná stránka nebyla nalezena. Zkuste název tak, jak ho píše Genius.",
+      "failed": "Genius neodpověděl: {message}"
+    }
   },
   "timeShiftDialog": {
     "title": "Časový posun",
@@ -1296,6 +1682,25 @@
     "howToGetKey": "Jak získat přístupový token Genius",
     "changeKey": "Změnit přístupový token"
   },
+  "referenceSidebar": {
+    "setting": "Referenční panel",
+    "settingDesc": "Ukotví náhled a text skladby z Genius vpravo v režimu Úpravy a Časování. Nahrazuje náhledový panel.",
+    "label": "Referenční panel",
+    "collapse": "Sbalit panel",
+    "tabs": {
+      "preview": "Náhled",
+      "genius": "Genius",
+      "problems": "Problémy"
+    },
+    "genius": {
+      "changeSong": "Změnit skladbu",
+      "backToLyrics": "Zpět na text",
+      "searchFailed": "Hledání selhalo: {error}",
+      "loadFailed": "Text se nepodařilo načíst: {error}",
+      "retry": "Zkusit znovu",
+      "lyricsLabel": "Text z Genius pro {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Zpracovat text",
     "processedSuccess": "Text připraven pro synchronizaci slabik.",
@@ -1322,6 +1727,13 @@
     "title": "Kontrola nalezených sekcí",
     "lineCount": "{count, plural, one {# řádek textu} few {# řádky textu} many {# řádku textu} other {# řádků textu}}"
   },
+  "importInlineSections": {
+    "title": "Sekce",
+    "hint": "Změny zde přepíší řádky záhlaví v textu.",
+    "mergeUp": "Sloučit se sekcí výše",
+    "setting": "Upravovat sekce vedle importovaného textu (experimentální)",
+    "settingDesc": "Zobrazí nalezené sekce vedle textu na obrazovce importu a importuje v jednom kroku, bez kroku Kontrola sekcí."
+  },
   "globalDragOverlay": {
     "title": "Uvolněte pro načtení"
   },
@@ -1346,6 +1758,14 @@
   "autosave": {
     "legacyProjectName": "Starší snímky",
     "untitledProjectName": "Projekt bez názvu"
+  },
+  "didYouKnow": {
+    "title": "Věděli jste?",
+    "repeatedSection": "Opakované řádky mohou převzít dřívější časování. Vyberte dřívější řádky, umístěte pozici přehrávání na začátek opakování a použijte Duplikovat na pozici přehrávání.",
+    "splitInTimeMode": "Slovo můžete rozdělit i bez opuštění režimu Časování: podržte {modifier} a dvakrát na něj klikněte.",
+    "turnOff": "Nezobrazovat tipy",
+    "setting": "Zobrazovat tipy",
+    "settingDesc": "Když něco uděláte ručně a existuje rychlejší způsob, zobrazí se krátký tip. Každý tip se zobrazí jen jednou."
   },
   "time": {
     "daysAgo": "{count, plural, one {Před # dnem} few {Před # dny} many {Před # dne} other {Před # dny}}",
@@ -1465,6 +1885,20 @@
     "apply": "Použít návrh",
     "noSuggestions": "Pro tento obsah nejsou k dispozici žádné automatické návrhy rozdělení."
   },
+  "changelogScreen": {
+    "setting": "Nová obrazovka seznamu změn",
+    "settingDesc": "Zobrazí každé vydání jako kartu: nejdřív hlavní novinky, pak co je nového, změněného a opraveného. Vypnuto ponechá současný seznam změn.",
+    "viewLabel": "Zobrazit",
+    "viewAll": "Vše",
+    "viewHighlights": "Hlavní novinky",
+    "highlights": "Hlavní novinky",
+    "latest": "Nejnovější",
+    "sectionNew": "Nové",
+    "sectionChanged": "Změněno",
+    "sectionFixed": "Opraveno",
+    "close": "Zavřít",
+    "empty": "Žádná vydání k zobrazení."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Editor TTML a nástroj pro časování textů po slovech ve stylu Apple Music",
@@ -1487,6 +1921,25 @@
     "openContributorProfile": "Otevřít GitHub profil uživatele {name}",
     "unknown": "Neznámý"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Oddělené stopy",
+    "settingDesc": "Zobrazí doprovodné řádky ve vlastní stopě pod hlavními řádky. Stopy slouží jen k zobrazení: roli řádku změníte v režimu úprav.",
+    "menu": "Stopy",
+    "visibleLanes": "Zobrazit stopy",
+    "duetLane": "Samostatná stopa pro duet",
+    "lane": {
+      "main": "Hlavní",
+      "duet": "Duet",
+      "bg": "Doprovod"
+    }
+  },
+  "spectrogramLineEnds": {
+    "settingTitle": "Jeden úchyt konce řádku",
+    "settingDesc": "Kde řádek a jeho poslední slovo končí společně, zobrazí jeden úchyt, který posune obojí. Tažení s Alt posune jen jedno z nich. Kde se liší, je konec posledního slova krátká čára a konec řádku vysoká.",
+    "mergedHandle": "Konec řádku a posledního slova. Tažením s Alt posunete jen jedno.",
+    "wordEndHandle": "Konec posledního slova",
+    "lineEndHandle": "Konec řádku"
+  },
   "spectrogram": {
     "invalidEndTime": "Nelze vybrat tento čas konce",
     "noAudioLoaded": "Načtěte zvukový soubor pro zobrazení spektrogramu",
@@ -1502,6 +1955,17 @@
       "4096": "4096 (nejvíce detailů)"
     },
     "height": "Výška zobrazení"
+  },
+  "spectrogramFollow": {
+    "toggle": "Sledovat přehrávací hlavu",
+    "shortcut": "Spektrogram – zapnout/vypnout sledování přehrávací hlavy",
+    "setting": "Sledovat přehrávací hlavu",
+    "settingDesc": "Posouvá spektrogram tak, aby přehrávací hlava zůstala vidět. Posouvání nebo tažení sledování pozastaví, dokud nespustíte přehrávání nebo chvíli nečekáte. Přidá přepínač do panelu spektrogramu.",
+    "style": "Způsob sledování",
+    "page": "Po stránkách",
+    "pageDesc": "Skočí dopředu, když přehrávací hlava opustí zobrazení.",
+    "continuous": "Plynule",
+    "continuousDesc": "Posouvá se s přehrávací hlavou a drží ji uprostřed."
   },
   "export": {
     "recoveryUntimed": "Tento obnovený export obsahuje nečasované texty. Před odesláním zkontrolujte časování.",

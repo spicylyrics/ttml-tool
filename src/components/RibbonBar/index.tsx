@@ -16,6 +16,7 @@ import { type CSSProperties, forwardRef, memo } from "react";
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
 import { ToolMode, toolModeAtom } from "$/states/main.ts";
 import { lazy } from "$/utils/lazy.ts";
+import { RibbonModeContext } from "./customize/states";
 
 const EditModeRibbonBar = lazy(() => import("./edit-mode"));
 const SyncModeRibbonBar = lazy(() => import("./sync-mode"));
@@ -55,17 +56,23 @@ export const RibbonBar = memo(
 						<AnimatePresence mode="wait">
 							{toolMode === ToolMode.Edit && (
 								<SuspensePlaceHolder key="edit">
-									<EditModeRibbonBar />
+									<RibbonModeContext.Provider value="edit">
+										<EditModeRibbonBar />
+									</RibbonModeContext.Provider>
 								</SuspensePlaceHolder>
 							)}
 							{toolMode === ToolMode.Sync && (
 								<SuspensePlaceHolder key="sync">
-									<SyncModeRibbonBar />
+									<RibbonModeContext.Provider value="sync">
+										<SyncModeRibbonBar />
+									</RibbonModeContext.Provider>
 								</SuspensePlaceHolder>
 							)}
 							{toolMode === ToolMode.Preview && (
 								<SuspensePlaceHolder key="preview">
-									<PreviewModeRibbonBar />
+									<RibbonModeContext.Provider value="preview">
+										<PreviewModeRibbonBar />
+									</RibbonModeContext.Provider>
 								</SuspensePlaceHolder>
 							)}
 						</AnimatePresence>

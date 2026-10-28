@@ -51,12 +51,19 @@ import {
 	workspaceScanningAtom,
 } from "$/modules/project/folder-project/state";
 import { useFolderProject } from "$/modules/project/folder-project/useFolderProject";
+import { LinkableFilesPanel } from "$/modules/projects-hub/components/LinkableFilesPanel";
+import { SongListTab } from "$/modules/projects-hub/components/SongListTab";
+import {
+	type ProjectsDialogTab,
+	projectsDialogTabRequestAtom,
+	projectsHubEnabledAtom,
+} from "$/modules/projects-hub/states";
 import { confirmDialogAtom, projectsDialogAtom } from "$/states/dialogs";
 import { lyricLinesAtom } from "$/states/main";
 import { error as logError } from "$/utils/logging";
 import styles from "./ProjectsDialog.module.css";
 
-type Tab = "project" | "recent" | "linked" | "workspace";
+type Tab = ProjectsDialogTab;
 const RelativeTime = ({ timestamp }: { timestamp: number }) => {
 	const { t } = useTranslation();
 	if (timestamp === 0) return t("workspace.unknown", "Unknown");
@@ -132,6 +139,18 @@ export const ProjectsDialog = () => {
 	const [isOpen, setIsOpen] = useAtom(projectsDialogAtom);
 	const [activeTab, setActiveTab] = useState<Tab>("project");
 	const [query, setQuery] = useState("");
+	const hubEnabled = useAtomValue(projectsHubEnabledAtom);
+	const [tabRequest, setTabRequest] = useAtom(projectsDialogTabRequestAtom);
+
+	useEffect(() => {
+		if (!isOpen || !tabRequest) return;
+		if (tabRequest !== "songs" || hubEnabled) setActiveTab(tabRequest);
+		setTabRequest(null);
+	}, [isOpen, tabRequest, hubEnabled, setTabRequest]);
+
+	useEffect(() => {
+		if (!hubEnabled && activeTab === "songs") setActiveTab("project");
+	}, [hubEnabled, activeTab]);
 
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -161,11 +180,18 @@ export const ProjectsDialog = () => {
 							{t("projectsDialog.tabLinked", "Linked")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="workspace" className={styles.tabTrigger}>
-							{t("projectsDialog.tabWorkspace", "Workspace")}
+							{hubEnabled
+								? t("projectsHub.scan.tab", "Scan folder")
+								: t("projectsDialog.tabWorkspace", "Workspace")}
 						</Tabs.Trigger>
+						{hubEnabled && (
+							<Tabs.Trigger value="songs" className={styles.tabTrigger}>
+								{t("projectsHub.tabSongs", "To sync")}
+							</Tabs.Trigger>
+						)}
 					</Tabs.List>
 
-					{activeTab !== "project" && (
+					{activeTab !== "project" && activeTab !== "songs" && (
 						<TextField.Root
 							value={query}
 							onChange={(e) => setQuery(e.target.value)}
@@ -194,6 +220,11 @@ export const ProjectsDialog = () => {
 						<Tabs.Content value="workspace" className={styles.tabContent}>
 							<WorkspaceTab query={query} onClose={() => setIsOpen(false)} />
 						</Tabs.Content>
+						{hubEnabled && (
+							<Tabs.Content value="songs" className={styles.tabContent}>
+								<SongListTab onClose={() => setIsOpen(false)} />
+							</Tabs.Content>
+						)}
 					</Box>
 				</Tabs.Root>
 			</Dialog.Content>
@@ -750,6 +781,7 @@ const WorkspaceTab = ({
 	const [projects] = useAtom(workspaceProjectsAtom);
 	const [dir] = useAtom(workspaceDirAtom);
 	const [scanning] = useAtom(workspaceScanningAtom);
+	const hubEnabled = useAtomValue(projectsHubEnabledAtom);
 	const { openWorkspace, rescanWorkspace, openProjectFromDir } =
 		useFolderProject();
 
@@ -794,7 +826,8 @@ const WorkspaceTab = ({
 				<ScrollArea
 					type="auto"
 					scrollbars="vertical"
-					style={{ maxHeight: "46vh" }}
+					// Leaves room for the linkable files panel below.
+					style={{ maxHeight: hubEnabled ? "28vh" : "46vh" }}
 				>
 					<Flex direction="column" gap="2" pr="3">
 						{visible.length === 0 ? (
@@ -866,6 +899,7 @@ const WorkspaceTab = ({
 					</Flex>
 				</ScrollArea>
 			</Box>
+			{hubEnabled && <LinkableFilesPanel />}
 			<Flex justify="between" align="center">
 				<Text size="1" color="gray">
 					{projects.length > 0
@@ -880,7 +914,9 @@ const WorkspaceTab = ({
 				</Text>
 				<Button variant="soft" onClick={handleScan}>
 					<FolderOpenRegular />
-					{t("workspace.selectFolder", "Select workspace folder…")}
+					{hubEnabled
+						? t("projectsHub.scan.select", "Scan a folder for TTMLs...")
+						: t("workspace.selectFolder", "Select workspace folder…")}
 				</Button>
 			</Flex>
 		</Flex>

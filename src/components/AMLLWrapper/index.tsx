@@ -29,6 +29,7 @@ import type { LyricLine } from "$/types/ttml";
 import styles from "./index.module.css";
 import { ActiveLineGroup, StaticLineGroup } from "./LineGroups";
 import { groupAMLLLines, type LineGroup } from "./line-groups";
+import { toxiTightLayoutAtom } from "./toxi-layout-states";
 import { displayTimeAtom, wordRegistry } from "./word-registry";
 export const AMLLWrapper = memo(
 	({ variant }: { variant?: "standard" | "toxi" }) => {
@@ -142,6 +143,8 @@ export const AMLLWrapper = memo(
 		const isPlaying = useAtomValue(audioPlayingAtom);
 		const instantFade = useAtomValue(instantHighlightFadeAtom);
 		const albumImg = useAtomValue(customBackgroundImageAtom);
+		const tightLayout = useAtomValue(toxiTightLayoutAtom);
+		const toxiTight = isToxi && tightLayout;
 
 		return (
 			<div
@@ -149,8 +152,12 @@ export const AMLLWrapper = memo(
 					styles.amllWrapper,
 					darkMode && styles.isDark,
 					isToxi && styles.isToxi,
+					toxiTight && styles.isToxiTight,
 					instantFade && styles.hasInstantFade,
 				)}
+				data-toxi-layout={
+					isToxi ? (toxiTight ? "tight" : "classic") : undefined
+				}
 			>
 				{/* Dynamic Mesh Warp Background (Kawarp) */}
 				<div className={styles.bgLayer}>

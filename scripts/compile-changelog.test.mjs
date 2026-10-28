@@ -59,7 +59,7 @@ describe("change note compilation", () => {
 		});
 	});
 	it.each([
-		["type: fix", "type: change", "type"],
+		["type: fix", "type: changed", "type"],
 		["impact: 3", "impact: 6", "impact"],
 		["impact: 3", "impact: 1.5", "impact"],
 		["highlight: false", "highlight: yes", "highlight"],
@@ -80,6 +80,7 @@ describe("change note compilation", () => {
 			parseChangeNote(note("feature", 1, false, "Small")),
 			parseChangeNote(note("feature", 5, true, "Big")),
 			parseChangeNote(note("feature", 5, false, "Tie")),
+			parseChangeNote(note("change", 2, false, "Tweak")),
 		];
 		const release = createRelease(
 			previous,
@@ -92,6 +93,7 @@ describe("change note compilation", () => {
 			"Big",
 			"Tie",
 			"Small",
+			"Tweak",
 			"Fix",
 		]);
 		expect(release.entries[0].highlight).toBe(true);

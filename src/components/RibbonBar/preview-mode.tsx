@@ -18,6 +18,7 @@ import { useAtomValue } from "jotai";
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ActionTooltip } from "$/components/ActionTooltip";
+import { spicyJoinSplitWordsAtom } from "$/components/SpicyLyrics/states";
 import {
 	PreviewModeType,
 	previewModeTypeAtom,
@@ -29,6 +30,7 @@ import {
 import { timingOverviewAutoScrollAtom } from "$/modules/settings/states/sync.ts";
 import { AdvancedSection } from "./AdvancedSection";
 import { RibbonFrame, RibbonSection } from "./common";
+import { ToxiSection } from "./preview-mode/ToxiSection";
 import { RibbonLabel, RibbonToggle } from "./RibbonToggle";
 
 export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
@@ -99,6 +101,7 @@ export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
 						</Grid>
 					</RibbonSection>
 				)}
+				{previewModeType === PreviewModeType.Toxi && <ToxiSection />}
 				{previewModeType === PreviewModeType.Timing && (
 					<RibbonSection label={t("ribbonBar.previewMode.timing", "时轴")}>
 						<Grid
@@ -150,6 +153,16 @@ export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
 								)}
 								setting={showRomanLinesAtom}
 							/>
+							{previewModeType === PreviewModeType.Spicy && (
+								<RibbonToggle
+									label={t("joinSplitWords.label", "Join split words")}
+									description={t(
+										"joinSplitWords.description",
+										"Show a word sung in parts as one word when the parts line up evenly, like Spicy Lyrics' Join Split Words setting.",
+									)}
+									setting={spicyJoinSplitWordsAtom}
+								/>
+							)}
 						</Grid>
 					</RibbonSection>
 				)}

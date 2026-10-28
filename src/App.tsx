@@ -21,6 +21,8 @@ import {
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
 import { TouchSyncPanel } from "$/modules/lyric-editor/components/TouchSyncPanel/index.tsx";
 import { log } from "$/utils/logging.ts";
+// Installs second-key dispatch (off unless the keyboard view flag is on).
+import "$/modules/keyboard/binding-list";
 import "@radix-ui/themes/styles.css";
 import { invoke } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";
@@ -39,6 +41,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useTranslation } from "react-i18next";
 import { Bounce, cssTransition, ToastContainer, toast } from "react-toastify";
 import semverGt from "semver/functions/gt";
+import { DidYouKnowHints } from "$/modules/did-you-know/DidYouKnowHints";
 import { backgroundGradients } from "$/modules/settings/states/gradients";
 import {
 	accentColorAtom,
@@ -102,13 +105,21 @@ import AudioControls from "./modules/audio/components/index.tsx";
 import { useAudioFeedback } from "./modules/audio/hooks/useAudioFeedback.ts";
 import { DiscordPresence } from "./modules/discord-presence/DiscordPresence";
 import { MigrationNotice } from "./modules/domain-migration/MigrationNotice";
-import { SyncKeyBinding } from "./modules/lyric-editor/components/sync-keybinding.tsx";
+import { SyncKeyBindings } from "./modules/line-sync/LineSyncKeyBinding.tsx";
+import { LogoColorStyle } from "./modules/logo-color/LogoColorStyle";
 import { UrbanDictionaryKeybinding } from "./modules/lyric-editor/components/urban-dictionary-keybinding.tsx";
 import { BeginnerGuide } from "./modules/onboarding/BeginnerGuide";
 import { AudioMetadataPrefill } from "./modules/project/audio-metadata";
 import { AutosaveManager } from "./modules/project/autosave/AutosaveManager.tsx";
 import { GlobalDragOverlay } from "./modules/project/modals/GlobalDragOverlay.tsx";
 import { type ExportTranslation, saveTTML } from "./modules/project/ttml-save";
+import { ProjectsHubEffects } from "./modules/projects-hub/components/ProjectsHubEffects";
+import { openDroppedFiles } from "./modules/projects-hub/open-dropped-files";
+import { projectsHubEnabledAtom } from "./modules/projects-hub/states";
+import {
+	legacyPreviewPanelShownAtom,
+	referenceSidebarEnabledAtom,
+} from "./modules/reference-sidebar/states";
 import { InterfaceScaleManager } from "./modules/settings/components/InterfaceScaleManager";
 import {
 	customBackgroundBlurAtom,
@@ -119,12 +130,12 @@ import {
 	customBackgroundOpacityAtom,
 } from "./modules/settings/modals/customBackground";
 import { showTouchSyncPanelAtom } from "./modules/settings/states/sync.ts";
+import { UpdatedToast } from "./modules/updated-toast/UpdatedToast";
 import { settingsDialogAtom, settingsTabAtom } from "./states/dialogs.ts";
 import {
 	isDarkThemeAtom,
 	isGlobalFileDraggingAtom,
 	lyricLinesAtom,
-	showPreviewPanelAtom,
 	ToolMode,
 	toolModeAtom,
 } from "./states/main.ts";
@@ -136,7 +147,13 @@ const LyricLinesView = lazy(() => import("./modules/lyric-editor/components"));
 const PreviewModeSwitcher = lazy(
 	() => import("./components/PreviewModeSwitcher"),
 );
+const TranscriptionWorkspace = lazy(
+	() => import("./modules/transcription/components/TranscriptionWorkspace"),
+);
 const Dialogs = lazy(() => import("./components/Dialogs"));
+const ReferenceSidebar = lazy(
+	() => import("./modules/reference-sidebar/ReferenceSidebar"),
+);
 
 // The default toast bounce overshoots; the design slides in and out instead.
 const spicyLyricsToastTransition = cssTransition({
@@ -212,11 +229,14 @@ function App() {
 	const spicyLyricsDesign = useAtomValue(spicyLyricsDesignAtom);
 	const toolMode = useAtomValue(toolModeAtom);
 	const showTouchSyncPanel = useAtomValue(showTouchSyncPanelAtom);
-	const showPreviewPanel = useAtomValue(showPreviewPanelAtom);
+	const showPreviewPanel = useAtomValue(legacyPreviewPanelShownAtom);
+	const referenceSidebarEnabled = useAtomValue(referenceSidebarEnabledAtom);
 	// Preview mode already owns the entire editor area. Keep the sync preview
 	// pane's setting intact for when the user returns, but never render a second
 	// preview beside it.
-	const previewPanelVisible = showPreviewPanel && toolMode !== ToolMode.Preview;
+	const showsLyricLines =
+		toolMode !== ToolMode.Preview && toolMode !== ToolMode.Transcribe;
+	const previewPanelVisible = showPreviewPanel && showsLyricLines;
 	const customBackgroundImage = useAtomValue(customBackgroundImageAtom);
 	const customBackgroundOpacity = useAtomValue(customBackgroundOpacityAtom);
 	const customBackgroundMask = useAtomValue(customBackgroundMaskAtom);
@@ -614,6 +634,14 @@ function App() {
 			setIsGlobalDragging(false);
 
 			const files = e.dataTransfer?.files;
+			if (files && files.length > 1 && store.get(projectsHubEnabledAtom)) {
+				void openDroppedFiles(
+					Array.from(files),
+					openFile,
+					(key, fallback, options) => t(key, fallback ?? key, options),
+				);
+				return;
+			}
 			if (files && files.length > 0) {
 				const file = files[0];
 				void attachDroppedFilePath(file).finally(() => openFile(file));
@@ -631,7 +659,7 @@ function App() {
 			window.removeEventListener("dragleave", handleDragLeave);
 			window.removeEventListener("drop", handleDrop);
 		};
-	}, [setIsGlobalDragging, openFile]);
+	}, [setIsGlobalDragging, openFile, store, t]);
 
 	return (
 		<Theme
@@ -650,6 +678,7 @@ function App() {
 			<MigrationNotice />
 			<DiscordPresence />
 			<BeginnerGuide />
+			<DidYouKnowHints />
 			<AudioMetadataPrefill />
 			{customStyleString ? <style>{customStyleString}</style> : null}
 			<ErrorBoundary
@@ -695,14 +724,20 @@ function App() {
 				)}
 				<div className={styles.appContent}>
 					<AutosaveManager />
+					<ProjectsHubEffects />
 					<GlobalDragOverlay />
-					{toolMode === ToolMode.Sync && <SyncKeyBinding />}
+					{toolMode === ToolMode.Sync && <SyncKeyBindings />}
 					<UrbanDictionaryKeybinding />
 					<DarkThemeDetector />
+					<LogoColorStyle />
 					<Flex direction="column" height="100vh">
 						{appLayoutOrder.map((id) => {
 							if (id === "titlebar") return <TitleBar key="titlebar" />;
-							if (id === "ribbonbar") return <RibbonBar key="ribbonbar" />;
+							if (id === "ribbonbar")
+								// The transcription workspace carries its own toolbar.
+								return toolMode === ToolMode.Transcribe ? null : (
+									<RibbonBar key="ribbonbar" />
+								);
 							if (id === "editor") {
 								const editorContent = (
 									<Box flexGrow="1" overflow="hidden" key="editor-content">
@@ -745,7 +780,7 @@ function App() {
 													</Flex>
 												) : (
 													<AnimatePresence mode="wait">
-														{toolMode !== ToolMode.Preview && (
+														{showsLyricLines && (
 															<SuspensePlaceHolder key={toolMode}>
 																<motion.div
 																	layout="position"
@@ -781,9 +816,21 @@ function App() {
 																</Box>
 															</SuspensePlaceHolder>
 														)}
+														{toolMode === ToolMode.Transcribe && (
+															<SuspensePlaceHolder key="transcription">
+																<Box height="100%" key="transcription">
+																	<TranscriptionWorkspace />
+																</Box>
+															</SuspensePlaceHolder>
+														)}
 													</AnimatePresence>
 												)}
 											</Box>
+											{referenceSidebarEnabled && (
+												<Suspense fallback={null}>
+													<ReferenceSidebar />
+												</Suspense>
+											)}
 										</Flex>
 									</Box>
 								);
@@ -810,6 +857,7 @@ function App() {
 						theme={effectiveTheme}
 						transition={spicyLyricsDesign ? spicyLyricsToastTransition : Bounce}
 					/>
+					<UpdatedToast />
 				</div>
 			</ErrorBoundary>
 		</Theme>

@@ -6,7 +6,9 @@ import { useTranslation } from "react-i18next";
 import { lyricLinesAtom, selectedLinesAtom } from "$/states/main";
 
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
+import { editModeToolsAtom } from "../states/edit-mode-tools";
 import { insertLinesInSection } from "../utils/section-system";
+import { swapDuetLinesAtom } from "../utils/swap-duet";
 import {
 	globalEnableInsertAtom,
 	timingCopyPlacementAtom,
@@ -22,6 +24,8 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 	const selectedLinesSize = useAtomValue(selectedLinesSizeAtom);
 	const selectedLines = useAtomValue(selectedLinesAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
+	const editModeTools = useAtomValue(editModeToolsAtom);
+	const swapDuetLines = useSetAtom(swapDuetLinesAtom);
 
 	const lineObjs = useAtomValue(lyricLinesAtom);
 	const selectedLineObjs = lineObjs.lyricLines.filter((line) =>
@@ -80,6 +84,20 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 			>
 				{t("contextMenu.duetLyric", "对唱歌词")}
 			</ContextMenu.CheckboxItem>
+			{editModeTools && (
+				<ContextMenu.Item
+					onSelect={() => {
+						const lineId = lineObjs.lyricLines[lineIndex]?.id;
+						swapDuetLines(
+							selectedLinesSize > 0
+								? selectedLines
+								: new Set(lineId ? [lineId] : []),
+						);
+					}}
+				>
+					{t("editModeTools.swapDuetSelected", "Swap main and duet")}
+				</ContextMenu.Item>
+			)}
 			<ContextMenu.Separator />
 			<ContextMenu.Item
 				onSelect={() => {

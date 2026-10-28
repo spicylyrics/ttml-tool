@@ -1,0 +1,43 @@
+/* Lane bands share the overlay height. Line segments keep `height: 100%`, so
+   they fill their band. Nothing here animates: this is the sync surface. */
+.lane {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	pointer-events: none;
+}
+
+.lane + .lane {
+	border-top: 1px solid var(--gray-a5);
+}
+
+.labels {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 8;
+}
+
+.label {
+	position: absolute;
+	left: 4px;
+	margin-top: 4px;
+	padding: 0 6px;
+	border-radius: var(--sl-radius-pill, calc(9999px * var(--radius-factor, 1)));
+	background-color: var(--color-panel-solid);
+	color: var(--gray-11);
+	font-size: 11px;
+	line-height: 16px;
+	white-space: nowrap;
+}
+
+@media (prefers-contrast: more) {
+	.lane + .lane {
+		border-top-color: var(--gray-a8);
+	}
+
+	.label {
+		color: var(--gray-12);
+	}
+}

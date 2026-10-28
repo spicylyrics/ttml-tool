@@ -3,6 +3,12 @@
     "changelogTitle": "Wijzigingslogboek en updates",
     "viewCommits": "Commits bekijken op GitHub"
   },
+  "updatedToast": {
+    "message": "Bijgewerkt naar v{version}",
+    "seeChanges": "Bekijk wat er is veranderd",
+    "setting": "Na een update laten zien wat er is veranderd",
+    "settingDesc": "Toont bij de eerste start van een nieuwe versie een korte melding met een link naar het wijzigingslogboek."
+  },
   "app": {
     "error": {
       "title": "Oeps, er is een fout opgetreden!",
@@ -29,9 +35,24 @@
   "onlineImport": {
     "noLyricsLabel": "Geen songteksten beschikbaar voor dit nummer."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Compacte indeling",
+    "tightLayoutDesc": "Minder lege ruimte en beter leesbare achtergrondregels."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# regel heeft nog geen timing} other {# regels hebben nog geen timing}}",
     "jumpToUntimed": "Synchroniseer de eerste regel zonder timing"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# woord heeft een timingprobleem} other {# woorden hebben timingproblemen}}",
+    "jump": "Selecteer het eerste",
+    "setting": "Timingproblemen tonen",
+    "settingDesc": "Markeert woorden die de Spicy-voorvertoning door hun timing zou verbergen of verkeerd zou afspelen, in rood met een gestippelde rand.",
+    "untimed": "Geen timing in een getimede regel",
+    "endsBeforeStart": "Eindigt voordat het begint",
+    "startsBeforeLine": "Begint voor zijn regel",
+    "endsAfterLine": "Eindigt na zijn regel"
   },
   "beginnerGuide": {
     "empty": {
@@ -191,6 +212,16 @@
       "splitWordsHint": "Markeert elke spatie als woordgrens voor de import."
     }
   },
+  "importSplit": {
+    "title": "Lettergrepen",
+    "later": "Ik splits later",
+    "laterHint": "Importeert hele woorden. Splits ze later in de editor.",
+    "now": "Nu splitsen",
+    "nowHint": "Markeert nu de lettergrepen in de tekst, zodat je ze voor het importeren kunt verbeteren.",
+    "checkFirst": "Nieuwe woorden hebben lettergreepmarkeringen gekregen. Controleer ze en importeer dan.",
+    "setting": "Lettergrepen splitsen bij importeren",
+    "settingHint": "Voegt de keuze Nu splitsen of Ik splits later toe aan het importscherm. Nu splitsen markeert lettergrepen met je segmentatie-instellingen en geleerde splitsingen, en je kunt ze voor het importeren verbeteren."
+  },
   "lyricMarkup": {
     "section": "Sectie: {label}",
     "joinSyllables": "Lettergrepen samenvoegen",
@@ -211,6 +242,29 @@
       "missingTranslation": "Vertaling ontbreekt",
       "missingRomanization": "Romanisering ontbreekt"
     }
+  },
+  "editAsText": {
+    "menuItem": "Bewerken als tekst...",
+    "title": "Bewerken als tekst",
+    "description": "Bewerk de hele songtekst als platte tekst. Woorden die je niet wijzigt, houden hun timing.",
+    "textLabel": "Songtekst",
+    "summaryTitle": "Wijzigingen",
+    "unchanged": "{count, plural, one {# regel ongewijzigd} other {# regels ongewijzigd}}",
+    "edited": "{count, plural, one {# regel bewerkt} other {# regels bewerkt}}",
+    "editedHint": "Timing blijft behouden waar woorden overeenkomen.",
+    "moved": "{count, plural, one {# regel verplaatst} other {# regels verplaatst}}",
+    "added": "{count, plural, one {# regel toegevoegd} other {# regels toegevoegd}}",
+    "removed": "{count, plural, one {# regel verwijderd} other {# regels verwijderd}}",
+    "noChanges": "Nog geen wijzigingen.",
+    "droppedTimings": "{count, plural, one {# getimed woord verliest zijn timing} other {# getimede woorden verliezen hun timing}}",
+    "lineNumber": "Regel {line}",
+    "more": "{count, plural, one {en # meer} other {en # meer}}",
+    "help": "Nieuwe woorden komen binnen zonder timing. Regels die alleen verplaatst zijn, houden hun timing. Toepassen is één stap ongedaan maken.",
+    "apply": "Toepassen",
+    "applied": "Tekst toegepast. Ongedaan maken draait het in één stap terug.",
+    "failed": "Kan de tekst niet toepassen. Controleer hem en probeer het opnieuw.",
+    "setting": "Bewerken als tekst",
+    "settingDesc": "Voegt Bewerken als tekst toe aan het menu Bewerken: wijzig de hele songtekst als platte tekst en behoud de timing van woorden die je niet aanraakt."
   },
   "importChooser": {
     "options": {
@@ -279,6 +333,29 @@
       "copyPrevious": "Vorige timing kopiëren"
     }
   },
+  "logoColor": {
+    "title": "Logokleur",
+    "description": "Experimenteel. Kies een kleur voor het logo in de titelbalk en op het welkomstscherm van de gids.",
+    "colorLabel": "Kleur",
+    "customLabel": "Aangepaste logokleur",
+    "designNote": "Het logo is alleen te zien als het Spicy Lyrics-ontwerp aan staat.",
+    "presets": {
+      "default": "Standaard",
+      "defaultDesc": "De eigen kleur van het ontwerp",
+      "lilac": "Lila",
+      "lilacDesc": "Uit het v3-logo",
+      "purple": "Paars",
+      "purpleDesc": "Uit het veelkleurige logo",
+      "red": "Rood",
+      "redDesc": "Uit het v0.9-logo",
+      "gold": "Goud",
+      "green": "Groen",
+      "blue": "Blauw",
+      "white": "Wit",
+      "custom": "Aangepast",
+      "customDesc": "Kies een willekeurige kleur"
+    }
+  },
   "common": {
     "close": "Sluiten",
     "autoDetect": "Automatische detectie",
@@ -332,6 +409,20 @@
       "title": "Kies een werkruimtemap met projecten"
     }
   },
+  "commandPalette": {
+    "title": "Opdrachtpalet",
+    "placeholder": "Opdrachten en instellingen zoeken",
+    "noResults": "Geen overeenkomende opdrachten of instellingen",
+    "commandTag": "Opdracht",
+    "settingTag": "Voorkeuren",
+    "hint": "Pijltjestoetsen om te bewegen, Enter om uit te voeren, Esc om te sluiten",
+    "notRunnable": "Kan deze opdracht niet uitvoeren. Geef hem een sneltoets in Voorkeuren en probeer het opnieuw.",
+    "menu": "Opdrachtpalet...",
+    "shortcut": "Beeld - Opdrachtpalet openen",
+    "shortcutAlternate": "Beeld - Opdrachtpalet openen (alternatieve sneltoets)",
+    "settingLabel": "Opdrachtpalet",
+    "settingDesc": "Zoek opdrachten en instellingenpagina's op naam. Open het met {shortcut} of via het menu Hulp."
+  },
   "projectsDialog": {
     "title": "Projecten",
     "tabProject": "Project",
@@ -371,6 +462,82 @@
     "noProjectsFound": "Geen projecten gevonden in deze map",
     "projectsFound": "{count, plural, one {# project gevonden} other {# projecten gevonden}}",
     "scanFailed": "Werkruimtemap scannen mislukt"
+  },
+  "projectsHub": {
+    "enable": "Nummerlijst en startscherm",
+    "enableDesc": "Voegt een lijst Te synchroniseren en een mapscan toe aan Projecten, een startscherm in de lege editor, een vraag om je laatste sessie bij het starten voort te zetten, TTML en audio openen met één keer slepen, en exporteren als platte tekst of Genius-tekst.",
+    "menuProjects": "Projecten...",
+    "tabSongs": "Te synchroniseren",
+    "songs": {
+      "description": "Nummers die je hierna wilt synchroniseren. Start er een project van, dan wordt het als klaar gemarkeerd als je de TTML exporteert.",
+      "addManually": "Zelf typen",
+      "searchGenius": "Zoeken op Genius",
+      "add": "Aan de lijst toevoegen",
+      "added": "{song} is aan de lijst toegevoegd.",
+      "alreadyListed": "{song} staat al op de lijst.",
+      "searchFailed": "Kon niet zoeken op Genius.",
+      "start": "Project starten",
+      "started": "{song} gestart. Importeer of typ de songtekst en laad daarna de audio.",
+      "startDirty": "Je hebt niet-opgeslagen wijzigingen. Als je {song} start, wordt de songtekst in de editor vervangen.",
+      "markedDone": "{song} is als klaar gemarkeerd.",
+      "inProgress": "Gestart",
+      "empty": "Nog niets te synchroniseren. Voeg het volgende nummer toe voordat je het vergeet.",
+      "showNotes": "Notities tonen",
+      "showCompleted": "Klaar ({count})",
+      "hideCompleted": "Klaar verbergen",
+      "markDone": "Klaar",
+      "reopen": "Heropenen",
+      "edit": "Nummer bewerken",
+      "delete": "Nummer verwijderen",
+      "toolMenu": "Te synchroniseren..."
+    },
+    "scan": {
+      "tab": "Map scannen",
+      "select": "Een map scannen op TTML's...",
+      "pairsTitle": "Bestanden die je als project kunt koppelen",
+      "pairsHint": "Een TTML en een audiobestand met dezelfde naam. Koppelen laat beide bestanden staan waar ze staan.",
+      "link": "Koppelen",
+      "linkAll": "Alles koppelen",
+      "linked": "{name} is als project gekoppeld.",
+      "linkedCount": "{count, plural, one {# project gekoppeld} other {# projecten gekoppeld}}",
+      "linkFailed": "Kon {name} niet koppelen.",
+      "noPairs": "Geen TTML- en audiobestanden met dezelfde naam gevonden.",
+      "scanning": "Bestanden zoeken..."
+    },
+    "start": {
+      "title": "Begin met synchroniseren",
+      "description": "Open een project, kies een nummer uit je lijst of begin met een songtekst.",
+      "startedDescription": "Voeg de songtekst toe uit tekst of Genius en laad daarna de audio.",
+      "fromText": "Nieuw vanuit tekst",
+      "fromGenius": "Nieuw vanuit Genius",
+      "openFile": "Bestand openen...",
+      "openFolder": "Mapproject openen...",
+      "projects": "Projecten...",
+      "recent": "Recente projecten",
+      "songs": "Te synchroniseren",
+      "seeAll": "Alles tonen",
+      "startSong": "Project starten voor {song}"
+    },
+    "resume": {
+      "title": "Verdergaan waar je was gebleven?",
+      "description": "{name} is voor het laatst bewerkt op {time}. Herstellen uit geschiedenis bewaart hoe dan ook elke automatische opslag.",
+      "continue": "Verdergaan",
+      "startFresh": "Opnieuw beginnen",
+      "restored": "{name} hersteld."
+    },
+    "export": {
+      "plainText": "Platte tekst...",
+      "geniusText": "Genius-tekst...",
+      "copyGenius": "Kopiëren als Genius-tekst",
+      "copied": "Songtekst gekopieerd als Genius-tekst.",
+      "copyFailed": "Kon de songtekst niet kopiëren.",
+      "saveFailed": "Kon het bestand niet opslaan.",
+      "textFiles": "Tekstbestanden",
+      "empty": "Er is geen songtekst om te exporteren."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# bestand overgeslagen. Sleep één songtekstbestand en één audiobestand tegelijk.} other {# bestanden overgeslagen. Sleep één songtekstbestand en één audiobestand tegelijk.}}"
+    }
   },
   "ribbonBar": {
     "advancedTooltip": "Geldt voor de linten Bewerken, Timing en Voorbeeld.",
@@ -487,6 +654,33 @@
     },
     "loading": "Paneel laden…",
     "advanced": "Geavanceerd"
+  },
+  "ribbonCustomize": {
+    "customize": "Lint aanpassen",
+    "customizeDesc": "Verberg, herschik of zet secties van dit lint vast, of verplaats ze naar Meer.",
+    "title": "Dit lint aanpassen",
+    "hint": "Sommige secties verschijnen alleen met een selectie of als Geavanceerd aan staat.",
+    "reset": "Herstellen",
+    "resetDone": "Lint hersteld naar standaard",
+    "pin": "{{name}} vooraan vastzetten",
+    "unpin": "{{name}} losmaken",
+    "pinned": "Vastgezet",
+    "moveUp": "{{name}} omhoog",
+    "moveDown": "{{name}} omlaag",
+    "moved": "{{name}} staat nu op positie {{position}}",
+    "placement": {
+      "label": "{{name}} tonen in",
+      "ribbon": "Lint",
+      "ribbonDesc": "Op het lint tonen.",
+      "more": "Meer",
+      "moreDesc": "In het menu Meer aan het eind van het lint zetten.",
+      "hidden": "Verborgen",
+      "hiddenDesc": "Nergens tonen."
+    },
+    "more": "Meer",
+    "moreDesc": "Secties die je uit het lint hebt gehaald.",
+    "settingLabel": "Aanpasbare linten",
+    "settingDesc": "Voegt een knop Aanpassen toe aan de linten Bewerken, Timing en Voorbeeld, om secties te verbergen, herschikken of vast te zetten, of naar een menu Meer te verplaatsen."
   },
   "settings": {
     "common": {
@@ -838,11 +1032,35 @@
       "timingOverviewAutoScrollDesc": "Houd het timingoverzicht gescrold naar de afspeelpositie.",
       "vsyncDesc": "Werk de Standard- en Toxi-voorbeelden elk frame bij in plaats van ongeveer 30 keer per seconde. Vloeiender, maar gebruikt meer CPU.",
       "showFpsDesc": "Toon een framerateteller op het voorbeeld.",
-      "syncLevelDesc": "Woord: synchroniseer elk woord. Regel: synchroniseer hele regels en verdeel de woorden gelijkmatig voor een ruwe timing die je in het spectrogram verfijnt.",
+      "syncLevelDesc": "Woord: synchroniseer elk woord. Regel: synchroniseer hele regels en verdeel de woorden gelijkmatig. Ook Regel slaat timing per woord op, geen per regel gesynchroniseerde songtekst, dus verfijn de woorden in het spectrogram.",
       "previewModeDesc": "Kies welk voorbeeld het tabblad Voorbeeld toont.",
       "spicyBackgroundDesc": "Wat er achter het Spicy-voorbeeld te zien is.",
       "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden."
     }
+  },
+  "preferencesShell": {
+    "flagLabel": "Nieuwe indeling van Voorkeuren",
+    "flagDesc": "Zoeken bovenaan en een zijbalk waarin lange namen passen. Zet uit om terug te gaan naar de klassieke indeling.",
+    "matchCount": "Overeenkomende instellingen: {count}",
+    "noResults": "Geen instellingen gevonden voor \"{query}\"",
+    "noResultsDesc": "Probeer een ander woord of wis de zoekopdracht."
+  },
+  "preferencesPages": {
+    "editing": "Bewerken",
+    "editingDesc": "Wat de modus Bewerken op elke regel en elk woord toont.",
+    "syncing": "Synchroniseren",
+    "syncingDesc": "Timingtoetsen, verschuivingen en wat de modus Tijd toont.",
+    "preview": "Voorbeeld",
+    "previewDesc": "Wat het tabblad Voorbeeld toont en hoe soepel het loopt.",
+    "audio": "Audio en spectrogram",
+    "files": "Importeren en bestanden",
+    "filesDesc": "Opschonen bij importeren, exporteren en mapprojecten.",
+    "backup": "Back-up",
+    "backupDesc": "Geschiedenis van automatisch opslaan en draagbare back-ups.",
+    "experimental": "Experimenteel",
+    "experimentalDesc": "Functies waaraan nog gewerkt wordt. Elke functie blijft uit tot je hem aanzet.",
+    "turnAllOff": "Alles uitzetten",
+    "turnAllOffLabel": "Alle experimentele functies onder {area} uitzetten"
   },
   "timingOverview": {
     "start": "Begin",
@@ -858,6 +1076,10 @@
     "order": "Volgorde",
     "orderChronological": "Chronologisch",
     "orderTextual": "Tekstvolgorde"
+  },
+  "joinSplitWords": {
+    "label": "Gesplitste woorden samenvoegen",
+    "description": "Toon een woord dat in delen wordt gezongen als één woord wanneer de delen gelijkmatig aansluiten, zoals de instelling Join Split Words in Spicy Lyrics."
   },
   "topBar": {
     "modeBtns": {
@@ -910,6 +1132,36 @@
       "spectrogramHoverSync": "Synchroniseren op muispositie",
       "changelog": "Wijzigingslogboek en updates",
       "projects": "Projecten"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Transcriberen",
+    "modeBtnDesc": "Typ de songtekst als platte tekst terwijl het nummer speelt.",
+    "enable": "Tabblad Transcriberen",
+    "enableDesc": "Voegt een tabblad Transcriberen toe om de songtekst als platte tekst te typen terwijl het nummer speelt.",
+    "title": "Transcriberen",
+    "stats": "{lines, plural, one {# regel} other {# regels}}, {words, plural, one {# woord} other {# woorden}}",
+    "tidy": "Indeling opschonen",
+    "export": "Exporteren",
+    "copyGenius": "Kopiëren als Genius-tekst",
+    "copyPlain": "Kopiëren als platte tekst",
+    "saveGenius": "Opslaan als Genius-tekst...",
+    "savePlain": "Opslaan als platte tekst...",
+    "sendToImport": "Importeren in de editor...",
+    "textLabel": "Transcriptie",
+    "placeholder": "Typ de tekst zoals je hem hoort, één regel per rij. Zet sectiekoppen zoals [Verse 1] op een eigen rij.",
+    "copied": "Gekopieerd naar het klembord.",
+    "copyFailed": "Kan de tekst niet kopiëren.",
+    "saveFailed": "Kan het bestand niet opslaan.",
+    "textFiles": "Tekstbestanden",
+    "keys": {
+      "label": "Sneltoetsen in het tekstvak",
+      "playPause": "Afspelen of pauzeren",
+      "back": "3 seconden terug",
+      "forward": "3 seconden vooruit",
+      "slower": "Langzamer",
+      "faster": "Sneller",
+      "resetSpeed": "Normale snelheid"
     }
   },
   "header": {
@@ -1044,7 +1296,39 @@
       "audioDesc": "Afspelen, equalizer en spectrogramweergave."
     }
   },
-  "autoSegmentApplied": "Automatisch gesegmenteerd met {engine}",
+  "keyboardView": {
+    "title": "Toetsenbord",
+    "flagTitle": "Toetsenbordweergave en tweede toetsen",
+    "flagDesc": "Experimenteel. Toont je sneltoetsen op een toetsenbord en laat één actie meer dan één toets hebben.",
+    "search": "Acties zoeken",
+    "searchResults": "{count, plural, =0 {Geen acties gevonden} one {# actie gevonden} other {# acties gevonden}}",
+    "layout": "Toetsenbordindeling",
+    "layoutAuto": "Automatisch",
+    "layoutDetected": "Gevonden: {layout}",
+    "layoutUnavailable": "De indeling kan hier niet worden bepaald, dus QWERTY wordt getoond",
+    "layerHint": "Klik op een aanpassingstoets, zoals Shift, om de sneltoetsen te zien die hem gebruiken.",
+    "category": {
+      "sync": "Synchronisatie",
+      "edit": "Bewerken",
+      "playback": "Afspelen",
+      "navigation": "Navigatie"
+    },
+    "free": "Vrij",
+    "keyFree": "{key}: vrij",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Sneltoetsen met {key} tonen",
+    "freeKey": "Nog niets gebruikt {key}.",
+    "assignLabel": "Actie",
+    "assignPlaceholder": "Kies een actie...",
+    "assign": "Toevoegen aan {key}",
+    "changeKey": "Toets wijzigen",
+    "addKey": "Tweede toets toevoegen",
+    "removeKey": "{key} verwijderen",
+    "duplicateKey": "Die toets is al ingesteld voor deze actie.",
+    "otherLayers": "Ook op deze toets",
+    "closePanel": "Sluiten"
+  },
+  "autoSegmentApplied":"Automatisch gesegmenteerd met {engine}",
   "error": {
     "unsupportedFileFormat": "Niet-ondersteunde bestandsindeling: {ext}",
     "openFileFailed": "Kan bestand niet openen",
@@ -1104,6 +1388,13 @@
     "playPause": "Muziek afspelen / onderbreken",
     "expandSpectrogram": "Uitvouwen / samenvouwen spectrogram"
   },
+  "bpm": {
+    "label": "Tempo",
+    "readout": "≈ {{bpm}} BPM",
+    "tooltip": "Geschat op basis van de geladen audio. Bij sommige nummers kan het dubbel of de helft zijn.",
+    "setting": "Geschat tempo tonen",
+    "settingDesc": "Schat de BPM van het nummer nadat de audio is geladen en toont die in het lint Tijd."
+  },
   "latencyTestDialog": {
     "title": "Latentietest",
     "latencyDisplay": {
@@ -1161,6 +1452,11 @@
     "addPresets": "Alle standaardvelden toevoegen",
     "clear": "Wissen"
   },
+  "helpText": {
+    "metadataArtists": "Wie het nummer uitvoert, zoals het op streamingdiensten wordt vermeld. Voorbeeld: \"Shake It Off\" is van Taylor Swift.",
+    "metadataSongwriter": "Wie de muziek en tekst schreef, volgens de schrijverscredits. Vaak andere mensen dan de artiesten. Voorbeeld: \"Shake It Off\" is geschreven door Taylor Swift, Max Martin en Shellback.",
+    "learnMore": "Meer informatie"
+  },
   "lrclib": {
     "placeholder": "Songtitel en artiest…",
     "notFound": "Geen resultaten gevonden, probeer andere trefwoorden",
@@ -1183,6 +1479,12 @@
     "insertLine": "Voeg hier een nieuwe regel in",
     "insertWord": "Woord hier invoegen…"
   },
+  "editModeTools": {
+    "toggleTitle": "Hulpmiddelen voor bewerkmodus",
+    "toggleDesc": "Splitst een getypte regel in woorden, wisselt hoofd- en duetregels om en opent elk project waar je de bewerkmodus verliet.",
+    "swapDuetAll": "Hoofd- en duetregels omwisselen",
+    "swapDuetSelected": "Hoofd en duet omwisselen"
+  },
   "lyricWordView": {
     "empty": "Leeg",
     "spaceCount": "Spatie ×{count}",
@@ -1191,6 +1493,14 @@
     "editingWordDesc": "Bewerk het woord of pas voorgestelde snelle correcties toe.",
     "correctedWordPlaceholder": "Typ het gecorrigeerde woord",
     "noSuggestions": "Geen suggesties"
+  },
+  "timeModeEditing": {
+    "flagTitle": "Woorden bewerken in Timing",
+    "flagDesc": "Splits, voeg samen en vervang woorden via het rechtermuisknopmenu in Timing. Een splitsing in twee delen valt op de afspeelpositie als die binnen het woord ligt.",
+    "doubleClickTimestamp": "Dubbelklikken bewerkt de tijdstempel",
+    "doubleClickTimestampDesc": "Dubbelklik in Timing op een woord om de begintijd te typen in plaats van de tekst. Tijdstempels moeten zichtbaar zijn.",
+    "combinePrevious": "Samenvoegen met vorig woord",
+    "combineNext": "Samenvoegen met volgend woord"
   },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {# geselecteerde regel categoriseren} other {# geselecteerde regels categoriseren}}",
@@ -1217,9 +1527,43 @@
     "addToNext": "Voeg niet-toegewezen regels toe aan de volgende sectie",
     "section": "Sectie"
   },
+  "sectionEditing": {
+    "toggleTitle": "Hulpmiddelen voor sectiebewerking",
+    "toggleDesc": "Klik op een sectiekop om de sectie te hernoemen of van type te veranderen, begin een sectie op elke regel en kopieer timing tussen herhaalde secties. Leest ook Apple-songonderdelen wanneer je een TTML opent. Secties worden door de editor gebruikt, niet door Spicy Lyrics.",
+    "editHeader": "{label} hernoemen of van type veranderen",
+    "menu": "Sectieacties",
+    "startHere": "Sectie hier beginnen",
+    "moveStartUp": "Begin een regel omhoog verplaatsen",
+    "moveStartDown": "Begin een regel omlaag verplaatsen",
+    "applyTimings": "Timing toepassen van...",
+    "applyTitle": "Timing van een andere sectie toepassen",
+    "applyDesc": "Kopieert de timing van een andere sectie naar deze. Regels worden gekoppeld op hun woorden; alleen overeenkomende woorden krijgen timing, de rest blijft zonder timing.",
+    "source": "Kopiëren van",
+    "suggested": "Voorgesteld",
+    "similarity": "{percent}% zelfde woorden",
+    "noSources": "Geen enkele andere sectie heeft al timing. Synchroniseer er eerst een.",
+    "anchor": "Beginnen bij",
+    "anchorSection": "De eerste getimede regel van deze sectie ({time})",
+    "anchorPlayhead": "De afspeelkop ({time})",
+    "refineNote": "Gekopieerde timing is een startpunt. Speel de sectie af en corrigeer wat niet klopt.",
+    "apply": "Toepassen",
+    "applied": "Timing gekopieerd naar {copied} van {total} regels. {untimed, plural, =0 {Alle woorden kwamen overeen.} one {# woord is zonder timing gebleven.} other {# woorden zijn zonder timing gebleven.}}",
+    "nothingMatched": "Geen enkele regel in deze sectie komt overeen met die andere sectie, dus er is niets gekopieerd."
+  },
   "touchSyncPanel": {
     "prevWord": "Vorig woord",
     "nextWord": "Volgend woord"
+  },
+  "lineSync": {
+    "flagTitle": "Regelsynchronisatie",
+    "flagDesc": "Laat elk nummer per woord of per hele regel timen. In de modus Regel starten en beëindigen F, G en H hele regels.",
+    "timing": "Timing van het nummer",
+    "timingDesc": "Woord: elk woord krijgt een eigen tijd. Regel: alleen hele regels worden getimed en de TTML wordt per regel gesynchroniseerd geëxporteerd.",
+    "word": "Woord",
+    "line": "Regel",
+    "confirmTitle": "Overschakelen naar regeltiming?",
+    "confirmDescription": "Elk woord houdt zijn tekst maar verliest zijn eigen timing. Elke regel houdt zijn begin en einde. Je kunt dit ongedaan maken.",
+    "confirmAction": "Naar Regel"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
@@ -1241,6 +1585,48 @@
     "placeholder": "Nieuwe romanisatie",
     "applyToAll": "Toepassen op alle identieke woorden",
     "caseSensitive": "Hoofdlettergevoelig"
+  },
+  "romanizationTools": {
+    "group": "Romanisering en splitsen",
+    "flag": "Experimentele romaniseringshulpmiddelen",
+    "flagDesc": "Regelgebaseerd splitsen van Engels, splitsgrootte voor Japans, een geromaniseerde pagina plakken en vertalingen in de head exporteren.",
+    "japaneseGranularity": "Splitsgrootte voor Japans",
+    "japaneseGranularityDesc": "Hoe automatisch splitsen Japanse teksten knipt. Kleine kana, ー en っ blijven bij hun klank.",
+    "granularity": {
+      "syllable": "Lettergreep",
+      "syllableDesc": "Eén klank per deel, ん hoort bij de klank ervoor",
+      "mora": "Mora",
+      "moraDesc": "Eén tel per deel, ん is een eigen deel",
+      "word": "Woord",
+      "wordDesc": "Hele woorden"
+    },
+    "translationFormat": "Vertalingen exporteren",
+    "translationFormatDesc": "Waar vertalingen in de geëxporteerde TTML komen. Spicy Lyrics leest alleen vertalingen in de regel.",
+    "format": {
+      "inline": "In de regel",
+      "inlineDesc": "In elke regel, zoals voorheen. Spicy Lyrics leest dit.",
+      "head": "Head",
+      "headDesc": "Apple-stijl, in de head van het bestand. Spicy Lyrics kan ze als romanisering tonen."
+    },
+    "translationLanguage": "Taal van de vertaling",
+    "translationLanguageDesc": "Taalcode voor vertalingen in de head, zoals en of es.",
+    "paste": {
+      "button": "Romanisering plakken...",
+      "tooltip": "Vul de romanisering per woord in vanaf een geromaniseerde songtekstpagina, zoals die van Genius.",
+      "title": "Geromaniseerde tekst plakken",
+      "description": "Plak een geromaniseerde songtekstpagina, één regel per tekstregel. Sectiekoppen en lege regels worden overgeslagen en achtergrondregels blijven ongewijzigd.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Romanisering invullen",
+      "lineCountMismatch": "De pagina heeft {received} regels en de tekst heeft er {expected}. Voeg regels toe of verwijder ze zodat ze overeenkomen.",
+      "applied": "Romanisering ingevuld: {count} regels.",
+      "check": "Sommige woorden zijn geschat. Controleer regel {lines}."
+    },
+    "genius": {
+      "find": "Zoeken op Genius",
+      "titleLabel": "Titel van het nummer",
+      "none": "Geen geromaniseerde pagina gevonden. Probeer de titel zoals Genius die schrijft.",
+      "failed": "Genius gaf geen antwoord: {message}"
+    }
   },
   "timeShiftDialog": {
     "title": "Tijd verschuiven",
@@ -1296,6 +1682,25 @@
     "howToGetKey": "Een Genius-toegangstoken verkrijgen",
     "changeKey": "Toegangstoken wijzigen"
   },
+  "referenceSidebar": {
+    "setting": "Referentiepaneel",
+    "settingDesc": "Zet het voorbeeld en de Genius-songtekst rechts vast in Bewerken en Timing. Vervangt het voorbeeldpaneel.",
+    "label": "Referentiepaneel",
+    "collapse": "Paneel inklappen",
+    "tabs": {
+      "preview": "Voorbeeld",
+      "genius": "Genius",
+      "problems": "Problemen"
+    },
+    "genius": {
+      "changeSong": "Ander nummer",
+      "backToLyrics": "Terug naar de tekst",
+      "searchFailed": "Zoeken mislukt: {error}",
+      "loadFailed": "Kan de songtekst niet laden: {error}",
+      "retry": "Opnieuw proberen",
+      "lyricsLabel": "Genius-songtekst van {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Songteksten verwerken",
     "processedSuccess": "Songtekst voorbereid voor synchronisatie per lettergreep.",
@@ -1322,6 +1727,13 @@
     "title": "Controleer gedetecteerde secties",
     "lineCount": "{count, plural, one {# songtekstregel} other {# songtekstregels}}"
   },
+  "importInlineSections": {
+    "title": "Secties",
+    "hint": "Wijzigingen hier herschrijven de kopregels in de tekst.",
+    "mergeUp": "Samenvoegen met de sectie erboven",
+    "setting": "Secties naast de importtekst bewerken (experimenteel)",
+    "settingDesc": "Toont gevonden secties naast de songtekst in het importscherm en importeert in één stap, zonder de stap Secties controleren."
+  },
   "globalDragOverlay": {
     "title": "Loslaten om te laden"
   },
@@ -1346,6 +1758,14 @@
   "autosave": {
     "legacyProjectName": "Oude momentopnamen",
     "untitledProjectName": "Naamloos project"
+  },
+  "didYouKnow": {
+    "title": "Wist je dat?",
+    "repeatedSection": "Herhaalde regels kunnen eerdere timing hergebruiken. Selecteer de eerdere regels, zet de afspeelkop waar de herhaling begint en gebruik Dupliceren op afspeelkop.",
+    "splitInTimeMode": "Je kunt een woord splitsen zonder de Timing-modus te verlaten: houd {modifier} ingedrukt en dubbelklik op het woord.",
+    "turnOff": "Geen tips tonen",
+    "setting": "Tips tonen",
+    "settingDesc": "Als je iets met de hand doet dat sneller kan, verschijnt een korte tip. Elke tip verschijnt maar één keer."
   },
   "time": {
     "daysAgo": "{count, plural, one {# dag geleden} other {# dagen geleden}}",
@@ -1465,6 +1885,20 @@
     "apply": "Suggestie toepassen",
     "noSuggestions": "Er zijn geen automatische splitsingssuggesties beschikbaar voor deze inhoud."
   },
+  "changelogScreen": {
+    "setting": "Nieuw scherm voor wijzigingen",
+    "settingDesc": "Toon elke versie als een kaart met de hoogtepunten bovenaan, daarna wat nieuw, gewijzigd en opgelost is. Uit houdt het huidige wijzigingslogboek.",
+    "viewLabel": "Toon",
+    "viewAll": "Alles",
+    "viewHighlights": "Hoogtepunten",
+    "highlights": "Hoogtepunten",
+    "latest": "Nieuwste",
+    "sectionNew": "Nieuw",
+    "sectionChanged": "Gewijzigd",
+    "sectionFixed": "Opgelost",
+    "close": "Sluiten",
+    "empty": "Geen versies om te tonen."
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Een TTML-editor om songteksten woord voor woord te bewerken en te synchroniseren in Apple Music-stijl",
@@ -1487,6 +1921,25 @@
     "openContributorProfile": "GitHub-profiel van {name} openen",
     "unknown": "Onbekend"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Aparte sporen",
+    "settingDesc": "Toon achtergrondregels in een eigen spoor onder de hoofdregels. Sporen zijn alleen voor weergave: wijzig de rol van een regel in de bewerkmodus.",
+    "menu": "Sporen",
+    "visibleLanes": "Sporen tonen",
+    "duetLane": "Apart duetspoor",
+    "lane": {
+      "main": "Hoofd",
+      "duet": "Duet",
+      "bg": "Achtergrond"
+    }
+  },
+  "spectrogramLineEnds": {
+    "settingTitle": "Eén greep voor het regeleinde",
+    "settingDesc": "Toont één greep waar een regel en het laatste woord samen eindigen, en slepen verplaatst beide. Slepen met Alt verplaatst er maar één. Waar ze verschillen, is het einde van het laatste woord een korte balk en het regeleinde een hoge.",
+    "mergedHandle": "Einde van de regel en het laatste woord. Sleep met Alt om er maar één te verplaatsen.",
+    "wordEndHandle": "Einde van het laatste woord",
+    "lineEndHandle": "Regeleinde"
+  },
   "spectrogram": {
     "invalidEndTime": "Kan deze eindtijd niet selecteren",
     "noAudioLoaded": "Laad een audiobestand om het spectrogram te tonen",
@@ -1502,6 +1955,17 @@
       "4096": "4096 (meeste detail)"
     },
     "height": "Weergavehoogte"
+  },
+  "spectrogramFollow": {
+    "toggle": "Afspeelkop volgen",
+    "shortcut": "Spectrogram - Afspeelkop volgen aan/uit",
+    "setting": "Afspeelkop volgen",
+    "settingDesc": "Scrolt het spectrogram zodat de afspeelkop zichtbaar blijft. Scrollen of slepen pauzeert dit tot je op afspelen drukt of het even laat rusten. Voegt een knop toe aan de spectrogramwerkbalk.",
+    "style": "Volgstijl",
+    "page": "Per pagina",
+    "pageDesc": "Springt vooruit wanneer de afspeelkop uit beeld gaat.",
+    "continuous": "Doorlopend",
+    "continuousDesc": "Scrolt mee met de afspeelkop en houdt die in het midden."
   },
   "export": {
     "recoveryUntimed": "Deze herstelexport bevat ongetimede songteksten. Controleer de timing voordat je instuurt.",

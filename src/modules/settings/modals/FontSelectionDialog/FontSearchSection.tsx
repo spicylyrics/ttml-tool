@@ -1,5 +1,6 @@
 import { ArrowUpload24Regular, Search16Regular } from "@fluentui/react-icons";
-import { Button, Flex, TextField } from "@radix-ui/themes";
+import { Button, TextField } from "@radix-ui/themes";
+import { ToolbarGroup } from "$/components/ToolbarGroup";
 import type { FontSelection } from "./useFontSelection";
 export const FontSearchSection = ({
 	t,
@@ -11,9 +12,13 @@ export const FontSearchSection = ({
 	FontSelection,
 	"t" | "searchQuery" | "setSearchQuery" | "fileInputRef" | "handleFileImport"
 >) => (
-	<Flex gap="3" wrap="wrap" align="center">
+	<ToolbarGroup
+		label={t("settings.appearance.fontLibrary", "Font library")}
+		wrap
+	>
 		<TextField.Root
 			placeholder={t("common.search", "Search fonts...")}
+			aria-label={t("common.search", "Search fonts...")}
 			value={searchQuery}
 			onChange={(e) => setSearchQuery(e.target.value)}
 			style={{ flexGrow: 1, minWidth: "200px" }}
@@ -40,5 +45,5 @@ export const FontSearchSection = ({
 			<ArrowUpload24Regular />
 			{t("settings.appearance.importFont", "Import font file")}
 		</Button>
-	</Flex>
+	</ToolbarGroup>
 );
