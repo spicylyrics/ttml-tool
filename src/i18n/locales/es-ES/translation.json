@@ -488,6 +488,33 @@
     "loading": "Cargando panel…",
     "advanced": "Avanzado"
   },
+  "ribbonCustomize": {
+    "customize": "Personalizar cinta",
+    "customizeDesc": "Oculta, reordena o fija las secciones de esta cinta, o muévelas a Más.",
+    "title": "Personalizar esta cinta",
+    "hint": "Algunas secciones solo aparecen con una selección o con Avanzado activado.",
+    "reset": "Restablecer",
+    "resetDone": "Cinta restablecida",
+    "pin": "Fijar {{name}} al principio",
+    "unpin": "Desfijar {{name}}",
+    "pinned": "Fijada",
+    "moveUp": "Subir {{name}}",
+    "moveDown": "Bajar {{name}}",
+    "moved": "{{name}} está ahora en la posición {{position}}",
+    "placement": {
+      "label": "Mostrar {{name}} en",
+      "ribbon": "Cinta",
+      "ribbonDesc": "Mostrarla en la cinta.",
+      "more": "Más",
+      "moreDesc": "Guardarla en el menú Más al final de la cinta.",
+      "hidden": "Oculta",
+      "hiddenDesc": "No mostrarla en ningún sitio."
+    },
+    "more": "Más",
+    "moreDesc": "Secciones que has sacado de la cinta.",
+    "settingLabel": "Cintas personalizables",
+    "settingDesc": "Añade un botón Personalizar a las cintas de Edición, Sincronización y Vista previa para ocultar, reordenar o fijar secciones, o moverlas a un menú Más."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Resalta visualmente la línea de letra que se reproduce actualmente en el modo seleccionado.",

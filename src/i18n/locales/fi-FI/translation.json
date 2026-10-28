@@ -488,6 +488,33 @@
     "loading": "Ladataan paneelia...",
     "advanced": "Lisäasetukset"
   },
+  "ribbonCustomize": {
+    "customize": "Mukauta valintanauhaa",
+    "customizeDesc": "Piilota, järjestä tai kiinnitä tämän valintanauhan osioita tai siirrä ne Lisää-valikkoon.",
+    "title": "Mukauta tätä valintanauhaa",
+    "hint": "Jotkin osiot näkyvät vain, kun jotain on valittuna tai Lisäasetukset on päällä.",
+    "reset": "Palauta",
+    "resetDone": "Valintanauha palautettu oletukseksi",
+    "pin": "Kiinnitä {{name}} alkuun",
+    "unpin": "Irrota {{name}}",
+    "pinned": "Kiinnitetty",
+    "moveUp": "Siirrä {{name}} ylös",
+    "moveDown": "Siirrä {{name}} alas",
+    "moved": "{{name}} on nyt kohdassa {{position}}",
+    "placement": {
+      "label": "Missä {{name}} näkyy",
+      "ribbon": "Valintanauha",
+      "ribbonDesc": "Näytä valintanauhassa.",
+      "more": "Lisää",
+      "moreDesc": "Pidä valintanauhan lopussa olevassa Lisää-valikossa.",
+      "hidden": "Piilotettu",
+      "hiddenDesc": "Älä näytä missään."
+    },
+    "more": "Lisää",
+    "moreDesc": "Osiot, jotka siirsit pois valintanauhasta.",
+    "settingLabel": "Mukautettavat valintanauhat",
+    "settingDesc": "Lisää Muokkaus-, Ajoitus- ja Esikatselu-valintanauhoihin Mukauta-painikkeen, jolla voit piilottaa, järjestää tai kiinnittää osioita tai siirtää ne Lisää-valikkoon."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Korostaa valitussa tilassa parhaillaan toistettavan rivin.",

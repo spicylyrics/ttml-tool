@@ -488,6 +488,33 @@
     "loading": "Načítavanie panelu…",
     "advanced": "Pokročilé"
   },
+  "ribbonCustomize": {
+    "customize": "Prispôsobiť pás kariet",
+    "customizeDesc": "Skryte, preusporiadajte alebo pripnite sekcie tohto pásu kariet, alebo ich presuňte do ponuky Ďalšie.",
+    "title": "Prispôsobiť tento pás kariet",
+    "hint": "Niektoré sekcie sa zobrazia len pri výbere alebo so zapnutou voľbou Pokročilé.",
+    "reset": "Obnoviť",
+    "resetDone": "Pás kariet obnovený na predvolený",
+    "pin": "Pripnúť {{name}} na začiatok",
+    "unpin": "Odopnúť {{name}}",
+    "pinned": "Pripnuté",
+    "moveUp": "Posunúť {{name}} nahor",
+    "moveDown": "Posunúť {{name}} nadol",
+    "moved": "{{name}} je teraz na pozícii {{position}}",
+    "placement": {
+      "label": "Kde zobraziť {{name}}",
+      "ribbon": "Pás kariet",
+      "ribbonDesc": "Zobraziť na páse kariet.",
+      "more": "Ďalšie",
+      "moreDesc": "Ponechať v ponuke Ďalšie na konci pásu kariet.",
+      "hidden": "Skryté",
+      "hiddenDesc": "Nikde nezobrazovať."
+    },
+    "more": "Ďalšie",
+    "moreDesc": "Sekcie, ktoré ste presunuli z pásu kariet.",
+    "settingLabel": "Prispôsobiteľné pásy kariet",
+    "settingDesc": "Pridá tlačidlo Prispôsobiť na pásy kariet Úpravy, Časovanie a Náhľad, ktorým môžete sekcie skryť, preusporiadať, pripnúť alebo presunúť do ponuky Ďalšie."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Zvýrazní práve prehrávaný riadok vo zvolenom režime.",

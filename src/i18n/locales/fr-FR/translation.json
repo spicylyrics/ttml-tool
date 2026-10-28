@@ -488,6 +488,33 @@
     "loading": "Chargement du panneau…",
     "advanced": "Avancé"
   },
+  "ribbonCustomize": {
+    "customize": "Personnaliser le ruban",
+    "customizeDesc": "Masquez, réorganisez ou épinglez les sections de ce ruban, ou placez-les dans Plus.",
+    "title": "Personnaliser ce ruban",
+    "hint": "Certaines sections n’apparaissent qu’avec une sélection ou quand Avancé est activé.",
+    "reset": "Réinitialiser",
+    "resetDone": "Ruban réinitialisé",
+    "pin": "Épingler {{name}} en tête",
+    "unpin": "Désépingler {{name}}",
+    "pinned": "Épinglée",
+    "moveUp": "Monter {{name}}",
+    "moveDown": "Descendre {{name}}",
+    "moved": "{{name}} est maintenant en position {{position}}",
+    "placement": {
+      "label": "Afficher {{name}} dans",
+      "ribbon": "Ruban",
+      "ribbonDesc": "L’afficher sur le ruban.",
+      "more": "Plus",
+      "moreDesc": "La garder dans le menu Plus, au bout du ruban.",
+      "hidden": "Masquée",
+      "hiddenDesc": "Ne l’afficher nulle part."
+    },
+    "more": "Plus",
+    "moreDesc": "Les sections que vous avez sorties du ruban.",
+    "settingLabel": "Rubans personnalisables",
+    "settingDesc": "Ajoute un bouton Personnaliser aux rubans Édition, Synchronisation et Aperçu, pour masquer, réorganiser ou épingler des sections, ou les placer dans un menu Plus."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Met en évidence visuellement la ligne de paroles en cours de lecture dans le mode sélectionné.",

@@ -488,6 +488,33 @@
     "loading": "Indlæser panel...",
     "advanced": "Avanceret"
   },
+  "ribbonCustomize": {
+    "customize": "Tilpas bånd",
+    "customizeDesc": "Skjul, omarranger eller fastgør båndets sektioner, eller flyt dem til Mere.",
+    "title": "Tilpas dette bånd",
+    "hint": "Nogle sektioner vises kun, når noget er markeret, eller når Avanceret er slået til.",
+    "reset": "Nulstil",
+    "resetDone": "Båndet er nulstillet",
+    "pin": "Fastgør {{name}} forrest",
+    "unpin": "Frigør {{name}}",
+    "pinned": "Fastgjort",
+    "moveUp": "Flyt {{name}} op",
+    "moveDown": "Flyt {{name}} ned",
+    "moved": "{{name}} er nu på plads {{position}}",
+    "placement": {
+      "label": "Vis {{name}} i",
+      "ribbon": "Bånd",
+      "ribbonDesc": "Vis den på båndet.",
+      "more": "Mere",
+      "moreDesc": "Læg den i menuen Mere i enden af båndet.",
+      "hidden": "Skjult",
+      "hiddenDesc": "Vis den ikke nogen steder."
+    },
+    "more": "Mere",
+    "moreDesc": "Sektioner, du har flyttet ud af båndet.",
+    "settingLabel": "Tilpasselige bånd",
+    "settingDesc": "Tilføjer en Tilpas-knap til båndene Redigering, Timing og Forhåndsvisning, så du kan skjule, omarrangere eller fastgøre sektioner eller flytte dem til menuen Mere."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Fremhæver linjen, der afspilles i den valgte tilstand.",

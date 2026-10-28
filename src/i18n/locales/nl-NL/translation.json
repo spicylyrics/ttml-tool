@@ -488,6 +488,33 @@
     "loading": "Paneel laden…",
     "advanced": "Geavanceerd"
   },
+  "ribbonCustomize": {
+    "customize": "Lint aanpassen",
+    "customizeDesc": "Verberg, herschik of zet secties van dit lint vast, of verplaats ze naar Meer.",
+    "title": "Dit lint aanpassen",
+    "hint": "Sommige secties verschijnen alleen met een selectie of als Geavanceerd aan staat.",
+    "reset": "Herstellen",
+    "resetDone": "Lint hersteld naar standaard",
+    "pin": "{{name}} vooraan vastzetten",
+    "unpin": "{{name}} losmaken",
+    "pinned": "Vastgezet",
+    "moveUp": "{{name}} omhoog",
+    "moveDown": "{{name}} omlaag",
+    "moved": "{{name}} staat nu op positie {{position}}",
+    "placement": {
+      "label": "{{name}} tonen in",
+      "ribbon": "Lint",
+      "ribbonDesc": "Op het lint tonen.",
+      "more": "Meer",
+      "moreDesc": "In het menu Meer aan het eind van het lint zetten.",
+      "hidden": "Verborgen",
+      "hiddenDesc": "Nergens tonen."
+    },
+    "more": "Meer",
+    "moreDesc": "Secties die je uit het lint hebt gehaald.",
+    "settingLabel": "Aanpasbare linten",
+    "settingDesc": "Voegt een knop Aanpassen toe aan de linten Bewerken, Timing en Voorbeeld, om secties te verbergen, herschikken of vast te zetten, of naar een menu Meer te verplaatsen."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Markeert visueel de tekstregel die momenteel wordt gespeeld in de geselecteerde modus.",
