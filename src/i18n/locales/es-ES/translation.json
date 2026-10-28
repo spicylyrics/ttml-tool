@@ -949,6 +949,13 @@
       "fadeWidthDesc": "Qué tan suave es el borde del resaltado mientras se llena una palabra en las vistas previas Standard y Toxi."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Nuevo diseño de Preferencias",
+    "flagDesc": "Búsqueda arriba y una barra lateral con espacio para nombres largos. Desactívalo para volver al diseño clásico.",
+    "matchCount": "Ajustes coincidentes: {count}",
+    "noResults": "Ningún ajuste coincide con «{query}»",
+    "noResultsDesc": "Prueba otra palabra o borra la búsqueda."
+  },
   "timingOverview": {
     "start": "Inicio",
     "end": "Fin",

@@ -949,6 +949,13 @@
       "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Yeni Tercihler düzeni",
+    "flagDesc": "Arama üstte ve uzun adların sığdığı bir kenar çubuğu. Klasik düzene dönmek için kapatın.",
+    "matchCount": "Eşleşen ayarlar: {count}",
+    "noResults": "\"{query}\" ile eşleşen ayar yok",
+    "noResultsDesc": "Başka bir kelime deneyin veya aramayı temizleyin."
+  },
   "timingOverview": {
     "start": "Başlangıç",
     "end": "Bitiş",
