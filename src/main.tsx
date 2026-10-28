@@ -21,7 +21,7 @@ import "@fontsource-variable/geist";
 import "react-toastify/dist/ReactToastify.css";
 
 import App from "./App.tsx";
-import "./i18n/index.ts";
+import { i18nReady } from "./i18n/index.ts";
 import "./index.css";
 import "./styles/spicy-lyrics-design.css";
 import "./utils/pwa.tsx";
@@ -61,6 +61,12 @@ async function startApp() {
 	Sentry.init({
 		dsn: import.meta.env.SENTRY_DSN,
 		integrations: [],
+	});
+
+	// Render in the user's language from the first paint. i18nReady also
+	// resolves when a catalog fails to load; en-US is used then.
+	await i18nReady.catch((error) => {
+		console.error("Error loading the interface language:", error);
 	});
 
 	createRoot(rootEl).render(
