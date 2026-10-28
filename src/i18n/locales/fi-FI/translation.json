@@ -1274,6 +1274,17 @@
     "prevWord": "Edellinen sana",
     "nextWord": "Seuraava sana"
   },
+  "lineSync": {
+    "flagTitle": "Rivisynkronointi",
+    "flagDesc": "Jokaisen kappaleen voi ajastaa sanoittain tai kokonaisin rivein. Rivi-tilassa F, G ja H aloittavat ja lopettavat kokonaisia rivejä.",
+    "timing": "Kappaleen ajastus",
+    "timingDesc": "Sana: jokainen sana saa oman aikansa. Rivi: vain kokonaiset rivit ajastetaan, ja TTML viedään rivisynkronoituna.",
+    "word": "Sana",
+    "line": "Rivi",
+    "confirmTitle": "Vaihdetaanko riviajastukseen?",
+    "confirmDescription": "Jokainen sana säilyttää tekstinsä mutta menettää oman ajastuksensa. Jokainen rivi säilyttää alkunsa ja loppunsa. Voit kumota tämän.",
+    "confirmAction": "Vaihda riviin"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "Slangisanakirja",

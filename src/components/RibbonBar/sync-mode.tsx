@@ -21,6 +21,7 @@ import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ActionTooltip } from "$/components/ActionTooltip";
 import { cmdToggleWordHighlight } from "$/modules/keyboard/commands";
+import { TimingModeRibbonSection } from "$/modules/line-sync/TimingModeControl";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import {
 	displayRomanizationInSyncAtom,
@@ -99,6 +100,7 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 					</ActionTooltip>
 				</Flex>
 			</RibbonSection>
+			<TimingModeRibbonSection />
 			<RibbonSection
 				label={t("ribbonBar.syncMode.playbackTracking", "Tracking")}
 			>

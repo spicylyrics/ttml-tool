@@ -7,6 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { timedPreviewLyricsAtom } from "$/components/PreviewModeSwitcher/states";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { audioCoverArtAtom, currentTimeAtom } from "$/modules/audio/states";
+import { getTimingMode } from "$/modules/line-sync/timing-mode";
 import { playbackClock } from "$/modules/playback-clock";
 import { usePreviewScroll } from "$/modules/playback-clock/use-preview-scroll";
 import { customBackgroundImageAtom } from "$/modules/settings/modals/customBackground";
@@ -37,7 +38,9 @@ import { useSpicyVirtualList } from "./useSpicyVirtualList";
 export function useSpicyLyrics() {
 	const lyrics = useAtomValue(timedPreviewLyricsAtom);
 	const simple = useAtomValue(spicySimpleLyricsModeAtom);
-	const forceLineSynced = useAtomValue(spicyForceLineSyncedAtom);
+	// A Line-mode song exports every line as line-synced, so preview it that way.
+	const forceLineSynced =
+		useAtomValue(spicyForceLineSyncedAtom) || getTimingMode(lyrics) === "line";
 	const romanized = useAtomValue(showRomanLinesAtom);
 	const showTranslation = useAtomValue(showTranslationLinesAtom);
 	const showFps = useAtomValue(showFpsCounterAtom);

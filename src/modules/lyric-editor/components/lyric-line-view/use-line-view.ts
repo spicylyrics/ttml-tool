@@ -15,6 +15,7 @@ import { useSetImmerAtom } from "jotai-immer";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { activeLineIdsAtom } from "$/modules/audio/states/index.ts";
+import { effectiveSyncLevelAtom } from "$/modules/line-sync/states";
 import {
 	advGeniusHeaderColorAtom,
 	compactBGInSyncAtom,
@@ -28,7 +29,6 @@ import {
 import {
 	editActiveLineHighlightAtom,
 	syncActiveLineHighlightAtom,
-	syncLevelModeAtom,
 	syncWordWrapAtom,
 	visualizeTimestampUpdateAtom,
 } from "$/modules/settings/states/sync.ts";
@@ -98,7 +98,7 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 	const visualizeTimestampUpdate = useAtomValue(visualizeTimestampUpdateAtom);
 	const showTimestamps = useAtomValue(showTimestampsAtom);
 	const showEndTimeAsDuration = useAtomValue(showEndTimeAsDurationAtom);
-	const syncLevelMode = useAtomValue(syncLevelModeAtom);
+	const syncLevelMode = useAtomValue(effectiveSyncLevelAtom);
 	const store = useStore();
 	// The section editing tools need sections shown to be any use, so turning
 	// them on shows sections too.

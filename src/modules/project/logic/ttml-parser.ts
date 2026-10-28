@@ -17,10 +17,12 @@
  */
 
 import { uid } from "uid";
+import { restoreLineModeWords } from "$/modules/line-sync/timing-mode";
 import type {
 	LyricLine,
 	LyricWord,
 	Mark,
+	TimingMode,
 	TTMLLyric,
 	TTMLMetadata,
 } from "../../../types/ttml.ts";
@@ -635,12 +637,23 @@ export function parseLyric(
 	}
 	if (!sections && songParts?.sections.length) sections = songParts.sections;
 
-	return {
+	const timingModeValue = metadata.find((m) => m.key === "amll:timingMode")
+		?.value[0];
+	const timingMode: TimingMode | undefined =
+		timingModeValue === "line" || timingModeValue === "word"
+			? timingModeValue
+			: undefined;
+
+	return restoreLineModeWords({
 		metadata: metadata.filter(
-			(m) => m.key !== "amll:marks" && m.key !== "amll:sections",
+			(m) =>
+				m.key !== "amll:marks" &&
+				m.key !== "amll:sections" &&
+				m.key !== "amll:timingMode",
 		),
 		lyricLines: lyricLines,
 		marks: marks.length > 0 ? marks : undefined,
 		sections,
-	};
+		...(timingMode ? { timingMode } : {}),
+	});
 }

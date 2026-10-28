@@ -1274,6 +1274,17 @@
     "prevWord": "Predchádzajúce slovo",
     "nextWord": "Ďalšie slovo"
   },
+  "lineSync": {
+    "flagTitle": "Synchronizácia po riadkoch",
+    "flagDesc": "Umožní časovať každú skladbu po slovách alebo po celých riadkoch. V režime Riadok F, G a H začínajú a ukončujú celé riadky.",
+    "timing": "Časovanie skladby",
+    "timingDesc": "Slovo: každé slovo má vlastný čas. Riadok: časujú sa iba celé riadky a TTML sa exportuje synchronizované po riadkoch.",
+    "word": "Slovo",
+    "line": "Riadok",
+    "confirmTitle": "Prepnúť na časovanie po riadkoch?",
+    "confirmDescription": "Každé slovo si ponechá text, ale stratí vlastné časovanie. Každý riadok si ponechá začiatok a koniec. Dá sa to vrátiť späť.",
+    "confirmAction": "Prepnúť na Riadok"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "slovník slangu",

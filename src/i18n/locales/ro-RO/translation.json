@@ -1274,6 +1274,17 @@
     "prevWord": "Cuvântul anterior",
     "nextWord": "Cuvântul următor"
   },
+  "lineSync": {
+    "flagTitle": "Sincronizare pe rânduri",
+    "flagDesc": "Permite sincronizarea fiecărei melodii pe cuvinte sau pe rânduri întregi. În modul Rând, F, G și H încep și încheie rânduri întregi.",
+    "timing": "Sincronizarea melodiei",
+    "timingDesc": "Cuvânt: fiecare cuvânt are propriul timp. Rând: se sincronizează doar rânduri întregi, iar TTML-ul se exportă sincronizat pe rânduri.",
+    "word": "Cuvânt",
+    "line": "Rând",
+    "confirmTitle": "Treci la sincronizarea pe rânduri?",
+    "confirmDescription": "Fiecare cuvânt își păstrează textul, dar își pierde propriul timp. Fiecare rând își păstrează începutul și sfârșitul. Poți anula.",
+    "confirmAction": "Treci la Rând"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "dicționar de argou",
