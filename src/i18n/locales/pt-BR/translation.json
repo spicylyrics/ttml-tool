@@ -949,6 +949,13 @@
       "fadeWidthDesc": "Quão suave é a borda do destaque enquanto uma palavra é preenchida nas prévias Standard e Toxi."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Novo layout das Preferências",
+    "flagDesc": "Busca no topo e uma barra lateral que comporta nomes longos. Desative para voltar ao layout clássico.",
+    "matchCount": "Configurações correspondentes: {count}",
+    "noResults": "Nenhuma configuração corresponde a \"{query}\"",
+    "noResultsDesc": "Tente outra palavra ou limpe a busca."
+  },
   "timingOverview": {
     "start": "Início",
     "end": "Fim",

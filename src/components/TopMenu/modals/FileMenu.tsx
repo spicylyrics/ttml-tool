@@ -6,6 +6,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { ImportExportLyric } from "$/modules/project/modals/ImportExportLyric";
 import { CopyGeniusTextMenuItem } from "$/modules/projects-hub/components/TextExportItems";
 import { projectsHubEnabledAtom } from "$/modules/projects-hub/states";
+import { PreferencesFileMenuItem } from "$/modules/settings/shell/PreferencesFileMenuItem";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { formatKeyBindings } from "$/utils/keybindings";
 import { useTopMenuActions } from "../useTopMenuActions";
@@ -71,6 +72,7 @@ const FileMenuItems = () => {
 			<CopyGeniusTextMenuItem />
 			<DropdownMenu.Separator />
 			<ImportExportLyric onSaveTtml={menu.onSaveFile} />
+			<PreferencesFileMenuItem />
 		</>
 	);
 };

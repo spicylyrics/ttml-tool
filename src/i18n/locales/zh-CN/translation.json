@@ -949,6 +949,13 @@
       "fadeWidthDesc": "Standard 和 Toxi 预览中字高亮填充边缘的柔和程度。"
     }
   },
+  "preferencesShell": {
+    "flagLabel": "新版偏好设置布局",
+    "flagDesc": "搜索位于顶部，侧边栏可容纳较长的名称。关闭即可恢复经典布局。",
+    "matchCount": "匹配的设置：{count}",
+    "noResults": "没有与“{query}”匹配的设置",
+    "noResultsDesc": "换个词试试，或清除搜索。"
+  },
   "timingOverview": {
     "start": "开始",
     "end": "结束",

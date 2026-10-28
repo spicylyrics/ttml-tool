@@ -949,6 +949,13 @@
       "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Tata letak Preferensi baru",
+    "flagDesc": "Pencarian di atas dan bilah samping yang memuat nama panjang. Matikan untuk kembali ke tata letak klasik.",
+    "matchCount": "Pengaturan yang cocok: {count}",
+    "noResults": "Tidak ada pengaturan yang cocok dengan \"{query}\"",
+    "noResultsDesc": "Coba kata lain, atau hapus pencarian."
+  },
   "timingOverview": {
     "start": "Awal",
     "end": "Akhir",

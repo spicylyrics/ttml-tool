@@ -949,6 +949,13 @@
       "fadeWidthDesc": "Douceur du bord du surlignage lorsqu'un mot se remplit dans les aperçus Standard et Toxi."
     }
   },
+  "preferencesShell": {
+    "flagLabel": "Nouvelle disposition des Préférences",
+    "flagDesc": "Recherche en haut et barre latérale adaptée aux noms longs. Désactivez pour revenir à la disposition classique.",
+    "matchCount": "Réglages correspondants : {count}",
+    "noResults": "Aucun réglage ne correspond à « {query} »",
+    "noResultsDesc": "Essayez un autre mot ou effacez la recherche."
+  },
   "timingOverview": {
     "start": "Début",
     "end": "Fin",
