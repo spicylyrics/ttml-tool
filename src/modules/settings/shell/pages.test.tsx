@@ -23,7 +23,10 @@ import { spectrogramLanesEnabledAtom } from "$/modules/spectrogram/states/lanes.
 import { timeModeWordEditingEnabledAtom } from "$/modules/time-mode-editing/states";
 import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import { updatedToastEnabledAtom } from "$/modules/updated-toast/states";
+import { showLineTranslationAtom } from "../states";
 import { EXPERIMENTAL_FLAGS } from "./experimental";
+import { GroupReset } from "./GroupReset";
+import { GROUP_RESETS } from "./group-reset";
 import { SHELL_PAGE_MAP } from "./page-map";
 import { collectPageElements } from "./page-snapshot";
 import { getShellPages } from "./pages";
@@ -209,5 +212,27 @@ describe("Experimental page", () => {
 		expect(text("syncing")).toContain("Manual timestamp editing");
 		expect(text("preview")).toContain("Smooth preview (every frame)");
 		expect(text("preview")).not.toContain("Manual timestamp editing");
+	});
+});
+
+describe("Reset to defaults", () => {
+	it("asks first, lists the settings, then resets the group", () => {
+		const store = createStore();
+		store.set(showLineTranslationAtom, false);
+		const settings = GROUP_RESETS.editing ?? [];
+		render(<GroupReset settings={settings} groupLabel="Editing" />, store);
+		const trigger =
+			document.querySelector<HTMLButtonElement>("[data-reset-group]");
+		act(() => trigger?.click());
+		const dialog = document.querySelector('[role="alertdialog"]');
+		// No i18n instance here, so the fallback isn't interpolated.
+		expect(dialog?.textContent).toContain("Reset {group} settings?");
+		expect(dialog?.textContent).toContain("Show translation line");
+		expect(store.get(showLineTranslationAtom)).toBe(false);
+		const confirm = [...(dialog?.querySelectorAll("button") ?? [])].find(
+			(button) => button.textContent === "Reset",
+		);
+		act(() => confirm?.click());
+		expect(store.get(showLineTranslationAtom)).toBe(true);
 	});
 });

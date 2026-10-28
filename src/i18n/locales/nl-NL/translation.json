@@ -1055,7 +1055,12 @@
     "experimental": "Experimenteel",
     "experimentalDesc": "Functies waaraan nog gewerkt wordt. Elke functie blijft uit tot je hem aanzet.",
     "turnAllOff": "Alles uitzetten",
-    "turnAllOffLabel": "Alle experimentele functies onder {area} uitzetten"
+    "turnAllOffLabel": "Alle experimentele functies onder {area} uitzetten",
+    "resetGroup": "Standaardwaarden herstellen",
+    "resetGroupLabel": "Instellingen onder {group} terugzetten naar standaard",
+    "resetGroupTitle": "Instellingen onder {group} terugzetten?",
+    "resetGroupDesc": "Deze instellingen gaan terug naar hun standaardwaarde:",
+    "resetGroupConfirm": "Terugzetten"
   },
   "timingOverview": {
     "start": "Begin",

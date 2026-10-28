@@ -1055,7 +1055,12 @@
     "experimental": "Experimentálne",
     "experimentalDesc": "Funkcie, na ktorých sa ešte pracuje. Každá zostane vypnutá, kým ju nezapnete.",
     "turnAllOff": "Vypnúť všetko",
-    "turnAllOffLabel": "Vypnúť všetky experimentálne funkcie v sekcii {area}"
+    "turnAllOffLabel": "Vypnúť všetky experimentálne funkcie v sekcii {area}",
+    "resetGroup": "Obnoviť predvolené",
+    "resetGroupLabel": "Obnoviť predvolené nastavenia v sekcii {group}",
+    "resetGroupTitle": "Obnoviť nastavenia v sekcii {group}?",
+    "resetGroupDesc": "Tieto nastavenia sa vrátia na predvolené hodnoty:",
+    "resetGroupConfirm": "Obnoviť"
   },
   "timingOverview": {
     "start": "Začiatok",

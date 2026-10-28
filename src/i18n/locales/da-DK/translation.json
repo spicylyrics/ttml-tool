@@ -1055,7 +1055,12 @@
     "experimental": "Eksperimentelt",
     "experimentalDesc": "Funktioner, der stadig er under udvikling. Hver forbliver slået fra, indtil du slår den til.",
     "turnAllOff": "Slå alle fra",
-    "turnAllOffLabel": "Slå alle eksperimentelle funktioner under {area} fra"
+    "turnAllOffLabel": "Slå alle eksperimentelle funktioner under {area} fra",
+    "resetGroup": "Nulstil til standard",
+    "resetGroupLabel": "Nulstil indstillingerne under {group} til standard",
+    "resetGroupTitle": "Nulstil indstillingerne under {group}?",
+    "resetGroupDesc": "Disse indstillinger går tilbage til standard:",
+    "resetGroupConfirm": "Nulstil"
   },
   "timingOverview": {
     "start": "Start",

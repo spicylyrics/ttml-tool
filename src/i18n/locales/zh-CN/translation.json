@@ -1055,7 +1055,12 @@
     "experimental": "实验性功能",
     "experimentalDesc": "仍在开发中的功能。每项功能在你开启之前都保持关闭。",
     "turnAllOff": "全部关闭",
-    "turnAllOffLabel": "关闭{area}下的所有实验性功能"
+    "turnAllOffLabel": "关闭{area}下的所有实验性功能",
+    "resetGroup": "恢复默认",
+    "resetGroupLabel": "将{group}设置恢复为默认值",
+    "resetGroupTitle": "要重置{group}设置吗？",
+    "resetGroupDesc": "以下设置将恢复为默认值：",
+    "resetGroupConfirm": "重置"
   },
   "timingOverview": {
     "start": "开始",

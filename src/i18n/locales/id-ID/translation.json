@@ -1055,7 +1055,12 @@
     "experimental": "Eksperimental",
     "experimentalDesc": "Fitur yang masih dikerjakan. Setiap fitur tetap nonaktif sampai Anda mengaktifkannya.",
     "turnAllOff": "Nonaktifkan semua",
-    "turnAllOffLabel": "Nonaktifkan semua fitur eksperimental di {area}"
+    "turnAllOffLabel": "Nonaktifkan semua fitur eksperimental di {area}",
+    "resetGroup": "Atur ulang ke bawaan",
+    "resetGroupLabel": "Atur ulang pengaturan {group} ke bawaan",
+    "resetGroupTitle": "Atur ulang pengaturan {group}?",
+    "resetGroupDesc": "Pengaturan ini kembali ke nilai bawaan:",
+    "resetGroupConfirm": "Atur ulang"
   },
   "timingOverview": {
     "start": "Awal",

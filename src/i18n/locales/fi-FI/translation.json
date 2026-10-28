@@ -1055,7 +1055,12 @@
     "experimental": "Kokeellinen",
     "experimentalDesc": "Vielä keskeneräisiä ominaisuuksia. Jokainen pysyy pois päältä, kunnes otat sen käyttöön.",
     "turnAllOff": "Poista kaikki käytöstä",
-    "turnAllOffLabel": "Poista käytöstä kaikki kokeelliset ominaisuudet kohdassa {area}"
+    "turnAllOffLabel": "Poista käytöstä kaikki kokeelliset ominaisuudet kohdassa {area}",
+    "resetGroup": "Palauta oletukset",
+    "resetGroupLabel": "Palauta kohdan {group} asetukset oletuksiin",
+    "resetGroupTitle": "Palautetaanko kohdan {group} asetukset?",
+    "resetGroupDesc": "Nämä asetukset palautuvat oletuksiin:",
+    "resetGroupConfirm": "Palauta"
   },
   "timingOverview": {
     "start": "Alku",

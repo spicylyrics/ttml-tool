@@ -1055,7 +1055,12 @@
     "experimental": "Sperimentale",
     "experimentalDesc": "Funzioni ancora in lavorazione. Ognuna resta disattivata finché non la attivi.",
     "turnAllOff": "Disattiva tutto",
-    "turnAllOffLabel": "Disattiva tutte le funzioni sperimentali in {area}"
+    "turnAllOffLabel": "Disattiva tutte le funzioni sperimentali in {area}",
+    "resetGroup": "Ripristina predefiniti",
+    "resetGroupLabel": "Ripristina le impostazioni di {group} ai valori predefiniti",
+    "resetGroupTitle": "Ripristinare le impostazioni di {group}?",
+    "resetGroupDesc": "Queste impostazioni tornano ai valori predefiniti:",
+    "resetGroupConfirm": "Ripristina"
   },
   "timingOverview": {
     "start": "Inizio",

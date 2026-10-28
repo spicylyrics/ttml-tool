@@ -1055,7 +1055,12 @@
     "experimental": "Experimental",
     "experimentalDesc": "Funciones aún en desarrollo. Cada una sigue desactivada hasta que la actives.",
     "turnAllOff": "Desactivar todo",
-    "turnAllOffLabel": "Desactivar todas las funciones experimentales de {area}"
+    "turnAllOffLabel": "Desactivar todas las funciones experimentales de {area}",
+    "resetGroup": "Restablecer valores predeterminados",
+    "resetGroupLabel": "Restablecer los ajustes de {group} a sus valores predeterminados",
+    "resetGroupTitle": "¿Restablecer los ajustes de {group}?",
+    "resetGroupDesc": "Estos ajustes vuelven a sus valores predeterminados:",
+    "resetGroupConfirm": "Restablecer"
   },
   "timingOverview": {
     "start": "Inicio",

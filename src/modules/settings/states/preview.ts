@@ -8,7 +8,7 @@ export enum PreviewModeType {
 	Timing = "timing",
 }
 
-const storedPreviewModeTypeAtom = atomWithStorage<string>(
+export const storedPreviewModeTypeAtom = atomWithStorage<string>(
 	"previewModeType",
 	PreviewModeType.Spicy,
 	undefined,

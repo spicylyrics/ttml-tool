@@ -1055,7 +1055,12 @@
     "experimental": "Eksperymentalne",
     "experimentalDesc": "Funkcje, nad którymi wciąż trwają prace. Każda pozostaje wyłączona, dopóki jej nie włączysz.",
     "turnAllOff": "Wyłącz wszystkie",
-    "turnAllOffLabel": "Wyłącz wszystkie funkcje eksperymentalne w sekcji {area}"
+    "turnAllOffLabel": "Wyłącz wszystkie funkcje eksperymentalne w sekcji {area}",
+    "resetGroup": "Przywróć domyślne",
+    "resetGroupLabel": "Przywróć domyślne ustawienia w sekcji {group}",
+    "resetGroupTitle": "Przywrócić ustawienia w sekcji {group}?",
+    "resetGroupDesc": "Te ustawienia wrócą do wartości domyślnych:",
+    "resetGroupConfirm": "Przywróć"
   },
   "timingOverview": {
     "start": "Początek",

@@ -1055,7 +1055,12 @@
     "experimental": "Experimental",
     "experimentalDesc": "Funcții încă în lucru. Fiecare rămâne dezactivată până o activezi.",
     "turnAllOff": "Dezactivează tot",
-    "turnAllOffLabel": "Dezactivează toate funcțiile experimentale din {area}"
+    "turnAllOffLabel": "Dezactivează toate funcțiile experimentale din {area}",
+    "resetGroup": "Resetează la implicit",
+    "resetGroupLabel": "Resetează setările din {group} la valorile implicite",
+    "resetGroupTitle": "Resetezi setările din {group}?",
+    "resetGroupDesc": "Aceste setări revin la valorile implicite:",
+    "resetGroupConfirm": "Resetează"
   },
   "timingOverview": {
     "start": "Început",

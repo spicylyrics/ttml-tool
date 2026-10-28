@@ -44,6 +44,8 @@ import {
 	ExperimentalPage,
 	RELOCATED_SETTINGS,
 } from "./experimental";
+import { GroupReset } from "./GroupReset";
+import { GROUP_RESETS } from "./group-reset";
 import styles from "./PreferencesShell.module.css";
 import { type SectionId, SHELL_PAGE_MAP, type ShellPageId } from "./page-map";
 import { RelocatedSettingsContext } from "./relocated";
@@ -236,6 +238,14 @@ export const ShellPages = memo(({ forceMount }: { forceMount: boolean }) => {
 							title={page.label}
 							description={page.description}
 							className={styles.pageHeader}
+							actions={
+								GROUP_RESETS[page.value] && (
+									<GroupReset
+										settings={GROUP_RESETS[page.value] ?? []}
+										groupLabel={page.label}
+									/>
+								)
+							}
 						/>
 						<div className={styles.pageBody} data-shell-page-body={page.value}>
 							{page.content}

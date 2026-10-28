@@ -1055,7 +1055,12 @@
     "experimental": "Experimental",
     "experimentalDesc": "Recursos ainda em desenvolvimento. Cada um fica desligado até você ligá-lo.",
     "turnAllOff": "Desligar todos",
-    "turnAllOffLabel": "Desligar todos os recursos experimentais em {area}"
+    "turnAllOffLabel": "Desligar todos os recursos experimentais em {area}",
+    "resetGroup": "Restaurar padrões",
+    "resetGroupLabel": "Restaurar as configurações de {group} para o padrão",
+    "resetGroupTitle": "Restaurar as configurações de {group}?",
+    "resetGroupDesc": "Estas configurações voltam ao padrão:",
+    "resetGroupConfirm": "Restaurar"
   },
   "timingOverview": {
     "start": "Início",

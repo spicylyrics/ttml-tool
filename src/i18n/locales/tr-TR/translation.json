@@ -1055,7 +1055,12 @@
     "experimental": "Deneysel",
     "experimentalDesc": "Hâlâ geliştirilen özellikler. Her biri siz açana kadar kapalı kalır.",
     "turnAllOff": "Hepsini kapat",
-    "turnAllOffLabel": "{area} altındaki tüm deneysel özellikleri kapat"
+    "turnAllOffLabel": "{area} altındaki tüm deneysel özellikleri kapat",
+    "resetGroup": "Varsayılanlara sıfırla",
+    "resetGroupLabel": "{group} ayarlarını varsayılanlara sıfırla",
+    "resetGroupTitle": "{group} ayarları sıfırlansın mı?",
+    "resetGroupDesc": "Bu ayarlar varsayılan değerlerine döner:",
+    "resetGroupConfirm": "Sıfırla"
   },
   "timingOverview": {
     "start": "Başlangıç",

@@ -1055,7 +1055,12 @@
     "experimental": "Expérimental",
     "experimentalDesc": "Fonctionnalités encore en cours. Chacune reste désactivée tant que vous ne l'activez pas.",
     "turnAllOff": "Tout désactiver",
-    "turnAllOffLabel": "Désactiver toutes les fonctionnalités expérimentales de {area}"
+    "turnAllOffLabel": "Désactiver toutes les fonctionnalités expérimentales de {area}",
+    "resetGroup": "Rétablir les valeurs par défaut",
+    "resetGroupLabel": "Rétablir les réglages de {group} par défaut",
+    "resetGroupTitle": "Rétablir les réglages de {group} ?",
+    "resetGroupDesc": "Ces réglages reviennent à leur valeur par défaut :",
+    "resetGroupConfirm": "Rétablir"
   },
   "timingOverview": {
     "start": "Début",

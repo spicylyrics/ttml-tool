@@ -1055,7 +1055,12 @@
     "experimental": "Experimental",
     "experimentalDesc": "Features still in progress. Each stays off until you turn it on.",
     "turnAllOff": "Turn all off",
-    "turnAllOffLabel": "Turn off every experimental feature under {area}"
+    "turnAllOffLabel": "Turn off every experimental feature under {area}",
+    "resetGroup": "Reset to defaults",
+    "resetGroupLabel": "Reset {group} settings to their defaults",
+    "resetGroupTitle": "Reset {group} settings?",
+    "resetGroupDesc": "These settings go back to their defaults:",
+    "resetGroupConfirm": "Reset"
   },
   "timingOverview": {
     "start": "Start",
