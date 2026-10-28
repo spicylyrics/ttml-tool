@@ -1526,6 +1526,17 @@
     },
     "height": "Altura de visualización"
   },
+  "spectrogramFollow": {
+    "toggle": "Seguir el cabezal",
+    "shortcut": "Espectrograma: activar o desactivar el seguimiento del cabezal",
+    "setting": "Seguir el cabezal de reproducción",
+    "settingDesc": "Desplaza el espectrograma para mantener visible el cabezal. Desplazar o arrastrar lo pausa hasta que pulses reproducir o lo dejes un momento. Añade un botón a la barra del espectrograma.",
+    "style": "Modo de seguimiento",
+    "page": "Por páginas",
+    "pageDesc": "Salta hacia delante cuando el cabezal sale de la vista.",
+    "continuous": "Continuo",
+    "continuousDesc": "Se desplaza con el cabezal y lo mantiene centrado."
+  },
   "export": {
     "recoveryUntimed": "Esta exportación recuperada contiene letras sin sincronizar. Revisa la sincronización antes de enviarla.",
     "recoveryReviewFailed": "No se pudieron ejecutar las comprobaciones de sincronización. Revisa las letras recuperadas antes de enviarlas."

@@ -1526,6 +1526,17 @@
     },
     "height": "显示高度"
   },
+  "spectrogramFollow": {
+    "toggle": "跟随播放头",
+    "shortcut": "频谱图 - 开关跟随播放头",
+    "setting": "跟随播放头",
+    "settingDesc": "滚动频谱图，让播放头保持在视野内。滚动或拖动会暂停跟随，直到你按下播放或停一会儿。会在频谱图工具栏添加一个开关。",
+    "style": "跟随方式",
+    "page": "翻页",
+    "pageDesc": "播放头离开视野时向前跳转。",
+    "continuous": "连续",
+    "continuousDesc": "随播放头滚动并让它保持居中。"
+  },
   "export": {
     "recoveryUntimed": "此恢复导出包含未打轴的歌词。提交前请检查时间轴。",
     "recoveryReviewFailed": "无法运行时间检查。提交前请检查恢复的歌词。"

@@ -1526,6 +1526,17 @@
     },
     "height": "Tinggi tampilan"
   },
+  "spectrogramFollow": {
+    "toggle": "Ikuti playhead",
+    "shortcut": "Spektrogram - Aktifkan/nonaktifkan ikuti playhead",
+    "setting": "Ikuti playhead",
+    "settingDesc": "Menggulir spektrogram agar playhead tetap terlihat. Menggulir atau menyeret menjedanya sampai Anda menekan putar atau membiarkannya sebentar. Menambahkan tombol ke bilah alat spektrogram.",
+    "style": "Cara mengikuti",
+    "page": "Per halaman",
+    "pageDesc": "Melompat maju saat playhead keluar dari tampilan.",
+    "continuous": "Terus-menerus",
+    "continuousDesc": "Menggulir bersama playhead dan menjaganya di tengah."
+  },
   "export": {
     "recoveryUntimed": "Ekspor pemulihan ini berisi lirik yang belum diberi waktu. Periksa waktunya sebelum mengirim.",
     "recoveryReviewFailed": "Pemeriksaan waktu tidak dapat dijalankan. Tinjau lirik yang dipulihkan sebelum mengirim."

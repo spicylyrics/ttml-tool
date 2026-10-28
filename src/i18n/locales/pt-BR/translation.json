@@ -1526,6 +1526,17 @@
     },
     "height": "Altura de exibição"
   },
+  "spectrogramFollow": {
+    "toggle": "Seguir o cursor de reprodução",
+    "shortcut": "Espectrograma - Ativar/desativar seguir o cursor de reprodução",
+    "setting": "Seguir o cursor de reprodução",
+    "settingDesc": "Rola o espectrograma para manter o cursor de reprodução visível. Rolar ou arrastar pausa isso até você dar play ou esperar um momento. Adiciona um botão à barra do espectrograma.",
+    "style": "Modo de acompanhamento",
+    "page": "Por página",
+    "pageDesc": "Salta adiante quando o cursor sai da visualização.",
+    "continuous": "Contínuo",
+    "continuousDesc": "Rola junto com o cursor e o mantém no centro."
+  },
   "export": {
     "recoveryUntimed": "Esta exportação de recuperação contém letras sem sincronização. Verifique a sincronização antes de enviar.",
     "recoveryReviewFailed": "Não foi possível executar as verificações de sincronização. Revise as letras recuperadas antes de enviar."

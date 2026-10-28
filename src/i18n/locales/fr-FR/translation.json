@@ -1526,6 +1526,17 @@
     },
     "height": "Hauteur d'affichage"
   },
+  "spectrogramFollow": {
+    "toggle": "Suivre la tête de lecture",
+    "shortcut": "Spectrogramme - Activer/désactiver le suivi de la tête de lecture",
+    "setting": "Suivre la tête de lecture",
+    "settingDesc": "Fait défiler le spectrogramme pour garder la tête de lecture visible. Faire défiler ou glisser le met en pause jusqu'à ce que vous lanciez la lecture ou attendiez un instant. Ajoute un bouton à la barre du spectrogramme.",
+    "style": "Mode de suivi",
+    "page": "Par page",
+    "pageDesc": "Saute en avant quand la tête de lecture sort de la vue.",
+    "continuous": "Continu",
+    "continuousDesc": "Défile avec la tête de lecture et la garde au centre."
+  },
   "export": {
     "recoveryUntimed": "Cet export de récupération contient des paroles non synchronisées. Vérifiez la synchronisation avant de l'envoyer.",
     "recoveryReviewFailed": "Les vérifications de synchronisation n'ont pas pu s'exécuter. Relisez les paroles récupérées avant de les envoyer."

@@ -1526,6 +1526,17 @@
     },
     "height": "Näyttökorkeus"
   },
+  "spectrogramFollow": {
+    "toggle": "Seuraa toistokohtaa",
+    "shortcut": "Spektrogrammi - Toistokohdan seuraaminen päälle/pois",
+    "setting": "Seuraa toistokohtaa",
+    "settingDesc": "Vierittää spektrogrammia niin, että toistokohta pysyy näkyvissä. Vierittäminen tai vetäminen keskeyttää sen, kunnes painat toistoa tai odotat hetken. Lisää painikkeen spektrogrammin työkaluriville.",
+    "style": "Seuraamistapa",
+    "page": "Sivuittain",
+    "pageDesc": "Hyppää eteenpäin, kun toistokohta poistuu näkymästä.",
+    "continuous": "Jatkuva",
+    "continuousDesc": "Vierittää toistokohdan mukana ja pitää sen keskellä."
+  },
   "export": {
     "recoveryUntimed": "Tämä palautusvienti sisältää ajoittamattomia sanoituksia. Tarkista ajoitus ennen lähettämistä.",
     "recoveryReviewFailed": "Ajoitustarkistuksia ei voitu suorittaa. Tarkista palautetut sanoitukset ennen lähettämistä."
