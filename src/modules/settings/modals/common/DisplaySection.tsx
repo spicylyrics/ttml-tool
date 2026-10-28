@@ -1,4 +1,3 @@
-import resources from "virtual:i18next-loader";
 import {
 	LocalLanguage24Regular,
 	VideoBackgroundEffect24Regular,
@@ -12,16 +11,13 @@ import {
 	Switch,
 	Text,
 } from "@radix-ui/themes";
-import { getLanguageName, getTranslationProgress } from "./language";
+import { Relocatable } from "$/modules/settings/shell/relocated";
+import { UpdatedToastSetting } from "$/modules/updated-toast/UpdatedToastSetting";
+import { getLanguageName } from "./language";
 import type { CommonSettings } from "./useCommonSettings";
-export const DisplaySection = ({
-	languageOptions,
-	compactBGInSync,
-	setCompactBGInSync,
-	t,
-	i18n,
-	currentLanguage,
-}: Pick<
+import { useTranslationProgress } from "./useTranslationProgress";
+
+type DisplaySectionProps = Pick<
 	CommonSettings,
 	| "languageOptions"
 	| "compactBGInSync"
@@ -29,7 +25,29 @@ export const DisplaySection = ({
 	| "t"
 	| "i18n"
 	| "currentLanguage"
->) => (
+>;
+
+export const DisplaySection = (props: DisplaySectionProps) => {
+	const translationProgress = useTranslationProgress();
+	return (
+		<DisplaySectionContent
+			{...props}
+			translationProgress={translationProgress}
+		/>
+	);
+};
+
+const DisplaySectionContent = ({
+	languageOptions,
+	compactBGInSync,
+	setCompactBGInSync,
+	t,
+	i18n,
+	currentLanguage,
+	translationProgress,
+}: DisplaySectionProps & {
+	translationProgress: Record<string, number | null>;
+}) => (
 	<Flex direction="column" gap="2">
 		<Heading size="4">{t("settings.group.display", "Display")}</Heading>
 
@@ -60,7 +78,7 @@ export const DisplaySection = ({
 								<Select.Trigger />
 								<Select.Content>
 									{languageOptions.map((code) => {
-										const progress = getTranslationProgress(code, resources);
+										const progress = translationProgress[code] ?? null;
 										return (
 											<Select.Item key={code} value={code}>
 												<Flex
@@ -125,5 +143,9 @@ export const DisplaySection = ({
 				</Flex>
 			</Text>
 		</Card>
+
+		<Relocatable setting={UpdatedToastSetting}>
+			<UpdatedToastSetting />
+		</Relocatable>
 	</Flex>
 );

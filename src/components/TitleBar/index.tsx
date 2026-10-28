@@ -1,11 +1,12 @@
 import { Flex, SegmentedControl, Text } from "@radix-ui/themes";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
-import { type FC, useCallback } from "react";
+import { type FC, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ActionTooltip } from "$/components/ActionTooltip";
 import { BrandMark } from "$/components/BrandBand";
 import WindowControls from "$/components/WindowControls";
+import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import {
 	keySwitchEditModeAtom,
 	keySwitchPreviewModeAtom,
@@ -50,6 +51,13 @@ export const TitleBar: FC = () => {
 	useKeyBindingAtom(keySwitchEditModeAtom, onSwitchEditMode);
 	useKeyBindingAtom(keySwitchSyncModeAtom, onSwitchSyncMode);
 	useKeyBindingAtom(keySwitchPreviewModeAtom, onSwitchPreviewMode);
+
+	// Turning the flag off while transcribing would leave no tab selected.
+	const transcriptionEnabled = useAtomValue(transcriptionModeEnabledAtom);
+	useEffect(() => {
+		if (!transcriptionEnabled && toolMode === ToolMode.Transcribe)
+			switchMode(ToolMode.Edit);
+	}, [transcriptionEnabled, toolMode, switchMode]);
 
 	return (
 		<WindowControls
@@ -98,6 +106,19 @@ export const TitleBar: FC = () => {
 							{t("topBar.modeBtns.preview", "预览")}
 						</ActionTooltip>
 					</SegmentedControl.Item>
+					{transcriptionEnabled && (
+						<SegmentedControl.Item value={ToolMode.Transcribe}>
+							<ActionTooltip
+								label={t("transcription.modeBtn", "Transcribe")}
+								description={t(
+									"transcription.modeBtnDesc",
+									"Type the lyrics as plain text while the song plays.",
+								)}
+							>
+								{t("transcription.modeBtn", "Transcribe")}
+							</ActionTooltip>
+						</SegmentedControl.Item>
+					)}
 				</SegmentedControl.Root>
 			}
 			endChildren={

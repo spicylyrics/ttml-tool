@@ -36,6 +36,7 @@ import {
 	matchesSettingsSearch,
 	settingsSearchKeywords,
 } from "../logic/settings-search";
+import { ShellFlagToggle } from "../shell/ShellFlagToggle";
 import { SettingsAboutTab } from "./about";
 import { SettingsAppearanceTab } from "./appearance";
 import { AudioSettingsTab } from "./audio";
@@ -426,6 +427,9 @@ export const SettingsDialog = memo(() => {
 								{t("settingsDialog.noSearchResults", "No matching categories")}
 							</Text>
 						)}
+						<Box mt="auto" pt="3" px="2">
+							<ShellFlagToggle />
+						</Box>
 					</aside>
 
 					<main

@@ -13,6 +13,7 @@ import classNames from "classnames";
 import { type Atom, atom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { type FC, useMemo } from "react";
+import { effectiveSyncLevelAtom } from "$/modules/line-sync/states";
 import {
 	enableManualTimestampEditAtom,
 	enableSyncGlowAnimationAtom,
@@ -23,9 +24,9 @@ import {
 import { instantHighlightFadeAtom } from "$/modules/settings/states/preview";
 import {
 	enableTimeModeDoubleClickEditAtom,
-	syncLevelModeAtom,
 	visualizeTimestampUpdateAtom,
 } from "$/modules/settings/states/sync.ts";
+import { doubleClickEditsTimestampAtom } from "$/modules/time-mode-editing/states";
 import { splitWordDialogAtom } from "$/states/dialogs.ts";
 import {
 	editingWordStateAtom,
@@ -81,13 +82,14 @@ export const LyricSyncWordView: FC<{
 	const highlightErrors = useAtomValue(highlightErrorsAtom);
 	const highlightActiveWord = useAtomValue(highlightActiveWordAtom);
 	const toolMode = useAtomValue(toolModeAtom);
-	const syncLevelMode = useAtomValue(syncLevelModeAtom);
+	const syncLevelMode = useAtomValue(effectiveSyncLevelAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const enableSyncGlowAnimation = useAtomValue(enableSyncGlowAnimationAtom);
 	const enableManualTimestampEdit = useAtomValue(enableManualTimestampEditAtom);
 	const enableTimeModeDoubleClickEdit = useAtomValue(
 		enableTimeModeDoubleClickEditAtom,
 	);
+	const doubleClickEditsTimestamp = useAtomValue(doubleClickEditsTimestampAtom);
 
 	const store = useStore();
 	const {
@@ -197,6 +199,8 @@ export const LyricSyncWordView: FC<{
 		setEditingWordState,
 		setOpenSplitWordDialog,
 		editing,
+		// The start time field only exists while timestamps are shown.
+		doubleClickEditsTimestamp: doubleClickEditsTimestamp && showTimestamps,
 	});
 
 	return (

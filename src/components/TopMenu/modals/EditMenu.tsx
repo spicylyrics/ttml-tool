@@ -2,6 +2,7 @@ import { Button, DropdownMenu } from "@radix-ui/themes";
 import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { EditAsTextMenuItem } from "$/modules/edit-as-text/components/EditAsTextMenuItem";
 import { formatKeyBindings } from "$/utils/keybindings";
 import { useTopMenuActions } from "../useTopMenuActions";
 
@@ -62,6 +63,7 @@ const EditMenuItems = () => {
 			<DropdownMenu.Item onSelect={menu.onOpenMetadataEditor}>
 				<Trans i18nKey="topBar.menu.editMetadata">编辑歌词元数据</Trans>
 			</DropdownMenu.Item>
+			<EditAsTextMenuItem />
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onSelect={menu.onOpenSettings}>
 				<Trans i18nKey="settingsDialog.title">首选项</Trans>

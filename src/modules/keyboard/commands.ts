@@ -352,6 +352,13 @@ export const cmdCancelTimelineEditing = registerCommand(
 	"Spectrogram",
 );
 
+export const cmdToggleSpectrogramFollow = registerCommand(
+	"toggleSpectrogramFollow",
+	["Shift", "KeyP"],
+	t("spectrogramFollow.shortcut"),
+	"Spectrogram",
+);
+
 if (import.meta.env.DEV) {
 	t("settingsDialog.keybindings.category.File");
 	t("settingsDialog.keybindings.category.Edit");

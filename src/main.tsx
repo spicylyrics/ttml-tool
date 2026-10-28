@@ -21,7 +21,7 @@ import "@fontsource-variable/geist";
 import "react-toastify/dist/ReactToastify.css";
 
 import App from "./App.tsx";
-import "./i18n/index.ts";
+import { i18nReady, waitForStartupLanguage } from "./i18n/index.ts";
 import "./index.css";
 import "./styles/spicy-lyrics-design.css";
 import "./utils/pwa.tsx";
@@ -35,6 +35,10 @@ async function startApp() {
 	if (!rootEl) {
 		throw new Error("Could not find root element");
 	}
+
+	// Render in the user's language from the first paint. If its catalog fails
+	// or takes over 4 s, render in en-US; a late catalog still switches over.
+	await waitForStartupLanguage(i18nReady);
 
 	if (isMigrationPath(window.location.pathname)) {
 		createRoot(rootEl).render(

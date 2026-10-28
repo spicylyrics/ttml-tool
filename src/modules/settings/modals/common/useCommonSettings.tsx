@@ -1,7 +1,7 @@
-import resources from "virtual:i18next-loader";
 import { useAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { languages } from "$/i18n/resources";
 import { playbackRateAtom, volumeAtom } from "$/modules/audio/states";
 import {
 	allowConsecutiveBackgroundLinesAtom,
@@ -27,7 +27,7 @@ import {
 import { ToolMode, toolModeAtom } from "$/states/main";
 import { keyBindingTriggerModeAtom } from "$/utils/keybindings";
 export function useCommonSettings() {
-	const languageOptions: readonly string[] = Object.keys(resources);
+	const languageOptions: readonly string[] = languages;
 	const [syncJudgeMode, setSyncJudgeMode] = useAtom(syncJudgeModeAtom);
 	const [keyBindingTriggerMode, setKeyBindingTriggerMode] = useAtom(
 		keyBindingTriggerModeAtom,

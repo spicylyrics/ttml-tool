@@ -11,6 +11,7 @@ import { useSpicyLyrics } from "./useSpicyLyrics";
 export const SpicyLyrics = memo(() => {
 	const {
 		simple,
+		userFont,
 		useAccent,
 		accent,
 		coverPalette,
@@ -33,7 +34,11 @@ export const SpicyLyrics = memo(() => {
 
 	return (
 		<div
-			className={classNames(styles.root, simple && styles.simple)}
+			className={classNames(
+				styles.root,
+				simple && styles.simple,
+				userFont && styles.userFont,
+			)}
 			style={
 				{
 					"--spicy-accent": useAccent ? accent : "#5c6cff",
