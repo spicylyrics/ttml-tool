@@ -1616,6 +1616,25 @@
     "howToGetKey": "Come ottenere un token di accesso Genius",
     "changeKey": "Cambia token di accesso"
   },
+  "referenceSidebar": {
+    "setting": "Pannello di riferimento",
+    "settingDesc": "Aggancia a destra l’anteprima e il testo Genius del brano in Modifica e Sincronizzazione. Sostituisce il pannello di anteprima.",
+    "label": "Pannello di riferimento",
+    "collapse": "Comprimi pannello",
+    "tabs": {
+      "preview": "Anteprima",
+      "genius": "Genius",
+      "problems": "Problemi"
+    },
+    "genius": {
+      "changeSong": "Cambia brano",
+      "backToLyrics": "Torna al testo",
+      "searchFailed": "Ricerca non riuscita: {error}",
+      "loadFailed": "Impossibile caricare il testo: {error}",
+      "retry": "Riprova",
+      "lyricsLabel": "Testo Genius di {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Elabora testo",
     "processedSuccess": "Testo pronto per la sincronizzazione per sillabe.",
