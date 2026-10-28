@@ -1703,6 +1703,13 @@
     "title": "Kontrola nájdených sekcií",
     "lineCount": "{count, plural, one {# riadok textu} few {# riadky textu} many {# riadka textu} other {# riadkov textu}}"
   },
+  "importInlineSections": {
+    "title": "Sekcie",
+    "hint": "Zmeny tu prepíšu riadky hlavičiek v texte.",
+    "mergeUp": "Zlúčiť so sekciou vyššie",
+    "setting": "Upravovať sekcie vedľa importovaného textu (experimentálne)",
+    "settingDesc": "Zobrazí nájdené sekcie vedľa textu na obrazovke importu a importuje v jednom kroku, bez kroku Kontrola sekcií."
+  },
   "globalDragOverlay": {
     "title": "Uvoľnite pre načítanie"
   },

@@ -1703,6 +1703,13 @@
     "title": "Examiner les sections détectées",
     "lineCount": "{count, plural, one {# ligne de paroles} many {# lignes de paroles} other {# lignes de paroles}}"
   },
+  "importInlineSections": {
+    "title": "Sections",
+    "hint": "Les modifications faites ici réécrivent les lignes d'en-tête du texte.",
+    "mergeUp": "Fusionner avec la section du dessus",
+    "setting": "Modifier les sections à côté du texte importé (expérimental)",
+    "settingDesc": "Affiche les sections détectées à côté des paroles sur l'écran d'import et importe en une étape, sans l'étape Examiner les sections."
+  },
   "globalDragOverlay": {
     "title": "Relâchez pour charger"
   },

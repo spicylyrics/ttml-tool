@@ -1703,6 +1703,13 @@
     "title": "Verifică secțiunile detectate",
     "lineCount": "{count, plural, one {# vers} few {# versuri} other {# de versuri}}"
   },
+  "importInlineSections": {
+    "title": "Secțiuni",
+    "hint": "Modificările de aici rescriu rândurile de antet din text.",
+    "mergeUp": "Unește cu secțiunea de deasupra",
+    "setting": "Editează secțiunile lângă textul de import (experimental)",
+    "settingDesc": "Afișează secțiunile detectate lângă versuri pe ecranul de import și importă într-un singur pas, fără pasul Verifică secțiunile."
+  },
   "globalDragOverlay": {
     "title": "Eliberează pentru a încărca"
   },

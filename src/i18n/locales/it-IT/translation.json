@@ -1703,6 +1703,13 @@
     "title": "Esamina le sezioni rilevate",
     "lineCount": "{count, plural, one {# verso} many {# versi} other {# versi}}"
   },
+  "importInlineSections": {
+    "title": "Sezioni",
+    "hint": "Le modifiche fatte qui riscrivono le righe di intestazione nel testo.",
+    "mergeUp": "Unisci alla sezione sopra",
+    "setting": "Modifica le sezioni accanto al testo da importare (sperimentale)",
+    "settingDesc": "Mostra le sezioni rilevate accanto al testo nella schermata di importazione e importa in un solo passaggio, senza il passaggio Esamina le sezioni."
+  },
   "globalDragOverlay": {
     "title": "Rilascia per caricare"
   },
