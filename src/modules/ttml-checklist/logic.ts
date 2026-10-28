@@ -7,6 +7,14 @@ export interface TTMLChecklistEntry {
 	notes: string;
 	completed: boolean;
 	createdAt: number;
+	/** Autosave project id of the document started from this entry. */
+	projectId?: string;
+	/** Folder project the started document was saved as, if any. */
+	projectDir?: string;
+	/** When "Start project" was used on this entry. */
+	startedAt?: number;
+	/** Genius song id, when the entry was added from a Genius search. */
+	geniusId?: number;
 }
 
 export type TTMLChecklistEntryInput = Pick<
@@ -28,7 +36,18 @@ export function normalizeChecklistEntries(
 			if (!isRecord(item) || typeof item.song !== "string") return null;
 			const song = item.song.trim();
 			if (!song) return null;
+			// Optional link fields only appear when set, so old entries keep their shape.
+			const links: Partial<TTMLChecklistEntry> = {};
+			if (typeof item.projectId === "string" && item.projectId)
+				links.projectId = item.projectId;
+			if (typeof item.projectDir === "string" && item.projectDir)
+				links.projectDir = item.projectDir;
+			if (typeof item.startedAt === "number" && Number.isFinite(item.startedAt))
+				links.startedAt = item.startedAt;
+			if (typeof item.geniusId === "number" && Number.isFinite(item.geniusId))
+				links.geniusId = item.geniusId;
 			return {
+				...links,
 				id:
 					typeof item.id === "string" && item.id ? item.id : `legacy-${index}`,
 				song,

@@ -18,6 +18,8 @@ import {
 	type ExportTranslation,
 	saveTTML,
 } from "$/modules/project/ttml-save";
+import { openProjectsDialog } from "$/modules/projects-hub/song-list-actions";
+import { projectsHubEnabledAtom } from "$/modules/projects-hub/states";
 import {
 	segmentationEngineAtom,
 	segmentationSplitEnglishAtom,
@@ -218,8 +220,13 @@ export const useTopMenuActions = () => {
 	}, [store]);
 
 	const onOpenTTMLChecklist = useCallback(() => {
+		// With the song list in Projects, the old dialog's menu entry opens it there.
+		if (store.get(projectsHubEnabledAtom)) {
+			openProjectsDialog(store, "songs");
+			return;
+		}
 		setTTMLChecklistDialog(true);
-	}, [setTTMLChecklistDialog]);
+	}, [setTTMLChecklistDialog, store]);
 
 	const onOpenGitHub = useCallback(async () => {
 		if (import.meta.env.TAURI_ENV_PLATFORM) {

@@ -372,6 +372,82 @@
     "projectsFound": "{count, plural, one {# proje bulundu} other {# proje bulundu}}",
     "scanFailed": "Çalışma alanı klasörü taranamadı"
   },
+  "projectsHub": {
+    "enable": "Şarkı listesi ve başlangıç ekranı",
+    "enableDesc": "Projeler'e Senkronlanacaklar listesi ve klasör tarama, boş düzenleyiciye bir başlangıç ekranı, açılışta son oturuma devam etme sorusu, TTML ve sesi tek sürüklemede açma ile düz metin veya Genius metni olarak dışa aktarma ekler.",
+    "menuProjects": "Projeler...",
+    "tabSongs": "Senkronlanacaklar",
+    "songs": {
+      "description": "Sırada senkronlamak istediğiniz şarkılar. Birinden proje başlatın; TTML'yi dışa aktardığınızda tamamlandı olarak işaretlenir.",
+      "addManually": "Elle yaz",
+      "searchGenius": "Genius'ta ara",
+      "add": "Listeye ekle",
+      "added": "{song} listeye eklendi.",
+      "alreadyListed": "{song} zaten listede.",
+      "searchFailed": "Genius'ta arama yapılamadı.",
+      "start": "Projeyi başlat",
+      "started": "{song} başlatıldı. Sözleri içe aktarın veya yazın, ardından sesi yükleyin.",
+      "startDirty": "Kaydedilmemiş değişiklikleriniz var. {song} başlatılırsa düzenleyicideki sözler değiştirilir.",
+      "markedDone": "{song} tamamlandı olarak işaretlendi.",
+      "inProgress": "Başlatıldı",
+      "empty": "Henüz senkronlanacak bir şey yok. Unutmadan sıradaki şarkıyı ekleyin.",
+      "showNotes": "Notları göster",
+      "showCompleted": "Tamamlananlar ({count})",
+      "hideCompleted": "Tamamlananları gizle",
+      "markDone": "Tamamlandı",
+      "reopen": "Yeniden aç",
+      "edit": "Şarkıyı düzenle",
+      "delete": "Şarkıyı kaldır",
+      "toolMenu": "Senkronlanacaklar..."
+    },
+    "scan": {
+      "tab": "Klasörü tara",
+      "select": "Bir klasörde TTML ara...",
+      "pairsTitle": "Proje olarak bağlayabileceğiniz dosyalar",
+      "pairsHint": "Aynı adlı bir TTML ve bir ses dosyası. Bağlamak iki dosyayı da yerinde bırakır.",
+      "link": "Bağla",
+      "linkAll": "Tümünü bağla",
+      "linked": "{name} proje olarak bağlandı.",
+      "linkedCount": "{count, plural, one {# proje bağlandı} other {# proje bağlandı}}",
+      "linkFailed": "{name} bağlanamadı.",
+      "noPairs": "Aynı adlı TTML ve ses dosyası bulunamadı.",
+      "scanning": "Dosyalar aranıyor..."
+    },
+    "start": {
+      "title": "Senkronlamaya başlayın",
+      "description": "Bir proje açın, listenizden bir şarkı seçin veya sözlerden başlayın.",
+      "startedDescription": "Sözleri metinden veya Genius'tan ekleyin, ardından sesi yükleyin.",
+      "fromText": "Metinden yeni",
+      "fromGenius": "Genius'tan yeni",
+      "openFile": "Dosya aç...",
+      "openFolder": "Klasör projesi aç...",
+      "projects": "Projeler...",
+      "recent": "Son projeler",
+      "songs": "Senkronlanacaklar",
+      "seeAll": "Tümünü gör",
+      "startSong": "{song} için projeyi başlat"
+    },
+    "resume": {
+      "title": "Kaldığınız yerden devam edilsin mi?",
+      "description": "{name} en son {time} tarihinde düzenlendi. Geçmişten geri yükleme her iki durumda da tüm otomatik kayıtları saklar.",
+      "continue": "Devam et",
+      "startFresh": "Sıfırdan başla",
+      "restored": "{name} geri yüklendi."
+    },
+    "export": {
+      "plainText": "Düz metin...",
+      "geniusText": "Genius metni...",
+      "copyGenius": "Genius metni olarak kopyala",
+      "copied": "Sözler Genius metni olarak kopyalandı.",
+      "copyFailed": "Sözler kopyalanamadı.",
+      "saveFailed": "Dosya kaydedilemedi.",
+      "textFiles": "Metin dosyaları",
+      "empty": "Dışa aktarılacak söz yok."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# dosya atlandı. Aynı anda bir söz dosyası ve bir ses dosyası bırakın.} other {# dosya atlandı. Aynı anda bir söz dosyası ve bir ses dosyası bırakın.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Düzenle, Zamanla ve Önizleme şeritleri için geçerlidir.",
     "tooltips": {
