@@ -912,6 +912,36 @@
       "projects": "Proyectos"
     }
   },
+  "transcription": {
+    "modeBtn": "Transcribir",
+    "modeBtnDesc": "Escribe la letra como texto sin formato mientras suena la canción.",
+    "enable": "Pestaña Transcribir",
+    "enableDesc": "Añade una pestaña Transcribir para escribir la letra como texto sin formato mientras suena la canción.",
+    "title": "Transcribir",
+    "stats": "{lines, plural, one {# línea} many {# líneas} other {# líneas}}, {words, plural, one {# palabra} many {# palabras} other {# palabras}}",
+    "tidy": "Ordenar formato",
+    "export": "Exportar",
+    "copyGenius": "Copiar como texto de Genius",
+    "copyPlain": "Copiar como texto sin formato",
+    "saveGenius": "Guardar como texto de Genius...",
+    "savePlain": "Guardar como texto sin formato...",
+    "sendToImport": "Importar al editor...",
+    "textLabel": "Transcripción",
+    "placeholder": "Escribe la letra tal como la oyes, una línea por fila. Pon los encabezados de sección como [Verse 1] en su propia fila.",
+    "copied": "Copiado al portapapeles.",
+    "copyFailed": "No se pudo copiar el texto.",
+    "saveFailed": "No se pudo guardar el archivo.",
+    "textFiles": "Archivos de texto",
+    "keys": {
+      "label": "Atajos en el cuadro de texto",
+      "playPause": "Reproducir o pausar",
+      "back": "Atrás 3 segundos",
+      "forward": "Adelante 3 segundos",
+      "slower": "Más lento",
+      "faster": "Más rápido",
+      "resetSpeed": "Velocidad normal"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Guardado automáticamente a las {time}",

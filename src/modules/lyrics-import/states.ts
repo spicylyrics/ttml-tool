@@ -36,6 +36,15 @@ export const openImportLyricsAtom = atom(
 	},
 );
 
+/** The import screen's text. Kept outside the dialog so closing it doesn't lose a draft. */
+export const importTextAtom = atom("");
+
+/** Open the plain-text import screen with the given text in the box. */
+export const openImportWithTextAtom = atom(null, (_get, set, text: string) => {
+	set(importTextAtom, text);
+	set(openImportLyricsAtom, "plainText");
+});
+
 // The text format keys predate the unified screen; keep them so preferences carry over.
 const storage = <T>(key: keyof ImportTextFormat, storageKey: string) =>
 	atomWithStorage<T>(
