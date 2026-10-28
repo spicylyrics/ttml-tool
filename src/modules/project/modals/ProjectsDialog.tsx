@@ -826,7 +826,8 @@ const WorkspaceTab = ({
 				<ScrollArea
 					type="auto"
 					scrollbars="vertical"
-					style={{ maxHeight: "46vh" }}
+					// Leaves room for the linkable files panel below.
+					style={{ maxHeight: hubEnabled ? "28vh" : "46vh" }}
 				>
 					<Flex direction="column" gap="2" pr="3">
 						{visible.length === 0 ? (

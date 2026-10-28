@@ -54,20 +54,23 @@ export const GeniusSongSearch = ({
 				searching={searching}
 			/>
 			{geniusApiKey && (
-				<OnlineResults
-					results={results}
-					searching={searching}
-					hasSearched={hasSearched}
-					audioDuration={0}
-					loadingId={null}
-					onPick={(track) =>
-						onPick({
-							song: track.name,
-							artist: track.artist,
-							geniusId: typeof track.id === "number" ? track.id : undefined,
-						})
-					}
-				/>
+				// The results list scrolls inside a bounded flex column, as on the import screen.
+				<Flex direction="column" style={{ maxHeight: "28vh", minHeight: 0 }}>
+					<OnlineResults
+						results={results}
+						searching={searching}
+						hasSearched={hasSearched}
+						audioDuration={0}
+						loadingId={null}
+						onPick={(track) =>
+							onPick({
+								song: track.name,
+								artist: track.artist,
+								geniusId: typeof track.id === "number" ? track.id : undefined,
+							})
+						}
+					/>
+				</Flex>
 			)}
 		</Flex>
 	);
