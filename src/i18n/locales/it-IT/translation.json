@@ -1226,6 +1226,17 @@
     "prevWord": "Parola precedente",
     "nextWord": "Parola successiva"
   },
+  "lineSync": {
+    "flagTitle": "Sincronizzazione per riga",
+    "flagDesc": "Permette di sincronizzare ogni brano per parola o per riga intera. In modalità Riga, F, G e H iniziano e terminano righe intere.",
+    "timing": "Sincronizzazione del brano",
+    "timingDesc": "Parola: ogni parola ha il suo tempo. Riga: si sincronizzano solo righe intere e il TTML viene esportato sincronizzato per riga.",
+    "word": "Parola",
+    "line": "Riga",
+    "confirmTitle": "Passare alla sincronizzazione per riga?",
+    "confirmDescription": "Ogni parola mantiene il suo testo ma perde il proprio tempo. Ogni riga mantiene inizio e fine. Puoi annullare.",
+    "confirmAction": "Passa a Riga"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "dizionario di slang",

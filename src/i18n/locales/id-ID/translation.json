@@ -1226,6 +1226,17 @@
     "prevWord": "Kata sebelumnya",
     "nextWord": "Kata berikutnya"
   },
+  "lineSync": {
+    "flagTitle": "Sinkronisasi baris",
+    "flagDesc": "Setiap lagu bisa diberi waktu per kata atau per baris utuh. Dalam mode Baris, F, G, dan H memulai dan mengakhiri baris utuh.",
+    "timing": "Waktu lagu",
+    "timingDesc": "Kata: setiap kata punya waktunya sendiri. Baris: hanya baris utuh yang diberi waktu, dan TTML diekspor tersinkron per baris.",
+    "word": "Kata",
+    "line": "Baris",
+    "confirmTitle": "Beralih ke waktu per baris?",
+    "confirmDescription": "Setiap kata tetap menyimpan teksnya tetapi kehilangan waktunya sendiri. Setiap baris tetap menyimpan awal dan akhirnya. Kamu bisa membatalkannya.",
+    "confirmAction": "Beralih ke Baris"
+  },
   "urbanDictionary": {
     "title": "Urban Dictionary",
     "slang": "kamus gaul",

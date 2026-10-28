@@ -27,11 +27,16 @@ export interface Mark {
 	description?: string;
 }
 
+/** How the song is timed: per word, or whole lines only. Never mixed. */
+export type TimingMode = "word" | "line";
+
 export interface TTMLLyric {
 	metadata: TTMLMetadata[];
 	lyricLines: LyricLine[];
 	marks?: Mark[];
 	sections?: LyricSection[];
+	/** Missing in projects saved before line syncing existed; read as word. */
+	timingMode?: TimingMode;
 }
 
 export const LYRIC_SECTION_CATEGORIES = [
@@ -108,6 +113,8 @@ export interface LyricLine extends AMLLLyricLine {
 	ignoreSync: boolean;
 	/** Whether the source stores this lyric as direct text in a timed <p>. */
 	isLineSynced?: boolean;
+	/** The line's start and end were synced in Line mode; word syncing stays inside them. */
+	lineBoundsSynced?: boolean;
 	language?: string;
 	agent?: string;
 	/**
