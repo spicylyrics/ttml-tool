@@ -21,6 +21,8 @@ import {
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
 import { TouchSyncPanel } from "$/modules/lyric-editor/components/TouchSyncPanel/index.tsx";
 import { log } from "$/utils/logging.ts";
+// Installs second-key dispatch (off unless the keyboard view flag is on).
+import "$/modules/keyboard/binding-list";
 import "@radix-ui/themes/styles.css";
 import { invoke } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";

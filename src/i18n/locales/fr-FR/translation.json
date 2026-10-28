@@ -1074,7 +1074,39 @@
       "audioDesc": "Lecture, égaliseur et affichage du spectrogramme."
     }
   },
-  "autoSegmentApplied": "Segmentation automatique avec {engine}",
+  "keyboardView": {
+    "title": "Clavier",
+    "flagTitle": "Vue clavier et touches secondaires",
+    "flagDesc": "Expérimental. Affiche vos raccourcis sur un clavier et permet à une action d'avoir plusieurs touches.",
+    "search": "Rechercher des actions",
+    "searchResults": "{count, plural, =0 {Aucune action ne correspond} one {# action correspond} many {# actions correspondent} other {# actions correspondent}}",
+    "layout": "Disposition du clavier",
+    "layoutAuto": "Automatique",
+    "layoutDetected": "Détectée : {layout}",
+    "layoutUnavailable": "Impossible de détecter la disposition ici, QWERTY est affiché",
+    "layerHint": "Cliquez sur une touche de modification, comme Maj, pour voir les raccourcis qui l'utilisent.",
+    "category": {
+      "sync": "Synchronisation",
+      "edit": "Édition",
+      "playback": "Lecture",
+      "navigation": "Navigation"
+    },
+    "free": "Libre",
+    "keyFree": "{key} : libre",
+    "keyActions": "{key} : {actions}",
+    "modifierLayer": "Afficher les raccourcis avec {key}",
+    "freeKey": "Rien n'utilise encore {key}.",
+    "assignLabel": "Action",
+    "assignPlaceholder": "Choisir une action...",
+    "assign": "Ajouter à {key}",
+    "changeKey": "Changer de touche",
+    "addKey": "Ajouter une deuxième touche",
+    "removeKey": "Retirer {key}",
+    "duplicateKey": "Cette touche est déjà définie pour cette action.",
+    "otherLayers": "Aussi sur cette touche",
+    "closePanel": "Fermer"
+  },
+  "autoSegmentApplied":"Segmentation automatique avec {engine}",
   "error": {
     "unsupportedFileFormat": "Format de fichier non pris en charge : {ext}",
     "openFileFailed": "Échec de l'ouverture du fichier",

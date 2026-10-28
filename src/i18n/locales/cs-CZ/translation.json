@@ -1074,7 +1074,39 @@
       "audioDesc": "Přehrávání, ekvalizér a zobrazení spektrogramu."
     }
   },
-  "autoSegmentApplied": "Automaticky rozděleno pomocí {engine}",
+  "keyboardView": {
+    "title": "Klávesnice",
+    "flagTitle": "Zobrazení klávesnice a druhé klávesy",
+    "flagDesc": "Experimentální. Zobrazí zkratky na klávesnici a umožní jedné akci mít více kláves.",
+    "search": "Hledat akce",
+    "searchResults": "{count, plural, =0 {Žádná akce neodpovídá} one {Odpovídá # akce} few {Odpovídají # akce} many {Odpovídá # akce} other {Odpovídá # akcí}}",
+    "layout": "Rozložení klávesnice",
+    "layoutAuto": "Automaticky",
+    "layoutDetected": "Zjištěno: {layout}",
+    "layoutUnavailable": "Rozložení zde nelze zjistit, zobrazuje se QWERTY",
+    "layerHint": "Klikněte na modifikační klávesu, například Shift, a uvidíte zkratky, které ji používají.",
+    "category": {
+      "sync": "Časování",
+      "edit": "Úpravy",
+      "playback": "Přehrávání",
+      "navigation": "Navigace"
+    },
+    "free": "Volná",
+    "keyFree": "{key}: volná",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Zobrazit zkratky s {key}",
+    "freeKey": "{key} zatím nic nepoužívá.",
+    "assignLabel": "Akce",
+    "assignPlaceholder": "Vyberte akci...",
+    "assign": "Přidat na {key}",
+    "changeKey": "Změnit klávesu",
+    "addKey": "Přidat druhou klávesu",
+    "removeKey": "Odebrat {key}",
+    "duplicateKey": "Tato klávesa je už pro tuto akci nastavena.",
+    "otherLayers": "Také na této klávese",
+    "closePanel": "Zavřít"
+  },
+  "autoSegmentApplied":"Automaticky rozděleno pomocí {engine}",
   "error": {
     "unsupportedFileFormat": "Nepodporovaný formát souboru: {ext}",
     "openFileFailed": "Nepodařilo se otevřít soubor",

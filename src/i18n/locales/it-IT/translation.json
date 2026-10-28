@@ -1074,7 +1074,39 @@
       "audioDesc": "Riproduzione, equalizzatore e visualizzazione dello spettrogramma."
     }
   },
-  "autoSegmentApplied": "Segmentazione automatica con {engine}",
+  "keyboardView": {
+    "title": "Tastiera",
+    "flagTitle": "Vista tastiera e tasti secondari",
+    "flagDesc": "Sperimentale. Mostra le scorciatoie su una tastiera e permette a un'azione di avere più di un tasto.",
+    "search": "Cerca azioni",
+    "searchResults": "{count, plural, =0 {Nessuna azione corrisponde} one {# azione corrisponde} many {# azioni corrispondono} other {# azioni corrispondono}}",
+    "layout": "Layout della tastiera",
+    "layoutAuto": "Automatico",
+    "layoutDetected": "Rilevato: {layout}",
+    "layoutUnavailable": "Impossibile rilevare il layout qui, quindi viene mostrato QWERTY",
+    "layerHint": "Fai clic su un tasto modificatore, come Maiusc, per vedere le scorciatoie che lo usano.",
+    "category": {
+      "sync": "Sincronizzazione",
+      "edit": "Modifica",
+      "playback": "Riproduzione",
+      "navigation": "Navigazione"
+    },
+    "free": "Libero",
+    "keyFree": "{key}: libero",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Mostra scorciatoie con {key}",
+    "freeKey": "Niente usa ancora {key}.",
+    "assignLabel": "Azione",
+    "assignPlaceholder": "Scegli un'azione...",
+    "assign": "Aggiungi a {key}",
+    "changeKey": "Cambia tasto",
+    "addKey": "Aggiungi secondo tasto",
+    "removeKey": "Rimuovi {key}",
+    "duplicateKey": "Questo tasto è già impostato per questa azione.",
+    "otherLayers": "Anche su questo tasto",
+    "closePanel": "Chiudi"
+  },
+  "autoSegmentApplied":"Segmentazione automatica con {engine}",
   "error": {
     "unsupportedFileFormat": "Formato file non supportato: {ext}",
     "openFileFailed": "Apertura del file non riuscita",

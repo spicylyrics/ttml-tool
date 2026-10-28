@@ -1074,7 +1074,39 @@
       "audioDesc": "Pemutaran, ekualiser, dan tampilan spektrogram."
     }
   },
-  "autoSegmentApplied": "Disegmentasi otomatis dengan {engine}",
+  "keyboardView": {
+    "title": "Keyboard",
+    "flagTitle": "Tampilan keyboard dan tombol kedua",
+    "flagDesc": "Eksperimental. Menampilkan pintasan Anda di keyboard dan memungkinkan satu aksi memiliki lebih dari satu tombol.",
+    "search": "Cari aksi",
+    "searchResults": "{count, plural, =0 {Tidak ada aksi yang cocok} other {# aksi cocok}}",
+    "layout": "Tata letak keyboard",
+    "layoutAuto": "Otomatis",
+    "layoutDetected": "Terdeteksi: {layout}",
+    "layoutUnavailable": "Tata letak tidak dapat dideteksi di sini, jadi QWERTY ditampilkan",
+    "layerHint": "Klik tombol pengubah, seperti Shift, untuk melihat pintasan yang memakainya.",
+    "category": {
+      "sync": "Sinkronisasi",
+      "edit": "Edit",
+      "playback": "Pemutaran",
+      "navigation": "Navigasi"
+    },
+    "free": "Kosong",
+    "keyFree": "{key}: kosong",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Tampilkan pintasan dengan {key}",
+    "freeKey": "Belum ada yang memakai {key}.",
+    "assignLabel": "Aksi",
+    "assignPlaceholder": "Pilih aksi...",
+    "assign": "Tambahkan ke {key}",
+    "changeKey": "Ganti tombol",
+    "addKey": "Tambah tombol kedua",
+    "removeKey": "Hapus {key}",
+    "duplicateKey": "Tombol itu sudah dipakai untuk aksi ini.",
+    "otherLayers": "Juga di tombol ini",
+    "closePanel": "Tutup"
+  },
+  "autoSegmentApplied":"Disegmentasi otomatis dengan {engine}",
   "error": {
     "unsupportedFileFormat": "Format file tidak didukung: {ext}",
     "openFileFailed": "Gagal membuka file",

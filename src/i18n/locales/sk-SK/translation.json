@@ -1074,7 +1074,39 @@
       "audioDesc": "Prehrávanie, ekvalizér a zobrazenie spektrogramu."
     }
   },
-  "autoSegmentApplied": "Automaticky rozdelené pomocou {engine}",
+  "keyboardView": {
+    "title": "Klávesnica",
+    "flagTitle": "Zobrazenie klávesnice a druhé klávesy",
+    "flagDesc": "Experimentálne. Zobrazí skratky na klávesnici a umožní jednej akcii mať viac kláves.",
+    "search": "Hľadať akcie",
+    "searchResults": "{count, plural, =0 {Žiadna akcia nezodpovedá} one {Zodpovedá # akcia} few {Zodpovedajú # akcie} many {Zodpovedá # akcie} other {Zodpovedá # akcií}}",
+    "layout": "Rozloženie klávesnice",
+    "layoutAuto": "Automaticky",
+    "layoutDetected": "Zistené: {layout}",
+    "layoutUnavailable": "Rozloženie tu nemožno zistiť, zobrazuje sa QWERTY",
+    "layerHint": "Kliknite na modifikačný kláves, napríklad Shift, a uvidíte skratky, ktoré ho používajú.",
+    "category": {
+      "sync": "Časovanie",
+      "edit": "Úpravy",
+      "playback": "Prehrávanie",
+      "navigation": "Navigácia"
+    },
+    "free": "Voľný",
+    "keyFree": "{key}: voľný",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Zobraziť skratky s {key}",
+    "freeKey": "{key} zatiaľ nič nepoužíva.",
+    "assignLabel": "Akcia",
+    "assignPlaceholder": "Vyberte akciu...",
+    "assign": "Pridať na {key}",
+    "changeKey": "Zmeniť kláves",
+    "addKey": "Pridať druhý kláves",
+    "removeKey": "Odobrať {key}",
+    "duplicateKey": "Tento kláves je už pre túto akciu nastavený.",
+    "otherLayers": "Aj na tomto klávese",
+    "closePanel": "Zavrieť"
+  },
+  "autoSegmentApplied":"Automaticky rozdelené pomocou {engine}",
   "error": {
     "unsupportedFileFormat": "Nepodporovaný formát súboru: {ext}",
     "openFileFailed": "Nepodarilo sa otvoriť súbor",

@@ -1074,7 +1074,39 @@
       "audioDesc": "Odtwarzanie, korektor i wyświetlanie spektrogramu."
     }
   },
-  "autoSegmentApplied": "Automatycznie podzielono za pomocą {engine}",
+  "keyboardView": {
+    "title": "Klawiatura",
+    "flagTitle": "Widok klawiatury i drugie klawisze",
+    "flagDesc": "Eksperymentalne. Pokazuje skróty na klawiaturze i pozwala jednej akcji mieć więcej niż jeden klawisz.",
+    "search": "Szukaj akcji",
+    "searchResults": "{count, plural, =0 {Brak pasujących akcji} one {# pasująca akcja} few {# pasujące akcje} many {# pasujących akcji} other {# pasującej akcji}}",
+    "layout": "Układ klawiatury",
+    "layoutAuto": "Automatyczny",
+    "layoutDetected": "Wykryto: {layout}",
+    "layoutUnavailable": "Nie można tu wykryć układu, więc pokazano QWERTY",
+    "layerHint": "Kliknij klawisz modyfikujący, na przykład Shift, aby zobaczyć skróty, które go używają.",
+    "category": {
+      "sync": "Synchronizacja",
+      "edit": "Edycja",
+      "playback": "Odtwarzanie",
+      "navigation": "Nawigacja"
+    },
+    "free": "Wolny",
+    "keyFree": "{key}: wolny",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Pokaż skróty z {key}",
+    "freeKey": "Nic jeszcze nie używa {key}.",
+    "assignLabel": "Akcja",
+    "assignPlaceholder": "Wybierz akcję...",
+    "assign": "Dodaj do {key}",
+    "changeKey": "Zmień klawisz",
+    "addKey": "Dodaj drugi klawisz",
+    "removeKey": "Usuń {key}",
+    "duplicateKey": "Ten klawisz jest już ustawiony dla tej akcji.",
+    "otherLayers": "Również na tym klawiszu",
+    "closePanel": "Zamknij"
+  },
+  "autoSegmentApplied":"Automatycznie podzielono za pomocą {engine}",
   "error": {
     "unsupportedFileFormat": "Nieobsługiwany format pliku: {ext}",
     "openFileFailed": "Nie udało się otworzyć pliku",

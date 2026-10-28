@@ -1074,7 +1074,39 @@
       "audioDesc": "Toisto, taajuuskorjain ja spektrogrammin näyttö."
     }
   },
-  "autoSegmentApplied": "Automaattinen jako tehty moottorilla {engine}",
+  "keyboardView": {
+    "title": "Näppäimistö",
+    "flagTitle": "Näppäimistönäkymä ja toiset näppäimet",
+    "flagDesc": "Kokeellinen. Näyttää pikanäppäimesi näppäimistöllä ja antaa yhdelle toiminnolle useamman näppäimen.",
+    "search": "Hae toimintoja",
+    "searchResults": "{count, plural, =0 {Mikään toiminto ei vastaa} one {# toiminto vastaa} other {# toimintoa vastaa}}",
+    "layout": "Näppäimistöasettelu",
+    "layoutAuto": "Automaattinen",
+    "layoutDetected": "Tunnistettu: {layout}",
+    "layoutUnavailable": "Asettelua ei voi tunnistaa täällä, joten näytetään QWERTY",
+    "layerHint": "Napsauta muokkausnäppäintä, kuten Shift, nähdäksesi sitä käyttävät pikanäppäimet.",
+    "category": {
+      "sync": "Ajoitus",
+      "edit": "Muokkaus",
+      "playback": "Toisto",
+      "navigation": "Siirtyminen"
+    },
+    "free": "Vapaa",
+    "keyFree": "{key}: vapaa",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Näytä pikanäppäimet näppäimellä {key}",
+    "freeKey": "Mikään ei vielä käytä näppäintä {key}.",
+    "assignLabel": "Toiminto",
+    "assignPlaceholder": "Valitse toiminto...",
+    "assign": "Lisää näppäimeen {key}",
+    "changeKey": "Vaihda näppäin",
+    "addKey": "Lisää toinen näppäin",
+    "removeKey": "Poista {key}",
+    "duplicateKey": "Tämä näppäin on jo asetettu tälle toiminnolle.",
+    "otherLayers": "Myös tässä näppäimessä",
+    "closePanel": "Sulje"
+  },
+  "autoSegmentApplied":"Automaattinen jako tehty moottorilla {engine}",
   "error": {
     "unsupportedFileFormat": "Ei tuettu tiedostomuoto: {ext}",
     "openFileFailed": "Tiedoston avaaminen epäonnistui",
