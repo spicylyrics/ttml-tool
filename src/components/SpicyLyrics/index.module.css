@@ -47,12 +47,17 @@
 	overflow: hidden;
 	color: white;
 	background: #111;
-	/* Spicy's own face first, as in Spicy Lyrics; glyphs it lacks (CJK and
-	 * other scripts) fall back to the user's preview font, never the UI font,
-	 * so the preview looks the same with the app design on or off. */
+	/* With the default font, Spicy's own face comes first, as in Spicy Lyrics;
+	 * glyphs it lacks (CJK and other scripts) fall back to the preview font,
+	 * never the UI font, so the preview looks the same with the app design on
+	 * or off. */
 	font-family:
 		"SpicyLyrics", "Noto Sans Georgian", "VazirmatnRegular",
 		var(--preview-font-family, sans-serif);
+}
+/* A font the user picked in Appearance wins over Spicy's. */
+.userFont {
+	font-family: var(--preview-font-family, sans-serif);
 }
 
 .fpsCounter {
@@ -471,6 +476,46 @@
 .simple .dot {
 	opacity: 0.27;
 	scale: 1;
+}
+
+/* "Show timing problems": a word whose timing the preview would hide or play
+ * wrong keeps its fill animation in red ink, with a dashed outline so it does
+ * not rely on color alone. Outline never moves layout, and nothing here
+ * transitions, since these words sit in the sync loop. */
+.line .timingProblem {
+	outline: 0.045em dashed rgba(255, 120, 120, 0.9);
+	outline-offset: 0.06em;
+	border-radius: 0.12em;
+}
+.line .word.timingProblem,
+.line .timingProblem .letter {
+	background-image: linear-gradient(
+		90deg,
+		rgba(255, 150, 150, 0.95) var(--gradient-position),
+		rgba(255, 110, 110, 0.6) calc(var(--gradient-position) + 20%)
+	);
+}
+.line .word.timingProblem[dir="rtl"],
+.line .timingProblem[dir="rtl"] .letter {
+	background-image: linear-gradient(
+		-90deg,
+		rgba(255, 150, 150, 0.95) var(--gradient-position),
+		rgba(255, 110, 110, 0.6) calc(var(--gradient-position) + 20%)
+	);
+}
+.simple .line .word.timingProblem,
+.simple .line .timingProblem .letter {
+	background-image: linear-gradient(
+		90deg,
+		rgba(255, 150, 150, 1) var(--gradient-position),
+		rgba(255, 110, 110, 0.45) calc(var(--gradient-position) + 50%)
+	);
+}
+@media (prefers-contrast: more) {
+	.line .timingProblem {
+		outline-style: solid;
+		outline-width: 0.07em;
+	}
 }
 
 @keyframes spicyAmbientBackground {

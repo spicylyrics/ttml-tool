@@ -3,6 +3,12 @@
     "changelogTitle": "更新日志与更新",
     "viewCommits": "在 GitHub 上查看提交"
   },
+  "updatedToast": {
+    "message": "已更新到 v{version}",
+    "seeChanges": "查看更新内容",
+    "setting": "更新后显示更新内容",
+    "settingDesc": "新版本首次启动时，显示一条简短通知，并附带更新日志链接。"
+  },
   "app": {
     "error": {
       "title": "诶呀，出错了！",
@@ -32,6 +38,16 @@
   "preview": {
     "untimedLines": "{count, plural, other {# 行尚未打轴}}",
     "jumpToUntimed": "为第一条未打轴的歌词行打轴"
+  },
+  "previewProblems": {
+    "count": "{count, plural, other {# 个词存在时间问题}}",
+    "jump": "选中第一个",
+    "setting": "显示时间问题",
+    "settingDesc": "用红色和虚线框标出因时间设置而会在 Spicy 预览中被隐藏或播放错误的词。",
+    "untimed": "在已打轴的行中没有时间",
+    "endsBeforeStart": "结束时间早于开始时间",
+    "startsBeforeLine": "开始时间早于所在行",
+    "endsAfterLine": "结束时间晚于所在行"
   },
   "beginnerGuide": {
     "empty": {
@@ -191,6 +207,16 @@
       "splitWordsHint": "把每个空格标记为导入时的词边界。"
     }
   },
+  "importSplit": {
+    "title": "音节",
+    "later": "稍后拆分",
+    "laterHint": "按整词导入。之后在编辑器中拆分。",
+    "now": "现在拆分",
+    "nowHint": "立即在文本中标出音节，导入前可以修改。",
+    "checkFirst": "新单词已标出音节。检查后再导入。",
+    "setting": "导入时拆分音节",
+    "settingHint": "在导入界面添加“现在拆分”或“稍后拆分”选项。“现在拆分”会按你的分词设置和已学习的拆分标出音节，导入前可以修改。"
+  },
   "lyricMarkup": {
     "section": "分段：{label}",
     "joinSyllables": "合并音节",
@@ -211,6 +237,29 @@
       "missingTranslation": "缺少翻译",
       "missingRomanization": "缺少罗马音"
     }
+  },
+  "editAsText": {
+    "menuItem": "以文本编辑...",
+    "title": "以文本编辑",
+    "description": "将整首歌词作为纯文本编辑。未改动的词保留其时间轴。",
+    "textLabel": "歌词文本",
+    "summaryTitle": "更改",
+    "unchanged": "{count, plural, other {# 行未更改}}",
+    "edited": "{count, plural, other {# 行已编辑}}",
+    "editedHint": "词语一致的地方保留时间轴。",
+    "moved": "{count, plural, other {# 行已移动}}",
+    "added": "{count, plural, other {# 行已添加}}",
+    "removed": "{count, plural, other {# 行已删除}}",
+    "noChanges": "暂无更改。",
+    "droppedTimings": "{count, plural, other {# 个已打轴的词将失去时间轴}}",
+    "lineNumber": "第 {line} 行",
+    "more": "{count, plural, other {另有 # 项}}",
+    "help": "新词不带时间轴。仅移动的行保留时间轴。应用可一步撤销。",
+    "apply": "应用",
+    "applied": "已应用文本。撤销可一步还原。",
+    "failed": "无法应用文本。请检查后重试。",
+    "setting": "以文本编辑",
+    "settingDesc": "在编辑菜单中添加“以文本编辑”：将整首歌词作为纯文本修改，并保留未改动词语的时间轴。"
   },
   "importChooser": {
     "options": {
@@ -279,6 +328,29 @@
       "copyPrevious": "复制上一段时间"
     }
   },
+  "logoColor": {
+    "title": "Logo 颜色",
+    "description": "实验性功能。为标题栏和引导欢迎页中的 Logo 选择颜色。",
+    "colorLabel": "颜色",
+    "customLabel": "自定义 Logo 颜色",
+    "designNote": "Logo 仅在启用 Spicy Lyrics 设计时显示。",
+    "presets": {
+      "default": "默认",
+      "defaultDesc": "设计自带的颜色",
+      "lilac": "淡紫",
+      "lilacDesc": "来自 v3 Logo",
+      "purple": "紫色",
+      "purpleDesc": "来自多色 Logo",
+      "red": "红色",
+      "redDesc": "来自 v0.9 Logo",
+      "gold": "金色",
+      "green": "绿色",
+      "blue": "蓝色",
+      "white": "白色",
+      "custom": "自定义",
+      "customDesc": "选择任意颜色"
+    }
+  },
   "common": {
     "close": "关闭",
     "autoDetect": "自动检测",
@@ -332,6 +404,20 @@
       "title": "选择包含项目的工作区文件夹"
     }
   },
+  "commandPalette": {
+    "title": "命令面板",
+    "placeholder": "搜索命令和设置",
+    "noResults": "没有匹配的命令或设置",
+    "commandTag": "命令",
+    "settingTag": "偏好设置",
+    "hint": "方向键移动，Enter 运行，Esc 关闭",
+    "notRunnable": "无法运行此命令。请在偏好设置中为它指定快捷键后重试。",
+    "menu": "命令面板...",
+    "shortcut": "视图 - 打开命令面板",
+    "shortcutAlternate": "视图 - 打开命令面板（备用快捷键）",
+    "settingLabel": "命令面板",
+    "settingDesc": "按名称查找命令和设置页面。使用 {shortcut} 或从帮助菜单打开。"
+  },
   "projectsDialog": {
     "title": "项目",
     "tabProject": "项目",
@@ -371,6 +457,82 @@
     "noProjectsFound": "此文件夹中未找到项目",
     "projectsFound": "{count, plural, other {找到 # 个项目}}",
     "scanFailed": "扫描工作区文件夹失败"
+  },
+  "projectsHub": {
+    "enable": "歌曲清单和开始界面",
+    "enableDesc": "在项目中添加“待同步”清单和文件夹扫描，在空白编辑器中显示开始界面，启动时询问是否继续上次的会话，一次拖入即可打开 TTML 和音频，并可导出为纯文本或 Genius 格式文本。",
+    "menuProjects": "项目...",
+    "tabSongs": "待同步",
+    "songs": {
+      "description": "接下来想要同步的歌曲。从某首歌开始项目后，导出 TTML 时它会被标记为已完成。",
+      "addManually": "手动输入",
+      "searchGenius": "在 Genius 上搜索",
+      "add": "添加到清单",
+      "added": "已将 {song} 添加到清单。",
+      "alreadyListed": "{song} 已在清单中。",
+      "searchFailed": "无法在 Genius 上搜索。",
+      "start": "开始项目",
+      "started": "已开始 {song}。导入或输入歌词，然后加载音频。",
+      "startDirty": "你有未保存的更改。开始 {song} 会替换编辑器中的歌词。",
+      "markedDone": "已将 {song} 标记为已完成。",
+      "inProgress": "已开始",
+      "empty": "还没有待同步的歌曲。趁还记得，把下一首歌加进来吧。",
+      "showNotes": "显示备注",
+      "showCompleted": "已完成（{count}）",
+      "hideCompleted": "隐藏已完成",
+      "markDone": "完成",
+      "reopen": "重新打开",
+      "edit": "编辑歌曲",
+      "delete": "移除歌曲",
+      "toolMenu": "待同步..."
+    },
+    "scan": {
+      "tab": "扫描文件夹",
+      "select": "在文件夹中查找 TTML...",
+      "pairsTitle": "可关联为项目的文件",
+      "pairsHint": "同名的 TTML 文件和音频文件。关联后两个文件都保留在原位置。",
+      "link": "关联",
+      "linkAll": "全部关联",
+      "linked": "已将 {name} 关联为项目。",
+      "linkedCount": "{count, plural, other {已关联 # 个项目}}",
+      "linkFailed": "无法关联 {name}。",
+      "noPairs": "未找到同名的 TTML 和音频文件。",
+      "scanning": "正在查找文件..."
+    },
+    "start": {
+      "title": "开始同步",
+      "description": "打开项目、从清单中选一首歌，或从歌词开始。",
+      "startedDescription": "从文本或 Genius 添加歌词，然后加载音频。",
+      "fromText": "从文本新建",
+      "fromGenius": "从 Genius 新建",
+      "openFile": "打开文件...",
+      "openFolder": "打开文件夹项目...",
+      "projects": "项目...",
+      "recent": "最近的项目",
+      "songs": "待同步",
+      "seeAll": "查看全部",
+      "startSong": "为 {song} 开始项目"
+    },
+    "resume": {
+      "title": "从上次离开的地方继续？",
+      "description": "{name} 上次编辑于 {time}。无论如何选择，历史记录恢复都会保留每一次自动保存。",
+      "continue": "继续",
+      "startFresh": "重新开始",
+      "restored": "已恢复 {name}。"
+    },
+    "export": {
+      "plainText": "纯文本...",
+      "geniusText": "Genius 格式文本...",
+      "copyGenius": "复制为 Genius 格式文本",
+      "copied": "已将歌词复制为 Genius 格式文本。",
+      "copyFailed": "无法复制歌词。",
+      "saveFailed": "无法保存文件。",
+      "textFiles": "文本文件",
+      "empty": "没有可导出的歌词。"
+    },
+    "drop": {
+      "skipped": "{count, plural, other {已跳过 # 个文件。请一次拖入一个歌词文件和一个音频文件。}}"
+    }
   },
   "ribbonBar": {
     "advancedTooltip": "适用于编辑、打轴和预览功能区。",
@@ -487,6 +649,33 @@
     },
     "loading": "面板载入中...",
     "advanced": "高级"
+  },
+  "ribbonCustomize": {
+    "customize": "自定义功能区",
+    "customizeDesc": "隐藏、重新排序或固定此功能区的分组，或将其移入“更多”。",
+    "title": "自定义此功能区",
+    "hint": "部分分组只在有选中内容或开启“高级”后显示。",
+    "reset": "重置",
+    "resetDone": "功能区已恢复默认",
+    "pin": "将{{name}}固定到最前",
+    "unpin": "取消固定{{name}}",
+    "pinned": "已固定",
+    "moveUp": "上移{{name}}",
+    "moveDown": "下移{{name}}",
+    "moved": "{{name}}现在位于第 {{position}} 位",
+    "placement": {
+      "label": "{{name}}的显示位置",
+      "ribbon": "功能区",
+      "ribbonDesc": "显示在功能区上。",
+      "more": "更多",
+      "moreDesc": "放在功能区末尾的“更多”菜单中。",
+      "hidden": "隐藏",
+      "hiddenDesc": "不在任何地方显示。"
+    },
+    "more": "更多",
+    "moreDesc": "你移出功能区的分组。",
+    "settingLabel": "可自定义的功能区",
+    "settingDesc": "在编辑、打轴和预览功能区添加“自定义”按钮，可隐藏、重新排序或固定分组，或将其移入“更多”菜单。"
   },
   "settings": {
     "common": {
@@ -838,11 +1027,18 @@
       "timingOverviewAutoScrollDesc": "让时间轴概览始终滚动到播放位置。",
       "vsyncDesc": "每帧更新 Standard 和 Toxi 预览，而不是每秒约 30 次。更流畅，但占用更多 CPU。",
       "showFpsDesc": "在预览上显示帧率计数器。",
-      "syncLevelDesc": "字：逐字打轴。行：为整行打轴，并均匀分配字时间，生成粗略时间轴，再到频谱图中微调。",
+      "syncLevelDesc": "字：逐字打轴。行：为整行打轴，并均匀分配字时间。行模式保存的仍是逐字时间，而不是逐行歌词，之后到频谱图中微调各字。",
       "previewModeDesc": "选择预览标签页显示哪种预览。",
       "spicyBackgroundDesc": "Spicy 预览背后显示的内容。",
       "fadeWidthDesc": "Standard 和 Toxi 预览中字高亮填充边缘的柔和程度。"
     }
+  },
+  "preferencesShell": {
+    "flagLabel": "新版偏好设置布局",
+    "flagDesc": "搜索位于顶部，侧边栏可容纳较长的名称。关闭即可恢复经典布局。",
+    "matchCount": "匹配的设置：{count}",
+    "noResults": "没有与“{query}”匹配的设置",
+    "noResultsDesc": "换个词试试，或清除搜索。"
   },
   "timingOverview": {
     "start": "开始",
@@ -858,6 +1054,10 @@
     "order": "顺序",
     "orderChronological": "按时间顺序",
     "orderTextual": "按文本顺序"
+  },
+  "joinSplitWords": {
+    "label": "合并拆分的单词",
+    "description": "当单词各部分的时间分布均匀时，将分段演唱的单词显示为一个词，与 Spicy Lyrics 的 Join Split Words 设置相同。"
   },
   "topBar": {
     "modeBtns": {
@@ -910,6 +1110,36 @@
       "spectrogramHoverSync": "按鼠标位置打轴",
       "changelog": "更新日志与更新",
       "projects": "项目"
+    }
+  },
+  "transcription": {
+    "modeBtn": "听写",
+    "modeBtnDesc": "边播放歌曲边以纯文本输入歌词。",
+    "enable": "听写标签页",
+    "enableDesc": "添加听写标签页，边播放歌曲边以纯文本输入歌词。",
+    "title": "听写",
+    "stats": "{lines, plural, other {# 行}}，{words, plural, other {# 个词}}",
+    "tidy": "整理排版",
+    "export": "导出",
+    "copyGenius": "复制为 Genius 格式文本",
+    "copyPlain": "复制为纯文本",
+    "saveGenius": "另存为 Genius 格式文本...",
+    "savePlain": "另存为纯文本...",
+    "sendToImport": "导入到编辑器...",
+    "textLabel": "听写文本",
+    "placeholder": "按听到的内容输入歌词，每行一句。像 [Verse 1] 这样的段落标题单独占一行。",
+    "copied": "已复制到剪贴板。",
+    "copyFailed": "无法复制文本。",
+    "saveFailed": "无法保存文件。",
+    "textFiles": "文本文件",
+    "keys": {
+      "label": "文本框内的快捷键",
+      "playPause": "播放或暂停",
+      "back": "后退 3 秒",
+      "forward": "前进 3 秒",
+      "slower": "减速",
+      "faster": "加速",
+      "resetSpeed": "正常速度"
     }
   },
   "header": {
@@ -1044,7 +1274,39 @@
       "audioDesc": "播放、均衡器和频谱图显示。"
     }
   },
-  "autoSegmentApplied": "已使用 {engine} 自动分词",
+  "keyboardView": {
+    "title": "键盘",
+    "flagTitle": "键盘视图与第二按键",
+    "flagDesc": "实验性功能。在键盘上显示你的快捷键，并允许一个操作绑定多个按键。",
+    "search": "搜索操作",
+    "searchResults": "{count, plural, =0 {没有匹配的操作} other {# 个操作匹配}}",
+    "layout": "键盘布局",
+    "layoutAuto": "自动",
+    "layoutDetected": "已检测：{layout}",
+    "layoutUnavailable": "此处无法检测布局，因此显示 QWERTY",
+    "layerHint": "点击 Shift 等修饰键，查看使用它的快捷键。",
+    "category": {
+      "sync": "打轴",
+      "edit": "编辑",
+      "playback": "播放",
+      "navigation": "导航"
+    },
+    "free": "空闲",
+    "keyFree": "{key}：空闲",
+    "keyActions": "{key}：{actions}",
+    "modifierLayer": "显示含 {key} 的快捷键",
+    "freeKey": "还没有操作使用 {key}。",
+    "assignLabel": "操作",
+    "assignPlaceholder": "选择一个操作...",
+    "assign": "添加到 {key}",
+    "changeKey": "更改按键",
+    "addKey": "添加第二按键",
+    "removeKey": "移除 {key}",
+    "duplicateKey": "此按键已设置给该操作。",
+    "otherLayers": "此按键上的其他快捷键",
+    "closePanel": "关闭"
+  },
+  "autoSegmentApplied":"已使用 {engine} 自动分词",
   "error": {
     "unsupportedFileFormat": "不支持的文件格式: {ext}",
     "openFileFailed": "打开文件失败",
@@ -1161,6 +1423,11 @@
     "addPresets": "添加所有标准字段",
     "clear": "清除"
   },
+  "helpText": {
+    "metadataArtists": "演唱这首歌的人，按流媒体平台上的署名填写。例如：《Shake It Off》的歌手是 Taylor Swift。",
+    "metadataSongwriter": "创作词曲的人，按词曲作者署名填写，常与歌手不同。例如：《Shake It Off》的词曲作者是 Taylor Swift、Max Martin 和 Shellback。",
+    "learnMore": "了解更多"
+  },
   "lrclib": {
     "placeholder": "歌曲名称和歌手…",
     "notFound": "未找到结果，请尝试不同的关键词",
@@ -1183,6 +1450,12 @@
     "insertLine": "在此处插入新行",
     "insertWord": "在此处插入字…"
   },
+  "editModeTools": {
+    "toggleTitle": "编辑模式工具",
+    "toggleDesc": "将输入的整行拆分为单词，互换主唱行与对唱行，并在重新打开项目时回到上次离开编辑模式的位置。",
+    "swapDuetAll": "互换主唱行与对唱行",
+    "swapDuetSelected": "互换主唱与对唱"
+  },
   "lyricWordView": {
     "empty": "空白",
     "spaceCount": "空格 ×{count}",
@@ -1191,6 +1464,14 @@
     "editingWordDesc": "编辑单词或应用建议的快速修复。",
     "correctedWordPlaceholder": "输入更正的单词",
     "noSuggestions": "无建议"
+  },
+  "timeModeEditing": {
+    "flagTitle": "打轴模式中编辑字",
+    "flagDesc": "在打轴模式中通过右键菜单拆分、合并和替换字。若播放位置在字内，拆成两段时会在播放位置处拆分。",
+    "doubleClickTimestamp": "双击编辑时间戳",
+    "doubleClickTimestampDesc": "在打轴模式中双击字即可输入其开始时间，而不是修改文本。需要显示时间戳。",
+    "combinePrevious": "与上一个字合并",
+    "combineNext": "与下一个字合并"
   },
   "sectionActions": {
     "categorizeSelected": "{count, plural, other {为选中的 # 行分类}}",
@@ -1217,9 +1498,43 @@
     "addToNext": "将未分配行添加到下一分段",
     "section": "分段"
   },
+  "sectionEditing": {
+    "toggleTitle": "分段编辑工具",
+    "toggleDesc": "点击分段标题可重命名或更改类型，可在任意一行开始新分段，并在重复分段之间复制时间。打开 TTML 时还会读取 Apple 的歌曲部分信息。分段仅供编辑器使用，Spicy Lyrics 不会用到。",
+    "editHeader": "重命名或更改 {label} 的类型",
+    "menu": "分段操作",
+    "startHere": "从此处开始分段",
+    "moveStartUp": "起点上移一行",
+    "moveStartDown": "起点下移一行",
+    "applyTimings": "应用来自以下分段的时间...",
+    "applyTitle": "应用其他分段的时间",
+    "applyDesc": "将其他分段的时间复制到当前分段。行会按词语匹配；只有匹配的词语会获得时间，其余保持无时间。",
+    "source": "复制自",
+    "suggested": "推荐",
+    "similarity": "{percent}% 的词语相同",
+    "noSources": "其他分段都还没有时间。请先同步其中一个。",
+    "anchor": "起点位置",
+    "anchorSection": "此分段的第一个已定时行（{time}）",
+    "anchorPlayhead": "播放头（{time}）",
+    "refineNote": "复制的时间只是起点。请播放该分段并修正不准的地方。",
+    "apply": "应用",
+    "applied": "已将时间复制到 {total} 行中的 {copied} 行。{untimed, plural, =0 {所有词语均已匹配。} other {有 # 个词语未获得时间。}}",
+    "nothingMatched": "此分段中没有与该分段匹配的行，因此未复制任何内容。"
+  },
   "touchSyncPanel": {
     "prevWord": "上一个字",
     "nextWord": "下一个字"
+  },
+  "lineSync": {
+    "flagTitle": "逐行打轴",
+    "flagDesc": "让每首歌可以逐字或按整行计时。在逐行模式下，F、G 和 H 开始和结束整行。",
+    "timing": "歌曲计时",
+    "timingDesc": "逐字：每个字都有自己的时间。逐行：只对整行计时，导出的 TTML 为逐行同步。",
+    "word": "逐字",
+    "line": "逐行",
+    "confirmTitle": "切换为逐行计时？",
+    "confirmDescription": "每个字保留文本，但会失去自己的时间。每行保留开始和结束时间。此操作可以撤销。",
+    "confirmAction": "切换为逐行"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
@@ -1241,6 +1556,42 @@
     "placeholder": "新罗马音",
     "applyToAll": "应用到所有相同的字",
     "caseSensitive": "区分大小写"
+  },
+  "romanizationTools": {
+    "group": "罗马音与拆分",
+    "flag": "实验性罗马音工具",
+    "flagDesc": "基于规则的英语拆分、日语拆分粒度、粘贴罗马音歌词页，以及将翻译导出到文件头。",
+    "japaneseGranularity": "日语拆分粒度",
+    "japaneseGranularityDesc": "自动拆分如何切分日语歌词。小假名、ー 和 っ 会与所属的音保持在一起。",
+    "granularity": {
+      "syllable": "音节",
+      "syllableDesc": "每部分一个音，ん 并入前一个音",
+      "mora": "音拍",
+      "moraDesc": "每部分一拍，ん 单独成一部分",
+      "word": "词",
+      "wordDesc": "整个词"
+    },
+    "translationFormat": "翻译导出",
+    "translationFormatDesc": "翻译在导出的 TTML 中的位置。Spicy Lyrics 只读取行内翻译。",
+    "format": {
+      "inline": "行内",
+      "inlineDesc": "写在每一行中，与以前相同。Spicy Lyrics 读取这种格式。",
+      "head": "文件头",
+      "headDesc": "Apple 风格，写在文件头中。Spicy Lyrics 可能会把它显示为罗马音。"
+    },
+    "translationLanguage": "翻译语言",
+    "translationLanguageDesc": "文件头翻译的语言代码，例如 en 或 es。",
+    "paste": {
+      "button": "粘贴罗马音...",
+      "tooltip": "从罗马音歌词页（例如 Genius）填写每个词的罗马音。",
+      "title": "粘贴罗马音歌词",
+      "description": "粘贴罗马音歌词页，每行对应一行歌词。会跳过段落标题和空行，背景行保持不变。",
+      "placeholder": "Kimi no na wo...",
+      "apply": "填写罗马音",
+      "lineCountMismatch": "该页面有 {received} 行，歌词有 {expected} 行。请添加或删除行，使两者一致。",
+      "applied": "已填写罗马音：{count} 行。",
+      "check": "部分词是推测的。请检查第 {lines} 行。"
+    }
   },
   "timeShiftDialog": {
     "title": "时间平移",
@@ -1295,6 +1646,25 @@
     "noResult": "输入歌曲名称或歌手以开始。",
     "howToGetKey": "如何获取 Genius 访问令牌",
     "changeKey": "更换访问令牌"
+  },
+  "referenceSidebar": {
+    "setting": "参考侧栏",
+    "settingDesc": "在编辑和打轴模式下，将预览和这首歌的 Genius 歌词停靠在右侧。取代预览面板。",
+    "label": "参考侧栏",
+    "collapse": "收起侧栏",
+    "tabs": {
+      "preview": "预览",
+      "genius": "Genius",
+      "problems": "问题"
+    },
+    "genius": {
+      "changeSong": "更换歌曲",
+      "backToLyrics": "返回歌词",
+      "searchFailed": "搜索失败：{error}",
+      "loadFailed": "无法加载歌词：{error}",
+      "retry": "重试",
+      "lyricsLabel": "{title} 的 Genius 歌词"
+    }
   },
   "textImportDialog": {
     "processLyrics": "处理歌词",
@@ -1487,6 +1857,18 @@
     "openContributorProfile": "打开 {name} 的 GitHub 主页",
     "unknown": "未知"
   },
+  "spectrogramLanes": {
+    "settingTitle": "分轨显示",
+    "settingDesc": "将背景人声行显示在主歌词行下方的独立轨道中。轨道仅用于查看：请在编辑模式中更改行的角色。",
+    "menu": "轨道",
+    "visibleLanes": "显示轨道",
+    "duetLane": "对唱单独分轨",
+    "lane": {
+      "main": "主唱",
+      "duet": "对唱",
+      "bg": "背景人声"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "不能选择此结束时间",
     "noAudioLoaded": "加载音频文件以显示频谱图",
@@ -1502,6 +1884,17 @@
       "4096": "4096（最多细节）"
     },
     "height": "显示高度"
+  },
+  "spectrogramFollow": {
+    "toggle": "跟随播放头",
+    "shortcut": "频谱图 - 开关跟随播放头",
+    "setting": "跟随播放头",
+    "settingDesc": "滚动频谱图，让播放头保持在视野内。滚动或拖动会暂停跟随，直到你按下播放或停一会儿。会在频谱图工具栏添加一个开关。",
+    "style": "跟随方式",
+    "page": "翻页",
+    "pageDesc": "播放头离开视野时向前跳转。",
+    "continuous": "连续",
+    "continuousDesc": "随播放头滚动并让它保持居中。"
   },
   "export": {
     "recoveryUntimed": "此恢复导出包含未打轴的歌词。提交前请检查时间轴。",

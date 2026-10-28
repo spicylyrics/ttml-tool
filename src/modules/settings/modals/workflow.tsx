@@ -10,12 +10,15 @@ import {
 	Flash24Regular,
 	Highlight24Regular,
 	Image24Regular,
+	LayerDiagonal24Regular,
+	Mic24Regular,
 	NumberSymbol24Regular,
 	Options24Regular,
 	PanelRight24Regular,
 	Rename24Regular,
 	Sparkle24Regular,
 	TapSingle24Regular,
+	TextAlignLeft24Regular,
 	TextCaseTitle24Regular,
 	TextDescription24Regular,
 	TextEditStyle24Regular,
@@ -23,13 +26,22 @@ import {
 	Timeline24Regular,
 	TopSpeed24Regular,
 	Translate24Regular,
+	Wrench24Regular,
 } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
+import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section-editing";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
+import { PreviewProblemsSetting } from "$/modules/preview-problems/PreviewProblemsSetting";
+import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
+import { TimeModeEditingSettings } from "$/modules/time-mode-editing/TimeModeEditingSettings";
+import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import { showPreviewPanelAtom } from "$/states/main";
+// Relative on purpose: keeps this import apart from other settings rows' imports.
+import { editModeToolsAtom } from "../../lyric-editor/states/edit-mode-tools";
 import {
 	BackgroundSyncControl,
 	PreviewModeControl,
@@ -87,12 +99,28 @@ const editModeToggles: readonly ToggleRow[] = [
 		advancedRibbonControlsAtom,
 	],
 	[
+		"sectionEditing.toggleTitle",
+		"Section editing tools",
+		"sectionEditing.toggleDesc",
+		"Click a section header to rename or retype it, start a section on any line, and copy timings between repeated sections.",
+		<LayerDiagonal24Regular key="icon" />,
+		sectionEditingEnabledAtom,
+	],
+	[
 		"ribbonBar.editMode.showTranslation",
 		"Show translation line",
 		"settings.workflow.showTranslationDesc",
 		"Show a translation field under each lyric line.",
 		<Translate24Regular key="icon" />,
 		showLineTranslationAtom,
+	],
+	[
+		"editModeTools.toggleTitle",
+		"Edit mode tools",
+		"editModeTools.toggleDesc",
+		"Split a typed line into words, swap main and duet lines, and reopen each project where you left Edit mode.",
+		<Wrench24Regular key="icon" />,
+		editModeToolsAtom,
 	],
 	[
 		"ribbonBar.editMode.showRomanization",
@@ -109,6 +137,14 @@ const editModeToggles: readonly ToggleRow[] = [
 		"Show a romanization field on each word.",
 		<TextEditStyle24Regular key="icon" />,
 		showWordRomanizationInputAtom,
+	],
+	[
+		"transcription.enable",
+		"Transcribe tab",
+		"transcription.enableDesc",
+		"Add a Transcribe tab for typing lyrics as plain text while the song plays.",
+		<Mic24Regular key="icon" />,
+		transcriptionModeEnabledAtom,
 	],
 ];
 
@@ -195,6 +231,14 @@ const syncAidToggles: readonly ToggleRow[] = [
 		"Show on-screen Start, Next and End buttons for touch screens.",
 		<TapSingle24Regular key="icon" />,
 		showTouchSyncPanelAtom,
+	],
+	[
+		"lineSync.flagTitle",
+		"Line syncing",
+		"lineSync.flagDesc",
+		"Lets each song be timed by word or by whole line. In Line mode, F, G and H start and end whole lines.",
+		<TextAlignLeft24Regular key="icon" />,
+		lineSyncEnabledAtom,
 	],
 ];
 
@@ -323,6 +367,7 @@ export const WorkflowSettings = () => {
 				</Heading>
 				{toggles(editModeToggles)}
 			</Flex>
+			<RomanizationToolsSettings />
 			<Flex direction="column" gap="3">
 				<Heading size="4">
 					{t("settings.group.timeModeDisplay", "Time mode display")}
@@ -354,6 +399,7 @@ export const WorkflowSettings = () => {
 					<BackgroundSyncControl variant="segmented" />
 				</SettingRow>
 				{toggles(syncAidToggles)}
+				<TimeModeEditingSettings />
 			</Flex>
 			<Flex direction="column" gap="3">
 				<Heading size="4">
@@ -380,6 +426,7 @@ export const WorkflowSettings = () => {
 					<SpicyBackgroundControl variant="segmented" />
 				</SettingRow>
 				{toggles(previewToggles)}
+				<PreviewProblemsSetting />
 				<SettingRow
 					icon={<ArrowAutofitWidth24Regular />}
 					title={t("ribbonBar.previewMode.fadeWidth", "Fade width")}

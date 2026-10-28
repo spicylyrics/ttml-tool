@@ -3,6 +3,12 @@
     "changelogTitle": "Ændringslog og opdateringer",
     "viewCommits": "Se commits på GitHub"
   },
+  "updatedToast": {
+    "message": "Opdateret til v{version}",
+    "seeChanges": "Se hvad der er ændret",
+    "setting": "Vis hvad der er ændret efter en opdatering",
+    "settingDesc": "Første gang appen starter på en ny version, vises en kort besked med et link til ændringsloggen."
+  },
   "app": {
     "error": {
       "title": "Ups, der opstod en fejl!",
@@ -32,6 +38,16 @@
   "preview": {
     "untimedLines": "{count, plural, one {# linje mangler timing} other {# linjer mangler timing}}",
     "jumpToUntimed": "Sæt tider for første linje uden timing"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# ord har et timingproblem} other {# ord har timingproblemer}}",
+    "jump": "Vælg det første",
+    "setting": "Vis timingproblemer",
+    "settingDesc": "Markér ord, som Spicy-forhåndsvisningen ville skjule eller afspille forkert på grund af deres timing, med rødt og en stiplet kant.",
+    "untimed": "Ingen timing i en linje med timing",
+    "endsBeforeStart": "Slutter, før det starter",
+    "startsBeforeLine": "Starter før sin linje",
+    "endsAfterLine": "Slutter efter sin linje"
   },
   "beginnerGuide": {
     "empty": {
@@ -191,6 +207,16 @@
       "splitWordsHint": "Markerer hvert mellemrum som en ordgrænse til importen."
     }
   },
+  "importSplit": {
+    "title": "Stavelser",
+    "later": "Jeg opdeler senere",
+    "laterHint": "Importerer hele ord. Opdel dem senere i editoren.",
+    "now": "Opdel nu",
+    "nowHint": "Markerer stavelser i teksten nu, så du kan rette dem før import.",
+    "checkFirst": "Nye ord har fået stavelsesmarkeringer. Tjek dem, og importér så.",
+    "setting": "Opdel stavelser under import",
+    "settingHint": "Tilføjer valget Opdel nu eller Jeg opdeler senere til importskærmen. Opdel nu markerer stavelser med dine segmenteringsindstillinger og lærte opdelinger, og du kan rette dem før import."
+  },
   "lyricMarkup": {
     "section": "Sektion: {label}",
     "joinSyllables": "Saml stavelser",
@@ -211,6 +237,29 @@
       "missingTranslation": "Mangler oversættelse",
       "missingRomanization": "Mangler romanisering"
     }
+  },
+  "editAsText": {
+    "menuItem": "Rediger som tekst...",
+    "title": "Rediger som tekst",
+    "description": "Rediger hele sangteksten som almindelig tekst. Ord, du ikke ændrer, beholder deres timing.",
+    "textLabel": "Sangtekst",
+    "summaryTitle": "Ændringer",
+    "unchanged": "{count, plural, one {# linje uændret} other {# linjer uændret}}",
+    "edited": "{count, plural, one {# linje redigeret} other {# linjer redigeret}}",
+    "editedHint": "Timing bevares, hvor ordene matcher.",
+    "moved": "{count, plural, one {# linje flyttet} other {# linjer flyttet}}",
+    "added": "{count, plural, one {# linje tilføjet} other {# linjer tilføjet}}",
+    "removed": "{count, plural, one {# linje fjernet} other {# linjer fjernet}}",
+    "noChanges": "Ingen ændringer endnu.",
+    "droppedTimings": "{count, plural, one {# timet ord mister sin timing} other {# timede ord mister deres timing}}",
+    "lineNumber": "Linje {line}",
+    "more": "{count, plural, one {og # mere} other {og # mere}}",
+    "help": "Nye ord kommer ind uden timing. Linjer, der kun er flyttet, beholder deres timing. Anvend er ét fortrydelsestrin.",
+    "apply": "Anvend",
+    "applied": "Teksten er anvendt. Fortryd fjerner den i ét trin.",
+    "failed": "Teksten kunne ikke anvendes. Tjek den, og prøv igen.",
+    "setting": "Rediger som tekst",
+    "settingDesc": "Tilføjer Rediger som tekst til menuen Rediger: ret hele sangteksten som almindelig tekst, og behold timingen for de ord, du ikke rører."
   },
   "importChooser": {
     "options": {
@@ -279,6 +328,29 @@
       "copyPrevious": "Kopiér forrige timing"
     }
   },
+  "logoColor": {
+    "title": "Logofarve",
+    "description": "Eksperimentel. Vælg en farve til logoet i titellinjen og på guidens velkomstskærm.",
+    "colorLabel": "Farve",
+    "customLabel": "Brugerdefineret logofarve",
+    "designNote": "Logoet vises kun, når Spicy Lyrics-designet er slået til.",
+    "presets": {
+      "default": "Standard",
+      "defaultDesc": "Designets egen farve",
+      "lilac": "Syrenlilla",
+      "lilacDesc": "Fra v3-logoet",
+      "purple": "Lilla",
+      "purpleDesc": "Fra det flerfarvede logo",
+      "red": "Rød",
+      "redDesc": "Fra v0.9-logoet",
+      "gold": "Guld",
+      "green": "Grøn",
+      "blue": "Blå",
+      "white": "Hvid",
+      "custom": "Brugerdefineret",
+      "customDesc": "Vælg en hvilken som helst farve"
+    }
+  },
   "common": {
     "close": "Luk",
     "autoDetect": "Automatisk registrering",
@@ -332,6 +404,20 @@
       "title": "Vælg en arbejdsområdemappe med projekter"
     }
   },
+  "commandPalette": {
+    "title": "Kommandopalet",
+    "placeholder": "Søg i kommandoer og indstillinger",
+    "noResults": "Ingen matchende kommandoer eller indstillinger",
+    "commandTag": "Kommando",
+    "settingTag": "Indstillinger",
+    "hint": "Piletaster flytter, Enter kører, Esc lukker",
+    "notRunnable": "Kommandoen kunne ikke køres. Giv den en genvej i Indstillinger, og prøv igen.",
+    "menu": "Kommandopalet...",
+    "shortcut": "Vis - Åbn kommandopaletten",
+    "shortcutAlternate": "Vis - Åbn kommandopaletten (alternativ genvej)",
+    "settingLabel": "Kommandopalet",
+    "settingDesc": "Find kommandoer og indstillingssider efter navn. Åbn den med {shortcut} eller fra menuen Hjælp."
+  },
   "projectsDialog": {
     "title": "Projekter",
     "tabProject": "Projekt",
@@ -371,6 +457,82 @@
     "noProjectsFound": "Der blev ikke fundet nogen projekter i denne mappe",
     "projectsFound": "{count, plural, one {Fandt # projekt} other {Fandt # projekter}}",
     "scanFailed": "Arbejdsområdemappen kunne ikke scannes"
+  },
+  "projectsHub": {
+    "enable": "Sangliste og startskærm",
+    "enableDesc": "Tilføjer en Til synkronisering-liste og en mappescanning i Projekter, en startskærm i den tomme editor, et tilbud om at fortsætte sidste session ved opstart, åbning af TTML og lyd i ét træk og eksport som ren tekst eller Genius-tekst.",
+    "menuProjects": "Projekter...",
+    "tabSongs": "Til synkronisering",
+    "songs": {
+      "description": "Sange, du vil synkronisere næste gang. Start et projekt fra en, så markeres den som færdig, når du eksporterer TTML-filen.",
+      "addManually": "Skriv den ind",
+      "searchGenius": "Søg på Genius",
+      "add": "Føj til listen",
+      "added": "{song} er føjet til listen.",
+      "alreadyListed": "{song} er allerede på listen.",
+      "searchFailed": "Kunne ikke søge på Genius.",
+      "start": "Start projekt",
+      "started": "{song} er startet. Importér eller skriv teksten, og indlæs derefter lyden.",
+      "startDirty": "Du har ændringer, der ikke er gemt. Når du starter {song}, erstattes teksten i editoren.",
+      "markedDone": "{song} er markeret som færdig.",
+      "inProgress": "Startet",
+      "empty": "Intet at synkronisere endnu. Tilføj den næste sang, før du glemmer den.",
+      "showNotes": "Vis noter",
+      "showCompleted": "Færdige ({count})",
+      "hideCompleted": "Skjul færdige",
+      "markDone": "Færdig",
+      "reopen": "Genåbn",
+      "edit": "Rediger sang",
+      "delete": "Fjern sang",
+      "toolMenu": "Til synkronisering..."
+    },
+    "scan": {
+      "tab": "Scan mappe",
+      "select": "Scan en mappe for TTML-filer...",
+      "pairsTitle": "Filer, du kan sammenkæde som projekter",
+      "pairsHint": "En TTML-fil og en lydfil med samme navn. Sammenkædning lader begge filer blive, hvor de er.",
+      "link": "Sammenkæd",
+      "linkAll": "Sammenkæd alle",
+      "linked": "{name} er sammenkædet som et projekt.",
+      "linkedCount": "{count, plural, one {# projekt sammenkædet} other {# projekter sammenkædet}}",
+      "linkFailed": "Kunne ikke sammenkæde {name}.",
+      "noPairs": "Fandt ingen TTML- og lydfiler med samme navn.",
+      "scanning": "Leder efter filer..."
+    },
+    "start": {
+      "title": "Kom i gang med at synkronisere",
+      "description": "Åbn et projekt, vælg en sang fra din liste, eller start fra en tekst.",
+      "startedDescription": "Tilføj teksten fra ren tekst eller Genius, og indlæs derefter lyden.",
+      "fromText": "Ny fra tekst",
+      "fromGenius": "Ny fra Genius",
+      "openFile": "Åbn fil...",
+      "openFolder": "Åbn mappeprojekt...",
+      "projects": "Projekter...",
+      "recent": "Seneste projekter",
+      "songs": "Til synkronisering",
+      "seeAll": "Se alle",
+      "startSong": "Start projekt for {song}"
+    },
+    "resume": {
+      "title": "Fortsæt, hvor du slap?",
+      "description": "{name} blev sidst redigeret {time}. Gendan fra historik beholder alle automatiske gemninger uanset hvad.",
+      "continue": "Fortsæt",
+      "startFresh": "Start forfra",
+      "restored": "{name} er gendannet."
+    },
+    "export": {
+      "plainText": "Ren tekst...",
+      "geniusText": "Genius-tekst...",
+      "copyGenius": "Kopiér som Genius-tekst",
+      "copied": "Teksten er kopieret som Genius-tekst.",
+      "copyFailed": "Kunne ikke kopiere teksten.",
+      "saveFailed": "Kunne ikke gemme filen.",
+      "textFiles": "Tekstfiler",
+      "empty": "Der er ingen tekst at eksportere."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# fil sprunget over. Træk én tekstfil og én lydfil ad gangen.} other {# filer sprunget over. Træk én tekstfil og én lydfil ad gangen.}}"
+    }
   },
   "ribbonBar": {
     "advancedTooltip": "Gælder båndene Redigering, Timing og Forhåndsvisning.",
@@ -487,6 +649,33 @@
     },
     "loading": "Indlæser panel...",
     "advanced": "Avanceret"
+  },
+  "ribbonCustomize": {
+    "customize": "Tilpas bånd",
+    "customizeDesc": "Skjul, omarranger eller fastgør båndets sektioner, eller flyt dem til Mere.",
+    "title": "Tilpas dette bånd",
+    "hint": "Nogle sektioner vises kun, når noget er markeret, eller når Avanceret er slået til.",
+    "reset": "Nulstil",
+    "resetDone": "Båndet er nulstillet",
+    "pin": "Fastgør {{name}} forrest",
+    "unpin": "Frigør {{name}}",
+    "pinned": "Fastgjort",
+    "moveUp": "Flyt {{name}} op",
+    "moveDown": "Flyt {{name}} ned",
+    "moved": "{{name}} er nu på plads {{position}}",
+    "placement": {
+      "label": "Vis {{name}} i",
+      "ribbon": "Bånd",
+      "ribbonDesc": "Vis den på båndet.",
+      "more": "Mere",
+      "moreDesc": "Læg den i menuen Mere i enden af båndet.",
+      "hidden": "Skjult",
+      "hiddenDesc": "Vis den ikke nogen steder."
+    },
+    "more": "Mere",
+    "moreDesc": "Sektioner, du har flyttet ud af båndet.",
+    "settingLabel": "Tilpasselige bånd",
+    "settingDesc": "Tilføjer en Tilpas-knap til båndene Redigering, Timing og Forhåndsvisning, så du kan skjule, omarrangere eller fastgøre sektioner eller flytte dem til menuen Mere."
   },
   "settings": {
     "common": {
@@ -838,11 +1027,18 @@
       "timingOverviewAutoScrollDesc": "Hold tidsoversigten rullet til afspilningspositionen.",
       "vsyncDesc": "Opdater Standard- og Toxi-forhåndsvisningerne hvert billede i stedet for cirka 30 gange i sekundet. Mere flydende, men bruger mere CPU.",
       "showFpsDesc": "Vis en billedfrekvenstæller på forhåndsvisningen.",
-      "syncLevelDesc": "Ord: Synkronisér hvert ord. Linje: Synkronisér hele linjer, og fordel ordene jævnt som en grov timing, du finjusterer i spektrogrammet.",
+      "syncLevelDesc": "Ord: Synkronisér hvert ord. Linje: Synkronisér hele linjer, og fordel ordene jævnt. Linje gemmer stadig timing for hvert ord, ikke linjesynkroniseret tekst, så finjustér ordene i spektrogrammet.",
       "previewModeDesc": "Vælg, hvilken forhåndsvisning fanen Forhåndsvisning viser.",
       "spicyBackgroundDesc": "Hvad der vises bag Spicy-forhåndsvisningen.",
       "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne."
     }
+  },
+  "preferencesShell": {
+    "flagLabel": "Nyt layout for indstillinger",
+    "flagDesc": "Søgning øverst og en sidebjælke med plads til lange navne. Slå fra for at gå tilbage til det klassiske layout.",
+    "matchCount": "Matchende indstillinger: {count}",
+    "noResults": "Ingen indstillinger matcher \"{query}\"",
+    "noResultsDesc": "Prøv et andet ord, eller ryd søgningen."
   },
   "timingOverview": {
     "start": "Start",
@@ -858,6 +1054,10 @@
     "order": "Rækkefølge",
     "orderChronological": "Kronologisk",
     "orderTextual": "Tekstrækkefølge"
+  },
+  "joinSplitWords": {
+    "label": "Saml opdelte ord",
+    "description": "Vis et ord, der synges i dele, som ét ord, når delene passer jævnt sammen, som indstillingen Join Split Words i Spicy Lyrics."
   },
   "topBar": {
     "modeBtns": {
@@ -910,6 +1110,36 @@
       "spectrogramHoverSync": "Synkronisér ved musens position",
       "changelog": "Ændringslog og opdateringer",
       "projects": "Projekter"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Transskriber",
+    "modeBtnDesc": "Skriv sangteksten som ren tekst, mens sangen spiller.",
+    "enable": "Fanen Transskriber",
+    "enableDesc": "Tilføj en Transskriber-fane til at skrive sangtekst som ren tekst, mens sangen spiller.",
+    "title": "Transskriber",
+    "stats": "{lines, plural, one {# linje} other {# linjer}}, {words, plural, one {# ord} other {# ord}}",
+    "tidy": "Ryd op i layout",
+    "export": "Eksportér",
+    "copyGenius": "Kopiér som Genius-tekst",
+    "copyPlain": "Kopiér som ren tekst",
+    "saveGenius": "Gem som Genius-tekst...",
+    "savePlain": "Gem som ren tekst...",
+    "sendToImport": "Importér i editoren...",
+    "textLabel": "Transskription",
+    "placeholder": "Skriv teksten, som du hører den, én linje pr. række. Sæt sektionsoverskrifter som [Verse 1] på deres egen række.",
+    "copied": "Kopieret til udklipsholderen.",
+    "copyFailed": "Kunne ikke kopiere teksten.",
+    "saveFailed": "Kunne ikke gemme filen.",
+    "textFiles": "Tekstfiler",
+    "keys": {
+      "label": "Genveje i tekstfeltet",
+      "playPause": "Afspil eller pause",
+      "back": "3 sekunder tilbage",
+      "forward": "3 sekunder frem",
+      "slower": "Langsommere",
+      "faster": "Hurtigere",
+      "resetSpeed": "Normal hastighed"
     }
   },
   "header": {
@@ -1044,7 +1274,39 @@
       "audioDesc": "Afspilning, equalizer og spektrogramvisning."
     }
   },
-  "autoSegmentApplied": "Automatisk opdelt med {engine}",
+  "keyboardView": {
+    "title": "Tastatur",
+    "flagTitle": "Tastaturvisning og ekstra taster",
+    "flagDesc": "Eksperimentel. Viser dine genveje på et tastatur og lader en handling have mere end én tast.",
+    "search": "Søg i handlinger",
+    "searchResults": "{count, plural, =0 {Ingen handlinger passer} one {# handling passer} other {# handlinger passer}}",
+    "layout": "Tastaturlayout",
+    "layoutAuto": "Automatisk",
+    "layoutDetected": "Fundet: {layout}",
+    "layoutUnavailable": "Layoutet kan ikke findes her, så QWERTY vises",
+    "layerHint": "Klik på en ændringstast som Shift for at se de genveje, der bruger den.",
+    "category": {
+      "sync": "Synkronisering",
+      "edit": "Redigering",
+      "playback": "Afspilning",
+      "navigation": "Navigation"
+    },
+    "free": "Ledig",
+    "keyFree": "{key}: ledig",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Vis genveje med {key}",
+    "freeKey": "Intet bruger {key} endnu.",
+    "assignLabel": "Handling",
+    "assignPlaceholder": "Vælg en handling...",
+    "assign": "Tilføj til {key}",
+    "changeKey": "Skift tast",
+    "addKey": "Tilføj ekstra tast",
+    "removeKey": "Fjern {key}",
+    "duplicateKey": "Den tast er allerede sat til denne handling.",
+    "otherLayers": "Også på denne tast",
+    "closePanel": "Luk"
+  },
+  "autoSegmentApplied":"Automatisk opdelt med {engine}",
   "error": {
     "unsupportedFileFormat": "Ikke-understøttet filformat: {ext}",
     "openFileFailed": "Kunne ikke åbne fil",
@@ -1161,6 +1423,11 @@
     "addPresets": "Tilføj alle standardfelter",
     "clear": "Ryd"
   },
+  "helpText": {
+    "metadataArtists": "Hvem der fremfører sangen, som nummeret er krediteret på streamingtjenester. Eksempel: \"Shake It Off\" er af Taylor Swift.",
+    "metadataSongwriter": "Hvem der skrev musikken og teksten, ifølge sangskriverkrediteringerne. Ofte andre end kunstnerne. Eksempel: \"Shake It Off\" er skrevet af Taylor Swift, Max Martin og Shellback.",
+    "learnMore": "Læs mere"
+  },
   "lrclib": {
     "placeholder": "Sangtitel og kunstner…",
     "notFound": "Ingen resultater fundet, prøv andre søgeord",
@@ -1183,6 +1450,12 @@
     "insertLine": "Indsæt ny linje her",
     "insertWord": "Indsæt ord her…"
   },
+  "editModeTools": {
+    "toggleTitle": "Værktøjer til redigeringstilstand",
+    "toggleDesc": "Del en indtastet linje i ord, byt om på hoved- og duetlinjer, og åbn hvert projekt der, hvor du forlod redigeringstilstand.",
+    "swapDuetAll": "Byt om på hoved- og duetlinjer",
+    "swapDuetSelected": "Byt om på hoved og duet"
+  },
   "lyricWordView": {
     "empty": "Tom",
     "spaceCount": "Mellemrum ×{count}",
@@ -1191,6 +1464,14 @@
     "editingWordDesc": "Rediger ordet, eller anvend foreslåede hurtige rettelser.",
     "correctedWordPlaceholder": "Indtast det rettede ord",
     "noSuggestions": "Ingen forslag"
+  },
+  "timeModeEditing": {
+    "flagTitle": "Ordredigering i Timing",
+    "flagDesc": "Del, kombiner og erstat ord fra højrekliksmenuen i Timing. En deling i to dele sker ved afspilningspositionen, når den er inde i ordet.",
+    "doubleClickTimestamp": "Dobbeltklik redigerer tidsstemplet",
+    "doubleClickTimestampDesc": "Dobbeltklik på et ord i Timing for at skrive starttiden i stedet for teksten. Kræver, at tidsstempler vises.",
+    "combinePrevious": "Kombiner med forrige ord",
+    "combineNext": "Kombiner med næste ord"
   },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Kategorisér # valgt linje} other {Kategorisér # valgte linjer}}",
@@ -1217,9 +1498,43 @@
     "addToNext": "Tilføj ikke-tildelte linjer til næste sektion",
     "section": "Sektion"
   },
+  "sectionEditing": {
+    "toggleTitle": "Værktøjer til sektionsredigering",
+    "toggleDesc": "Klik på en sektionsoverskrift for at omdøbe den eller ændre typen, start en sektion på en vilkårlig linje, og kopier timing mellem gentagne sektioner. Læser også Apple-sangdele, når du åbner en TTML. Sektioner bruges af editoren, ikke af Spicy Lyrics.",
+    "editHeader": "Omdøb eller ændr type for {label}",
+    "menu": "Sektionshandlinger",
+    "startHere": "Start sektion her",
+    "moveStartUp": "Flyt start en linje op",
+    "moveStartDown": "Flyt start en linje ned",
+    "applyTimings": "Anvend timing fra...",
+    "applyTitle": "Anvend timing fra en anden sektion",
+    "applyDesc": "Kopierer en anden sektions timing til denne. Linjer matches på deres ord; kun matchende ord får timing, resten forbliver uden timing.",
+    "source": "Kopier fra",
+    "suggested": "Foreslået",
+    "similarity": "{percent} % ens ord",
+    "noSources": "Ingen andre sektioner har timing endnu. Synkroniser først en.",
+    "anchor": "Start ved",
+    "anchorSection": "Denne sektions første linje med timing ({time})",
+    "anchorPlayhead": "Afspilningshovedet ({time})",
+    "refineNote": "Kopieret timing er et udgangspunkt. Afspil sektionen, og ret det, der er forkert.",
+    "apply": "Anvend",
+    "applied": "Timing kopieret til {copied} af {total} linjer. {untimed, plural, =0 {Alle ord matchede.} one {# ord blev stående uden timing.} other {# ord blev stående uden timing.}}",
+    "nothingMatched": "Ingen linjer i denne sektion matcher den anden, så intet blev kopieret."
+  },
   "touchSyncPanel": {
     "prevWord": "Forrige ord",
     "nextWord": "Næste ord"
+  },
+  "lineSync": {
+    "flagTitle": "Linjesynkronisering",
+    "flagDesc": "Lader hver sang times pr. ord eller pr. hel linje. I Linje-tilstand starter og afslutter F, G og H hele linjer.",
+    "timing": "Sangens timing",
+    "timingDesc": "Ord: hvert ord får sin egen tid. Linje: kun hele linjer times, og TTML eksporteres linjesynkroniseret.",
+    "word": "Ord",
+    "line": "Linje",
+    "confirmTitle": "Skift til linjetiming?",
+    "confirmDescription": "Hvert ord beholder sin tekst, men mister sin egen timing. Hver linje beholder sin start og slutning. Du kan fortryde det.",
+    "confirmAction": "Skift til Linje"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
@@ -1241,6 +1556,42 @@
     "placeholder": "Ny romanisering",
     "applyToAll": "Anvend på alle identiske ord",
     "caseSensitive": "Skeln mellem store og små bogstaver"
+  },
+  "romanizationTools": {
+    "group": "Romanisering og opdeling",
+    "flag": "Eksperimentelle romaniseringsværktøjer",
+    "flagDesc": "Regelbaseret opdeling af engelsk, opdelingsstørrelse for japansk, indsætning af en romaniseret side og eksport af oversættelser i hovedet.",
+    "japaneseGranularity": "Opdelingsstørrelse for japansk",
+    "japaneseGranularityDesc": "Hvordan automatisk opdeling deler japansk tekst. Små kana, ー og っ bliver ved deres lyd.",
+    "granularity": {
+      "syllable": "Stavelse",
+      "syllableDesc": "Én lyd pr. del, ん hører til lyden før",
+      "mora": "Mora",
+      "moraDesc": "Ét slag pr. del, ん er sin egen del",
+      "word": "Ord",
+      "wordDesc": "Hele ord"
+    },
+    "translationFormat": "Eksport af oversættelser",
+    "translationFormatDesc": "Hvor oversættelser placeres i eksporteret TTML. Spicy Lyrics læser kun oversættelser i linjen.",
+    "format": {
+      "inline": "I linjen",
+      "inlineDesc": "I hver linje, som hidtil. Spicy Lyrics læser dette.",
+      "head": "Hoved",
+      "headDesc": "Apple-stil, i filens hoved. Spicy Lyrics kan vise det som romanisering."
+    },
+    "translationLanguage": "Oversættelsessprog",
+    "translationLanguageDesc": "Sprogkode for oversættelser i hovedet, fx en eller es.",
+    "paste": {
+      "button": "Indsæt romaniseret...",
+      "tooltip": "Udfyld romanisering pr. ord fra en romaniseret tekstside, fx fra Genius.",
+      "title": "Indsæt romaniseret tekst",
+      "description": "Indsæt en romaniseret tekstside med én linje pr. tekstlinje. Sektionsoverskrifter og tomme linjer springes over, og baggrundslinjer røres ikke.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Udfyld romanisering",
+      "lineCountMismatch": "Siden har {received} linjer, og teksten har {expected}. Tilføj eller fjern linjer, så de passer.",
+      "applied": "Romanisering udfyldt: {count} linjer.",
+      "check": "Nogle ord blev gættet. Tjek linje {lines}."
+    }
   },
   "timeShiftDialog": {
     "title": "Tidsforskydning",
@@ -1295,6 +1646,25 @@
     "noResult": "Indtast et sangnavn eller en kunstner for at starte.",
     "howToGetKey": "Sådan får du et Genius-adgangstoken",
     "changeKey": "Skift adgangstoken"
+  },
+  "referenceSidebar": {
+    "setting": "Referencepanel",
+    "settingDesc": "Fastgør forhåndsvisningen og sangens tekst fra Genius til højre i Redigering og Timing. Erstatter forhåndsvisningspanelet.",
+    "label": "Referencepanel",
+    "collapse": "Fold panelet sammen",
+    "tabs": {
+      "preview": "Forhåndsvisning",
+      "genius": "Genius",
+      "problems": "Problemer"
+    },
+    "genius": {
+      "changeSong": "Skift sang",
+      "backToLyrics": "Tilbage til teksten",
+      "searchFailed": "Søgningen mislykkedes: {error}",
+      "loadFailed": "Kunne ikke indlæse teksten: {error}",
+      "retry": "Prøv igen",
+      "lyricsLabel": "Tekst fra Genius til {title}"
+    }
   },
   "textImportDialog": {
     "processLyrics": "Behandl sangtekster",
@@ -1487,6 +1857,18 @@
     "openContributorProfile": "Åbn GitHub-profilen for {name}",
     "unknown": "Ukendt"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Separate spor",
+    "settingDesc": "Vis baggrundslinjer i deres eget spor under hovedlinjerne. Spor er kun til visning: skift en linjes rolle i redigeringstilstand.",
+    "menu": "Spor",
+    "visibleLanes": "Vis spor",
+    "duetLane": "Separat duetspor",
+    "lane": {
+      "main": "Hoved",
+      "duet": "Duet",
+      "bg": "Baggrund"
+    }
+  },
   "spectrogram": {
     "invalidEndTime": "Kan ikke vælge denne sluttid",
     "noAudioLoaded": "Indlæs en lydfil for at vise spektrogrammet",
@@ -1502,6 +1884,17 @@
       "4096": "4096 (flest detaljer)"
     },
     "height": "Visningshøjde"
+  },
+  "spectrogramFollow": {
+    "toggle": "Følg afspilningshovedet",
+    "shortcut": "Spektrogram - Følg afspilningshovedet til/fra",
+    "setting": "Følg afspilningshovedet",
+    "settingDesc": "Ruller spektrogrammet, så afspilningshovedet forbliver synligt. Rulning eller træk sætter det på pause, indtil du trykker afspil eller venter et øjeblik. Tilføjer en knap til spektrogrammets værktøjslinje.",
+    "style": "Følgemåde",
+    "page": "Side for side",
+    "pageDesc": "Springer frem, når afspilningshovedet forlader visningen.",
+    "continuous": "Løbende",
+    "continuousDesc": "Ruller med afspilningshovedet og holder det i midten."
   },
   "export": {
     "recoveryUntimed": "Denne gendannede eksport indeholder tekster uden timing. Tjek timingen, før du indsender.",

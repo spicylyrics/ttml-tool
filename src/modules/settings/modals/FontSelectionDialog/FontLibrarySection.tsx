@@ -1,14 +1,38 @@
-import {
-	Box,
-	Card,
-	Flex,
-	Grid,
-	Heading,
-	ScrollArea,
-	Text,
-} from "@radix-ui/themes";
+import { CheckmarkCircle20Filled } from "@fluentui/react-icons";
+import { Flex, Grid, ScrollArea, Text } from "@radix-ui/themes";
+import type { ReactNode } from "react";
+import { SelectablePanel } from "$/components/Panel";
+import { SectionHeader } from "$/components/SectionHeader";
 import { DEFAULT_FONTS } from "./catalog";
+import styles from "./FontLibrarySection.module.css";
 import type { FontSelection } from "./useFontSelection";
+
+/** One pickable font. The check pairs with the ring so selection isn't color only. */
+const FontCard = ({
+	selected,
+	onClick,
+	tall = false,
+	children,
+}: {
+	selected: boolean;
+	onClick: () => void;
+	tall?: boolean;
+	children: ReactNode;
+}) => (
+	<SelectablePanel
+		selected={selected}
+		onClick={onClick}
+		className={tall ? styles.tallCard : styles.card}
+	>
+		<span className={styles.cardBody}>
+			<span className={styles.cardText}>{children}</span>
+			{selected && (
+				<CheckmarkCircle20Filled className={styles.check} aria-hidden="true" />
+			)}
+		</span>
+	</SelectablePanel>
+);
+
 export const FontLibrarySection = ({
 	t,
 	appFont,
@@ -29,51 +53,37 @@ export const FontLibrarySection = ({
 >) => (
 	<ScrollArea type="always" scrollbars="vertical" style={{ flexGrow: 1 }}>
 		<Flex direction="column" gap="4" pr="4" pb="6">
-			<Box>
-				<Heading size="3" mb="2">
-					{t("settings.appearance.defaultFonts", "Standard font stacks")}
-				</Heading>
+			<Flex direction="column" gap="2">
+				<SectionHeader
+					size="3"
+					title={t("settings.appearance.defaultFonts", "Standard font stacks")}
+				/>
 				<Grid columns="repeat(auto-fill, minmax(280px, 1fr))" gap="3">
 					{DEFAULT_FONTS.map((font) => (
-						<Card
+						<FontCard
 							key={font.label}
-							style={{
-								cursor: "pointer",
-								padding: "12px",
-								minHeight: "60px",
-								display: "flex",
-								alignItems: "center",
-								border:
-									appFont === font.value ? "2px solid var(--accent-9)" : "none",
-							}}
+							selected={appFont === font.value}
 							onClick={() => handleSelectFont(font.value, false)}
 						>
 							<Text size="3" style={{ fontFamily: font.value }}>
 								{font.label}
 							</Text>
-						</Card>
+						</FontCard>
 					))}
 				</Grid>
-			</Box>
+			</Flex>
 
 			{filteredSystemFonts.length > 0 && (
-				<Box>
-					<Heading size="3" mb="2">
-						{t("settings.appearance.systemFonts", "System fonts")}
-					</Heading>
+				<Flex direction="column" gap="2">
+					<SectionHeader
+						size="3"
+						title={t("settings.appearance.systemFonts", "System fonts")}
+					/>
 					<Grid columns="repeat(auto-fill, minmax(280px, 1fr))" gap="3">
 						{filteredSystemFonts.map((font) => (
-							<Card
+							<FontCard
 								key={font}
-								style={{
-									cursor: "pointer",
-									padding: "12px",
-									minHeight: "60px",
-									display: "flex",
-									alignItems: "center",
-									border:
-										appFont === font ? "2px solid var(--accent-9)" : "none",
-								}}
+								selected={appFont === font}
 								onClick={() => handleSelectFont(font, false)}
 							>
 								<Text
@@ -86,56 +96,43 @@ export const FontLibrarySection = ({
 								>
 									{font}
 								</Text>
-							</Card>
+							</FontCard>
 						))}
 					</Grid>
-				</Box>
+				</Flex>
 			)}
 
-			<Box>
-				<Heading size="3" mb="2">
-					{t("settings.appearance.googleFonts", "Google Fonts library")}
-				</Heading>
+			<Flex direction="column" gap="2">
+				<SectionHeader
+					size="3"
+					title={t("settings.appearance.googleFonts", "Google Fonts library")}
+				/>
 				<Grid columns="repeat(auto-fill, minmax(280px, 1fr))" gap="3">
 					{filteredGoogleFonts.map((font) => (
-						<Card
+						<FontCard
 							key={font}
-							style={{
-								cursor: "pointer",
-								padding: "12px",
-								minHeight: "80px",
-								display: "flex",
-								flexDirection: "column",
-								justifyContent: "center",
-								border:
-									appFont === `"${font}", sans-serif`
-										? "2px solid var(--accent-9)"
-										: "none",
-							}}
+							tall
+							selected={appFont === `"${font}", sans-serif`}
 							onClick={() => handleSelectFont(font)}
 						>
-							<Flex direction="column" gap="1">
-								<Text size="1" color="gray">
-									{font}
-								</Text>
-								<Text
-									size="5"
-									style={{
-										fontFamily: `"${font}", sans-serif`,
-										fontWeight: appFontWeight,
-										fontStyle: appFontStyle,
-										whiteSpace: "nowrap",
-										overflow: "hidden",
-										textOverflow: "ellipsis",
-									}}
-								>
-									{font}
-								</Text>
-							</Flex>
-						</Card>
+							<Text size="1" color="gray">
+								{font}
+							</Text>
+							<Text
+								size="5"
+								className={styles.sample}
+								style={{
+									fontFamily: `"${font}", sans-serif`,
+									fontWeight: appFontWeight,
+									fontStyle: appFontStyle,
+								}}
+							>
+								{font}
+							</Text>
+						</FontCard>
 					))}
 				</Grid>
-			</Box>
+			</Flex>
 		</Flex>
 	</ScrollArea>
 );

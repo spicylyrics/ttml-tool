@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from "react";
 import type { useSpectrogramWorker } from "$/modules/spectrogram/hooks/useSpectrogramWorker.ts";
 import type { TileComponentProps } from "../components/TileComponent.tsx";
 
@@ -31,7 +32,7 @@ export function updateVisibleSpectrogramTiles({
 	zoom: number;
 	scrollLeft: number;
 	fftSize: number;
-	setVisibleTiles: (tiles: TileComponentProps[]) => void;
+	setVisibleTiles: Dispatch<SetStateAction<TileComponentProps[]>>;
 }) {
 	if (!audioBuffer || !scrollContainerRef.current) return;
 
@@ -80,5 +81,22 @@ export function updateVisibleSpectrogramTiles({
 			bitmap: currentBitmap,
 		});
 	}
-	setVisibleTiles(newVisibleTiles);
+	// Scrolling inside the same prefetched tile range only moves the outer
+	// container. Keep the list identity so it does not schedule another render.
+	setVisibleTiles((previous) =>
+		previous.length === newVisibleTiles.length &&
+		previous.every((tile, index) => {
+			const next = newVisibleTiles[index];
+			return (
+				tile.tileId === next.tileId &&
+				tile.left === next.left &&
+				tile.width === next.width &&
+				tile.height === next.height &&
+				tile.canvasWidth === next.canvasWidth &&
+				tile.bitmap === next.bitmap
+			);
+		})
+			? previous
+			: newVisibleTiles,
+	);
 }

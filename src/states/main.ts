@@ -25,6 +25,8 @@ export enum ToolMode {
 	Edit = "edit",
 	Sync = "sync",
 	Preview = "preview",
+	/** Behind the transcription mode flag. */
+	Transcribe = "transcribe",
 }
 
 export const toolModeAtom = atom<ToolMode>(ToolMode.Edit);

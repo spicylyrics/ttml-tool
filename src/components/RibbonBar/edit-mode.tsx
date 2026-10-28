@@ -169,7 +169,8 @@ export const EditModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 				</RibbonSection>
 			)}
 			{showAdvanced && (selectedLines.size > 0 || selectedWords.size > 0) && (
-				<PhoneticSection />
+				// The key is its section id for the customizable ribbon.
+				<PhoneticSection key="ribbonBar.editMode.romanization.section" />
 			)}
 			{selectedWords.size > 0 && (
 				<RibbonSection

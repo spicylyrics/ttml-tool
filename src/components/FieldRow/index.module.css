@@ -1,0 +1,65 @@
+.row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-areas: "text control";
+	align-items: center;
+	column-gap: var(--space-3);
+	row-gap: var(--space-2);
+}
+
+.row:has(> .icon) {
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	grid-template-areas: "icon text control";
+}
+
+.stacked {
+	grid-template-columns: minmax(0, 1fr);
+	grid-template-areas:
+		"text"
+		"control";
+}
+
+.stacked:has(> .icon) {
+	grid-template-columns: auto minmax(0, 1fr);
+	grid-template-areas:
+		"icon text"
+		". control";
+}
+
+.icon {
+	grid-area: icon;
+	display: inline-flex;
+	color: var(--gray-11);
+}
+
+.text {
+	grid-area: text;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+	min-width: 0;
+}
+
+.label {
+	color: var(--gray-12);
+}
+
+.description {
+	margin: 0;
+}
+
+.control {
+	grid-area: control;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	min-width: 0;
+}
+
+.stacked .control {
+	justify-content: flex-start;
+}
+
+.stacked .control > * {
+	flex: 1 1 auto;
+}

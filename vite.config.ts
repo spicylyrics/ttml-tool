@@ -1,5 +1,5 @@
 import { exec } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
@@ -65,9 +65,14 @@ const plugins: Plugin[] = [
 					} catch {}
 				}
 
+				const appVersion: string =
+					JSON.parse(readFileSync(resolve(__dirname, "package.json"), "utf8"))
+						.version ?? "";
+
 				return `
 					export const BUILD_TIME = ${JSON.stringify(new Date().toISOString())};
 					export const GIT_COMMIT = ${JSON.stringify(gitCommit ?? "unknown")};
+					export const APP_VERSION = ${JSON.stringify(appVersion)};
 				`;
 			}
 		},

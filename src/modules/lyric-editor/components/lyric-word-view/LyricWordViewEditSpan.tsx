@@ -17,7 +17,7 @@ import {
 	useMemo,
 	useRef,
 } from "react";
-import { syncLevelModeAtom } from "$/modules/settings/states/sync.ts";
+import { effectiveSyncLevelAtom } from "$/modules/line-sync/states";
 import {
 	lyricLinesAtom,
 	selectedLinesAtom,
@@ -64,7 +64,7 @@ export const LyricWordViewEditSpan = ({
 	const toolMode = useAtomValue(toolModeAtom);
 	const blockDragRef = useRef(false);
 	const lastClickTimeRef = useRef(0);
-	const syncLevelMode = useAtomValue(syncLevelModeAtom);
+	const syncLevelMode = useAtomValue(effectiveSyncLevelAtom);
 
 	function onWordSelect(evt: MouseEvent<HTMLSpanElement>) {
 		if (toolMode === ToolMode.Sync && syncLevelMode === "line") {
