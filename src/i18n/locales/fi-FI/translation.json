@@ -35,6 +35,11 @@
   "onlineImport": {
     "noLyricsLabel": "Tälle kappaleelle ei ole saatavilla sanoituksia."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Tiivis asettelu",
+    "tightLayoutDesc": "Vähemmän tyhjää tilaa ja helpommin luettavat taustalaulurivit."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# riviltä puuttuu ajoitus} other {# riviltä puuttuu ajoitus}}",
     "jumpToUntimed": "Ajoita ensimmäinen ajoittamaton rivi"

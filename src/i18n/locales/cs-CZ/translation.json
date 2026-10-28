@@ -35,6 +35,11 @@
   "onlineImport": {
     "noLyricsLabel": "Pro tuto skladbu nejsou k dispozici žádné texty."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Úsporné rozvržení",
+    "tightLayoutDesc": "Méně prázdného místa a lépe čitelné doprovodné řádky."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# řádek zatím nemá časování} few {# řádky zatím nemají časování} many {# řádku zatím nemá časování} other {# řádků zatím nemá časování}}",
     "jumpToUntimed": "Nastavit časy prvního řádku bez časování"

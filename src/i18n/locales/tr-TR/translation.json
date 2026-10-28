@@ -35,6 +35,11 @@
   "onlineImport": {
     "noLyricsLabel": "Bu parça için şarkı sözü mevcut değil."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Sıkı yerleşim",
+    "tightLayoutDesc": "Daha az boş alan kullanır ve arka vokal satırlarını daha kolay okunur yapar."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# satır henüz zamanlanmamış} other {# satır henüz zamanlanmamış}}",
     "jumpToUntimed": "Zamanlanmamış ilk satırı senkronize et"

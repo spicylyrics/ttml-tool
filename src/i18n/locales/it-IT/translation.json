@@ -35,6 +35,11 @@
   "onlineImport": {
     "noLyricsLabel": "Nessun testo disponibile per questo brano."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Layout compatto",
+    "tightLayoutDesc": "Riduce lo spazio vuoto e rende i versi dei cori più facili da leggere."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# verso non è ancora sincronizzato} many {# versi non sono ancora sincronizzati} other {# versi non sono ancora sincronizzati}}",
     "jumpToUntimed": "Sincronizza il primo verso senza tempi"

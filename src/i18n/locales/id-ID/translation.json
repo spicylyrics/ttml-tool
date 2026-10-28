@@ -35,6 +35,11 @@
   "onlineImport": {
     "noLyricsLabel": "Tidak ada lirik yang tersedia untuk lagu ini."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Tata letak rapat",
+    "tightLayoutDesc": "Kurangi ruang kosong dan buat baris vokal latar lebih mudah dibaca."
+  },
   "preview": {
     "untimedLines": "{count, plural, other {# baris belum diberi waktu}}",
     "jumpToUntimed": "Sinkronkan baris pertama yang belum diberi waktu"

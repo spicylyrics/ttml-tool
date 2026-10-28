@@ -35,6 +35,11 @@
   "onlineImport": {
     "noLyricsLabel": "此曲目没有可用的歌词。"
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "紧凑布局",
+    "tightLayoutDesc": "减少空白，让背景人声行更易阅读。"
+  },
   "preview": {
     "untimedLines": "{count, plural, other {# 行尚未打轴}}",
     "jumpToUntimed": "为第一条未打轴的歌词行打轴"

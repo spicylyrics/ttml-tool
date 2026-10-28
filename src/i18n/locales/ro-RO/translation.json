@@ -35,6 +35,11 @@
   "onlineImport": {
     "noLyricsLabel": "Nu sunt disponibile versuri pentru această piesă."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Aspect compact",
+    "tightLayoutDesc": "Folosește mai puțin spațiu gol și face versurile vocilor de fundal mai ușor de citit."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# vers nu este încă sincronizat} few {# versuri nu sunt încă sincronizate} other {# de versuri nu sunt încă sincronizate}}",
     "jumpToUntimed": "Sincronizează primul vers fără timpi"

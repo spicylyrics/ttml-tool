@@ -35,6 +35,11 @@
   "onlineImport": {
     "noLyricsLabel": "No lyrics available for this track."
   },
+  "toxiLayout": {
+    "section": "Toxi",
+    "tightLayout": "Tight layout",
+    "tightLayoutDesc": "Use less empty space and make background lines easier to read."
+  },
   "preview": {
     "untimedLines": "{count, plural, one {# line has no timing yet} other {# lines have no timing yet}}",
     "jumpToUntimed": "Time the first untimed line"

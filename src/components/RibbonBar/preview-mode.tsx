@@ -30,6 +30,7 @@ import {
 import { timingOverviewAutoScrollAtom } from "$/modules/settings/states/sync.ts";
 import { AdvancedSection } from "./AdvancedSection";
 import { RibbonFrame, RibbonSection } from "./common";
+import { ToxiSection } from "./preview-mode/ToxiSection";
 import { RibbonLabel, RibbonToggle } from "./RibbonToggle";
 
 export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
@@ -100,6 +101,7 @@ export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
 						</Grid>
 					</RibbonSection>
 				)}
+				{previewModeType === PreviewModeType.Toxi && <ToxiSection />}
 				{previewModeType === PreviewModeType.Timing && (
 					<RibbonSection label={t("ribbonBar.previewMode.timing", "时轴")}>
 						<Grid
