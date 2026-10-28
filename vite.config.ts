@@ -7,7 +7,6 @@ import jotaiDebugLabel from "jotai/babel/plugin-debug-label";
 import jotaiReactRefresh from "jotai/babel/plugin-react-refresh";
 import ConditionalCompile from "unplugin-preprocessor-directives/vite";
 import { defineConfig, type Plugin } from "vite";
-import i18nextLoader from "vite-plugin-i18next-loader";
 import wasm from "vite-plugin-wasm";
 import svgLoader from "vite-svg-loader";
 import { configDefaults } from "vitest/config";
@@ -22,8 +21,6 @@ const AMLL_LOCAL_EXISTS = existsSync(AMLL_LOCAL_PATH);
 
 process.env.AMLL_LOCAL_EXISTS = AMLL_LOCAL_EXISTS ? "true" : "false";
 
-const localePaths: string[] = [resolve(__dirname, "./src/i18n/locales")];
-
 const plugins: Plugin[] = [
 	ConditionalCompile(),
 	react({
@@ -34,10 +31,6 @@ const plugins: Plugin[] = [
 	}),
 	svgLoader(),
 	wasm(),
-	i18nextLoader({
-		paths: localePaths,
-		namespaceResolution: "basename",
-	}),
 	{
 		name: "buildmeta",
 		async resolveId(id) {
