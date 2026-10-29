@@ -1263,6 +1263,48 @@
     "applyToAll": "Aplicar a todas las palabras idénticas",
     "caseSensitive": "Distinguir mayúsculas y minúsculas"
   },
+  "romanizationTools": {
+    "group": "Romanización y división",
+    "flag": "Herramientas de romanización experimentales",
+    "flagDesc": "División del inglés por reglas, tamaño de división del japonés, pegar una página romanizada y exportar traducciones en la cabecera.",
+    "japaneseGranularity": "Tamaño de división del japonés",
+    "japaneseGranularityDesc": "Cómo divide la división automática la letra en japonés. Los kana pequeños, ー y っ se quedan con su sonido.",
+    "granularity": {
+      "syllable": "Sílaba",
+      "syllableDesc": "Un sonido por parte, ん se une al sonido anterior",
+      "mora": "Mora",
+      "moraDesc": "Un pulso por parte, ん es una parte propia",
+      "word": "Palabra",
+      "wordDesc": "Palabras completas"
+    },
+    "translationFormat": "Exportación de traducciones",
+    "translationFormatDesc": "Dónde van las traducciones en el TTML exportado. Spicy Lyrics solo lee traducciones en línea.",
+    "format": {
+      "inline": "En línea",
+      "inlineDesc": "En cada línea, como hasta ahora. Spicy Lyrics lee esto.",
+      "head": "Cabecera",
+      "headDesc": "Estilo Apple, en la cabecera del archivo. Spicy Lyrics puede mostrarlas como romanización."
+    },
+    "translationLanguage": "Idioma de la traducción",
+    "translationLanguageDesc": "Código de idioma de las traducciones en la cabecera, como en o es.",
+    "paste": {
+      "button": "Pegar romanización...",
+      "tooltip": "Rellena la romanización de cada palabra desde una página de letra romanizada, como la de Genius.",
+      "title": "Pegar letra romanizada",
+      "description": "Pega una página de letra romanizada, una línea por cada línea de la letra. Se omiten los encabezados de sección y las líneas vacías, y las líneas de fondo no se tocan.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Rellenar romanización",
+      "lineCountMismatch": "La página tiene {received} líneas y la letra tiene {expected}. Añade o quita líneas para que coincidan.",
+      "applied": "Romanización rellenada: {count} líneas.",
+      "check": "Algunas palabras se han estimado. Revisa las líneas {lines}."
+    },
+    "genius": {
+      "find": "Buscar en Genius",
+      "titleLabel": "Título de la canción",
+      "none": "No se encontró ninguna página romanizada. Prueba con el título tal como lo escribe Genius.",
+      "failed": "Genius no respondió: {message}"
+    }
+  },
   "timeShiftDialog": {
     "title": "Desplazar tiempos",
     "amount": "Desfase (ms)",
