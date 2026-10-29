@@ -1317,6 +1317,25 @@
     "howToGetKey": "Genius erişim belirteci nasıl alınır",
     "changeKey": "Erişim belirtecini değiştir"
   },
+  "referenceSidebar": {
+    "setting": "Başvuru paneli",
+    "settingDesc": "Düzenle ve Zamanla modunda önizlemeyi ve şarkının Genius sözlerini sağa sabitler. Önizleme panelinin yerini alır.",
+    "label": "Başvuru paneli",
+    "collapse": "Paneli daralt",
+    "tabs": {
+      "preview": "Önizleme",
+      "genius": "Genius",
+      "problems": "Sorunlar"
+    },
+    "genius": {
+      "changeSong": "Şarkıyı değiştir",
+      "backToLyrics": "Sözlere dön",
+      "searchFailed": "Arama başarısız: {error}",
+      "loadFailed": "Sözler yüklenemedi: {error}",
+      "retry": "Tekrar dene",
+      "lyricsLabel": "{title} için Genius sözleri"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Şarkı sözlerini işle",
     "processedSuccess": "Şarkı sözleri hece senkronizasyonu için hazırlandı.",

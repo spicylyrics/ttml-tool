@@ -1317,6 +1317,25 @@
     "howToGetKey": "如何获取 Genius 访问令牌",
     "changeKey": "更换访问令牌"
   },
+  "referenceSidebar": {
+    "setting": "参考侧栏",
+    "settingDesc": "在编辑和打轴模式下，将预览和这首歌的 Genius 歌词停靠在右侧。取代预览面板。",
+    "label": "参考侧栏",
+    "collapse": "收起侧栏",
+    "tabs": {
+      "preview": "预览",
+      "genius": "Genius",
+      "problems": "问题"
+    },
+    "genius": {
+      "changeSong": "更换歌曲",
+      "backToLyrics": "返回歌词",
+      "searchFailed": "搜索失败：{error}",
+      "loadFailed": "无法加载歌词：{error}",
+      "retry": "重试",
+      "lyricsLabel": "{title} 的 Genius 歌词"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "处理歌词",
     "processedSuccess": "歌词已处理，可按音节打轴。",

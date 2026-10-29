@@ -1317,6 +1317,25 @@
     "howToGetKey": "Como obter um token de acesso do Genius",
     "changeKey": "Alterar token de acesso"
   },
+  "referenceSidebar": {
+    "setting": "Painel de referência",
+    "settingDesc": "Fixa a prévia e a letra do Genius da música à direita em Edição e Sincronização. Substitui o painel de prévia.",
+    "label": "Painel de referência",
+    "collapse": "Recolher painel",
+    "tabs": {
+      "preview": "Prévia",
+      "genius": "Genius",
+      "problems": "Problemas"
+    },
+    "genius": {
+      "changeSong": "Trocar música",
+      "backToLyrics": "Voltar para a letra",
+      "searchFailed": "A pesquisa falhou: {error}",
+      "loadFailed": "Não foi possível carregar a letra: {error}",
+      "retry": "Tentar de novo",
+      "lyricsLabel": "Letra do Genius de {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Processar letra",
     "processedSuccess": "Letra preparada para sincronizar por sílabas.",

@@ -1317,6 +1317,25 @@
     "howToGetKey": "Ako získať prístupový token Genius",
     "changeKey": "Zmeniť prístupový token"
   },
+  "referenceSidebar": {
+    "setting": "Referenčný panel",
+    "settingDesc": "Ukotví náhľad a text skladby z Genius vpravo v režime Úpravy a Časovanie. Nahrádza náhľadový panel.",
+    "label": "Referenčný panel",
+    "collapse": "Zbaliť panel",
+    "tabs": {
+      "preview": "Náhľad",
+      "genius": "Genius",
+      "problems": "Problémy"
+    },
+    "genius": {
+      "changeSong": "Zmeniť skladbu",
+      "backToLyrics": "Späť na text",
+      "searchFailed": "Hľadanie zlyhalo: {error}",
+      "loadFailed": "Text sa nepodarilo načítať: {error}",
+      "retry": "Skúsiť znova",
+      "lyricsLabel": "Text z Genius pre {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Spracovať text",
     "processedSuccess": "Text pripravený na synchronizáciu slabík.",

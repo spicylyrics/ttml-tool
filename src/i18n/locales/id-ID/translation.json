@@ -1317,6 +1317,25 @@
     "howToGetKey": "Cara mendapatkan token akses Genius",
     "changeKey": "Ubah token akses"
   },
+  "referenceSidebar": {
+    "setting": "Panel referensi",
+    "settingDesc": "Sematkan pratinjau dan lirik Genius lagu di kanan dalam mode Edit dan Sinkronisasi. Menggantikan panel pratinjau.",
+    "label": "Panel referensi",
+    "collapse": "Ciutkan panel",
+    "tabs": {
+      "preview": "Pratinjau",
+      "genius": "Genius",
+      "problems": "Masalah"
+    },
+    "genius": {
+      "changeSong": "Ganti lagu",
+      "backToLyrics": "Kembali ke lirik",
+      "searchFailed": "Pencarian gagal: {error}",
+      "loadFailed": "Tidak dapat memuat lirik: {error}",
+      "retry": "Coba lagi",
+      "lyricsLabel": "Lirik Genius untuk {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Proses lirik",
     "processedSuccess": "Lirik siap untuk sinkronisasi suku kata.",

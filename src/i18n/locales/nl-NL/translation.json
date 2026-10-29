@@ -1317,6 +1317,25 @@
     "howToGetKey": "Een Genius-toegangstoken verkrijgen",
     "changeKey": "Toegangstoken wijzigen"
   },
+  "referenceSidebar": {
+    "setting": "Referentiepaneel",
+    "settingDesc": "Zet het voorbeeld en de Genius-songtekst rechts vast in Bewerken en Timing. Vervangt het voorbeeldpaneel.",
+    "label": "Referentiepaneel",
+    "collapse": "Paneel inklappen",
+    "tabs": {
+      "preview": "Voorbeeld",
+      "genius": "Genius",
+      "problems": "Problemen"
+    },
+    "genius": {
+      "changeSong": "Ander nummer",
+      "backToLyrics": "Terug naar de tekst",
+      "searchFailed": "Zoeken mislukt: {error}",
+      "loadFailed": "Kan de songtekst niet laden: {error}",
+      "retry": "Opnieuw proberen",
+      "lyricsLabel": "Genius-songtekst van {title}"
+    }
+  },
   "textImportDialog": {
     "processLyrics": "Songteksten verwerken",
     "processedSuccess": "Songtekst voorbereid voor synchronisatie per lettergreep.",
