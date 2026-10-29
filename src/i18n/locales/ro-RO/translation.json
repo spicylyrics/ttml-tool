@@ -1263,6 +1263,42 @@
     "applyToAll": "Aplică tuturor cuvintelor identice",
     "caseSensitive": "Distinge majusculele de minuscule"
   },
+  "romanizationTools": {
+    "group": "Romanizare și împărțire",
+    "flag": "Instrumente experimentale de romanizare",
+    "flagDesc": "Împărțirea englezei după reguli, mărimea împărțirii japonezei, lipirea unei pagini romanizate și exportul traducerilor în antet.",
+    "japaneseGranularity": "Mărimea împărțirii japonezei",
+    "japaneseGranularityDesc": "Cum împarte împărțirea automată versurile japoneze. Kana mici, ー și っ rămân lângă sunetul lor.",
+    "granularity": {
+      "syllable": "Silabă",
+      "syllableDesc": "Un sunet pe parte, ん se lipește de sunetul dinainte",
+      "mora": "Mora",
+      "moraDesc": "O bătaie pe parte, ん este o parte separată",
+      "word": "Cuvânt",
+      "wordDesc": "Cuvinte întregi"
+    },
+    "translationFormat": "Exportul traducerilor",
+    "translationFormatDesc": "Unde ajung traducerile în TTML-ul exportat. Spicy Lyrics citește doar traducerile din rând.",
+    "format": {
+      "inline": "În rând",
+      "inlineDesc": "În fiecare rând, ca până acum. Spicy Lyrics citește acest format.",
+      "head": "Antet",
+      "headDesc": "În stil Apple, în antetul fișierului. Spicy Lyrics le poate afișa ca romanizare."
+    },
+    "translationLanguage": "Limba traducerii",
+    "translationLanguageDesc": "Codul de limbă al traducerilor din antet, de exemplu en sau es.",
+    "paste": {
+      "button": "Lipește romanizarea...",
+      "tooltip": "Completează romanizarea fiecărui cuvânt dintr-o pagină cu versuri romanizate, cum ar fi cea de pe Genius.",
+      "title": "Lipește versuri romanizate",
+      "description": "Lipește o pagină cu versuri romanizate, câte un rând pentru fiecare vers. Titlurile de secțiune și rândurile goale sunt sărite, iar rândurile de fundal rămân neschimbate.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Completează romanizarea",
+      "lineCountMismatch": "Pagina are {received} rânduri, iar versurile au {expected}. Adaugă sau șterge rânduri ca să se potrivească.",
+      "applied": "Romanizare completată, număr de rânduri: {count}.",
+      "check": "Unele cuvinte au fost estimate. Verifică rândurile {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Deplasează timpii",
     "amount": "Decalaj (ms)",

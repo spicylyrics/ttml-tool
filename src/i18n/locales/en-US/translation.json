@@ -1263,6 +1263,42 @@
     "applyToAll": "Apply to all identical words",
     "caseSensitive": "Match case"
   },
+  "romanizationTools": {
+    "group": "Romanization and splitting",
+    "flag": "Experimental romanization tools",
+    "flagDesc": "Rule-based English splitting, Japanese split size, pasting a romanized page and a head-level translation export.",
+    "japaneseGranularity": "Japanese split size",
+    "japaneseGranularityDesc": "How Auto split cuts Japanese lyrics. Small kana, ー and っ stay with their sound.",
+    "granularity": {
+      "syllable": "Syllable",
+      "syllableDesc": "One sound per part, ん joins the sound before it",
+      "mora": "Mora",
+      "moraDesc": "One beat per part, ん is its own part",
+      "word": "Word",
+      "wordDesc": "Whole words"
+    },
+    "translationFormat": "Translation export",
+    "translationFormatDesc": "Where translations go in exported TTML. Spicy Lyrics reads inline translations only.",
+    "format": {
+      "inline": "Inline",
+      "inlineDesc": "In each line, as before. Spicy Lyrics reads this.",
+      "head": "Head",
+      "headDesc": "Apple-style, in the file head. Spicy Lyrics may show it as romanization."
+    },
+    "translationLanguage": "Translation language",
+    "translationLanguageDesc": "Language tag for head-level translations, like en or es.",
+    "paste": {
+      "button": "Paste romanized...",
+      "tooltip": "Fill per-word romanization from a romanized lyric page, such as Genius's.",
+      "title": "Paste romanized lyrics",
+      "description": "Paste a romanized lyric page, one line per lyric line. Section headers and blank lines are skipped, and background lines are left alone.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Fill romanization",
+      "lineCountMismatch": "The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
+      "applied": "Romanization filled: {count} lines.",
+      "check": "Some words were guessed. Check lines {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Time Shift",
     "amount": "Offset (ms)",

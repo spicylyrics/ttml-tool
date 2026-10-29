@@ -12,10 +12,12 @@ import {
 	MergeDirection,
 	PUNCT_AMBIGUOUS_QUOTES,
 } from "./charUtils";
+import { splitJapaneseByGranularity } from "./japanese-split";
 import { applyLearnedRule } from "./learned-rules";
 import {
 	getHyphenationLanguage,
 	getSyllabificationEngine,
+	splitEnglishWithRules,
 	splitJapaneseText,
 } from "./syllabification-engines";
 
@@ -58,7 +60,11 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 		return [];
 	}
 	if (config.engine === "none") return [text];
-	if (config.engine === "japanese") return splitJapaneseText(text);
+	if (config.engine === "japanese") {
+		return config.japaneseGranularity
+			? splitJapaneseByGranularity(text, config.japaneseGranularity)
+			: splitJapaneseText(text);
+	}
 	const tokens: string[] = [];
 	let currentToken = "";
 	let lastCharType: CharType | null = null;
@@ -74,7 +80,9 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 			const syllables =
 				getHyphenationLanguage(config.engine) && config.hyphenator
 					? config.hyphenator(currentToken).split("\u00AD")
-					: getSyllabificationEngine(config.engine).split(currentToken);
+					: config.englishRules && config.engine === "prosodic"
+						? splitEnglishWithRules(currentToken)
+						: getSyllabificationEngine(config.engine).split(currentToken);
 			tokens.push(...syllables);
 		} else {
 			tokens.push(currentToken);

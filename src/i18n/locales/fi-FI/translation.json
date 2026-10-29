@@ -1263,6 +1263,42 @@
     "applyToAll": "Käytä kaikkiin samanlaisiin sanoihin",
     "caseSensitive": "Erota kirjainkoko"
   },
+  "romanizationTools": {
+    "group": "Latinisointi ja jakaminen",
+    "flag": "Kokeelliset latinisointityökalut",
+    "flagDesc": "Englannin sääntöpohjainen jakaminen, japanin jakokoko, latinisoidun sivun liittäminen ja käännösten vienti otsakkeeseen.",
+    "japaneseGranularity": "Japanin jakokoko",
+    "japaneseGranularityDesc": "Miten automaattinen jako jakaa japaninkielisen tekstin. Pienet kanat, ー ja っ pysyvät äänteensä kanssa.",
+    "granularity": {
+      "syllable": "Tavu",
+      "syllableDesc": "Yksi äänne osaa kohden, ん liittyy edelliseen",
+      "mora": "Mora",
+      "moraDesc": "Yksi isku osaa kohden, ん on oma osansa",
+      "word": "Sana",
+      "wordDesc": "Kokonaiset sanat"
+    },
+    "translationFormat": "Käännösten vienti",
+    "translationFormatDesc": "Mihin käännökset tallennetaan viedyssä TTML-tiedostossa. Spicy Lyrics lukee vain rivin sisäiset käännökset.",
+    "format": {
+      "inline": "Rivillä",
+      "inlineDesc": "Jokaisella rivillä, kuten ennenkin. Spicy Lyrics lukee tämän.",
+      "head": "Otsake",
+      "headDesc": "Applen tyyliin tiedoston otsakkeessa. Spicy Lyrics voi näyttää ne latinisointina."
+    },
+    "translationLanguage": "Käännöksen kieli",
+    "translationLanguageDesc": "Otsakkeen käännösten kielitunnus, kuten en tai es.",
+    "paste": {
+      "button": "Liitä latinisointi...",
+      "tooltip": "Täytä sanakohtainen latinisointi latinisoidulta sanoitussivulta, kuten Geniuksesta.",
+      "title": "Liitä latinisoidut sanat",
+      "description": "Liitä latinisoitu sanoitussivu, yksi rivi kutakin sanoitusriviä kohden. Osioiden otsikot ja tyhjät rivit ohitetaan, eikä taustarivejä muuteta.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Täytä latinisointi",
+      "lineCountMismatch": "Sivulla on {received} riviä ja sanoituksessa {expected}. Lisää tai poista rivejä, jotta määrät täsmäävät.",
+      "applied": "Latinisointi täytetty: {count} riviä.",
+      "check": "Joitakin sanoja arvattiin. Tarkista rivit {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Ajoituksen siirto",
     "amount": "Siirtymä (ms)",

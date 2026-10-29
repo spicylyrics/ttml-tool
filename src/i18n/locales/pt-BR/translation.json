@@ -1263,6 +1263,42 @@
     "applyToAll": "Aplicar a todas as palavras idênticas",
     "caseSensitive": "Diferenciar maiúsculas e minúsculas"
   },
+  "romanizationTools": {
+    "group": "Romanização e divisão",
+    "flag": "Ferramentas de romanização experimentais",
+    "flagDesc": "Divisão do inglês por regras, tamanho da divisão do japonês, colar uma página romanizada e exportar traduções no cabeçalho.",
+    "japaneseGranularity": "Tamanho da divisão do japonês",
+    "japaneseGranularityDesc": "Como a divisão automática corta letras em japonês. Kana pequenos, ー e っ ficam com o seu som.",
+    "granularity": {
+      "syllable": "Sílaba",
+      "syllableDesc": "Um som por parte, ん se junta ao som anterior",
+      "mora": "Mora",
+      "moraDesc": "Uma batida por parte, ん é uma parte própria",
+      "word": "Palavra",
+      "wordDesc": "Palavras inteiras"
+    },
+    "translationFormat": "Exportação de traduções",
+    "translationFormatDesc": "Onde as traduções ficam no TTML exportado. O Spicy Lyrics só lê traduções na linha.",
+    "format": {
+      "inline": "Na linha",
+      "inlineDesc": "Em cada linha, como antes. O Spicy Lyrics lê isto.",
+      "head": "Cabeçalho",
+      "headDesc": "Estilo Apple, no cabeçalho do arquivo. O Spicy Lyrics pode mostrá-las como romanização."
+    },
+    "translationLanguage": "Idioma da tradução",
+    "translationLanguageDesc": "Código de idioma das traduções no cabeçalho, como en ou es.",
+    "paste": {
+      "button": "Colar romanização...",
+      "tooltip": "Preencha a romanização de cada palavra a partir de uma página de letra romanizada, como a do Genius.",
+      "title": "Colar letra romanizada",
+      "description": "Cole uma página de letra romanizada, uma linha para cada linha da letra. Cabeçalhos de seção e linhas vazias são ignorados, e as linhas de fundo não mudam.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Preencher romanização",
+      "lineCountMismatch": "A página tem {received} linhas e a letra tem {expected}. Adicione ou remova linhas para que batam.",
+      "applied": "Romanização preenchida: {count} linhas.",
+      "check": "Algumas palavras foram estimadas. Confira as linhas {lines}."
+    }
+  },
   "timeShiftDialog": {
     "title": "Deslocamento de tempo",
     "amount": "Deslocamento (ms)",
