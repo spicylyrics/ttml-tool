@@ -381,6 +381,82 @@
     "projectsFound": "{count, plural, one {Found # project} other {Found # projects}}",
     "scanFailed": "Failed to scan workspace folder"
   },
+  "projectsHub": {
+    "enable": "Song list and start screen",
+    "enableDesc": "Adds a To sync list and a folder scan to Projects, a start screen in the empty editor, a prompt to continue your last session on launch, opening TTML and audio from one drop, and plain or Genius text export.",
+    "menuProjects": "Projects...",
+    "tabSongs": "To sync",
+    "songs": {
+      "description": "Songs you want to sync next. Start a project from one, and it's marked done when you export the TTML.",
+      "addManually": "Type it in",
+      "searchGenius": "Search Genius",
+      "add": "Add to the list",
+      "added": "Added {song} to the list.",
+      "alreadyListed": "{song} is already on the list.",
+      "searchFailed": "Couldn't search Genius.",
+      "start": "Start project",
+      "started": "Started {song}. Import or type the lyrics, then load the audio.",
+      "startDirty": "You have unsaved changes. Starting {song} replaces the lyrics in the editor.",
+      "markedDone": "Marked {song} as done.",
+      "inProgress": "Started",
+      "empty": "Nothing to sync yet. Add the next song before you forget it.",
+      "showNotes": "Show notes",
+      "showCompleted": "Done ({count})",
+      "hideCompleted": "Hide done",
+      "markDone": "Done",
+      "reopen": "Reopen",
+      "edit": "Edit song",
+      "delete": "Remove song",
+      "toolMenu": "To sync..."
+    },
+    "scan": {
+      "tab": "Scan folder",
+      "select": "Scan a folder for TTMLs...",
+      "pairsTitle": "Files you can link as projects",
+      "pairsHint": "A TTML and an audio file with the same name. Linking keeps both files where they are.",
+      "link": "Link",
+      "linkAll": "Link all",
+      "linked": "Linked {name} as a project.",
+      "linkedCount": "{count, plural, one {Linked # project} other {Linked # projects}}",
+      "linkFailed": "Couldn't link {name}.",
+      "noPairs": "No same-name TTML and audio files found.",
+      "scanning": "Looking for files..."
+    },
+    "start": {
+      "title": "Start syncing",
+      "description": "Open a project, pick a song from your list, or start from lyrics.",
+      "startedDescription": "Add the lyrics from text or Genius, then load the audio.",
+      "fromText": "New from text",
+      "fromGenius": "New from Genius",
+      "openFile": "Open file...",
+      "openFolder": "Open folder project...",
+      "projects": "Projects...",
+      "recent": "Recent projects",
+      "songs": "To sync",
+      "seeAll": "See all",
+      "startSong": "Start project for {song}"
+    },
+    "resume": {
+      "title": "Continue where you left off?",
+      "description": "{name} was last edited on {time}. History restore keeps every autosave either way.",
+      "continue": "Continue",
+      "startFresh": "Start fresh",
+      "restored": "Restored {name}."
+    },
+    "export": {
+      "plainText": "Plain text...",
+      "geniusText": "Genius text...",
+      "copyGenius": "Copy as Genius text",
+      "copied": "Copied the lyrics as Genius text.",
+      "copyFailed": "Couldn't copy the lyrics.",
+      "saveFailed": "Couldn't save the file.",
+      "textFiles": "Text files",
+      "empty": "There are no lyrics to export."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {Skipped # file. Drop one lyric file and one audio file at a time.} other {Skipped # files. Drop one lyric file and one audio file at a time.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Applies to the Edit, Time and Preview ribbons.",
     "tooltips": {
@@ -923,6 +999,36 @@
       "spectrogramHoverSync": "Sync at mouse position",
       "changelog": "Changelog & updates",
       "projects": "Projects"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Transcribe",
+    "modeBtnDesc": "Type the lyrics as plain text while the song plays.",
+    "enable": "Transcribe tab",
+    "enableDesc": "Add a Transcribe tab for typing lyrics as plain text while the song plays.",
+    "title": "Transcribe",
+    "stats": "{lines, plural, one {# line} other {# lines}}, {words, plural, one {# word} other {# words}}",
+    "tidy": "Tidy layout",
+    "export": "Export",
+    "copyGenius": "Copy as Genius text",
+    "copyPlain": "Copy as plain text",
+    "saveGenius": "Save as Genius text...",
+    "savePlain": "Save as plain text...",
+    "sendToImport": "Import into the editor...",
+    "textLabel": "Transcript",
+    "placeholder": "Type the lyrics as you hear them, one line per row. Put section headers like [Verse 1] on their own row.",
+    "copied": "Copied to the clipboard.",
+    "copyFailed": "Couldn't copy the text.",
+    "saveFailed": "Couldn't save the file.",
+    "textFiles": "Text files",
+    "keys": {
+      "label": "Shortcuts in the text box",
+      "playPause": "Play or pause",
+      "back": "Back 3 seconds",
+      "forward": "Forward 3 seconds",
+      "slower": "Slower",
+      "faster": "Faster",
+      "resetSpeed": "Normal speed"
     }
   },
   "header": {

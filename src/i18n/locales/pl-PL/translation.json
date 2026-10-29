@@ -381,6 +381,82 @@
     "projectsFound": "{count, plural, one {Znaleziono # projekt} few {Znaleziono # projekty} many {Znaleziono # projektów} other {Znaleziono # projektu}}",
     "scanFailed": "Nie udało się przeskanować folderu obszaru roboczego"
   },
+  "projectsHub": {
+    "enable": "Lista utworów i ekran startowy",
+    "enableDesc": "Dodaje do Projektów listę Do synchronizacji i skanowanie folderu, ekran startowy w pustym edytorze, propozycję kontynuowania ostatniej sesji po uruchomieniu, otwieranie TTML i dźwięku jednym przeciągnięciem oraz eksport jako zwykły tekst lub tekst w formacie Genius.",
+    "menuProjects": "Projekty...",
+    "tabSongs": "Do synchronizacji",
+    "songs": {
+      "description": "Utwory, które chcesz zsynchronizować jako następne. Rozpocznij z nich projekt, a po eksporcie TTML zostaną oznaczone jako gotowe.",
+      "addManually": "Wpisz ręcznie",
+      "searchGenius": "Szukaj w Genius",
+      "add": "Dodaj do listy",
+      "added": "Dodano {song} do listy.",
+      "alreadyListed": "{song} jest już na liście.",
+      "searchFailed": "Nie udało się wyszukać w Genius.",
+      "start": "Rozpocznij projekt",
+      "started": "Rozpoczęto {song}. Zaimportuj lub wpisz tekst, a potem wczytaj dźwięk.",
+      "startDirty": "Masz niezapisane zmiany. Rozpoczęcie {song} zastąpi tekst w edytorze.",
+      "markedDone": "Oznaczono {song} jako gotowe.",
+      "inProgress": "Rozpoczęte",
+      "empty": "Na razie nie ma nic do synchronizacji. Dodaj kolejny utwór, zanim o nim zapomnisz.",
+      "showNotes": "Pokaż notatki",
+      "showCompleted": "Gotowe ({count})",
+      "hideCompleted": "Ukryj gotowe",
+      "markDone": "Gotowe",
+      "reopen": "Otwórz ponownie",
+      "edit": "Edytuj utwór",
+      "delete": "Usuń utwór",
+      "toolMenu": "Do synchronizacji..."
+    },
+    "scan": {
+      "tab": "Skanuj folder",
+      "select": "Skanuj folder w poszukiwaniu plików TTML...",
+      "pairsTitle": "Pliki, które możesz połączyć jako projekty",
+      "pairsHint": "Plik TTML i plik dźwiękowy o tej samej nazwie. Połączenie zostawia oba pliki na miejscu.",
+      "link": "Połącz",
+      "linkAll": "Połącz wszystkie",
+      "linked": "Połączono {name} jako projekt.",
+      "linkedCount": "{count, plural, one {Połączono # projekt} few {Połączono # projekty} many {Połączono # projektów} other {Połączono # projektu}}",
+      "linkFailed": "Nie udało się połączyć {name}.",
+      "noPairs": "Nie znaleziono plików TTML i dźwiękowych o tej samej nazwie.",
+      "scanning": "Szukanie plików..."
+    },
+    "start": {
+      "title": "Zacznij synchronizować",
+      "description": "Otwórz projekt, wybierz utwór ze swojej listy albo zacznij od tekstu.",
+      "startedDescription": "Dodaj tekst ze zwykłego tekstu lub z Genius, a potem wczytaj dźwięk.",
+      "fromText": "Nowy z tekstu",
+      "fromGenius": "Nowy z Genius",
+      "openFile": "Otwórz plik...",
+      "openFolder": "Otwórz projekt w folderze...",
+      "projects": "Projekty...",
+      "recent": "Ostatnie projekty",
+      "songs": "Do synchronizacji",
+      "seeAll": "Pokaż wszystkie",
+      "startSong": "Rozpocznij projekt dla {song}"
+    },
+    "resume": {
+      "title": "Kontynuować od miejsca, w którym skończono?",
+      "description": "{name} był ostatnio edytowany {time}. Przywracanie z historii i tak zachowuje każdy autozapis.",
+      "continue": "Kontynuuj",
+      "startFresh": "Zacznij od nowa",
+      "restored": "Przywrócono {name}."
+    },
+    "export": {
+      "plainText": "Zwykły tekst...",
+      "geniusText": "Tekst Genius...",
+      "copyGenius": "Kopiuj jako tekst Genius",
+      "copied": "Skopiowano tekst w formacie Genius.",
+      "copyFailed": "Nie udało się skopiować tekstu.",
+      "saveFailed": "Nie udało się zapisać pliku.",
+      "textFiles": "Pliki tekstowe",
+      "empty": "Nie ma tekstu do eksportu."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {Pominięto # plik. Przeciągaj naraz jeden plik z tekstem i jeden plik dźwiękowy.} few {Pominięto # pliki. Przeciągaj naraz jeden plik z tekstem i jeden plik dźwiękowy.} many {Pominięto # plików. Przeciągaj naraz jeden plik z tekstem i jeden plik dźwiękowy.} other {Pominięto # pliku. Przeciągaj naraz jeden plik z tekstem i jeden plik dźwiękowy.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Dotyczy wstążek Edycja, Synchronizacja i Podgląd.",
     "tooltips": {
@@ -923,6 +999,36 @@
       "spectrogramHoverSync": "Synchronizuj w pozycji myszy",
       "changelog": "Lista zmian i aktualizacje",
       "projects": "Projekty"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Transkrypcja",
+    "modeBtnDesc": "Wpisuj tekst jako zwykły tekst, gdy utwór gra.",
+    "enable": "Karta Transkrypcja",
+    "enableDesc": "Dodaje kartę Transkrypcja do wpisywania tekstu jako zwykłego tekstu, gdy utwór gra.",
+    "title": "Transkrypcja",
+    "stats": "{lines, plural, one {# wiersz} few {# wiersze} many {# wierszy} other {# wiersza}}, {words, plural, one {# słowo} few {# słowa} many {# słów} other {# słowa}}",
+    "tidy": "Uporządkuj układ",
+    "export": "Eksportuj",
+    "copyGenius": "Kopiuj jako tekst Genius",
+    "copyPlain": "Kopiuj jako zwykły tekst",
+    "saveGenius": "Zapisz jako tekst Genius...",
+    "savePlain": "Zapisz jako zwykły tekst...",
+    "sendToImport": "Importuj do edytora...",
+    "textLabel": "Transkrypcja",
+    "placeholder": "Wpisuj tekst tak, jak go słyszysz, jeden wers w wierszu. Nagłówki sekcji, takie jak [Verse 1], umieszczaj w osobnych wierszach.",
+    "copied": "Skopiowano do schowka.",
+    "copyFailed": "Nie udało się skopiować tekstu.",
+    "saveFailed": "Nie udało się zapisać pliku.",
+    "textFiles": "Pliki tekstowe",
+    "keys": {
+      "label": "Skróty w polu tekstowym",
+      "playPause": "Odtwórz lub wstrzymaj",
+      "back": "3 sekundy wstecz",
+      "forward": "3 sekundy do przodu",
+      "slower": "Wolniej",
+      "faster": "Szybciej",
+      "resetSpeed": "Normalna prędkość"
     }
   },
   "header": {

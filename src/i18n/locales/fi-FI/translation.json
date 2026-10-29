@@ -381,6 +381,82 @@
     "projectsFound": "{count, plural, one {Löytyi # projekti} other {Löytyi # projektia}}",
     "scanFailed": "Työtilakansion läpikäynti epäonnistui"
   },
+  "projectsHub": {
+    "enable": "Kappalelista ja aloitusnäkymä",
+    "enableDesc": "Lisää Projekteihin Synkronoitavat-listan ja kansion haun, tyhjään editoriin aloitusnäkymän, käynnistyksessä kysymyksen viimeisen istunnon jatkamisesta, TTML:n ja äänen avaamisen yhdellä vedolla sekä viennin pelkkänä tekstinä tai Genius-tekstinä.",
+    "menuProjects": "Projektit...",
+    "tabSongs": "Synkronoitavat",
+    "songs": {
+      "description": "Kappaleet, jotka haluat synkronoida seuraavaksi. Aloita projekti kappaleesta, niin se merkitään valmiiksi, kun viet TTML:n.",
+      "addManually": "Kirjoita itse",
+      "searchGenius": "Hae Geniuksesta",
+      "add": "Lisää listaan",
+      "added": "{song} lisättiin listaan.",
+      "alreadyListed": "{song} on jo listalla.",
+      "searchFailed": "Geniuksesta ei voitu hakea.",
+      "start": "Aloita projekti",
+      "started": "{song} aloitettu. Tuo tai kirjoita sanat ja lataa sitten ääni.",
+      "startDirty": "Sinulla on tallentamattomia muutoksia. Kappaleen {song} aloittaminen korvaa editorin sanat.",
+      "markedDone": "{song} merkittiin valmiiksi.",
+      "inProgress": "Aloitettu",
+      "empty": "Ei vielä mitään synkronoitavaa. Lisää seuraava kappale ennen kuin unohdat sen.",
+      "showNotes": "Näytä muistiinpanot",
+      "showCompleted": "Valmiit ({count})",
+      "hideCompleted": "Piilota valmiit",
+      "markDone": "Valmis",
+      "reopen": "Avaa uudelleen",
+      "edit": "Muokkaa kappaletta",
+      "delete": "Poista kappale",
+      "toolMenu": "Synkronoitavat..."
+    },
+    "scan": {
+      "tab": "Hae kansiosta",
+      "select": "Hae TTML-tiedostoja kansiosta...",
+      "pairsTitle": "Tiedostot, jotka voi linkittää projekteiksi",
+      "pairsHint": "Samanniminen TTML- ja äänitiedosto. Linkitys jättää molemmat tiedostot paikoilleen.",
+      "link": "Linkitä",
+      "linkAll": "Linkitä kaikki",
+      "linked": "{name} linkitettiin projektiksi.",
+      "linkedCount": "{count, plural, one {# projekti linkitetty} other {# projektia linkitetty}}",
+      "linkFailed": "Tiedostoa {name} ei voitu linkittää.",
+      "noPairs": "Samannimisiä TTML- ja äänitiedostoja ei löytynyt.",
+      "scanning": "Etsitään tiedostoja..."
+    },
+    "start": {
+      "title": "Aloita synkronointi",
+      "description": "Avaa projekti, valitse kappale listaltasi tai aloita sanoista.",
+      "startedDescription": "Lisää sanat tekstistä tai Geniuksesta ja lataa sitten ääni.",
+      "fromText": "Uusi tekstistä",
+      "fromGenius": "Uusi Geniuksesta",
+      "openFile": "Avaa tiedosto...",
+      "openFolder": "Avaa kansioprojekti...",
+      "projects": "Projektit...",
+      "recent": "Viimeisimmät projektit",
+      "songs": "Synkronoitavat",
+      "seeAll": "Näytä kaikki",
+      "startSong": "Aloita projekti: {song}"
+    },
+    "resume": {
+      "title": "Jatketaanko siitä, mihin jäit?",
+      "description": "{name} muokattiin viimeksi {time}. Historiasta palautus säilyttää kaikki automaattiset tallennukset joka tapauksessa.",
+      "continue": "Jatka",
+      "startFresh": "Aloita alusta",
+      "restored": "{name} palautettiin."
+    },
+    "export": {
+      "plainText": "Pelkkä teksti...",
+      "geniusText": "Genius-teksti...",
+      "copyGenius": "Kopioi Genius-tekstinä",
+      "copied": "Sanat kopioitiin Genius-tekstinä.",
+      "copyFailed": "Sanoja ei voitu kopioida.",
+      "saveFailed": "Tiedostoa ei voitu tallentaa.",
+      "textFiles": "Tekstitiedostot",
+      "empty": "Vietäviä sanoja ei ole."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# tiedosto ohitettiin. Pudota kerralla yksi sanatiedosto ja yksi äänitiedosto.} other {# tiedostoa ohitettiin. Pudota kerralla yksi sanatiedosto ja yksi äänitiedosto.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "Koskee Muokkaus-, Ajoitus- ja Esikatselu-valintanauhoja.",
     "tooltips": {
@@ -923,6 +999,36 @@
       "spectrogramHoverSync": "Ajoita hiiren kohdalla",
       "changelog": "Muutosloki ja päivitykset",
       "projects": "Projektit"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Litteroi",
+    "modeBtnDesc": "Kirjoita sanat pelkkänä tekstinä kappaleen soidessa.",
+    "enable": "Litteroi-välilehti",
+    "enableDesc": "Lisää Litteroi-välilehti sanojen kirjoittamiseen pelkkänä tekstinä kappaleen soidessa.",
+    "title": "Litteroi",
+    "stats": "{lines, plural, one {# rivi} other {# riviä}}, {words, plural, one {# sana} other {# sanaa}}",
+    "tidy": "Siisti asettelu",
+    "export": "Vie",
+    "copyGenius": "Kopioi Genius-tekstinä",
+    "copyPlain": "Kopioi pelkkänä tekstinä",
+    "saveGenius": "Tallenna Genius-tekstinä...",
+    "savePlain": "Tallenna pelkkänä tekstinä...",
+    "sendToImport": "Tuo editoriin...",
+    "textLabel": "Litterointi",
+    "placeholder": "Kirjoita sanat niin kuin kuulet ne, yksi säe riville. Laita osien otsikot, kuten [Verse 1], omalle rivilleen.",
+    "copied": "Kopioitu leikepöydälle.",
+    "copyFailed": "Tekstiä ei voitu kopioida.",
+    "saveFailed": "Tiedostoa ei voitu tallentaa.",
+    "textFiles": "Tekstitiedostot",
+    "keys": {
+      "label": "Pikanäppäimet tekstikentässä",
+      "playPause": "Toista tai keskeytä",
+      "back": "3 sekuntia taaksepäin",
+      "forward": "3 sekuntia eteenpäin",
+      "slower": "Hitaammin",
+      "faster": "Nopeammin",
+      "resetSpeed": "Normaali nopeus"
     }
   },
   "header": {

@@ -381,6 +381,82 @@
     "projectsFound": "{count, plural, other {找到 # 个项目}}",
     "scanFailed": "扫描工作区文件夹失败"
   },
+  "projectsHub": {
+    "enable": "歌曲清单和开始界面",
+    "enableDesc": "在项目中添加“待同步”清单和文件夹扫描，在空白编辑器中显示开始界面，启动时询问是否继续上次的会话，一次拖入即可打开 TTML 和音频，并可导出为纯文本或 Genius 格式文本。",
+    "menuProjects": "项目...",
+    "tabSongs": "待同步",
+    "songs": {
+      "description": "接下来想要同步的歌曲。从某首歌开始项目后，导出 TTML 时它会被标记为已完成。",
+      "addManually": "手动输入",
+      "searchGenius": "在 Genius 上搜索",
+      "add": "添加到清单",
+      "added": "已将 {song} 添加到清单。",
+      "alreadyListed": "{song} 已在清单中。",
+      "searchFailed": "无法在 Genius 上搜索。",
+      "start": "开始项目",
+      "started": "已开始 {song}。导入或输入歌词，然后加载音频。",
+      "startDirty": "你有未保存的更改。开始 {song} 会替换编辑器中的歌词。",
+      "markedDone": "已将 {song} 标记为已完成。",
+      "inProgress": "已开始",
+      "empty": "还没有待同步的歌曲。趁还记得，把下一首歌加进来吧。",
+      "showNotes": "显示备注",
+      "showCompleted": "已完成（{count}）",
+      "hideCompleted": "隐藏已完成",
+      "markDone": "完成",
+      "reopen": "重新打开",
+      "edit": "编辑歌曲",
+      "delete": "移除歌曲",
+      "toolMenu": "待同步..."
+    },
+    "scan": {
+      "tab": "扫描文件夹",
+      "select": "在文件夹中查找 TTML...",
+      "pairsTitle": "可关联为项目的文件",
+      "pairsHint": "同名的 TTML 文件和音频文件。关联后两个文件都保留在原位置。",
+      "link": "关联",
+      "linkAll": "全部关联",
+      "linked": "已将 {name} 关联为项目。",
+      "linkedCount": "{count, plural, other {已关联 # 个项目}}",
+      "linkFailed": "无法关联 {name}。",
+      "noPairs": "未找到同名的 TTML 和音频文件。",
+      "scanning": "正在查找文件..."
+    },
+    "start": {
+      "title": "开始同步",
+      "description": "打开项目、从清单中选一首歌，或从歌词开始。",
+      "startedDescription": "从文本或 Genius 添加歌词，然后加载音频。",
+      "fromText": "从文本新建",
+      "fromGenius": "从 Genius 新建",
+      "openFile": "打开文件...",
+      "openFolder": "打开文件夹项目...",
+      "projects": "项目...",
+      "recent": "最近的项目",
+      "songs": "待同步",
+      "seeAll": "查看全部",
+      "startSong": "为 {song} 开始项目"
+    },
+    "resume": {
+      "title": "从上次离开的地方继续？",
+      "description": "{name} 上次编辑于 {time}。无论如何选择，历史记录恢复都会保留每一次自动保存。",
+      "continue": "继续",
+      "startFresh": "重新开始",
+      "restored": "已恢复 {name}。"
+    },
+    "export": {
+      "plainText": "纯文本...",
+      "geniusText": "Genius 格式文本...",
+      "copyGenius": "复制为 Genius 格式文本",
+      "copied": "已将歌词复制为 Genius 格式文本。",
+      "copyFailed": "无法复制歌词。",
+      "saveFailed": "无法保存文件。",
+      "textFiles": "文本文件",
+      "empty": "没有可导出的歌词。"
+    },
+    "drop": {
+      "skipped": "{count, plural, other {已跳过 # 个文件。请一次拖入一个歌词文件和一个音频文件。}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "适用于编辑、打轴和预览功能区。",
     "tooltips": {
@@ -923,6 +999,36 @@
       "spectrogramHoverSync": "按鼠标位置打轴",
       "changelog": "更新日志与更新",
       "projects": "项目"
+    }
+  },
+  "transcription": {
+    "modeBtn": "听写",
+    "modeBtnDesc": "边播放歌曲边以纯文本输入歌词。",
+    "enable": "听写标签页",
+    "enableDesc": "添加听写标签页，边播放歌曲边以纯文本输入歌词。",
+    "title": "听写",
+    "stats": "{lines, plural, other {# 行}}，{words, plural, other {# 个词}}",
+    "tidy": "整理排版",
+    "export": "导出",
+    "copyGenius": "复制为 Genius 格式文本",
+    "copyPlain": "复制为纯文本",
+    "saveGenius": "另存为 Genius 格式文本...",
+    "savePlain": "另存为纯文本...",
+    "sendToImport": "导入到编辑器...",
+    "textLabel": "听写文本",
+    "placeholder": "按听到的内容输入歌词，每行一句。像 [Verse 1] 这样的段落标题单独占一行。",
+    "copied": "已复制到剪贴板。",
+    "copyFailed": "无法复制文本。",
+    "saveFailed": "无法保存文件。",
+    "textFiles": "文本文件",
+    "keys": {
+      "label": "文本框内的快捷键",
+      "playPause": "播放或暂停",
+      "back": "后退 3 秒",
+      "forward": "前进 3 秒",
+      "slower": "减速",
+      "faster": "加速",
+      "resetSpeed": "正常速度"
     }
   },
   "header": {

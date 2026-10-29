@@ -10,6 +10,7 @@ import {
 	Flash24Regular,
 	Highlight24Regular,
 	Image24Regular,
+	Mic24Regular,
 	NumberSymbol24Regular,
 	Options24Regular,
 	PanelRight24Regular,
@@ -29,6 +30,7 @@ import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
+import { transcriptionModeEnabledAtom } from "$/modules/transcription/states";
 import { showPreviewPanelAtom } from "$/states/main";
 import {
 	BackgroundSyncControl,
@@ -109,6 +111,14 @@ const editModeToggles: readonly ToggleRow[] = [
 		"Show a romanization field on each word.",
 		<TextEditStyle24Regular key="icon" />,
 		showWordRomanizationInputAtom,
+	],
+	[
+		"transcription.enable",
+		"Transcribe tab",
+		"transcription.enableDesc",
+		"Add a Transcribe tab for typing lyrics as plain text while the song plays.",
+		<Mic24Regular key="icon" />,
+		transcriptionModeEnabledAtom,
 	],
 ];
 

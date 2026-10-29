@@ -381,6 +381,82 @@
     "projectsFound": "{count, plural, one {# projet trouvé} many {# projets trouvés} other {# projets trouvés}}",
     "scanFailed": "Impossible d'analyser le dossier de l'espace de travail"
   },
+  "projectsHub": {
+    "enable": "Liste de chansons et écran d'accueil",
+    "enableDesc": "Ajoute aux Projets une liste À synchroniser et l'analyse d'un dossier, un écran d'accueil dans l'éditeur vide, une proposition de reprendre la dernière session au lancement, l'ouverture d'un TTML et d'un audio en un seul glisser-déposer, et l'export en texte brut ou au format Genius.",
+    "menuProjects": "Projets...",
+    "tabSongs": "À synchroniser",
+    "songs": {
+      "description": "Les chansons à synchroniser ensuite. Démarrez un projet depuis l'une d'elles : elle est marquée comme terminée à l'export du TTML.",
+      "addManually": "La saisir",
+      "searchGenius": "Chercher sur Genius",
+      "add": "Ajouter à la liste",
+      "added": "{song} a été ajoutée à la liste.",
+      "alreadyListed": "{song} est déjà dans la liste.",
+      "searchFailed": "Impossible de chercher sur Genius.",
+      "start": "Démarrer le projet",
+      "started": "{song} démarrée. Importez ou tapez les paroles, puis chargez l'audio.",
+      "startDirty": "Vous avez des modifications non enregistrées. Démarrer {song} remplace les paroles de l'éditeur.",
+      "markedDone": "{song} est marquée comme terminée.",
+      "inProgress": "Démarrée",
+      "empty": "Rien à synchroniser pour l'instant. Ajoutez la prochaine chanson avant de l'oublier.",
+      "showNotes": "Afficher les notes",
+      "showCompleted": "Terminées ({count})",
+      "hideCompleted": "Masquer les terminées",
+      "markDone": "Terminée",
+      "reopen": "Rouvrir",
+      "edit": "Modifier la chanson",
+      "delete": "Retirer la chanson",
+      "toolMenu": "À synchroniser..."
+    },
+    "scan": {
+      "tab": "Analyser un dossier",
+      "select": "Chercher des TTML dans un dossier...",
+      "pairsTitle": "Fichiers à lier comme projets",
+      "pairsHint": "Un TTML et un fichier audio portant le même nom. Les lier laisse les deux fichiers à leur place.",
+      "link": "Lier",
+      "linkAll": "Tout lier",
+      "linked": "{name} est lié comme projet.",
+      "linkedCount": "{count, plural, one {# projet lié} many {# projets liés} other {# projets liés}}",
+      "linkFailed": "Impossible de lier {name}.",
+      "noPairs": "Aucun fichier TTML et audio portant le même nom.",
+      "scanning": "Recherche des fichiers..."
+    },
+    "start": {
+      "title": "Commencer à synchroniser",
+      "description": "Ouvrez un projet, choisissez une chanson de votre liste ou partez des paroles.",
+      "startedDescription": "Ajoutez les paroles depuis du texte ou Genius, puis chargez l'audio.",
+      "fromText": "Nouveau depuis du texte",
+      "fromGenius": "Nouveau depuis Genius",
+      "openFile": "Ouvrir un fichier...",
+      "openFolder": "Ouvrir un projet dossier...",
+      "projects": "Projets...",
+      "recent": "Projets récents",
+      "songs": "À synchroniser",
+      "seeAll": "Tout afficher",
+      "startSong": "Démarrer le projet pour {song}"
+    },
+    "resume": {
+      "title": "Reprendre là où vous en étiez ?",
+      "description": "{name} a été modifié pour la dernière fois le {time}. La restauration de l'historique garde toutes les sauvegardes automatiques dans les deux cas.",
+      "continue": "Reprendre",
+      "startFresh": "Repartir de zéro",
+      "restored": "{name} restauré."
+    },
+    "export": {
+      "plainText": "Texte brut...",
+      "geniusText": "Texte Genius...",
+      "copyGenius": "Copier au format Genius",
+      "copied": "Paroles copiées au format Genius.",
+      "copyFailed": "Impossible de copier les paroles.",
+      "saveFailed": "Impossible d'enregistrer le fichier.",
+      "textFiles": "Fichiers texte",
+      "empty": "Il n'y a aucune parole à exporter."
+    },
+    "drop": {
+      "skipped": "{count, plural, one {# fichier ignoré. Déposez un fichier de paroles et un fichier audio à la fois.} many {# fichiers ignorés. Déposez un fichier de paroles et un fichier audio à la fois.} other {# fichiers ignorés. Déposez un fichier de paroles et un fichier audio à la fois.}}"
+    }
+  },
   "ribbonBar": {
     "advancedTooltip": "S’applique aux rubans Édition, Synchronisation et Aperçu.",
     "tooltips": {
@@ -923,6 +999,36 @@
       "spectrogramHoverSync": "Synchroniser à la position de la souris",
       "changelog": "Journal des modifications et mises à jour",
       "projects": "Projets"
+    }
+  },
+  "transcription": {
+    "modeBtn": "Transcrire",
+    "modeBtnDesc": "Tapez les paroles en texte brut pendant la lecture.",
+    "enable": "Onglet Transcrire",
+    "enableDesc": "Ajoute un onglet Transcrire pour taper les paroles en texte brut pendant la lecture.",
+    "title": "Transcrire",
+    "stats": "{lines, plural, one {# ligne} many {# lignes} other {# lignes}}, {words, plural, one {# mot} many {# mots} other {# mots}}",
+    "tidy": "Ranger la mise en page",
+    "export": "Exporter",
+    "copyGenius": "Copier au format Genius",
+    "copyPlain": "Copier en texte brut",
+    "saveGenius": "Enregistrer au format Genius...",
+    "savePlain": "Enregistrer en texte brut...",
+    "sendToImport": "Importer dans l'éditeur...",
+    "textLabel": "Transcription",
+    "placeholder": "Tapez les paroles comme vous les entendez, une ligne par rangée. Mettez les en-têtes de section comme [Verse 1] sur leur propre rangée.",
+    "copied": "Copié dans le presse-papiers.",
+    "copyFailed": "Impossible de copier le texte.",
+    "saveFailed": "Impossible d'enregistrer le fichier.",
+    "textFiles": "Fichiers texte",
+    "keys": {
+      "label": "Raccourcis dans la zone de texte",
+      "playPause": "Lire ou mettre en pause",
+      "back": "Reculer de 3 secondes",
+      "forward": "Avancer de 3 secondes",
+      "slower": "Plus lent",
+      "faster": "Plus rapide",
+      "resetSpeed": "Vitesse normale"
     }
   },
   "header": {

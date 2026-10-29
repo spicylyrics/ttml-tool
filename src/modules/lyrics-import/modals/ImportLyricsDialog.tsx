@@ -71,6 +71,7 @@ import {
 	enableSpecialPrefixAtom,
 	fetchImportedSongwritersAtom,
 	importLyricsSourceAtom,
+	importTextAtom,
 	importTextFormatAtom,
 	processStepsAtom,
 	wordSeparatorAtom,
@@ -79,7 +80,6 @@ import { prioritizeMatchingTracks } from "../track-duration";
 import styles from "./ImportLyricsDialog.module.css";
 
 // Kept outside the dialog so closing it doesn't lose a draft.
-const importTextAtom = atom("");
 const originalTextAtom = atom<string | null>(null);
 const pickedTrackAtom = atom<ImportTrack | null>(null);
 

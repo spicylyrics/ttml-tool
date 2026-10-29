@@ -9,6 +9,7 @@ import {
 import { DropdownMenu } from "@radix-ui/themes";
 import { useSetAtom, useStore } from "jotai";
 import { useTranslation } from "react-i18next";
+import { TextExportMenuItems } from "$/modules/projects-hub/components/TextExportItems";
 import { lyricTextNormalizationOptionsAtom } from "$/modules/settings/states";
 import { importLyricsDialogAtom } from "$/states/dialogs.ts";
 import { lyricLinesAtom, saveFileNameAtom } from "$/states/main.ts";
@@ -106,6 +107,7 @@ export const ImportExportLyric = ({
 					<DropdownMenu.Item onClick={onExportLyric(stringifyAss, "ass")}>
 						{t("topBar.menu.exportLyric.toASS", "ASS subtitles")}
 					</DropdownMenu.Item>
+					<TextExportMenuItems />
 				</DropdownMenu.SubContent>
 			</DropdownMenu.Sub>
 		</>

@@ -2,6 +2,7 @@ import type { Atom, getDefaultStore } from "jotai";
 import { toast } from "react-toastify";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { currentTimeAtom } from "$/modules/audio/states";
+import { markSongListExported } from "$/modules/projects-hub/song-list-actions";
 import {
 	allowConsecutiveBackgroundLinesAtom,
 	lyricTextNormalizationOptionsAtom,
@@ -155,14 +156,23 @@ export async function withTTMLExport(
 export function saveTTML(
 	store: Store,
 	t: ExportTranslation,
-	options: {
+	input: {
 		recovery?: boolean;
 		project?: boolean;
 		onSaved?: () => void;
 		onWarning?: (message: string) => void;
 	} = {},
 ): Promise<boolean> {
-	const recovery = options.recovery ?? false;
+	const recovery = input.recovery ?? false;
+	const options = recovery
+		? input
+		: {
+				...input,
+				onSaved: () => {
+					input.onSaved?.();
+					markSongListExported(store, t);
+				},
+			};
 	return withTTMLExport(
 		store,
 		t,
