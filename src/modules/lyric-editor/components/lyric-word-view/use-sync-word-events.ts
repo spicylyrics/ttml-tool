@@ -9,9 +9,20 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import type { KeyboardEvent, MouseEvent, PointerEvent, RefObject } from "react";
+import { useAtomValue } from "jotai";
+import {
+	type KeyboardEvent,
+	type MouseEvent,
+	type PointerEvent,
+	type RefObject,
+	useEffect,
+	useRef,
+} from "react";
+import { cmdClearWordTiming } from "$/modules/keyboard/commands";
 import type { LyricLine, LyricWord } from "$/types/ttml.ts";
+import { matchesMouseShortcut } from "$/utils/keybindings";
 import { msToTimestamp } from "$/utils/timestamp.ts";
+import { runOnClickUnlessScrolling } from "../../utils/click-unless-scrolling.ts";
 import { getSynchronizableUnits } from "../../utils/lyric-states.ts";
 import type { useSyncWordEditing } from "./use-sync-word-editing";
 
@@ -25,6 +36,7 @@ export const useSyncWordEvents = ({
 	editableField,
 	enableTimeModeDoubleClickEdit,
 	enableManualTimestampEdit,
+	enableTimingClear,
 	startTime,
 	endTime,
 	lastClickTimeRef,
@@ -43,6 +55,7 @@ export const useSyncWordEvents = ({
 	editableField: "word" | "romanWord";
 	enableTimeModeDoubleClickEdit: boolean;
 	enableManualTimestampEdit: boolean;
+	enableTimingClear: boolean;
 	startTime: number;
 	endTime: number;
 	lastClickTimeRef: RefObject<number>;
@@ -56,6 +69,7 @@ export const useSyncWordEvents = ({
 	setOpenSplitWordDialog: (open: boolean) => void;
 	editing: ReturnType<typeof useSyncWordEditing>;
 }) => {
+	const clearTimingKeys = useAtomValue(cmdClearWordTiming.atom);
 	const {
 		editingInput,
 		setEditingTime,
@@ -66,10 +80,27 @@ export const useSyncWordEvents = ({
 		commitTimeEdit,
 		commitTextEdit,
 		cancelTextEdit,
+		clearTiming,
 	} = editing;
+	const cancelPendingClearRef = useRef<() => void>(() => {});
+	// Leaving the Time tab or unmounting the word drops a press not yet released.
+	useEffect(() => {
+		if (!enableTimingClear) cancelPendingClearRef.current();
+		return () => cancelPendingClearRef.current();
+	}, [enableTimingClear]);
 	const onWordPointerDown = (evt: PointerEvent<HTMLDivElement>) => {
 		evt.stopPropagation();
 		evt.preventDefault();
+		if (enableTimingClear && matchesMouseShortcut(clearTimingKeys, evt)) {
+			lastClickTimeRef.current = 0;
+			cancelPendingClearRef.current();
+			// Wait for the release: a middle press may be the start of scrolling.
+			cancelPendingClearRef.current = runOnClickUnlessScrolling(
+				evt,
+				clearTiming,
+			);
+			return;
+		}
 		setSelectedLines((state) => {
 			state.clear();
 			state.add(line.id);
@@ -85,6 +116,12 @@ export const useSyncWordEvents = ({
 				state.add(syncId);
 			}
 		});
+	};
+	const onWordAuxClick = (evt: MouseEvent<HTMLDivElement>) => {
+		if (!enableTimingClear || !matchesMouseShortcut(clearTimingKeys, evt))
+			return;
+		evt.preventDefault();
+		evt.stopPropagation();
 	};
 	const onWordClick = (evt: MouseEvent<HTMLDivElement>) => {
 		evt.stopPropagation();
@@ -151,6 +188,7 @@ export const useSyncWordEvents = ({
 	};
 	return {
 		onWordPointerDown,
+		onWordAuxClick,
 		onWordClick,
 		onStartTimeClick,
 		onStartTimeKeyDown,

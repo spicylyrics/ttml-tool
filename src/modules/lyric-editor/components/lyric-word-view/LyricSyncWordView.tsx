@@ -173,6 +173,7 @@ export const LyricSyncWordView: FC<{
 
 	const {
 		onWordPointerDown,
+		onWordAuxClick,
 		onWordClick,
 		onStartTimeClick,
 		onStartTimeKeyDown,
@@ -189,6 +190,7 @@ export const LyricSyncWordView: FC<{
 		editableField,
 		enableTimeModeDoubleClickEdit,
 		enableManualTimestampEdit,
+		enableTimingClear: toolMode === ToolMode.Sync,
 		startTime,
 		endTime,
 		lastClickTimeRef,
@@ -205,6 +207,8 @@ export const LyricSyncWordView: FC<{
 			className={className}
 			style={{ position: "relative", zIndex: 1 }}
 			onPointerDown={onWordPointerDown}
+			onAuxClick={onWordAuxClick}
+			onContextMenu={onWordAuxClick}
 			onClick={onWordClick}
 		>
 			{showTimestamps && (

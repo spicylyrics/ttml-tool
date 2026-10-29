@@ -53,7 +53,7 @@ const KeyBindingsEdit = ({
 		if (listening) return;
 		try {
 			setListening(true);
-			setKeys(await recordShortcut());
+			setKeys(await recordShortcut({ allowMouse: command.supportsMouse }));
 		} catch {
 			// Escape or another recording cancels without changing this binding.
 		} finally {

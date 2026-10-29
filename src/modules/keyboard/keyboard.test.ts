@@ -92,6 +92,25 @@ function key(
 	return event;
 }
 
+function pointer(
+	type: "pointerdown" | "pointerup",
+	button = 1,
+	modifiers: Partial<MouseEventInit> = {},
+) {
+	const event = new Event(type, { cancelable: true });
+	Object.defineProperties(
+		event,
+		Object.fromEntries(
+			Object.entries({ button, ...modifiers }).map(([name, value]) => [
+				name,
+				{ value },
+			]),
+		),
+	);
+	window.dispatchEvent(event);
+	return event;
+}
+
 beforeAll(async () => {
 	vi.stubGlobal("window", new KeyboardWindow());
 	vi.stubGlobal("document", { body: {}, activeElement: null });
@@ -125,6 +144,95 @@ afterEach(() => {
 });
 
 describe("shortcut normalization and dispatch", () => {
+	it("registers the clear-timing action and persists custom and unbound settings", async () => {
+		expect(commands.cmdClearWordTiming.defaultKeys).toEqual(["MouseMiddle"]);
+		expect(commands.cmdClearWordTiming.supportsMouse).toBe(true);
+		expect(commands.cmdClearWordTiming.modes).toEqual(["sync"]);
+		const binding = keyboard.atomWithKeybindingStorage(
+			"clear-test",
+			["MouseMiddle"],
+			{ allowMouse: true },
+		);
+		const first = createStore();
+		cleanups.push(first.sub(binding, () => {}));
+		await first.set(binding, ["KeyX"]);
+		const second = createStore();
+		cleanups.push(second.sub(binding, () => {}));
+		expect(second.get(binding)).toEqual(["KeyX"]);
+		await second.set(binding, []);
+		const third = createStore();
+		cleanups.push(third.sub(binding, () => {}));
+		expect(third.get(binding)).toEqual([]);
+		await third.set(binding, keyboard.RESET_KEYBINDING);
+		expect(third.get(binding)).toEqual(["MouseMiddle"]);
+	});
+	it("formats and matches scoped mouse shortcuts including modifiers", () => {
+		expect(keyboard.formatKeyBindings(["MouseMiddle"])).toBe("Middle click");
+		const mouse = {
+			button: 1,
+			ctrlKey: false,
+			metaKey: false,
+			altKey: false,
+			shiftKey: false,
+		};
+		expect(keyboard.matchesMouseShortcut(["MouseMiddle"], mouse)).toBe(true);
+		expect(keyboard.matchesMouseShortcut([], mouse)).toBe(false);
+		expect(keyboard.matchesMouseShortcut(["KeyX"], mouse)).toBe(false);
+		expect(keyboard.matchesMouseShortcut(["Shift", "MouseMiddle"], mouse)).toBe(
+			false,
+		);
+		expect(
+			keyboard.matchesMouseShortcut(["Shift", "MouseMiddle"], {
+				...mouse,
+				shiftKey: true,
+			}),
+		).toBe(true);
+	});
+
+	it("records a mouse shortcut only when the command supports it", async () => {
+		const recording = keyboard.recordShortcut({ allowMouse: true });
+		expect(pointer("pointerdown", 1, { shiftKey: true }).defaultPrevented).toBe(
+			true,
+		);
+		pointer("pointerup", 1, { shiftKey: true });
+		await expect(recording).resolves.toEqual(["Shift", "MouseMiddle"]);
+		const keyboardOnly = keyboard.recordShortcut();
+		expect(pointer("pointerdown").defaultPrevented).toBe(false);
+		pointer("pointerup");
+		key("keydown", "KeyX");
+		key("keyup", "KeyX");
+		await expect(keyboardOnly).resolves.toEqual(["KeyX"]);
+	});
+
+	it("keeps only modifiers with a recorded mouse button, since other keys cannot match", async () => {
+		const recording = keyboard.recordShortcut({ allowMouse: true });
+		key("keydown", "ControlLeft");
+		key("keydown", "KeyX");
+		pointer("pointerdown", 1, { ctrlKey: true });
+		pointer("pointerup", 1, { ctrlKey: true });
+		key("keyup", "KeyX");
+		key("keyup", "ControlLeft");
+		const recorded = await recording;
+		expect(recorded).toEqual(["Control", "MouseMiddle"]);
+		expect(
+			keyboard.matchesMouseShortcut(recorded, {
+				button: 1,
+				ctrlKey: true,
+				metaKey: false,
+				altKey: false,
+				shiftKey: false,
+			}),
+		).toBe(true);
+	});
+
+	it("cancels mouse recording and removes its listeners", async () => {
+		const recording = keyboard.recordShortcut({ allowMouse: true });
+		key("keydown", "Escape");
+		key("keyup", "Escape");
+		await expect(recording).rejects.toThrow("User canceled");
+		expect(pointer("pointerdown").defaultPrevented).toBe(false);
+		pointer("pointerup");
+	});
 	it.each([
 		"ControlLeft",
 		"ControlRight",

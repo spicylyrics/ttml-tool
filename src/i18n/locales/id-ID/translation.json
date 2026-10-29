@@ -977,6 +977,7 @@
       "latencyTest": "Tes latensi audio/input"
     },
     "keybindings": {
+      "clearWordTiming": "Pengaturan waktu - Hapus stempel waktu kata/suku kata",
       "newFile": "File baru",
       "openFile": "Buka file",
       "saveFile": "Simpan file",

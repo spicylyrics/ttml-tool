@@ -977,6 +977,7 @@
       "latencyTest": "Test di latenza audio/comandi"
     },
     "keybindings": {
+      "clearWordTiming": "Sincronizzazione - Cancella i timestamp di parola/sillaba",
       "newFile": "Nuovo file",
       "openFile": "Apri file",
       "saveFile": "Salva file",

@@ -977,6 +977,7 @@
       "latencyTest": "Teste de latência de áudio/entrada"
     },
     "keybindings": {
+      "clearWordTiming": "Sincronização - Limpar tempos da palavra/sílaba",
       "newFile": "Novo arquivo",
       "openFile": "Abrir arquivo",
       "saveFile": "Salvar arquivo",

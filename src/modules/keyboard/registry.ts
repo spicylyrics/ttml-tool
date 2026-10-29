@@ -28,8 +28,11 @@ export function registerCommand(
 	modes: readonly KeyBindingMode[] = category === "Sync"
 		? ["sync"]
 		: ["edit", "sync", "preview"],
+	options: { supportsMouse?: boolean } = {},
 ) {
-	const commandAtom = atomWithKeybindingStorage(id, defaultKeys);
+	const commandAtom = atomWithKeybindingStorage(id, defaultKeys, {
+		allowMouse: options.supportsMouse,
+	});
 
 	const command: KeyBindingCommand = {
 		id,
@@ -37,6 +40,7 @@ export function registerCommand(
 		description,
 		category,
 		modes,
+		...options,
 		atom: commandAtom,
 	};
 

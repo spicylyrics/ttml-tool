@@ -977,6 +977,7 @@
       "latencyTest": "音频/输入延迟测试"
     },
     "keybindings": {
+      "clearWordTiming": "打轴 - 清除单词/音节时间戳",
       "newFile": "新建文件",
       "openFile": "打开文件",
       "saveFile": "保存文件",

@@ -977,6 +977,7 @@
       "latencyTest": "Testul de latență audio/intrare"
     },
     "keybindings": {
+      "clearWordTiming": "Sincronizare - Șterge marcajele de timp ale cuvântului/silabei",
       "newFile": "Fișier nou",
       "openFile": "Deschide fișier",
       "saveFile": "Salvează fișierul",

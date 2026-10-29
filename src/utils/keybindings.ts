@@ -87,6 +87,10 @@ const KEY_LABELS: Record<string, string> = {
 	NumpadDecimal: "Num .",
 	NumpadEqual: "Num =",
 	NumpadEnter: "Num Enter",
+	MouseMiddle: "Middle click",
+	MouseRight: "Right click",
+	MouseBack: "Mouse back",
+	MouseForward: "Mouse forward",
 };
 
 function formatKeyName(key: string): string {
@@ -133,6 +137,7 @@ export const RESET_KEYBINDING = Symbol("reset-keybinding");
 export function atomWithKeybindingStorage(
 	storageName: string,
 	defaultValue: KeyBindingsConfig,
+	recordOptions: { allowMouse?: boolean } = {},
 ) {
 	const key = `keybindings:${storageName}`;
 	const keyAtom = atomWithStorage(key, defaultValue);
@@ -144,7 +149,7 @@ export function atomWithKeybindingStorage(
 				else set(keyAtom, update);
 			} else {
 				try {
-					set(keyAtom, await recordShortcut());
+					set(keyAtom, await recordShortcut(recordOptions));
 				} catch {
 					// Canceling recording leaves the current binding intact.
 				}
@@ -161,6 +166,51 @@ export function normalizeKeyCode(code: string): string {
 
 export function normalizeKeyBindings(cfg: Iterable<string>): KeyBindingsConfig {
 	return [...new Set([...cfg].map(normalizeKeyCode))];
+}
+
+const MOUSE_BUTTON_CODES: Record<number, string> = {
+	1: "MouseMiddle",
+	2: "MouseRight",
+	3: "MouseBack",
+	4: "MouseForward",
+};
+
+/**
+ * Mouse shortcuts match only modifiers plus one button, so a recording that
+ * includes a mouse button keeps just those. Returns undefined for keyboard-only
+ * recordings.
+ */
+function mouseShortcutKeys(
+	recorded: Iterable<string>,
+): KeyBindingsConfig | undefined {
+	const keys = [...recorded];
+	const button = keys.find((key) =>
+		Object.values(MOUSE_BUTTON_CODES).includes(key),
+	);
+	if (!button) return undefined;
+	return [...keys.filter((key) => MODIFIER_ORDER.includes(key)), button];
+}
+
+/** Mouse shortcuts are scoped to clicked timing cells, not global actions. */
+export function matchesMouseShortcut(
+	config: KeyBindingsConfig,
+	event: Pick<
+		MouseEvent,
+		"button" | "ctrlKey" | "metaKey" | "altKey" | "shiftKey"
+	>,
+) {
+	const code = MOUSE_BUTTON_CODES[event.button];
+	if (!code || currentKeyDownEvent || currentPointerDownEvent) return false;
+	return (
+		getShortcutKey(config) ===
+		getShortcutKey([
+			...(event.ctrlKey ? ["Control"] : []),
+			...(event.metaKey ? ["Meta"] : []),
+			...(event.altKey ? ["Alt"] : []),
+			...(event.shiftKey ? ["Shift"] : []),
+			code,
+		])
+	);
 }
 
 const pressingKeys = new Set<string>();
@@ -516,9 +566,21 @@ export function registerDoubleKeyBindings(
 
 let currentKeyDownEvent: ((evt: KeyboardEvent) => void) | undefined;
 let currentKeyUpEvent: ((evt: KeyboardEvent) => void) | undefined;
+let currentPointerDownEvent: ((evt: PointerEvent) => void) | undefined;
+let currentPointerUpEvent: ((evt: PointerEvent) => void) | undefined;
+let currentContextMenuEvent: ((evt: MouseEvent) => void) | undefined;
 let currentRecordingReject: ((reason: Error) => void) | undefined;
 
 export function stopRecordingShortcut() {
+	if (currentPointerDownEvent)
+		window.removeEventListener("pointerdown", currentPointerDownEvent, true);
+	if (currentPointerUpEvent)
+		window.removeEventListener("pointerup", currentPointerUpEvent, true);
+	if (currentContextMenuEvent)
+		window.removeEventListener("contextmenu", currentContextMenuEvent, true);
+	currentPointerDownEvent = undefined;
+	currentPointerUpEvent = undefined;
+	currentContextMenuEvent = undefined;
 	if (currentKeyDownEvent) {
 		window.removeEventListener("keydown", currentKeyDownEvent, {
 			capture: true,
@@ -534,11 +596,22 @@ export function stopRecordingShortcut() {
 	currentRecordingReject = undefined;
 }
 
-export function recordShortcut(): Promise<KeyBindingsConfig> {
+export function recordShortcut({
+	allowMouse = false,
+}: {
+	allowMouse?: boolean;
+} = {}): Promise<KeyBindingsConfig> {
 	return new Promise((resolve, reject) => {
 		stopRecordingShortcut();
 		const recorded = new Set<string>();
 		const stack = new Set<string>();
+		const finish = () => {
+			currentRecordingReject = undefined;
+			stopRecordingShortcut();
+			if (recorded.size === 1 && recorded.has("Escape"))
+				reject(new Error("User canceled"));
+			else resolve(mouseShortcutKeys(recorded) ?? [...recorded]);
+		};
 		const onKeyDown = (evt: KeyboardEvent) => {
 			recorded.add(normalizeKeyCode(evt.code));
 			stack.add(evt.code);
@@ -550,13 +623,7 @@ export function recordShortcut(): Promise<KeyBindingsConfig> {
 			if (!stack.has(evt.code)) return;
 			stack.delete(evt.code);
 			if (stack.size === 0) {
-				currentRecordingReject = undefined;
-				stopRecordingShortcut();
-				if (recorded.size === 1 && recorded.has("Escape")) {
-					reject(new Error("User canceled"));
-				} else {
-					resolve([...recorded]);
-				}
+				finish();
 			}
 			evt.preventDefault();
 			evt.stopPropagation();
@@ -568,5 +635,37 @@ export function recordShortcut(): Promise<KeyBindingsConfig> {
 		// Capture before dialog Escape handlers so canceling keeps Preferences open.
 		window.addEventListener("keydown", onKeyDown, { capture: true });
 		window.addEventListener("keyup", onKeyUp, { capture: true });
+		if (allowMouse) {
+			currentPointerDownEvent = (evt) => {
+				const code = MOUSE_BUTTON_CODES[evt.button];
+				if (!code) return; // Leave left-click available for the settings UI.
+				for (const [held, modifier] of [
+					[evt.ctrlKey, "Control"],
+					[evt.metaKey, "Meta"],
+					[evt.altKey, "Alt"],
+					[evt.shiftKey, "Shift"],
+				] as const) {
+					if (held) recorded.add(modifier);
+				}
+				recorded.add(code);
+				stack.add(code);
+				evt.preventDefault();
+				evt.stopImmediatePropagation();
+			};
+			currentPointerUpEvent = (evt) => {
+				const code = MOUSE_BUTTON_CODES[evt.button];
+				if (!code || !stack.delete(code)) return;
+				evt.preventDefault();
+				evt.stopImmediatePropagation();
+				if (stack.size === 0) finish();
+			};
+			currentContextMenuEvent = (evt) => {
+				evt.preventDefault();
+				evt.stopImmediatePropagation();
+			};
+			window.addEventListener("pointerdown", currentPointerDownEvent, true);
+			window.addEventListener("pointerup", currentPointerUpEvent, true);
+			window.addEventListener("contextmenu", currentContextMenuEvent, true);
+		}
 	});
 }

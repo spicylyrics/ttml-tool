@@ -17,6 +17,8 @@ export interface KeyBindingCommand {
 	category: string;
 	/** Modes in which the command's handler is active (for conflict warnings). */
 	modes: readonly KeyBindingMode[];
+	/** This command also handles mouse bindings on a clicked timing cell. */
+	supportsMouse?: boolean;
 	/**
 	 * 对应的 Jotai Atom
 	 */

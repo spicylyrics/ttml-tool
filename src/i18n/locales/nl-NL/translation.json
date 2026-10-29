@@ -977,6 +977,7 @@
       "latencyTest": "Audio-/invoerlatentietest"
     },
     "keybindings": {
+      "clearWordTiming": "Timing - Tijdstempels van woord/lettergreep wissen",
       "newFile": "Nieuw bestand",
       "openFile": "Bestand openen",
       "saveFile": "Bestand opslaan",

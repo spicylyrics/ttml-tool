@@ -32,6 +32,10 @@ export const useSyncWordEditing = ({
 	// Inline timestamp editing state: null = not editing, "start" | "end" = editing that field
 	const [editingTime, setEditingTime] = useState<"start" | "end" | null>(null);
 	const [editingInput, setEditingInput] = useState("");
+	const timeEditCancelledRef = useRef(false);
+	useEffect(() => {
+		if (editingTime) timeEditCancelledRef.current = false;
+	}, [editingTime]);
 	const [editingTextField, setEditingTextField] = useState<
 		"word" | "romanWord" | null
 	>(null);
@@ -101,6 +105,7 @@ export const useSyncWordEditing = ({
 
 	const commitTimeEdit = useCallback(
 		(field: "start" | "end", rawValue: string) => {
+			if (timeEditCancelledRef.current) return;
 			try {
 				const newMs = parseTimespan(rawValue);
 				editLyricLines((state) => {
@@ -119,7 +124,23 @@ export const useSyncWordEditing = ({
 		[editLyricLines, line.id, wordIndex],
 	);
 
+	const clearTiming = useCallback(() => {
+		// Removing a timestamp input can blur it; do not restore its old value.
+		timeEditCancelledRef.current = true;
+		setEditingTime(null);
+		const wordId = line.words[wordIndex]?.id;
+		if (!wordId) return;
+		editLyricLines((state) => {
+			const targetLine = state.lyricLines.find((item) => item.id === line.id);
+			const targetWord = targetLine?.words.find((item) => item.id === wordId);
+			if (!targetWord) return;
+			targetWord.startTime = 0;
+			targetWord.endTime = 0;
+		});
+	}, [editLyricLines, line, wordIndex]);
+
 	return {
+		clearTiming,
 		editingTime,
 		setEditingTime,
 		editingInput,

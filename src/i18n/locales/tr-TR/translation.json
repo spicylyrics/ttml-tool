@@ -977,6 +977,7 @@
       "latencyTest": "Ses/giriş gecikme testi"
     },
     "keybindings": {
+      "clearWordTiming": "Zamanlama - Sözcük/hece zaman damgalarını temizle",
       "newFile": "Yeni dosya",
       "openFile": "Dosya aç",
       "saveFile": "Dosyayı kaydet",

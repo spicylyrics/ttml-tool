@@ -1,6 +1,7 @@
 import { useStore } from "jotai";
 import { type FC, useCallback } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
+import { cmdClearWordTiming } from "$/modules/keyboard/commands";
 import { distributeLineTime } from "$/modules/lyric-editor/utils/distribute-time";
 import {
 	findNextWord,
@@ -48,6 +49,8 @@ import {
 	lyricLinesAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
+	ToolMode,
+	toolModeAtom,
 } from "$/states/main.ts";
 import type { LyricLine, LyricWord, TTMLLyric } from "$/types/ttml";
 import {
@@ -109,6 +112,30 @@ function setUnitEndTimeCloned(
 
 export const SyncKeyBinding: FC = () => {
 	const store = useStore();
+	useKeyBindingAtom(cmdClearWordTiming.atom, () => {
+		if (store.get(toolModeAtom) !== ToolMode.Sync) return;
+		const selected = store.get(selectedWordsAtom);
+		if (selected.size === 0) return;
+		store.set(lyricLinesAtom, (previous) => {
+			let changed = false;
+			const lyricLines = previous.lyricLines.map((line) => {
+				let lineChanged = false;
+				const words = line.words.map((word) => {
+					if (
+						!selected.has(word.id) ||
+						(word.startTime === 0 && word.endTime === 0)
+					)
+						return word;
+					lineChanged = true;
+					return { ...word, startTime: 0, endTime: 0 };
+				});
+				if (!lineChanged) return line;
+				changed = true;
+				return { ...line, words };
+			});
+			return changed ? { ...previous, lyricLines } : previous;
+		});
+	}, [store]);
 
 	const calcJudgeTime = useCallback(
 		(evt: KeyBindingEvent, actionOffset = 0) => {
