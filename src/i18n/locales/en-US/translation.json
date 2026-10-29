@@ -527,6 +527,33 @@
     "loading": "Loading panel…",
     "advanced": "Advanced"
   },
+  "ribbonCustomize": {
+    "customize": "Customize ribbon",
+    "customizeDesc": "Hide, reorder or pin this ribbon's sections, or move them into More.",
+    "title": "Customize this ribbon",
+    "hint": "Some sections only show up with a selection or with Advanced on.",
+    "reset": "Reset",
+    "resetDone": "Ribbon reset to default",
+    "pin": "Pin {{name}} to the front",
+    "unpin": "Unpin {{name}}",
+    "pinned": "Pinned",
+    "moveUp": "Move {{name}} up",
+    "moveDown": "Move {{name}} down",
+    "moved": "{{name}} is now at position {{position}}",
+    "placement": {
+      "label": "Show {{name}} in",
+      "ribbon": "Ribbon",
+      "ribbonDesc": "Show it on the ribbon.",
+      "more": "More",
+      "moreDesc": "Keep it in the More menu at the end of the ribbon.",
+      "hidden": "Hidden",
+      "hiddenDesc": "Don't show it anywhere."
+    },
+    "more": "More",
+    "moreDesc": "Sections you moved out of the ribbon.",
+    "settingLabel": "Customizable ribbons",
+    "settingDesc": "Adds a Customize button to the Edit, Time and Preview ribbons, to hide, reorder or pin sections, or move them into a More menu."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Highlights the line that is playing in the selected mode.",

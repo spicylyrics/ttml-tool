@@ -527,6 +527,33 @@
     "loading": "Načítání panelu...",
     "advanced": "Pokročilé"
   },
+  "ribbonCustomize": {
+    "customize": "Přizpůsobit pás karet",
+    "customizeDesc": "Skryjte, přeuspořádejte nebo připněte oddíly tohoto pásu karet, nebo je přesuňte do nabídky Další.",
+    "title": "Přizpůsobit tento pás karet",
+    "hint": "Některé oddíly se zobrazí jen při výběru nebo se zapnutou volbou Pokročilé.",
+    "reset": "Obnovit",
+    "resetDone": "Pás karet obnoven na výchozí",
+    "pin": "Připnout {{name}} na začátek",
+    "unpin": "Odepnout {{name}}",
+    "pinned": "Připnuto",
+    "moveUp": "Posunout {{name}} nahoru",
+    "moveDown": "Posunout {{name}} dolů",
+    "moved": "{{name}} je nyní na pozici {{position}}",
+    "placement": {
+      "label": "Kde zobrazit {{name}}",
+      "ribbon": "Pás karet",
+      "ribbonDesc": "Zobrazit na pásu karet.",
+      "more": "Další",
+      "moreDesc": "Ponechat v nabídce Další na konci pásu karet.",
+      "hidden": "Skryto",
+      "hiddenDesc": "Nikde nezobrazovat."
+    },
+    "more": "Další",
+    "moreDesc": "Oddíly, které jste přesunuli z pásu karet.",
+    "settingLabel": "Přizpůsobitelné pásy karet",
+    "settingDesc": "Přidá tlačítko Přizpůsobit na pásy karet Úpravy, Časování a Náhled, kterým můžete oddíly skrýt, přeuspořádat, připnout nebo přesunout do nabídky Další."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Zvýrazní právě přehrávaný řádek ve zvoleném režimu.",

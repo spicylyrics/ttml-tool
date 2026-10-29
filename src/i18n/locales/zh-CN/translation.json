@@ -527,6 +527,33 @@
     "loading": "面板载入中...",
     "advanced": "高级"
   },
+  "ribbonCustomize": {
+    "customize": "自定义功能区",
+    "customizeDesc": "隐藏、重新排序或固定此功能区的分组，或将其移入“更多”。",
+    "title": "自定义此功能区",
+    "hint": "部分分组只在有选中内容或开启“高级”后显示。",
+    "reset": "重置",
+    "resetDone": "功能区已恢复默认",
+    "pin": "将{{name}}固定到最前",
+    "unpin": "取消固定{{name}}",
+    "pinned": "已固定",
+    "moveUp": "上移{{name}}",
+    "moveDown": "下移{{name}}",
+    "moved": "{{name}}现在位于第 {{position}} 位",
+    "placement": {
+      "label": "{{name}}的显示位置",
+      "ribbon": "功能区",
+      "ribbonDesc": "显示在功能区上。",
+      "more": "更多",
+      "moreDesc": "放在功能区末尾的“更多”菜单中。",
+      "hidden": "隐藏",
+      "hiddenDesc": "不在任何地方显示。"
+    },
+    "more": "更多",
+    "moreDesc": "你移出功能区的分组。",
+    "settingLabel": "可自定义的功能区",
+    "settingDesc": "在编辑、打轴和预览功能区添加“自定义”按钮，可隐藏、重新排序或固定分组，或将其移入“更多”菜单。"
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "高亮所选模式中正在播放的歌词行。",

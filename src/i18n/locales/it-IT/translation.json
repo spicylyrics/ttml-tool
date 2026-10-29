@@ -527,6 +527,33 @@
     "loading": "Caricamento pannello...",
     "advanced": "Avanzate"
   },
+  "ribbonCustomize": {
+    "customize": "Personalizza barra",
+    "customizeDesc": "Nascondi, riordina o fissa le sezioni di questa barra, oppure spostale in Altro.",
+    "title": "Personalizza questa barra",
+    "hint": "Alcune sezioni compaiono solo con una selezione o con Avanzate attivo.",
+    "reset": "Ripristina",
+    "resetDone": "Barra ripristinata",
+    "pin": "Fissa {{name}} all'inizio",
+    "unpin": "Sblocca {{name}}",
+    "pinned": "Fissata",
+    "moveUp": "Sposta {{name}} su",
+    "moveDown": "Sposta {{name}} giù",
+    "moved": "{{name}} ora è in posizione {{position}}",
+    "placement": {
+      "label": "Mostra {{name}} in",
+      "ribbon": "Barra",
+      "ribbonDesc": "Mostrala sulla barra.",
+      "more": "Altro",
+      "moreDesc": "Tienila nel menu Altro alla fine della barra.",
+      "hidden": "Nascosta",
+      "hiddenDesc": "Non mostrarla da nessuna parte."
+    },
+    "more": "Altro",
+    "moreDesc": "Sezioni che hai tolto dalla barra.",
+    "settingLabel": "Barre personalizzabili",
+    "settingDesc": "Aggiunge un pulsante Personalizza alle barre Modifica, Sincronizzazione e Anteprima, per nascondere, riordinare o fissare sezioni, oppure spostarle in un menu Altro."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Evidenzia il verso in riproduzione nella modalità selezionata.",

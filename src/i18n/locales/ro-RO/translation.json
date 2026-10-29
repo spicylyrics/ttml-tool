@@ -527,6 +527,33 @@
     "loading": "Se încarcă panoul...",
     "advanced": "Avansat"
   },
+  "ribbonCustomize": {
+    "customize": "Personalizează panglica",
+    "customizeDesc": "Ascunde, reordonează sau fixează secțiunile acestei panglici ori mută-le în Mai mult.",
+    "title": "Personalizează această panglică",
+    "hint": "Unele secțiuni apar doar cu o selecție sau cu Avansat activat.",
+    "reset": "Resetează",
+    "resetDone": "Panglica a fost resetată",
+    "pin": "Fixează {{name}} la început",
+    "unpin": "Anulează fixarea pentru {{name}}",
+    "pinned": "Fixată",
+    "moveUp": "Mută {{name}} în sus",
+    "moveDown": "Mută {{name}} în jos",
+    "moved": "{{name}} este acum pe poziția {{position}}",
+    "placement": {
+      "label": "Unde apare {{name}}",
+      "ribbon": "Panglică",
+      "ribbonDesc": "Arat-o pe panglică.",
+      "more": "Mai mult",
+      "moreDesc": "Păstreaz-o în meniul Mai mult de la capătul panglicii.",
+      "hidden": "Ascunsă",
+      "hiddenDesc": "Nu o afișa nicăieri."
+    },
+    "more": "Mai mult",
+    "moreDesc": "Secțiuni pe care le-ai scos din panglică.",
+    "settingLabel": "Panglici personalizabile",
+    "settingDesc": "Adaugă un buton Personalizează pe panglicile Editare, Sincronizare și Previzualizare, ca să ascunzi, reordonezi sau fixezi secțiuni ori să le muți într-un meniu Mai mult."
+  },
   "settings": {
     "common": {
       "highlightActiveLineDesc": "Evidențiază versul redat în modul selectat.",
