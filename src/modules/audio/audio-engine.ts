@@ -173,6 +173,18 @@ export class AudioEngine extends EventTarget {
 	private pendingStarts = new Map<VoiceId, PendingStart>();
 	private _musicPlayBackRate = 1;
 	private _preservesPitch = true;
+	private wordCueConfig: Extract<PlayerCommand, { type: "word-cues" }> = {
+		type: "word-cues",
+		boundaries: [],
+		volume: 0,
+	};
+	setWordTimingCues(
+		boundaries: import("./word-cues/model").CueBoundary[],
+		volume: number,
+	) {
+		this.wordCueConfig = { type: "word-cues", boundaries, volume };
+		this.post(this.wordCueConfig);
+	}
 
 	get musicLoaded() {
 		return this.musicBuffer !== null;
@@ -628,8 +640,8 @@ export class AudioEngine extends EventTarget {
 			assertCurrent();
 			node = new AudioWorkletNode(this.ctx, "pcm-player", {
 				numberOfInputs: 0,
-				numberOfOutputs: 1,
-				outputChannelCount: [buffer.numberOfChannels],
+				numberOfOutputs: 2,
+				outputChannelCount: [buffer.numberOfChannels, 2],
 			});
 			const ownedNode = node;
 			const ready = new Promise<void>((resolve, reject) => {
@@ -659,7 +671,9 @@ export class AudioEngine extends EventTarget {
 				() => abort.signal.removeEventListener("abort", cancelReady),
 				() => abort.signal.removeEventListener("abort", cancelReady),
 			);
-			ownedNode.connect(this.eqEntryPoint);
+			ownedNode.connect(this.eqEntryPoint, 0, 0);
+			// Cue volume is applied by the synth; bypass music gain and EQ.
+			ownedNode.connect(this.ctx.destination, 1, 0);
 			// Transfer one copy; neither structured cloning nor audition duplicates the full PCM.
 			const channels = Array.from(
 				{ length: buffer.numberOfChannels },
@@ -676,6 +690,7 @@ export class AudioEngine extends EventTarget {
 			}
 			assertCurrent();
 			this.node = ownedNode;
+			this.post(this.wordCueConfig);
 			this.playerReady = ready;
 			this.musicBuffer = buffer;
 			globalStore.set(audioBufferAtom, buffer);

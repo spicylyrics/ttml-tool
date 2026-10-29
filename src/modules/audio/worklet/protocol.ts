@@ -11,6 +11,11 @@ export interface VoiceState {
 
 export type PlayerCommand =
 	| { type: "init"; channels: Float32Array[]; wasm: ArrayBuffer }
+	| {
+			type: "word-cues";
+			boundaries: import("../word-cues/model").CueBoundary[];
+			volume: number;
+	  }
 	| { type: "voice"; voice: VoiceId; state: VoiceState }
 	| { type: "destroy" };
 

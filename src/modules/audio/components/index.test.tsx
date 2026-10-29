@@ -15,6 +15,7 @@ vi.mock("$/modules/audio/audio-engine", () => ({
 		musicPlaying: false,
 		addEventListener: vi.fn(),
 		removeEventListener: vi.fn(),
+		setWordTimingCues: vi.fn(),
 	},
 }));
 vi.mock("$/utils/keybindings.ts", async (importOriginal) => ({
@@ -93,7 +94,7 @@ describe("audio and playback popover", () => {
 		);
 		if (!slider) throw new Error("Playback speed slider missing");
 		expect(
-			document.querySelector('[role="slider"][aria-label="Volume"]'),
+			document.querySelector('[role="slider"][aria-label="Music volume"]'),
 		).not.toBeNull();
 		await act(async () => {
 			slider.focus();
@@ -129,7 +130,7 @@ describe("audio and playback popover", () => {
 	it("keeps app shortcuts away from a focused slider", async () => {
 		await openPopover();
 		const slider = document.querySelector<HTMLElement>(
-			'[role="slider"][aria-label="Volume"]',
+			'[role="slider"][aria-label="Music volume"]',
 		);
 		if (!slider) throw new Error("Volume slider missing");
 		slider.focus();

@@ -1565,5 +1565,30 @@
       "later": "Mais tarde",
       "move": "Mover meus dados"
     }
+  },
+  "wordCue": {
+    "title": "Word timing cues",
+    "shortTitle": "Word timing",
+    "show": "Show timing indicator",
+    "clicks": "Word/syllable clicks",
+    "cueMode": "Cue by",
+    "wholeWord": "Whole word",
+    "eachSyllable": "Each syllable",
+    "wordDescription": "High click at word start, low click at word end. Background vocals are quieter; duet vocals use a distinct higher beep. Cue volume is independent of music volume.",
+    "syllableDescription": "Click at the start of each timed span. Split words use syllable timings; unsplit words get one click for the whole word. Background vocals are quieter; duet vocals use a distinct higher beep. Cue volume is independent of music volume.",
+    "volume": "Cue volume",
+    "musicVolume": "Music volume",
+    "load": "Load audio",
+    "untimed": "No word timings",
+    "paused": "Paused",
+    "active": "Active",
+    "gap": "Gap",
+    "done": "Done",
+    "noNext": "No next word",
+    "noNextSyllable": "No next syllable",
+    "nextIn": "Next in {seconds}s",
+    "nextSyllableIn": "Next syllable in {seconds}s",
+    "progress": "Current word progress",
+    "syllableProgress": "Current syllable progress"
   }
 }

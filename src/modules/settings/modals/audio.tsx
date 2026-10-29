@@ -28,6 +28,7 @@ import {
 	equalizerGainsAtom,
 	equalizerPresetAtom,
 } from "$/modules/audio/states/index.ts";
+import { WordCueSettings } from "$/modules/audio/word-cues/settings";
 
 export const AudioSettingsTab = () => {
 	const { t } = useTranslation();
@@ -101,6 +102,7 @@ export const AudioSettingsTab = () => {
 
 	return (
 		<Flex direction="column" gap="4">
+			<WordCueSettings />
 			<Box>
 				<Flex align="center" gap="4" mb="2">
 					<Text weight="bold" size="3">

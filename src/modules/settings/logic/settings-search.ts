@@ -6,7 +6,7 @@ export const settingsSearchKeywords: Record<string, string> = {
 	files:
 		"import export cleanup normalize apostrophes cyrillic autosave interval snapshots history backup restore folder project storage preview files consecutive standalone background vocals",
 	audio:
-		"music volume playback speed equalizer gain preset mp3 flac conversion spectrogram palette frequency",
+		"music volume playback speed equalizer gain preset mp3 flac conversion spectrogram palette frequency word timing cue indicator beep click sound start end countdown",
 	keybinding:
 		"keyboard keys shortcut controls new open save undo redo select delete mode sync playback seek volume segment audition",
 	appearance:

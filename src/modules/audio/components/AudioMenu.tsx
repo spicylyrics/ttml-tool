@@ -187,7 +187,8 @@ export const AudioMenu: FC = () => {
 	const [volume, setVolume] = useAtom(volumeAtom);
 	const [preservesPitch, setPreservesPitch] = useAtom(preservesPitchAtom);
 	const menuLabel = t("audioPanel.audioMenu", "Audio and playback");
-	const volumeLabel = t("audioPanel.volume", "Volume");
+	// Cue clicks have their own volume, so name this one for the music.
+	const volumeLabel = t("wordCue.musicVolume", "Music volume");
 
 	return (
 		<Popover.Root>

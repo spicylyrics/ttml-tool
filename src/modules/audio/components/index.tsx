@@ -38,6 +38,8 @@ import {
 	volumeAtom,
 } from "$/modules/audio/states";
 import { stepPlaybackRate } from "$/modules/audio/utils/playback-rate";
+import { WordCueOptions } from "$/modules/audio/word-cues/settings";
+import { WordTimingCue } from "$/modules/audio/word-cues/WordTimingCue";
 import { AuditionKeyBinding } from "$/modules/keyboard/components/AuditionKeyBinding";
 import { AudioSpectrogram } from "$/modules/spectrogram/components/AudioSpectrogram";
 import {
@@ -200,6 +202,7 @@ export const AudioControls: FC = memo(() => {
 					<div style={{ display: spectrogramVisible ? "flex" : "none" }}>
 						<AudioSpectrogram />
 					</div>
+					<WordTimingCue />
 					<Flex
 						align="center"
 						px="2"
@@ -220,6 +223,7 @@ export const AudioControls: FC = memo(() => {
 								{audioPlaying ? <PauseFilled /> : <PlayFilled />}
 							</IconButton>
 						</Tooltip>
+						<WordCueOptions />
 						<CurrentTimeLabel />
 						<AudioSlider />
 						<Text size="2" style={timeLabelStyle}>
