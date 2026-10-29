@@ -925,6 +925,36 @@
       "projects": "Proyek"
     }
   },
+  "transcription": {
+    "modeBtn": "Transkripsi",
+    "modeBtnDesc": "Ketik lirik sebagai teks biasa saat lagu diputar.",
+    "enable": "Tab Transkripsi",
+    "enableDesc": "Tambahkan tab Transkripsi untuk mengetik lirik sebagai teks biasa saat lagu diputar.",
+    "title": "Transkripsi",
+    "stats": "{lines, plural, other {# baris}}, {words, plural, other {# kata}}",
+    "tidy": "Rapikan tata letak",
+    "export": "Ekspor",
+    "copyGenius": "Salin sebagai teks Genius",
+    "copyPlain": "Salin sebagai teks biasa",
+    "saveGenius": "Simpan sebagai teks Genius...",
+    "savePlain": "Simpan sebagai teks biasa...",
+    "sendToImport": "Impor ke editor...",
+    "textLabel": "Transkrip",
+    "placeholder": "Ketik lirik seperti yang Anda dengar, satu baris per larik. Letakkan judul bagian seperti [Verse 1] di barisnya sendiri.",
+    "copied": "Disalin ke papan klip.",
+    "copyFailed": "Tidak dapat menyalin teks.",
+    "saveFailed": "Tidak dapat menyimpan file.",
+    "textFiles": "File teks",
+    "keys": {
+      "label": "Pintasan di kotak teks",
+      "playPause": "Putar atau jeda",
+      "back": "Mundur 3 detik",
+      "forward": "Maju 3 detik",
+      "slower": "Lebih lambat",
+      "faster": "Lebih cepat",
+      "resetSpeed": "Kecepatan normal"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Disimpan otomatis pukul {time}",

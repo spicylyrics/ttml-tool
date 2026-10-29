@@ -925,6 +925,36 @@
       "projects": "Projekty"
     }
   },
+  "transcription": {
+    "modeBtn": "Transkrypcja",
+    "modeBtnDesc": "Wpisuj tekst jako zwykły tekst, gdy utwór gra.",
+    "enable": "Karta Transkrypcja",
+    "enableDesc": "Dodaje kartę Transkrypcja do wpisywania tekstu jako zwykłego tekstu, gdy utwór gra.",
+    "title": "Transkrypcja",
+    "stats": "{lines, plural, one {# wiersz} few {# wiersze} many {# wierszy} other {# wiersza}}, {words, plural, one {# słowo} few {# słowa} many {# słów} other {# słowa}}",
+    "tidy": "Uporządkuj układ",
+    "export": "Eksportuj",
+    "copyGenius": "Kopiuj jako tekst Genius",
+    "copyPlain": "Kopiuj jako zwykły tekst",
+    "saveGenius": "Zapisz jako tekst Genius...",
+    "savePlain": "Zapisz jako zwykły tekst...",
+    "sendToImport": "Importuj do edytora...",
+    "textLabel": "Transkrypcja",
+    "placeholder": "Wpisuj tekst tak, jak go słyszysz, jeden wers w wierszu. Nagłówki sekcji, takie jak [Verse 1], umieszczaj w osobnych wierszach.",
+    "copied": "Skopiowano do schowka.",
+    "copyFailed": "Nie udało się skopiować tekstu.",
+    "saveFailed": "Nie udało się zapisać pliku.",
+    "textFiles": "Pliki tekstowe",
+    "keys": {
+      "label": "Skróty w polu tekstowym",
+      "playPause": "Odtwórz lub wstrzymaj",
+      "back": "3 sekundy wstecz",
+      "forward": "3 sekundy do przodu",
+      "slower": "Wolniej",
+      "faster": "Szybciej",
+      "resetSpeed": "Normalna prędkość"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Autozapis o {time}",

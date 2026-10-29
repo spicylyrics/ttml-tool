@@ -925,6 +925,36 @@
       "projects": "Projecten"
     }
   },
+  "transcription": {
+    "modeBtn": "Transcriberen",
+    "modeBtnDesc": "Typ de songtekst als platte tekst terwijl het nummer speelt.",
+    "enable": "Tabblad Transcriberen",
+    "enableDesc": "Voegt een tabblad Transcriberen toe om de songtekst als platte tekst te typen terwijl het nummer speelt.",
+    "title": "Transcriberen",
+    "stats": "{lines, plural, one {# regel} other {# regels}}, {words, plural, one {# woord} other {# woorden}}",
+    "tidy": "Indeling opschonen",
+    "export": "Exporteren",
+    "copyGenius": "Kopiëren als Genius-tekst",
+    "copyPlain": "Kopiëren als platte tekst",
+    "saveGenius": "Opslaan als Genius-tekst...",
+    "savePlain": "Opslaan als platte tekst...",
+    "sendToImport": "Importeren in de editor...",
+    "textLabel": "Transcriptie",
+    "placeholder": "Typ de tekst zoals je hem hoort, één regel per rij. Zet sectiekoppen zoals [Verse 1] op een eigen rij.",
+    "copied": "Gekopieerd naar het klembord.",
+    "copyFailed": "Kan de tekst niet kopiëren.",
+    "saveFailed": "Kan het bestand niet opslaan.",
+    "textFiles": "Tekstbestanden",
+    "keys": {
+      "label": "Sneltoetsen in het tekstvak",
+      "playPause": "Afspelen of pauzeren",
+      "back": "3 seconden terug",
+      "forward": "3 seconden vooruit",
+      "slower": "Langzamer",
+      "faster": "Sneller",
+      "resetSpeed": "Normale snelheid"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Automatisch opgeslagen om {time}",

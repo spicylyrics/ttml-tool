@@ -925,6 +925,36 @@
       "projects": "Projeler"
     }
   },
+  "transcription": {
+    "modeBtn": "Yazıya dök",
+    "modeBtnDesc": "Şarkı çalarken sözleri düz metin olarak yazın.",
+    "enable": "Yazıya dök sekmesi",
+    "enableDesc": "Şarkı çalarken sözleri düz metin olarak yazmak için bir Yazıya dök sekmesi ekler.",
+    "title": "Yazıya dök",
+    "stats": "{lines, plural, one {# satır} other {# satır}}, {words, plural, one {# kelime} other {# kelime}}",
+    "tidy": "Düzeni topla",
+    "export": "Dışa aktar",
+    "copyGenius": "Genius metni olarak kopyala",
+    "copyPlain": "Düz metin olarak kopyala",
+    "saveGenius": "Genius metni olarak kaydet...",
+    "savePlain": "Düz metin olarak kaydet...",
+    "sendToImport": "Düzenleyiciye aktar...",
+    "textLabel": "Döküm",
+    "placeholder": "Sözleri duyduğunuz gibi, her satıra bir dize olacak şekilde yazın. [Verse 1] gibi bölüm başlıklarını ayrı bir satıra koyun.",
+    "copied": "Panoya kopyalandı.",
+    "copyFailed": "Metin kopyalanamadı.",
+    "saveFailed": "Dosya kaydedilemedi.",
+    "textFiles": "Metin dosyaları",
+    "keys": {
+      "label": "Metin kutusundaki kısayollar",
+      "playPause": "Oynat veya duraklat",
+      "back": "3 saniye geri",
+      "forward": "3 saniye ileri",
+      "slower": "Daha yavaş",
+      "faster": "Daha hızlı",
+      "resetSpeed": "Normal hız"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "{time} saatinde otomatik kaydedildi",

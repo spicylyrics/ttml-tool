@@ -925,6 +925,36 @@
       "projects": "Projektit"
     }
   },
+  "transcription": {
+    "modeBtn": "Litteroi",
+    "modeBtnDesc": "Kirjoita sanat pelkkänä tekstinä kappaleen soidessa.",
+    "enable": "Litteroi-välilehti",
+    "enableDesc": "Lisää Litteroi-välilehti sanojen kirjoittamiseen pelkkänä tekstinä kappaleen soidessa.",
+    "title": "Litteroi",
+    "stats": "{lines, plural, one {# rivi} other {# riviä}}, {words, plural, one {# sana} other {# sanaa}}",
+    "tidy": "Siisti asettelu",
+    "export": "Vie",
+    "copyGenius": "Kopioi Genius-tekstinä",
+    "copyPlain": "Kopioi pelkkänä tekstinä",
+    "saveGenius": "Tallenna Genius-tekstinä...",
+    "savePlain": "Tallenna pelkkänä tekstinä...",
+    "sendToImport": "Tuo editoriin...",
+    "textLabel": "Litterointi",
+    "placeholder": "Kirjoita sanat niin kuin kuulet ne, yksi säe riville. Laita osien otsikot, kuten [Verse 1], omalle rivilleen.",
+    "copied": "Kopioitu leikepöydälle.",
+    "copyFailed": "Tekstiä ei voitu kopioida.",
+    "saveFailed": "Tiedostoa ei voitu tallentaa.",
+    "textFiles": "Tekstitiedostot",
+    "keys": {
+      "label": "Pikanäppäimet tekstikentässä",
+      "playPause": "Toista tai keskeytä",
+      "back": "3 sekuntia taaksepäin",
+      "forward": "3 sekuntia eteenpäin",
+      "slower": "Hitaammin",
+      "faster": "Nopeammin",
+      "resetSpeed": "Normaali nopeus"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Tallennettu automaattisesti klo {time}",

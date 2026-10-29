@@ -925,6 +925,36 @@
       "projects": "Projekty"
     }
   },
+  "transcription": {
+    "modeBtn": "Přepis",
+    "modeBtnDesc": "Pište text písně jako prostý text, zatímco skladba hraje.",
+    "enable": "Karta Přepis",
+    "enableDesc": "Přidá kartu Přepis pro psaní textu písně jako prostého textu, zatímco skladba hraje.",
+    "title": "Přepis",
+    "stats": "{lines, plural, one {# řádek} few {# řádky} many {# řádku} other {# řádků}}, {words, plural, one {# slovo} few {# slova} many {# slova} other {# slov}}",
+    "tidy": "Upravit rozložení",
+    "export": "Exportovat",
+    "copyGenius": "Kopírovat jako text Genius",
+    "copyPlain": "Kopírovat jako prostý text",
+    "saveGenius": "Uložit jako text Genius...",
+    "savePlain": "Uložit jako prostý text...",
+    "sendToImport": "Importovat do editoru...",
+    "textLabel": "Přepis",
+    "placeholder": "Pište text tak, jak ho slyšíte, jeden verš na řádek. Záhlaví sekcí jako [Verse 1] dejte na samostatný řádek.",
+    "copied": "Zkopírováno do schránky.",
+    "copyFailed": "Text se nepodařilo zkopírovat.",
+    "saveFailed": "Soubor se nepodařilo uložit.",
+    "textFiles": "Textové soubory",
+    "keys": {
+      "label": "Zkratky v textovém poli",
+      "playPause": "Přehrát nebo pozastavit",
+      "back": "Zpět o 3 sekundy",
+      "forward": "Vpřed o 3 sekundy",
+      "slower": "Pomaleji",
+      "faster": "Rychleji",
+      "resetSpeed": "Normální rychlost"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Automaticky uloženo v {time}",

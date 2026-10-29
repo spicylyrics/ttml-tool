@@ -925,6 +925,36 @@
       "projects": "Projetos"
     }
   },
+  "transcription": {
+    "modeBtn": "Transcrever",
+    "modeBtnDesc": "Digite a letra como texto simples enquanto a música toca.",
+    "enable": "Aba Transcrever",
+    "enableDesc": "Adiciona uma aba Transcrever para digitar a letra como texto simples enquanto a música toca.",
+    "title": "Transcrever",
+    "stats": "{lines, plural, one {# linha} many {# linhas} other {# linhas}}, {words, plural, one {# palavra} many {# palavras} other {# palavras}}",
+    "tidy": "Organizar layout",
+    "export": "Exportar",
+    "copyGenius": "Copiar como texto do Genius",
+    "copyPlain": "Copiar como texto simples",
+    "saveGenius": "Salvar como texto do Genius...",
+    "savePlain": "Salvar como texto simples...",
+    "sendToImport": "Importar para o editor...",
+    "textLabel": "Transcrição",
+    "placeholder": "Digite a letra como você ouve, um verso por linha. Coloque cabeçalhos de seção como [Verse 1] em uma linha própria.",
+    "copied": "Copiado para a área de transferência.",
+    "copyFailed": "Não foi possível copiar o texto.",
+    "saveFailed": "Não foi possível salvar o arquivo.",
+    "textFiles": "Arquivos de texto",
+    "keys": {
+      "label": "Atalhos na caixa de texto",
+      "playPause": "Reproduzir ou pausar",
+      "back": "Voltar 3 segundos",
+      "forward": "Avançar 3 segundos",
+      "slower": "Mais devagar",
+      "faster": "Mais rápido",
+      "resetSpeed": "Velocidade normal"
+    }
+  },
   "header": {
     "status": {
       "autoSavedAt": "Salvo automaticamente às {time}",
