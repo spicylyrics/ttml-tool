@@ -207,6 +207,16 @@
       "splitWordsHint": "Marks each space as a word boundary for the import."
     }
   },
+  "importSplit": {
+    "title": "Syllables",
+    "later": "I'll split later",
+    "laterHint": "Imports whole words. Split them in the editor later.",
+    "now": "Split now",
+    "nowHint": "Marks syllables in the text now, so you can fix them before importing.",
+    "checkFirst": "New words got syllable marks. Check them, then import.",
+    "setting": "Split syllables while importing",
+    "settingHint": "Adds a Split now or I'll split later choice to the import screen. Split now marks syllables with your segmentation settings and learned splits, and you can fix them before importing."
+  },
   "lyricMarkup": {
     "section": "Section: {label}",
     "joinSyllables": "Join syllables",

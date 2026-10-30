@@ -207,6 +207,16 @@
       "splitWordsHint": "把每个空格标记为导入时的词边界。"
     }
   },
+  "importSplit": {
+    "title": "音节",
+    "later": "稍后拆分",
+    "laterHint": "按整词导入。之后在编辑器中拆分。",
+    "now": "现在拆分",
+    "nowHint": "立即在文本中标出音节，导入前可以修改。",
+    "checkFirst": "新单词已标出音节。检查后再导入。",
+    "setting": "导入时拆分音节",
+    "settingHint": "在导入界面添加“现在拆分”或“稍后拆分”选项。“现在拆分”会按你的分词设置和已学习的拆分标出音节，导入前可以修改。"
+  },
   "lyricMarkup": {
     "section": "分段：{label}",
     "joinSyllables": "合并音节",
