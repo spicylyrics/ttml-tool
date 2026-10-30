@@ -1284,6 +1284,29 @@
     "addToNext": "Tambahkan baris yang belum ditetapkan ke bagian berikutnya",
     "section": "Bagian"
   },
+  "sectionEditing": {
+    "toggleTitle": "Alat pengeditan bagian",
+    "toggleDesc": "Klik judul bagian untuk mengganti nama atau jenisnya, mulai bagian di baris mana pun, dan salin pewaktuan antarbagian yang berulang. Juga membaca bagian lagu Apple saat Anda membuka TTML. Bagian dipakai oleh editor, bukan oleh Spicy Lyrics.",
+    "editHeader": "Ganti nama atau jenis {label}",
+    "menu": "Aksi bagian",
+    "startHere": "Mulai bagian di sini",
+    "moveStartUp": "Naikkan awal satu baris",
+    "moveStartDown": "Turunkan awal satu baris",
+    "applyTimings": "Terapkan pewaktuan dari...",
+    "applyTitle": "Terapkan pewaktuan dari bagian lain",
+    "applyDesc": "Menyalin pewaktuan bagian lain ke bagian ini. Baris dicocokkan berdasarkan katanya; hanya kata yang cocok yang mendapat pewaktuan, sisanya dibiarkan tanpa pewaktuan.",
+    "source": "Salin dari",
+    "suggested": "Disarankan",
+    "similarity": "{percent}% kata sama",
+    "noSources": "Belum ada bagian lain yang punya pewaktuan. Sinkronkan satu bagian dahulu.",
+    "anchor": "Mulai dari",
+    "anchorSection": "Baris pertama bagian ini yang sudah berwaktu ({time})",
+    "anchorPlayhead": "Playhead ({time})",
+    "refineNote": "Pewaktuan yang disalin hanyalah titik awal. Putar bagian ini dan perbaiki yang kurang pas.",
+    "apply": "Terapkan",
+    "applied": "Pewaktuan disalin ke {copied} dari {total} baris. {untimed, plural, =0 {Semua kata cocok.} other {# kata dibiarkan tanpa pewaktuan.}}",
+    "nothingMatched": "Tidak ada baris di bagian ini yang cocok dengan bagian itu, jadi tidak ada yang disalin."
+  },
   "touchSyncPanel": {
     "prevWord": "Kata sebelumnya",
     "nextWord": "Kata berikutnya"

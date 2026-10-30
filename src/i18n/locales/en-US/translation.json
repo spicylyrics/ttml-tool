@@ -1284,6 +1284,29 @@
     "addToNext": "Add unassigned lines to next section",
     "section": "Section"
   },
+  "sectionEditing": {
+    "toggleTitle": "Section editing tools",
+    "toggleDesc": "Click a section header to rename or retype it, start a section on any line, and copy timings between repeated sections. Also reads Apple song parts when you open a TTML. Sections are used by the editor, not by Spicy Lyrics.",
+    "editHeader": "Rename or retype {label}",
+    "menu": "Section actions",
+    "startHere": "Start section here",
+    "moveStartUp": "Move start up a line",
+    "moveStartDown": "Move start down a line",
+    "applyTimings": "Apply timings from...",
+    "applyTitle": "Apply timings from another section",
+    "applyDesc": "Copies another section's timing onto this one. Lines are matched by their words; only matching words get timings, the rest are left untimed.",
+    "source": "Copy from",
+    "suggested": "Suggested",
+    "similarity": "{percent}% same words",
+    "noSources": "No other section has timings yet. Sync one first.",
+    "anchor": "Start at",
+    "anchorSection": "This section's first timed line ({time})",
+    "anchorPlayhead": "The playhead ({time})",
+    "refineNote": "Copied timings are a starting point. Play the section back and fix what's off.",
+    "apply": "Apply",
+    "applied": "Copied timings to {copied} of {total} lines. {untimed, plural, =0 {Every word matched.} one {# word was left untimed.} other {# words were left untimed.}}",
+    "nothingMatched": "No lines in this section match that one, so nothing was copied."
+  },
   "touchSyncPanel": {
     "prevWord": "Previous word",
     "nextWord": "Next word"

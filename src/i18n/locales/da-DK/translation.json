@@ -1284,6 +1284,29 @@
     "addToNext": "Tilføj ikke-tildelte linjer til næste sektion",
     "section": "Sektion"
   },
+  "sectionEditing": {
+    "toggleTitle": "Værktøjer til sektionsredigering",
+    "toggleDesc": "Klik på en sektionsoverskrift for at omdøbe den eller ændre typen, start en sektion på en vilkårlig linje, og kopier timing mellem gentagne sektioner. Læser også Apple-sangdele, når du åbner en TTML. Sektioner bruges af editoren, ikke af Spicy Lyrics.",
+    "editHeader": "Omdøb eller ændr type for {label}",
+    "menu": "Sektionshandlinger",
+    "startHere": "Start sektion her",
+    "moveStartUp": "Flyt start en linje op",
+    "moveStartDown": "Flyt start en linje ned",
+    "applyTimings": "Anvend timing fra...",
+    "applyTitle": "Anvend timing fra en anden sektion",
+    "applyDesc": "Kopierer en anden sektions timing til denne. Linjer matches på deres ord; kun matchende ord får timing, resten forbliver uden timing.",
+    "source": "Kopier fra",
+    "suggested": "Foreslået",
+    "similarity": "{percent} % ens ord",
+    "noSources": "Ingen andre sektioner har timing endnu. Synkroniser først en.",
+    "anchor": "Start ved",
+    "anchorSection": "Denne sektions første linje med timing ({time})",
+    "anchorPlayhead": "Afspilningshovedet ({time})",
+    "refineNote": "Kopieret timing er et udgangspunkt. Afspil sektionen, og ret det, der er forkert.",
+    "apply": "Anvend",
+    "applied": "Timing kopieret til {copied} af {total} linjer. {untimed, plural, =0 {Alle ord matchede.} one {# ord blev stående uden timing.} other {# ord blev stående uden timing.}}",
+    "nothingMatched": "Ingen linjer i denne sektion matcher den anden, så intet blev kopieret."
+  },
   "touchSyncPanel": {
     "prevWord": "Forrige ord",
     "nextWord": "Næste ord"

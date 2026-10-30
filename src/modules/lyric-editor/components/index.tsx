@@ -45,6 +45,7 @@ import {
 	hasGeniusHeaderAtom,
 	lyricLinesOnlyAtom,
 } from "../states/document-structure.ts";
+import { ApplySectionTimingsDialog } from "./ApplySectionTimingsDialog.tsx";
 import styles from "./index.module.css";
 import { LyricLineView } from "./lyric-line-view";
 import { timingCopyPlacementAtom } from "./lyric-line-view-states";
@@ -249,6 +250,7 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 			<SectionMetadataDialog />
 			<SectionManagerDialog />
 			<CategorizeSelectionDialog />
+			<ApplySectionTimingsDialog />
 			<Box
 				flexGrow="1"
 				style={{

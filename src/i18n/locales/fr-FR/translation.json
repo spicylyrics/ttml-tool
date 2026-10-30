@@ -1284,6 +1284,29 @@
     "addToNext": "Ajouter des lignes non attribuées à la section suivante",
     "section": "Section"
   },
+  "sectionEditing": {
+    "toggleTitle": "Outils d'édition des sections",
+    "toggleDesc": "Cliquez sur l'en-tête d'une section pour la renommer ou changer son type, commencez une section sur n'importe quelle ligne et copiez le minutage entre sections répétées. Lit aussi les parties de morceau Apple à l'ouverture d'un TTML. Les sections servent à l'éditeur, pas à Spicy Lyrics.",
+    "editHeader": "Renommer ou changer le type de {label}",
+    "menu": "Actions de la section",
+    "startHere": "Commencer la section ici",
+    "moveStartUp": "Remonter le début d'une ligne",
+    "moveStartDown": "Descendre le début d'une ligne",
+    "applyTimings": "Appliquer le minutage de...",
+    "applyTitle": "Appliquer le minutage d'une autre section",
+    "applyDesc": "Copie le minutage d'une autre section sur celle-ci. Les lignes sont associées par leurs mots ; seuls les mots correspondants reçoivent un minutage, les autres restent sans minutage.",
+    "source": "Copier depuis",
+    "suggested": "Suggérée",
+    "similarity": "{percent} % de mots identiques",
+    "noSources": "Aucune autre section n'a encore de minutage. Synchronisez-en une d'abord.",
+    "anchor": "Commencer à",
+    "anchorSection": "La première ligne minutée de cette section ({time})",
+    "anchorPlayhead": "La tête de lecture ({time})",
+    "refineNote": "Le minutage copié n'est qu'un point de départ. Écoutez la section et corrigez ce qui cloche.",
+    "apply": "Appliquer",
+    "applied": "Minutage copié sur {copied} lignes sur {total}. {untimed, plural, =0 {Tous les mots correspondaient.} one {# mot est resté sans minutage.} many {# mots sont restés sans minutage.} other {# mots sont restés sans minutage.}}",
+    "nothingMatched": "Aucune ligne de cette section ne correspond à l'autre, donc rien n'a été copié."
+  },
   "touchSyncPanel": {
     "prevWord": "Mot précédent",
     "nextWord": "Mot suivant"

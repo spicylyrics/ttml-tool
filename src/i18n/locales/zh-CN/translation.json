@@ -1284,6 +1284,29 @@
     "addToNext": "将未分配行添加到下一分段",
     "section": "分段"
   },
+  "sectionEditing": {
+    "toggleTitle": "分段编辑工具",
+    "toggleDesc": "点击分段标题可重命名或更改类型，可在任意一行开始新分段，并在重复分段之间复制时间。打开 TTML 时还会读取 Apple 的歌曲部分信息。分段仅供编辑器使用，Spicy Lyrics 不会用到。",
+    "editHeader": "重命名或更改 {label} 的类型",
+    "menu": "分段操作",
+    "startHere": "从此处开始分段",
+    "moveStartUp": "起点上移一行",
+    "moveStartDown": "起点下移一行",
+    "applyTimings": "应用来自以下分段的时间...",
+    "applyTitle": "应用其他分段的时间",
+    "applyDesc": "将其他分段的时间复制到当前分段。行会按词语匹配；只有匹配的词语会获得时间，其余保持无时间。",
+    "source": "复制自",
+    "suggested": "推荐",
+    "similarity": "{percent}% 的词语相同",
+    "noSources": "其他分段都还没有时间。请先同步其中一个。",
+    "anchor": "起点位置",
+    "anchorSection": "此分段的第一个已定时行（{time}）",
+    "anchorPlayhead": "播放头（{time}）",
+    "refineNote": "复制的时间只是起点。请播放该分段并修正不准的地方。",
+    "apply": "应用",
+    "applied": "已将时间复制到 {total} 行中的 {copied} 行。{untimed, plural, =0 {所有词语均已匹配。} other {有 # 个词语未获得时间。}}",
+    "nothingMatched": "此分段中没有与该分段匹配的行，因此未复制任何内容。"
+  },
   "touchSyncPanel": {
     "prevWord": "上一个字",
     "nextWord": "下一个字"

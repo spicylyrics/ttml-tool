@@ -1284,6 +1284,29 @@
     "addToNext": "Pridať nezaradené riadky do ďalšej sekcie",
     "section": "Sekcia"
   },
+  "sectionEditing": {
+    "toggleTitle": "Nástroje na úpravu sekcií",
+    "toggleDesc": "Kliknutím na hlavičku sekcie ju premenujete alebo zmeníte jej typ, sekciu môžete začať na ľubovoľnom riadku a časovanie môžete kopírovať medzi opakovanými sekciami. Pri otvorení TTML sa tiež načítajú časti piesne z Apple. Sekcie používa editor, nie Spicy Lyrics.",
+    "editHeader": "Premenovať alebo zmeniť typ: {label}",
+    "menu": "Akcie sekcie",
+    "startHere": "Začať sekciu tu",
+    "moveStartUp": "Posunúť začiatok o riadok nahor",
+    "moveStartDown": "Posunúť začiatok o riadok nadol",
+    "applyTimings": "Použiť časovanie z...",
+    "applyTitle": "Použiť časovanie z inej sekcie",
+    "applyDesc": "Skopíruje do tejto sekcie časovanie inej sekcie. Riadky sa párujú podľa slov; časovanie dostanú len zhodné slová, ostatné ostanú bez časovania.",
+    "source": "Kopírovať z",
+    "suggested": "Odporúčané",
+    "similarity": "{percent} % zhodných slov",
+    "noSources": "Žiadna iná sekcia zatiaľ nemá časovanie. Najprv niektorú synchronizujte.",
+    "anchor": "Začať pri",
+    "anchorSection": "Prvom načasovanom riadku tejto sekcie ({time})",
+    "anchorPlayhead": "Prehrávacej hlavy ({time})",
+    "refineNote": "Skopírované časovanie je len východiskový bod. Sekciu prehrajte a opravte, čo nesedí.",
+    "apply": "Použiť",
+    "applied": "Časovanie skopírované pri {copied} z {total} riadkov. {untimed, plural, =0 {Všetky slová sa zhodovali.} one {# slovo ostalo bez časovania.} few {# slová ostali bez časovania.} many {# slova ostalo bez časovania.} other {# slov ostalo bez časovania.}}",
+    "nothingMatched": "Žiadny riadok v tejto sekcii nezodpovedá tej druhej, takže sa nič neskopírovalo."
+  },
   "touchSyncPanel": {
     "prevWord": "Predchádzajúce slovo",
     "nextWord": "Ďalšie slovo"

@@ -1284,6 +1284,29 @@
     "addToNext": "Voeg niet-toegewezen regels toe aan de volgende sectie",
     "section": "Sectie"
   },
+  "sectionEditing": {
+    "toggleTitle": "Hulpmiddelen voor sectiebewerking",
+    "toggleDesc": "Klik op een sectiekop om de sectie te hernoemen of van type te veranderen, begin een sectie op elke regel en kopieer timing tussen herhaalde secties. Leest ook Apple-songonderdelen wanneer je een TTML opent. Secties worden door de editor gebruikt, niet door Spicy Lyrics.",
+    "editHeader": "{label} hernoemen of van type veranderen",
+    "menu": "Sectieacties",
+    "startHere": "Sectie hier beginnen",
+    "moveStartUp": "Begin een regel omhoog verplaatsen",
+    "moveStartDown": "Begin een regel omlaag verplaatsen",
+    "applyTimings": "Timing toepassen van...",
+    "applyTitle": "Timing van een andere sectie toepassen",
+    "applyDesc": "Kopieert de timing van een andere sectie naar deze. Regels worden gekoppeld op hun woorden; alleen overeenkomende woorden krijgen timing, de rest blijft zonder timing.",
+    "source": "Kopiëren van",
+    "suggested": "Voorgesteld",
+    "similarity": "{percent}% zelfde woorden",
+    "noSources": "Geen enkele andere sectie heeft al timing. Synchroniseer er eerst een.",
+    "anchor": "Beginnen bij",
+    "anchorSection": "De eerste getimede regel van deze sectie ({time})",
+    "anchorPlayhead": "De afspeelkop ({time})",
+    "refineNote": "Gekopieerde timing is een startpunt. Speel de sectie af en corrigeer wat niet klopt.",
+    "apply": "Toepassen",
+    "applied": "Timing gekopieerd naar {copied} van {total} regels. {untimed, plural, =0 {Alle woorden kwamen overeen.} one {# woord is zonder timing gebleven.} other {# woorden zijn zonder timing gebleven.}}",
+    "nothingMatched": "Geen enkele regel in deze sectie komt overeen met die andere sectie, dus er is niets gekopieerd."
+  },
   "touchSyncPanel": {
     "prevWord": "Vorig woord",
     "nextWord": "Volgend woord"
