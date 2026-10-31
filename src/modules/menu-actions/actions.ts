@@ -26,9 +26,6 @@ import type { LyricExportFormat } from "$/modules/project/export-lyric";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
 import {
-	canCombineNextAtom,
-	canCombinePreviousAtom,
-	combineSelectedWord,
 	hasSelectedWordAtom,
 	openReplaceSelectedWord,
 	openSplitSelectedWord,
@@ -360,26 +357,6 @@ export const MENU_ACTIONS = {
 			modes: ["sync"],
 			enabledAtom: hasSelectedWordAtom,
 			run: ({ store }) => openSplitSelectedWord(store),
-		},
-	),
-	combineWithPreviousWord: defineAction(
-		"combineWithPreviousWord",
-		"Edit",
-		[key("timeModeEditing.combinePrevious"), "Combine with previous word"],
-		{
-			modes: ["sync"],
-			enabledAtom: canCombinePreviousAtom,
-			run: ({ store }) => combineSelectedWord(store, "previous"),
-		},
-	),
-	combineWithNextWord: defineAction(
-		"combineWithNextWord",
-		"Edit",
-		[key("timeModeEditing.combineNext"), "Combine with next word"],
-		{
-			modes: ["sync"],
-			enabledAtom: canCombineNextAtom,
-			run: ({ store }) => combineSelectedWord(store, "next"),
 		},
 	),
 	replaceSelectedWord: defineAction(

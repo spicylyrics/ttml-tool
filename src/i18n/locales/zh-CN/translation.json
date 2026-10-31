@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "输入更正的单词",
     "noSuggestions": "无建议"
   },
-  "timeModeEditing": {
-    "combinePrevious": "与上一个字合并",
-    "combineNext": "与下一个字合并"
-  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, other {为选中的 # 行分类}}",
     "categorizeTitle": "为选中行分类",

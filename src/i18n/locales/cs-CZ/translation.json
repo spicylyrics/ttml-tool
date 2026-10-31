@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Zadejte opravené slovo",
     "noSuggestions": "Žádné návrhy"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Sloučit s předchozím slovem",
-    "combineNext": "Sloučit s dalším slovem"
-  },
   "sectionActions": {
     "categorizeSelected": "Zařadit {count, plural, one {# vybraný řádek} few {# vybrané řádky} many {# vybraného řádku} other {# vybraných řádků}}",
     "categorizeTitle": "Zařadit vybrané řádky",

@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Indtast det rettede ord",
     "noSuggestions": "Ingen forslag"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Kombiner med forrige ord",
-    "combineNext": "Kombiner med næste ord"
-  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Kategorisér # valgt linje} other {Kategorisér # valgte linjer}}",
     "categorizeTitle": "Kategoriser valgte linjer",

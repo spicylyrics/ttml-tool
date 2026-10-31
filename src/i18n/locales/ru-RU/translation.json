@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Введите исправленное слово",
     "noSuggestions": "Нет предложений"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Объединить с предыдущим словом",
-    "combineNext": "Объединить со следующим словом"
-  },
   "sectionActions": {
     "categorizeSelected": "Назначить категорию для {count, plural, one {# выделенной строки} few {# выделенных строк} many {# выделенных строк} other {# выделенной строки}}",
     "categorizeTitle": "Назначить категорию выделенным строкам",

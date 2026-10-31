@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Typ het gecorrigeerde woord",
     "noSuggestions": "Geen suggesties"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Samenvoegen met vorig woord",
-    "combineNext": "Samenvoegen met volgend woord"
-  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {# geselecteerde regel categoriseren} other {# geselecteerde regels categoriseren}}",
     "categorizeTitle": "Geselecteerde regels categoriseren",

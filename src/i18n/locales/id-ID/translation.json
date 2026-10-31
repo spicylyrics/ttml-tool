@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Ketikkan kata yang dikoreksi",
     "noSuggestions": "Tidak ada saran"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Gabungkan dengan kata sebelumnya",
-    "combineNext": "Gabungkan dengan kata berikutnya"
-  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, other {Kategorikan # baris terpilih}}",
     "categorizeTitle": "Kategorikan baris yang dipilih",

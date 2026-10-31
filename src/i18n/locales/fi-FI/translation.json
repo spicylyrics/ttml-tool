@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Kirjoita korjattu sana",
     "noSuggestions": "Ei ehdotuksia"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Yhdistä edelliseen sanaan",
-    "combineNext": "Yhdistä seuraavaan sanaan"
-  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Luokittele # valittu rivi} other {Luokittele # valittua riviä}}",
     "categorizeTitle": "Luokittele valitut rivit",

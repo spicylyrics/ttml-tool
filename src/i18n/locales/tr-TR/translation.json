@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Düzeltilen kelimeyi yazın",
     "noSuggestions": "Öneri yok"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Önceki kelimeyle birleştir",
-    "combineNext": "Sonraki kelimeyle birleştir"
-  },
   "sectionActions": {
     "categorizeSelected": "Seçili {count, plural, one {# satırı} other {# satırı}} kategorilere ayır",
     "categorizeTitle": "Seçili satırları kategorilere ayır",

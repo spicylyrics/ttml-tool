@@ -4,9 +4,6 @@ import { useTranslation } from "react-i18next";
 import { MENU_ACTIONS, type MenuAction } from "$/modules/menu-actions/actions";
 import { formatKeyBindings } from "$/utils/keybindings";
 import {
-	canCombineNextAtom,
-	canCombinePreviousAtom,
-	combineSelectedWord,
 	hasSelectedWordAtom,
 	openReplaceSelectedWord,
 	openSplitSelectedWord,
@@ -27,16 +24,6 @@ const WORD_ITEMS: WordItem[] = [
 		action: MENU_ACTIONS.splitSelectedWord,
 		enabledAtom: hasSelectedWordAtom,
 		run: openSplitSelectedWord,
-	},
-	{
-		action: MENU_ACTIONS.combineWithPreviousWord,
-		enabledAtom: canCombinePreviousAtom,
-		run: (store) => combineSelectedWord(store, "previous"),
-	},
-	{
-		action: MENU_ACTIONS.combineWithNextWord,
-		enabledAtom: canCombineNextAtom,
-		run: (store) => combineSelectedWord(store, "next"),
 	},
 	{
 		action: MENU_ACTIONS.replaceSelectedWord,
@@ -62,7 +49,7 @@ function WordMenuItem({ item, onLine }: { item: WordItem; onLine: boolean }) {
 }
 
 /**
- * Split, combine and replace for the word selected in Time mode, in the line
+ * Split and replace for the word selected in Time mode, in the line
  * context menu. Greyed out unless that word is on the right-clicked line.
  */
 export function TimeModeWordMenuItems({ lineIndex }: { lineIndex: number }) {

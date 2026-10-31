@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Napíšte opravené slovo",
     "noSuggestions": "Žiadne návrhy"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Zlúčiť s predchádzajúcim slovom",
-    "combineNext": "Zlúčiť s nasledujúcim slovom"
-  },
   "sectionActions": {
     "categorizeSelected": "Zaradiť {count, plural, one {# vybraný riadok} few {# vybrané riadky} many {# vybraného riadka} other {# vybraných riadkov}}",
     "categorizeTitle": "Zaradiť vybrané riadky",

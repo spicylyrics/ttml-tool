@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Wpisz poprawione słowo",
     "noSuggestions": "Żadnych sugestii"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Połącz z poprzednim słowem",
-    "combineNext": "Połącz z następnym słowem"
-  },
   "sectionActions": {
     "categorizeSelected": "Przypisz kategorię do {count, plural, one {# zaznaczonego wersu} few {# zaznaczonych wersów} many {# zaznaczonych wersów} other {# zaznaczonego wersu}}",
     "categorizeTitle": "Przypisz kategorię zaznaczonym wersom",

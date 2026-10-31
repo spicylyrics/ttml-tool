@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Digite a palavra corrigida",
     "noSuggestions": "Nenhuma sugestão"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Combinar com a palavra anterior",
-    "combineNext": "Combinar com a próxima palavra"
-  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Categorizar # linha selecionada} many {Categorizar # linhas selecionadas} other {Categorizar # linhas selecionadas}}",
     "categorizeTitle": "Categorizar linhas selecionadas",

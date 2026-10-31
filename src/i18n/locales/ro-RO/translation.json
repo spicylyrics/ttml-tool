@@ -1383,10 +1383,6 @@
     "correctedWordPlaceholder": "Introdu cuvântul corectat",
     "noSuggestions": "Fără sugestii"
   },
-  "timeModeEditing": {
-    "combinePrevious": "Unește cu cuvântul anterior",
-    "combineNext": "Unește cu cuvântul următor"
-  },
   "sectionActions": {
     "categorizeSelected": "{count, plural, one {Clasifică # vers selectat} few {Clasifică # versuri selectate} other {Clasifică # de versuri selectate}}",
     "categorizeTitle": "Clasifică versurile selectate",
