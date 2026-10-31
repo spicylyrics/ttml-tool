@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "Genius-osioiden otsikoita löytyi",
       "dialogDesc": "Sanoituksissa on osioiden otsikoita, kuten [Verse] ja [Chorus]. Otetaanko kokeellinen Genius-osiot käyttöön niiden hyödyntämiseksi?",
-      "usageInfo": "Osioiden otsikot saavat oman tyylinsä editorissa. Napsauta otsikkoa käyttääksesi toimintoja, kuten Kopioi edellinen ajoitus ja Kohdista toistokohdistimeen.",
+      "usageInfo": "Osioiden otsikot saavat oman tyylinsä editorissa sekä työkaluja, kuten Käytä ajoituksia ja Kohdista toistokohdistimeen.",
       "maybeLater": "Ehkä myöhemmin",
       "enableNow": "Ota nyt käyttöön",
       "title": "Genius-osiot",
-      "snapToPlayhead": "Kohdista toistokohdistimeen",
-      "noPreviousFound": "Aiempaa vastaavaa ajoitettua osiota ei löytynyt.",
-      "noMatchingLines": "Mikään tämän osion rivi ei vastaa aiempaa, joten mitään ei kopioitu.",
-      "copyPrevious": "Kopioi edellinen ajoitus"
-    }
+      "snapToPlayhead": "Kohdista toistokohdistimeen"    }
   },
   "logoColor": {
     "title": "Logon väri",
@@ -1409,8 +1405,6 @@
     "section": "Osio"
   },
   "sectionEditing": {
-    "toggleTitle": "Osioiden muokkaustyökalut",
-    "toggleDesc": "Napsauta osion otsikkoa nimetäksesi sen uudelleen tai vaihtaaksesi sen tyypin, aloita osio miltä tahansa riviltä ja kopioi ajoitukset toistuvien osioiden välillä. Lukee myös Applen kappaleen osat, kun avaat TTML-tiedoston. Osioita käyttää editori, ei Spicy Lyrics.",
     "editHeader": "Nimeä uudelleen tai vaihda tyyppi: {label}",
     "menu": "Osion toiminnot",
     "startHere": "Aloita osio tästä",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Siirrä alkua rivi alaspäin",
     "applyTimings": "Käytä ajoituksia osiosta...",
     "applyTitle": "Käytä ajoituksia toisesta osiosta",
-    "applyDesc": "Kopioi toisen osion ajoitukset tähän osioon. Rivit yhdistetään sanojen perusteella; vain vastaavat sanat saavat ajoituksen, muut jäävät ilman.",
+    "applyDesc": "Kopioi toisen osion ajoitukset tähän osioon. Rivit yhdistetään sanojen perusteella; vain vastaavat sanat saavat ajoituksen, muut säilyttävät omansa.",
     "source": "Kopioi osiosta",
     "suggested": "Ehdotettu",
     "similarity": "{percent} % samoja sanoja",

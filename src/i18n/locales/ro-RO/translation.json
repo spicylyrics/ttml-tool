@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "Antete de secțiuni Genius detectate",
       "dialogDesc": "Versurile au antete precum [Verse] și [Chorus]. Activezi funcția experimentală Secțiuni Genius pentru a le folosi?",
-      "usageInfo": "Antetele vor avea un stil propriu în editor. Dă clic pe unul pentru a folosi Copiază timpii anteriori sau Aliniază la cursorul de redare.",
+      "usageInfo": "Antetele vor avea un stil propriu în editor și instrumente precum Aplică sincronizările sau Aliniază la cursorul de redare.",
       "maybeLater": "Poate mai târziu",
       "enableNow": "Activează acum",
       "title": "Secțiuni Genius",
-      "snapToPlayhead": "Aliniază la cursorul de redare",
-      "noPreviousFound": "Nu s-a găsit nicio secțiune anterioară corespunzătoare cu timpi.",
-      "noMatchingLines": "Niciun rând din această secțiune nu se potrivește cu cea anterioară, așa că nu s-a copiat nimic.",
-      "copyPrevious": "Copiază timpii anteriori"
-    }
+      "snapToPlayhead": "Aliniază la cursorul de redare"    }
   },
   "logoColor": {
     "title": "Culoarea logoului",
@@ -1409,8 +1405,6 @@
     "section": "Secțiune"
   },
   "sectionEditing": {
-    "toggleTitle": "Instrumente de editare a secțiunilor",
-    "toggleDesc": "Fă clic pe antetul unei secțiuni pentru a o redenumi sau a-i schimba tipul, începe o secțiune la orice vers și copiază sincronizările între secțiuni repetate. Citește și părțile melodiei din Apple când deschizi un TTML. Secțiunile sunt folosite de editor, nu de Spicy Lyrics.",
     "editHeader": "Redenumește sau schimbă tipul pentru {label}",
     "menu": "Acțiuni pentru secțiune",
     "startHere": "Începe secțiunea aici",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Mută începutul un vers în jos",
     "applyTimings": "Aplică sincronizările din...",
     "applyTitle": "Aplică sincronizările din altă secțiune",
-    "applyDesc": "Copiază sincronizările altei secțiuni pe aceasta. Versurile sunt potrivite după cuvinte; doar cuvintele care se potrivesc primesc sincronizare, restul rămân nesincronizate.",
+    "applyDesc": "Copiază sincronizările altei secțiuni pe aceasta. Versurile sunt potrivite după cuvinte; doar cuvintele care se potrivesc primesc sincronizare, restul își păstrează sincronizarea.",
     "source": "Copiază din",
     "suggested": "Sugerată",
     "similarity": "{percent}% cuvinte identice",

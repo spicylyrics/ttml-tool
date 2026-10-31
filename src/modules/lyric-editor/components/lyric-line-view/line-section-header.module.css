@@ -1,5 +1,5 @@
-/* The section header label as a button (section editing tools on). Same
-   size and position as the plain label, so turning the tools on moves nothing. */
+/* The section header label as a button in Edit mode. Same size and position
+   as the plain label, so switching modes moves nothing. */
 .sectionHeaderButton {
 	appearance: none;
 	background: none;

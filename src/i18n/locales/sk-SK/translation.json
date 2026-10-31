@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "Našli sa hlavičky sekcií Genius",
       "dialogDesc": "Text obsahuje hlavičky sekcií ako [Verse] a [Chorus]. Zapnúť experimentálnu funkciu Sekcie Genius na ich spracovanie?",
-      "usageInfo": "Hlavičky sekcií potom dostanú vlastný štýl. Kliknutím na hlavičku otvoríte nástroje ako „Kopírovať predchádzajúce časovanie“ a „Zarovnať na pozíciu prehrávania“.",
+      "usageInfo": "Hlavičky sekcií potom dostanú vlastný štýl a nástroje ako „Použiť časovanie“ a „Zarovnať na pozíciu prehrávania“.",
       "maybeLater": "Možno neskôr",
       "enableNow": "Povoliť teraz",
       "title": "Sekcie Genius",
-      "snapToPlayhead": "Zarovnať na pozíciu prehrávania",
-      "noPreviousFound": "Nenašla sa skoršia zodpovedajúca sekcia s časovaním.",
-      "noMatchingLines": "Žiadne riadky v tejto sekcii nezodpovedajú tej skoršej, nič sa neskopírovalo.",
-      "copyPrevious": "Kopírovať predchádzajúce časovanie"
-    }
+      "snapToPlayhead": "Zarovnať na pozíciu prehrávania"    }
   },
   "logoColor": {
     "title": "Farba loga",
@@ -1409,8 +1405,6 @@
     "section": "Sekcia"
   },
   "sectionEditing": {
-    "toggleTitle": "Nástroje na úpravu sekcií",
-    "toggleDesc": "Kliknutím na hlavičku sekcie ju premenujete alebo zmeníte jej typ, sekciu môžete začať na ľubovoľnom riadku a časovanie môžete kopírovať medzi opakovanými sekciami. Pri otvorení TTML sa tiež načítajú časti piesne z Apple. Sekcie používa editor, nie Spicy Lyrics.",
     "editHeader": "Premenovať alebo zmeniť typ: {label}",
     "menu": "Akcie sekcie",
     "startHere": "Začať sekciu tu",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Posunúť začiatok o riadok nadol",
     "applyTimings": "Použiť časovanie z...",
     "applyTitle": "Použiť časovanie z inej sekcie",
-    "applyDesc": "Skopíruje do tejto sekcie časovanie inej sekcie. Riadky sa párujú podľa slov; časovanie dostanú len zhodné slová, ostatné ostanú bez časovania.",
+    "applyDesc": "Skopíruje do tejto sekcie časovanie inej sekcie. Riadky sa párujú podľa slov; časovanie dostanú len zhodné slová, ostatné si ponechajú svoje.",
     "source": "Kopírovať z",
     "suggested": "Odporúčané",
     "similarity": "{percent} % zhodných slov",

@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "En-têtes de sections Genius détectés",
       "dialogDesc": "Les paroles contiennent des en-têtes comme [Verse] et [Chorus]. Activer la fonction expérimentale Sections Genius pour les utiliser ?",
-      "usageInfo": "Les en-têtes ont alors leur propre style dans l’éditeur. Cliquez sur l’un d’eux pour Copier les temps précédents ou Aligner sur la tête de lecture.",
+      "usageInfo": "Les en-têtes ont alors leur propre style dans l’éditeur, avec des outils comme Appliquer le minutage ou Aligner sur la tête de lecture.",
       "maybeLater": "Peut-être plus tard",
       "enableNow": "Activer maintenant",
       "title": "Sections Genius",
-      "snapToPlayhead": "Aligner sur la tête de lecture",
-      "noPreviousFound": "Aucune section précédente correspondante avec des temps n’a été trouvée.",
-      "noMatchingLines": "Aucune ligne de cette section ne correspond à la précédente, rien n'a été copié.",
-      "copyPrevious": "Copier les temps précédents"
-    }
+      "snapToPlayhead": "Aligner sur la tête de lecture"    }
   },
   "logoColor": {
     "title": "Couleur du logo",
@@ -1409,8 +1405,6 @@
     "section": "Section"
   },
   "sectionEditing": {
-    "toggleTitle": "Outils d'édition des sections",
-    "toggleDesc": "Cliquez sur l'en-tête d'une section pour la renommer ou changer son type, commencez une section sur n'importe quelle ligne et copiez le minutage entre sections répétées. Lit aussi les parties de morceau Apple à l'ouverture d'un TTML. Les sections servent à l'éditeur, pas à Spicy Lyrics.",
     "editHeader": "Renommer ou changer le type de {label}",
     "menu": "Actions de la section",
     "startHere": "Commencer la section ici",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Descendre le début d'une ligne",
     "applyTimings": "Appliquer le minutage de...",
     "applyTitle": "Appliquer le minutage d'une autre section",
-    "applyDesc": "Copie le minutage d'une autre section sur celle-ci. Les lignes sont associées par leurs mots ; seuls les mots correspondants reçoivent un minutage, les autres restent sans minutage.",
+    "applyDesc": "Copie le minutage d'une autre section sur celle-ci. Les lignes sont associées par leurs mots ; seuls les mots correspondants reçoivent un minutage, les autres gardent le leur.",
     "source": "Copier depuis",
     "suggested": "Suggérée",
     "similarity": "{percent} % de mots identiques",

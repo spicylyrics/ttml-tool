@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "Genius-sektionsoverskrifter fundet",
       "dialogDesc": "Sangteksten har sektionsoverskrifter som [Verse] og [Chorus]. Vil du aktivere den eksperimentelle funktion Genius-sektioner for at bruge dem?",
-      "usageInfo": "Sektionsoverskrifter får deres egen stil i editoren. Klik på en for at bruge værktøjer som Kopiér forrige timing og Flyt til afspilningsmarkør.",
+      "usageInfo": "Sektionsoverskrifter får deres egen stil i editoren og værktøjer som Anvend timing og Flyt til afspilningsmarkør.",
       "maybeLater": "Måske senere",
       "enableNow": "Aktiver nu",
       "title": "Genius-sektioner",
-      "snapToPlayhead": "Flyt til afspilningsmarkør",
-      "noPreviousFound": "Ingen tidligere tilsvarende sektion med timing fundet.",
-      "noMatchingLines": "Ingen linjer i denne sektion matcher den tidligere, så intet blev kopieret.",
-      "copyPrevious": "Kopiér forrige timing"
-    }
+      "snapToPlayhead": "Flyt til afspilningsmarkør"    }
   },
   "logoColor": {
     "title": "Logofarve",
@@ -1409,8 +1405,6 @@
     "section": "Sektion"
   },
   "sectionEditing": {
-    "toggleTitle": "Værktøjer til sektionsredigering",
-    "toggleDesc": "Klik på en sektionsoverskrift for at omdøbe den eller ændre typen, start en sektion på en vilkårlig linje, og kopier timing mellem gentagne sektioner. Læser også Apple-sangdele, når du åbner en TTML. Sektioner bruges af editoren, ikke af Spicy Lyrics.",
     "editHeader": "Omdøb eller ændr type for {label}",
     "menu": "Sektionshandlinger",
     "startHere": "Start sektion her",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Flyt start en linje ned",
     "applyTimings": "Anvend timing fra...",
     "applyTitle": "Anvend timing fra en anden sektion",
-    "applyDesc": "Kopierer en anden sektions timing til denne. Linjer matches på deres ord; kun matchende ord får timing, resten forbliver uden timing.",
+    "applyDesc": "Kopierer en anden sektions timing til denne. Linjer matches på deres ord; kun matchende ord får timing, resten beholder deres egen.",
     "source": "Kopier fra",
     "suggested": "Foreslået",
     "similarity": "{percent} % ens ord",

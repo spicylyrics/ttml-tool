@@ -6,7 +6,7 @@ import {
 	RadioGroup,
 	Text,
 } from "@radix-ui/themes";
-import { atom, useAtom, useAtomValue, useStore } from "jotai";
+import { atom, useAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,7 +15,6 @@ import { useLyricLinesWhileOpen } from "$/hooks/useLyricLinesWhileOpen.ts";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
 import { lyricLinesAtom } from "$/states/main.ts";
 import { msToTimestamp } from "$/utils/timestamp.ts";
-import { sectionEditingEnabledAtom } from "../states/section-editing.ts";
 import {
 	type ApplyTimingsResult,
 	applySectionTimings,
@@ -30,9 +29,8 @@ type Anchor = "section" | "playhead";
 
 export function ApplySectionTimingsDialog() {
 	const { t } = useTranslation();
-	const enabled = useAtomValue(sectionEditingEnabledAtom);
 	const [targetId, setTargetId] = useAtom(applyTimingsSectionIdAtom);
-	const open = enabled && !!targetId;
+	const open = !!targetId;
 	const lyrics = useLyricLinesWhileOpen(open);
 	const editLyrics = useSetImmerAtom(lyricLinesAtom);
 	const store = useStore();
@@ -97,7 +95,7 @@ export function ApplySectionTimingsDialog() {
 				<Dialog.Description size="2" color="gray">
 					{t(
 						"sectionEditing.applyDesc",
-						"Copies another section's timing onto this one. Lines are matched by their words; only matching words get timings, the rest are left untimed.",
+						"Copies another section's timing onto this one. Lines are matched by their words; only matching words get timings, the rest keep theirs.",
 					)}
 				</Dialog.Description>
 				<Flex direction="column" gap="4" mt="4">

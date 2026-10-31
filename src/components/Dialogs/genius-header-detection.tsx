@@ -47,7 +47,7 @@ export const GeniusHeaderDetectionDialog = () => {
 							<Text size="1">
 								{t(
 									"experimentalFeatures.geniusCategorization.usageInfo",
-									"Section headers then get their own style in the editor. Click one for tools like Copy previous timing and Snap to playhead.",
+									"Section headers then get their own style in the editor, with tools like Apply timings and Snap to playhead.",
 								)}
 							</Text>
 						</Flex>

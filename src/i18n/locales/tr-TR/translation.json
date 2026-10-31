@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "Genius bölüm başlıkları bulundu",
       "dialogDesc": "Şarkı sözlerinde [Verse] ve [Chorus] gibi bölüm başlıkları var. Bunları kullanmak için deneysel Genius bölümleri özelliği açılsın mı?",
-      "usageInfo": "Bölüm başlıkları düzenleyicide farklı bir stille gösterilir. “Önceki zamanlamayı kopyala” ve “Oynatma konumuna hizala” gibi araçları açmak için başlığa tıklayın.",
+      "usageInfo": "Bölüm başlıkları düzenleyicide farklı bir stille ve “Zamanlamaları uygula” ile “Oynatma konumuna hizala” gibi araçlarla gösterilir.",
       "maybeLater": "Belki daha sonra",
       "enableNow": "Şimdi etkinleştir",
       "title": "Genius bölümleri",
-      "snapToPlayhead": "Oynatma konumuna hizala",
-      "noPreviousFound": "Zamanlaması olan önceki bir eşleşen bölüm bulunamadı.",
-      "noMatchingLines": "Bu bölümdeki hiçbir satır öncekiyle eşleşmiyor, bu yüzden hiçbir şey kopyalanmadı.",
-      "copyPrevious": "Önceki zamanlamayı kopyala"
-    }
+      "snapToPlayhead": "Oynatma konumuna hizala"    }
   },
   "logoColor": {
     "title": "Logo rengi",
@@ -1409,8 +1405,6 @@
     "section": "Bölüm"
   },
   "sectionEditing": {
-    "toggleTitle": "Bölüm düzenleme araçları",
-    "toggleDesc": "Bir bölüm başlığına tıklayarak adını veya türünü değiştirin, istediğiniz satırda yeni bir bölüm başlatın ve tekrar eden bölümler arasında zamanlamaları kopyalayın. Bir TTML açtığınızda Apple şarkı bölümlerini de okur. Bölümleri Spicy Lyrics değil, düzenleyici kullanır.",
     "editHeader": "{label} adını veya türünü değiştir",
     "menu": "Bölüm eylemleri",
     "startHere": "Bölümü buradan başlat",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Başlangıcı bir satır aşağı taşı",
     "applyTimings": "Zamanlamaları şuradan uygula...",
     "applyTitle": "Başka bir bölümden zamanlamaları uygula",
-    "applyDesc": "Başka bir bölümün zamanlamasını bu bölüme kopyalar. Satırlar kelimelerine göre eşleştirilir; yalnızca eşleşen kelimeler zamanlama alır, kalanlar zamanlamasız bırakılır.",
+    "applyDesc": "Başka bir bölümün zamanlamasını bu bölüme kopyalar. Satırlar kelimelerine göre eşleştirilir; yalnızca eşleşen kelimeler zamanlama alır, kalanlar kendi zamanlamalarını korur.",
     "source": "Kopyalanacak bölüm",
     "suggested": "Önerilen",
     "similarity": "%{percent} aynı kelime",

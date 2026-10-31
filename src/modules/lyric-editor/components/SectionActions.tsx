@@ -18,13 +18,14 @@ import {
 	collapsedSectionIdsAtom,
 	lyricLinesAtom,
 	selectedLinesAtom,
+	ToolMode,
+	toolModeAtom,
 } from "$/states/main";
 import {
 	LYRIC_SECTION_CATEGORIES,
 	type LyricSection,
 	type LyricSectionCategory,
 } from "$/types/ttml";
-import { sectionEditingEnabledAtom } from "../states/section-editing";
 import { relabelForCategory, startSectionAt } from "../utils/section-editing";
 import {
 	createSectionsFromSelectedLines,
@@ -154,7 +155,6 @@ export function SectionMetadataDialog() {
 		(section) => section.id === editingSectionId,
 	);
 	const [editing, setEditing] = useState<LyricSection | null>(null);
-	const sectionEditingEnabled = useAtomValue(sectionEditingEnabledAtom);
 
 	useEffect(() => {
 		setEditing(source ? { ...source } : null);
@@ -186,17 +186,11 @@ export function SectionMetadataDialog() {
 							value={editing.category}
 							onValueChange={(category) =>
 								setEditing(
-									sectionEditingEnabled
-										? relabelForCategory(
-												lyrics.sections ?? [],
-												editing,
-												category as LyricSectionCategory,
-											)
-										: {
-												...editing,
-												category: category as LyricSectionCategory,
-												confidence: 1,
-											},
+									relabelForCategory(
+										lyrics.sections ?? [],
+										editing,
+										category as LyricSectionCategory,
+									),
 								)
 							}
 						>
@@ -329,7 +323,6 @@ export function SectionContextMenuItems({
 	const setSelectedLines = useSetAtom(selectedLinesAtom);
 	const setEditingSectionId = useSetAtom(editingSectionIdAtom);
 	const setSectionManagerOpen = useSetAtom(sectionManagerOpenAtom);
-	const sectionEditingEnabled = useAtomValue(sectionEditingEnabledAtom);
 	const orderedSections = getOrderedSections(lyrics);
 	const sectionIndex = orderedSections.findIndex(
 		(item) => item.id === section.id,
@@ -414,13 +407,11 @@ export function SectionContextMenuItems({
 			>
 				{t("sectionActions.split", "Split at selected line")}
 			</ContextMenu.Item>
-			{sectionEditingEnabled && (
-				<StartSectionHereItem
-					lineIndex={lineIndex}
-					category={section.category}
-					disabled={!bounds || lineIndex <= bounds.start}
-				/>
-			)}
+			<StartSectionHereItem
+				lineIndex={lineIndex}
+				category={section.category}
+				disabled={!bounds || lineIndex <= bounds.start}
+			/>
 			<ContextMenu.Item
 				disabled={!previousId || previousId === section.id}
 				onSelect={() =>
@@ -492,7 +483,10 @@ export function SectionContextMenuItems({
 	);
 }
 
-/** Starts a section at this line, then opens it for renaming or retyping. */
+/**
+ * Starts a section at this line, then opens it for renaming or retyping.
+ * Edit mode only: Sync mode is for timing, not restructuring.
+ */
 function StartSectionHereItem({
 	lineIndex,
 	category,
@@ -505,6 +499,8 @@ function StartSectionHereItem({
 	const { t } = useTranslation();
 	const editLyrics = useSetImmerAtom(lyricLinesAtom);
 	const setEditingSectionId = useSetAtom(editingSectionIdAtom);
+	const toolMode = useAtomValue(toolModeAtom);
+	if (toolMode !== ToolMode.Edit) return null;
 	return (
 		<ContextMenu.Item
 			disabled={disabled}
@@ -541,16 +537,13 @@ export function UnassignedSectionContextMenuItems({
 			: undefined;
 	const nextId =
 		line && !line.sectionId ? lyrics.lyricLines[end]?.sectionId : undefined;
-	const sectionEditingEnabled = useAtomValue(sectionEditingEnabledAtom);
 	return (
 		<>
-			{sectionEditingEnabled && (
-				<StartSectionHereItem
-					lineIndex={lineIndex}
-					category="verse"
-					disabled={!line || !!line.sectionId}
-				/>
-			)}
+			<StartSectionHereItem
+				lineIndex={lineIndex}
+				category="verse"
+				disabled={!line || !!line.sectionId}
+			/>
 			<ContextMenu.Item
 				disabled={!previousId}
 				onSelect={() =>

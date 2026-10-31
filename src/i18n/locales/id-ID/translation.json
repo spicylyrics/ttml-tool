@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "Judul bagian Genius ditemukan",
       "dialogDesc": "Lirik Anda memiliki judul bagian seperti [Verse] dan [Chorus]. Aktifkan fitur eksperimental Bagian Genius untuk menggunakannya?",
-      "usageInfo": "Judul bagian akan tampil dengan gaya tersendiri di editor. Klik judul untuk memakai alat seperti Salin waktu sebelumnya dan Paskan ke penunjuk putar.",
+      "usageInfo": "Judul bagian akan tampil dengan gaya tersendiri di editor, dengan alat seperti Terapkan pewaktuan dan Paskan ke penunjuk putar.",
       "maybeLater": "Mungkin nanti",
       "enableNow": "Aktifkan sekarang",
       "title": "Bagian Genius",
-      "snapToPlayhead": "Paskan ke penunjuk putar",
-      "noPreviousFound": "Tidak ditemukan bagian sebelumnya yang cocok dan sudah diberi waktu.",
-      "noMatchingLines": "Tidak ada baris di bagian ini yang cocok dengan bagian sebelumnya, jadi tidak ada yang disalin.",
-      "copyPrevious": "Salin waktu sebelumnya"
-    }
+      "snapToPlayhead": "Paskan ke penunjuk putar"    }
   },
   "logoColor": {
     "title": "Warna logo",
@@ -1409,8 +1405,6 @@
     "section": "Bagian"
   },
   "sectionEditing": {
-    "toggleTitle": "Alat pengeditan bagian",
-    "toggleDesc": "Klik judul bagian untuk mengganti nama atau jenisnya, mulai bagian di baris mana pun, dan salin pewaktuan antarbagian yang berulang. Juga membaca bagian lagu Apple saat Anda membuka TTML. Bagian dipakai oleh editor, bukan oleh Spicy Lyrics.",
     "editHeader": "Ganti nama atau jenis {label}",
     "menu": "Aksi bagian",
     "startHere": "Mulai bagian di sini",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Turunkan awal satu baris",
     "applyTimings": "Terapkan pewaktuan dari...",
     "applyTitle": "Terapkan pewaktuan dari bagian lain",
-    "applyDesc": "Menyalin pewaktuan bagian lain ke bagian ini. Baris dicocokkan berdasarkan katanya; hanya kata yang cocok yang mendapat pewaktuan, sisanya dibiarkan tanpa pewaktuan.",
+    "applyDesc": "Menyalin pewaktuan bagian lain ke bagian ini. Baris dicocokkan berdasarkan katanya; hanya kata yang cocok yang mendapat pewaktuan, sisanya tetap memakai pewaktuannya sendiri.",
     "source": "Salin dari",
     "suggested": "Disarankan",
     "similarity": "{percent}% kata sama",

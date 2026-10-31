@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "Nalezena záhlaví sekcí Genius",
       "dialogDesc": "Text obsahuje záhlaví sekcí jako [Verse] a [Chorus]. Zapnout experimentální funkci Sekce Genius pro jejich zpracování?",
-      "usageInfo": "Záhlaví sekcí pak budou mít vlastní styl. Kliknutím na záhlaví otevřete nástroje jako „Kopírovat předchozí časování“ a „Zarovnat na pozici přehrávání“.",
+      "usageInfo": "Záhlaví sekcí pak budou mít vlastní styl a nástroje jako „Použít časování“ a „Zarovnat na pozici přehrávání“.",
       "maybeLater": "Možná později",
       "enableNow": "Povolit nyní",
       "title": "Sekce Genius",
-      "snapToPlayhead": "Zarovnat na pozici přehrávání",
-      "noPreviousFound": "Nenalezena dřívější odpovídající sekce s časováním.",
-      "noMatchingLines": "Žádné řádky v této sekci neodpovídají té dřívější, nic se nezkopírovalo.",
-      "copyPrevious": "Kopírovat předchozí časování"
-    }
+      "snapToPlayhead": "Zarovnat na pozici přehrávání"    }
   },
   "logoColor": {
     "title": "Barva loga",
@@ -1409,8 +1405,6 @@
     "section": "Sekce"
   },
   "sectionEditing": {
-    "toggleTitle": "Nástroje pro úpravu sekcí",
-    "toggleDesc": "Kliknutím na záhlaví sekce ji přejmenujete nebo změníte její typ, sekci můžete začít na libovolném řádku a časování můžete kopírovat mezi opakovanými sekcemi. Při otevření TTML se také načtou části písně z Apple. Sekce používá editor, ne Spicy Lyrics.",
     "editHeader": "Přejmenovat nebo změnit typ: {label}",
     "menu": "Akce sekce",
     "startHere": "Začít sekci zde",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Posunout začátek o řádek dolů",
     "applyTimings": "Použít časování z...",
     "applyTitle": "Použít časování z jiné sekce",
-    "applyDesc": "Zkopíruje do této sekce časování jiné sekce. Řádky se párují podle slov; časování dostanou jen shodná slova, ostatní zůstanou bez časování.",
+    "applyDesc": "Zkopíruje do této sekce časování jiné sekce. Řádky se párují podle slov; časování dostanou jen shodná slova, ostatní si ponechají své.",
     "source": "Kopírovat z",
     "suggested": "Doporučeno",
     "similarity": "{percent} % shodných slov",

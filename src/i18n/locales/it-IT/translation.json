@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "Rilevate intestazioni di sezione Genius",
       "dialogDesc": "Il testo ha intestazioni come [Verse] e [Chorus]. Attivare la funzione sperimentale Sezioni Genius per usarle?",
-      "usageInfo": "Le intestazioni avranno uno stile dedicato nell’editor. Fai clic su una per usare Copia tempi precedenti o Allinea al cursore di riproduzione.",
+      "usageInfo": "Le intestazioni avranno uno stile dedicato nell’editor e strumenti come Applica i tempi o Allinea al cursore di riproduzione.",
       "maybeLater": "Forse più tardi",
       "enableNow": "Abilita ora",
       "title": "Sezioni Genius",
-      "snapToPlayhead": "Allinea al cursore di riproduzione",
-      "noPreviousFound": "Nessuna sezione precedente corrispondente con tempi trovata.",
-      "noMatchingLines": "Nessuna riga di questa sezione corrisponde a quella precedente, quindi non è stato copiato nulla.",
-      "copyPrevious": "Copia tempi precedenti"
-    }
+      "snapToPlayhead": "Allinea al cursore di riproduzione"    }
   },
   "logoColor": {
     "title": "Colore del logo",
@@ -1409,8 +1405,6 @@
     "section": "Sezione"
   },
   "sectionEditing": {
-    "toggleTitle": "Strumenti di modifica delle sezioni",
-    "toggleDesc": "Fai clic sull'intestazione di una sezione per rinominarla o cambiarne il tipo, inizia una sezione su qualsiasi verso e copia i tempi tra sezioni ripetute. Legge anche le parti del brano Apple quando apri un TTML. Le sezioni servono all'editor, non a Spicy Lyrics.",
     "editHeader": "Rinomina o cambia il tipo di {label}",
     "menu": "Azioni della sezione",
     "startHere": "Inizia la sezione qui",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "Sposta l'inizio giù di un verso",
     "applyTimings": "Applica i tempi da...",
     "applyTitle": "Applica i tempi di un'altra sezione",
-    "applyDesc": "Copia i tempi di un'altra sezione su questa. I versi vengono abbinati in base alle parole; solo le parole corrispondenti ricevono i tempi, le altre restano senza tempi.",
+    "applyDesc": "Copia i tempi di un'altra sezione su questa. I versi vengono abbinati in base alle parole; solo le parole corrispondenti ricevono i tempi, le altre mantengono i propri.",
     "source": "Copia da",
     "suggested": "Suggerita",
     "similarity": "{percent}% di parole uguali",

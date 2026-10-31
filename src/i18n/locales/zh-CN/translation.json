@@ -341,15 +341,11 @@
     "geniusCategorization": {
       "dialogTitle": "检测到 Genius 分段标题",
       "dialogDesc": "歌词中有 [Verse]、[Chorus] 等分段标题。是否启用实验性的 Genius 分段功能来使用这些标题？",
-      "usageInfo": "分段标题会在编辑器中以独特样式显示。点击标题可使用“复制上一段时间”和“吸附到播放指针”等工具。",
+      "usageInfo": "分段标题会在编辑器中以独特样式显示，并提供“应用时间”和“吸附到播放指针”等工具。",
       "maybeLater": "以后再说",
       "enableNow": "立即启用",
       "title": "Genius 分段",
-      "snapToPlayhead": "吸附到播放指针",
-      "noPreviousFound": "未找到已打轴且匹配的先前分段。",
-      "noMatchingLines": "此段落中没有与之前段落匹配的行，因此未复制任何内容。",
-      "copyPrevious": "复制上一段时间"
-    }
+      "snapToPlayhead": "吸附到播放指针"    }
   },
   "logoColor": {
     "title": "Logo 颜色",
@@ -1409,8 +1405,6 @@
     "section": "分段"
   },
   "sectionEditing": {
-    "toggleTitle": "分段编辑工具",
-    "toggleDesc": "点击分段标题可重命名或更改类型，可在任意一行开始新分段，并在重复分段之间复制时间。打开 TTML 时还会读取 Apple 的歌曲部分信息。分段仅供编辑器使用，Spicy Lyrics 不会用到。",
     "editHeader": "重命名或更改 {label} 的类型",
     "menu": "分段操作",
     "startHere": "从此处开始分段",
@@ -1418,7 +1412,7 @@
     "moveStartDown": "起点下移一行",
     "applyTimings": "应用来自以下分段的时间...",
     "applyTitle": "应用其他分段的时间",
-    "applyDesc": "将其他分段的时间复制到当前分段。行会按词语匹配；只有匹配的词语会获得时间，其余保持无时间。",
+    "applyDesc": "将其他分段的时间复制到当前分段。行会按词语匹配；只有匹配的词语会获得时间，其余保留原有时间。",
     "source": "复制自",
     "suggested": "推荐",
     "similarity": "{percent}% 的词语相同",

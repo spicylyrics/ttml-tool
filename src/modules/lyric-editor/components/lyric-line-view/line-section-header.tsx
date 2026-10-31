@@ -10,16 +10,10 @@
  */
 
 import { Button, Flex, Text } from "@radix-ui/themes";
-import { useAtomValue, useSetAtom } from "jotai";
-import { toast } from "react-toastify";
+import { useSetAtom } from "jotai";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
-import { lyricLinesAtom, ToolMode } from "$/states/main.ts";
-import { sectionEditingEnabledAtom } from "../../states/section-editing.ts";
-import {
-	copySectionTimings,
-	findPreviousMatchingSection,
-	shiftSectionToTime,
-} from "../../utils/genius-sections.ts";
+import { ToolMode } from "$/states/main.ts";
+import { shiftSectionToTime } from "../../utils/genius-sections.ts";
 import { applyTimingsSectionIdAtom } from "../ApplySectionTimingsDialog.tsx";
 import { editingSectionIdAtom, SectionActions } from "../SectionActions.tsx";
 import { SectionHeaderMenu } from "../SectionHeaderMenu.tsx";
@@ -52,13 +46,11 @@ export function LineSectionHeader({
 	| "isSectionStart"
 	| "categoryColor"
 >) {
-	const sectionEditingEnabled = useAtomValue(sectionEditingEnabledAtom);
 	const setEditingSectionId = useSetAtom(editingSectionIdAtom);
 	const setApplyTimingsSectionId = useSetAtom(applyTimingsSectionIdAtom);
-	// With the section editing tools on, the header itself opens rename/retype
-	// in Edit mode, and Apply timings from... replaces Copy previous timing.
-	const editable =
-		sectionEditingEnabled && sectionActionsEnabled && !!activeSection;
+	// A real section (not just a Genius header line) gets the editing tools:
+	// the header opens rename/retype in Edit mode, plus the "..." menu.
+	const section = sectionActionsEnabled ? activeSection : undefined;
 	const headerText = (
 		<Text
 			size="1"
@@ -80,19 +72,19 @@ export function LineSectionHeader({
 	return (
 		isSectionStart && (
 			<Flex gap="2" mb="1" align="center">
-				{editable && activeSection && toolMode === ToolMode.Edit ? (
+				{section && toolMode === ToolMode.Edit ? (
 					<button
 						type="button"
 						className={styles.sectionHeaderButton}
 						aria-label={t("sectionEditing.editHeader", {
-							label: activeSection.label,
+							label: section.label,
 						})}
 						title={t("sectionEditing.editHeader", {
-							label: activeSection.label,
+							label: section.label,
 						})}
 						onClick={(e) => {
 							e.stopPropagation();
-							setEditingSectionId(activeSection.id);
+							setEditingSectionId(section.id);
 						}}
 					>
 						{headerText}
@@ -100,19 +92,15 @@ export function LineSectionHeader({
 				) : (
 					headerText
 				)}
-				{sectionActionsEnabled && activeSection && (
-					<SectionActions section={activeSection} />
-				)}
-				{editable && activeSection && (
-					<SectionHeaderMenu section={activeSection} />
-				)}
-				{toolMode === ToolMode.Sync && editable && activeSection && (
+				{section && <SectionActions section={section} />}
+				{section && <SectionHeaderMenu section={section} />}
+				{toolMode === ToolMode.Sync && section && (
 					<Button
 						size="1"
 						variant="ghost"
 						onClick={(e) => {
 							e.stopPropagation();
-							setApplyTimingsSectionId(activeSection.id);
+							setApplyTimingsSectionId(section.id);
 						}}
 					>
 						{t("sectionEditing.applyTimings", "Apply timings from...")}
@@ -133,59 +121,6 @@ export function LineSectionHeader({
 						{t(
 							"experimentalFeatures.geniusCategorization.snapToPlayhead",
 							"Snap to playhead",
-						)}
-					</Button>
-				)}
-				{toolMode === ToolMode.Sync && !editable && (
-					<Button
-						size="1"
-						variant="ghost"
-						onClick={(e) => {
-							e.stopPropagation();
-							const lyricLines = store.get(lyricLinesAtom).lyricLines;
-							const previousSection = findPreviousMatchingSection(
-								lyricLines,
-								lineIndex,
-								store.get(lyricLinesAtom).sections,
-							);
-
-							if (previousSection) {
-								let copyResult: ReturnType<typeof copySectionTimings>;
-								editLyricLines((state) => {
-									copyResult = copySectionTimings(
-										state.lyricLines,
-										lineIndex,
-										previousSection,
-									);
-								});
-								if (!copyResult?.copiedLineCount) {
-									toast.info(
-										t(
-											"experimentalFeatures.geniusCategorization.noMatchingLines",
-											"No lines in this section match the earlier one, so nothing was copied.",
-										),
-									);
-									return;
-								}
-								toast.success(t("common.success", "Restored"));
-								if (!copyResult.lengthsMatch) {
-									toast.info(
-										"Section lengths differ; copied matching lines only.",
-									);
-								}
-							} else {
-								toast.info(
-									t(
-										"experimentalFeatures.geniusCategorization.noPreviousFound",
-										"No earlier matching section with timing found.",
-									),
-								);
-							}
-						}}
-					>
-						{t(
-							"experimentalFeatures.geniusCategorization.copyPrevious",
-							"Copy previous timing",
 						)}
 					</Button>
 				)}

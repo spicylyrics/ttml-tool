@@ -42,7 +42,6 @@ import {
 } from "$/states/main.ts";
 import type { LyricLine } from "$/types/ttml.ts";
 import { lineDisplayNumbersAtom } from "../../states/document-structure.ts";
-import { sectionEditingEnabledAtom } from "../../states/section-editing.ts";
 import {
 	globalEnableInsertAtom,
 	timingCopyPlacementAtom,
@@ -100,12 +99,9 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 	const showEndTimeAsDuration = useAtomValue(showEndTimeAsDurationAtom);
 	const syncLevelMode = useAtomValue(syncLevelModeAtom);
 	const store = useStore();
-	// The section editing tools need sections shown to be any use, so turning
-	// them on shows sections too.
-	const sectionsSettingEnabled = useAtomValue(geniusCategorizationEnabledAtom);
-	const sectionEditingEnabled = useAtomValue(sectionEditingEnabledAtom);
-	const geniusCategorizationEnabled =
-		sectionsSettingEnabled || sectionEditingEnabled;
+	const geniusCategorizationEnabled = useAtomValue(
+		geniusCategorizationEnabledAtom,
+	);
 	const sectionAtom = useMemo(
 		() =>
 			atom((get) =>
