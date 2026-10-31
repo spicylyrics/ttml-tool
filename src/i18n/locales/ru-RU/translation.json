@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Развернуть/свернуть спектрограмму"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Введите сдвиг в целых миллисекундах",
+    "precision": "Средняя абсолютная ошибка: {error} мс ({count} нажатий)",
+    "recommendationProgress": "Нажмите не менее 20 раз для рекомендации ({count}/20)",
+    "recommendedOffset": "Рекомендуемый сдвиг синхронизации: {offset} мс",
+    "tryRecommendation": "Попробовать рекомендуемый сдвиг",
+    "trialOffsetHint": "Изменения остаются в этом окне, пока вы не сохраните сдвиг",
+    "saveOffset": "Сохранить сдвиг",
+    "useOffset": "Учитывать сдвиг синхронизации",
+    "offsetNotice": "Результаты учитывают сдвиг синхронизации {offset} мс.",
     "title": "Проверка задержки",
     "latencyDisplay": {
       "fastest": "Раньше всего",

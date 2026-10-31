@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Extinde / restrânge spectrograma"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Introdu un decalaj în milisecunde întregi",
+    "precision": "Eroare absolută medie: {error} ms ({count} apăsări)",
+    "recommendationProgress": "Apasă de cel puțin 20 de ori pentru o recomandare ({count}/20)",
+    "recommendedOffset": "Decalaj de sincronizare recomandat: {offset} ms",
+    "tryRecommendation": "Încearcă decalajul recomandat",
+    "trialOffsetHint": "Modificările rămân în acest dialog până salvezi decalajul",
+    "saveOffset": "Salvează decalajul",
+    "useOffset": "Folosește decalajul de sincronizare",
+    "offsetNotice": "Rezultatele includ decalajul de sincronizare de {offset} ms.",
     "title": "Test de latență",
     "latencyDisplay": {
       "fastest": "Cea mai rapidă",

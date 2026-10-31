@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Rozbaliť / zbaliť spektrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Zadajte posun v celých milisekundách",
+    "precision": "Priemerná absolútna chyba: {error} ms ({count} stlačení)",
+    "recommendationProgress": "Pre odporúčanie stlačte aspoň 20-krát ({count}/20)",
+    "recommendedOffset": "Odporúčaný posun synchronizácie: {offset} ms",
+    "tryRecommendation": "Vyskúšať odporúčaný posun",
+    "trialOffsetHint": "Zmeny zostanú v tomto dialógu, kým neuložíte posun",
+    "saveOffset": "Uložiť posun",
+    "useOffset": "Použiť posun synchronizácie",
+    "offsetNotice": "Výsledky zahŕňajú posun synchronizácie {offset} ms.",
     "title": "Test latencie",
     "latencyDisplay": {
       "fastest": "Najrýchlejšie",

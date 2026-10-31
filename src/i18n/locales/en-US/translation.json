@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Expand / collapse spectrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Enter an offset in whole milliseconds",
+    "precision": "Average absolute error: {error} ms ({count} taps)",
+    "recommendationProgress": "Tap at least 20 times for a recommendation ({count}/20)",
+    "recommendedOffset": "Recommended sync offset: {offset} ms",
+    "tryRecommendation": "Try recommended offset",
+    "trialOffsetHint": "Changes stay in this dialog until you save the offset",
+    "saveOffset": "Save offset",
+    "useOffset": "Use sync offset",
+    "offsetNotice": "Results include your sync offset of {offset} ms.",
     "title": "Latency test",
     "latencyDisplay": {
       "fastest": "Fastest",

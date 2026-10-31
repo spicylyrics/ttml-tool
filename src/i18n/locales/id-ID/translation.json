@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Perluas / ciutkan spektrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Masukkan offset dalam milidetik bulat",
+    "precision": "Rata-rata kesalahan absolut: {error} ms ({count} ketukan)",
+    "recommendationProgress": "Ketuk setidaknya 20 kali untuk rekomendasi ({count}/20)",
+    "recommendedOffset": "Offset sinkronisasi yang disarankan: {offset} ms",
+    "tryRecommendation": "Coba offset yang disarankan",
+    "trialOffsetHint": "Perubahan tetap di dialog ini sampai Anda menyimpan offset",
+    "saveOffset": "Simpan offset",
+    "useOffset": "Gunakan offset sinkronisasi",
+    "offsetNotice": "Hasil mencakup offset sinkronisasi Anda sebesar {offset} ms.",
     "title": "Tes latensi",
     "latencyDisplay": {
       "fastest": "Tercepat",

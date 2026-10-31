@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Laajenna / tiivistä spektrogrammi"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Anna siirtymä kokonaisina millisekunteina",
+    "precision": "Keskimääräinen absoluuttinen virhe: {error} ms ({count} painallusta)",
+    "recommendationProgress": "Paina vähintään 20 kertaa saadaksesi suosituksen ({count}/20)",
+    "recommendedOffset": "Suositeltu ajoituksen siirtymä: {offset} ms",
+    "tryRecommendation": "Kokeile suositeltua siirtymää",
+    "trialOffsetHint": "Muutokset tallennetaan vasta, kun valitset Tallenna siirtymä",
+    "saveOffset": "Tallenna siirtymä",
+    "useOffset": "Käytä ajoituksen siirtymää",
+    "offsetNotice": "Tulokset sisältävät ajoituksen siirtymän {offset} ms.",
     "title": "Viivetesti",
     "latencyDisplay": {
       "fastest": "Nopein",

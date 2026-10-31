@@ -1,56 +1,82 @@
-import { Button, Dialog, Flex, Text, TextField } from "@radix-ui/themes";
+import {
+	Button,
+	Dialog,
+	Flex,
+	Switch,
+	Text,
+	TextField,
+} from "@radix-ui/themes";
 import { useAtom, useAtomValue } from "jotai";
 import { memo, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyBinding } from "$/components/KeyBinding";
 import { audioEngine } from "$/modules/audio/audio-engine";
+import { calculateSyncTime } from "$/modules/lyric-editor/utils/sync-timing";
 import {
 	latencyTestBPMAtom,
-	SyncJudgeMode,
 	syncJudgeModeAtom,
 } from "$/modules/settings/states";
+import { syncTimeOffsetAtom } from "$/modules/settings/states/sync";
 import { latencyTestDialogAtom } from "$/states/dialogs.ts";
 import { keySyncNextAtom } from "$/states/keybindings";
 import { type KeyBindingEvent, registerKeyBindings } from "$/utils/keybindings";
-import { subscribeLatencyTestTaps } from "../utils/latency-test-session";
+import {
+	getLatencyStatistics,
+	subscribeLatencyTestTaps,
+} from "../utils/latency-test-session";
+import styles from "./LatencyTest.module.css";
 
-const BeepVisualizer = ({ enable }: { enable: boolean }) => {
-	return (
-		<div
-			style={{
-				width: "2em",
-				height: "2em",
-				borderRadius: "50%",
-				boxShadow: "var(--shadow-2)",
-				backgroundColor: enable ? "var(--accent-11)" : "var(--accent-a5)",
-			}}
-		/>
-	);
-};
+const isValidBPM = (value: unknown): value is number =>
+	typeof value === "number" &&
+	Number.isFinite(value) &&
+	value >= 60 &&
+	value <= 320;
 
 export const LatencyTestDialog = memo(() => {
+	const { t } = useTranslation();
 	const [dialogOpen, setDialogOpen] = useAtom(latencyTestDialogAtom);
-	const [latencyBPM, setLatencyBPM] = useAtom(latencyTestBPMAtom);
+	const [storedBPM, setLatencyBPM] = useAtom(latencyTestBPMAtom);
+	// Older builds could store NaN (saved as null) when the field was cleared.
+	const latencyBPM = isValidBPM(storedBPM) ? storedBPM : 120;
+	const [bpmDraft, setBpmDraft] = useState(String(latencyBPM));
 	const [start, setStart] = useState(false);
+	const [useOffset, setUseOffset] = useState(false);
+	const [syncTimeOffset, setSyncTimeOffset] = useAtom(syncTimeOffsetAtom);
+	const [trialOffset, setTrialOffset] = useState(String(syncTimeOffset));
+	const parsedOffset = Number(trialOffset);
+	const validOffset =
+		trialOffset.trim() !== "" && Number.isSafeInteger(parsedOffset);
+	const appliedOffset = useOffset && validOffset ? parsedOffset : 0;
 	const [curBeat, setCurBeat] = useState(-1);
-	const [hitOffset, setHitOffset] = useState<{
-		cur: number;
-		min: number;
-		max: number;
-	} | null>(null);
+	const [samples, setSamples] = useState<number[]>([]);
+	const statistics =
+		useOffset && !validOffset
+			? null
+			: getLatencyStatistics(samples, appliedOffset);
 	const syncJudgeMode = useAtomValue(syncJudgeModeAtom);
 	const syncNextBinding = useAtomValue(keySyncNextAtom);
 	const nextBeatTime = useRef(0);
 	const curBeatTime = useRef(0);
 	const hitOffsetsRef = useRef<number[]>([]);
-	const visualizerRef = useRef<HTMLCanvasElement>(null);
 	const beepDuration = 1000 / (latencyBPM / 60);
-	const { t } = useTranslation();
+	const recommendedOffset = statistics?.recommendedOffset;
+	const timingLabel = (value: number) =>
+		t(
+			value > 0
+				? "latencyTestDialog.latencyDisplay.current.fast"
+				: value < 0
+					? "latencyTestDialog.latencyDisplay.current.slow"
+					: "latencyTestDialog.latencyDisplay.current.perfect",
+		);
+
+	useEffect(() => {
+		if (dialogOpen) setTrialOffset(String(syncTimeOffset));
+	}, [dialogOpen, syncTimeOffset]);
 
 	useEffect(() => {
 		if (dialogOpen) return;
 		setStart(false);
-		setHitOffset(null);
+		setSamples([]);
 		hitOffsetsRef.current = [];
 		curBeatTime.current = 0;
 		nextBeatTime.current = 0;
@@ -61,7 +87,8 @@ export const LatencyTestDialog = memo(() => {
 			setCurBeat(-1);
 			return;
 		}
-		setHitOffset(null);
+		setSamples([]);
+		hitOffsetsRef.current = [];
 		let canceled = false;
 		let frameId = 0;
 		const scheduledNodes = new Set<AudioScheduledSourceNode>();
@@ -78,96 +105,35 @@ export const LatencyTestDialog = memo(() => {
 				else scheduledNodes.add(node);
 			});
 		};
-
-		const canvas = visualizerRef.current;
-		if (!canvas) return;
-		canvas.width = canvas.clientWidth * window.devicePixelRatio;
-		canvas.height = canvas.clientHeight * window.devicePixelRatio;
-		const mid = (canvas.width - 2 * window.devicePixelRatio) / 2;
-		const ctx = canvas.getContext("2d");
-		if (!ctx) return;
-
-		hitOffsetsRef.current = [];
-
 		(async () => {
-			const beep1 = () => {
+			const beep = (frequency: number) => {
 				const node = audioEngine.ctx.createOscillator();
 				node.type = "sine";
-				node.frequency.value = 880;
+				node.frequency.value = frequency;
 				return node;
 			};
-			const beep2 = () => {
-				const node = audioEngine.ctx.createOscillator();
-				node.type = "sine";
-				node.frequency.value = 440;
-				return node;
-			};
-
 			let beat = 0;
 			const dur = beepDuration / 1000;
 			const nodeDur = 0.05;
-
 			curBeatTime.current = audioEngine.ctxCurrentTime;
 			nextBeatTime.current = curBeatTime.current;
-			playBeep(beep1(), curBeatTime.current, curBeatTime.current + nodeDur);
+			playBeep(beep(880), curBeatTime.current, curBeatTime.current + nodeDur);
 			setCurBeat(0);
-
-			let curNode: AudioScheduledSourceNode | null = null;
-
 			while (!canceled) {
 				const currentTime = audioEngine.ctxCurrentTime;
 				if (currentTime >= nextBeatTime.current) {
 					setCurBeat(beat);
-					curNode = ++beat % 4 === 0 ? beep1() : beep2();
+					const node = beep(++beat % 4 === 0 ? 880 : 440);
 					beat %= 4;
 					curBeatTime.current = nextBeatTime.current;
 					nextBeatTime.current = currentTime + dur;
-					playBeep(
-						curNode,
-						nextBeatTime.current,
-						nextBeatTime.current + nodeDur,
-					);
+					playBeep(node, nextBeatTime.current, nextBeatTime.current + nodeDur);
 				}
-
-				ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-				ctx.fillStyle = "rgba(255, 0, 0, 0.1)";
-				for (const diff of hitOffsetsRef.current) {
-					const offset = (diff / dur) * canvas.width;
-					ctx.fillRect(
-						mid + offset,
-						0,
-						2 * window.devicePixelRatio,
-						canvas.height,
-					);
-				}
-
-				ctx.fillStyle = "green";
-				ctx.fillRect(mid, 0, 2 * window.devicePixelRatio, canvas.height);
-
-				const nextDiff = (curBeatTime.current - currentTime) / dur;
-				ctx.fillStyle = "yellow";
-				ctx.fillRect(
-					mid + nextDiff * canvas.width,
-					0,
-					window.devicePixelRatio,
-					canvas.height,
-				);
-				const curDiff = (nextBeatTime.current - currentTime) / dur;
-				ctx.fillStyle = "yellow";
-				ctx.fillRect(
-					mid + curDiff * canvas.width,
-					0,
-					window.devicePixelRatio,
-					canvas.height,
-				);
-
 				await new Promise<void>((resolve) => {
 					frameId = requestAnimationFrame(() => resolve());
 				});
 			}
 		})();
-
 		return () => {
 			canceled = true;
 			cancelAnimationFrame(frameId);
@@ -178,46 +144,24 @@ export const LatencyTestDialog = memo(() => {
 
 	useEffect(() => {
 		const onTap = (evt: KeyBindingEvent) => {
-			const currentTime = audioEngine.ctxCurrentTime;
-			const outputLatency = audioEngine.ctxOutputLatency;
-			let hitTime = currentTime + outputLatency;
-			switch (syncJudgeMode) {
-				case SyncJudgeMode.FirstKeyDownTime:
-					hitTime -= evt.downTimeOffset / 1000;
-					break;
-				case SyncJudgeMode.LastKeyUpTime:
-					break;
-				case SyncJudgeMode.MiddleKeyTime:
-					hitTime -= evt.downTimeOffset / 2000;
-					break;
-			}
+			// Judge the tap exactly like a sync stamp: on the audible clock, with the
+			// same key and processing-delay handling, so the recommendation matches.
+			const hitTime =
+				calculateSyncTime({
+					audioTimeSeconds: audioEngine.audibleContextTime,
+					playbackRate: 1,
+					isPlaying: true,
+					event: evt,
+					judgeMode: syncJudgeMode,
+					syncTimeOffset: 0,
+					performanceTime: performance.now(),
+					performanceTimeOrigin: performance.timeOrigin,
+				}) / 1000;
 			const curDiff = curBeatTime.current - hitTime;
 			const nextDiff = nextBeatTime.current - hitTime;
-			let diff = 0;
-			if (Math.abs(curDiff) < Math.abs(nextDiff)) {
-				diff = curDiff;
-			} else {
-				diff = nextDiff;
-			}
-			hitOffsetsRef.current.push(diff);
-			if (hitOffsetsRef.current.length > 100) {
-				hitOffsetsRef.current.shift();
-			}
-			// 正值为快，负值为慢
-			setHitOffset((old) => {
-				const v = (diff * 1000) | 0;
-				if (old === null)
-					return {
-						cur: v,
-						min: v,
-						max: v,
-					};
-				return {
-					cur: v,
-					min: Math.min(old.min, v),
-					max: Math.max(old.max, v),
-				};
-			});
+			const diff = Math.abs(curDiff) < Math.abs(nextDiff) ? curDiff : nextDiff;
+			hitOffsetsRef.current = [...hitOffsetsRef.current.slice(-99), diff];
+			setSamples(hitOffsetsRef.current);
 		};
 		return subscribeLatencyTestTaps(
 			dialogOpen && start,
@@ -228,108 +172,191 @@ export const LatencyTestDialog = memo(() => {
 
 	return (
 		<Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
-			<Dialog.Content>
-				<Dialog.Title>
-					{t("latencyTestDialog.title", "Latency test")}
-				</Dialog.Title>
-				<Flex direction="column" gap="2">
-					<Text>
-						{t(
-							"latencyTestDialog.description",
-							"Pick a tempo you like and press {key} on every beep to measure the delay between the audio and your input.",
-							{
-								key: <KeyBinding kbdAtom={keySyncNextAtom} />,
-							},
-						)}
-					</Text>
+			<Dialog.Content maxWidth="520px" className={styles.dialog}>
+				<Dialog.Title mb="2">{t("latencyTestDialog.title")}</Dialog.Title>
+				<Dialog.Description size="2" color="gray" mb="5">
+					{t("latencyTestDialog.description", {
+						key: <KeyBinding kbdAtom={keySyncNextAtom} />,
+					})}
+				</Dialog.Description>
 
-					<Flex
-						gap="6"
-						my="6"
-						style={{
-							alignSelf: "center",
-						}}
-					>
-						<BeepVisualizer enable={curBeat === 0} />
-						<BeepVisualizer enable={curBeat === 1} />
-						<BeepVisualizer enable={curBeat === 2} />
-						<BeepVisualizer enable={curBeat === 3} />
-					</Flex>
-					<Flex
-						gap="4"
-						style={{
-							alignSelf: "center",
-						}}
-					>
-						<Text>
-							{hitOffset === null
-								? t("latencyTestDialog.latencyDisplay.fastest", "最快延迟")
-								: `${hitOffset.max}ms`}
-						</Text>
-
-						<Text
-							color={
-								hitOffset === null
-									? "gray"
-									: hitOffset.cur > 0
-										? "blue"
-										: hitOffset.cur < 0
-											? "red"
-											: "green"
-							}
-						>
-							{hitOffset === null
-								? t(
-										"latencyTestDialog.latencyDisplay.current.none",
-										"Not measured",
-									)
-								: hitOffset.cur > 0
-									? `${t("latencyTestDialog.latencyDisplay.current.fast", "快")} ${hitOffset.cur}ms`
-									: hitOffset.cur < 0
-										? `${t("latencyTestDialog.latencyDisplay.current.slow", "慢")} ${hitOffset.cur}ms`
-										: `${t("latencyTestDialog.latencyDisplay.current.perfect", "完美")} 0ms`}
-						</Text>
-
-						<Text>
-							{hitOffset === null
-								? t("latencyTestDialog.latencyDisplay.slowest", "最慢延迟")
-								: `${-hitOffset.min}ms`}
-						</Text>
-					</Flex>
-
-					<canvas
-						style={{
-							width: "14em",
-							height: "1em",
-							margin: "1em",
-							borderRadius: "var(--radius-2)",
-							boxShadow: "var(--shadow-2)",
-							alignSelf: "center",
-						}}
-						ref={visualizerRef}
-					/>
-
-					<Text as="label" size="2">
-						<Flex direction="column" gap="2">
-							{t("latencyTestDialog.bpmInputLabel", "节拍 BPM")}
+				<div className={styles.transport}>
+					<div className={styles.beats} aria-hidden="true">
+						{[0, 1, 2, 3].map((beat) => (
+							<span
+								key={beat}
+								className={styles.beat}
+								data-active={curBeat === beat}
+							/>
+						))}
+					</div>
+					<Flex gap="3" align="center">
+						<Text as="label" size="1" color="gray" className={styles.tempo}>
+							{t("latencyTestDialog.bpmInputLabel")}
 							<TextField.Root
 								type="number"
 								min={60}
 								max={320}
-								value={latencyBPM}
-								onChange={(evt) => setLatencyBPM(evt.target.valueAsNumber)}
+								value={bpmDraft}
+								size="2"
+								onChange={(event) => {
+									setBpmDraft(event.target.value);
+									const value = event.target.valueAsNumber;
+									if (isValidBPM(value)) setLatencyBPM(value);
+								}}
+								onBlur={() => setBpmDraft(String(latencyBPM))}
 							/>
-						</Flex>
-					</Text>
-
-					<Flex gap="2">
-						<Button onClick={() => setStart((v) => !v)}>
-							{start
-								? t("latencyTestDialog.button.stop", "结束")
-								: t("latencyTestDialog.button.start", "开始")}
+						</Text>
+						<Button
+							onClick={() => setStart((value) => !value)}
+							className={styles.start}
+						>
+							{t(
+								start
+									? "latencyTestDialog.button.stop"
+									: "latencyTestDialog.button.start",
+							)}
 						</Button>
 					</Flex>
-				</Flex>
+				</div>
+
+				<section
+					className={styles.measurement}
+					aria-label={t("latencyTestDialog.title")}
+				>
+					<div className={styles.current}>
+						<span className={styles.value}>
+							{statistics ? `${Math.abs(statistics.current)}` : "..."}
+							<span className={styles.unit}> ms</span>
+						</span>
+						<Text size="2" color="gray">
+							{statistics
+								? timingLabel(statistics.current)
+								: t("latencyTestDialog.latencyDisplay.current.none")}
+						</Text>
+					</div>
+					<div className={styles.plot} aria-hidden="true">
+						<span className={styles.zero} />
+						{statistics &&
+							samples.map((sample, index) => (
+								<span
+									key={`${index}:${sample}`}
+									className={styles.tap}
+									style={{
+										left: `${Math.max(0, Math.min(100, 50 - ((sample * 1000 - appliedOffset) / beepDuration) * 100))}%`,
+									}}
+								/>
+							))}
+					</div>
+					<div className={styles.plotLabels} aria-hidden="true">
+						<span>{t("latencyTestDialog.latencyDisplay.current.fast")}</span>
+						<span>0 ms</span>
+						<span>{t("latencyTestDialog.latencyDisplay.current.slow")}</span>
+					</div>
+					<dl className={styles.range}>
+						<div>
+							<dt>{t("latencyTestDialog.latencyDisplay.fastest")}</dt>
+							<dd>
+								{statistics
+									? `${timingLabel(statistics.max)} ${Math.abs(statistics.max)} ms`
+									: "..."}
+							</dd>
+						</div>
+						<div>
+							<dt>{t("latencyTestDialog.latencyDisplay.slowest")}</dt>
+							<dd>
+								{statistics
+									? `${timingLabel(statistics.min)} ${Math.abs(statistics.min)} ms`
+									: "..."}
+							</dd>
+						</div>
+					</dl>
+					{statistics && (
+						<Text as="p" size="1" color="gray" className={styles.precision}>
+							{t("latencyTestDialog.precision", {
+								count: statistics.count,
+								error: statistics.meanAbsoluteError,
+							})}
+						</Text>
+					)}
+				</section>
+
+				<div>
+					<div className={styles.offsetRow}>
+						<Text as="label" size="2" weight="medium">
+							<Flex gap="2" align="center">
+								<Switch checked={useOffset} onCheckedChange={setUseOffset} />
+								{t("latencyTestDialog.useOffset")}
+							</Flex>
+						</Text>
+						<Flex gap="2" align="center">
+							<TextField.Root
+								type="number"
+								step={1}
+								value={trialOffset}
+								aria-label={t("settings.common.syncTimeOffset")}
+								aria-invalid={!validOffset}
+								className={styles.offsetInput}
+								onChange={(event) => setTrialOffset(event.target.value)}
+							>
+								<TextField.Slot side="right">ms</TextField.Slot>
+							</TextField.Root>
+							<Button
+								variant="outline"
+								disabled={!validOffset || parsedOffset === syncTimeOffset}
+								onClick={() => setSyncTimeOffset(parsedOffset)}
+							>
+								{t("latencyTestDialog.saveOffset")}
+							</Button>
+						</Flex>
+					</div>
+					<Text
+						as="p"
+						size="1"
+						color={validOffset ? "gray" : "red"}
+						role="status"
+						className={styles.hint}
+					>
+						{!validOffset
+							? t("latencyTestDialog.invalidOffset")
+							: useOffset
+								? t("latencyTestDialog.offsetNotice", { offset: appliedOffset })
+								: t("latencyTestDialog.trialOffsetHint")}
+					</Text>
+				</div>
+
+				<div className={styles.recommendation}>
+					<Text
+						size="2"
+						weight={recommendedOffset != null ? "medium" : "regular"}
+						color={recommendedOffset != null ? undefined : "gray"}
+					>
+						{/* Announce the recommendation, not the tap count on every beat. */}
+						<span role="status">
+							{recommendedOffset != null &&
+								t("latencyTestDialog.recommendedOffset", {
+									offset: recommendedOffset,
+								})}
+						</span>
+						{recommendedOffset == null &&
+							t("latencyTestDialog.recommendationProgress", {
+								count: samples.length,
+							})}
+					</Text>
+					{recommendedOffset != null && (
+						<Button
+							variant="soft"
+							size="2"
+							disabled={useOffset && parsedOffset === recommendedOffset}
+							onClick={() => {
+								setTrialOffset(String(recommendedOffset));
+								setUseOffset(true);
+							}}
+						>
+							{t("latencyTestDialog.tryRecommendation")}
+						</Button>
+					)}
+				</div>
 			</Dialog.Content>
 		</Dialog.Root>
 	);

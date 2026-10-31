@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Espandi / comprimi lo spettrogramma"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Inserisci uno scostamento in millisecondi interi",
+    "precision": "Errore assoluto medio: {error} ms ({count} pressioni)",
+    "recommendationProgress": "Premi almeno 20 volte per un consiglio ({count}/20)",
+    "recommendedOffset": "Scostamento di sincronizzazione consigliato: {offset} ms",
+    "tryRecommendation": "Prova lo scostamento consigliato",
+    "trialOffsetHint": "Le modifiche restano in questa finestra finché non salvi lo scostamento",
+    "saveOffset": "Salva scostamento",
+    "useOffset": "Usa lo scostamento di sincronizzazione",
+    "offsetNotice": "I risultati includono lo scostamento di sincronizzazione di {offset} ms.",
     "title": "Test di latenza",
     "latencyDisplay": {
       "fastest": "Più veloce",

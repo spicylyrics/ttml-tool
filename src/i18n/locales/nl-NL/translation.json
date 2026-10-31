@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Uitvouwen / samenvouwen spectrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Voer een verschuiving in hele milliseconden in",
+    "precision": "Gemiddelde absolute afwijking: {error} ms ({count} aanslagen)",
+    "recommendationProgress": "Druk minstens 20 keer voor een aanbeveling ({count}/20)",
+    "recommendedOffset": "Aanbevolen synchronisatieverschuiving: {offset} ms",
+    "tryRecommendation": "Aanbevolen verschuiving proberen",
+    "trialOffsetHint": "Wijzigingen blijven in dit venster totdat je de verschuiving opslaat",
+    "saveOffset": "Verschuiving opslaan",
+    "useOffset": "Synchronisatieverschuiving gebruiken",
+    "offsetNotice": "De resultaten bevatten je synchronisatieverschuiving van {offset} ms.",
     "title": "Latentietest",
     "latencyDisplay": {
       "fastest": "Snelste",
