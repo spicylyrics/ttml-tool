@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "El cabezal de reproducción ({time})",
     "refineNote": "Los tiempos copiados son un punto de partida. Reproduce la sección y corrige lo que no encaje.",
     "apply": "Aplicar",
-    "applied": "Tiempos copiados en {copied} de {total} líneas. {untimed, plural, =0 {Todas las palabras coincidieron.} one {# palabra quedó sin tiempo.} many {# palabras quedaron sin tiempo.} other {# palabras quedaron sin tiempo.}}",
+    "applied": "Tiempos copiados en {copied} de {total} líneas. {untimed, plural, =0 {Todas las palabras tienen tiempo.} one {# palabra quedó sin tiempo.} many {# palabras quedaron sin tiempo.} other {# palabras quedaron sin tiempo.}}",
     "nothingMatched": "Ninguna línea de esta sección coincide con la otra, así que no se copió nada."
   },
   "touchSyncPanel": {

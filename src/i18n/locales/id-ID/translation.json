@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "Playhead ({time})",
     "refineNote": "Pewaktuan yang disalin hanyalah titik awal. Putar bagian ini dan perbaiki yang kurang pas.",
     "apply": "Terapkan",
-    "applied": "Pewaktuan disalin ke {copied} dari {total} baris. {untimed, plural, =0 {Semua kata cocok.} other {# kata dibiarkan tanpa pewaktuan.}}",
+    "applied": "Pewaktuan disalin ke {copied} dari {total} baris. {untimed, plural, =0 {Semua kata sudah punya pewaktuan.} other {# kata dibiarkan tanpa pewaktuan.}}",
     "nothingMatched": "Tidak ada baris di bagian ini yang cocok dengan bagian itu, jadi tidak ada yang disalin."
   },
   "touchSyncPanel": {

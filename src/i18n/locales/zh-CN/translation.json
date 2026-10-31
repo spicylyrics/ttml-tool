@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "播放头（{time}）",
     "refineNote": "复制的时间只是起点。请播放该分段并修正不准的地方。",
     "apply": "应用",
-    "applied": "已将时间复制到 {total} 行中的 {copied} 行。{untimed, plural, =0 {所有词语均已匹配。} other {有 # 个词语未获得时间。}}",
+    "applied": "已将时间复制到 {total} 行中的 {copied} 行。{untimed, plural, =0 {所有词语均有时间。} other {有 # 个词语未获得时间。}}",
     "nothingMatched": "此分段中没有与该分段匹配的行，因此未复制任何内容。"
   },
   "touchSyncPanel": {

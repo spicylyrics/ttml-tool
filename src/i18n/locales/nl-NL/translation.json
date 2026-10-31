@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "De afspeelkop ({time})",
     "refineNote": "Gekopieerde timing is een startpunt. Speel de sectie af en corrigeer wat niet klopt.",
     "apply": "Toepassen",
-    "applied": "Timing gekopieerd naar {copied} van {total} regels. {untimed, plural, =0 {Alle woorden kwamen overeen.} one {# woord is zonder timing gebleven.} other {# woorden zijn zonder timing gebleven.}}",
+    "applied": "Timing gekopieerd naar {copied} van {total} regels. {untimed, plural, =0 {Alle woorden hebben timing.} one {# woord is zonder timing gebleven.} other {# woorden zijn zonder timing gebleven.}}",
     "nothingMatched": "Geen enkele regel in deze sectie komt overeen met die andere sectie, dus er is niets gekopieerd."
   },
   "touchSyncPanel": {

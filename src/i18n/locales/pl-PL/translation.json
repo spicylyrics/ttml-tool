@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "Głowicy odtwarzania ({time})",
     "refineNote": "Skopiowane czasy to tylko punkt wyjścia. Odtwórz sekcję i popraw to, co nie pasuje.",
     "apply": "Zastosuj",
-    "applied": "Skopiowano czasy do {copied} z {total} wersów. {untimed, plural, =0 {Wszystkie słowa pasowały.} one {# słowo zostało bez czasu.} few {# słowa zostały bez czasu.} many {# słów zostało bez czasu.} other {# słowa zostało bez czasu.}}",
+    "applied": "Skopiowano czasy do {copied} z {total} wersów. {untimed, plural, =0 {Wszystkie słowa mają czasy.} one {# słowo zostało bez czasu.} few {# słowa zostały bez czasu.} many {# słów zostało bez czasu.} other {# słowa zostało bez czasu.}}",
     "nothingMatched": "Żaden wers w tej sekcji nie pasuje do tamtej, więc nic nie skopiowano."
   },
   "touchSyncPanel": {

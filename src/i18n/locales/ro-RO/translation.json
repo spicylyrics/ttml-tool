@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "Capul de redare ({time})",
     "refineNote": "Sincronizările copiate sunt doar un punct de plecare. Redă secțiunea și corectează ce nu se potrivește.",
     "apply": "Aplică",
-    "applied": "Sincronizări copiate pentru {copied} din {total} versuri. {untimed, plural, =0 {Toate cuvintele s-au potrivit.} one {# cuvânt a rămas nesincronizat.} few {# cuvinte au rămas nesincronizate.} other {# de cuvinte au rămas nesincronizate.}}",
+    "applied": "Sincronizări copiate pentru {copied} din {total} versuri. {untimed, plural, =0 {Toate cuvintele sunt sincronizate.} one {# cuvânt a rămas nesincronizat.} few {# cuvinte au rămas nesincronizate.} other {# de cuvinte au rămas nesincronizate.}}",
     "nothingMatched": "Niciun vers din această secțiune nu se potrivește cu cealaltă, deci nu s-a copiat nimic."
   },
   "touchSyncPanel": {

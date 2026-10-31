@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "Oynatma konumu ({time})",
     "refineNote": "Kopyalanan zamanlamalar yalnızca bir başlangıç noktasıdır. Bölümü oynatın ve uymayanları düzeltin.",
     "apply": "Uygula",
-    "applied": "Zamanlamalar {total} satırdan {copied} tanesine kopyalandı. {untimed, plural, =0 {Tüm kelimeler eşleşti.} one {# kelime zamanlamasız kaldı.} other {# kelime zamanlamasız kaldı.}}",
+    "applied": "Zamanlamalar {total} satırdan {copied} tanesine kopyalandı. {untimed, plural, =0 {Tüm kelimelerin zamanlaması var.} one {# kelime zamanlamasız kaldı.} other {# kelime zamanlamasız kaldı.}}",
     "nothingMatched": "Bu bölümdeki hiçbir satır diğer bölümle eşleşmiyor, bu yüzden hiçbir şey kopyalanmadı."
   },
   "touchSyncPanel": {

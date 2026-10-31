@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "Toistokohta ({time})",
     "refineNote": "Kopioidut ajoitukset ovat vasta lähtökohta. Toista osio ja korjaa kohdat, jotka eivät täsmää.",
     "apply": "Käytä",
-    "applied": "Ajoitukset kopioitu {copied}/{total} riville. {untimed, plural, =0 {Kaikki sanat täsmäsivät.} one {# sana jäi ilman ajoitusta.} other {# sanaa jäi ilman ajoitusta.}}",
+    "applied": "Ajoitukset kopioitu {copied}/{total} riville. {untimed, plural, =0 {Kaikilla sanoilla on ajoitus.} one {# sana jäi ilman ajoitusta.} other {# sanaa jäi ilman ajoitusta.}}",
     "nothingMatched": "Tämän osion rivit eivät vastaa toista osiota, joten mitään ei kopioitu."
   },
   "touchSyncPanel": {

@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "Afspilningshovedet ({time})",
     "refineNote": "Kopieret timing er et udgangspunkt. Afspil sektionen, og ret det, der er forkert.",
     "apply": "Anvend",
-    "applied": "Timing kopieret til {copied} af {total} linjer. {untimed, plural, =0 {Alle ord matchede.} one {# ord blev stående uden timing.} other {# ord blev stående uden timing.}}",
+    "applied": "Timing kopieret til {copied} af {total} linjer. {untimed, plural, =0 {Alle ord har timing.} one {# ord blev stående uden timing.} other {# ord blev stående uden timing.}}",
     "nothingMatched": "Ingen linjer i denne sektion matcher den anden, så intet blev kopieret."
   },
   "touchSyncPanel": {

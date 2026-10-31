@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "The playhead ({time})",
     "refineNote": "Copied timings are a starting point. Play the section back and fix what's off.",
     "apply": "Apply",
-    "applied": "Copied timings to {copied} of {total} lines. {untimed, plural, =0 {Every word matched.} one {# word was left untimed.} other {# words were left untimed.}}",
+    "applied": "Copied timings to {copied} of {total} lines. {untimed, plural, =0 {Every word has timing.} one {# word was left untimed.} other {# words were left untimed.}}",
     "nothingMatched": "No lines in this section match that one, so nothing was copied."
   },
   "touchSyncPanel": {

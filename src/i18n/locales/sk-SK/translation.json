@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "Prehrávacej hlavy ({time})",
     "refineNote": "Skopírované časovanie je len východiskový bod. Sekciu prehrajte a opravte, čo nesedí.",
     "apply": "Použiť",
-    "applied": "Časovanie skopírované pri {copied} z {total} riadkov. {untimed, plural, =0 {Všetky slová sa zhodovali.} one {# slovo ostalo bez časovania.} few {# slová ostali bez časovania.} many {# slova ostalo bez časovania.} other {# slov ostalo bez časovania.}}",
+    "applied": "Časovanie skopírované pri {copied} z {total} riadkov. {untimed, plural, =0 {Všetky slová majú časovanie.} one {# slovo ostalo bez časovania.} few {# slová ostali bez časovania.} many {# slova ostalo bez časovania.} other {# slov ostalo bez časovania.}}",
     "nothingMatched": "Žiadny riadok v tejto sekcii nezodpovedá tej druhej, takže sa nič neskopírovalo."
   },
   "touchSyncPanel": {

@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "La tête de lecture ({time})",
     "refineNote": "Le minutage copié n'est qu'un point de départ. Écoutez la section et corrigez ce qui cloche.",
     "apply": "Appliquer",
-    "applied": "Minutage copié sur {copied} lignes sur {total}. {untimed, plural, =0 {Tous les mots correspondaient.} one {# mot est resté sans minutage.} many {# mots sont restés sans minutage.} other {# mots sont restés sans minutage.}}",
+    "applied": "Minutage copié sur {copied} lignes sur {total}. {untimed, plural, =0 {Tous les mots ont un minutage.} one {# mot est resté sans minutage.} many {# mots sont restés sans minutage.} other {# mots sont restés sans minutage.}}",
     "nothingMatched": "Aucune ligne de cette section ne correspond à l'autre, donc rien n'a été copié."
   },
   "touchSyncPanel": {

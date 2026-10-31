@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "La testina di riproduzione ({time})",
     "refineNote": "I tempi copiati sono solo un punto di partenza. Riproduci la sezione e correggi ciò che non torna.",
     "apply": "Applica",
-    "applied": "Tempi copiati su {copied} versi su {total}. {untimed, plural, =0 {Tutte le parole corrispondevano.} one {# parola è rimasta senza tempi.} many {# parole sono rimaste senza tempi.} other {# parole sono rimaste senza tempi.}}",
+    "applied": "Tempi copiati su {copied} versi su {total}. {untimed, plural, =0 {Tutte le parole hanno i tempi.} one {# parola è rimasta senza tempi.} many {# parole sono rimaste senza tempi.} other {# parole sono rimaste senza tempi.}}",
     "nothingMatched": "Nessun verso di questa sezione corrisponde all'altra, quindi non è stato copiato nulla."
   },
   "touchSyncPanel": {

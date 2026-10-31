@@ -1422,7 +1422,7 @@
     "anchorPlayhead": "O cursor de reprodução ({time})",
     "refineNote": "Os tempos copiados são só um ponto de partida. Reproduza a seção e corrija o que estiver fora.",
     "apply": "Aplicar",
-    "applied": "Tempos copiados para {copied} de {total} linhas. {untimed, plural, =0 {Todas as palavras correspondiam.} one {# palavra ficou sem tempo.} many {# palavras ficaram sem tempo.} other {# palavras ficaram sem tempo.}}",
+    "applied": "Tempos copiados para {copied} de {total} linhas. {untimed, plural, =0 {Todas as palavras têm tempo.} one {# palavra ficou sem tempo.} many {# palavras ficaram sem tempo.} other {# palavras ficaram sem tempo.}}",
     "nothingMatched": "Nenhuma linha desta seção corresponde à outra, então nada foi copiado."
   },
   "touchSyncPanel": {
