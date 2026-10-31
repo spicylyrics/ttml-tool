@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Expandir / recolher espectrograma"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Insira um deslocamento em milissegundos inteiros",
+    "precision": "Erro absoluto médio: {error} ms ({count} toques)",
+    "recommendationProgress": "Pressione pelo menos 20 vezes para receber uma recomendação ({count}/20)",
+    "recommendedOffset": "Deslocamento de sincronização recomendado: {offset} ms",
+    "tryRecommendation": "Testar deslocamento recomendado",
+    "trialOffsetHint": "As alterações ficam neste diálogo até você salvar o deslocamento",
+    "saveOffset": "Salvar deslocamento",
+    "useOffset": "Usar deslocamento de sincronização",
+    "offsetNotice": "Os resultados incluem seu deslocamento de sincronização de {offset} ms.",
     "title": "Teste de latência",
     "latencyDisplay": {
       "fastest": "Mais rápido",

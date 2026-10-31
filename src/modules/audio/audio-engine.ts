@@ -235,7 +235,8 @@ export class AudioEngine extends EventTarget {
 	get ctxOutputLatency() {
 		return this.ctx.outputLatency ?? 0;
 	}
-	private get audibleContextTime() {
+	/** Context time of the sample being heard now, the clock sync stamps use. */
+	get audibleContextTime() {
 		// getOutputTimestamp supplies the device's audible context time, including graph/device latency.
 		const stamp = this.ctx.getOutputTimestamp?.();
 		if (stamp?.performanceTime && stamp.contextTime !== undefined) {

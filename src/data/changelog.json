@@ -1,5 +1,49 @@
 [
 	{
+		"version": "0.20.1",
+		"summary": "Flatpak and latency fixes",
+		"color": "blue",
+		"date": "2026-10-31",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Test input precision with your sync offset",
+				"body": "Try and save sync offsets, measure timing precision, and get a recommended offset after 20 presses",
+				"highlight": true
+			},
+			{
+				"type": "change",
+				"title": "Clearer latency test results and offset controls",
+				"body": "Adjust the sync offset to recalculate every timing result immediately, with grouped controls and a clearer timing graph",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "The Flatpak opens instead of hanging at startup",
+				"body": "The Flatpak builds its font cache on first launch, so the window opens instead of hanging with a CPU core at full use",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Shortcuts follow your keyboard layout",
+				"body": "Letter shortcuts follow the letters your layout types, while other keys and non-Latin layouts keep key positions",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Stop preview backgrounds after leaving Preview",
+				"body": "Standard and Toxi previews now release their animated backgrounds when closed to keep editing and syncing responsive",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Latency test measures the beat you hear",
+				"body": "Taps are judged against the audible beat, so results no longer count your audio output delay twice",
+				"highlight": false
+			}
+		]
+	},
+	{
 		"version": "0.20.0",
 		"summary": "Keyboard, palette and text editing",
 		"color": "green",

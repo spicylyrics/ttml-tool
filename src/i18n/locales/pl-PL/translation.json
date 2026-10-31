@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Rozwiń / zwiń spektrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Wpisz przesunięcie w pełnych milisekundach",
+    "precision": "Średni błąd bezwzględny: {error} ms ({count} naciśnięć)",
+    "recommendationProgress": "Naciśnij co najmniej 20 razy, aby uzyskać zalecenie ({count}/20)",
+    "recommendedOffset": "Zalecane przesunięcie synchronizacji: {offset} ms",
+    "tryRecommendation": "Wypróbuj zalecane przesunięcie",
+    "trialOffsetHint": "Zmiany pozostają w tym oknie do zapisania przesunięcia",
+    "saveOffset": "Zapisz przesunięcie",
+    "useOffset": "Użyj przesunięcia synchronizacji",
+    "offsetNotice": "Wyniki uwzględniają przesunięcie synchronizacji o {offset} ms.",
     "title": "Test opóźnienia",
     "latencyDisplay": {
       "fastest": "Najszybciej",

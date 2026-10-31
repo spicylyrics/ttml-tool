@@ -31,6 +31,7 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { shortcutKeyFromEvent } from "$/utils/keybindings";
 import {
 	dispatchInPlace,
 	markupField,
@@ -268,28 +269,28 @@ export function SearchPanel({
 
 	const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
 		const mod = IS_MAC ? event.metaKey : event.ctrlKey;
-		const key = event.key.toLowerCase();
-		if (mod && key === "f" && !event.altKey) {
+		const shortcutKey = shortcutKeyFromEvent(event);
+		if (mod && shortcutKey === "KeyF" && !event.altKey) {
 			event.preventDefault();
 			findRef.current?.focus();
 			findRef.current?.select();
 		} else if (
-			(REPLACE_KEY === "Mod-h" && mod && key === "h") ||
-			(REPLACE_KEY !== "Mod-h" && mod && event.altKey && event.code === "KeyF")
+			(REPLACE_KEY === "Mod-h" && mod && shortcutKey === "KeyH") ||
+			(REPLACE_KEY !== "Mod-h" && mod && event.altKey && shortcutKey === "KeyF")
 		) {
 			event.preventDefault();
 			setShowReplace(true);
 			setFocusField({ field: "replace" });
-		} else if (event.altKey && !mod && event.code === "KeyC") {
+		} else if (event.altKey && !mod && shortcutKey === "KeyC") {
 			event.preventDefault();
 			setCaseSensitive((value) => !value);
-		} else if (event.altKey && !mod && event.code === "KeyW") {
+		} else if (event.altKey && !mod && shortcutKey === "KeyW") {
 			event.preventDefault();
 			setWholeWord((value) => !value);
-		} else if (event.altKey && !mod && event.code === "KeyR") {
+		} else if (event.altKey && !mod && shortcutKey === "KeyR") {
 			event.preventDefault();
 			setRegex((value) => !value);
-		} else if (event.altKey && !mod && event.code === "KeyL") {
+		} else if (event.altKey && !mod && shortcutKey === "KeyL") {
 			event.preventDefault();
 			toggleWithin();
 		}

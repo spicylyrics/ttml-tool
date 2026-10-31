@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Développer / réduire le spectrogramme"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Saisissez un décalage en millisecondes entières",
+    "precision": "Erreur absolue moyenne : {error} ms ({count} frappes)",
+    "recommendationProgress": "Appuyez au moins 20 fois pour obtenir un conseil ({count}/20)",
+    "recommendedOffset": "Décalage de synchronisation conseillé : {offset} ms",
+    "tryRecommendation": "Essayer le décalage conseillé",
+    "trialOffsetHint": "Les changements restent dans cette boîte de dialogue jusqu’à leur enregistrement",
+    "saveOffset": "Enregistrer le décalage",
+    "useOffset": "Utiliser le décalage de synchronisation",
+    "offsetNotice": "Les résultats incluent votre décalage de synchronisation de {offset} ms.",
     "title": "Test de latence",
     "latencyDisplay": {
       "fastest": "Le plus rapide",

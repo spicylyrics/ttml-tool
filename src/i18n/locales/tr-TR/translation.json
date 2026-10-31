@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Spektrogramı genişlet/daralt"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Tam milisaniye cinsinden bir kayma girin",
+    "precision": "Ortalama mutlak hata: {error} ms ({count} basış)",
+    "recommendationProgress": "Öneri almak için en az 20 kez basın ({count}/20)",
+    "recommendedOffset": "Önerilen senkronizasyon kayması: {offset} ms",
+    "tryRecommendation": "Önerilen kaymayı dene",
+    "trialOffsetHint": "Kaymayı kaydedene kadar değişiklikler bu pencerede kalır",
+    "saveOffset": "Kaymayı kaydet",
+    "useOffset": "Senkronizasyon kaymasını kullan",
+    "offsetNotice": "Sonuçlar {offset} ms senkronizasyon kaymanızı içerir.",
     "title": "Gecikme testi",
     "latencyDisplay": {
       "fastest": "En hızlı",

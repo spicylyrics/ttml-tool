@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "展开 / 收起频谱图"
   },
   "latencyTestDialog": {
+    "invalidOffset": "请输入整数毫秒的偏移值",
+    "precision": "平均绝对误差：{error} ms（{count} 次按键）",
+    "recommendationProgress": "至少按键 20 次以获取建议（{count}/20）",
+    "recommendedOffset": "建议打轴偏移：{offset} ms",
+    "tryRecommendation": "试用建议偏移",
+    "trialOffsetHint": "保存偏移前，更改仅在此对话框中生效",
+    "saveOffset": "保存偏移",
+    "useOffset": "使用打轴偏移",
+    "offsetNotice": "结果包含您设置的 {offset} ms 打轴偏移。",
     "title": "延迟测试",
     "latencyDisplay": {
       "fastest": "最快",

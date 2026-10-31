@@ -1273,6 +1273,15 @@
     "expandSpectrogram": "Expandir/contraer espectrograma"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Introduce un desfase en milisegundos enteros",
+    "precision": "Error absoluto medio: {error} ms ({count} pulsaciones)",
+    "recommendationProgress": "Pulsa al menos 20 veces para recibir una recomendación ({count}/20)",
+    "recommendedOffset": "Desfase de sincronización recomendado: {offset} ms",
+    "tryRecommendation": "Probar desfase recomendado",
+    "trialOffsetHint": "Los cambios solo se guardan al pulsar Guardar desfase",
+    "saveOffset": "Guardar desfase",
+    "useOffset": "Usar desfase de sincronización",
+    "offsetNotice": "Los resultados incluyen tu desfase de sincronización de {offset} ms.",
     "title": "Prueba de latencia",
     "latencyDisplay": {
       "fastest": "Más rápido",

@@ -1,6 +1,6 @@
 [package]
 name = "amll-ttml-tool"
-version = "0.20.0"
+version = "0.20.1"
 description = "A word-by-word TTML lyrics editor and timing tool for Spicy Lyrics"
 license = "AGPL-3.0"
 repository = "https://github.com/spicylyrics/ttml-tool"
