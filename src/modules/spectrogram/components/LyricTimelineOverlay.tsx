@@ -3,6 +3,7 @@ import type { FC, ReactNode } from "react";
 import { memo, useContext, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
+import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import {
 	type ProcessedLyricLine,
 	processedLyricLinesAtom,
@@ -61,16 +62,20 @@ const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 	const processedLines = useAtomValue(processedLyricLinesAtom);
 	const previewLine = useAtomValue(previewLineAtom);
 	const { t } = useTranslation();
+	const lineTimed = useAtomValue(lineSyncActiveAtom);
 	const lineEndLabels = useMemo<LineEndLabels>(
 		() => ({
-			merged: t(
-				"spectrogramLineEnds.mergedHandle",
-				"Line and last word end. Alt-drag to move only one.",
-			),
+			// Line timing has no last word to move on its own.
+			merged: lineTimed
+				? t("spectrogramLineEnds.lineEndHandle", "Line end")
+				: t(
+						"spectrogramLineEnds.mergedHandle",
+						"Line and last word end. Alt-drag to move only one.",
+					),
 			word: t("spectrogramLineEnds.wordEndHandle", "Last word end"),
 			line: t("spectrogramLineEnds.lineEndHandle", "Line end"),
 		}),
-		[t],
+		[t, lineTimed],
 	);
 	const boundaries = useMemo(() => {
 		const starts = new Map<number, number>();

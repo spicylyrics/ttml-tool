@@ -8,7 +8,6 @@ import { smartLastWordAtom } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
 import {
 	syncCommitOffsetAtom,
-	syncLevelModeAtom,
 	syncTimeOffsetAtom,
 } from "$/modules/settings/states/sync";
 import {
@@ -72,7 +71,6 @@ function mount({
 	});
 	store.set(selectedLinesAtom, new Set([first.id]));
 	store.set(selectedWordsAtom, new Set([words[0].id]));
-	store.set(syncLevelModeAtom, "word");
 	store.set(syncTimeOffsetAtom, 0);
 	store.set(syncCommitOffsetAtom, 0);
 	store.set(smartLastWordAtom, false);
@@ -182,7 +180,13 @@ describe("Line-mode keys", () => {
 				endTime: 3000,
 				isLineSynced: true,
 			});
-			expect(first.words[2]).toMatchObject({ startTime: 1000, endTime: 3000 });
+			// The song keeps one block per line, timed like the line.
+			expect(first.words).toHaveLength(1);
+			expect(first.words[0]).toMatchObject({
+				word: "a bbb",
+				startTime: 1000,
+				endTime: 3000,
+			});
 			expect(second).toMatchObject({ startTime: 3000, endTime: 5000 });
 		} finally {
 			view.cleanup();

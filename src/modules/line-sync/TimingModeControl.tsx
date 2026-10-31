@@ -11,14 +11,14 @@ import { RibbonSection } from "$/components/RibbonBar/common";
 import { confirmDialogAtom } from "$/states/dialogs";
 import { lyricLinesAtom } from "$/states/main";
 import type { TimingMode } from "$/types/ttml";
-import { songTimingModeAtom } from "./states";
+import { songTimingModeAtom, switchToWordDialogAtom } from "./states";
 import {
+	hasWordStructure,
 	hasWordTimings,
 	switchToLineMode,
-	switchToWordMode,
 } from "./timing-mode";
 
-/** Word/Line picker for the open song. Word → Line asks first when it would drop word timings. */
+/** Word/Line picker for the open song. Each switch asks first when it would change the words. */
 export function TimingModeControl({
 	variant,
 }: {
@@ -28,16 +28,18 @@ export function TimingModeControl({
 	const store = useStore();
 	const value = useAtomValue(songTimingModeAtom);
 	const setConfirmDialog = useSetAtom(confirmDialogAtom);
+	const setSwitchToWordDialog = useSetAtom(switchToWordDialogAtom);
 
 	const onValueChange = useCallback(
 		(next: TimingMode) => {
 			if (next === store.get(songTimingModeAtom)) return;
 			if (next === "word") {
-				store.set(lyricLinesAtom, switchToWordMode);
+				setSwitchToWordDialog(true);
 				return;
 			}
 			const apply = () => store.set(lyricLinesAtom, switchToLineMode);
-			if (!hasWordTimings(store.get(lyricLinesAtom))) {
+			const lyric = store.get(lyricLinesAtom);
+			if (!hasWordStructure(lyric) && !hasWordTimings(lyric)) {
 				apply();
 				return;
 			}
@@ -46,13 +48,13 @@ export function TimingModeControl({
 				title: t("lineSync.confirmTitle", "Switch to Line timing?"),
 				description: t(
 					"lineSync.confirmDescription",
-					"Every word keeps its text but loses its own timing. Each line keeps its start and end. You can undo this.",
+					"Each line becomes one block of text and keeps its start and end. Word timings and syllable splits are removed. You can undo this.",
 				),
 				confirmText: t("lineSync.confirmAction", "Switch to Line"),
 				onConfirm: apply,
 			});
 		},
-		[store, setConfirmDialog, t],
+		[store, setConfirmDialog, setSwitchToWordDialog, t],
 	);
 
 	return (

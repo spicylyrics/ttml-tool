@@ -21,7 +21,6 @@ import {
 	TextEditStyle24Regular,
 	TextLineSpacing24Regular,
 	TextWordCount24Regular,
-	Timeline24Regular,
 	TopSpeed24Regular,
 } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
@@ -41,7 +40,6 @@ import {
 	PreviewModeControl,
 	SettingToggle,
 	SpicyBackgroundControl,
-	SyncLevelControl,
 } from "../components/WorkflowControls";
 import {
 	displayRomanizationInSyncAtom,
@@ -381,16 +379,6 @@ export const WorkflowSettings = ({
 					<Heading size="4">
 						{t("settings.group.syncAids", "Syncing aids")}
 					</Heading>
-					<SettingRow
-						icon={<Timeline24Regular />}
-						title={t("ribbonBar.syncMode.syncLevel", "Sync by")}
-						description={t(
-							"settings.workflow.syncLevelDesc",
-							"Word: time each word as you go. Line: time whole lines and spread their words out evenly, for a rough sync you fine-tune in the spectrogram.",
-						)}
-					>
-						<SyncLevelControl variant="segmented" />
-					</SettingRow>
 					<SettingRow
 						icon={<EyeOff24Regular />}
 						title={t("ribbonBar.syncMode.bgLyricSync", "Background lines")}

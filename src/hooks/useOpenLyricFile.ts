@@ -16,7 +16,7 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { uid } from "uid";
-import { applyLrcTimingMode } from "$/modules/line-sync/timing-mode";
+import { switchToLineMode } from "$/modules/line-sync/timing-mode";
 import { getProjectList } from "$/modules/project/autosave/autosave";
 import { maybePromptCreateProject } from "$/modules/project/folder-project/project-create";
 import { pendingLyricSourceAtom } from "$/modules/project/folder-project/state";
@@ -102,7 +102,8 @@ export const useOpenLyricFile = () => {
 					const parser = LYRIC_PARSERS[ext];
 					const rawLines = parser(text);
 					lyricData = normalizeLyricLines(rawLines);
-					if (ext === "lrc") lyricData = applyLrcTimingMode(lyricData);
+					// LRC carries only line times, so it opens in Line mode.
+					if (ext === "lrc") lyricData = switchToLineMode(lyricData);
 				} else {
 					toast.error(
 						t("error.unsupportedFileFormat", "不支持的文件格式: {ext}", {

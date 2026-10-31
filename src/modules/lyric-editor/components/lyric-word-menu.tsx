@@ -4,6 +4,7 @@ import { useSetImmerAtom } from "jotai-immer";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import { segmentationEngineAtom } from "$/modules/segmentation/states";
 import { segmentSelectedWords } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
@@ -76,6 +77,8 @@ export const LyricWordMenu = ({
 	const combineIgnoreCase = useAtomValue(combineWordsIgnoreCaseAtom);
 	const combineShiftClickRef = useRef(false);
 	const segmentationEngine = useAtomValue(segmentationEngineAtom);
+	// Line timing keeps each line one block, so splitting tools don't apply.
+	const lineTimed = useAtomValue(lineSyncActiveAtom);
 	const { config: segmentationConfig, isLoading: segmentationLoading } =
 		useSegmentationConfig();
 	// Read when the menu renders: words on different lines or with gaps can't
@@ -91,7 +94,7 @@ export const LyricWordMenu = ({
 	return (
 		<>
 			<ContextMenu.Item
-				disabled={selectedWordsSize !== 1}
+				disabled={selectedWordsSize !== 1 || lineTimed}
 				onSelect={() => {
 					setEditingWordState({
 						wordIndex,
@@ -104,7 +107,7 @@ export const LyricWordMenu = ({
 				{t("contextMenu.splitWord", "拆分单词…")}
 			</ContextMenu.Item>
 			<ContextMenu.Item
-				disabled={selectedWordsSize === 0 || segmentationLoading}
+				disabled={selectedWordsSize === 0 || segmentationLoading || lineTimed}
 				onSelect={() => {
 					const selectedWordIds = store.get(selectedWordsAtom);
 					let splitCount = 0;
@@ -138,7 +141,9 @@ export const LyricWordMenu = ({
 				word.word,
 			) && (
 				<ContextMenu.Item
-					disabled={selectedWordsSize !== 1 || word.word.length <= 1}
+					disabled={
+						selectedWordsSize !== 1 || word.word.length <= 1 || lineTimed
+					}
 					onSelect={async () => {
 						try {
 							// Detect project-level language priority for context

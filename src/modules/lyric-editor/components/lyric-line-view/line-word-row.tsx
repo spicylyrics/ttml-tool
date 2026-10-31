@@ -14,6 +14,7 @@ import { Flex, IconButton, TextField } from "@radix-ui/themes";
 import classNames from "classnames";
 import { atom, useAtomValue } from "jotai";
 import { Fragment } from "react";
+import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import { segmentationLearnedRulesAtom } from "$/modules/segmentation/states";
 import { ToolMode } from "$/states/main.ts";
 import { newLyricWord } from "$/types/ttml.ts";
@@ -74,6 +75,9 @@ export function LineWordRow({
 	const learnedRules = useAtomValue(
 		splitTypedLine ? segmentationLearnedRulesAtom : noLearnedRulesAtom,
 	);
+	// A Line-timed line is one block, so there is no gap to insert a word into.
+	const lineTimed = useAtomValue(lineSyncActiveAtom);
+	const insertWords = enableInsert && !lineTimed;
 	return (
 		<div
 			className={classNames(
@@ -102,7 +106,7 @@ export function LineWordRow({
 				const connections = getWordConnections(wordTexts, wi);
 				return (
 					<Fragment key={`word-${word.id}`}>
-						{enableInsert && (
+						{insertWords && (
 							<IconButton
 								size="1"
 								variant="soft"
@@ -161,7 +165,7 @@ export function LineWordRow({
 					</Fragment>
 				);
 			})}
-			{enableInsert && (
+			{insertWords && (
 				<IconButton
 					size="1"
 					variant="soft"

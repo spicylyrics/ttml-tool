@@ -30,15 +30,18 @@ const lines = [
 ];
 
 describe("Line-mode F/G/H", () => {
-	it("F starts the line and gives its words the line's time", () => {
+	it("F starts the line and keeps it one block with the line's time", () => {
 		const result = lineSyncStart(lines, 0, 1200);
 		expect(result.nextIndex).toBe(-1);
 		expect(result.lines[0]).toMatchObject({
 			startTime: 1200,
 			isLineSynced: true,
 		});
-		expect(result.lines[0].words[0].startTime).toBe(1200);
-		expect(result.lines[0].words[1].startTime).toBe(0);
+		expect(result.lines[0].words).toHaveLength(1);
+		expect(result.lines[0].words[0]).toMatchObject({
+			word: "a la",
+			startTime: 1200,
+		});
 		expect(result.lines[1]).toBe(lines[1]);
 	});
 
@@ -49,9 +52,8 @@ describe("Line-mode F/G/H", () => {
 		expect(result.lines[0]).toMatchObject({
 			startTime: 1000,
 			endTime: 3000,
-			syncedLineBounds: { startTime: 1000, endTime: 3000 },
 		});
-		expect(result.lines[0].words[2]).toMatchObject({
+		expect(result.lines[0].words[0]).toMatchObject({
 			startTime: 1000,
 			endTime: 3000,
 		});

@@ -2,7 +2,6 @@ import { useStore } from "jotai";
 import { type FC, useCallback } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { clampToSyncedLineBounds } from "$/modules/line-sync/timing-mode";
-import { distributeLineTime } from "$/modules/lyric-editor/utils/distribute-time";
 import {
 	findNextWord,
 	getCurrentLineLocation,
@@ -12,17 +11,13 @@ import {
 	getSynchronizableUnits,
 	isInSyncLane,
 	isSynchronizableLine,
-	type SyncLane,
 } from "$/modules/lyric-editor/utils/lyric-states";
 import {
 	highlightActiveWordAtom,
 	smartLastWordAtom,
 } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
-import {
-	syncCommitOffsetAtom,
-	syncLevelModeAtom,
-} from "$/modules/settings/states/sync";
+import { syncCommitOffsetAtom } from "$/modules/settings/states/sync";
 import {
 	keyMoveFirstWordAndPlayAtom,
 	keyMoveLastWordAndPlayAtom,
@@ -49,22 +44,6 @@ import { useSyncJudgeTime } from "./use-sync-judge-time";
 const getUnitStartTime = (unit: { word: LyricWord }) => unit.word.startTime;
 
 type LyricsState = TTMLLyric;
-
-/** Index of the next line after `lineIndex` that keyboard sync can land on, or -1. */
-function findNextSyncLineIndex(
-	lines: LyricLine[],
-	lineIndex: number,
-	lane: SyncLane,
-) {
-	const from = lines[lineIndex];
-	return lines.findIndex(
-		(line, index) =>
-			index > lineIndex &&
-			isSynchronizableLine(line) &&
-			(!from || isInSyncLane(from, line, lane)) &&
-			getSynchronizableUnits(line).length > 0,
-	);
-}
 
 function cloneLineWithWords(line: LyricLine): LyricLine {
 	return { ...line, words: line.words.slice() };
@@ -285,80 +264,6 @@ export const SyncKeyBinding: FC = () => {
 			const lane = store.get(backgroundSyncLaneAtom);
 			const _t1 = performance.now();
 
-			const syncLevelMode = store.get(syncLevelModeAtom);
-			if (syncLevelMode === "line") {
-				store.set(lyricLinesAtom, (prev) => {
-					const state: LyricsState = prev;
-					const prevCurLine = state.lyricLines[location.lineIndex];
-					if (!prevCurLine) return prev;
-
-					const nextLines = state.lyricLines.slice();
-					const curLine = cloneLineWithWords(prevCurLine);
-					curLine.endTime = currentTime;
-
-					const units = getSynchronizableUnits(curLine);
-					if (units.length > 0) {
-						let startTime = getUnitStartTime(units[0]);
-						if (
-							startTime === undefined ||
-							startTime >= currentTime ||
-							startTime === 0
-						) {
-							startTime = Math.max(0, currentTime - 1000);
-						}
-						const timedLine = distributeLineTime(
-							curLine,
-							startTime,
-							currentTime,
-							{ weight: "characters" },
-						);
-						curLine.words = timedLine.words;
-						curLine.startTime = timedLine.startTime;
-						curLine.endTime = timedLine.endTime;
-					}
-
-					const absoluteNextLineIndex = findNextSyncLineIndex(
-						state.lyricLines,
-						location.lineIndex,
-						lane,
-					);
-
-					if (absoluteNextLineIndex !== -1) {
-						const prevNextLine = state.lyricLines[absoluteNextLineIndex];
-						const nextLine = cloneLineWithWords(prevNextLine);
-						nextLine.startTime = currentTime;
-						const nextLineUnits = getSynchronizableUnits(nextLine);
-						if (nextLineUnits.length > 0) {
-							setUnitStartTimeCloned(
-								nextLine,
-								nextLineUnits[0].wordIndex,
-								currentTime,
-							);
-						}
-						nextLines[absoluteNextLineIndex] = nextLine;
-					}
-
-					nextLines[location.lineIndex] = curLine;
-					return { ...state, lyricLines: nextLines };
-				});
-
-				const state = store.get(lyricLinesAtom);
-				const absoluteNextLineIndex = findNextSyncLineIndex(
-					state.lyricLines,
-					location.lineIndex,
-					lane,
-				);
-				if (absoluteNextLineIndex !== -1) {
-					const nextLine = state.lyricLines[absoluteNextLineIndex];
-					store.set(selectedLinesAtom, new Set([nextLine.id]));
-					const nextLineUnits = getSynchronizableUnits(nextLine);
-					if (nextLineUnits.length > 0) {
-						store.set(selectedWordsAtom, new Set([nextLineUnits[0].id]));
-					}
-				}
-				return;
-			}
-
 			// 智能尾字
 			const smartLastWord = store.get(smartLastWordAtom);
 			if (smartLastWord && location.isLastWord) {
@@ -492,60 +397,6 @@ export const SyncKeyBinding: FC = () => {
 			const location = getCurrentLocation(store);
 			if (!location) return;
 			const currentTime = calcJudgeTime(evt);
-			const lane = store.get(backgroundSyncLaneAtom);
-
-			const syncLevelMode = store.get(syncLevelModeAtom);
-			if (syncLevelMode === "line") {
-				store.set(lyricLinesAtom, (prev) => {
-					const state: LyricsState = prev;
-					const prevCurLine = state.lyricLines[location.lineIndex];
-					if (!prevCurLine) return prev;
-
-					const nextLines = state.lyricLines.slice();
-					const curLine = cloneLineWithWords(prevCurLine);
-					curLine.endTime = currentTime;
-
-					const units = getSynchronizableUnits(curLine);
-					if (units.length > 0) {
-						let startTime = getUnitStartTime(units[0]);
-						if (
-							startTime === undefined ||
-							startTime >= currentTime ||
-							startTime === 0
-						) {
-							startTime = Math.max(0, currentTime - 1000);
-						}
-						const timedLine = distributeLineTime(
-							curLine,
-							startTime,
-							currentTime,
-							{ weight: "characters" },
-						);
-						curLine.words = timedLine.words;
-						curLine.startTime = timedLine.startTime;
-						curLine.endTime = timedLine.endTime;
-					}
-
-					nextLines[location.lineIndex] = curLine;
-					return { ...state, lyricLines: nextLines };
-				});
-
-				const state = store.get(lyricLinesAtom);
-				const absoluteNextLineIndex = findNextSyncLineIndex(
-					state.lyricLines,
-					location.lineIndex,
-					lane,
-				);
-				if (absoluteNextLineIndex !== -1) {
-					const nextLine = state.lyricLines[absoluteNextLineIndex];
-					store.set(selectedLinesAtom, new Set([nextLine.id]));
-					const nextLineUnits = getSynchronizableUnits(nextLine);
-					if (nextLineUnits.length > 0) {
-						store.set(selectedWordsAtom, new Set([nextLineUnits[0].id]));
-					}
-				}
-				return;
-			}
 
 			store.set(lyricLinesAtom, (prev) => {
 				const state: LyricsState = prev;

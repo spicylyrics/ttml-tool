@@ -15,30 +15,15 @@
  * 但是可能会有信息会丢失
  */
 
-import type {
-	LyricLine,
-	LyricWord,
-	TimingMode,
-	TTMLLyric,
-} from "../../../types/ttml.ts";
+import type { LyricLine, LyricWord, TTMLLyric } from "../../../types/ttml.ts";
 import {
 	type LyricTextNormalizationOptions,
 	normalizeLyricText,
 } from "../../../utils/apostrophe-normalization.ts";
 import { log } from "../../../utils/logging.ts";
 import { msToTimestamp } from "../../../utils/timestamp.ts";
-import {
-	hasWordTimings,
-	lineHasWordTimings,
-} from "../../line-sync/timing-mode.ts";
 
-export function shouldExportAsLineSynced(
-	line: LyricLine,
-	timingMode?: TimingMode,
-): boolean {
-	// Line mode writes its lines as text, but never drops a line's real word
-	// timings. Word mode (or no mode) keeps the one-word rule below.
-	if (timingMode === "line") return !lineHasWordTimings(line);
+export function shouldExportAsLineSynced(line: LyricLine): boolean {
 	if (!line.isLineSynced) return false;
 
 	return line.words.filter((word) => word.word.trim().length > 0).length <= 1;
@@ -171,9 +156,6 @@ export default function exportTTMLText(
 	if (totalNonBlankWords === 0 || !hasAnyTiming) timingMode = "None";
 	else if (nonBlankWordCountsPerLine.some((c) => c > 1)) timingMode = "Word";
 	else timingMode = "Line";
-	// Line mode splits lines into words for editing, but writes them as text.
-	if (ttmlLyric.timingMode === "line" && !hasWordTimings(ttmlLyric))
-		timingMode = lyric.some((l) => l.endTime > l.startTime) ? "Line" : "None";
 	ttRoot.setAttribute("itunes:timing", timingMode);
 
 	doc.appendChild(ttRoot);
@@ -308,7 +290,7 @@ export default function exportTTMLText(
 
 			if (exportAsStandaloneBackground) {
 				// The line is emitted below as x-bg inside an otherwise empty p.
-			} else if (shouldExportAsLineSynced(line, ttmlLyric.timingMode)) {
+			} else if (shouldExportAsLineSynced(line)) {
 				lineP.appendChild(
 					doc.createTextNode(line.words.map((word) => word.word).join("")),
 				);
@@ -349,7 +331,7 @@ export default function exportTTMLText(
 				const bgLineSpan = doc.createElement("span");
 				bgLineSpan.setAttribute("ttm:role", "x-bg");
 
-				if (shouldExportAsLineSynced(bgLine, ttmlLyric.timingMode)) {
+				if (shouldExportAsLineSynced(bgLine)) {
 					// Line mode times background lines on their own, so keep their bounds.
 					if (ttmlLyric.timingMode === "line") {
 						bgLineSpan.setAttribute("begin", msToTimestamp(bgLine.startTime));

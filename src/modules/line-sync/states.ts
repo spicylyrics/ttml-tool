@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import { syncLevelModeAtom } from "$/modules/settings/states/sync";
 import { lyricLinesAtom } from "$/states/main";
 import { getTimingMode } from "./timing-mode";
 
@@ -14,9 +13,12 @@ export const lineSyncActiveAtom = atom(
 );
 
 /**
- * The sync level the lyric views should follow: Line mode treats every line as
- * one unit, the same way the old "Sync by: Line" pass selects whole lines.
+ * What the lyric views select and highlight as one unit: whole lines in Line
+ * mode, words otherwise.
  */
 export const effectiveSyncLevelAtom = atom((get) =>
-	get(lineSyncActiveAtom) ? "line" : get(syncLevelModeAtom),
+	get(lineSyncActiveAtom) ? "line" : "word",
 );
+
+/** Open while Line → Word asks how to time the new words. */
+export const switchToWordDialogAtom = atom(false);

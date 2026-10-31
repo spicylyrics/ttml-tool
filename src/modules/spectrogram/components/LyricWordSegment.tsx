@@ -7,6 +7,7 @@ import {
 	useContext,
 } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine.ts";
+import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import type { WordSegment } from "$/modules/segmentation/utils/segment-processing.ts";
 import { displayRomanizationInSyncAtom } from "$/modules/settings/states/index.ts";
 import { spectrogramScrollLeftAtom } from "$/modules/spectrogram/states";
@@ -74,6 +75,8 @@ const LyricWordSegmentImpl: FC<LyricWordSegmentProps> = ({
 		if (isGhost) return;
 		if (editingTimeField) return;
 		if (e.button !== 0) return;
+		// Line timing: the block is the line, so let the line's own drag take it.
+		if (store.get(lineSyncActiveAtom)) return;
 
 		e.preventDefault();
 		e.stopPropagation();

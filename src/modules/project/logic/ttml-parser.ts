@@ -17,7 +17,7 @@
  */
 
 import { uid } from "uid";
-import { restoreLineModeWords } from "$/modules/line-sync/timing-mode";
+import { switchToLineMode } from "$/modules/line-sync/timing-mode";
 import type {
 	LyricLine,
 	LyricWord,
@@ -628,11 +628,13 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 	const timingModeValue = metadata.find((m) => m.key === "amll:timingMode")
 		?.value[0];
 	const timingMode: TimingMode | undefined =
-		timingModeValue === "line" || timingModeValue === "word"
-			? timingModeValue
-			: undefined;
+		timingModeValue === "line" || isLineTimedFile(ttmlDoc, lyricLines)
+			? "line"
+			: timingModeValue === "word"
+				? "word"
+				: undefined;
 
-	return restoreLineModeWords({
+	const lyric: TTMLLyric = {
 		metadata: metadata.filter(
 			(m) =>
 				m.key !== "amll:marks" &&
@@ -644,7 +646,25 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 		sections,
 		translationLanguage: translationLanguageOf(ttmlDoc, lyricLines),
 		...(timingMode ? { timingMode } : {}),
-	});
+	};
+	return timingMode === "line" ? switchToLineMode(lyric) : lyric;
+}
+
+/**
+ * A file marked `itunes:timing="Line"` whose lines are all plain text opens in
+ * Line mode. One with any timed words stays in Word mode, so nothing is lost.
+ */
+function isLineTimedFile(doc: Document, lines: LyricLine[]): boolean {
+	if (doc.documentElement.getAttribute("itunes:timing") !== "Line")
+		return false;
+	return (
+		lines.length > 0 &&
+		lines.every(
+			(line) =>
+				line.isLineSynced &&
+				line.words.filter((word) => word.word.trim().length > 0).length <= 1,
+		)
+	);
 }
 
 function translationLanguageOf(

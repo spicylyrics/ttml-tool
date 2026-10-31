@@ -6,7 +6,8 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { audioCoverArtAtom, currentTimeAtom } from "$/modules/audio/states";
-import { getTimingMode } from "$/modules/line-sync/timing-mode";
+import { asSpicyLineTimed } from "$/modules/line-sync/spicy-preview";
+import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import { playbackClock } from "$/modules/playback-clock";
 import { usePreviewScroll } from "$/modules/playback-clock/use-preview-scroll";
 import { previewTimingProblemsAtom } from "$/modules/preview-problems/states";
@@ -39,15 +40,18 @@ export function useSpicyLyrics() {
 	// Every line, untimed ones included: they stay in place, hollow.
 	const lyrics = useAtomValue(lyricLinesAtom);
 	const simple = useAtomValue(spicySimpleLyricsModeAtom);
-	// A Line-mode song exports every line as line-synced, so preview it that way.
-	const forceLineSynced =
-		useAtomValue(spicyForceLineSyncedAtom) || getTimingMode(lyrics) === "line";
+	const forceLineSynced = useAtomValue(spicyForceLineSyncedAtom);
+	const lineTimed = useAtomValue(lineSyncActiveAtom);
 	const joinWords = useAtomValue(spicyJoinSplitWordsAtom);
 	// Off, the lines pass through untouched, so the preview is unchanged.
 	const sourceLines = useMemo(
 		() =>
-			joinWords ? joinSplitWordsInLines(lyrics.lyricLines) : lyrics.lyricLines,
-		[joinWords, lyrics.lyricLines],
+			lineTimed
+				? asSpicyLineTimed(lyrics.lyricLines)
+				: joinWords
+					? joinSplitWordsInLines(lyrics.lyricLines)
+					: lyrics.lyricLines,
+		[lineTimed, joinWords, lyrics.lyricLines],
 	);
 	const romanized = useAtomValue(showRomanLinesAtom);
 	const showTranslation = useAtomValue(showTranslationLinesAtom);

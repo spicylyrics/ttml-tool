@@ -7,14 +7,16 @@ import {
 	type TTMLLyric,
 } from "$/types/ttml";
 import {
-	applyLrcTimingMode,
 	clampToSyncedLineBounds,
 	getTimingMode,
+	hasWordStructure,
 	hasWordTimings,
-	restoreLineModeWords,
+	isLineBlock,
+	keepLineBlocks,
 	splitLineText,
 	switchToLineMode,
 	switchToWordMode,
+	toLineBlock,
 } from "./timing-mode";
 
 const word = (text: string, startTime = 0, endTime = 0): LyricWord => ({
@@ -44,6 +46,8 @@ const lyric = (
 	extra: Partial<TTMLLyric> = {},
 ): TTMLLyric => ({ metadata: [], lyricLines, ...extra });
 
+const texts = (target: LyricLine) => target.words.map((w) => w.word);
+
 describe("getTimingMode", () => {
 	it("reads projects saved without the field as word timed", () => {
 		expect(getTimingMode(lyric([]))).toBe("word");
@@ -53,6 +57,45 @@ describe("getTimingMode", () => {
 	it("reads the stored mode", () => {
 		expect(getTimingMode(lyric([], { timingMode: "line" }))).toBe("line");
 		expect(getTimingMode(lyric([], { timingMode: "word" }))).toBe("word");
+	});
+});
+
+describe("toLineBlock", () => {
+	it("joins the words into one token timed like the line", () => {
+		const source = line(
+			"a",
+			[word("sun", 100, 200), word("shine", 200, 400), word(" "), word("day")],
+			100,
+			900,
+		);
+		const block = toLineBlock(source);
+		expect(texts(block)).toEqual(["sunshine day"]);
+		expect(block.words[0]).toMatchObject({ startTime: 100, endTime: 900 });
+		expect(block.words[0].id).toBe(source.words[0].id);
+		expect(block.isLineSynced).toBe(true);
+		expect(isLineBlock(block)).toBe(true);
+	});
+
+	it("moves word romanizations to the line when it has none", () => {
+		const source = line(
+			"a",
+			[
+				{ ...word("君"), romanWord: "kimi" },
+				{ ...word("が"), romanWord: "ga" },
+			],
+			0,
+			1000,
+		);
+		const block = toLineBlock(source);
+		expect(block.romanLyric).toBe("kimi ga");
+		expect(block.words[0].romanWord).toBe("");
+	});
+
+	it("returns a line that already is a block unchanged", () => {
+		const block = toLineBlock(
+			line("a", [word("Hi"), word(" "), word("there")], 0, 500),
+		);
+		expect(toLineBlock(block)).toBe(block);
 	});
 });
 
@@ -66,24 +109,21 @@ describe("switchToLineMode", () => {
 		),
 	]);
 
-	it("keeps every word and the line bounds but drops word timing", () => {
+	it("turns every line into one block with its bounds", () => {
 		expect(hasWordTimings(wordTimed)).toBe(true);
+		expect(hasWordStructure(wordTimed)).toBe(true);
 		const result = switchToLineMode(wordTimed);
 		const [first] = result.lyricLines;
 		expect(result.timingMode).toBe("line");
-		expect(first.words.map((w) => w.word)).toEqual(["Hello", " ", "world"]);
+		expect(texts(first)).toEqual(["Hello world"]);
 		expect(first).toMatchObject({
 			startTime: 1000,
 			endTime: 2200,
 			isLineSynced: true,
-			syncedLineBounds: { startTime: 1000, endTime: 2200 },
 		});
-		expect(first.words.map((w) => [w.startTime, w.endTime])).toEqual([
-			[1000, 2200],
-			[0, 0],
-			[1000, 2200],
-		]);
+		expect(first.words[0]).toMatchObject({ startTime: 1000, endTime: 2200 });
 		expect(hasWordTimings(result)).toBe(false);
+		expect(hasWordStructure(result)).toBe(false);
 	});
 
 	it("derives missing line bounds from timed words", () => {
@@ -96,20 +136,31 @@ describe("switchToLineMode", () => {
 		});
 	});
 
-	it("does not mark untimed lines as synced", () => {
-		const result = switchToLineMode(lyric([line("a", [word("Hi")], 0, 0)]));
-		expect(result.lyricLines[0].syncedLineBounds).toBeUndefined();
+	it("has nothing to lose on a song of one-word lines", () => {
+		const song = lyric([line("a", [word("Hey")], 0, 0)]);
+		expect(hasWordStructure(song)).toBe(false);
+		expect(hasWordTimings(song)).toBe(false);
 	});
 });
 
 describe("switchToWordMode", () => {
-	it("keeps line bounds as synced bounds and leaves every word untimed", () => {
-		const lineTimed = switchToLineMode(
-			lyric([line("a", [word("Hello"), word(" "), word("world")], 1000, 2000)]),
-		);
+	const lineTimed = switchToLineMode(
+		lyric([
+			line(
+				"a",
+				[word("Hello"), word(" "), word("big"), word(" "), word("world")],
+				1000,
+				2000,
+			),
+			line("b", [word("Untimed line")], 0, 0),
+		]),
+	);
+
+	it("splits each block at spaces and leaves words untimed by default", () => {
 		const result = switchToWordMode(lineTimed);
-		const [first] = result.lyricLines;
+		const [first, second] = result.lyricLines;
 		expect(result.timingMode).toBeUndefined();
+		expect(texts(first)).toEqual(["Hello", " ", "big", " ", "world"]);
 		expect(first).toMatchObject({
 			startTime: 1000,
 			endTime: 2000,
@@ -119,36 +170,37 @@ describe("switchToWordMode", () => {
 		expect(first.words.every((w) => w.startTime === 0 && w.endTime === 0)).toBe(
 			true,
 		);
+		expect(first.words[0].id).toBe(lineTimed.lyricLines[0].words[0].id);
+		expect(second.syncedLineBounds).toBeUndefined();
+	});
+
+	it("spreads a timed line's time across its words by letter count", () => {
+		const [first, second] = switchToWordMode(lineTimed, {
+			spread: true,
+		}).lyricLines;
+		const sung = first.words.filter((w) => w.word.trim());
+		expect(sung.map((w) => [w.word, w.startTime, w.endTime])).toEqual([
+			["Hello", 1000, 1385],
+			["big", 1385, 1615],
+			["world", 1615, 2000],
+		]);
+		expect(first).toMatchObject({ startTime: 1000, endTime: 2000 });
+		expect(
+			second.words.every((w) => w.startTime === 0 && w.endTime === 0),
+		).toBe(true);
 	});
 
 	it("keeps a one-word line line-synced, as before Line mode existed", () => {
-		const lineTimed = switchToLineMode(
+		const oneWord = switchToLineMode(
 			lyric([line("a", [word("Hey")], 1000, 2000)]),
 		);
-		const [first] = switchToWordMode(lineTimed).lyricLines;
+		const [first] = switchToWordMode(oneWord).lyricLines;
 		expect(first.isLineSynced).toBe(true);
-	});
-
-	it("splits a line stored as one text token back into words", () => {
-		const lineTimed = lyric(
-			[
-				line("a", [word("Line one", 0, 1000)], 0, 1000, {
-					isLineSynced: true,
-				}),
-			],
-			{ timingMode: "line" },
-		);
-		const [first] = switchToWordMode(lineTimed).lyricLines;
-		expect(first.words.map((w) => w.word)).toEqual(["Line", " ", "one"]);
-		expect(first.isLineSynced).toBe(false);
-		expect(first.words.every((w) => w.startTime === 0 && w.endTime === 0)).toBe(
-			true,
-		);
 	});
 });
 
-describe("splitLineText / restoreLineModeWords", () => {
-	it("splits text into words and spaces that carry the line time", () => {
+describe("splitLineText", () => {
+	it("splits text into words and spaces that carry the given time", () => {
 		expect(
 			splitLineText("Hello  big world", 100, 900).map((w) => [
 				w.word,
@@ -163,51 +215,67 @@ describe("splitLineText / restoreLineModeWords", () => {
 			["world", 100, 900],
 		]);
 	});
-
-	it("only touches Line-mode documents", () => {
-		const doc = lyric([
-			line("a", [word("Hello world", 0, 1000)], 0, 1000, {
-				isLineSynced: true,
-			}),
-		]);
-		expect(restoreLineModeWords(doc)).toBe(doc);
-		const restored = restoreLineModeWords({ ...doc, timingMode: "line" });
-		expect(restored.lyricLines[0].words.map((w) => w.word)).toEqual([
-			"Hello",
-			" ",
-			"world",
-		]);
-		expect(restored.lyricLines[0].syncedLineBounds).toEqual({
-			startTime: 0,
-			endTime: 1000,
-		});
-	});
 });
 
-describe("applyLrcTimingMode", () => {
-	const lrc = lyric([
-		line("a", [word("Line one", 0, 1000)], 0, 1000, { isLineSynced: true }),
-	]);
+describe("keepLineBlocks", () => {
+	const song = switchToLineMode(
+		lyric([line("a", [word("One line")], 1000, 2000)]),
+	);
 
-	it("opens LRC imports in Line mode, split into words", () => {
-		const result = applyLrcTimingMode(lrc);
-		expect(result.timingMode).toBe("line");
-		expect(result.lyricLines[0]).toMatchObject({
-			startTime: 0,
-			endTime: 1000,
-			isLineSynced: true,
-		});
-		expect(result.lyricLines[0].words.map((w) => w.word)).toEqual([
-			"Line",
-			" ",
-			"one",
-		]);
+	it("leaves Word-mode songs and intact blocks alone", () => {
+		const wordSong = lyric([line("a", [word("a"), word("b")], 0, 0)]);
+		expect(keepLineBlocks(wordSong, wordSong)).toBe(wordSong);
+		expect(keepLineBlocks(song, song)).toBe(song);
 	});
 
-	it("splits LRC lines into separate words after switching to Word", () => {
-		const [first] = switchToWordMode(applyLrcTimingMode(lrc)).lyricLines;
-		expect(first.words.map((w) => w.word)).toEqual(["Line", " ", "one"]);
-		expect(first.isLineSynced).toBe(false);
+	it("joins a line that gained words back into one block", () => {
+		const [block] = song.lyricLines;
+		const split = {
+			...song,
+			lyricLines: [
+				{ ...block, words: [word("One", 1000, 1400), word(" "), word("line")] },
+			],
+		};
+		const [kept] = keepLineBlocks(song, split).lyricLines;
+		expect(texts(kept)).toEqual(["One line"]);
+		expect(kept.words[0]).toMatchObject({ startTime: 1000, endTime: 2000 });
+	});
+
+	it("adds a space before a word appended to a block", () => {
+		const [block] = song.lyricLines;
+		const appended = {
+			...song,
+			lyricLines: [
+				{ ...block, words: [...block.words, word("again"), word("")] },
+			],
+		};
+		const [kept] = keepLineBlocks(song, appended).lyricLines;
+		expect(texts(kept)).toEqual(["One line again"]);
+	});
+
+	it("moves the line with its block when only the block was moved", () => {
+		const [block] = song.lyricLines;
+		const moved = {
+			...song,
+			lyricLines: [
+				{
+					...block,
+					words: [{ ...block.words[0], startTime: 1500, endTime: 2600 }],
+				},
+			],
+		};
+		const [kept] = keepLineBlocks(song, moved).lyricLines;
+		expect(kept).toMatchObject({ startTime: 1500, endTime: 2600 });
+	});
+
+	it("moves the block with its line when the line was moved", () => {
+		const [block] = song.lyricLines;
+		const moved = {
+			...song,
+			lyricLines: [{ ...block, startTime: 500, endTime: 1500 }],
+		};
+		const [kept] = keepLineBlocks(song, moved).lyricLines;
+		expect(kept.words[0]).toMatchObject({ startTime: 500, endTime: 1500 });
 	});
 });
 

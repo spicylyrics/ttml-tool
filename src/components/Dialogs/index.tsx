@@ -3,6 +3,7 @@ import { LatencyTestDialog } from "$/modules/audio/modals/LatencyTest.tsx";
 import { CommandPalette } from "$/modules/command-palette/CommandPalette.tsx";
 import { EditAsTextDialog } from "$/modules/edit-as-text/modals/EditAsTextDialog.tsx";
 import { GeniusSearchDialog } from "$/modules/genius/modals/GeniusSearchDialog.tsx";
+import { SwitchToWordDialog } from "$/modules/line-sync/SwitchToWordDialog.tsx";
 import { UrbanDictionaryDialog } from "$/modules/lyric-editor/modals/UrbanDictionaryDialog.tsx";
 import { CombineWordsDialog } from "$/modules/lyric-editor/tools/CombineWordsDialog.tsx";
 import { ReplaceRomanizationDialog } from "$/modules/lyric-editor/tools/ReplaceRomanizationDialog.tsx";
@@ -64,6 +65,7 @@ export const Dialogs = () => {
 			<GeniusHeaderDetectionDialog />
 			<CommandPalette />
 			<EditAsTextDialog />
+			<SwitchToWordDialog />
 		</>
 	);
 };
