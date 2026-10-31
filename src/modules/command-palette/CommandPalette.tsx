@@ -36,7 +36,7 @@ import { toolModeAtom } from "$/states/main.ts";
 import {
 	formatKeyBindings,
 	getShortcutKey,
-	normalizeKeyCode,
+	shortcutKeyFromEvent,
 } from "$/utils/keybindings";
 import styles from "./CommandPalette.module.css";
 import { commandRunsInMode, paletteListsCommand } from "./palette-commands";
@@ -77,7 +77,7 @@ function eventShortcut(event: KeyboardEvent<HTMLElement>): string {
 		...(event.metaKey ? ["Meta"] : []),
 		...(event.altKey ? ["Alt"] : []),
 		...(event.shiftKey ? ["Shift"] : []),
-		normalizeKeyCode(event.code),
+		shortcutKeyFromEvent(event),
 	]);
 }
 

@@ -1,7 +1,8 @@
 /**
- * Physical keyboard geometry for the keyboard view. Keys are identified by
- * `KeyboardEvent.code`, which names a physical position, so bindings stay put
- * whatever the user's layout. Only the printed labels change per layout.
+ * Physical keyboard geometry for the keyboard view. Caps are identified by
+ * `KeyboardEvent.code`, a physical position. Letter bindings follow the
+ * layout's characters, so a cap shows the letter it types; every other
+ * binding stays on its position. Only the printed labels change per layout.
  */
 
 export type KeyboardLayoutId = "qwerty" | "azerty" | "qwertz";

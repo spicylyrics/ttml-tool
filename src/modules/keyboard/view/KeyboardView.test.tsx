@@ -7,6 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { keyBindingListAtom } from "../binding-list";
 import { cmdSyncStart } from "../commands";
 import { KeyboardViewSection } from "./KeyboardViewSection";
+import { keyboardViewLayoutAtom } from "./use-keyboard-layout";
 
 // Node's own localStorage stub shadows jsdom's; use a plain in-memory one.
 vi.hoisted(() => {
@@ -67,6 +68,20 @@ function key(type: "keydown" | "keyup", code: string) {
 }
 
 describe("keyboard view", () => {
+	it("moves a Latin binding to the cap with its character", () => {
+		const { store, container } = mount();
+		act(() => {
+			store.set(keyboardViewLayoutAtom, "qwertz");
+			store.set(keyBindingListAtom(cmdSyncStart), [["KeyZ"]]);
+		});
+		expect(cap(container, "KeyY")?.textContent).toBe("Z");
+		expect(cap(container, "KeyY")?.dataset.category).toBe("sync");
+		expect(cap(container, "KeyZ")?.dataset.category).not.toBe("sync");
+		act(() => cap(container, "KeyY")?.click());
+		expect(cap(container, "KeyY")?.dataset.selected).toBe("true");
+		expect(container.querySelector("section[aria-label='Z']")).not.toBeNull();
+	});
+
 	it("colors bound keys by category and leaves free keys blank", () => {
 		const { container } = mount();
 		expect(cap(container, "KeyF")?.dataset.category).toBe("sync");

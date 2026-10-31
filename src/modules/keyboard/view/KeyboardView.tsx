@@ -26,7 +26,12 @@ import {
 	VIEW_CATEGORIES,
 	viewCategoryOf,
 } from "./key-index";
-import { capFaceLabel, capLabel, formatViewCombo } from "./labels";
+import {
+	capFaceLabel,
+	capLabel,
+	capShortcutKey,
+	formatViewCombo,
+} from "./labels";
 import {
 	geometryFor,
 	isGap,
@@ -63,6 +68,7 @@ const Cap: FC<{ cap: KeyCap; context: CapContext }> = ({ cap, context }) => {
 	const { code } = cap;
 	const label = capLabel(code, context.layout);
 	const face = capFaceLabel(code, context.layout);
+	const shortcutKey = capShortcutKey(code, context.layout);
 	const style = { "--w": cap.width ?? 1 } as CSSProperties;
 
 	if (isModifierCode(code)) {
@@ -83,7 +89,7 @@ const Cap: FC<{ cap: KeyCap; context: CapContext }> = ({ cap, context }) => {
 		);
 	}
 
-	const allRefs = context.index.get(code) ?? [];
+	const allRefs = context.index.get(shortcutKey) ?? [];
 	const refs = refsInLayer(allRefs, context.layer);
 	const category = refs[0] ? viewCategoryOf(refs[0].command) : undefined;
 	const names = refs.map((ref) => context.nameOf(ref.command));
@@ -98,7 +104,7 @@ const Cap: FC<{ cap: KeyCap; context: CapContext }> = ({ cap, context }) => {
 			style={style}
 			data-code={code}
 			data-category={category}
-			data-selected={context.selected === code || undefined}
+			data-selected={context.selected === shortcutKey || undefined}
 			data-match={match === undefined ? undefined : String(match)}
 			aria-hidden={cap.continuation || undefined}
 			tabIndex={cap.continuation ? -1 : undefined}
@@ -110,7 +116,7 @@ const Cap: FC<{ cap: KeyCap; context: CapContext }> = ({ cap, context }) => {
 						})
 					: t("keyboardView.keyFree", { key: label })
 			}
-			onClick={() => context.onSelect(code)}
+			onClick={() => context.onSelect(shortcutKey)}
 		>
 			<span className={styles.capLabel}>{cap.continuation ? "" : face}</span>
 			{category && !cap.continuation && (
