@@ -9,21 +9,18 @@ import {
 } from "$/states/main";
 import type { LyricWord } from "$/types/ttml";
 import { applyPlayheadSplit } from "./split-timing";
-import { timeModeWordEditingEnabledAtom } from "./states";
 
 type Store = ReturnType<typeof createStore>;
 
 /**
  * Time-mode extras for the Split word dialog: the dialog's own target word is
  * split at the playhead when it falls inside the word, and the first new word
- * stays selected so F, G and H carry on. Null (no change) unless the flag is on
- * and the editor is in Time mode.
+ * stays selected so F, G and H carry on. Null (no change) outside Time mode.
  */
 export function createTimeModeSplit(
 	store: Store,
 	target: { lineIndex: number; wordIndex: number },
 ) {
-	if (!store.get(timeModeWordEditingEnabledAtom)) return null;
 	if (store.get(toolModeAtom) !== ToolMode.Sync) return null;
 
 	const line = store.get(lyricLinesAtom).lyricLines[target.lineIndex];

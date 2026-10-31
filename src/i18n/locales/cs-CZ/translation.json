@@ -1384,10 +1384,6 @@
     "noSuggestions": "Žádné návrhy"
   },
   "timeModeEditing": {
-    "flagTitle": "Úpravy slov v režimu Časování",
-    "flagDesc": "Rozdělujte, slučujte a nahrazujte slova z kontextové nabídky v režimu Časování. Rozdělení na dvě části proběhne na pozici přehrávání, pokud je uvnitř slova.",
-    "doubleClickTimestamp": "Dvojklik upraví časovou značku",
-    "doubleClickTimestampDesc": "Dvojklikem na slovo v režimu Časování zadáte jeho počáteční čas místo textu. Vyžaduje zobrazené časové značky.",
     "combinePrevious": "Sloučit s předchozím slovem",
     "combineNext": "Sloučit s dalším slovem"
   },

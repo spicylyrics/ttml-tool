@@ -206,7 +206,7 @@ export const SplitWordDialog = memo(() => {
 			? new Map([[splitRule.key, splitRule.boundaries]])
 			: null;
 		const targetCore = getLearnedWordParts(targetWordText);
-		// Null outside Time mode or with the flag off: plain proportional split.
+		// Null outside Time mode: plain proportional split.
 		const timeModeSplit = createTimeModeSplit(store, editingState);
 
 		const createNewWords = (

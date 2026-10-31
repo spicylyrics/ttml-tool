@@ -26,7 +26,6 @@ import {
 	syncLevelModeAtom,
 	visualizeTimestampUpdateAtom,
 } from "$/modules/settings/states/sync.ts";
-import { doubleClickEditsTimestampAtom } from "$/modules/time-mode-editing/states";
 import { splitWordDialogAtom } from "$/states/dialogs.ts";
 import {
 	editingWordStateAtom,
@@ -89,7 +88,6 @@ export const LyricSyncWordView: FC<{
 	const enableTimeModeDoubleClickEdit = useAtomValue(
 		enableTimeModeDoubleClickEditAtom,
 	);
-	const doubleClickEditsTimestamp = useAtomValue(doubleClickEditsTimestampAtom);
 
 	const store = useStore();
 	const {
@@ -199,8 +197,6 @@ export const LyricSyncWordView: FC<{
 		setEditingWordState,
 		setOpenSplitWordDialog,
 		editing,
-		// The start time field only exists while timestamps are shown.
-		doubleClickEditsTimestamp: doubleClickEditsTimestamp && showTimestamps,
 	});
 
 	return (

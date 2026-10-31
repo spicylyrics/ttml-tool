@@ -1384,10 +1384,6 @@
     "noSuggestions": "Fără sugestii"
   },
   "timeModeEditing": {
-    "flagTitle": "Editarea cuvintelor în modul Sincronizare",
-    "flagDesc": "Împarte, unește și înlocuiește cuvinte din meniul de clic dreapta în modul Sincronizare. O împărțire în două părți se face la cursorul de redare când acesta e în interiorul cuvântului.",
-    "doubleClickTimestamp": "Dublu clic editează marcajul de timp",
-    "doubleClickTimestampDesc": "Fă dublu clic pe un cuvânt în modul Sincronizare pentru a-i scrie ora de început în loc de text. Necesită afișarea marcajelor de timp.",
     "combinePrevious": "Unește cu cuvântul anterior",
     "combineNext": "Unește cu cuvântul următor"
   },

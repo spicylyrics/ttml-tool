@@ -51,6 +51,33 @@ describe("combineWithNeighbor", () => {
 		]);
 	});
 
+	it("keeps the timed word's range when the next word is untimed", () => {
+		const words = [word("beau", 1000, 1200), word("ti", 0, 0)];
+		const result = combineWithNeighbor(words, 0, "next");
+		expect(result && times(result.words)).toEqual([["beauti", 1000, 1200]]);
+	});
+
+	it("keeps the timed word's range when the previous word is untimed", () => {
+		const words = [word("beau", 0, 0), word("ti", 1200, 1350)];
+		const result = combineWithNeighbor(words, 1, "previous");
+		expect(result && times(result.words)).toEqual([["beauti", 1200, 1350]]);
+	});
+
+	it("never ends before it starts when a word has a start but no end yet", () => {
+		const words = [word("ti", 1000, 1500), word("ful", 1500, 0)];
+		const result = combineWithNeighbor(words, 0, "next");
+		expect(result && times(result.words)).toEqual([["tiful", 1000, 1500]]);
+		const open = [word("ful", 1500, 0), word("day", 0, 0)];
+		const second = combineWithNeighbor(open, 0, "next");
+		expect(second && times(second.words)).toEqual([["fulday", 1500, 1500]]);
+	});
+
+	it("leaves two untimed words untimed", () => {
+		const words = [word("beau", 0, 0), word("ti", 0, 0)];
+		const result = combineWithNeighbor(words, 0, "next");
+		expect(result && times(result.words)).toEqual([["beauti", 0, 0]]);
+	});
+
 	it("returns null at the edges of the line", () => {
 		expect(combineWithNeighbor(line(), 0, "previous")).toBeNull();
 		expect(combineWithNeighbor(line(), 4, "next")).toBeNull();

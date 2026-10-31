@@ -23,9 +23,28 @@ export function getNeighborRange(
 	return null;
 }
 
+const isUntimed = (word: LyricWord) =>
+	word.startTime === 0 && word.endTime === 0;
+
 /**
- * Combines a word with its neighbor through the Edit-mode combine utility:
- * the result takes the first start time and the last end time.
+ * The time range a combined word keeps: from the earliest start to the latest
+ * end of the words that have timing, so an untimed (0, 0) neighbor doesn't
+ * leave the result ending at 0. Null when none of them is timed.
+ */
+export function combinedTimeRange(
+	words: readonly LyricWord[],
+): { startTime: number; endTime: number } | null {
+	const timed = words.filter((word) => !isUntimed(word));
+	if (timed.length === 0) return null;
+	const startTime = Math.min(...timed.map((word) => word.startTime));
+	const endTime = Math.max(...timed.map((word) => word.endTime));
+	// A word timed mid-sync can still have no end; never end before the start.
+	return { startTime, endTime: Math.max(startTime, endTime) };
+}
+
+/**
+ * Combines a word with its neighbor through the Edit-mode combine utility,
+ * then gives the result the range of the timed words it was made from.
  */
 export function combineWithNeighbor(
 	words: LyricWord[],
@@ -34,7 +53,10 @@ export function combineWithNeighbor(
 ): { words: LyricWord[]; combined: LyricWord } | null {
 	const range = getNeighborRange(words, wordIndex, direction);
 	if (!range) return null;
-	const ids = new Set(words.slice(range[0], range[1] + 1).map((w) => w.id));
+	const merged = words.slice(range[0], range[1] + 1);
+	const ids = new Set(merged.map((w) => w.id));
 	const result = combineSelectedWords(words, ids);
+	const timing = combinedTimeRange(merged);
+	if (timing) result[range[0]] = { ...result[range[0]], ...timing };
 	return { words: result, combined: result[range[0]] };
 }

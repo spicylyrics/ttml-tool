@@ -26,6 +26,14 @@ import type { LyricExportFormat } from "$/modules/project/export-lyric";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
 import {
+	canCombineNextAtom,
+	canCombinePreviousAtom,
+	combineSelectedWord,
+	hasSelectedWordAtom,
+	openReplaceSelectedWord,
+	openSplitSelectedWord,
+} from "$/modules/time-mode-editing/word-actions";
+import {
 	changelogDialogAtom,
 	combineWordsDialogAtom,
 	geniusSearchDialogAtom,
@@ -340,6 +348,48 @@ export const MENU_ACTIONS = {
 				if (lineIndex !== -1)
 					store.set(combineWordsDialogAtom, { open: true, lineIndex });
 			},
+		},
+	),
+	// Time mode's right-click word items, on the word the sync cursor is on.
+	// Edit rather than Sync: the palette leaves the Sync timing keys out.
+	splitSelectedWord: defineAction(
+		"splitSelectedWord",
+		"Edit",
+		[key("contextMenu.splitWord"), "Split word..."],
+		{
+			modes: ["sync"],
+			enabledAtom: hasSelectedWordAtom,
+			run: ({ store }) => openSplitSelectedWord(store),
+		},
+	),
+	combineWithPreviousWord: defineAction(
+		"combineWithPreviousWord",
+		"Edit",
+		[key("timeModeEditing.combinePrevious"), "Combine with previous word"],
+		{
+			modes: ["sync"],
+			enabledAtom: canCombinePreviousAtom,
+			run: ({ store }) => combineSelectedWord(store, "previous"),
+		},
+	),
+	combineWithNextWord: defineAction(
+		"combineWithNextWord",
+		"Edit",
+		[key("timeModeEditing.combineNext"), "Combine with next word"],
+		{
+			modes: ["sync"],
+			enabledAtom: canCombineNextAtom,
+			run: ({ store }) => combineSelectedWord(store, "next"),
+		},
+	),
+	replaceSelectedWord: defineAction(
+		"replaceSelectedWord",
+		"Edit",
+		[key("contextMenu.replaceWord"), "Replace word..."],
+		{
+			modes: ["sync"],
+			enabledAtom: hasSelectedWordAtom,
+			run: ({ store }) => openReplaceSelectedWord(store),
 		},
 	),
 

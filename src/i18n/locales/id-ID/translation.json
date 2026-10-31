@@ -1384,10 +1384,6 @@
     "noSuggestions": "Tidak ada saran"
   },
   "timeModeEditing": {
-    "flagTitle": "Edit kata di mode Sinkronisasi",
-    "flagDesc": "Pisahkan, gabungkan, dan ganti kata dari menu klik kanan di mode Sinkronisasi. Pemisahan menjadi dua bagian dilakukan di posisi pemutaran jika berada di dalam kata.",
-    "doubleClickTimestamp": "Klik dua kali mengedit stempel waktu",
-    "doubleClickTimestampDesc": "Klik dua kali sebuah kata di mode Sinkronisasi untuk mengetik waktu mulainya, bukan teksnya. Stempel waktu harus ditampilkan.",
     "combinePrevious": "Gabungkan dengan kata sebelumnya",
     "combineNext": "Gabungkan dengan kata berikutnya"
   },

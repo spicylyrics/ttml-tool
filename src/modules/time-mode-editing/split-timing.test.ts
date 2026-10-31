@@ -12,7 +12,6 @@ import {
 } from "$/states/main";
 import { type LyricWord, newLyricLine, newLyricWord } from "$/types/ttml";
 import { applyPlayheadSplit } from "./split-timing";
-import { timeModeWordEditingEnabledAtom } from "./states";
 import { createTimeModeSplit } from "./time-mode-split";
 
 const word = (text: string, startTime: number, endTime: number): LyricWord => ({
@@ -75,13 +74,12 @@ describe("applyPlayheadSplit", () => {
 });
 
 describe("createTimeModeSplit", () => {
-	function setup({ enabled, mode }: { enabled: boolean; mode: ToolMode }) {
+	function setup(mode: ToolMode) {
 		const store = createStore();
 		const target = word("hello", 1000, 2000);
 		const other = word("hello", 3000, 4000);
 		const line = { ...newLyricLine(), words: [target, other] };
 		store.set(lyricLinesAtom, { metadata: [], lyricLines: [line] });
-		store.set(timeModeWordEditingEnabledAtom, enabled);
 		store.set(toolModeAtom, mode);
 		store.set(currentTimeAtom, 1250);
 		store.set(selectedLinesAtom, new Set([line.id]));
@@ -89,15 +87,9 @@ describe("createTimeModeSplit", () => {
 		return { store, target, other, line };
 	}
 
-	it("is off unless the flag is on and the editor is in Time mode", () => {
+	it("is off outside Time mode", () => {
 		expect(
-			createTimeModeSplit(
-				setup({ enabled: false, mode: ToolMode.Sync }).store,
-				{ lineIndex: 0, wordIndex: 0 },
-			),
-		).toBeNull();
-		expect(
-			createTimeModeSplit(setup({ enabled: true, mode: ToolMode.Edit }).store, {
+			createTimeModeSplit(setup(ToolMode.Edit).store, {
 				lineIndex: 0,
 				wordIndex: 0,
 			}),
@@ -105,10 +97,7 @@ describe("createTimeModeSplit", () => {
 	});
 
 	it("splits only the dialog's target at the playhead and selects its first part", () => {
-		const { store, target, other, line } = setup({
-			enabled: true,
-			mode: ToolMode.Sync,
-		});
+		const { store, target, other, line } = setup(ToolMode.Sync);
 		const split = createTimeModeSplit(store, { lineIndex: 0, wordIndex: 0 });
 		if (!split) throw new Error("expected a Time-mode split");
 
