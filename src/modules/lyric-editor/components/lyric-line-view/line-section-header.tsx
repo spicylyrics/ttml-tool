@@ -71,7 +71,14 @@ export function LineSectionHeader({
 	);
 	return (
 		isSectionStart && (
-			<Flex gap="2" mb="1" align="center">
+			<Flex
+				gap="2"
+				mb="1"
+				align="center"
+				// Keeps the line's drag handler from capturing the pointer, which
+				// would swallow clicks on the header's buttons.
+				data-lyric-line-interactive={section ? "" : undefined}
+			>
 				{section && toolMode === ToolMode.Edit ? (
 					<button
 						type="button"

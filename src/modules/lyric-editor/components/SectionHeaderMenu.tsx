@@ -59,7 +59,12 @@ export function SectionHeaderMenu({ section }: { section: LyricSection }) {
 					<MoreHorizontal16Regular />
 				</IconButton>
 			</DropdownMenu.Trigger>
-			<DropdownMenu.Content onClick={(event) => event.stopPropagation()}>
+			{/* Portaled, but React still bubbles its pointer events to the line,
+			    whose drag handler would capture the pointer and eat the click. */}
+			<DropdownMenu.Content
+				data-lyric-line-interactive=""
+				onClick={(event) => event.stopPropagation()}
+			>
 				<DropdownMenu.Item onSelect={() => setEditingSectionId(section.id)}>
 					{t("sectionEditing.editHeader", { label: section.label })}
 				</DropdownMenu.Item>
