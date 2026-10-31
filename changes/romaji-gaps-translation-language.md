@@ -1,6 +1,7 @@
 ---
 type: fix
 impact: 3
+highlight: false
 ---
 Saving keeps romaji word gaps and translation language
 

@@ -138,19 +138,23 @@ describe("menu actions as keyboard commands", () => {
 		expect(en.settingsDialog.keybindings.exportLrc).toBe("Export lyrics: LRC");
 	});
 
-	it("keeps the selection actions to Edit mode", () => {
+	it("lists the selection actions in Edit and Time mode, not Preview", () => {
 		const { swapDuetSelected, combineWords, swapDuetAll } =
 			actions.MENU_ACTIONS;
-		for (const mode of ["sync", "preview"]) {
-			expect(palette.paletteListsCommand(swapDuetSelected.command, mode)).toBe(
+		const { lineBackground, lineDuet } = ribbon.RIBBON_ACTIONS;
+		for (const action of [
+			swapDuetSelected,
+			combineWords,
+			lineBackground,
+			lineDuet,
+		]) {
+			for (const mode of ["edit", "sync"])
+				expect(palette.paletteListsCommand(action.command, mode)).toBe(true);
+			expect(palette.paletteListsCommand(action.command, "preview")).toBe(
 				false,
 			);
-			expect(palette.paletteListsCommand(combineWords.command, mode)).toBe(
-				false,
-			);
-			expect(palette.paletteListsCommand(swapDuetAll.command, mode)).toBe(true);
 		}
-		expect(palette.paletteListsCommand(combineWords.command, "edit")).toBe(
+		expect(palette.paletteListsCommand(swapDuetAll.command, "preview")).toBe(
 			true,
 		);
 	});
@@ -206,14 +210,14 @@ describe("runMenuAction", () => {
 		const line = lineWithWords(2);
 		const store = storeWithLines([line]);
 		store.set(main.selectedLinesAtom, new Set([line.id]));
-		store.set(main.toolModeAtom, main.ToolMode.Sync);
+		store.set(main.toolModeAtom, main.ToolMode.Preview);
 		const run = vi.fn();
 		actions.runMenuAction(
 			{ ...actions.MENU_ACTIONS.swapDuetSelected, run },
 			context(store),
 		);
 		expect(run).not.toHaveBeenCalled();
-		store.set(main.toolModeAtom, main.ToolMode.Edit);
+		store.set(main.toolModeAtom, main.ToolMode.Sync);
 		actions.runMenuAction(
 			{ ...actions.MENU_ACTIONS.swapDuetSelected, run },
 			context(store),

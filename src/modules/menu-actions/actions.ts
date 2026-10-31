@@ -99,6 +99,9 @@ export function defineAction(
 	};
 }
 
+/** Edit and Time mode, where lines and words can be selected. */
+export const SELECTION_MODES: readonly KeyBindingMode[] = ["edit", "sync"];
+
 const hasLyricLinesAtom = atom(
 	(get) => get(lyricLinesAtom).lyricLines.length > 0,
 );
@@ -284,13 +287,14 @@ export const MENU_ACTIONS = {
 		[key("settingsDialog.title"), "Preferences"],
 		{ run: ({ menu }) => menu.onOpenSettings() },
 	),
-	// Right-click selection actions; no menu item of their own up top.
+	// Right-click selection actions; no menu item of their own up top. They
+	// work on whatever is selected, so Time mode gets them too.
 	swapDuetSelected: defineAction(
 		"swapDuetSelected",
 		"Edit",
 		[key("editModeTools.swapDuetSelected"), "Swap main and duet"],
 		{
-			modes: ["edit"],
+			modes: SELECTION_MODES,
 			enabledAtom: hasSelectedLinesAtom,
 			run: ({ store }) =>
 				store.set(swapDuetLinesAtom, store.get(selectedLinesAtom)),
@@ -301,7 +305,7 @@ export const MENU_ACTIONS = {
 		"Edit",
 		[key("contextMenu.combineWords"), "Combine words"],
 		{
-			modes: ["edit"],
+			modes: SELECTION_MODES,
 			enabledAtom: canCombineWordsAtom,
 			run: ({ store }) => {
 				const selectedLines = store.get(selectedLinesAtom);
