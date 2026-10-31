@@ -259,6 +259,21 @@ describe("applySectionTimings", () => {
 		expect([letGo.startTime, letGo.endTime]).toEqual([10700, 11400]);
 	});
 
+	it("keeps the timing of words that don't match", () => {
+		const lyrics = make();
+		const held = lyrics.lyricLines[3];
+		held.words[2].startTime = 10500;
+		held.words[2].endTime = 10900;
+		const result = applySectionTimings(lyrics, "c2", "c1", 10000);
+		expect(result?.untimedWords).toBe(0);
+		expect(held.words.map((word) => [word.startTime, word.endTime])).toEqual([
+			[10000, 10200],
+			[10200, 10400],
+			[10500, 10900],
+		]);
+		expect([held.startTime, held.endTime]).toEqual([10000, 10900]);
+	});
+
 	it("leaves the source and other sections alone", () => {
 		const lyrics = make();
 		const before = timings(lyrics).slice(0, 3);

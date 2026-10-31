@@ -265,7 +265,7 @@ export interface ApplyTimingsResult {
 	/** Target lines that received timings. */
 	copiedLines: number;
 	totalLines: number;
-	/** Words in copied lines that had no match and are now untimed. */
+	/** Words in copied lines that had no match and still have no timing. */
 	untimedWords: number;
 }
 
@@ -273,7 +273,7 @@ export interface ApplyTimingsResult {
  * Copies a timed section's relative timings onto another section, with the
  * source's first timed line starting at `anchorMs` (the same shift Ctrl+L's
  * duplicate-to-time uses). Lines pair up by their words, in order; inside a
- * paired line only matching words get timings and the rest become untimed.
+ * paired line only matching words get timings and the rest keep theirs.
  * Lines with no match are left exactly as they were.
  */
 export function applySectionTimings(
@@ -317,12 +317,19 @@ export function applySectionTimings(
 				word.endTime = copy.words[sourceWordIndex].endTime;
 				return;
 			}
-			word.startTime = 0;
-			word.endTime = 0;
-			untimedWords++;
+			// No match: keep whatever sync the word already has.
+			if (!isTimedWord(word)) untimedWords++;
 		});
-		target.startTime = copy.startTime;
-		target.endTime = copy.endTime;
+		// The line spans the copied timing plus any words that kept their own.
+		const timedWords = target.words.filter(isTimedWord);
+		target.startTime = Math.min(
+			copy.startTime,
+			...timedWords.map((word) => word.startTime),
+		);
+		target.endTime = Math.max(
+			copy.endTime,
+			...timedWords.map((word) => word.endTime),
+		);
 	}
 	return {
 		copiedLines: linePairs.length,
