@@ -59,7 +59,7 @@ describe("first-class sections", () => {
 		} as TTMLLyric;
 
 		applyReviewedSections(lyrics, [
-			{ occurrence: 0, notes: "quiet", vocalist: "Lead" },
+			{ occurrence: 0, category: "bridge", confidence: 1 },
 		]);
 
 		expect(lyrics.sections).toHaveLength(2);
@@ -68,9 +68,8 @@ describe("first-class sections", () => {
 			lyrics.lyricLines[0].sectionId,
 		);
 		expect(lyrics.sections?.[0]).toMatchObject({
-			category: "verse",
-			notes: "quiet",
-			vocalist: "Lead",
+			category: "bridge",
+			confidence: 1,
 		});
 	});
 

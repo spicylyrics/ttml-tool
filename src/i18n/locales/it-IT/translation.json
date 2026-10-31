@@ -177,7 +177,7 @@
     "removeHeadersHint": "Elimina le righe di intestazione dal testo.",
     "textFormat": "Formato del testo",
     "reviewSections": "Controlla sezioni",
-    "reviewHint": "Correggi le categorie indovinate male. Colori, cantanti e note si impostano dopo dal menu della sezione.",
+    "reviewHint": "Correggi i tipi indovinati male. Puoi rinominare le sezioni in seguito facendo clic sul loro nome nell'editor.",
     "sectionLabel": "Nome della sezione",
     "sectionCategory": "Categoria della sezione",
     "lowConfidence": "Categoria indovinata. Controllala.",
@@ -336,16 +336,6 @@
       "title": "Creare un nuovo progetto?",
       "description": "Hai modifiche non salvate. Se continui, andranno perse. Vuoi davvero creare un nuovo progetto?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Rilevate intestazioni di sezione Genius",
-      "dialogDesc": "Il testo ha intestazioni come [Verse] e [Chorus]. Attivare la funzione sperimentale Sezioni Genius per usarle?",
-      "usageInfo": "Le intestazioni avranno uno stile dedicato nell’editor e strumenti come Applica i tempi o Allinea al cursore di riproduzione.",
-      "maybeLater": "Forse più tardi",
-      "enableNow": "Abilita ora",
-      "title": "Sezioni Genius",
-      "snapToPlayhead": "Allinea al cursore di riproduzione"    }
   },
   "logoColor": {
     "title": "Colore del logo",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Verso del duetto",
     "lineRole": "Ruolo della riga",
     "moveLineToPlayhead": "Sposta il verso al cursore di riproduzione",
+    "timing": "Tempi",
     "copyTimingsTo": "Copia tempi in…",
     "cancelCopyTimings": "Annulla copia dei tempi",
     "snapSelectedLinesToPlayhead": "Allinea i versi selezionati al cursore di riproduzione",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Nessun suggerimento"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {Categorizza # verso selezionato} many {Categorizza # versi selezionati} other {Categorizza # versi selezionati}}",
-    "categorizeTitle": "Categorizza i versi selezionati",
-    "categorize": "Categorizza",
     "expand": "Espandi sezione",
     "collapse": "Comprimi sezione",
-    "editTitle": "Modifica sezione",
-    "vocalist": "Cantante/ruolo",
-    "notes": "Note",
-    "manage": "Gestisci sezioni",
-    "goPrevious": "Vai alla sezione precedente",
-    "goNext": "Vai alla sezione successiva",
-    "editMetadata": "Modifica metadati",
-    "split": "Dividi al verso selezionato",
     "mergePrevious": "Unisci alla precedente",
-    "mergeNext": "Unisci alla successiva",
-    "moveUp": "Sposta su",
-    "moveDown": "Sposta giù",
-    "linkPrevious": "Collega alla sezione precedente: {category}",
-    "unlinkRepeat": "Scollega ripetizione",
-    "removeHeader": "Rimuovi l'intestazione (mantieni il testo)",
-    "addToPrevious": "Aggiungi versi non assegnati alla sezione precedente",
-    "addToNext": "Aggiungi versi non assegnati alla sezione successiva",
-    "section": "Sezione"
+    "removeHeader": "Rimuovi l'intestazione (mantieni il testo)"
   },
   "sectionEditing": {
-    "editHeader": "Rinomina o cambia il tipo di {label}",
     "menu": "Azioni della sezione",
     "startHere": "Inizia la sezione qui",
-    "moveStartUp": "Sposta l'inizio su di un verso",
-    "moveStartDown": "Sposta l'inizio giù di un verso",
+    "rename": "Rinomina",
+    "renameHint": "Rinomina o cambia tipo",
+    "label": "Nome della sezione",
+    "type": "Tipo di sezione",
+    "snapToPlayhead": "Allinea al cursore di riproduzione",
     "applyTimings": "Applica i tempi da...",
     "applyTitle": "Applica i tempi di un'altra sezione",
     "applyDesc": "Copia i tempi di un'altra sezione su questa. I versi vengono abbinati in base alle parole; solo le parole corrispondenti ricevono i tempi, le altre mantengono i propri.",
@@ -1424,6 +1398,25 @@
     "apply": "Applica",
     "applied": "Tempi copiati su {copied} versi su {total}. {untimed, plural, =0 {Tutte le parole hanno i tempi.} one {# parola è rimasta senza tempi.} many {# parole sono rimaste senza tempi.} other {# parole sono rimaste senza tempi.}}",
     "nothingMatched": "Nessun verso di questa sezione corrisponde all'altra, quindi non è stato copiato nulla."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Strofa",
+    "pre-chorus": "Pre-ritornello",
+    "chorus": "Ritornello",
+    "post-chorus": "Post-ritornello",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Ponte",
+    "break": "Break",
+    "interlude": "Interludio",
+    "instrumental": "Strumentale",
+    "solo": "Assolo",
+    "spoken": "Parlato",
+    "skit": "Sketch",
+    "sample": "Campione",
+    "outro": "Outro",
+    "other": "Altro"
   },
   "touchSyncPanel": {
     "prevWord": "Parola precedente",

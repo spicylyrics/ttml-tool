@@ -6,18 +6,14 @@ import {
 	Flex,
 	IconButton,
 	Popover,
-	Select,
 	Text,
 	TextField,
 } from "@radix-ui/themes";
 import { useAtom } from "jotai";
 import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { SectionCategorySelect } from "$/components/SectionCategorySelect";
 import { SlIcon } from "$/components/SlIcon";
-import {
-	LYRIC_SECTION_CATEGORIES,
-	type LyricSectionCategory,
-} from "$/types/ttml";
 import {
 	callbacksFacet,
 	dispatchInPlace,
@@ -463,29 +459,13 @@ export function LyricMarkupEditor({
 								<Text size="1" weight="medium">
 									{t("lyricMarkup.category", "Category")}
 								</Text>
-								<Select.Root
-									size="1"
+								<SectionCategorySelect
 									value={normalizeHeaderCategory(header.text)}
 									onValueChange={(category) =>
-										replaceHeader(
-											headerWithCategory(
-												header.text,
-												category as LyricSectionCategory,
-											),
-										)
+										replaceHeader(headerWithCategory(header.text, category))
 									}
-								>
-									<Select.Trigger
-										aria-label={t("lyricMarkup.category", "Category")}
-									/>
-									<Select.Content>
-										{LYRIC_SECTION_CATEGORIES.map((category) => (
-											<Select.Item key={category} value={category}>
-												{category}
-											</Select.Item>
-										))}
-									</Select.Content>
-								</Select.Root>
+									aria-label={t("lyricMarkup.category", "Category")}
+								/>
 							</Flex>
 						</Flex>
 					)}

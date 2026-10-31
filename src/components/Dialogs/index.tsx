@@ -30,7 +30,6 @@ import { SettingsDialog } from "$/modules/settings/modals/index.tsx";
 import { TTMLChecklistDialog } from "$/modules/ttml-checklist/TTMLChecklistDialog.tsx";
 import { ConfirmationDialog } from "./confirmation.tsx";
 import { CreateProjectPromptDialog } from "./create-project-prompt.tsx";
-import { GeniusHeaderDetectionDialog } from "./genius-header-detection.tsx";
 
 export const Dialogs = () => {
 	return (
@@ -61,7 +60,6 @@ export const Dialogs = () => {
 			<FontSelectionDialog />
 			<UrbanDictionaryDialog />
 			<SuggestedSplitsDialog />
-			<GeniusHeaderDetectionDialog />
 			<CommandPalette />
 			<EditAsTextDialog />
 		</>

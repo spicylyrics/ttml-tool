@@ -177,7 +177,7 @@
     "removeHeadersHint": "Scoate rândurile de antet din versuri.",
     "textFormat": "Formatul textului",
     "reviewSections": "Verifică secțiunile",
-    "reviewHint": "Corectează categoriile ghicite greșit. Culorile, vocaliștii și notele se pot seta mai târziu din meniul secțiunii.",
+    "reviewHint": "Corectează tipurile ghicite greșit. Poți redenumi secțiunile mai târziu dând clic pe numele lor în editor.",
     "sectionLabel": "Numele secțiunii",
     "sectionCategory": "Categoria secțiunii",
     "lowConfidence": "Categorie ghicită. Verific-o.",
@@ -336,16 +336,6 @@
       "title": "Creezi un proiect nou?",
       "description": "Ai modificări nesalvate. Dacă continui, acestea se vor pierde. Sigur vrei să creezi un proiect nou?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Antete de secțiuni Genius detectate",
-      "dialogDesc": "Versurile au antete precum [Verse] și [Chorus]. Activezi funcția experimentală Secțiuni Genius pentru a le folosi?",
-      "usageInfo": "Antetele vor avea un stil propriu în editor și instrumente precum Aplică sincronizările sau Aliniază la cursorul de redare.",
-      "maybeLater": "Poate mai târziu",
-      "enableNow": "Activează acum",
-      "title": "Secțiuni Genius",
-      "snapToPlayhead": "Aliniază la cursorul de redare"    }
   },
   "logoColor": {
     "title": "Culoarea logoului",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Vers de duet",
     "lineRole": "Rolul rândului",
     "moveLineToPlayhead": "Mută versul la cursorul de redare",
+    "timing": "Timpi",
     "copyTimingsTo": "Copiază timpii în…",
     "cancelCopyTimings": "Anulează copierea timpilor",
     "snapSelectedLinesToPlayhead": "Aliniază versurile selectate la cursorul de redare",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Fără sugestii"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {Clasifică # vers selectat} few {Clasifică # versuri selectate} other {Clasifică # de versuri selectate}}",
-    "categorizeTitle": "Clasifică versurile selectate",
-    "categorize": "Clasifică",
     "expand": "Extinde secțiunea",
     "collapse": "Restrânge secțiunea",
-    "editTitle": "Editează secțiunea",
-    "vocalist": "Vocalist / rol",
-    "notes": "Note",
-    "manage": "Gestionează secțiunile",
-    "goPrevious": "Mergi la secțiunea anterioară",
-    "goNext": "Mergi la secțiunea următoare",
-    "editMetadata": "Editează metadatele",
-    "split": "Împarte la versul selectat",
     "mergePrevious": "Unește cu secțiunea anterioară",
-    "mergeNext": "Unește cu secțiunea următoare",
-    "moveUp": "Mută în sus",
-    "moveDown": "Mută în jos",
-    "linkPrevious": "Asociază cu secțiunea anterioară: {category}",
-    "unlinkRepeat": "Dezasociază repetiția",
-    "removeHeader": "Elimină antetul (păstrează versurile)",
-    "addToPrevious": "Adaugă versurile neatribuite la secțiunea anterioară",
-    "addToNext": "Adaugă versurile neatribuite la secțiunea următoare",
-    "section": "Secțiune"
+    "removeHeader": "Elimină antetul (păstrează versurile)"
   },
   "sectionEditing": {
-    "editHeader": "Redenumește sau schimbă tipul pentru {label}",
     "menu": "Acțiuni pentru secțiune",
     "startHere": "Începe secțiunea aici",
-    "moveStartUp": "Mută începutul un vers în sus",
-    "moveStartDown": "Mută începutul un vers în jos",
+    "rename": "Redenumește",
+    "renameHint": "Redenumește sau schimbă tipul",
+    "label": "Numele secțiunii",
+    "type": "Tipul secțiunii",
+    "snapToPlayhead": "Aliniază la cursorul de redare",
     "applyTimings": "Aplică sincronizările din...",
     "applyTitle": "Aplică sincronizările din altă secțiune",
     "applyDesc": "Copiază sincronizările altei secțiuni pe aceasta. Versurile sunt potrivite după cuvinte; doar cuvintele care se potrivesc primesc sincronizare, restul își păstrează sincronizarea.",
@@ -1424,6 +1398,25 @@
     "apply": "Aplică",
     "applied": "Sincronizări copiate pentru {copied} din {total} versuri. {untimed, plural, =0 {Toate cuvintele sunt sincronizate.} one {# cuvânt a rămas nesincronizat.} few {# cuvinte au rămas nesincronizate.} other {# de cuvinte au rămas nesincronizate.}}",
     "nothingMatched": "Niciun vers din această secțiune nu se potrivește cu cealaltă, deci nu s-a copiat nimic."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Strofă",
+    "pre-chorus": "Pre-refren",
+    "chorus": "Refren",
+    "post-chorus": "Post-refren",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Punte",
+    "break": "Pauză",
+    "interlude": "Interludiu",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Vorbit",
+    "skit": "Scenetă",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Altele"
   },
   "touchSyncPanel": {
     "prevWord": "Cuvântul anterior",

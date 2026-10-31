@@ -177,7 +177,7 @@
     "removeHeadersHint": "Elimina las filas de encabezado de la letra.",
     "textFormat": "Formato del texto",
     "reviewSections": "Revisar secciones",
-    "reviewHint": "Corrige cualquier categoría mal adivinada. Los colores, vocalistas y notas se pueden ajustar luego desde el menú de la sección.",
+    "reviewHint": "Corrige cualquier tipo mal adivinado. Puedes renombrar las secciones luego haciendo clic en su nombre en el editor.",
     "sectionLabel": "Nombre de la sección",
     "sectionCategory": "Categoría de la sección",
     "lowConfidence": "Categoría adivinada. Revísala.",
@@ -336,16 +336,6 @@
       "title": "¿Crear un proyecto nuevo?",
       "description": "Tienes cambios sin guardar. Si continúas, se perderán. ¿Seguro que quieres crear un proyecto nuevo?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Encabezados de sección de Genius detectados",
-      "dialogDesc": "La letra tiene encabezados como [Verse] y [Chorus]. ¿Activar la función experimental Secciones de Genius para usarlos?",
-      "usageInfo": "Los encabezados tendrán su propio estilo en el editor y herramientas como Aplicar tiempos o Ajustar al cabezal de reproducción.",
-      "maybeLater": "Quizás más tarde",
-      "enableNow": "Habilitar ahora",
-      "title": "Secciones de Genius",
-      "snapToPlayhead": "Ajustar al cabezal de reproducción"    }
   },
   "logoColor": {
     "title": "Color del logotipo",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Línea de dúo",
     "lineRole": "Función de la línea",
     "moveLineToPlayhead": "Mover línea al cabezal de reproducción",
+    "timing": "Tiempos",
     "copyTimingsTo": "Copiar tiempos a…",
     "cancelCopyTimings": "Cancelar copia de tiempos",
     "snapSelectedLinesToPlayhead": "Ajustar líneas seleccionadas al cabezal de reproducción",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Sin sugerencias"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {Categorizar # línea seleccionada} many {Categorizar # líneas seleccionadas} other {Categorizar # líneas seleccionadas}}",
-    "categorizeTitle": "Categorizar líneas seleccionadas",
-    "categorize": "Categorizar",
     "expand": "Expandir sección",
     "collapse": "Contraer sección",
-    "editTitle": "Editar sección",
-    "vocalist": "Vocalista / rol",
-    "notes": "Notas",
-    "manage": "Administrar secciones",
-    "goPrevious": "Ir a la sección anterior",
-    "goNext": "Ir a la siguiente sección",
-    "editMetadata": "Editar metadatos",
-    "split": "Dividir en la línea seleccionada",
     "mergePrevious": "Fusionar con la anterior",
-    "mergeNext": "Fusionar con la siguiente",
-    "moveUp": "Subir",
-    "moveDown": "Bajar",
-    "linkPrevious": "Vincular a la sección anterior: {category}",
-    "unlinkRepeat": "Desvincular repetición",
-    "removeHeader": "Eliminar encabezado (conservar la letra)",
-    "addToPrevious": "Agregar líneas no asignadas a la sección anterior",
-    "addToNext": "Agregar líneas no asignadas a la siguiente sección",
-    "section": "Sección"
+    "removeHeader": "Eliminar encabezado (conservar la letra)"
   },
   "sectionEditing": {
-    "editHeader": "Renombrar o cambiar el tipo de {label}",
     "menu": "Acciones de sección",
     "startHere": "Iniciar sección aquí",
-    "moveStartUp": "Subir el inicio una línea",
-    "moveStartDown": "Bajar el inicio una línea",
+    "rename": "Cambiar nombre",
+    "renameHint": "Cambiar nombre o tipo",
+    "label": "Nombre de la sección",
+    "type": "Tipo de sección",
+    "snapToPlayhead": "Ajustar al cabezal de reproducción",
     "applyTimings": "Aplicar tiempos de...",
     "applyTitle": "Aplicar tiempos de otra sección",
     "applyDesc": "Copia los tiempos de otra sección en esta. Las líneas se emparejan por sus palabras; solo las palabras coincidentes reciben tiempos y el resto conserva los suyos.",
@@ -1424,6 +1398,25 @@
     "apply": "Aplicar",
     "applied": "Tiempos copiados en {copied} de {total} líneas. {untimed, plural, =0 {Todas las palabras tienen tiempo.} one {# palabra quedó sin tiempo.} many {# palabras quedaron sin tiempo.} other {# palabras quedaron sin tiempo.}}",
     "nothingMatched": "Ninguna línea de esta sección coincide con la otra, así que no se copió nada."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Estrofa",
+    "pre-chorus": "Preestribillo",
+    "chorus": "Estribillo",
+    "post-chorus": "Postestribillo",
+    "refrain": "Refrán",
+    "hook": "Gancho",
+    "bridge": "Puente",
+    "break": "Pausa",
+    "interlude": "Interludio",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Hablado",
+    "skit": "Sketch",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Otro"
   },
   "touchSyncPanel": {
     "prevWord": "Palabra anterior",

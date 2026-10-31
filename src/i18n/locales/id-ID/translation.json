@@ -177,7 +177,7 @@
     "removeHeadersHint": "Membuang baris judul dari lirik.",
     "textFormat": "Format teks",
     "reviewSections": "Tinjau bagian",
-    "reviewHint": "Perbaiki kategori yang salah tebak. Warna, vokalis, dan catatan bisa diatur nanti dari menu bagian.",
+    "reviewHint": "Perbaiki jenis yang salah tebak. Anda bisa mengganti nama bagian nanti dengan mengklik namanya di editor.",
     "sectionLabel": "Label bagian",
     "sectionCategory": "Kategori bagian",
     "lowConfidence": "Kategori ditebak. Periksa kembali.",
@@ -336,16 +336,6 @@
       "title": "Buat proyek baru?",
       "description": "Ada perubahan yang belum disimpan. Jika Anda melanjutkan, perubahan ini akan hilang. Yakin ingin membuat proyek baru?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Judul bagian Genius ditemukan",
-      "dialogDesc": "Lirik Anda memiliki judul bagian seperti [Verse] dan [Chorus]. Aktifkan fitur eksperimental Bagian Genius untuk menggunakannya?",
-      "usageInfo": "Judul bagian akan tampil dengan gaya tersendiri di editor, dengan alat seperti Terapkan pewaktuan dan Paskan ke penunjuk putar.",
-      "maybeLater": "Mungkin nanti",
-      "enableNow": "Aktifkan sekarang",
-      "title": "Bagian Genius",
-      "snapToPlayhead": "Paskan ke penunjuk putar"    }
   },
   "logoColor": {
     "title": "Warna logo",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Baris duet",
     "lineRole": "Peran baris",
     "moveLineToPlayhead": "Pindahkan baris ke penunjuk putar",
+    "timing": "Waktu",
     "copyTimingsTo": "Salin waktu ke…",
     "cancelCopyTimings": "Batalkan penyalinan waktu",
     "snapSelectedLinesToPlayhead": "Paskan baris terpilih ke penunjuk putar",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Tidak ada saran"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, other {Kategorikan # baris terpilih}}",
-    "categorizeTitle": "Kategorikan baris yang dipilih",
-    "categorize": "Kategorikan",
     "expand": "Perluas bagian",
     "collapse": "Ciutkan bagian",
-    "editTitle": "Edit bagian",
-    "vocalist": "Vokalis / peran",
-    "notes": "Catatan",
-    "manage": "Kelola bagian",
-    "goPrevious": "Buka bagian sebelumnya",
-    "goNext": "Lanjutkan ke bagian berikutnya",
-    "editMetadata": "Edit metadata",
-    "split": "Pisahkan pada baris yang dipilih",
     "mergePrevious": "Gabungkan dengan sebelumnya",
-    "mergeNext": "Gabungkan dengan berikutnya",
-    "moveUp": "Pindahkan ke atas",
-    "moveDown": "Pindah ke bawah",
-    "linkPrevious": "Tautkan ke {category} sebelumnya",
-    "unlinkRepeat": "Lepas tautan pengulangan",
-    "removeHeader": "Hapus judul (pertahankan lirik)",
-    "addToPrevious": "Tambahkan baris yang belum ditetapkan ke bagian sebelumnya",
-    "addToNext": "Tambahkan baris yang belum ditetapkan ke bagian berikutnya",
-    "section": "Bagian"
+    "removeHeader": "Hapus judul (pertahankan lirik)"
   },
   "sectionEditing": {
-    "editHeader": "Ganti nama atau jenis {label}",
     "menu": "Aksi bagian",
     "startHere": "Mulai bagian di sini",
-    "moveStartUp": "Naikkan awal satu baris",
-    "moveStartDown": "Turunkan awal satu baris",
+    "rename": "Ganti nama",
+    "renameHint": "Ganti nama atau ubah jenis",
+    "label": "Nama bagian",
+    "type": "Jenis bagian",
+    "snapToPlayhead": "Paskan ke penunjuk putar",
     "applyTimings": "Terapkan pewaktuan dari...",
     "applyTitle": "Terapkan pewaktuan dari bagian lain",
     "applyDesc": "Menyalin pewaktuan bagian lain ke bagian ini. Baris dicocokkan berdasarkan katanya; hanya kata yang cocok yang mendapat pewaktuan, sisanya tetap memakai pewaktuannya sendiri.",
@@ -1424,6 +1398,25 @@
     "apply": "Terapkan",
     "applied": "Pewaktuan disalin ke {copied} dari {total} baris. {untimed, plural, =0 {Semua kata sudah punya pewaktuan.} other {# kata dibiarkan tanpa pewaktuan.}}",
     "nothingMatched": "Tidak ada baris di bagian ini yang cocok dengan bagian itu, jadi tidak ada yang disalin."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Bait",
+    "pre-chorus": "Pra-reff",
+    "chorus": "Reff",
+    "post-chorus": "Pasca-reff",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Bridge",
+    "break": "Jeda",
+    "interlude": "Interlude",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Ucapan",
+    "skit": "Skit",
+    "sample": "Sampel",
+    "outro": "Outro",
+    "other": "Lainnya"
   },
   "touchSyncPanel": {
     "prevWord": "Kata sebelumnya",

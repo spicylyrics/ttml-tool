@@ -457,7 +457,6 @@ export function applyEditedText(
 							label: fresh.label,
 							category: fresh.category,
 							ordinal: fresh.ordinal,
-							vocalist: fresh.vocalist,
 							confidence: fresh.confidence,
 						});
 				}

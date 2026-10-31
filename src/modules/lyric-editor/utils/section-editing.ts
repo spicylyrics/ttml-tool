@@ -11,7 +11,6 @@ import {
 	getOrderedSections,
 	getSectionBoundsById,
 	normalizeSectionHeader,
-	repairSectionIntegrity,
 	sectionCategoryLabel,
 	sectionTextSimilarity,
 } from "./section-system.ts";
@@ -113,32 +112,85 @@ export function startSectionAt(
 	return section;
 }
 
+/** `Chorus 2` or `[Chorus 2]` as a stored header, `[Chorus 2]`. */
+export const toHeaderLabel = (text: string) => {
+	const inner = text
+		.trim()
+		.replace(/^\[|\]$/g, "")
+		.trim();
+	return inner ? `[${inner}]` : undefined;
+};
+
 /**
- * Moves where a section starts by one line. "up" takes in the line above it
- * (from the previous section or from unassigned lines); "down" hands its first
- * line to the previous section, or leaves it unassigned. A one-line section
- * can't move down; remove it instead.
+ * Renames and retypes a section, keeping its lines' headers in step. An empty
+ * label changes nothing.
  */
-export function moveSectionStart(
+export function updateSection(
 	lyrics: TTMLLyric,
 	sectionId: string,
-	direction: "up" | "down",
+	text: string,
+	category: LyricSectionCategory,
 ) {
-	const lines = lyrics.lyricLines;
-	const bounds = getSectionBoundsById(lines, sectionId);
+	const label = toHeaderLabel(text);
 	const section = lyrics.sections?.find((item) => item.id === sectionId);
-	if (!bounds || !section) return false;
-	if (direction === "up") {
-		if (bounds.start === 0) return false;
-		assign(lines[bounds.start - 1], section);
-	} else {
-		if (bounds.end - bounds.start < 2) return false;
-		const previousId = lines[bounds.start - 1]?.sectionId;
-		const previous = lyrics.sections?.find((item) => item.id === previousId);
-		assign(lines[bounds.start], previous);
+	if (!label || !section) return false;
+	section.label = label;
+	section.category = category;
+	section.ordinal = normalizeSectionHeader(label)?.ordinal;
+	section.confidence = 1;
+	for (const line of lyrics.lyricLines) {
+		if (line.sectionId === sectionId) line.geniusHeader = label;
 	}
-	// Drops a previous section that just lost its last line.
-	repairSectionIntegrity(lyrics);
+	return true;
+}
+
+/** Where a dragged section lands: before or after `lineId`. */
+export interface SectionDropSlot {
+	lineId: string;
+	insertAfter: boolean;
+}
+
+/**
+ * Snaps a drop on `targetLineId` to a section boundary, so a dragged section
+ * never lands inside another one: it goes before or after the target's
+ * section, whichever edge is nearer. Unassigned lines take it where dropped.
+ * Undefined when the target is inside the dragged section.
+ */
+export function sectionDropSlot(
+	lines: readonly LyricLine[],
+	sectionId: string,
+	targetLineId: string,
+	insertAfter: boolean,
+): SectionDropSlot | undefined {
+	const index = lines.findIndex((line) => line.id === targetLineId);
+	const target = lines[index];
+	if (!target || target.sectionId === sectionId) return undefined;
+	if (!target.sectionId) return { lineId: targetLineId, insertAfter };
+	const bounds = getSectionBoundsById(lines as LyricLine[], target.sectionId);
+	if (!bounds) return undefined;
+	const position = index + Number(insertAfter);
+	return position - bounds.start <= bounds.end - position
+		? { lineId: lines[bounds.start].id, insertAfter: false }
+		: { lineId: lines[bounds.end - 1].id, insertAfter: true };
+}
+
+/** Moves a whole section, its lines keeping their section, to `slot`. */
+export function moveSectionTo(
+	lyrics: TTMLLyric,
+	sectionId: string,
+	slot: SectionDropSlot,
+) {
+	const bounds = getSectionBoundsById(lyrics.lyricLines, sectionId);
+	if (!bounds) return false;
+	const moved = lyrics.lyricLines.slice(bounds.start, bounds.end);
+	const rest = [
+		...lyrics.lyricLines.slice(0, bounds.start),
+		...lyrics.lyricLines.slice(bounds.end),
+	];
+	const index = rest.findIndex((line) => line.id === slot.lineId);
+	if (index < 0) return false;
+	rest.splice(index + Number(slot.insertAfter), 0, ...moved);
+	lyrics.lyricLines = rest;
 	return true;
 }
 

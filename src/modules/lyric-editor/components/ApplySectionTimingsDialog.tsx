@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useLyricLinesWhileOpen } from "$/hooks/useLyricLinesWhileOpen.ts";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
+import { sectionTimingsAnchorAtom } from "$/modules/settings/states/index.ts";
 import { lyricLinesAtom } from "$/states/main.ts";
 import { msToTimestamp } from "$/utils/timestamp.ts";
 import {
@@ -44,14 +45,16 @@ export function ApplySectionTimingsDialog() {
 		: undefined;
 	const playhead = open ? store.get(currentTimeAtom) : 0;
 	const [sourceId, setSourceId] = useState<string>();
-	const [anchor, setAnchor] = useState<Anchor>("section");
+	// Remembered between uses. A section with no timed line can't start at its
+	// own start, so it uses the playhead without changing what's remembered.
+	const [savedAnchor, setSavedAnchor] = useAtom(sectionTimingsAnchorAtom);
+	const anchor: Anchor = sectionAnchor === undefined ? "playhead" : savedAnchor;
 
-	// Each opening starts from the suggestion and the section's own start.
+	// Each opening starts from the suggested source.
 	// biome-ignore lint/correctness/useExhaustiveDependencies: reset per target only
 	useEffect(() => {
 		if (!targetId) return;
 		setSourceId(sources[0]?.section.id);
-		setAnchor(sectionAnchor === undefined ? "playhead" : "section");
 	}, [targetId]);
 
 	const close = () => setTargetId(null);
@@ -141,7 +144,7 @@ export function ApplySectionTimingsDialog() {
 						</Text>
 						<RadioGroup.Root
 							value={anchor}
-							onValueChange={(value) => setAnchor(value as Anchor)}
+							onValueChange={(value) => setSavedAnchor(value as Anchor)}
 						>
 							<RadioGroup.Item
 								value="section"

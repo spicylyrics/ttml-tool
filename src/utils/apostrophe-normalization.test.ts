@@ -43,8 +43,6 @@ describe("normalizeImportedLyricApostrophes", () => {
 				id: "section-‘one’",
 				label: "Verse ‘One’",
 				category: "verse",
-				notes: "Don’t repeat",
-				vocalist: "Singer’s name",
 				repeatGroupId: "repeat-‘one’",
 			},
 		],
@@ -96,8 +94,6 @@ describe("normalizeImportedLyricApostrophes", () => {
 		});
 		expect(normalized.sections?.[0]).toMatchObject({
 			label: "Verse 'One'",
-			notes: "Don't repeat",
-			vocalist: "Singer's name",
 		});
 	});
 
@@ -143,8 +139,6 @@ describe("normalizeImportedLyricApostrophes", () => {
 						id: "thе-section",
 						label: "Thе Verse",
 						category: "verse",
-						notes: "Еcho",
-						vocalist: "Thе Singer",
 					},
 				],
 				lyricLines: [
@@ -180,8 +174,6 @@ describe("normalizeImportedLyricApostrophes", () => {
 		expect(normalized.sections?.[0]).toMatchObject({
 			id: "thе-section",
 			label: "The Verse",
-			notes: "Echo",
-			vocalist: "The Singer",
 		});
 	});
 });

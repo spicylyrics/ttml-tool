@@ -13,63 +13,27 @@ import { ContextMenu } from "@radix-ui/themes";
 import { ToolMode } from "$/states/main.ts";
 import { LineTimingMenuItems } from "../line-timing-menu.tsx";
 import { LineRoleMenuRow, LyricLineMenu } from "../lyric-line-menu.tsx";
-import {
-	CategorizeSelectionContextMenuItem,
-	SectionContextMenuItems,
-	SectionContextMenuSub,
-	UnassignedSectionContextMenuItems,
-} from "../SectionActions.tsx";
+import { StartSectionHereItem } from "../SectionActions.tsx";
 import type { LyricLineViewState } from "./use-line-view";
 
+// Section tools live on the section's divider, not here. The only one left is
+// Start section here, which needs a line to start at.
 export function LineContextMenu({
 	lineIndex,
 	toolMode,
-	activeSection,
-	sectionActionsEnabled,
-	manualCategorizationEnabled,
-}: Pick<
-	LyricLineViewState,
-	| "lineIndex"
-	| "toolMode"
-	| "activeSection"
-	| "sectionActionsEnabled"
-	| "manualCategorizationEnabled"
->) {
+}: Pick<LyricLineViewState, "lineIndex" | "toolMode">) {
 	return (
 		<ContextMenu.Content>
 			<LineTimingMenuItems />
-			{(toolMode === ToolMode.Edit ||
-				sectionActionsEnabled ||
-				manualCategorizationEnabled) && <ContextMenu.Separator />}
-			{manualCategorizationEnabled &&
-				(toolMode === ToolMode.Edit || toolMode === ToolMode.Sync) && (
-					<CategorizeSelectionContextMenuItem />
-				)}
-			{manualCategorizationEnabled && toolMode === ToolMode.Edit && (
-				<ContextMenu.Separator />
-			)}
-			{sectionActionsEnabled && activeSection && toolMode === ToolMode.Sync && (
-				<SectionContextMenuItems
-					section={activeSection}
-					lineIndex={lineIndex}
-				/>
-			)}
-			{sectionActionsEnabled && activeSection && toolMode === ToolMode.Edit && (
-				<SectionContextMenuSub section={activeSection} lineIndex={lineIndex} />
-			)}
-			{manualCategorizationEnabled && toolMode === ToolMode.Edit && (
-				<UnassignedSectionContextMenuItems lineIndex={lineIndex} />
-			)}
-			{sectionActionsEnabled && activeSection && toolMode === ToolMode.Edit && (
-				<ContextMenu.Separator />
-			)}
-			{toolMode === ToolMode.Edit && <LyricLineMenu lineIndex={lineIndex} />}
-			{toolMode === ToolMode.Sync && (
+			<ContextMenu.Separator />
+			{toolMode === ToolMode.Edit && (
 				<>
+					<StartSectionHereItem lineIndex={lineIndex} />
 					<ContextMenu.Separator />
-					<LineRoleMenuRow lineIndex={lineIndex} />
+					<LyricLineMenu lineIndex={lineIndex} />
 				</>
 			)}
+			{toolMode === ToolMode.Sync && <LineRoleMenuRow lineIndex={lineIndex} />}
 		</ContextMenu.Content>
 	);
 }

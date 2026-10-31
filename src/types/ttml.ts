@@ -63,9 +63,6 @@ export interface LyricSection {
 	label: string;
 	category: LyricSectionCategory;
 	ordinal?: number;
-	color?: string;
-	notes?: string;
-	vocalist?: string;
 	confidence?: number;
 	repeatGroupId?: string;
 }

@@ -9,10 +9,13 @@ import {
 import {
 	applySectionTimings,
 	findTimingSources,
-	moveSectionStart,
+	moveSectionTo,
 	relabelForCategory,
+	sectionDropSlot,
 	sectionTimingAnchor,
 	startSectionAt,
+	toHeaderLabel,
+	updateSection,
 } from "./section-editing";
 
 const section = (
@@ -128,48 +131,89 @@ describe("startSectionAt", () => {
 	});
 });
 
-describe("moveSectionStart", () => {
+describe("updateSection", () => {
+	it("stores the label in brackets and updates every line's header", () => {
+		const lyrics = lyric(
+			[line("a", "v"), line("b", "v"), line("c")],
+			[section("v", "verse", "[Verse 1]", 1)],
+		);
+		expect(updateSection(lyrics, "v", " Chorus 3 ", "chorus")).toBe(true);
+		expect(lyrics.sections?.[0]).toMatchObject({
+			label: "[Chorus 3]",
+			category: "chorus",
+			ordinal: 3,
+		});
+		expect(lyrics.lyricLines.map((item) => item.geniusHeader)).toEqual([
+			"[Chorus 3]",
+			"[Chorus 3]",
+			undefined,
+		]);
+	});
+
+	it("accepts a typed bracket and ignores an empty label", () => {
+		expect(toHeaderLabel("[Hook]")).toBe("[Hook]");
+		expect(toHeaderLabel("  ")).toBeUndefined();
+		const lyrics = lyric(
+			[line("a", "v")],
+			[section("v", "verse", "[Verse 1]", 1)],
+		);
+		expect(updateSection(lyrics, "v", "[]", "hook")).toBe(false);
+		expect(lyrics.sections?.[0].label).toBe("[Verse 1]");
+	});
+});
+
+describe("moving a section by its divider", () => {
 	const make = () =>
 		lyric(
-			[line("a", "v"), line("b", "v"), line("c", "c"), line("d", "c")],
+			[
+				line("a", "v"),
+				line("b", "v"),
+				line("c", "c"),
+				line("d", "c"),
+				line("e", "c"),
+				line("f"),
+			],
 			[
 				section("v", "verse", "[Verse 1]", 1),
 				section("c", "chorus", "[Chorus 1]", 1),
 			],
 		);
+	const texts = (lyrics: TTMLLyric) =>
+		lyrics.lyricLines.map((item) => item.words[0].word).join("");
+	const id = (lyrics: TTMLLyric, text: string) =>
+		lyrics.lyricLines.find((item) => item.words[0].word === text)?.id ?? "";
 
-	it("takes in the line above and gives the first line back", () => {
+	it("snaps a drop inside another section to its nearer edge", () => {
+		const lyrics = make();
+		const lines = lyrics.lyricLines;
+		expect(sectionDropSlot(lines, "v", id(lyrics, "c"), true)).toEqual({
+			lineId: id(lyrics, "c"),
+			insertAfter: false,
+		});
+		expect(sectionDropSlot(lines, "v", id(lyrics, "d"), true)).toEqual({
+			lineId: id(lyrics, "e"),
+			insertAfter: true,
+		});
+	});
+
+	it("drops on unassigned lines as is, and never into itself", () => {
+		const lyrics = make();
+		const lines = lyrics.lyricLines;
+		expect(sectionDropSlot(lines, "v", id(lyrics, "f"), true)).toEqual({
+			lineId: id(lyrics, "f"),
+			insertAfter: true,
+		});
+		expect(sectionDropSlot(lines, "v", id(lyrics, "b"), true)).toBeUndefined();
+	});
+
+	it("moves the whole section, keeping its lines and timings", () => {
 		const lyrics = make();
 		const before = timings(lyrics);
-		expect(moveSectionStart(lyrics, "c", "up")).toBe(true);
-		expect(sectionIds(lyrics)).toEqual(["v", "c", "c", "c"]);
-		expect(lyrics.lyricLines[1].geniusHeader).toBe("[Chorus 1]");
-		expect(moveSectionStart(lyrics, "c", "down")).toBe(true);
-		expect(moveSectionStart(lyrics, "c", "down")).toBe(true);
-		expect(sectionIds(lyrics)).toEqual(["v", "v", "v", "c"]);
-		expect(timings(lyrics)).toEqual(before);
-	});
-
-	it("won't empty a section and drops a previous one it swallowed", () => {
-		const lyrics = make();
-		moveSectionStart(lyrics, "c", "down");
-		expect(moveSectionStart(lyrics, "c", "down")).toBe(false);
-		const swallow = make();
-		moveSectionStart(swallow, "c", "up");
-		moveSectionStart(swallow, "c", "up");
-		expect(sectionIds(swallow)).toEqual(["c", "c", "c", "c"]);
-		expect(swallow.sections?.map((item) => item.id)).toEqual(["c"]);
-		expect(moveSectionStart(swallow, "c", "up")).toBe(false);
-	});
-
-	it("leaves the first line unassigned when nothing comes before it", () => {
-		const lyrics = lyric(
-			[line("a"), line("b", "c"), line("c", "c")],
-			[section("c", "chorus", "[Chorus 1]", 1)],
-		);
-		moveSectionStart(lyrics, "c", "down");
-		expect(sectionIds(lyrics)).toEqual([undefined, undefined, "c"]);
-		expect(lyrics.lyricLines[1].geniusHeader).toBeUndefined();
+		const slot = sectionDropSlot(lyrics.lyricLines, "v", id(lyrics, "e"), true);
+		expect(slot && moveSectionTo(lyrics, "v", slot)).toBe(true);
+		expect(texts(lyrics)).toBe("cdeabf");
+		expect(sectionIds(lyrics)).toEqual(["c", "c", "c", "v", "v", undefined]);
+		expect(timings(lyrics).sort()).toEqual(before.sort());
 	});
 });
 

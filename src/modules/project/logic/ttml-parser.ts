@@ -19,6 +19,7 @@
 import { uid } from "uid";
 import type {
 	LyricLine,
+	LyricSection,
 	LyricWord,
 	Mark,
 	TTMLLyric,
@@ -27,6 +28,12 @@ import type {
 import { log } from "../../../utils/logging.ts";
 import { parseTimespan } from "../../../utils/timestamp.ts";
 import { createSongPartReader } from "./song-part.ts";
+
+type LegacySection = LyricSection & {
+	color?: unknown;
+	notes?: unknown;
+	vocalist?: unknown;
+};
 
 interface RomanWord {
 	startTime: number;
@@ -627,7 +634,11 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 		try {
 			const parsed = JSON.parse(sectionMeta.value[0]);
 			if (parsed?.version === 1 && Array.isArray(parsed.sections)) {
-				sections = parsed.sections;
+				// Files from older versions can carry section colors, notes and
+				// vocalists. The tool no longer edits them, so they're dropped.
+				sections = (parsed.sections as LegacySection[]).map(
+					({ color, notes, vocalist, ...section }) => section,
+				);
 			}
 		} catch {
 			// Optional section metadata should never make an otherwise valid TTML fail.

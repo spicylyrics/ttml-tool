@@ -177,7 +177,7 @@
     "removeHeadersHint": "Odstraní řádky se záhlavím z textu.",
     "textFormat": "Formát textu",
     "reviewSections": "Zkontrolovat sekce",
-    "reviewHint": "Opravte kategorie, které byly odhadnuty špatně. Barvy, zpěváky a poznámky můžete nastavit později v nabídce sekce.",
+    "reviewHint": "Opravte typy, které byly odhadnuty špatně. Sekce můžete později přejmenovat kliknutím na jejich název v editoru.",
     "sectionLabel": "Název sekce",
     "sectionCategory": "Kategorie sekce",
     "lowConfidence": "Kategorie je odhad. Zkontrolujte ji.",
@@ -336,16 +336,6 @@
       "title": "Vytvořit nový projekt?",
       "description": "Máte neuložené změny. Pokud budete pokračovat, budou ztraceny. Opravdu chcete vytvořit nový projekt?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Nalezena záhlaví sekcí Genius",
-      "dialogDesc": "Text obsahuje záhlaví sekcí jako [Verse] a [Chorus]. Zapnout experimentální funkci Sekce Genius pro jejich zpracování?",
-      "usageInfo": "Záhlaví sekcí pak budou mít vlastní styl a nástroje jako „Použít časování“ a „Zarovnat na pozici přehrávání“.",
-      "maybeLater": "Možná později",
-      "enableNow": "Povolit nyní",
-      "title": "Sekce Genius",
-      "snapToPlayhead": "Zarovnat na pozici přehrávání"    }
   },
   "logoColor": {
     "title": "Barva loga",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Duetový řádek",
     "lineRole": "Role řádku",
     "moveLineToPlayhead": "Přesunout řádek na pozici přehrávání",
+    "timing": "Časování",
     "copyTimingsTo": "Kopírovat časování do…",
     "cancelCopyTimings": "Zrušit kopírování časování",
     "snapSelectedLinesToPlayhead": "Zarovnat vybrané řádky na pozici přehrávání",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Žádné návrhy"
   },
   "sectionActions": {
-    "categorizeSelected": "Zařadit {count, plural, one {# vybraný řádek} few {# vybrané řádky} many {# vybraného řádku} other {# vybraných řádků}}",
-    "categorizeTitle": "Zařadit vybrané řádky",
-    "categorize": "Zařadit",
     "expand": "Rozbalit sekci",
     "collapse": "Sbalit sekci",
-    "editTitle": "Upravit sekci",
-    "vocalist": "Zpěvák / role",
-    "notes": "Poznámky",
-    "manage": "Spravovat sekce",
-    "goPrevious": "Přejít na předchozí sekci",
-    "goNext": "Přejít na další sekci",
-    "editMetadata": "Upravit metadata",
-    "split": "Rozdělit na vybraném řádku",
     "mergePrevious": "Sloučit s předchozí",
-    "mergeNext": "Sloučit s další",
-    "moveUp": "Posunout nahoru",
-    "moveDown": "Posunout dolů",
-    "linkPrevious": "Propojit s předchozí sekcí: {category}",
-    "unlinkRepeat": "Odpojit opakování",
-    "removeHeader": "Odebrat záhlaví (zachovat texty)",
-    "addToPrevious": "Přidat nezařazené řádky do předchozí sekce",
-    "addToNext": "Přidat nezařazené řádky do další sekce",
-    "section": "Sekce"
+    "removeHeader": "Odebrat záhlaví (zachovat texty)"
   },
   "sectionEditing": {
-    "editHeader": "Přejmenovat nebo změnit typ: {label}",
     "menu": "Akce sekce",
     "startHere": "Začít sekci zde",
-    "moveStartUp": "Posunout začátek o řádek nahoru",
-    "moveStartDown": "Posunout začátek o řádek dolů",
+    "rename": "Přejmenovat",
+    "renameHint": "Přejmenovat nebo změnit typ",
+    "label": "Název sekce",
+    "type": "Typ sekce",
+    "snapToPlayhead": "Zarovnat na pozici přehrávání",
     "applyTimings": "Použít časování z...",
     "applyTitle": "Použít časování z jiné sekce",
     "applyDesc": "Zkopíruje do této sekce časování jiné sekce. Řádky se párují podle slov; časování dostanou jen shodná slova, ostatní si ponechají své.",
@@ -1424,6 +1398,25 @@
     "apply": "Použít",
     "applied": "Časování zkopírováno u {copied} z {total} řádků. {untimed, plural, =0 {Všechna slova mají časování.} one {# slovo zůstalo bez časování.} few {# slova zůstala bez časování.} many {# slova zůstalo bez časování.} other {# slov zůstalo bez časování.}}",
     "nothingMatched": "Žádný řádek v této sekci neodpovídá té druhé, takže se nic nezkopírovalo."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Sloka",
+    "pre-chorus": "Předrefrén",
+    "chorus": "Refrén",
+    "post-chorus": "Dohra refrénu",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Most",
+    "break": "Přestávka",
+    "interlude": "Mezihra",
+    "instrumental": "Instrumentální část",
+    "solo": "Sólo",
+    "spoken": "Mluvené slovo",
+    "skit": "Scénka",
+    "sample": "Sampl",
+    "outro": "Outro",
+    "other": "Jiné"
   },
   "touchSyncPanel": {
     "prevWord": "Předchozí slovo",

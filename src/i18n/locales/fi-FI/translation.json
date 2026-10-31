@@ -177,7 +177,7 @@
     "removeHeadersHint": "Poistaa otsikkorivit sanoituksista.",
     "textFormat": "Tekstin muoto",
     "reviewSections": "Tarkista osiot",
-    "reviewHint": "Korjaa väärin arvatut luokat. Värit, laulajat ja huomautukset voi asettaa myöhemmin osion valikosta.",
+    "reviewHint": "Korjaa väärin arvatut tyypit. Voit nimetä osiot myöhemmin uudelleen napsauttamalla niiden nimeä editorissa.",
     "sectionLabel": "Osion nimi",
     "sectionCategory": "Osion luokka",
     "lowConfidence": "Luokka on arvattu. Tarkista se.",
@@ -336,16 +336,6 @@
       "title": "Luodaanko uusi projekti?",
       "description": "Sinulla on tallentamattomia muutoksia. Jos jatkat, ne menetetään. Haluatko varmasti luoda uuden projektin?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius-osioiden otsikoita löytyi",
-      "dialogDesc": "Sanoituksissa on osioiden otsikoita, kuten [Verse] ja [Chorus]. Otetaanko kokeellinen Genius-osiot käyttöön niiden hyödyntämiseksi?",
-      "usageInfo": "Osioiden otsikot saavat oman tyylinsä editorissa sekä työkaluja, kuten Käytä ajoituksia ja Kohdista toistokohdistimeen.",
-      "maybeLater": "Ehkä myöhemmin",
-      "enableNow": "Ota nyt käyttöön",
-      "title": "Genius-osiot",
-      "snapToPlayhead": "Kohdista toistokohdistimeen"    }
   },
   "logoColor": {
     "title": "Logon väri",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Duettorivi",
     "lineRole": "Rivin rooli",
     "moveLineToPlayhead": "Siirrä rivi toistokohdistimeen",
+    "timing": "Ajoitus",
     "copyTimingsTo": "Kopioi ajoitukset kohteeseen…",
     "cancelCopyTimings": "Peruuta ajoituskopiointi",
     "snapSelectedLinesToPlayhead": "Kohdista valitut rivit toistokohdistimeen",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Ei ehdotuksia"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {Luokittele # valittu rivi} other {Luokittele # valittua riviä}}",
-    "categorizeTitle": "Luokittele valitut rivit",
-    "categorize": "Luokittele",
     "expand": "Laajenna osio",
     "collapse": "Tiivistä osio",
-    "editTitle": "Muokkaa osiota",
-    "vocalist": "Laulaja / rooli",
-    "notes": "Huomautuksia",
-    "manage": "Hallinnoi osioita",
-    "goPrevious": "Siirry edelliseen osioon",
-    "goNext": "Siirry seuraavaan osioon",
-    "editMetadata": "Muokkaa metatietoja",
-    "split": "Jaa valitulla rivillä",
     "mergePrevious": "Yhdistä edelliseen",
-    "mergeNext": "Yhdistä seuraavaan",
-    "moveUp": "Siirrä ylös",
-    "moveDown": "Siirrä alas",
-    "linkPrevious": "Linkitä edelliseen osioon: {category}",
-    "unlinkRepeat": "Poista toiston linkitys",
-    "removeHeader": "Poista otsikko (säilytä sanoitukset)",
-    "addToPrevious": "Lisää luokittelemattomat rivit edelliseen osioon",
-    "addToNext": "Lisää luokittelemattomat rivit seuraavaan osioon",
-    "section": "Osio"
+    "removeHeader": "Poista otsikko (säilytä sanoitukset)"
   },
   "sectionEditing": {
-    "editHeader": "Nimeä uudelleen tai vaihda tyyppi: {label}",
     "menu": "Osion toiminnot",
     "startHere": "Aloita osio tästä",
-    "moveStartUp": "Siirrä alkua rivi ylöspäin",
-    "moveStartDown": "Siirrä alkua rivi alaspäin",
+    "rename": "Nimeä uudelleen",
+    "renameHint": "Nimeä uudelleen tai vaihda tyyppi",
+    "label": "Osion nimi",
+    "type": "Osion tyyppi",
+    "snapToPlayhead": "Kohdista toistokohdistimeen",
     "applyTimings": "Käytä ajoituksia osiosta...",
     "applyTitle": "Käytä ajoituksia toisesta osiosta",
     "applyDesc": "Kopioi toisen osion ajoitukset tähän osioon. Rivit yhdistetään sanojen perusteella; vain vastaavat sanat saavat ajoituksen, muut säilyttävät omansa.",
@@ -1424,6 +1398,25 @@
     "apply": "Käytä",
     "applied": "Ajoitukset kopioitu {copied}/{total} riville. {untimed, plural, =0 {Kaikilla sanoilla on ajoitus.} one {# sana jäi ilman ajoitusta.} other {# sanaa jäi ilman ajoitusta.}}",
     "nothingMatched": "Tämän osion rivit eivät vastaa toista osiota, joten mitään ei kopioitu."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Säkeistö",
+    "pre-chorus": "Esikertosäe",
+    "chorus": "Kertosäe",
+    "post-chorus": "Jälkikertosäe",
+    "refrain": "Refrääni",
+    "hook": "Koukku",
+    "bridge": "Silta",
+    "break": "Tauko",
+    "interlude": "Välisoitto",
+    "instrumental": "Instrumentaali",
+    "solo": "Soolo",
+    "spoken": "Puhuttu",
+    "skit": "Sketsi",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Muu"
   },
   "touchSyncPanel": {
     "prevWord": "Edellinen sana",

@@ -177,7 +177,7 @@
     "removeHeadersHint": "Haalt de koprijen uit de songtekst.",
     "textFormat": "Tekstopmaak",
     "reviewSections": "Secties controleren",
-    "reviewHint": "Corrigeer verkeerd geraden categorieën. Kleuren, zangers en opmerkingen stel je later in via het sectiemenu.",
+    "reviewHint": "Corrigeer verkeerd geraden types. Je kunt secties later hernoemen door in de editor op hun naam te klikken.",
     "sectionLabel": "Sectienaam",
     "sectionCategory": "Sectiecategorie",
     "lowConfidence": "Categorie geraden. Controleer hem.",
@@ -336,16 +336,6 @@
       "title": "Nieuw project maken?",
       "description": "Je hebt niet-opgeslagen wijzigingen. Als je doorgaat, gaan ze verloren. Weet je zeker dat je een nieuw project wilt maken?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius-sectiekoppen gevonden",
-      "dialogDesc": "Je songtekst heeft sectiekoppen zoals [Verse] en [Chorus]. Wil je de experimentele functie Genius-secties inschakelen om ze te gebruiken?",
-      "usageInfo": "Sectiekoppen krijgen dan een eigen stijl in de editor, met functies als Timing toepassen en Uitlijnen op afspeelkop.",
-      "maybeLater": "Misschien later",
-      "enableNow": "Nu inschakelen",
-      "title": "Genius-secties",
-      "snapToPlayhead": "Uitlijnen op afspeelkop"    }
   },
   "logoColor": {
     "title": "Logokleur",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Duetregel",
     "lineRole": "Rol van de regel",
     "moveLineToPlayhead": "Regel naar afspeelkop verplaatsen",
+    "timing": "Timing",
     "copyTimingsTo": "Timing kopiëren naar…",
     "cancelCopyTimings": "Kopiëren van timing annuleren",
     "snapSelectedLinesToPlayhead": "Geselecteerde regels uitlijnen op afspeelkop",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Geen suggesties"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {# geselecteerde regel categoriseren} other {# geselecteerde regels categoriseren}}",
-    "categorizeTitle": "Geselecteerde regels categoriseren",
-    "categorize": "Categoriseren",
     "expand": "Sectie uitvouwen",
     "collapse": "Sectie samenvouwen",
-    "editTitle": "Sectie bewerken",
-    "vocalist": "Zanger / rol",
-    "notes": "Opmerkingen",
-    "manage": "Secties beheren",
-    "goPrevious": "Naar vorige sectie",
-    "goNext": "Naar volgende sectie",
-    "editMetadata": "Metagegevens bewerken",
-    "split": "Splitsen bij geselecteerde regel",
     "mergePrevious": "Samenvoegen met vorige",
-    "mergeNext": "Samenvoegen met volgende",
-    "moveUp": "Omhoog verplaatsen",
-    "moveDown": "Omlaag verplaatsen",
-    "linkPrevious": "Koppelen aan vorige {category}",
-    "unlinkRepeat": "Herhaling ontkoppelen",
-    "removeHeader": "Kop verwijderen (songtekst behouden)",
-    "addToPrevious": "Voeg niet-toegewezen regels toe aan de vorige sectie",
-    "addToNext": "Voeg niet-toegewezen regels toe aan de volgende sectie",
-    "section": "Sectie"
+    "removeHeader": "Kop verwijderen (songtekst behouden)"
   },
   "sectionEditing": {
-    "editHeader": "{label} hernoemen of van type veranderen",
     "menu": "Sectieacties",
     "startHere": "Sectie hier beginnen",
-    "moveStartUp": "Begin een regel omhoog verplaatsen",
-    "moveStartDown": "Begin een regel omlaag verplaatsen",
+    "rename": "Hernoemen",
+    "renameHint": "Hernoemen of type wijzigen",
+    "label": "Sectienaam",
+    "type": "Sectietype",
+    "snapToPlayhead": "Uitlijnen op afspeelkop",
     "applyTimings": "Timing toepassen van...",
     "applyTitle": "Timing van een andere sectie toepassen",
     "applyDesc": "Kopieert de timing van een andere sectie naar deze. Regels worden gekoppeld op hun woorden; alleen overeenkomende woorden krijgen timing, de rest behoudt de eigen timing.",
@@ -1424,6 +1398,25 @@
     "apply": "Toepassen",
     "applied": "Timing gekopieerd naar {copied} van {total} regels. {untimed, plural, =0 {Alle woorden hebben timing.} one {# woord is zonder timing gebleven.} other {# woorden zijn zonder timing gebleven.}}",
     "nothingMatched": "Geen enkele regel in deze sectie komt overeen met die andere sectie, dus er is niets gekopieerd."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Couplet",
+    "pre-chorus": "Pre-refrein",
+    "chorus": "Refrein",
+    "post-chorus": "Post-refrein",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Brug",
+    "break": "Break",
+    "interlude": "Tussenspel",
+    "instrumental": "Instrumentaal",
+    "solo": "Solo",
+    "spoken": "Gesproken",
+    "skit": "Sketch",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Overig"
   },
   "touchSyncPanel": {
     "prevWord": "Vorig woord",

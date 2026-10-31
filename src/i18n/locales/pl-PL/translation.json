@@ -177,7 +177,7 @@
     "removeHeadersHint": "Usuwa wiersze nagłówków z tekstu.",
     "textFormat": "Format tekstu",
     "reviewSections": "Sprawdź sekcje",
-    "reviewHint": "Popraw źle odgadnięte kategorie. Kolory, wokalistów i notatki ustawisz później w menu sekcji.",
+    "reviewHint": "Popraw źle odgadnięte typy. Nazwy sekcji zmienisz później, klikając ich nazwę w edytorze.",
     "sectionLabel": "Nazwa sekcji",
     "sectionCategory": "Kategoria sekcji",
     "lowConfidence": "Kategoria odgadnięta. Sprawdź ją.",
@@ -336,16 +336,6 @@
       "title": "Utworzyć nowy projekt?",
       "description": "Masz niezapisane zmiany. Jeśli kontynuujesz, zostaną utracone. Czy na pewno chcesz utworzyć nowy projekt?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Znaleziono nagłówki sekcji Genius",
-      "dialogDesc": "Tekst zawiera nagłówki sekcji, takie jak [Verse] i [Chorus]. Włączyć eksperymentalną funkcję Sekcje Genius, aby z nich korzystać?",
-      "usageInfo": "Nagłówki sekcji otrzymają własny styl i narzędzia „Zastosuj czasy” oraz „Przyciągnij do pozycji odtwarzania”.",
-      "maybeLater": "Może później",
-      "enableNow": "Włącz teraz",
-      "title": "Sekcje Genius",
-      "snapToPlayhead": "Przyciągnij do pozycji odtwarzania"    }
   },
   "logoColor": {
     "title": "Kolor logo",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Wers duetu",
     "lineRole": "Rola wiersza",
     "moveLineToPlayhead": "Przesuń wers do pozycji odtwarzania",
+    "timing": "Czasy",
     "copyTimingsTo": "Kopiuj czasy do…",
     "cancelCopyTimings": "Anuluj kopiowanie czasów",
     "snapSelectedLinesToPlayhead": "Przyciągnij zaznaczone wersy do pozycji odtwarzania",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Żadnych sugestii"
   },
   "sectionActions": {
-    "categorizeSelected": "Przypisz kategorię do {count, plural, one {# zaznaczonego wersu} few {# zaznaczonych wersów} many {# zaznaczonych wersów} other {# zaznaczonego wersu}}",
-    "categorizeTitle": "Przypisz kategorię zaznaczonym wersom",
-    "categorize": "Przypisz kategorię",
     "expand": "Rozwiń sekcję",
     "collapse": "Zwiń sekcję",
-    "editTitle": "Edytuj sekcję",
-    "vocalist": "Wokalista / rola",
-    "notes": "Notatki",
-    "manage": "Zarządzaj sekcjami",
-    "goPrevious": "Przejdź do poprzedniej sekcji",
-    "goNext": "Przejdź do następnej sekcji",
-    "editMetadata": "Edytuj metadane",
-    "split": "Podziel przy zaznaczonym wersie",
     "mergePrevious": "Połącz z poprzednią",
-    "mergeNext": "Połącz z następną",
-    "moveUp": "Przesuń w górę",
-    "moveDown": "Przesuń w dół",
-    "linkPrevious": "Połącz z poprzednią sekcją: {category}",
-    "unlinkRepeat": "Odłącz powtórzenie",
-    "removeHeader": "Usuń nagłówek (zachowaj tekst)",
-    "addToPrevious": "Dodaj nieprzypisane wersy do poprzedniej sekcji",
-    "addToNext": "Dodaj nieprzypisane wersy do następnej sekcji",
-    "section": "Sekcja"
+    "removeHeader": "Usuń nagłówek (zachowaj tekst)"
   },
   "sectionEditing": {
-    "editHeader": "Zmień nazwę lub typ: {label}",
     "menu": "Akcje sekcji",
     "startHere": "Zacznij sekcję tutaj",
-    "moveStartUp": "Przesuń początek o wers w górę",
-    "moveStartDown": "Przesuń początek o wers w dół",
+    "rename": "Zmień nazwę",
+    "renameHint": "Zmień nazwę lub typ",
+    "label": "Nazwa sekcji",
+    "type": "Typ sekcji",
+    "snapToPlayhead": "Przyciągnij do pozycji odtwarzania",
     "applyTimings": "Zastosuj czasy z...",
     "applyTitle": "Zastosuj czasy z innej sekcji",
     "applyDesc": "Kopiuje czasy innej sekcji do tej. Wersy są dopasowywane po słowach; czasy dostają tylko pasujące słowa, pozostałe zachowują swoje.",
@@ -1424,6 +1398,25 @@
     "apply": "Zastosuj",
     "applied": "Skopiowano czasy do {copied} z {total} wersów. {untimed, plural, =0 {Wszystkie słowa mają czasy.} one {# słowo zostało bez czasu.} few {# słowa zostały bez czasu.} many {# słów zostało bez czasu.} other {# słowa zostało bez czasu.}}",
     "nothingMatched": "Żaden wers w tej sekcji nie pasuje do tamtej, więc nic nie skopiowano."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Zwrotka",
+    "pre-chorus": "Przedrefren",
+    "chorus": "Refren",
+    "post-chorus": "Po refrenie",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Most",
+    "break": "Przerwa",
+    "interlude": "Interludium",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Mówione",
+    "skit": "Skit",
+    "sample": "Sampel",
+    "outro": "Outro",
+    "other": "Inne"
   },
   "touchSyncPanel": {
     "prevWord": "Poprzednie słowo",

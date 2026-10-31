@@ -24,8 +24,7 @@ const VERSE: LyricSection = {
 	label: "[Verse 1]",
 	category: "verse",
 	ordinal: 1,
-	color: "red",
-	notes: "keep me",
+	repeatGroupId: "keep me",
 };
 const CHORUS_A: LyricSection = {
 	id: "s-chorus-a",
@@ -370,8 +369,7 @@ describe("applyEditedText", () => {
 		expect(section).toMatchObject({
 			label: "[Bridge]",
 			category: "bridge",
-			color: "red",
-			notes: "keep me",
+			repeatGroupId: "keep me",
 		});
 		expect(result.lyricLines[0].geniusHeader).toBe("[Bridge]");
 	});

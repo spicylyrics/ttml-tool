@@ -177,7 +177,7 @@
     "removeHeadersHint": "Odstráni riadky s hlavičkami z textu.",
     "textFormat": "Formát textu",
     "reviewSections": "Skontrolovať sekcie",
-    "reviewHint": "Opravte kategórie, ktoré boli odhadnuté zle. Farby, spevákov a poznámky môžete nastaviť neskôr v ponuke sekcie.",
+    "reviewHint": "Opravte typy, ktoré boli odhadnuté zle. Sekcie môžete neskôr premenovať kliknutím na ich názov v editore.",
     "sectionLabel": "Názov sekcie",
     "sectionCategory": "Kategória sekcie",
     "lowConfidence": "Kategória je odhad. Skontrolujte ju.",
@@ -336,16 +336,6 @@
       "title": "Vytvoriť nový projekt?",
       "description": "Máte neuložené zmeny. Ak budete pokračovať, stratia sa. Naozaj chcete vytvoriť nový projekt?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Našli sa hlavičky sekcií Genius",
-      "dialogDesc": "Text obsahuje hlavičky sekcií ako [Verse] a [Chorus]. Zapnúť experimentálnu funkciu Sekcie Genius na ich spracovanie?",
-      "usageInfo": "Hlavičky sekcií potom dostanú vlastný štýl a nástroje ako „Použiť časovanie“ a „Zarovnať na pozíciu prehrávania“.",
-      "maybeLater": "Možno neskôr",
-      "enableNow": "Povoliť teraz",
-      "title": "Sekcie Genius",
-      "snapToPlayhead": "Zarovnať na pozíciu prehrávania"    }
   },
   "logoColor": {
     "title": "Farba loga",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Duetový riadok",
     "lineRole": "Rola riadku",
     "moveLineToPlayhead": "Presunúť riadok na pozíciu prehrávania",
+    "timing": "Časovanie",
     "copyTimingsTo": "Kopírovať časovanie do…",
     "cancelCopyTimings": "Zrušiť kopírovanie časovania",
     "snapSelectedLinesToPlayhead": "Zarovnať vybrané riadky na pozíciu prehrávania",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Žiadne návrhy"
   },
   "sectionActions": {
-    "categorizeSelected": "Zaradiť {count, plural, one {# vybraný riadok} few {# vybrané riadky} many {# vybraného riadka} other {# vybraných riadkov}}",
-    "categorizeTitle": "Zaradiť vybrané riadky",
-    "categorize": "Zaradiť",
     "expand": "Rozbaliť sekciu",
     "collapse": "Zbaliť sekciu",
-    "editTitle": "Upraviť sekciu",
-    "vocalist": "Spevák / rola",
-    "notes": "Poznámky",
-    "manage": "Spravovať sekcie",
-    "goPrevious": "Prejsť na predchádzajúcu sekciu",
-    "goNext": "Prejsť na ďalšiu sekciu",
-    "editMetadata": "Upraviť metadáta",
-    "split": "Rozdeliť na vybranom riadku",
     "mergePrevious": "Zlúčiť s predchádzajúcou",
-    "mergeNext": "Zlúčiť s ďalšou",
-    "moveUp": "Posunúť nahor",
-    "moveDown": "Posunúť nadol",
-    "linkPrevious": "Prepojiť s predchádzajúcou sekciou: {category}",
-    "unlinkRepeat": "Odpojiť opakovanie",
-    "removeHeader": "Odstrániť hlavičku (ponechať text)",
-    "addToPrevious": "Pridať nezaradené riadky do predchádzajúcej sekcie",
-    "addToNext": "Pridať nezaradené riadky do ďalšej sekcie",
-    "section": "Sekcia"
+    "removeHeader": "Odstrániť hlavičku (ponechať text)"
   },
   "sectionEditing": {
-    "editHeader": "Premenovať alebo zmeniť typ: {label}",
     "menu": "Akcie sekcie",
     "startHere": "Začať sekciu tu",
-    "moveStartUp": "Posunúť začiatok o riadok nahor",
-    "moveStartDown": "Posunúť začiatok o riadok nadol",
+    "rename": "Premenovať",
+    "renameHint": "Premenovať alebo zmeniť typ",
+    "label": "Názov sekcie",
+    "type": "Typ sekcie",
+    "snapToPlayhead": "Zarovnať na pozíciu prehrávania",
     "applyTimings": "Použiť časovanie z...",
     "applyTitle": "Použiť časovanie z inej sekcie",
     "applyDesc": "Skopíruje do tejto sekcie časovanie inej sekcie. Riadky sa párujú podľa slov; časovanie dostanú len zhodné slová, ostatné si ponechajú svoje.",
@@ -1424,6 +1398,25 @@
     "apply": "Použiť",
     "applied": "Časovanie skopírované pri {copied} z {total} riadkov. {untimed, plural, =0 {Všetky slová majú časovanie.} one {# slovo ostalo bez časovania.} few {# slová ostali bez časovania.} many {# slova ostalo bez časovania.} other {# slov ostalo bez časovania.}}",
     "nothingMatched": "Žiadny riadok v tejto sekcii nezodpovedá tej druhej, takže sa nič neskopírovalo."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Sloha",
+    "pre-chorus": "Predrefrén",
+    "chorus": "Refrén",
+    "post-chorus": "Dohra refrénu",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Most",
+    "break": "Prestávka",
+    "interlude": "Medzihra",
+    "instrumental": "Inštrumentálna časť",
+    "solo": "Sólo",
+    "spoken": "Hovorené slovo",
+    "skit": "Scénka",
+    "sample": "Sampel",
+    "outro": "Outro",
+    "other": "Iné"
   },
   "touchSyncPanel": {
     "prevWord": "Predchádzajúce slovo",

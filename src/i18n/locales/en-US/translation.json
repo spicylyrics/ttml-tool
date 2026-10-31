@@ -177,7 +177,7 @@
     "removeHeadersHint": "Drops the header rows from the lyrics.",
     "textFormat": "Text format",
     "reviewSections": "Review sections",
-    "reviewHint": "Fix any category that was guessed wrong. Colors, vocalists and notes can be set later from the section menu.",
+    "reviewHint": "Fix any type that was guessed wrong. You can rename sections later by clicking their name in the editor.",
     "sectionLabel": "Section label",
     "sectionCategory": "Section category",
     "lowConfidence": "Category guessed. Check it.",
@@ -336,16 +336,6 @@
       "title": "Create a new project?",
       "description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to create a new project?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius section headers found",
-      "dialogDesc": "Your lyrics have section headers like [Verse] and [Chorus]. Turn on the experimental Genius sections feature to use them?",
-      "usageInfo": "Section headers then get their own style in the editor, with tools like Apply timings and Snap to playhead.",
-      "maybeLater": "Maybe later",
-      "enableNow": "Enable now",
-      "title": "Genius sections",
-      "snapToPlayhead": "Snap to playhead"    }
   },
   "logoColor": {
     "title": "Logo color",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Duet line",
     "lineRole": "Line role",
     "moveLineToPlayhead": "Move line to playhead",
+    "timing": "Timing",
     "copyTimingsTo": "Copy timings to…",
     "cancelCopyTimings": "Cancel timing copy",
     "snapSelectedLinesToPlayhead": "Snap selected lines to playhead",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "No suggestions"
   },
   "sectionActions": {
-    "categorizeSelected": "Categorize selected {count, plural, one {line} other {lines}}",
-    "categorizeTitle": "Categorize selected lines",
-    "categorize": "Categorize",
     "expand": "Expand section",
     "collapse": "Collapse section",
-    "editTitle": "Edit section",
-    "vocalist": "Vocalist / role",
-    "notes": "Notes",
-    "manage": "Manage sections",
-    "goPrevious": "Go to previous section",
-    "goNext": "Go to next section",
-    "editMetadata": "Edit metadata",
-    "split": "Split at selected line",
     "mergePrevious": "Merge with previous",
-    "mergeNext": "Merge with next",
-    "moveUp": "Move up",
-    "moveDown": "Move down",
-    "linkPrevious": "Link to previous {category}",
-    "unlinkRepeat": "Unlink repeat",
-    "removeHeader": "Remove header (keep lyrics)",
-    "addToPrevious": "Add unassigned lines to previous section",
-    "addToNext": "Add unassigned lines to next section",
-    "section": "Section"
+    "removeHeader": "Remove header (keep lyrics)"
   },
   "sectionEditing": {
-    "editHeader": "Rename or retype {label}",
     "menu": "Section actions",
     "startHere": "Start section here",
-    "moveStartUp": "Move start up a line",
-    "moveStartDown": "Move start down a line",
+    "rename": "Rename",
+    "renameHint": "Rename or change type",
+    "label": "Section name",
+    "type": "Section type",
+    "snapToPlayhead": "Snap to playhead",
     "applyTimings": "Apply timings from...",
     "applyTitle": "Apply timings from another section",
     "applyDesc": "Copies another section's timing onto this one. Lines are matched by their words; only matching words get timings, the rest keep theirs.",
@@ -1424,6 +1398,25 @@
     "apply": "Apply",
     "applied": "Copied timings to {copied} of {total} lines. {untimed, plural, =0 {Every word has timing.} one {# word was left untimed.} other {# words were left untimed.}}",
     "nothingMatched": "No lines in this section match that one, so nothing was copied."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Verse",
+    "pre-chorus": "Pre-chorus",
+    "chorus": "Chorus",
+    "post-chorus": "Post-chorus",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Bridge",
+    "break": "Break",
+    "interlude": "Interlude",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Spoken",
+    "skit": "Skit",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Other"
   },
   "touchSyncPanel": {
     "prevWord": "Previous word",

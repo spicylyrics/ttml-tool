@@ -177,7 +177,7 @@
     "removeHeadersHint": "Başlık satırlarını şarkı sözlerinden siler.",
     "textFormat": "Metin biçimi",
     "reviewSections": "Bölümleri incele",
-    "reviewHint": "Yanlış tahmin edilen kategorileri düzeltin. Renkler, vokalistler ve notlar daha sonra bölüm menüsünden ayarlanabilir.",
+    "reviewHint": "Yanlış tahmin edilen türleri düzeltin. Bölümleri daha sonra düzenleyicide adlarına tıklayarak yeniden adlandırabilirsiniz.",
     "sectionLabel": "Bölüm adı",
     "sectionCategory": "Bölüm kategorisi",
     "lowConfidence": "Kategori tahmin edildi. Kontrol edin.",
@@ -336,16 +336,6 @@
       "title": "Yeni proje oluşturulsun mu?",
       "description": "Kaydedilmemiş değişiklikleriniz var. Devam ederseniz bu değişiklikler kaybolacak. Yeni bir proje oluşturmak istediğinizden emin misiniz?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius bölüm başlıkları bulundu",
-      "dialogDesc": "Şarkı sözlerinde [Verse] ve [Chorus] gibi bölüm başlıkları var. Bunları kullanmak için deneysel Genius bölümleri özelliği açılsın mı?",
-      "usageInfo": "Bölüm başlıkları düzenleyicide farklı bir stille ve “Zamanlamaları uygula” ile “Oynatma konumuna hizala” gibi araçlarla gösterilir.",
-      "maybeLater": "Belki daha sonra",
-      "enableNow": "Şimdi etkinleştir",
-      "title": "Genius bölümleri",
-      "snapToPlayhead": "Oynatma konumuna hizala"    }
   },
   "logoColor": {
     "title": "Logo rengi",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Düet satırı",
     "lineRole": "Satır rolü",
     "moveLineToPlayhead": "Satırı oynatma konumuna taşı",
+    "timing": "Zamanlama",
     "copyTimingsTo": "Zamanlamaları şuraya kopyala…",
     "cancelCopyTimings": "Zamanlama kopyalamasını iptal et",
     "snapSelectedLinesToPlayhead": "Seçili satırları oynatma konumuna hizala",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Öneri yok"
   },
   "sectionActions": {
-    "categorizeSelected": "Seçili {count, plural, one {# satırı} other {# satırı}} kategorilere ayır",
-    "categorizeTitle": "Seçili satırları kategorilere ayır",
-    "categorize": "Kategorilere ayır",
     "expand": "Bölümü genişlet",
     "collapse": "Bölümü daralt",
-    "editTitle": "Bölümü düzenle",
-    "vocalist": "Vokalist / rol",
-    "notes": "Notlar",
-    "manage": "Bölümleri yönet",
-    "goPrevious": "Önceki bölüme git",
-    "goNext": "Sonraki bölüme git",
-    "editMetadata": "Meta verileri düzenle",
-    "split": "Seçilen satırda böl",
     "mergePrevious": "Öncekiyle birleştir",
-    "mergeNext": "Sonrakiyle birleştir",
-    "moveUp": "Yukarı taşı",
-    "moveDown": "Aşağı taşı",
-    "linkPrevious": "Önceki {category} bölümüne bağla",
-    "unlinkRepeat": "Tekrarın bağlantısını kaldır",
-    "removeHeader": "Başlığı kaldır (şarkı sözlerini sakla)",
-    "addToPrevious": "Atanmamış satırları önceki bölüme ekle",
-    "addToNext": "Atanmamış satırları sonraki bölüme ekle",
-    "section": "Bölüm"
+    "removeHeader": "Başlığı kaldır (şarkı sözlerini sakla)"
   },
   "sectionEditing": {
-    "editHeader": "{label} adını veya türünü değiştir",
     "menu": "Bölüm eylemleri",
     "startHere": "Bölümü buradan başlat",
-    "moveStartUp": "Başlangıcı bir satır yukarı taşı",
-    "moveStartDown": "Başlangıcı bir satır aşağı taşı",
+    "rename": "Yeniden adlandır",
+    "renameHint": "Yeniden adlandır veya türünü değiştir",
+    "label": "Bölüm adı",
+    "type": "Bölüm türü",
+    "snapToPlayhead": "Oynatma konumuna hizala",
     "applyTimings": "Zamanlamaları şuradan uygula...",
     "applyTitle": "Başka bir bölümden zamanlamaları uygula",
     "applyDesc": "Başka bir bölümün zamanlamasını bu bölüme kopyalar. Satırlar kelimelerine göre eşleştirilir; yalnızca eşleşen kelimeler zamanlama alır, kalanlar kendi zamanlamalarını korur.",
@@ -1424,6 +1398,25 @@
     "apply": "Uygula",
     "applied": "Zamanlamalar {total} satırdan {copied} tanesine kopyalandı. {untimed, plural, =0 {Tüm kelimelerin zamanlaması var.} one {# kelime zamanlamasız kaldı.} other {# kelime zamanlamasız kaldı.}}",
     "nothingMatched": "Bu bölümdeki hiçbir satır diğer bölümle eşleşmiyor, bu yüzden hiçbir şey kopyalanmadı."
+  },
+  "sectionCategories": {
+    "intro": "Giriş",
+    "verse": "Kıta",
+    "pre-chorus": "Nakarat öncesi",
+    "chorus": "Nakarat",
+    "post-chorus": "Nakarat sonrası",
+    "refrain": "Tekrarlanan dize",
+    "hook": "Kanca",
+    "bridge": "Köprü",
+    "break": "Ara",
+    "interlude": "Ara bölüm",
+    "instrumental": "Enstrümantal",
+    "solo": "Solo",
+    "spoken": "Konuşma",
+    "skit": "Skeç",
+    "sample": "Örnek",
+    "outro": "Kapanış",
+    "other": "Diğer"
   },
   "touchSyncPanel": {
     "prevWord": "Önceki kelime",

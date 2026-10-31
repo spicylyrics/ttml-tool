@@ -177,7 +177,7 @@
     "removeHeadersHint": "从歌词中删除标题行。",
     "textFormat": "文本格式",
     "reviewSections": "检查分段",
-    "reviewHint": "修正猜错的类别。颜色、演唱者和备注可以稍后在分段菜单中设置。",
+    "reviewHint": "修正猜错的类型。之后可以在编辑器中点击分段名称来重命名。",
     "sectionLabel": "分段名称",
     "sectionCategory": "分段类别",
     "lowConfidence": "类别为猜测，请检查。",
@@ -336,16 +336,6 @@
       "title": "创建新项目？",
       "description": "你有未保存的更改。继续操作将丢失这些更改。确定要创建新项目吗？"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "检测到 Genius 分段标题",
-      "dialogDesc": "歌词中有 [Verse]、[Chorus] 等分段标题。是否启用实验性的 Genius 分段功能来使用这些标题？",
-      "usageInfo": "分段标题会在编辑器中以独特样式显示，并提供“应用时间”和“吸附到播放指针”等工具。",
-      "maybeLater": "以后再说",
-      "enableNow": "立即启用",
-      "title": "Genius 分段",
-      "snapToPlayhead": "吸附到播放指针"    }
   },
   "logoColor": {
     "title": "Logo 颜色",
@@ -1052,6 +1042,7 @@
     "duetLyric": "对唱行",
     "lineRole": "行角色",
     "moveLineToPlayhead": "将行移至播放指针",
+    "timing": "时间",
     "copyTimingsTo": "复制时间到…",
     "cancelCopyTimings": "取消复制时间",
     "snapSelectedLinesToPlayhead": "将选中行吸附到播放指针",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "无建议"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, other {为选中的 # 行分类}}",
-    "categorizeTitle": "为选中行分类",
-    "categorize": "分类",
     "expand": "展开分段",
     "collapse": "收起分段",
-    "editTitle": "编辑分段",
-    "vocalist": "演唱者 / 角色",
-    "notes": "备注",
-    "manage": "管理分段",
-    "goPrevious": "转到上一分段",
-    "goNext": "转到下一分段",
-    "editMetadata": "编辑元数据",
-    "split": "在选中行处拆分",
     "mergePrevious": "与上一分段合并",
-    "mergeNext": "与下一分段合并",
-    "moveUp": "向上移动",
-    "moveDown": "下移",
-    "linkPrevious": "链接到上一个 {category}",
-    "unlinkRepeat": "解除重复分段链接",
-    "removeHeader": "删除标题（保留歌词）",
-    "addToPrevious": "将未分配行添加到上一分段",
-    "addToNext": "将未分配行添加到下一分段",
-    "section": "分段"
+    "removeHeader": "删除标题（保留歌词）"
   },
   "sectionEditing": {
-    "editHeader": "重命名或更改 {label} 的类型",
     "menu": "分段操作",
     "startHere": "从此处开始分段",
-    "moveStartUp": "起点上移一行",
-    "moveStartDown": "起点下移一行",
+    "rename": "重命名",
+    "renameHint": "重命名或更改类型",
+    "label": "分段名称",
+    "type": "分段类型",
+    "snapToPlayhead": "吸附到播放指针",
     "applyTimings": "应用来自以下分段的时间...",
     "applyTitle": "应用其他分段的时间",
     "applyDesc": "将其他分段的时间复制到当前分段。行会按词语匹配；只有匹配的词语会获得时间，其余保留原有时间。",
@@ -1424,6 +1398,25 @@
     "apply": "应用",
     "applied": "已将时间复制到 {total} 行中的 {copied} 行。{untimed, plural, =0 {所有词语均有时间。} other {有 # 个词语未获得时间。}}",
     "nothingMatched": "此分段中没有与该分段匹配的行，因此未复制任何内容。"
+  },
+  "sectionCategories": {
+    "intro": "前奏",
+    "verse": "主歌",
+    "pre-chorus": "预副歌",
+    "chorus": "副歌",
+    "post-chorus": "后副歌",
+    "refrain": "叠句",
+    "hook": "记忆点",
+    "bridge": "桥段",
+    "break": "间断",
+    "interlude": "间奏",
+    "instrumental": "器乐段",
+    "solo": "独奏",
+    "spoken": "念白",
+    "skit": "短剧",
+    "sample": "采样",
+    "outro": "尾奏",
+    "other": "其他"
   },
   "touchSyncPanel": {
     "prevWord": "上一个字",

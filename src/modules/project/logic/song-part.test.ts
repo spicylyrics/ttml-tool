@@ -81,4 +81,19 @@ describe("itunes:song-part import", () => {
 			ours.lyricLines.map((line) => line.sectionId),
 		);
 	});
+
+	it("drops section colors, notes and vocalists from older files", () => {
+		const ours = parseLyric(apple);
+		// The section list is JSON inside an XML attribute, so quotes are escaped.
+		const legacy = exportTTMLText(ours).replace(
+			"&quot;category&quot;:",
+			"&quot;color&quot;:&quot;red&quot;,&quot;notes&quot;:&quot;quiet&quot;,&quot;vocalist&quot;:&quot;Lead&quot;,&quot;category&quot;:",
+		);
+		expect(legacy).toContain("&quot;notes&quot;");
+		const section = parseLyric(legacy).sections?.[0];
+		expect(section).toMatchObject({ label: ours.sections?.[0].label });
+		expect(section).not.toHaveProperty("color");
+		expect(section).not.toHaveProperty("notes");
+		expect(section).not.toHaveProperty("vocalist");
+	});
 });

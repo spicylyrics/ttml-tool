@@ -177,7 +177,7 @@
     "removeHeadersHint": "Tira as linhas de cabeçalho da letra.",
     "textFormat": "Formato do texto",
     "reviewSections": "Revisar seções",
-    "reviewHint": "Corrija as categorias que foram adivinhadas errado. Cores, vocalistas e notas podem ser definidos depois pelo menu da seção.",
+    "reviewHint": "Corrija os tipos que foram adivinhados errado. Você pode renomear as seções depois clicando no nome delas no editor.",
     "sectionLabel": "Nome da seção",
     "sectionCategory": "Categoria da seção",
     "lowConfidence": "Categoria adivinhada. Confira.",
@@ -336,16 +336,6 @@
       "title": "Criar um novo projeto?",
       "description": "Você tem alterações não salvas. Se continuar, elas serão perdidas. Tem certeza de que deseja criar um novo projeto?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Cabeçalhos de seção do Genius detectados",
-      "dialogDesc": "A letra tem cabeçalhos como [Verse] e [Chorus]. Ativar o recurso experimental Seções do Genius para usá-los?",
-      "usageInfo": "Os cabeçalhos terão um estilo próprio no editor e ferramentas como Aplicar tempos ou Ajustar ao cursor de reprodução.",
-      "maybeLater": "Talvez mais tarde",
-      "enableNow": "Ativar agora",
-      "title": "Seções do Genius",
-      "snapToPlayhead": "Ajustar ao cursor de reprodução"    }
   },
   "logoColor": {
     "title": "Cor do logotipo",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Linha de dueto",
     "lineRole": "Função da linha",
     "moveLineToPlayhead": "Mover linha para o cursor de reprodução",
+    "timing": "Tempos",
     "copyTimingsTo": "Copiar tempos para…",
     "cancelCopyTimings": "Cancelar cópia de tempos",
     "snapSelectedLinesToPlayhead": "Ajustar linhas selecionadas ao cursor de reprodução",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Nenhuma sugestão"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {Categorizar # linha selecionada} many {Categorizar # linhas selecionadas} other {Categorizar # linhas selecionadas}}",
-    "categorizeTitle": "Categorizar linhas selecionadas",
-    "categorize": "Categorizar",
     "expand": "Expandir seção",
     "collapse": "Recolher seção",
-    "editTitle": "Editar seção",
-    "vocalist": "Vocalista / papel",
-    "notes": "Notas",
-    "manage": "Gerenciar seções",
-    "goPrevious": "Ir para a seção anterior",
-    "goNext": "Ir para a próxima seção",
-    "editMetadata": "Editar metadados",
-    "split": "Dividir na linha selecionada",
     "mergePrevious": "Mesclar com o anterior",
-    "mergeNext": "Mesclar com o próximo",
-    "moveUp": "Subir",
-    "moveDown": "Mover para baixo",
-    "linkPrevious": "Vincular à seção anterior: {category}",
-    "unlinkRepeat": "Desvincular repetição",
-    "removeHeader": "Remover cabeçalho (manter letras)",
-    "addToPrevious": "Adicionar linhas não atribuídas à seção anterior",
-    "addToNext": "Adicionar linhas não atribuídas à próxima seção",
-    "section": "Seção"
+    "removeHeader": "Remover cabeçalho (manter letras)"
   },
   "sectionEditing": {
-    "editHeader": "Renomear ou mudar o tipo de {label}",
     "menu": "Ações da seção",
     "startHere": "Iniciar seção aqui",
-    "moveStartUp": "Subir o início uma linha",
-    "moveStartDown": "Descer o início uma linha",
+    "rename": "Renomear",
+    "renameHint": "Renomear ou mudar o tipo",
+    "label": "Nome da seção",
+    "type": "Tipo de seção",
+    "snapToPlayhead": "Ajustar ao cursor de reprodução",
     "applyTimings": "Aplicar tempos de...",
     "applyTitle": "Aplicar tempos de outra seção",
     "applyDesc": "Copia os tempos de outra seção para esta. As linhas são combinadas pelas palavras; só as palavras correspondentes recebem tempos e o resto mantém os seus.",
@@ -1424,6 +1398,25 @@
     "apply": "Aplicar",
     "applied": "Tempos copiados para {copied} de {total} linhas. {untimed, plural, =0 {Todas as palavras têm tempo.} one {# palavra ficou sem tempo.} many {# palavras ficaram sem tempo.} other {# palavras ficaram sem tempo.}}",
     "nothingMatched": "Nenhuma linha desta seção corresponde à outra, então nada foi copiado."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Verso",
+    "pre-chorus": "Pré-refrão",
+    "chorus": "Refrão",
+    "post-chorus": "Pós-refrão",
+    "refrain": "Estribilho",
+    "hook": "Gancho",
+    "bridge": "Ponte",
+    "break": "Pausa",
+    "interlude": "Interlúdio",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Falado",
+    "skit": "Esquete",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Outro tipo"
   },
   "touchSyncPanel": {
     "prevWord": "Palavra anterior",

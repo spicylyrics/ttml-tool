@@ -177,7 +177,7 @@
     "removeHeadersHint": "Fjerner overskriftsrækkerne fra sangteksten.",
     "textFormat": "Tekstformat",
     "reviewSections": "Gennemgå sektioner",
-    "reviewHint": "Ret de kategorier, der er gættet forkert. Farver, vokalister og noter kan sættes senere fra sektionsmenuen.",
+    "reviewHint": "Ret de typer, der er gættet forkert. Du kan omdøbe sektioner senere ved at klikke på deres navn i editoren.",
     "sectionLabel": "Sektionsnavn",
     "sectionCategory": "Sektionskategori",
     "lowConfidence": "Kategorien er gættet. Tjek den.",
@@ -336,16 +336,6 @@
       "title": "Opret et nyt projekt?",
       "description": "Du har ændringer, der ikke er gemt. Hvis du fortsætter, går de tabt. Er du sikker på, at du vil oprette et nyt projekt?"
     }
-  },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius-sektionsoverskrifter fundet",
-      "dialogDesc": "Sangteksten har sektionsoverskrifter som [Verse] og [Chorus]. Vil du aktivere den eksperimentelle funktion Genius-sektioner for at bruge dem?",
-      "usageInfo": "Sektionsoverskrifter får deres egen stil i editoren og værktøjer som Anvend timing og Flyt til afspilningsmarkør.",
-      "maybeLater": "Måske senere",
-      "enableNow": "Aktiver nu",
-      "title": "Genius-sektioner",
-      "snapToPlayhead": "Flyt til afspilningsmarkør"    }
   },
   "logoColor": {
     "title": "Logofarve",
@@ -1052,6 +1042,7 @@
     "duetLyric": "Duetlinje",
     "lineRole": "Linjens rolle",
     "moveLineToPlayhead": "Flyt linje til afspilningsmarkør",
+    "timing": "Timing",
     "copyTimingsTo": "Kopiér timing til…",
     "cancelCopyTimings": "Annuller kopiering af timing",
     "snapSelectedLinesToPlayhead": "Flyt valgte linjer til afspilningsmarkør",
@@ -1380,36 +1371,19 @@
     "noSuggestions": "Ingen forslag"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {Kategorisér # valgt linje} other {Kategorisér # valgte linjer}}",
-    "categorizeTitle": "Kategoriser valgte linjer",
-    "categorize": "Kategoriser",
     "expand": "Udvid sektion",
     "collapse": "Skjul sektion",
-    "editTitle": "Rediger sektion",
-    "vocalist": "Vokalist/rolle",
-    "notes": "Noter",
-    "manage": "Administrer sektioner",
-    "goPrevious": "Gå til forrige sektion",
-    "goNext": "Gå til næste sektion",
-    "editMetadata": "Rediger metadata",
-    "split": "Opdel ved valgt linje",
     "mergePrevious": "Kombiner med forrige",
-    "mergeNext": "Kombiner med næste",
-    "moveUp": "Flyt op",
-    "moveDown": "Flyt ned",
-    "linkPrevious": "Knyt til forrige {category}",
-    "unlinkRepeat": "Fjern gentagelseslink",
-    "removeHeader": "Fjern overskrift (behold sangtekster)",
-    "addToPrevious": "Tilføj ikke-tildelte linjer til forrige sektion",
-    "addToNext": "Tilføj ikke-tildelte linjer til næste sektion",
-    "section": "Sektion"
+    "removeHeader": "Fjern overskrift (behold sangtekster)"
   },
   "sectionEditing": {
-    "editHeader": "Omdøb eller ændr type for {label}",
     "menu": "Sektionshandlinger",
     "startHere": "Start sektion her",
-    "moveStartUp": "Flyt start en linje op",
-    "moveStartDown": "Flyt start en linje ned",
+    "rename": "Omdøb",
+    "renameHint": "Omdøb eller skift type",
+    "label": "Sektionsnavn",
+    "type": "Sektionstype",
+    "snapToPlayhead": "Flyt til afspilningsmarkør",
     "applyTimings": "Anvend timing fra...",
     "applyTitle": "Anvend timing fra en anden sektion",
     "applyDesc": "Kopierer en anden sektions timing til denne. Linjer matches på deres ord; kun matchende ord får timing, resten beholder deres egen.",
@@ -1424,6 +1398,25 @@
     "apply": "Anvend",
     "applied": "Timing kopieret til {copied} af {total} linjer. {untimed, plural, =0 {Alle ord har timing.} one {# ord blev stående uden timing.} other {# ord blev stående uden timing.}}",
     "nothingMatched": "Ingen linjer i denne sektion matcher den anden, så intet blev kopieret."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Vers",
+    "pre-chorus": "Før-omkvæd",
+    "chorus": "Omkvæd",
+    "post-chorus": "Efter-omkvæd",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "C-stykke",
+    "break": "Break",
+    "interlude": "Mellemspil",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Talt",
+    "skit": "Sketch",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Andet"
   },
   "touchSyncPanel": {
     "prevWord": "Forrige ord",

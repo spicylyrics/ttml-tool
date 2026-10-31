@@ -142,7 +142,6 @@ export function createSectionFromHeader(
 		label: normalized.label,
 		category: normalized.category,
 		ordinal: normalized.ordinal,
-		vocalist: normalized.vocalist,
 		confidence: normalized.confidence,
 	};
 }
