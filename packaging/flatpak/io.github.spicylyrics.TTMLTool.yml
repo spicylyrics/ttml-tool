@@ -36,10 +36,15 @@ modules:
   - name: amll-ttml-tool
     buildsystem: simple
     build-commands:
-      - install -Dm755 amll-ttml-tool /app/bin/amll-ttml-tool
+      # The real binary is installed under a -bin name and wrapped by
+      # amll-ttml-tool, which builds the first-run fontconfig cache (see the
+      # wrapper). Without that cache WebKitGTK spins at 100% CPU scanning host
+      # fonts and the window never appears.
+      - install -Dm755 amll-ttml-tool /app/bin/amll-ttml-tool-bin
+      - install -Dm755 amll-ttml-tool-wrapper /app/bin/amll-ttml-tool
       # A broken binary makes ldd say "not a dynamic executable", so check that
       # WebKitGTK actually resolves, not just that nothing is missing.
-      - ldd /app/bin/amll-ttml-tool > ldd.txt
+      - ldd /app/bin/amll-ttml-tool-bin > ldd.txt
       - grep -q 'libwebkit2gtk-4.1.so.0 => /usr/lib' ldd.txt
       - "! grep 'not found' ldd.txt"
       - install -Dm644 io.github.spicylyrics.TTMLTool.desktop /app/share/applications/io.github.spicylyrics.TTMLTool.desktop
@@ -52,6 +57,8 @@ modules:
     sources:
       - type: file
         path: ../../src-tauri/target/release/amll-ttml-tool
+      - type: file
+        path: amll-ttml-tool-wrapper
       - type: file
         path: io.github.spicylyrics.TTMLTool.desktop
       - type: file
