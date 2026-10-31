@@ -115,8 +115,13 @@ export interface LyricLine extends AMLLLyricLine {
 	ignoreSync: boolean;
 	/** Whether the source stores this lyric as direct text in a timed <p>. */
 	isLineSynced?: boolean;
-	/** The line's start and end were synced in Line mode; word syncing stays inside them. */
-	lineBoundsSynced?: boolean;
+	/**
+	 * The start and end this line was given in Line mode. While the line still
+	 * has exactly these times, word syncing stays inside them (R48); editing
+	 * the line's times any other way turns that off. Not written to TTML, so a
+	 * Word-mode song reopened from a file loses it.
+	 */
+	syncedLineBounds?: { startTime: number; endTime: number };
 	language?: string;
 	agent?: string;
 	/**

@@ -2,25 +2,14 @@ import { useAtomValue, useStore } from "jotai";
 import { type FC, useCallback } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { SyncKeyBinding } from "$/modules/lyric-editor/components/sync-keybinding";
+import { useSyncJudgeTime } from "$/modules/lyric-editor/components/use-sync-judge-time";
 import {
 	getCurrentLineLocation,
 	getSynchronizableUnits,
 } from "$/modules/lyric-editor/utils/lyric-states";
-import { calculateSyncTime } from "$/modules/lyric-editor/utils/sync-timing";
-import {
-	highlightActiveWordAtom,
-	syncJudgeModeAtom,
-} from "$/modules/settings/states";
+import { highlightActiveWordAtom } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
-import {
-	spectrogramHoverSyncEnabledAtom,
-	syncCommitOffsetAtom,
-	syncTimeOffsetAtom,
-} from "$/modules/settings/states/sync";
-import {
-	spectrogramHoverTimeMsAtom,
-	spectrogramIsHoveringAtom,
-} from "$/modules/spectrogram/states";
+import { syncCommitOffsetAtom } from "$/modules/settings/states/sync";
 import {
 	keyMoveFirstWordAndPlayAtom,
 	keyMoveLastWordAndPlayAtom,
@@ -41,7 +30,7 @@ import {
 	selectedWordsAtom,
 } from "$/states/main";
 import type { LyricLine } from "$/types/ttml";
-import { type KeyBindingEvent, useKeyBindingAtom } from "$/utils/keybindings";
+import { useKeyBindingAtom } from "$/utils/keybindings";
 import {
 	findNextLineSyncIndex,
 	findPrevLineSyncIndex,
@@ -59,29 +48,7 @@ import { lineSyncActiveAtom } from "./states";
 export const LineSyncKeyBinding: FC = () => {
 	const store = useStore();
 
-	const calcJudgeTime = useCallback(
-		(evt: KeyBindingEvent, actionOffset = 0) => {
-			if (
-				store.get(spectrogramHoverSyncEnabledAtom) &&
-				store.get(spectrogramIsHoveringAtom)
-			) {
-				const hoverTimeMs = Math.round(store.get(spectrogramHoverTimeMsAtom));
-				if (hoverTimeMs >= 0) return hoverTimeMs;
-			}
-			return calculateSyncTime({
-				audioTimeSeconds: audioEngine.interpolatedCurrentTime,
-				playbackRate: audioEngine.musicPlayBackRate,
-				isPlaying: audioEngine.musicPlaying,
-				event: evt,
-				judgeMode: store.get(syncJudgeModeAtom),
-				syncTimeOffset: store.get(syncTimeOffsetAtom),
-				actionOffset,
-				performanceTime: performance.now(),
-				performanceTimeOrigin: performance.timeOrigin,
-			});
-		},
-		[store],
-	);
+	const calcJudgeTime = useSyncJudgeTime();
 
 	const selectLine = useCallback(
 		(line: LyricLine | undefined, play: boolean) => {

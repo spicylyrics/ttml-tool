@@ -62,16 +62,29 @@ const summary = (lyric: TTMLLyric) =>
 describe("shouldExportAsLineSynced with a timing mode", () => {
 	const multiWord = line([word("a"), word(" "), word("b")], 0, 1000);
 
-	it("writes every line as text in Line mode", () => {
+	it("writes lines without word timings as text in Line mode", () => {
 		expect(shouldExportAsLineSynced(multiWord, "line")).toBe(true);
 	});
 
-	it("writes every line as words once switched back to Word mode", () => {
+	it("never drops real word timings in Line mode", () => {
+		const timed = line(
+			[word("a", 0, 400), word(" "), word("b", 400, 1000)],
+			0,
+			1000,
+			{ isLineSynced: true },
+		);
+		expect(shouldExportAsLineSynced(timed, "line")).toBe(false);
+	});
+
+	it("keeps the one-word rule in Word mode", () => {
 		expect(
 			shouldExportAsLineSynced(
-				{ ...line([word("Whole line")], 0, 1000), isLineSynced: true },
+				{ ...line([word("Whole")], 0, 1000), isLineSynced: true },
 				"word",
 			),
+		).toBe(true);
+		expect(
+			shouldExportAsLineSynced({ ...multiWord, isLineSynced: true }, "word"),
 		).toBe(false);
 	});
 
@@ -111,9 +124,33 @@ describe("Line-mode export", () => {
 		);
 		expect(summary(parsed)).toEqual(summary(lineTimed));
 		expect(
-			parsed.lyricLines.every((l) => l.isLineSynced && l.lineBoundsSynced),
+			parsed.lyricLines.every((l) => l.isLineSynced && l.syncedLineBounds),
 		).toBe(true);
 		expect(exportTTMLText(parsed)).toBe(xml);
+	});
+
+	it("keeps word sync for lines that have word timings in a Line-mode song", () => {
+		const mixed: TTMLLyric = {
+			...lineTimed,
+			lyricLines: [lineTimed.lyricLines[0], wordTimed.lyricLines[2]],
+		};
+		const out = exportTTMLText(mixed);
+		expect(out).toContain('itunes:timing="Word"');
+		expect(out).toContain(">Hello world<");
+		expect(out).toContain(
+			'<span begin="00:02.500" end="00:03.000">Second</span>',
+		);
+		expect(out).toContain(
+			'<span begin="00:03.000" end="00:04.000">line</span>',
+		);
+		const parsed = parseLyric(out);
+		expect(
+			parsed.lyricLines[1].words.map((w) => [w.startTime, w.endTime]),
+		).toEqual([
+			[2500, 3000],
+			[0, 0],
+			[3000, 4000],
+		]);
 	});
 
 	it("can switch a reopened Line-mode file back to Word mode with every word to sync", () => {
@@ -126,8 +163,13 @@ describe("Line-mode export", () => {
 		expect(reopened.lyricLines[0]).toMatchObject({
 			startTime: 1000,
 			endTime: 2200,
-			lineBoundsSynced: true,
+			syncedLineBounds: { startTime: 1000, endTime: 2200 },
 		});
+	});
+
+	it("exports a song switched back to Word mode without a stored mode", () => {
+		const out = exportTTMLText(switchToWordMode(lineTimed));
+		expect(out).not.toContain("amll:timingMode");
 	});
 });
 
@@ -138,6 +180,6 @@ describe("projects without a timing mode", () => {
 		expect(xml).toContain('itunes:timing="Word"');
 		const parsed = parseLyric(xml);
 		expect(parsed.timingMode).toBeUndefined();
-		expect(parsed.lyricLines.some((l) => l.lineBoundsSynced)).toBe(false);
+		expect(parsed.lyricLines.some((l) => l.syncedLineBounds)).toBe(false);
 	});
 });

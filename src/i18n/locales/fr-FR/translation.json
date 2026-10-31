@@ -1413,8 +1413,6 @@
     "nextWord": "Mot suivant"
   },
   "lineSync": {
-    "flagTitle": "Synchronisation par ligne",
-    "flagDesc": "Permet de synchroniser chaque chanson par mot ou par ligne entière. En mode Ligne, F, G et H démarrent et terminent des lignes entières.",
     "timing": "Synchronisation de la chanson",
     "timingDesc": "Mot : chaque mot a son propre temps. Ligne : seules les lignes entières sont synchronisées, et le TTML est exporté synchronisé par ligne.",
     "word": "Mot",

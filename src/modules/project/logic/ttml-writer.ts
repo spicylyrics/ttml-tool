@@ -27,15 +27,18 @@ import {
 } from "../../../utils/apostrophe-normalization.ts";
 import { log } from "../../../utils/logging.ts";
 import { msToTimestamp } from "../../../utils/timestamp.ts";
+import {
+	hasWordTimings,
+	lineHasWordTimings,
+} from "../../line-sync/timing-mode.ts";
 
 export function shouldExportAsLineSynced(
 	line: LyricLine,
 	timingMode?: TimingMode,
 ): boolean {
-	// A song is timed one way, never mixed: Line mode writes every line as text,
-	// a song switched back to Word mode writes every line as words.
-	if (timingMode === "line") return true;
-	if (timingMode === "word") return false;
+	// Line mode writes its lines as text, but never drops a line's real word
+	// timings. Word mode (or no mode) keeps the one-word rule below.
+	if (timingMode === "line") return !lineHasWordTimings(line);
 	if (!line.isLineSynced) return false;
 
 	return line.words.filter((word) => word.word.trim().length > 0).length <= 1;
@@ -168,7 +171,8 @@ export default function exportTTMLText(
 	if (totalNonBlankWords === 0 || !hasAnyTiming) timingMode = "None";
 	else if (nonBlankWordCountsPerLine.some((c) => c > 1)) timingMode = "Word";
 	else timingMode = "Line";
-	if (ttmlLyric.timingMode === "line")
+	// Line mode splits lines into words for editing, but writes them as text.
+	if (ttmlLyric.timingMode === "line" && !hasWordTimings(ttmlLyric))
 		timingMode = lyric.some((l) => l.endTime > l.startTime) ? "Line" : "None";
 	ttRoot.setAttribute("itunes:timing", timingMode);
 
@@ -253,7 +257,8 @@ export default function exportTTMLText(
 		metadataEl.appendChild(metaEl);
 	}
 
-	if (ttmlLyric.timingMode) {
+	// Word timing is the default, so only Line mode is written.
+	if (ttmlLyric.timingMode === "line") {
 		const metaEl = doc.createElement("amll:meta");
 		metaEl.setAttribute("key", "amll:timingMode");
 		metaEl.setAttribute("value", ttmlLyric.timingMode);

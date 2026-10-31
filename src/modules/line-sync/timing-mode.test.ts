@@ -76,7 +76,7 @@ describe("switchToLineMode", () => {
 			startTime: 1000,
 			endTime: 2200,
 			isLineSynced: true,
-			lineBoundsSynced: true,
+			syncedLineBounds: { startTime: 1000, endTime: 2200 },
 		});
 		expect(first.words.map((w) => [w.startTime, w.endTime])).toEqual([
 			[1000, 2200],
@@ -98,7 +98,7 @@ describe("switchToLineMode", () => {
 
 	it("does not mark untimed lines as synced", () => {
 		const result = switchToLineMode(lyric([line("a", [word("Hi")], 0, 0)]));
-		expect(result.lyricLines[0].lineBoundsSynced).toBe(false);
+		expect(result.lyricLines[0].syncedLineBounds).toBeUndefined();
 	});
 });
 
@@ -109,13 +109,38 @@ describe("switchToWordMode", () => {
 		);
 		const result = switchToWordMode(lineTimed);
 		const [first] = result.lyricLines;
-		expect(result.timingMode).toBe("word");
+		expect(result.timingMode).toBeUndefined();
 		expect(first).toMatchObject({
 			startTime: 1000,
 			endTime: 2000,
 			isLineSynced: false,
-			lineBoundsSynced: true,
+			syncedLineBounds: { startTime: 1000, endTime: 2000 },
 		});
+		expect(first.words.every((w) => w.startTime === 0 && w.endTime === 0)).toBe(
+			true,
+		);
+	});
+
+	it("keeps a one-word line line-synced, as before Line mode existed", () => {
+		const lineTimed = switchToLineMode(
+			lyric([line("a", [word("Hey")], 1000, 2000)]),
+		);
+		const [first] = switchToWordMode(lineTimed).lyricLines;
+		expect(first.isLineSynced).toBe(true);
+	});
+
+	it("splits a line stored as one text token back into words", () => {
+		const lineTimed = lyric(
+			[
+				line("a", [word("Line one", 0, 1000)], 0, 1000, {
+					isLineSynced: true,
+				}),
+			],
+			{ timingMode: "line" },
+		);
+		const [first] = switchToWordMode(lineTimed).lyricLines;
+		expect(first.words.map((w) => w.word)).toEqual(["Line", " ", "one"]);
+		expect(first.isLineSynced).toBe(false);
 		expect(first.words.every((w) => w.startTime === 0 && w.endTime === 0)).toBe(
 			true,
 		);
@@ -152,7 +177,10 @@ describe("splitLineText / restoreLineModeWords", () => {
 			" ",
 			"world",
 		]);
-		expect(restored.lyricLines[0].lineBoundsSynced).toBe(true);
+		expect(restored.lyricLines[0].syncedLineBounds).toEqual({
+			startTime: 0,
+			endTime: 1000,
+		});
 	});
 });
 
@@ -161,18 +189,25 @@ describe("applyLrcTimingMode", () => {
 		line("a", [word("Line one", 0, 1000)], 0, 1000, { isLineSynced: true }),
 	]);
 
-	it("leaves LRC imports alone while the feature is off", () => {
-		expect(applyLrcTimingMode(lrc, false)).toBe(lrc);
-	});
-
-	it("opens LRC imports in Line mode while the feature is on", () => {
-		const result = applyLrcTimingMode(lrc, true);
+	it("opens LRC imports in Line mode, split into words", () => {
+		const result = applyLrcTimingMode(lrc);
 		expect(result.timingMode).toBe("line");
 		expect(result.lyricLines[0]).toMatchObject({
 			startTime: 0,
 			endTime: 1000,
 			isLineSynced: true,
 		});
+		expect(result.lyricLines[0].words.map((w) => w.word)).toEqual([
+			"Line",
+			" ",
+			"one",
+		]);
+	});
+
+	it("splits LRC lines into separate words after switching to Word", () => {
+		const [first] = switchToWordMode(applyLrcTimingMode(lrc)).lyricLines;
+		expect(first.words.map((w) => w.word)).toEqual(["Line", " ", "one"]);
+		expect(first.isLineSynced).toBe(false);
 	});
 });
 
@@ -182,7 +217,10 @@ describe("clampToSyncedLineBounds (R48)", () => {
 		words: LyricWord[],
 		start: number,
 		end: number,
-	) => line(id, words, start, end, { lineBoundsSynced: true });
+	) =>
+		line(id, words, start, end, {
+			syncedLineBounds: { startTime: start, endTime: end },
+		});
 
 	const setWord = (
 		doc: TTMLLyric,
@@ -204,14 +242,19 @@ describe("clampToSyncedLineBounds (R48)", () => {
 		bounded("b", [word("three"), word(" "), word("four")], 2500, 4000),
 	]);
 
-	it("changes nothing while the feature is off", () => {
-		const next = setWord(prev, 0, 0, { startTime: 500 }, { startTime: 500 });
-		expect(clampToSyncedLineBounds(prev, next, false)).toBe(next);
+	it("stops applying once the line's times were edited another way", () => {
+		// A typed or dragged line start leaves the recorded bounds behind.
+		const edited = lyric([
+			{ ...prev.lyricLines[0], startTime: 800 },
+			prev.lyricLines[1],
+		]);
+		const next = setWord(edited, 0, 0, { startTime: 500 }, { startTime: 500 });
+		expect(clampToSyncedLineBounds(edited, next)).toBe(next);
 	});
 
 	it("keeps a word's start inside the synced line", () => {
 		const next = setWord(prev, 0, 0, { startTime: 500 }, { startTime: 500 });
-		const result = clampToSyncedLineBounds(prev, next, true);
+		const result = clampToSyncedLineBounds(prev, next);
 		expect(result.lyricLines[0].words[0].startTime).toBe(1000);
 		expect(result.lyricLines[0].startTime).toBe(1000);
 	});
@@ -220,7 +263,7 @@ describe("clampToSyncedLineBounds (R48)", () => {
 		// G on "two" at 2300: word-mode G ends "two", ends line a, starts line b's first word.
 		let next = setWord(prev, 0, 2, { endTime: 2300 }, { endTime: 2300 });
 		next = setWord(next, 1, 0, { startTime: 2300 }, { startTime: 2300 });
-		const result = clampToSyncedLineBounds(prev, next, true);
+		const result = clampToSyncedLineBounds(prev, next);
 		expect(result.lyricLines[0].words[2].endTime).toBe(2000);
 		expect(result.lyricLines[0].endTime).toBe(2000);
 		expect(result.lyricLines[1].words[0].startTime).toBe(2500);
@@ -230,10 +273,10 @@ describe("clampToSyncedLineBounds (R48)", () => {
 	it("leaves words inside the bounds and lines without synced bounds untouched", () => {
 		const free = lyric([line("a", [word("one")], 0, 0)]);
 		const freeNext = setWord(free, 0, 0, { startTime: 500, endTime: 800 });
-		expect(clampToSyncedLineBounds(free, freeNext, true)).toBe(freeNext);
+		expect(clampToSyncedLineBounds(free, freeNext)).toBe(freeNext);
 
 		const inside = setWord(prev, 0, 0, { startTime: 1200 });
-		const result = clampToSyncedLineBounds(prev, inside, true);
+		const result = clampToSyncedLineBounds(prev, inside);
 		expect(result.lyricLines[0].words[0]).toBe(inside.lyricLines[0].words[0]);
 	});
 
@@ -242,7 +285,7 @@ describe("clampToSyncedLineBounds (R48)", () => {
 			bounded("a", [word("one", 100, 200), word("two")], 1000, 2000),
 		]);
 		const next = setWord(stale, 0, 1, { startTime: 1500 });
-		const result = clampToSyncedLineBounds(stale, next, true);
+		const result = clampToSyncedLineBounds(stale, next);
 		expect(result.lyricLines[0].words[0]).toBe(stale.lyricLines[0].words[0]);
 	});
 });

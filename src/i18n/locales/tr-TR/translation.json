@@ -1413,8 +1413,6 @@
     "nextWord": "Sonraki kelime"
   },
   "lineSync": {
-    "flagTitle": "Satır senkronizasyonu",
-    "flagDesc": "Her şarkının kelime kelime ya da tam satırlarla zamanlanmasını sağlar. Satır modunda F, G ve H tam satırları başlatır ve bitirir.",
     "timing": "Şarkı zamanlaması",
     "timingDesc": "Kelime: her kelimenin kendi zamanı olur. Satır: yalnızca tam satırlar zamanlanır ve TTML satır senkronlu olarak dışa aktarılır.",
     "word": "Kelime",

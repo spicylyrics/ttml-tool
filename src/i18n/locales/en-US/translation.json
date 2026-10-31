@@ -1413,8 +1413,6 @@
     "nextWord": "Next word"
   },
   "lineSync": {
-    "flagTitle": "Line syncing",
-    "flagDesc": "Lets each song be timed by word or by whole line. In Line mode, F, G and H start and end whole lines.",
     "timing": "Song timing",
     "timingDesc": "Word: every word gets its own time. Line: only whole lines are timed, and the TTML is exported line-synced.",
     "word": "Word",

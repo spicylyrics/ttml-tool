@@ -1413,8 +1413,6 @@
     "nextWord": "Ďalšie slovo"
   },
   "lineSync": {
-    "flagTitle": "Synchronizácia po riadkoch",
-    "flagDesc": "Umožní časovať každú skladbu po slovách alebo po celých riadkoch. V režime Riadok F, G a H začínajú a ukončujú celé riadky.",
     "timing": "Časovanie skladby",
     "timingDesc": "Slovo: každé slovo má vlastný čas. Riadok: časujú sa iba celé riadky a TTML sa exportuje synchronizované po riadkoch.",
     "word": "Slovo",

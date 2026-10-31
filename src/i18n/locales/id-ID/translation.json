@@ -1413,8 +1413,6 @@
     "nextWord": "Kata berikutnya"
   },
   "lineSync": {
-    "flagTitle": "Sinkronisasi baris",
-    "flagDesc": "Setiap lagu bisa diberi waktu per kata atau per baris utuh. Dalam mode Baris, F, G, dan H memulai dan mengakhiri baris utuh.",
     "timing": "Waktu lagu",
     "timingDesc": "Kata: setiap kata punya waktunya sendiri. Baris: hanya baris utuh yang diberi waktu, dan TTML diekspor tersinkron per baris.",
     "word": "Kata",

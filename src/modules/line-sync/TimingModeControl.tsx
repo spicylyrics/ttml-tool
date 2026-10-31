@@ -11,7 +11,7 @@ import { RibbonSection } from "$/components/RibbonBar/common";
 import { confirmDialogAtom } from "$/states/dialogs";
 import { lyricLinesAtom } from "$/states/main";
 import type { TimingMode } from "$/types/ttml";
-import { lineSyncEnabledAtom, songTimingModeAtom } from "./states";
+import { songTimingModeAtom } from "./states";
 import {
 	hasWordTimings,
 	switchToLineMode,
@@ -69,11 +69,9 @@ export function TimingModeControl({
 	);
 }
 
-/** Time ribbon section for the song's timing mode; hidden while the feature is off. */
+/** Time ribbon section for the song's timing mode. */
 export function TimingModeRibbonSection() {
 	const { t } = useTranslation();
-	const enabled = useAtomValue(lineSyncEnabledAtom);
-	if (!enabled) return null;
 	const label = t("lineSync.timing", "Song timing");
 	return (
 		<RibbonSection label={label}>

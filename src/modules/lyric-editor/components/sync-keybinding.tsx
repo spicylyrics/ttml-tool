@@ -1,7 +1,7 @@
 import { useStore } from "jotai";
 import { type FC, useCallback } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
-import { keepInSyncedLineBounds } from "$/modules/line-sync/sync-clamp";
+import { clampToSyncedLineBounds } from "$/modules/line-sync/timing-mode";
 import { distributeLineTime } from "$/modules/lyric-editor/utils/distribute-time";
 import {
 	findNextWord,
@@ -14,23 +14,15 @@ import {
 	isSynchronizableLine,
 	type SyncLane,
 } from "$/modules/lyric-editor/utils/lyric-states";
-import { calculateSyncTime } from "$/modules/lyric-editor/utils/sync-timing";
 import {
 	highlightActiveWordAtom,
 	smartLastWordAtom,
-	syncJudgeModeAtom,
 } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
 import {
-	spectrogramHoverSyncEnabledAtom,
 	syncCommitOffsetAtom,
 	syncLevelModeAtom,
-	syncTimeOffsetAtom,
 } from "$/modules/settings/states/sync";
-import {
-	spectrogramHoverTimeMsAtom,
-	spectrogramIsHoveringAtom,
-} from "$/modules/spectrogram/states";
 import {
 	keyMoveFirstWordAndPlayAtom,
 	keyMoveLastWordAndPlayAtom,
@@ -51,10 +43,8 @@ import {
 	selectedWordsAtom,
 } from "$/states/main.ts";
 import type { LyricLine, LyricWord, TTMLLyric } from "$/types/ttml";
-import {
-	type KeyBindingEvent,
-	useKeyBindingAtom,
-} from "$/utils/keybindings.ts";
+import { useKeyBindingAtom } from "$/utils/keybindings.ts";
+import { useSyncJudgeTime } from "./use-sync-judge-time";
 
 const getUnitStartTime = (unit: { word: LyricWord }) => unit.word.startTime;
 
@@ -111,31 +101,7 @@ function setUnitEndTimeCloned(
 export const SyncKeyBinding: FC = () => {
 	const store = useStore();
 
-	const calcJudgeTime = useCallback(
-		(evt: KeyBindingEvent, actionOffset = 0) => {
-			const spectrogramHoverSync = store.get(spectrogramHoverSyncEnabledAtom);
-			const isSpectrogramHovering = store.get(spectrogramIsHoveringAtom);
-			if (spectrogramHoverSync && isSpectrogramHovering) {
-				const hoverTimeMs = Math.round(store.get(spectrogramHoverTimeMsAtom));
-				if (hoverTimeMs >= 0) {
-					return hoverTimeMs;
-				}
-			}
-
-			return calculateSyncTime({
-				audioTimeSeconds: audioEngine.interpolatedCurrentTime,
-				playbackRate: audioEngine.musicPlayBackRate,
-				isPlaying: audioEngine.musicPlaying,
-				event: evt,
-				judgeMode: store.get(syncJudgeModeAtom),
-				syncTimeOffset: store.get(syncTimeOffsetAtom),
-				actionOffset,
-				performanceTime: performance.now(),
-				performanceTimeOrigin: performance.timeOrigin,
-			});
-		},
-		[store],
-	);
+	const calcJudgeTime = useSyncJudgeTime();
 
 	const moveToNextWordBase = useCallback(
 		(play: boolean): boolean => {
@@ -301,7 +267,7 @@ export const SyncKeyBinding: FC = () => {
 				setUnitStartTimeCloned(nextLine, location.wordIndex, currentTime);
 				nextLines[location.lineIndex] = nextLine;
 
-				return keepInSyncedLineBounds(store, prev, {
+				return clampToSyncedLineBounds(prev, {
 					...state,
 					lyricLines: nextLines,
 				});
@@ -407,7 +373,7 @@ export const SyncKeyBinding: FC = () => {
 					nextLine.endTime = currentTime;
 					nextLines[location.lineIndex] = nextLine;
 
-					return keepInSyncedLineBounds(store, prev, {
+					return clampToSyncedLineBounds(prev, {
 						...state,
 						lyricLines: nextLines,
 					});
@@ -493,7 +459,7 @@ export const SyncKeyBinding: FC = () => {
 				// The song's last word has no next line to close this one, so close it here.
 				if (!targetSelection) nextLines[iterLineIndex].endTime = currentTime;
 
-				return keepInSyncedLineBounds(store, prev, {
+				return clampToSyncedLineBounds(prev, {
 					...state,
 					lyricLines: nextLines,
 				});
@@ -592,7 +558,7 @@ export const SyncKeyBinding: FC = () => {
 				if (location.isLastWord) nextLine.endTime = currentTime;
 				nextLines[location.lineIndex] = nextLine;
 
-				return keepInSyncedLineBounds(store, prev, {
+				return clampToSyncedLineBounds(prev, {
 					...state,
 					lyricLines: nextLines,
 				});

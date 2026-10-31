@@ -4,7 +4,6 @@ import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vitest";
 import { SyncKeyBindings } from "$/modules/line-sync/LineSyncKeyBinding";
-import { lineSyncEnabledAtom } from "$/modules/line-sync/states";
 import { smartLastWordAtom } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
 import {
@@ -43,11 +42,9 @@ vi.mock("$/utils/keybindings", async (importOriginal) => ({
 ).IS_REACT_ACT_ENVIRONMENT = true;
 
 function mount({
-	enabled,
 	timingMode,
 	bounded,
 }: {
-	enabled: boolean;
 	timingMode?: TimingMode;
 	bounded: boolean;
 }) {
@@ -59,14 +56,14 @@ function mount({
 		words,
 		startTime: bounded ? 1000 : 0,
 		endTime: bounded ? 3000 : 0,
-		lineBoundsSynced: bounded,
+		syncedLineBounds: bounded ? { startTime: 1000, endTime: 3000 } : undefined,
 	};
 	const second = {
 		...newLyricLine(),
 		words: [{ ...newLyricWord(), word: "next" }],
 		startTime: bounded ? 4000 : 0,
 		endTime: bounded ? 6000 : 0,
-		lineBoundsSynced: bounded,
+		syncedLineBounds: bounded ? { startTime: 4000, endTime: 6000 } : undefined,
 	};
 	store.set(lyricLinesAtom, {
 		metadata: [],
@@ -75,7 +72,6 @@ function mount({
 	});
 	store.set(selectedLinesAtom, new Set([first.id]));
 	store.set(selectedWordsAtom, new Set([words[0].id]));
-	store.set(lineSyncEnabledAtom, enabled);
 	store.set(syncLevelModeAtom, "word");
 	store.set(syncTimeOffsetAtom, 0);
 	store.set(syncCommitOffsetAtom, 0);
@@ -89,9 +85,6 @@ function mount({
 			</Provider>,
 		),
 	);
-	// jsdom here has no localStorage, so the stored flag reloads its default on
-	// mount; set it again once mounted.
-	act(() => store.set(lineSyncEnabledAtom, enabled));
 	return {
 		store,
 		first,
@@ -111,7 +104,7 @@ function press(key: object, seconds: number) {
 
 describe("R48 word syncing inside synced line bounds", () => {
 	it("G on the last word past the line end ends it at the line end and moves on", () => {
-		const view = mount({ enabled: true, timingMode: "word", bounded: true });
+		const view = mount({ bounded: true });
 		try {
 			press(keySyncStartAtom, 0.5);
 			press(keySyncNextAtom, 2);
@@ -131,9 +124,19 @@ describe("R48 word syncing inside synced line bounds", () => {
 		}
 	});
 
-	it("does nothing while the feature is off", () => {
-		const view = mount({ enabled: false, timingMode: "word", bounded: true });
+	it("stops once the line's times were edited by hand", () => {
+		const view = mount({ bounded: true });
 		try {
+			// A typed or dragged start, as the line fields or spectrogram set it.
+			act(() =>
+				view.store.set(lyricLinesAtom, (prev) => ({
+					...prev,
+					lyricLines: prev.lyricLines.map((line) => ({
+						...line,
+						startTime: line.startTime - 100,
+					})),
+				})),
+			);
 			press(keySyncStartAtom, 0.5);
 			press(keySyncNextAtom, 2);
 			press(keySyncNextAtom, 3.5);
@@ -147,7 +150,7 @@ describe("R48 word syncing inside synced line bounds", () => {
 	});
 
 	it("leaves lines without synced bounds to normal word syncing", () => {
-		const view = mount({ enabled: true, timingMode: "word", bounded: false });
+		const view = mount({ bounded: false });
 		try {
 			press(keySyncStartAtom, 0.5);
 			press(keySyncNextAtom, 2);
@@ -162,7 +165,7 @@ describe("R48 word syncing inside synced line bounds", () => {
 
 describe("Line-mode keys", () => {
 	it("F, G and H time whole lines", () => {
-		const view = mount({ enabled: true, timingMode: "line", bounded: false });
+		const view = mount({ timingMode: "line", bounded: false });
 		try {
 			press(keySyncStartAtom, 1);
 			press(keySyncNextAtom, 3);
@@ -186,8 +189,8 @@ describe("Line-mode keys", () => {
 		}
 	});
 
-	it("keeps word keys when the feature is off, even in a Line-mode song", () => {
-		const view = mount({ enabled: false, timingMode: "line", bounded: false });
+	it("keeps word keys in a Word-mode song", () => {
+		const view = mount({ bounded: false });
 		try {
 			press(keySyncStartAtom, 1);
 			press(keySyncNextAtom, 3);

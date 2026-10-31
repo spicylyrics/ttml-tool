@@ -1413,8 +1413,6 @@
     "nextWord": "Volgend woord"
   },
   "lineSync": {
-    "flagTitle": "Regelsynchronisatie",
-    "flagDesc": "Laat elk nummer per woord of per hele regel timen. In de modus Regel starten en beëindigen F, G en H hele regels.",
     "timing": "Timing van het nummer",
     "timingDesc": "Woord: elk woord krijgt een eigen tijd. Regel: alleen hele regels worden getimed en de TTML wordt per regel gesynchroniseerd geëxporteerd.",
     "word": "Woord",

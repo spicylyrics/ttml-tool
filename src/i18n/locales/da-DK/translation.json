@@ -1413,8 +1413,6 @@
     "nextWord": "Næste ord"
   },
   "lineSync": {
-    "flagTitle": "Linjesynkronisering",
-    "flagDesc": "Lader hver sang times pr. ord eller pr. hel linje. I Linje-tilstand starter og afslutter F, G og H hele linjer.",
     "timing": "Sangens timing",
     "timingDesc": "Ord: hvert ord får sin egen tid. Linje: kun hele linjer times, og TTML eksporteres linjesynkroniseret.",
     "word": "Ord",

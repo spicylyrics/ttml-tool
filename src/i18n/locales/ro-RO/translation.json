@@ -1413,8 +1413,6 @@
     "nextWord": "Cuvântul următor"
   },
   "lineSync": {
-    "flagTitle": "Sincronizare pe rânduri",
-    "flagDesc": "Permite sincronizarea fiecărei melodii pe cuvinte sau pe rânduri întregi. În modul Rând, F, G și H încep și încheie rânduri întregi.",
     "timing": "Sincronizarea melodiei",
     "timingDesc": "Cuvânt: fiecare cuvânt are propriul timp. Rând: se sincronizează doar rânduri întregi, iar TTML-ul se exportă sincronizat pe rânduri.",
     "word": "Cuvânt",

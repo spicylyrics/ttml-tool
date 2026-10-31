@@ -15,6 +15,9 @@ export function getTimingMode(
 
 const isBlank = (word: LyricWord) => word.word.trim().length === 0;
 
+const boundsOf = (start: number, end: number): LyricLine["syncedLineBounds"] =>
+	end > start ? { startTime: start, endTime: end } : undefined;
+
 /** Line mode keeps each word's time equal to its line, like line-synced TTML text. */
 export function withLineBounds(
 	line: LyricLine,
@@ -26,23 +29,26 @@ export function withLineBounds(
 		startTime: start,
 		endTime: end,
 		isLineSynced: true,
-		lineBoundsSynced: end > start,
+		syncedLineBounds: boundsOf(start, end),
 		words: line.words.map((word) =>
 			isBlank(word) ? word : { ...word, startTime: start, endTime: end },
 		),
 	};
 }
 
+/** Whether any word in the line is timed apart from the line itself. */
+export function lineHasWordTimings(line: LyricLine): boolean {
+	return line.words.some(
+		(word) =>
+			!isBlank(word) &&
+			word.endTime > word.startTime &&
+			(word.startTime !== line.startTime || word.endTime !== line.endTime),
+	);
+}
+
 /** Whether switching to Line mode would throw away any word timing. */
 export function hasWordTimings(lyric: TTMLLyric): boolean {
-	return lyric.lyricLines.some((line) =>
-		line.words.some(
-			(word) =>
-				!isBlank(word) &&
-				word.endTime > word.startTime &&
-				(word.startTime !== line.startTime || word.endTime !== line.endTime),
-		),
-	);
+	return lyric.lyricLines.some(lineHasWordTimings);
 }
 
 /** Word → Line: keep every word and the line bounds, drop the word timings. */
@@ -66,17 +72,31 @@ export function switchToLineMode(lyric: TTMLLyric): TTMLLyric {
 	};
 }
 
-/** Line → Word: keep the line bounds as synced bounds, leave every word untimed. */
+/** A line stored as one text token, as line-synced TTML and LRC open. */
+const isTextBlob = (line: LyricLine) =>
+	!!line.isLineSynced && line.words.length === 1;
+
+/**
+ * Line → Word: keep the line bounds as synced bounds, split text stored as one
+ * token into words, and leave every word untimed. The mode is dropped rather
+ * than stored as "word", so a line with one word still exports as line-synced
+ * text, the same as before Line mode existed.
+ */
 export function switchToWordMode(lyric: TTMLLyric): TTMLLyric {
+	const { timingMode: _mode, ...rest } = lyric;
 	return {
-		...lyric,
-		timingMode: "word",
-		lyricLines: lyric.lyricLines.map((line) => ({
-			...line,
-			isLineSynced: false,
-			lineBoundsSynced: line.endTime > line.startTime,
-			words: line.words.map((word) => ({ ...word, startTime: 0, endTime: 0 })),
-		})),
+		...rest,
+		lyricLines: lyric.lyricLines.map((line) => {
+			const words = isTextBlob(line)
+				? splitLineText(line.words[0].word, 0, 0)
+				: line.words.map((word) => ({ ...word, startTime: 0, endTime: 0 }));
+			return {
+				...line,
+				isLineSynced: words.filter((word) => !isBlank(word)).length <= 1,
+				syncedLineBounds: boundsOf(line.startTime, line.endTime),
+				words,
+			};
+		}),
 	};
 }
 
@@ -109,30 +129,36 @@ export function restoreLineModeWords(lyric: TTMLLyric): TTMLLyric {
 	return {
 		...lyric,
 		lyricLines: lyric.lyricLines.map((line) => {
-			const words =
-				line.isLineSynced && line.words.length === 1
-					? splitLineText(line.words[0].word, line.startTime, line.endTime)
-					: line.words;
+			const words = isTextBlob(line)
+				? splitLineText(line.words[0].word, line.startTime, line.endTime)
+				: line.words;
 			return {
 				...line,
 				words,
-				lineBoundsSynced: line.endTime > line.startTime,
+				syncedLineBounds: boundsOf(line.startTime, line.endTime),
 			};
 		}),
 	};
 }
 
-/** LRC lines carry only line times, so with the feature on they open in Line mode. */
-export function applyLrcTimingMode(
-	lyric: TTMLLyric,
-	lineSyncEnabled: boolean,
-): TTMLLyric {
-	if (!lineSyncEnabled) return lyric;
-	return switchToLineMode(lyric);
+/** LRC lines carry only line times, so they open in Line mode, split into words. */
+export function applyLrcTimingMode(lyric: TTMLLyric): TTMLLyric {
+	return restoreLineModeWords(switchToLineMode(lyric));
 }
 
+/**
+ * Whether R48 applies to the line. The bounds are recorded when they are
+ * synced; once the line's start or end is changed any other way (a typed time,
+ * a drag, Clear timing), they no longer match and the clamp stops applying.
+ */
 export function hasSyncedLineBounds(line: LyricLine): boolean {
-	return !!line.lineBoundsSynced && line.endTime > line.startTime;
+	const bounds = line.syncedLineBounds;
+	return (
+		!!bounds &&
+		bounds.endTime > bounds.startTime &&
+		line.startTime === bounds.startTime &&
+		line.endTime === bounds.endTime
+	);
 }
 
 const clamp = (value: number, min: number, max: number) =>
@@ -149,9 +175,8 @@ const clamp = (value: number, min: number, max: number) =>
 export function clampToSyncedLineBounds(
 	prev: TTMLLyric,
 	next: TTMLLyric,
-	active: boolean,
 ): TTMLLyric {
-	if (!active || prev.lyricLines.length !== next.lyricLines.length) return next;
+	if (prev.lyricLines.length !== next.lyricLines.length) return next;
 	let lines: LyricLine[] | undefined;
 	next.lyricLines.forEach((line, index) => {
 		const before = prev.lyricLines[index];

@@ -49,7 +49,7 @@ describe("Line-mode F/G/H", () => {
 		expect(result.lines[0]).toMatchObject({
 			startTime: 1000,
 			endTime: 3000,
-			lineBoundsSynced: true,
+			syncedLineBounds: { startTime: 1000, endTime: 3000 },
 		});
 		expect(result.lines[0].words[2]).toMatchObject({
 			startTime: 1000,

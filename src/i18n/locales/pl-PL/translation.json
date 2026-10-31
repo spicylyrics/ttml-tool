@@ -1413,8 +1413,6 @@
     "nextWord": "Następne słowo"
   },
   "lineSync": {
-    "flagTitle": "Synchronizacja linii",
-    "flagDesc": "Pozwala synchronizować każdy utwór słowami lub całymi liniami. W trybie Linia klawisze F, G i H rozpoczynają i kończą całe linie.",
     "timing": "Synchronizacja utworu",
     "timingDesc": "Słowo: każde słowo ma własny czas. Linia: synchronizowane są tylko całe linie, a TTML jest eksportowany jako synchronizowany liniami.",
     "word": "Słowo",
