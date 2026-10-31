@@ -207,15 +207,7 @@ function createWordFromSpanElement(
 	return word;
 }
 
-export interface ParseLyricOptions {
-	/** Turn Apple's `itunes:song-part` into sections when there are no `amll:sections`. */
-	readSongParts?: boolean;
-}
-
-export function parseLyric(
-	ttmlText: string,
-	options: ParseLyricOptions = {},
-): TTMLLyric {
+export function parseLyric(ttmlText: string): TTMLLyric {
 	const domParser = new DOMParser();
 	const ttmlDoc: XMLDocument = domParser.parseFromString(
 		ttmlText,
@@ -597,10 +589,10 @@ export function parseLyric(
 		appendParentBeforeNestedLines(lyricLines, nestedStartIndex, line);
 	}
 
-	const songParts =
-		options.readSongParts && !metadata.some((m) => m.key === "amll:sections")
-			? createSongPartReader()
-			: undefined;
+	// Apple's `itunes:song-part` becomes sections, unless we wrote our own.
+	const songParts = metadata.some((m) => m.key === "amll:sections")
+		? undefined
+		: createSongPartReader();
 	for (const lineEl of ttmlDoc.querySelectorAll("body p[begin][end]")) {
 		parseLineElement(
 			lineEl,

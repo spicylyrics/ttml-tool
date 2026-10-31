@@ -20,8 +20,8 @@ const apple = `<tt ${NS}><head/><body>
 <div>${p("nine", 9)}</div>
 </body></tt>`;
 
-const labels = (xml: string, readSongParts = true) => {
-	const lyric = parseLyric(xml, { readSongParts });
+const labels = (xml: string) => {
+	const lyric = parseLyric(xml);
 	return lyric.lyricLines.map(
 		(line) =>
 			lyric.sections?.find((section) => section.id === line.sectionId)?.label,
@@ -41,7 +41,7 @@ describe("itunes:song-part import", () => {
 			"[Drop]",
 			undefined,
 		]);
-		const lyric = parseLyric(apple, { readSongParts: true });
+		const lyric = parseLyric(apple);
 		expect(lyric.sections?.map((section) => section.category)).toEqual([
 			"verse",
 			"pre-chorus",
@@ -58,21 +58,22 @@ describe("itunes:song-part import", () => {
 		expect(labels(xml)).toEqual(["[Hook 1]", "[Hook 1]", "[Outro 1]"]);
 	});
 
-	it("is off unless asked for", () => {
-		const lyric = parseLyric(apple);
+	it("adds no sections to a TTML without song-parts", () => {
+		const plain = `<tt ${NS}><head/><body><div>${p("a", 1)}${p("b", 2)}</div></body></tt>`;
+		const lyric = parseLyric(plain);
 		expect(lyric.sections).toBeUndefined();
 		expect(lyric.lyricLines.every((line) => !line.sectionId)).toBe(true);
 	});
 
 	it("lets amll:sections win over song-part", () => {
-		const ours = parseLyric(apple, { readSongParts: true });
+		const ours = parseLyric(apple);
 		const exported = exportTTMLText(ours);
 		expect(exported).not.toContain("song-part");
 		const withSongParts = exported.replace(
 			/<p /,
 			'<p itunes:song-part="Bridge" ',
 		);
-		const reread = parseLyric(withSongParts, { readSongParts: true });
+		const reread = parseLyric(withSongParts);
 		expect(reread.sections?.map((section) => section.label)).toEqual(
 			ours.sections?.map((section) => section.label),
 		);
