@@ -3,7 +3,13 @@ import {
 	ChevronRight16Regular,
 	MoreHorizontal16Regular,
 } from "@fluentui/react-icons";
-import { Button, DropdownMenu, IconButton, TextField } from "@radix-ui/themes";
+import {
+	Button,
+	ContextMenu,
+	DropdownMenu,
+	IconButton,
+	TextField,
+} from "@radix-ui/themes";
 import { atom, useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { useMemo, useRef, useState } from "react";
@@ -81,7 +87,11 @@ export function SectionDivider({
 	if (!isStart || !label) return null;
 	if (!section)
 		return (
-			<div className={styles.divider}>
+			// No section tools here, and the browser's own menu has no place in the app.
+			<div
+				className={styles.divider}
+				onContextMenu={(event) => event.preventDefault()}
+			>
 				<span className={styles.chevronSpace} />
 				<span
 					className={styles.label}
@@ -121,6 +131,7 @@ function SectionRow({
 		[section.id],
 	);
 	const lineCount = useAtomValue(lineCountAtom);
+	const actions = useSectionActions(section.id);
 
 	const toggleCollapsed = () =>
 		setCollapsed((current) => {
@@ -145,82 +156,121 @@ function SectionRow({
 	};
 
 	return (
-		// A pointer shortcut for selecting; the label and buttons are the keyboard path.
-		<div
-			className={styles.divider}
-			data-section-divider={section.id}
-			data-editing={editing || undefined}
-			data-draggable={toolMode === ToolMode.Edit || undefined}
-			onClick={selectSection}
-		>
-			<IconButton
-				size="1"
-				variant="ghost"
-				color="gray"
-				className={styles.chevron}
-				aria-expanded={!isCollapsed}
-				aria-label={
-					isCollapsed
-						? t("sectionActions.expand", "Expand section")
-						: t("sectionActions.collapse", "Collapse section")
-				}
-				onClick={toggleCollapsed}
-			>
-				{isCollapsed ? <ChevronRight16Regular /> : <ChevronDown16Regular />}
-			</IconButton>
-			{editing ? (
-				<SectionLabelEditor
-					section={section}
-					onDone={() => setEditingId(null)}
-				/>
-			) : (
-				<button
-					type="button"
-					className={styles.label}
-					style={{ color: headerColor || undefined }}
-					title={t("sectionEditing.renameHint", "Rename or change type")}
-					onClick={() => setEditingId(section.id)}
+		<ContextMenu.Root onOpenChange={actions.onMenuOpen}>
+			<ContextMenu.Trigger disabled={toolMode === ToolMode.Preview}>
+				{/* A pointer shortcut for selecting; the label and buttons are the keyboard path. */}
+				<div
+					className={styles.divider}
+					data-section-divider={section.id}
+					data-editing={editing || undefined}
+					data-draggable={toolMode === ToolMode.Edit || undefined}
+					onClick={selectSection}
 				>
-					{displayLabel(section.label)}
-				</button>
-			)}
-			<span className={styles.rule} aria-hidden />
-			{!editing && (
-				<span className={styles.meta}>
-					{t(
-						"sectionImportReview.lineCount",
-						"{count, plural, one {# lyric line} other {# lyric lines}}",
-						{ count: lineCount },
+					<IconButton
+						size="1"
+						variant="ghost"
+						color="gray"
+						className={styles.chevron}
+						aria-expanded={!isCollapsed}
+						aria-label={
+							isCollapsed
+								? t("sectionActions.expand", "Expand section")
+								: t("sectionActions.collapse", "Collapse section")
+						}
+						onClick={toggleCollapsed}
+					>
+						{isCollapsed ? <ChevronRight16Regular /> : <ChevronDown16Regular />}
+					</IconButton>
+					{editing ? (
+						<SectionLabelEditor
+							section={section}
+							onDone={() => setEditingId(null)}
+						/>
+					) : (
+						<button
+							type="button"
+							className={styles.label}
+							style={{ color: headerColor || undefined }}
+							title={t("sectionEditing.renameHint", "Rename or change type")}
+							onClick={() => setEditingId(section.id)}
+						>
+							{displayLabel(section.label)}
+						</button>
 					)}
-				</span>
-			)}
-			<div className={styles.actions}>
-				{toolMode === ToolMode.Sync && !editing && (
-					<SyncActions sectionId={section.id} />
-				)}
-				{toolMode === ToolMode.Edit && (
-					<SectionMenu
-						section={section}
-						onRename={() => setEditingId(section.id)}
-					/>
-				)}
-			</div>
-		</div>
+					<span className={styles.rule} aria-hidden />
+					{!editing && (
+						<span className={styles.meta}>
+							{t(
+								"sectionImportReview.lineCount",
+								"{count, plural, one {# lyric line} other {# lyric lines}}",
+								{ count: lineCount },
+							)}
+						</span>
+					)}
+					<div className={styles.actions}>
+						{toolMode === ToolMode.Sync && !editing && (
+							<SyncActions actions={actions} />
+						)}
+						{toolMode === ToolMode.Edit && <SectionMenu actions={actions} />}
+					</div>
+				</div>
+			</ContextMenu.Trigger>
+			<SectionContextMenu actions={actions} toolMode={toolMode} />
+		</ContextMenu.Root>
 	);
 }
 
-function SyncActions({ sectionId }: { sectionId: string }) {
-	const { t } = useTranslation();
+/**
+ * What a section's hover tools, "..." menu and right-click menu do. Merge is
+ * only offered when a section sits right above, which is read when a menu
+ * opens so the row doesn't re-render on every sync press.
+ */
+function useSectionActions(sectionId: string) {
 	const store = useStore();
 	const editLyrics = useSetImmerAtom(lyricLinesAtom);
+	const setEditingId = useSetAtom(editingSectionIdAtom);
 	const setApplyTimingsSectionId = useSetAtom(applyTimingsSectionIdAtom);
+	const [hasPrevious, setHasPrevious] = useState(false);
+	return {
+		hasPrevious,
+		onMenuOpen: (open: boolean) => {
+			if (!open) return;
+			const lines = store.get(lyricLinesAtom).lyricLines;
+			const bounds = getSectionBoundsById(lines, sectionId);
+			setHasPrevious(!!bounds && !!lines[bounds.start - 1]?.sectionId);
+		},
+		rename: () => setEditingId(sectionId),
+		applyTimings: () => setApplyTimingsSectionId(sectionId),
+		snapToPlayhead: () => {
+			const currentTime = store.get(currentTimeAtom);
+			editLyrics((draft) => {
+				const bounds = getSectionBoundsById(draft.lyricLines, sectionId);
+				if (bounds)
+					shiftSectionToTime(draft.lyricLines, bounds.start, currentTime);
+			});
+		},
+		mergePrevious: () =>
+			editLyrics((draft) => {
+				mergeSectionWithAdjacent(draft, sectionId, "previous");
+			}),
+		remove: () =>
+			editLyrics((draft) => {
+				removeSectionMetadata(draft, sectionId);
+			}),
+	};
+}
+
+type SectionActions = ReturnType<typeof useSectionActions>;
+
+function SyncActions({ actions }: { actions: SectionActions }) {
+	const { t } = useTranslation();
 	return (
 		<>
 			<Button
 				size="1"
 				variant="soft"
 				color="gray"
-				onClick={() => setApplyTimingsSectionId(sectionId)}
+				onClick={actions.applyTimings}
 			>
 				{t("sectionEditing.applyTimings", "Apply timings from...")}
 			</Button>
@@ -228,14 +278,7 @@ function SyncActions({ sectionId }: { sectionId: string }) {
 				size="1"
 				variant="soft"
 				color="gray"
-				onClick={() => {
-					const currentTime = store.get(currentTimeAtom);
-					editLyrics((draft) => {
-						const start = getSectionBoundsById(draft.lyricLines, sectionId);
-						if (start)
-							shiftSectionToTime(draft.lyricLines, start.start, currentTime);
-					});
-				}}
+				onClick={actions.snapToPlayhead}
 			>
 				{t("sectionEditing.snapToPlayhead", "Snap to playhead")}
 			</Button>
@@ -243,27 +286,11 @@ function SyncActions({ sectionId }: { sectionId: string }) {
 	);
 }
 
-/** Rename, merge and remove. Reads the document only when opened. */
-function SectionMenu({
-	section,
-	onRename,
-}: {
-	section: LyricSection;
-	onRename: () => void;
-}) {
+/** The "..." menu in Edit mode: rename, merge and remove. */
+function SectionMenu({ actions }: { actions: SectionActions }) {
 	const { t } = useTranslation();
-	const store = useStore();
-	const editLyrics = useSetImmerAtom(lyricLinesAtom);
-	const [hasPrevious, setHasPrevious] = useState(false);
 	return (
-		<DropdownMenu.Root
-			onOpenChange={(open) => {
-				if (!open) return;
-				const lines = store.get(lyricLinesAtom).lyricLines;
-				const bounds = getSectionBoundsById(lines, section.id);
-				setHasPrevious(!!bounds && !!lines[bounds.start - 1]?.sectionId);
-			}}
-		>
+		<DropdownMenu.Root onOpenChange={actions.onMenuOpen}>
 			<DropdownMenu.Trigger>
 				<IconButton
 					size="1"
@@ -275,32 +302,64 @@ function SectionMenu({
 				</IconButton>
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content size="1" align="end">
-				<DropdownMenu.Item onSelect={onRename}>
+				<DropdownMenu.Item onSelect={actions.rename}>
 					{t("sectionEditing.rename", "Rename")}
 				</DropdownMenu.Item>
 				<DropdownMenu.Item
-					disabled={!hasPrevious}
-					onSelect={() =>
-						editLyrics((draft) => {
-							mergeSectionWithAdjacent(draft, section.id, "previous");
-						})
-					}
+					disabled={!actions.hasPrevious}
+					onSelect={actions.mergePrevious}
 				>
 					{t("sectionActions.mergePrevious", "Merge with previous")}
 				</DropdownMenu.Item>
 				<DropdownMenu.Separator />
-				<DropdownMenu.Item
-					color="red"
-					onSelect={() =>
-						editLyrics((draft) => {
-							removeSectionMetadata(draft, section.id);
-						})
-					}
-				>
+				<DropdownMenu.Item color="red" onSelect={actions.remove}>
 					{t("sectionActions.removeHeader", "Remove header (keep lyrics)")}
 				</DropdownMenu.Item>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
+	);
+}
+
+/** Right-clicking the row offers the same tools as hovering it. */
+function SectionContextMenu({
+	actions,
+	toolMode,
+}: {
+	actions: SectionActions;
+	toolMode: ToolMode;
+}) {
+	const { t } = useTranslation();
+	return (
+		<ContextMenu.Content size="1">
+			<ContextMenu.Item onSelect={actions.rename}>
+				{t("sectionEditing.rename", "Rename")}
+			</ContextMenu.Item>
+			{toolMode === ToolMode.Sync && (
+				<>
+					<ContextMenu.Separator />
+					<ContextMenu.Item onSelect={actions.applyTimings}>
+						{t("sectionEditing.applyTimings", "Apply timings from...")}
+					</ContextMenu.Item>
+					<ContextMenu.Item onSelect={actions.snapToPlayhead}>
+						{t("sectionEditing.snapToPlayhead", "Snap to playhead")}
+					</ContextMenu.Item>
+				</>
+			)}
+			{toolMode === ToolMode.Edit && (
+				<>
+					<ContextMenu.Item
+						disabled={!actions.hasPrevious}
+						onSelect={actions.mergePrevious}
+					>
+						{t("sectionActions.mergePrevious", "Merge with previous")}
+					</ContextMenu.Item>
+					<ContextMenu.Separator />
+					<ContextMenu.Item color="red" onSelect={actions.remove}>
+						{t("sectionActions.removeHeader", "Remove header (keep lyrics)")}
+					</ContextMenu.Item>
+				</>
+			)}
+		</ContextMenu.Content>
 	);
 }
 
