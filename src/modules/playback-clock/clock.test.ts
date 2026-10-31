@@ -38,6 +38,42 @@ function setup(playing = false) {
 }
 
 describe("UI playback clock", () => {
+	it("publishes the final paused state once for the engine's paired events", () => {
+		const { clock, source, event, tick, pending } = setup(true);
+		const listener = vi.fn();
+		clock.subscribe(listener);
+		tick(1);
+		listener.mockClear();
+		source.musicPlaying = false;
+		event("music-timeupdate", 1.01);
+		event("music-pause", 1.01);
+		expect(listener).toHaveBeenCalledOnce();
+		expect(clock.getSnapshot()).toBe(1.01);
+		expect(pending.size).toBe(0);
+		source.musicPlaying = true;
+		event("music-resume", 1.01);
+		event("music-resume", 1.01);
+		expect(listener).toHaveBeenCalledTimes(2);
+		expect(pending.size).toBe(1);
+		clock.dispose();
+	});
+
+	it("still publishes explicit seeks and stalled playback frames at an unchanged position", () => {
+		const { clock, source, event, tick } = setup();
+		const listener = vi.fn();
+		clock.subscribe(listener);
+		event("music-seeked", 0);
+		event("music-seeked", 0);
+		expect(listener).toHaveBeenCalledTimes(2);
+		source.musicPlaying = true;
+		event("music-resume", 0);
+		listener.mockClear();
+		tick(0);
+		tick(0);
+		expect(listener).toHaveBeenCalledTimes(2);
+		clock.dispose();
+	});
+
 	it("shares one frame and one engine read among all subscribers", () => {
 		const { clock, source, read, pending, tick, event } = setup();
 		const listeners = [vi.fn(), vi.fn(), vi.fn(), vi.fn()];

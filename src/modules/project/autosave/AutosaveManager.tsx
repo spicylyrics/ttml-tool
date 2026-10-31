@@ -1,5 +1,5 @@
-import { useAtomValue, useSetAtom } from "jotai";
-import { useEffect } from "react";
+import { useAtomValue, useSetAtom, useStore } from "jotai";
+import { useEffect, useRef } from "react";
 import { autoSaveProject } from "$/modules/project/autosave/autosave";
 import { activeProjectDirAtom } from "$/modules/project/folder-project/state";
 import { useFolderProject } from "$/modules/project/folder-project/useFolderProject";
@@ -21,6 +21,8 @@ import {
 import { log, error as logError } from "$/utils/logging";
 
 export const AutosaveManager = () => {
+	const store = useStore();
+	const writeQueue = useRef<Promise<void>>(Promise.resolve());
 	const lyricLines = useAtomValue(lyricLinesAtom);
 	const isDirty = useAtomValue(isDirtyAtom);
 	const enabled = useAtomValue(autosaveEnabledAtom);
@@ -52,18 +54,28 @@ export const AutosaveManager = () => {
 
 		setSaveStatus(SaveStatus.Pending);
 
+		let cancelled = false;
+		const isCurrent = () =>
+			!cancelled &&
+			store.get(projectIdAtom) === projectId &&
+			store.get(lyricLinesAtom) === lyricLines &&
+			store.get(activeProjectDirAtom) === activeDir;
 		const timer = setTimeout(() => {
-			if (lyricLines.lyricLines.length > 0) {
-				setSaveStatus(SaveStatus.Saving);
-				log("Auto-saving project...", projectId);
+			writeQueue.current = writeQueue.current
+				.catch(() => {})
+				.then(async () => {
+					if (!isCurrent()) return;
+					setSaveStatus(SaveStatus.Saving);
+					log("Auto-saving project...", projectId);
 
-				autoSaveProject(
-					projectId,
-					lyricLines,
-					limit,
-					intervalMinutes * 60 * 1000,
-				)
-					.then(async () => {
+					try {
+						await autoSaveProject(
+							projectId,
+							lyricLines,
+							limit,
+							intervalMinutes * 60 * 1000,
+						);
+						if (!isCurrent()) return;
 						if (activeDir && writeProjectFile) {
 							try {
 								await saveLyricsOnly({ silent: true });
@@ -71,21 +83,23 @@ export const AutosaveManager = () => {
 								logError("Failed to write project file on auto save", err);
 							}
 						}
+						if (!isCurrent()) return;
 						setSaveStatus(SaveStatus.Saved);
 						setLastSavedTime(Date.now());
-					})
-					.catch((err) => {
+					} catch (err) {
 						logError("Failed to autosave project", err);
-						setSaveStatus(SaveStatus.Pending);
-					});
-			}
+						if (isCurrent()) setSaveStatus(SaveStatus.Pending);
+					}
+				});
 		}, 3000);
 
 		return () => {
+			cancelled = true;
 			clearTimeout(timer);
 		};
 	}, [
 		lyricLines,
+		store,
 		isDirty,
 		enabled,
 		limit,

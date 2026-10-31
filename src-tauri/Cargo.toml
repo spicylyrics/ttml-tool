@@ -1,6 +1,6 @@
 [package]
 name = "amll-ttml-tool"
-version = "0.16.0"
+version = "0.20.1"
 description = "A word-by-word TTML lyrics editor and timing tool for Spicy Lyrics"
 license = "AGPL-3.0"
 repository = "https://github.com/spicylyrics/ttml-tool"
@@ -28,9 +28,12 @@ tauri-plugin-os = "2"
 tauri-plugin-shell = "2"
 tauri-plugin-decorum = "1"
 tauri-plugin-process = "2.3.1"
-tauri-plugin-dialog = "~2"
+# Portal backend so Linux shows the desktop's own file picker (zenity fallback).
+tauri-plugin-dialog = { version = "~2", default-features = false, features = ["xdg-portal"] }
 tauri-plugin-fs = "~2.4.5"
 tauri-plugin-persisted-scope = "2"
+# Renders the recolored logo for the window and shortcut icons. No text support needed.
+resvg = { version = "0.49", default-features = false }
 
 [target.'cfg(any(target_os = "macos", windows, target_os = "linux"))'.dependencies]
 tauri-plugin-updater = "2.9.0"
@@ -38,7 +41,11 @@ tauri-plugin-window-state = "2"
 
 [target.'cfg(windows)'.dependencies]
 webview2-com = "0.38"
-windows = "0.61"
+windows = { version = "0.61", features = [
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_UI_Shell",
+] }
 
 [lints.clippy]
 pedantic = { level = "warn", priority = -1 }

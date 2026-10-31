@@ -28,6 +28,12 @@
 	border-bottom: 1px solid var(--gray-a4);
 }
 
+.tools {
+	flex-shrink: 0;
+	margin-left: auto;
+	padding-left: var(--space-2);
+}
+
 .hint {
 	min-width: 0;
 	margin-left: var(--space-2);
@@ -89,11 +95,19 @@
 	background-color: var(--accent-a5);
 }
 
-/* Margin notes: what each line becomes. They sit level with the line's first row. */
+/* Margin icons: what each line becomes, named on hover. */
 .editor :global(.lm-gutter) {
-	width: 136px;
-	border-right: 1px solid var(--gray-a4);
+	width: 26px;
 	background: transparent;
+}
+
+/* Lyric line numbers, right next to the text, as wide as the biggest one. */
+.editor :global(.lm-numbers) {
+	padding: 0 var(--space-1);
+	border-right: 1px solid var(--gray-a4);
+	color: var(--gray-11);
+	font-variant-numeric: tabular-nums;
+	text-align: right;
 }
 
 .editor :global(.cm-gutters) {
@@ -102,32 +116,63 @@
 	color: var(--gray-11);
 }
 
-.editor :global(.lm-mark) {
-	display: block;
-	overflow: hidden;
-	padding: 0 var(--space-3);
+/* One text row of the line a marker belongs to: the editor's size and 1.6
+   line height, or the smaller size of background and translation rows. Its
+   contents are centred in it, so they sit level with that row's text. */
+.editor :global(.lm-row) {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	height: 1.6em;
+	font-size: var(--font-size-3);
+}
+
+.editor :global(.lm-row[data-row="background"]),
+.editor :global(.lm-row[data-row="translation"]),
+.editor :global(.lm-row[data-row="romanization"]) {
+	font-size: calc(var(--font-size-3) * 0.9);
+}
+
+.editor :global(.lm-number) {
 	font-size: var(--font-size-1);
-	text-align: right;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 }
 
-.editor :global(.lm-mark[data-kind="section"]) {
+/* The accent colour, except where a role has its own: background lines are
+   blue and duet lines green across the app, and warnings stay amber. */
+.editor :global(.lm-mark) {
 	color: var(--accent-11);
-	font-weight: 500;
 }
 
-.editor :global(.lm-mark[data-kind="section"]::first-letter) {
-	text-transform: uppercase;
+/* Toolbar buttons use the same role colours as the margin. */
+.roleBackground {
+	color: var(--blue-11);
+	font-size: 16px;
+}
+
+.roleDuet {
+	color: var(--green-11);
+	font-size: 16px;
+}
+
+.editor :global(.lm-mark svg) {
+	width: 16px;
+	height: 16px;
+}
+
+.editor :global(.lm-mark[data-kind="background"]) {
+	color: var(--blue-11);
+}
+
+.editor :global(.lm-mark[data-kind="duet"]) {
+	color: var(--green-11);
 }
 
 .editor :global(.lm-mark[data-kind="removedHeader"]) {
-	text-decoration: line-through;
+	color: var(--gray-11);
 }
 
 .editor :global(.lm-mark[data-kind="warning"]) {
 	color: var(--amber-11);
-	font-weight: 500;
 }
 
 /* Line roles. Wrapped rows keep the line's indent, so they stay attached. */
@@ -256,6 +301,17 @@
 }
 
 .editor :global(.lm-dot:hover) {
+	color: var(--gray-12);
+}
+
+/* Search matches. Background only, so marking them never moves the text. */
+.editor :global(.lm-match) {
+	border-radius: var(--radius-1);
+	background-color: var(--accent-a4);
+}
+
+.editor :global(.lm-match.lm-current) {
+	background-color: var(--accent-a7);
 	color: var(--gray-12);
 }
 

@@ -3,6 +3,12 @@
     "changelogTitle": "Jurnal de modificări și actualizări",
     "viewCommits": "Vezi commit-urile pe GitHub"
   },
+  "updatedToast": {
+    "message": "Actualizat la v{version}",
+    "seeChanges": "Vezi ce s-a schimbat",
+    "setting": "Arată ce s-a schimbat după o actualizare",
+    "settingDesc": "La prima pornire pe o versiune nouă, afișează o notificare scurtă cu un link către jurnalul de modificări."
+  },
   "app": {
     "error": {
       "title": "Ups, a apărut o eroare!",
@@ -23,6 +29,7 @@
     "window": {
       "minimize": "Minimizează fereastra",
       "maximize": "Maximizează fereastra",
+      "restore": "Restabilește fereastra",
       "close": "Închide fereastra"
     }
   },
@@ -32,6 +39,15 @@
   "preview": {
     "untimedLines": "{count, plural, one {# vers nu este încă sincronizat} few {# versuri nu sunt încă sincronizate} other {# de versuri nu sunt încă sincronizate}}",
     "jumpToUntimed": "Sincronizează primul vers fără timpi"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# cuvânt are o problemă de sincronizare} few {# cuvinte au probleme de sincronizare} other {# de cuvinte au probleme de sincronizare}}",
+    "jump": "Selectează primul",
+    "untimed": "Fără timpi într-un vers sincronizat",
+    "untimedLine": "Încă nesincronizat",
+    "endsBeforeStart": "Se termină înainte să înceapă",
+    "startsBeforeLine": "Începe înaintea versului său",
+    "endsAfterLine": "Se termină după versul său"
   },
   "beginnerGuide": {
     "empty": {
@@ -210,7 +226,57 @@
       "dropped": "Nu se importă",
       "missingTranslation": "Lipsește traducerea",
       "missingRomanization": "Lipsește romanizarea"
+    },
+    "search": {
+      "label": "Caută și înlocuiește",
+      "find": "Caută",
+      "replace": "Înlocuiește cu",
+      "matchCase": "Potrivește majusculele",
+      "wholeWord": "Cuvânt întreg",
+      "regex": "Folosește un model (regex)",
+      "inSelection": "Doar în selecție",
+      "showList": "Listează toate potrivirile",
+      "listLabel": "Potriviri",
+      "rows": "Rânduri de căutat",
+      "rowsAll": "Toate rândurile",
+      "rowsLyrics": "Doar versurile",
+      "rowsTranslations": "Traduceri și romanizare",
+      "previous": "Potrivirea anterioară",
+      "next": "Potrivirea următoare",
+      "toggleReplace": "Arată înlocuirea",
+      "close": "Închide căutarea",
+      "replaceOne": "Înlocuiește",
+      "replaceAll": "Înlocuiește tot",
+      "replaceThis": "Înlocuiește această potrivire",
+      "count": "{count, plural, one {# potrivire} few {# potriviri} other {# de potriviri}}",
+      "position": "{current} din {count}",
+      "noMatches": "Nicio potrivire",
+      "replaced": "{count, plural, one {# potrivire înlocuită} few {# potriviri înlocuite} other {# de potriviri înlocuite}}",
+      "invalid": "Modelul nu este valid"
     }
+  },
+  "editAsText": {
+    "menuItem": "Editează ca text...",
+    "title": "Editează ca text",
+    "description": "Editează toate versurile ca text simplu. Cuvintele pe care nu le schimbi își păstrează sincronizarea.",
+    "textLabel": "Textul versurilor",
+    "toolsHint": "Procesează versurile și Desparte în silabe lucrează pe rândurile selectate sau pe tot textul când nu e nimic selectat.",
+    "nothingToProcess": "Nimic de schimbat.",
+    "summaryTitle": "Modificări",
+    "unchanged": "{count, plural, one {# rând neschimbat} few {# rânduri neschimbate} other {# de rânduri neschimbate}}",
+    "edited": "{count, plural, one {# rând editat} few {# rânduri editate} other {# de rânduri editate}}",
+    "editedHint": "Sincronizarea se păstrează acolo unde cuvintele se potrivesc.",
+    "moved": "{count, plural, one {# rând mutat} few {# rânduri mutate} other {# de rânduri mutate}}",
+    "added": "{count, plural, one {# rând adăugat} few {# rânduri adăugate} other {# de rânduri adăugate}}",
+    "removed": "{count, plural, one {# rând eliminat} few {# rânduri eliminate} other {# de rânduri eliminate}}",
+    "noChanges": "Nicio modificare încă.",
+    "droppedTimings": "{count, plural, one {# cuvânt sincronizat își pierde sincronizarea} few {# cuvinte sincronizate își pierd sincronizarea} other {# de cuvinte sincronizate își pierd sincronizarea}}",
+    "lineNumber": "Rândul {line}",
+    "more": "{count, plural, one {și încă #} few {și încă #} other {și încă #}}",
+    "help": "Cuvintele noi intră fără sincronizare. Rândurile doar mutate își păstrează sincronizarea. Aplicarea se anulează într-un singur pas.",
+    "apply": "Aplică",
+    "applied": "Text aplicat. Anularea îl readuce într-un singur pas.",
+    "failed": "Textul nu a putut fi aplicat. Verifică-l și încearcă din nou."
   },
   "importChooser": {
     "options": {
@@ -257,6 +323,12 @@
       "title": "Imporți versuri noi?",
       "description": "Ai modificări nesalvate. Dacă continui, se vor pierde. Sigur vrei să imporți versuri noi?"
     },
+    "discardTextEdits": {
+      "title": "Renunți la modificări?",
+      "description": "Textul are modificări pe care nu le-ai aplicat. Dacă închizi acum, le pierzi.",
+      "discard": "Renunță",
+      "keepEditing": "Continuă editarea"
+    },
     "noSongwriter": {
       "description": "Melodia nu are compozitori. Salvezi oricum?"
     },
@@ -277,6 +349,30 @@
       "noPreviousFound": "Nu s-a găsit nicio secțiune anterioară corespunzătoare cu timpi.",
       "noMatchingLines": "Niciun rând din această secțiune nu se potrivește cu cea anterioară, așa că nu s-a copiat nimic.",
       "copyPrevious": "Copiază timpii anteriori"
+    }
+  },
+  "logoColor": {
+    "title": "Culoarea logoului",
+    "description": "Alege o culoare pentru logo în bara de titlu și pe ecranul de bun venit al ghidului.",
+    "descriptionDesktop": "Alege o culoare pentru pictograma ferestrei și a barei de activități și, pe Windows, pentru comenzile rapide de pe desktop și din meniul Start.",
+    "colorLabel": "Culoare",
+    "customLabel": "Culoare personalizată pentru logo",
+    "designNote": "Logoul apare doar cu designul Spicy Lyrics activat.",
+    "presets": {
+      "default": "Implicit",
+      "defaultDesc": "Culoarea proprie a designului",
+      "lilac": "Liliachiu",
+      "lilacDesc": "Din logoul v3",
+      "purple": "Mov",
+      "purpleDesc": "Din logoul multicolor",
+      "red": "Roșu",
+      "redDesc": "Din logoul v0.9",
+      "gold": "Auriu",
+      "green": "Verde",
+      "blue": "Albastru",
+      "white": "Alb",
+      "custom": "Personalizat",
+      "customDesc": "Alege orice culoare"
     }
   },
   "common": {
@@ -306,6 +402,7 @@
     "preview": "Previzualizare"
   },
   "dialog": {
+    "openFilesIgnored": "{count, plural, one {# fișier a fost omis} few {# fișiere au fost omise} other {# de fișiere au fost omise}}: deschide câte un fișier cu versuri și un fișier audio odată.",
     "createProjectPrompt": {
       "title": "Creezi un proiect?",
       "description": "Păstrează sunetul și versurile împreună într-un folder de proiect.",
@@ -331,6 +428,18 @@
     "openWorkspace": {
       "title": "Selectează un folder de spațiu de lucru care conține proiecte"
     }
+  },
+  "commandPalette": {
+    "title": "Paleta de comenzi",
+    "placeholder": "Caută comenzi și setări",
+    "noResults": "Nu există comenzi sau setări care se potrivesc",
+    "commandTag": "Comandă",
+    "settingTag": "Preferințe",
+    "hint": "Săgețile mută selecția, Enter rulează, Esc închide",
+    "notRunnable": "Comanda nu a putut fi rulată. Atribuie-i o scurtătură în Preferințe și încearcă din nou.",
+    "menu": "Paleta de comenzi...",
+    "shortcut": "Vizualizare - Deschide paleta de comenzi",
+    "shortcutAlternate": "Vizualizare - Deschide paleta de comenzi (scurtătură alternativă)"
   },
   "projectsDialog": {
     "title": "Proiecte",
@@ -433,7 +542,7 @@
       "mode": "Mod",
       "standard": "Standard",
       "timing": "Timpi",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Versuri simple",
       "forceLineRendering": "Arată sincronizarea pe versuri",
       "background": "Fundal",
@@ -605,6 +714,15 @@
         "accentNote": "Designul Spicy Lyrics are propria culoare de accent lavandă. Activează o culoare de accent personalizată pentru a folosi alta.",
         "legacyDarkThemeNote": "Nu are efect cât timp designul Spicy Lyrics este activat.",
         "fontNote": "Geist, din designul Spicy Lyrics"
+      },
+      "effects": {
+        "title": "Efecte vizuale",
+        "description": "Ușor elimină estomparea, strălucirile, animațiile dialogurilor și fundalul animat al previzualizării, ca aplicația să rămână fluidă acolo unde sunt desenate încet. Dezactivează și estomparea sticlei.",
+        "auto": "Automat",
+        "full": "Complet",
+        "lite": "Ușor",
+        "autoLite": "Se folosește Ușor, pentru că Linux desenează lent aceste efecte.",
+        "autoFull": "Se folosește Complet."
       },
       "presets": {
         "missingBackground": "Imaginea de fundal a acestei presetări nu este disponibilă pe acest dispozitiv. Imaginea curentă a fost păstrată.",
@@ -838,7 +956,7 @@
       "timingOverviewAutoScrollDesc": "Vederea de ansamblu a timpilor urmărește cursorul de redare.",
       "vsyncDesc": "Actualizează previzualizările Standard și Toxi la fiecare cadru în loc de aproximativ 30 de ori pe secundă. Mai fluid, dar folosește mai mult procesorul.",
       "showFpsDesc": "Afișează un contor de cadre pe secundă pe previzualizare.",
-      "syncLevelDesc": "Cuvânt: sincronizează fiecare cuvânt pe parcurs. Vers: sincronizează versuri întregi și distribuie cuvintele uniform, pentru o sincronizare aproximativă pe care o rafinezi în spectrogramă.",
+      "syncLevelDesc": "Cuvânt: sincronizează fiecare cuvânt pe parcurs. Vers: sincronizează versuri întregi și distribuie cuvintele uniform. Și modul Vers salvează timpii fiecărui cuvânt, nu versuri sincronizate pe rând, așa că rafinează cuvintele în spectrogramă.",
       "previewModeDesc": "Alege ce previzualizare afișează fila Previzualizare.",
       "spicyBackgroundDesc": "Ce se afișează în spatele previzualizării Spicy.",
       "fadeWidthDesc": "Cât de moale este marginea evidențierii când un cuvânt se umple în previzualizările Standard și Toxi."
@@ -858,6 +976,10 @@
     "order": "Ordine",
     "orderChronological": "Cronologic",
     "orderTextual": "Ordinea textului"
+  },
+  "joinSplitWords": {
+    "label": "Unește cuvintele despărțite",
+    "description": "Arată un cuvânt cântat pe bucăți ca un singur cuvânt când bucățile se potrivesc uniform, ca setarea Join Split Words din Spicy Lyrics."
   },
   "topBar": {
     "modeBtns": {
@@ -932,6 +1054,7 @@
     "deleteWords": "{count, plural, one {Șterge # cuvânt} few {Șterge # cuvinte} other {Șterge # de cuvinte}}",
     "bgLyric": "Vers de fundal",
     "duetLyric": "Vers de duet",
+    "lineRole": "Rolul rândului",
     "moveLineToPlayhead": "Mută versul la cursorul de redare",
     "copyTimingsTo": "Copiază timpii în…",
     "cancelCopyTimings": "Anulează copierea timpilor",
@@ -958,12 +1081,15 @@
   "settingsDialog": {
     "search": "Caută în setări",
     "clearSearch": "Șterge căutarea",
-    "noSearchResults": "Nu există categorii care se potrivesc",
+    "matchCount": "Setări potrivite: {count}",
+    "noResults": "Nicio setare nu se potrivește cu „{query}”",
+    "noResultsDesc": "Încearcă alt cuvânt sau șterge căutarea.",
     "title": "Preferințe",
     "common": {
       "latencyTest": "Testul de latență audio/intrare"
     },
     "keybindings": {
+      "clearWordTiming": "Sincronizare - Șterge marcajele de timp ale cuvântului/silabei",
       "newFile": "Fișier nou",
       "openFile": "Deschide fișier",
       "saveFile": "Salvează fișierul",
@@ -972,6 +1098,8 @@
       "redoAlternate": "Refă (scurtătură alternativă)",
       "selectAll": "Selectează tot",
       "unselectAll": "Deselectează tot",
+      "findInLyrics": "Caută în versuri",
+      "replaceInLyrics": "Înlocuiește în versuri",
       "deleteSelection": "Șterge selecția",
       "autoSegment": "Împărțire automată rapidă",
       "autoSegmentDialog": "Segmentează automat…",
@@ -1010,6 +1138,15 @@
       "auditionSelection": "Spectrogramă - Redă selecția",
       "auditionSelectionAfter": "Spectrogramă - Redă selecția (+0,5 s după)",
       "cancelTimelineEditing": "Spectrogramă - Anulează editarea cronologiei",
+      "exportTtml": "Exportă versuri: TTML",
+      "exportLrc": "Exportă versuri: LRC",
+      "exportEslrc": "Exportă versuri: ESLRC",
+      "exportQrc": "Exportă versuri: QRC",
+      "exportYrc": "Exportă versuri: YRC",
+      "exportLys": "Exportă versuri: Lyricify Syllable",
+      "exportAss": "Exportă versuri: Subtitrări ASS",
+      "newLyricLine": "Vers nou",
+      "advancedRibbonControls": "Controale avansate ale panglicii",
       "resetDefault": "Resetează la valoarea implicită",
       "clear": "Golește",
       "unbound": "Nesetată",
@@ -1021,30 +1158,59 @@
         "View": "Vizualizare",
         "Sync": "Sincronizare",
         "Audio": "Audio",
-        "Spectrogram": "Spectrogramă"
+        "Spectrogram": "Spectrogramă",
+        "Tools": "Unelte",
+        "Help": "Ajutor",
+        "Preview": "Previzualizare"
       },
-      "autoSegmentOptions": "Segmentare automată",
-      "autoSegmentDoublePress": "Necesită apăsare dublă",
-      "autoSegmentDoublePressDesc": "Rulează segmentarea automată rapidă doar când apeși scurtătura de două ori rapid."
+      "showAll": "Arată acțiunile fără tastă"
     },
     "tab": {
       "common": "General",
       "appearance": "Aspect",
-      "audio": "Audio",
-      "keybindings": "Scurtături",
-      "spectrogram": "Spectrogramă",
+      "editing": "Editare",
+      "syncing": "Sincronizare",
+      "preview": "Previzualizare",
+      "audioSpectrogram": "Audio și spectrogramă",
+      "importFiles": "Import și fișiere",
       "backup": "Backup",
-      "editor": "Editor și sincronizare",
-      "files": "Fișiere și stocare"
-    },
-    "page": {
-      "generalDesc": "Limbă, confidențialitate și comportamentul general al aplicației.",
-      "editorDesc": "Introducerea timpilor, comportamentul sincronizării și indicii vizuale.",
-      "filesDesc": "Curățare la import, istoricul salvărilor automate și copii de rezervă portabile.",
-      "audioDesc": "Redare, egalizator și afișarea spectrogramei."
+      "keybindings": "Scurtături",
+      "changelog": "Jurnal de modificări"
     }
   },
-  "autoSegmentApplied": "Segmentat automat cu {engine}",
+  "keyboardView": {
+    "title": "Tastatură",
+    "search": "Caută acțiuni",
+    "searchResults": "{count, plural, =0 {Nicio acțiune nu se potrivește} one {# acțiune se potrivește} few {# acțiuni se potrivesc} other {# de acțiuni se potrivesc}}",
+    "layout": "Aspectul tastaturii",
+    "layoutAuto": "Automat",
+    "layoutDetected": "Detectat: {layout}",
+    "layoutUnavailable": "Aspectul nu poate fi detectat aici, așa că se afișează QWERTY",
+    "layerHint": "Apasă pe o tastă modificatoare, cum ar fi Shift, ca să vezi scurtăturile care o folosesc.",
+    "category": {
+      "sync": "Sincronizare",
+      "edit": "Editare",
+      "playback": "Redare",
+      "navigation": "Navigare"
+    },
+    "free": "Liberă",
+    "keyFree": "{key}: liberă",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Arată scurtăturile cu {key}",
+    "freeKey": "Nimic nu folosește încă {key}.",
+    "assignLabel": "Acțiune",
+    "assignPlaceholder": "Alege o acțiune...",
+    "assign": "Adaugă la {key}",
+    "changeKey": "Schimbă tasta",
+    "addKey": "Adaugă a doua tastă",
+    "removeKey": "Elimină {key}",
+    "duplicateKey": "Tasta aceasta este deja setată pentru această acțiune.",
+    "doublePress": "Apasă de două ori pentru a rula",
+    "doublePressDesc": "Rulează doar când apeși tasta de două ori rapid.",
+    "otherLayers": "Tot pe această tastă",
+    "closePanel": "Închide"
+  },
+  "autoSegmentApplied":"Segmentat automat cu {engine}",
   "error": {
     "unsupportedFileFormat": "Format de fișier nesuportat: {ext}",
     "openFileFailed": "Nu s-a putut deschide fișierul",
@@ -1100,11 +1266,23 @@
     "volume": "Volum",
     "playbackRate": "Viteza de redare",
     "preservesPitch": "Păstrează înălțimea sunetului",
-    "clickToLoadMusic": "Dă clic pe pictograma muzicală pentru a încărca sunetul",
+    "audioMenu": "Sunet și redare",
+    "loadedAudio": "Sunet încărcat",
+    "replaceAudio": "Înlocuiește",
+    "resetSpeed": "Resetează la 1×",
     "playPause": "Redare / pauză muzică",
     "expandSpectrogram": "Extinde / restrânge spectrograma"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Introdu un decalaj în milisecunde întregi",
+    "precision": "Eroare absolută medie: {error} ms ({count} apăsări)",
+    "recommendationProgress": "Apasă de cel puțin 20 de ori pentru o recomandare ({count}/20)",
+    "recommendedOffset": "Decalaj de sincronizare recomandat: {offset} ms",
+    "tryRecommendation": "Încearcă decalajul recomandat",
+    "trialOffsetHint": "Modificările rămân în acest dialog până salvezi decalajul",
+    "saveOffset": "Salvează decalajul",
+    "useOffset": "Folosește decalajul de sincronizare",
+    "offsetNotice": "Rezultatele includ decalajul de sincronizare de {offset} ms.",
     "title": "Test de latență",
     "latencyDisplay": {
       "fastest": "Cea mai rapidă",
@@ -1161,6 +1339,11 @@
     "addPresets": "Adaugă toate câmpurile standard",
     "clear": "Curăță"
   },
+  "helpText": {
+    "metadataArtists": "Cine interpretează melodia, așa cum este creditată piesa pe serviciile de streaming. Exemplu: „Shake It Off” este de Taylor Swift.",
+    "metadataSongwriter": "Cine a scris muzica și versurile, conform creditelor de compoziție. Adesea alte persoane decât artiștii. Exemplu: „Shake It Off” a fost scrisă de Taylor Swift, Max Martin și Shellback.",
+    "openSongwritersGuide": "Deschide ghidul despre compozitori"
+  },
   "lrclib": {
     "placeholder": "Titlul melodiei și artistul…",
     "notFound": "Niciun rezultat. Încearcă alte cuvinte-cheie.",
@@ -1182,6 +1365,14 @@
     "wordTimingMismatch": "{count, plural, one {# vers avea un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.} few {# versuri aveau un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.} other {# de versuri aveau un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.}}",
     "insertLine": "Inserează un vers aici",
     "insertWord": "Introdu un cuvânt aici…"
+  },
+  "editModeTools": {
+    "splitTypedLinesTitle": "Împarte versurile tastate în cuvinte",
+    "splitTypedLinesDesc": "Textul tastat într-un vers gol este împărțit în cuvinte la fel cum un import împarte versurile.",
+    "scrollMemoryTitle": "Reține poziția din modul Editare",
+    "scrollMemoryDesc": "Redeschide fiecare proiect la versul la care erai în modul Editare.",
+    "swapDuetAll": "Inversează versurile principale și de duet",
+    "swapDuetSelected": "Inversează principal și duet"
   },
   "lyricWordView": {
     "empty": "Gol",
@@ -1257,6 +1448,16 @@
     "placeholder": "Cuvânt nou",
     "applyToAll": "Înlocuiește toate cuvintele identice",
     "caseSensitive": "Distinge majusculele de minuscule"
+  },
+  "replaceWordCombinationDialog": {
+    "title": "Înlocuiește combinația de cuvinte",
+    "description": "Fă clic pe un cuvânt pentru a-i edita textul. Timpii rămân neschimbați.",
+    "word": "Cuvântul {index}",
+    "reorderWord": "Mută cuvântul {index}",
+    "reorderHint": "Trage de un mâner pentru a schimba ordinea sau focalizează un cuvânt și apasă Alt+Stânga/Dreapta.",
+    "position": "Poziția {index} din {count}",
+    "applyToAll": "Înlocuiește toate combinațiile identice",
+    "adjacentOnly": "Selectează cuvinte sau silabe alăturate pe același rând pentru a înlocui o combinație."
   },
   "replaceRomanizationDialog": {
     "title": "Înlocuiește romanizarea",
@@ -1369,6 +1570,14 @@
   "autosave": {
     "legacyProjectName": "Versiuni vechi",
     "untitledProjectName": "Proiect fără titlu"
+  },
+  "didYouKnow": {
+    "title": "Știai că?",
+    "repeatedSection": "Versurile repetate pot refolosi sincronizarea anterioară. Selectează versurile anterioare, pune cursorul de redare unde începe repetiția și folosește Duplică la cursorul de redare.",
+    "splitInTimeMode": "Poți împărți un cuvânt fără să ieși din modul Sincronizare: ține apăsat {modifier} și dă dublu clic pe el.",
+    "turnOff": "Nu afișa sfaturi",
+    "setting": "Afișează sfaturi",
+    "settingDesc": "Când faci manual ceva ce are o cale mai rapidă, afișează un sfat scurt. Fiecare sfat apare o singură dată."
   },
   "time": {
     "daysAgo": "{count, plural, one {Acum # zi} few {Acum # zile} other {Acum # de zile}}",
@@ -1488,6 +1697,19 @@
     "apply": "Aplică sugestia",
     "noSuggestions": "Nu sunt disponibile sugestii de împărțire automată pentru acest conținut."
   },
+  "changelogScreen": {
+    "viewLabel": "Afișează",
+    "viewAll": "Tot",
+    "viewHighlights": "Puncte importante",
+    "highlights": "Puncte importante",
+    "latest": "Cea mai nouă",
+    "sectionNew": "Nou",
+    "sectionChanged": "Schimbat",
+    "sectionFixed": "Reparat",
+    "empty": "Nu există versiuni de afișat.",
+    "versions": "Versiuni",
+    "earlier": "Mai vechi"
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Editor TTML pentru sincronizarea versurilor cuvânt cu cuvânt în stilul Apple Music",
@@ -1510,6 +1732,23 @@
     "openContributorProfile": "Deschide profilul GitHub al lui {name}",
     "unknown": "Necunoscut"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Piste separate",
+    "settingDesc": "Afișează versurile vocilor de fundal pe o pistă proprie, sub versurile principale. Pistele sunt doar pentru afișare: schimbă rolul unui vers în modul editare.",
+    "menu": "Piste",
+    "visibleLanes": "Arată pistele",
+    "duetLane": "Pistă separată pentru duet",
+    "lane": {
+      "main": "Principal",
+      "duet": "Duet",
+      "bg": "Fundal"
+    }
+  },
+  "spectrogramLineEnds": {
+    "mergedHandle": "Finalul rândului și al ultimului cuvânt. Trage cu Alt ca să muți doar unul.",
+    "wordEndHandle": "Finalul ultimului cuvânt",
+    "lineEndHandle": "Finalul rândului"
+  },
   "spectrogram": {
     "invalidEndTime": "Nu se poate selecta acest timp de sfârșit",
     "noAudioLoaded": "Încarcă un fișier audio pentru a afișa spectrograma",
@@ -1525,6 +1764,17 @@
       "4096": "4096 (cele mai multe detalii)"
     },
     "height": "Înălțimea afișajului"
+  },
+  "spectrogramFollow": {
+    "toggle": "Urmărește cursorul de redare",
+    "shortcut": "Spectrogramă - Activează/dezactivează urmărirea cursorului de redare",
+    "setting": "Urmărește cursorul de redare",
+    "settingDesc": "Derulează spectrograma ca cursorul de redare să rămână vizibil. Derularea sau tragerea o pune pe pauză până apeși redare sau o lași un moment.",
+    "style": "Mod de urmărire",
+    "page": "Pe pagini",
+    "pageDesc": "Sare înainte când cursorul iese din vizualizare.",
+    "continuous": "Continuu",
+    "continuousDesc": "Derulează odată cu cursorul și îl ține în centru."
   },
   "export": {
     "recoveryUntimed": "Acest export de recuperare conține versuri nesincronizate. Verifică sincronizarea înainte de trimitere.",

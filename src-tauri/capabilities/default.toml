@@ -14,6 +14,8 @@ identifier = "core:window:default"
 [[permissions]]
 identifier = "core:window:allow-start-dragging"
 [[permissions]]
+identifier = "core:window:allow-start-resize-dragging"
+[[permissions]]
 identifier = "core:window:allow-toggle-maximize"
 [[permissions]]
 identifier = "core:window:allow-minimize"

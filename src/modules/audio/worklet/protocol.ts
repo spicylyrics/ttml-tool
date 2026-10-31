@@ -10,7 +10,7 @@ export interface VoiceState {
 }
 
 export type PlayerCommand =
-	| { type: "init"; channels: Float32Array[]; wasm: ArrayBuffer }
+	| { type: "init"; port: MessagePort }
 	| { type: "voice"; voice: VoiceId; state: VoiceState }
 	| { type: "destroy" };
 
@@ -27,3 +27,30 @@ export type PlayerEvent =
 	| { type: "ready" }
 	| { type: "error"; message: string }
 	| { type: "render"; voice: VoiceId; report: RenderReport };
+
+export interface PcmPacket {
+	type: "pcm";
+	voice: VoiceId;
+	channels: Float32Array[];
+	report: RenderReport;
+}
+
+export type RendererCommand =
+	| {
+			type: "init";
+			channels: Float32Array[];
+			wasm: ArrayBuffer;
+			sampleRate: number;
+			port: MessagePort;
+	  }
+	| Extract<PlayerCommand, { type: "voice" }>
+	| {
+			type: "recycle";
+			voice: VoiceId;
+			generation: number;
+			channels: Float32Array[];
+	  };
+
+export type RendererEvent =
+	| PcmPacket
+	| Extract<PlayerEvent, { type: "ready" | "error" }>;

@@ -1,0 +1,75 @@
+# Flatpak build of the Spicy Lyrics TTML Tool, the recommended Linux package.
+#
+# The GNOME runtime supplies WebKitGTK, GStreamer and GLib, so every distro
+# runs the same versions. That is what the AppImage could not do: it bundled
+# Ubuntu's WebKitGTK and GLib next to the host's GStreamer and GPU driver.
+#
+# This packages a binary built by `pnpm tauri build` on the CI's Ubuntu runner.
+# It links only against libraries the runtime ships (the ldd check below fails
+# the build otherwise), and the frontend is embedded in it. Flathub will want
+# an offline build from source instead; that is a separate step.
+#
+# Local build, after `pnpm tauri build --no-bundle`:
+#   flatpak-builder --user --install --force-clean build-dir \
+#     packaging/flatpak/io.github.spicylyrics.TTMLTool.yml
+id: io.github.spicylyrics.TTMLTool
+runtime: org.gnome.Platform
+runtime-version: "51"
+sdk: org.gnome.Sdk
+command: amll-ttml-tool
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  - --device=dri
+  - --socket=pulseaudio
+  # Lyric search (LRCLIB, Genius) and web fonts.
+  - --share=network
+  # Linked projects read and write lyrics and audio where they already live,
+  # and folder projects scan the folder the user picked. File pickers still
+  # go through the desktop portal.
+  - --filesystem=home
+  # Discord Rich Presence, for native and Flatpak Discord.
+  - --filesystem=xdg-run/discord-ipc-0
+  - --filesystem=xdg-run/app/com.discordapp.Discord:create
+modules:
+  - name: amll-ttml-tool
+    buildsystem: simple
+    build-commands:
+      # The real binary is installed under a -bin name and wrapped by
+      # amll-ttml-tool, which builds the first-run fontconfig cache (see the
+      # wrapper). Without that cache WebKitGTK spins at 100% CPU scanning host
+      # fonts and the window never appears.
+      - install -Dm755 amll-ttml-tool /app/bin/amll-ttml-tool-bin
+      - install -Dm755 amll-ttml-tool-wrapper /app/bin/amll-ttml-tool
+      # A broken binary makes ldd say "not a dynamic executable", so check that
+      # WebKitGTK actually resolves, not just that nothing is missing.
+      - ldd /app/bin/amll-ttml-tool-bin > ldd.txt
+      - grep -q 'libwebkit2gtk-4.1.so.0 => /usr/lib' ldd.txt
+      - "! grep 'not found' ldd.txt"
+      - install -Dm644 io.github.spicylyrics.TTMLTool.desktop /app/share/applications/io.github.spicylyrics.TTMLTool.desktop
+      - install -Dm644 io.github.spicylyrics.TTMLTool.metainfo.xml /app/share/metainfo/io.github.spicylyrics.TTMLTool.metainfo.xml
+      - install -Dm644 32x32.png /app/share/icons/hicolor/32x32/apps/io.github.spicylyrics.TTMLTool.png
+      - install -Dm644 64x64.png /app/share/icons/hicolor/64x64/apps/io.github.spicylyrics.TTMLTool.png
+      - install -Dm644 128x128.png /app/share/icons/hicolor/128x128/apps/io.github.spicylyrics.TTMLTool.png
+      - install -Dm644 128x128@2x.png /app/share/icons/hicolor/256x256/apps/io.github.spicylyrics.TTMLTool.png
+      - install -Dm644 icon.png /app/share/icons/hicolor/512x512/apps/io.github.spicylyrics.TTMLTool.png
+    sources:
+      - type: file
+        path: ../../src-tauri/target/release/amll-ttml-tool
+      - type: file
+        path: amll-ttml-tool-wrapper
+      - type: file
+        path: io.github.spicylyrics.TTMLTool.desktop
+      - type: file
+        path: io.github.spicylyrics.TTMLTool.metainfo.xml
+      - type: file
+        path: ../../src-tauri/icons/32x32.png
+      - type: file
+        path: ../../src-tauri/icons/64x64.png
+      - type: file
+        path: ../../src-tauri/icons/128x128.png
+      - type: file
+        path: ../../src-tauri/icons/128x128@2x.png
+      - type: file
+        path: ../../src-tauri/icons/icon.png

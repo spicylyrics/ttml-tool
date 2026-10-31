@@ -2,8 +2,17 @@
  * Adapted from the Spicy Lyrics renderer (AGPL-3.0-or-later).
  * Original project: https://github.com/Spikerko/Spicy-Lyrics
  */
+
+import { hasNoTiming } from "$/modules/lyric-editor/utils/timing-status";
+import type { WordTimingProblem } from "$/modules/preview-problems/detect-word-timing-problems";
 import { collectFollowingBackgroundLines } from "$/modules/project/logic/ttml-writer";
 import type { LyricLine, LyricWord } from "$/types/ttml";
+
+/** Word id to the timing problems the preview marks on it. */
+export type SpicyWordProblems = ReadonlyMap<
+	string,
+	readonly WordTimingProblem[]
+>;
 
 export interface SpicyToken {
 	id: string;
@@ -15,6 +24,10 @@ export interface SpicyToken {
 	spaceAfter?: boolean;
 	breakAfter?: boolean;
 	allowInternalWrap?: boolean;
+	/** Set only while the preview marks timing problems. */
+	problems?: readonly WordTimingProblem[];
+	/** Not synced yet, in a line being synced: shown in place, hollow. */
+	isUntimed?: boolean;
 }
 
 export interface SpicyTokenLayoutItem {
@@ -37,6 +50,8 @@ export interface SpicyLine {
 	isBackground: boolean;
 	isDuet: boolean;
 	isDotLine?: boolean;
+	/** Not synced yet: shown in place, never animated, sought or counted as active. */
+	isUntimed?: boolean;
 	translation?: string;
 	words: SpicyToken[];
 }
@@ -54,15 +69,30 @@ function isLineSynced(line: LyricLine) {
 	return !!line.isLineSynced;
 }
 
+/**
+ * Spicy drops zero-width spaces, direction marks, word joiners and BOMs before
+ * it renders text: they would otherwise become empty letters with their own
+ * share of a held word. ZWJ and ZWNJ stay, since they shape Arabic, Indic and
+ * emoji text.
+ */
+const zeroWidth = new RegExp(
+	`[${String.fromCodePoint(0x200b, 0x200e, 0x200f, 0x2060, 0xfeff)}]`,
+	"gu",
+);
+export const stripZeroWidth = (text: string) => text.replace(zeroWidth, "");
+
 function lineText(line: LyricLine, romanized: boolean) {
-	if (romanized && line.romanLyric?.trim()) return line.romanLyric;
-	return line.words
-		.map((word) =>
-			romanized && word.romanWord.trim().length > 0
-				? word.romanWord
-				: word.word,
-		)
-		.join("");
+	if (romanized && line.romanLyric?.trim())
+		return stripZeroWidth(line.romanLyric);
+	return stripZeroWidth(
+		line.words
+			.map((word) =>
+				romanized && word.romanWord.trim().length > 0
+					? word.romanWord
+					: word.word,
+			)
+			.join(""),
+	);
 }
 
 /** Match Spicy's first-strong-character direction check. */
@@ -124,8 +154,7 @@ export function splitLetters(text: string): string[] {
 }
 
 const validLine = (start: number, end: number) =>
-	Number.isFinite(start) && Number.isFinite(end) && end > start;
-// A zero-length syllable still renders in Spicy; it is simply sung at once.
+	Number.isFinite(start) && Number.isFinite(end) && end > start; // A zero-length syllable still renders in Spicy; it is simply sung at once.
 const validWord = (start: number, end: number) =>
 	Number.isFinite(start) && Number.isFinite(end) && end >= start;
 
@@ -169,7 +198,9 @@ function makeToken(
 	// Spicy trims every syllable, and drops a background vocal's parentheses.
 	const clean = (value: string) =>
 		background ? value.trim().replace(/[()]/g, "").trim() : value.trim();
-	const text = clean(usesRomanization ? word.romanWord : word.word);
+	const text = stripZeroWidth(
+		clean(usesRomanization ? word.romanWord : word.word),
+	);
 	const allowInternalWrap = usesRomanization || isCjk(word.word) || isCjk(text);
 	const duration = word.endTime - word.startTime;
 	const letters = duration >= (simple ? 1050 : 1000) ? splitLetters(text) : [];
@@ -208,20 +239,54 @@ function makeTokens(
 	simple: boolean,
 	romanized: boolean,
 	background: boolean,
+	problems?: SpicyWordProblems,
+	syncing = false,
 ): SpicyToken[] {
 	const tokens: SpicyToken[] = [];
 
 	for (const word of words) {
+		const wordProblems = problems?.get(word.id);
 		const previous = tokens[tokens.length - 1];
 		if (/^\s*$/u.test(word.word)) {
 			if (previous && word.word.length > 0) previous.spaceAfter = true;
 			continue;
 		}
 		if (previous && /^\s/u.test(word.word)) previous.spaceAfter = true;
-		if (!validWord(word.startTime, word.endTime)) continue;
+		// In a line being synced, the words not reached yet and the one in
+		// progress have no end: keep them in place, hollow, after the last one.
+		if (
+			syncing &&
+			(hasNoTiming(word) || !validWord(word.startTime, word.endTime))
+		) {
+			const at = previous?.endTime ?? 0;
+			const token = makeToken(
+				{ ...word, startTime: at, endTime: at },
+				simple,
+				romanized,
+				background,
+			);
+			if (token.text.length === 0) continue;
+			token.isUntimed = true;
+			if (/[\s,]$/u.test(word.word)) token.spaceAfter = true;
+			tokens.push(token);
+			continue;
+		}
+		// A word ending before it starts is dropped, unless problems are being
+		// shown: then it renders as a zero-length word at its start.
+		const shown =
+			wordProblems?.includes("endsBeforeStart") &&
+			Number.isFinite(word.startTime) &&
+			Number.isFinite(word.endTime);
+		if (!validWord(word.startTime, word.endTime) && !shown) continue;
 
-		const token = makeToken(word, simple, romanized, background);
+		const token = makeToken(
+			shown ? { ...word, endTime: word.startTime } : word,
+			simple,
+			romanized,
+			background,
+		);
 		if (token.text.length === 0) continue;
+		if (wordProblems) token.problems = wordProblems;
 		if (/[\s,]$/u.test(word.word)) token.spaceAfter = true;
 		tokens.push(token);
 	}
@@ -287,6 +352,11 @@ export interface SpicyVocalGroup {
 	backgrounds: SpicyLine[];
 }
 
+type ConversionCache = WeakMap<
+	LyricLine,
+	Map<string, Omit<SpicyLine, "startTime" | "endTime" | "isUntimed">>
+>;
+
 /**
  * Nest the editor's flat background lines under their lead the way the TTML
  * export writes them, so the preview shows what Spicy Lyrics receives:
@@ -303,23 +373,77 @@ export function groupVocals(
 	romanized: boolean,
 	forceLineSynced = false,
 	allowConsecutiveBackgrounds = false,
+	problems?: SpicyWordProblems,
+	showUntimed = false,
+	cache?: ConversionCache,
 ): SpicyVocalGroup[] {
-	const lines = source.filter((line) =>
-		validLine(line.startTime, line.endTime),
-	);
+	// An untimed line sits, zero-length, where the line before it ends, so it
+	// stays in order without ever becoming the active line.
+	const untimedIds = new Set<string>();
+	const syncingIds = new Set<string>();
+	const originalLines = new WeakMap<LyricLine, LyricLine>();
+	const lines: LyricLine[] = [];
+	let lastEnd = 0;
+	for (const line of source) {
+		if (validLine(line.startTime, line.endTime)) {
+			lines.push(line);
+			lastEnd = line.endTime;
+		} else if (showUntimed && hasNoTiming(line)) {
+			untimedIds.add(line.id);
+			const normalized = { ...line, startTime: lastEnd, endTime: lastEnd };
+			originalLines.set(normalized, line);
+			lines.push(normalized);
+		} else if (showUntimed && Number.isFinite(line.startTime)) {
+			// Being synced: the start is set with the first word, the end only
+			// with the last, so it ends where the last finished word does.
+			let end = line.startTime;
+			for (const word of line.words)
+				if (validWord(word.startTime, word.endTime) && !hasNoTiming(word))
+					end = Math.max(end, word.endTime);
+			syncingIds.add(line.id);
+			const normalized = { ...line, endTime: end };
+			originalLines.set(normalized, line);
+			lines.push(normalized);
+			lastEnd = end;
+		}
+	}
 	const groups: SpicyVocalGroup[] = [];
-	const convert = (line: LyricLine, background: boolean): SpicyLine => ({
-		id: line.id,
-		startTime: line.startTime,
-		endTime: line.endTime,
-		isLineSynced: forceLineSynced || isLineSynced(line),
-		isRtl: isRtl(lineText(line, false)),
-		text: lineText(line, romanized),
-		isBackground: background,
-		isDuet: !!line.isDuet,
-		translation: line.translatedLyric || undefined,
-		words: makeTokens(line.words, simple, romanized, background),
-	});
+	const convert = (line: LyricLine, background: boolean): SpicyLine => {
+		const original = originalLines.get(line) ?? line;
+		const key = `${background}:${syncingIds.has(line.id)}`;
+		const cached = !problems ? cache?.get(original)?.get(key) : undefined;
+		const converted = cached ?? {
+			id: line.id,
+			isLineSynced: forceLineSynced || isLineSynced(line),
+			isRtl: isRtl(lineText(line, false)),
+			text: lineText(line, romanized),
+			isBackground: background,
+			isDuet: !!line.isDuet,
+			translation: line.translatedLyric || undefined,
+			words: makeTokens(
+				line.words,
+				simple,
+				romanized,
+				background,
+				problems,
+				syncingIds.has(line.id),
+			),
+		};
+		if (cache && !cached && !problems) {
+			let entries = cache.get(original);
+			if (!entries) {
+				entries = new Map();
+				cache.set(original, entries);
+			}
+			entries.set(key, converted);
+		}
+		return {
+			...converted,
+			startTime: line.startTime,
+			endTime: line.endTime,
+			isUntimed: untimedIds.has(line.id) || undefined,
+		};
+	};
 
 	for (let index = 0; index < lines.length; index++) {
 		const line = lines[index];
@@ -339,6 +463,7 @@ export function groupVocals(
 					endTime:
 						backgroundSources[backgroundSources.length - 1]?.endTime ??
 						line.endTime,
+					isUntimed: untimedIds.has(line.id) || undefined,
 					isLineSynced: false,
 					isRtl: false,
 					text: "",
@@ -351,19 +476,25 @@ export function groupVocals(
 		for (const backgroundSource of backgroundSources) {
 			const background = convert(backgroundSource, true);
 			if (!background.isLineSynced && background.words.length === 0) continue;
+			background.isDuet = lead.isDuet;
+			// An untimed background vocal has no span to give its lead.
+			if (background.isUntimed) {
+				backgrounds.push(background);
+				continue;
+			}
 			// A background vocal spans its first to its last syllable as timed
 			// (not the shortened held-letter window), and sits on its lead's side,
 			// since it shares the lead's <p> and agent.
 			const sung = backgroundSource.words.filter(
 				(word) =>
 					word.word.trim().length > 0 &&
+					!hasNoTiming(word) &&
 					validWord(word.startTime, word.endTime),
 			);
 			if (!background.isLineSynced && sung.length > 0) {
 				background.startTime = sung[0].startTime;
 				background.endTime = sung[sung.length - 1].endTime;
 			}
-			background.isDuet = lead.isDuet;
 			// Background vocals can start before or run past their lead; the
 			// lead's window covers them, so the next line waits for the group.
 			lead.startTime = Math.min(lead.startTime, background.startTime);
@@ -389,6 +520,9 @@ export function buildSpicyLines(
 	romanized: boolean,
 	forceLineSynced = false,
 	allowConsecutiveBackgrounds = false,
+	problems?: SpicyWordProblems,
+	showUntimed = false,
+	cache?: ConversionCache,
 ): SpicyLine[] {
 	const groups = groupVocals(
 		source,
@@ -396,35 +530,88 @@ export function buildSpicyLines(
 		romanized,
 		forceLineSynced,
 		allowConsecutiveBackgrounds,
+		problems,
+		showUntimed,
+		cache,
 	);
 	const result: SpicyLine[] = [];
-	const first = groups[0]?.lead;
-	if (first && first.startTime >= INTERLUDE_GAP)
-		result.push(
-			dotLine(
-				0,
-				first.startTime,
-				"spicy-leading-dot",
-				first.isDuet,
-				first.isRtl,
-			),
-		);
-	for (let index = 0; index < groups.length; index++) {
-		const { lead, backgrounds } = groups[index];
+	// Interludes are measured between timed lines only, and lead straight into
+	// the next timed line, so untimed lines in a gap sit before the dots.
+	let previous: SpicyLine | undefined;
+	for (const { lead, backgrounds } of groups) {
+		if (!lead.isUntimed) {
+			if (!previous) {
+				if (lead.startTime >= INTERLUDE_GAP)
+					result.push(
+						dotLine(
+							0,
+							lead.startTime,
+							"spicy-leading-dot",
+							lead.isDuet,
+							lead.isRtl,
+						),
+					);
+			} else if (lead.startTime - previous.endTime >= INTERLUDE_GAP)
+				result.push(
+					dotLine(
+						previous.endTime,
+						lead.startTime,
+						`spicy-dot-${previous.id}`,
+						lead.isDuet,
+						lead.isRtl,
+					),
+				);
+			previous = lead;
+		}
 		result.push(lead, ...backgrounds);
-		const next = groups[index + 1]?.lead;
-		if (next && next.startTime - lead.endTime >= INTERLUDE_GAP)
-			result.push(
-				dotLine(
-					lead.endTime,
-					next.startTime,
-					`spicy-dot-${lead.id}`,
-					next.isDuet,
-					next.isRtl,
-				),
-			);
 	}
 	return result;
+}
+
+export function createSpicyLineBuilder() {
+	let cache: ConversionCache = new WeakMap();
+	let previous = new Map<string, SpicyLine>();
+	let settings = "";
+	return (
+		source: LyricLine[],
+		simple: boolean,
+		romanized: boolean,
+		forceLineSynced = false,
+		allowConsecutiveBackgrounds = false,
+		problems?: SpicyWordProblems,
+		showUntimed = false,
+	): SpicyLine[] => {
+		const nextSettings = `${simple}:${romanized}:${forceLineSynced}:${allowConsecutiveBackgrounds}:${showUntimed}`;
+		if (settings !== nextSettings) {
+			cache = new WeakMap();
+			settings = nextSettings;
+		}
+		const lines = buildSpicyLines(
+			source,
+			simple,
+			romanized,
+			forceLineSynced,
+			allowConsecutiveBackgrounds,
+			problems,
+			showUntimed,
+			cache,
+		);
+		const next = new Map<string, SpicyLine>();
+		for (let index = 0; index < lines.length; index++) {
+			const line = lines[index];
+			const old = previous.get(line.id);
+			if (
+				old &&
+				Object.keys(line).every(
+					(key) => old[key as keyof SpicyLine] === line[key as keyof SpicyLine],
+				)
+			)
+				lines[index] = old;
+			next.set(line.id, lines[index]);
+		}
+		previous = next;
+		return lines;
+	};
 }
 
 export const keyFor = (line: SpicyLine, word: SpicyToken, index: number) =>

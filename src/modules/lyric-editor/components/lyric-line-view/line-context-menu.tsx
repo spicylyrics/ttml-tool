@@ -12,7 +12,7 @@
 import { ContextMenu } from "@radix-ui/themes";
 import { ToolMode } from "$/states/main.ts";
 import { LineTimingMenuItems } from "../line-timing-menu.tsx";
-import { LyricLineMenu } from "../lyric-line-menu.tsx";
+import { LineRoleMenuRow, LyricLineMenu } from "../lyric-line-menu.tsx";
 import {
 	CategorizeSelectionContextMenuItem,
 	SectionContextMenuItems,
@@ -64,6 +64,12 @@ export function LineContextMenu({
 				<ContextMenu.Separator />
 			)}
 			{toolMode === ToolMode.Edit && <LyricLineMenu lineIndex={lineIndex} />}
+			{toolMode === ToolMode.Sync && (
+				<>
+					<ContextMenu.Separator />
+					<LineRoleMenuRow lineIndex={lineIndex} />
+				</>
+			)}
 		</ContextMenu.Content>
 	);
 }

@@ -32,6 +32,7 @@ import { log, error as logError } from "$/utils/logging";
 import type { PreparedTTML } from "../logic/ttml-export";
 import { getTTMLSaveName } from "../logic/ttml-save-name";
 import { writeProjectAudioFile } from "./audio-io";
+import { isLinkedProjectDir } from "./linked-projects";
 import { generateProjectTtmlText, writeProjectLyricFile } from "./lyric-io";
 import {
 	assertSafePath,
@@ -164,6 +165,11 @@ async function saveLinkedProject(
 	const lyricText =
 		options?.prepared?.text ?? generateLyricTextFromStore(store, t);
 	if (lyricText == null) return false;
+
+	if (!(await isLinkedProjectDir(dir))) {
+		logError(`Refused linked save outside the linked projects folder: ${dir}`);
+		return false;
+	}
 
 	// The linked file belongs to the user, not to the app: keep a one-time
 	// backup before the first overwrite, so a lossy TTML round-trip can never
@@ -547,6 +553,7 @@ export async function saveLyricsOnly(
 		const manifestPath = assertSafePath(activeDir, PROJECT_MANIFEST_FILENAME);
 		await writeTextFile(manifestPath, JSON.stringify(nextManifest, null, 2));
 
+		if (store.get(activeProjectDirAtom) !== activeDir) return true;
 		store.set(activeProjectManifestAtom, nextManifest);
 		store.set(saveFileNameAtom, lyricFileName);
 		store.set(markLyricsSavedAtom, lyric);

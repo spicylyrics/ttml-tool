@@ -99,6 +99,7 @@ export const useSpectrogramResize = ({
 	);
 	const [isResizing, setIsResizing] = useState(false);
 	const heightRef = useRef(height);
+	const dragCleanupRef = useRef<(() => void) | null>(null);
 
 	const updateMaxHeight = useCallback(() => {
 		const newMax = getAvailableSpectrogramMaxHeight(maxHeight, minHeight);
@@ -141,6 +142,7 @@ export const useSpectrogramResize = ({
 		(e: React.MouseEvent) => {
 			e.preventDefault();
 			e.stopPropagation();
+			dragCleanupRef.current?.();
 
 			setIsResizing(true);
 			const startY = e.clientY;
@@ -161,12 +163,16 @@ export const useSpectrogramResize = ({
 
 			const handleMouseUp = () => {
 				setIsResizing(false);
+				dragCleanupRef.current?.();
+			};
 
+			dragCleanupRef.current = () => {
 				document.body.style.cursor = "";
 				document.body.style.userSelect = "";
 
 				window.removeEventListener("mousemove", handleMouseMove);
 				window.removeEventListener("mouseup", handleMouseUp);
+				dragCleanupRef.current = null;
 				onCommit(heightRef.current);
 			};
 
@@ -178,6 +184,7 @@ export const useSpectrogramResize = ({
 
 	useEffect(() => {
 		return () => {
+			dragCleanupRef.current?.();
 			document.body.style.cursor = "";
 			document.body.style.userSelect = "";
 		};

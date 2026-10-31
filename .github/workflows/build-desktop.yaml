@@ -58,7 +58,6 @@ jobs:
           version="${GITHUB_REF_NAME#v}"
           if node scripts/generate-release-notes.mjs \
             --version "$version" \
-            --changelog src/components/Dialogs/changelog.tsx \
             --output "$RUNNER_TEMP/release-notes.md"; then
             echo "source=changelog" >> "$GITHUB_OUTPUT"
           else
@@ -170,10 +169,12 @@ jobs:
       - name: Install AppImage repacking tool
         if: matrix.platform == 'ubuntu-latest'
         shell: bash
+        # Pinned: the rolling "continuous" build changed under us and broke v0.19.0.
         run: |
           curl --fail --location --retry 3 \
             --output /usr/local/bin/appimagetool \
-            https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+            https://github.com/AppImage/appimagetool/releases/download/1.9.1/appimagetool-x86_64.AppImage
+          echo "ed4ce84f0d9caff66f50bcca6ff6f35aae54ce8135408b3fa33abfc3cb384eb0  /usr/local/bin/appimagetool" | sha256sum --check
           chmod +x /usr/local/bin/appimagetool
       - name: Remove host-incompatible libraries from AppImage
         if: matrix.platform == 'ubuntu-latest'
@@ -202,12 +203,52 @@ jobs:
             src-tauri/target/**/release/amll-ttml-tool.exe
             src-tauri/target/**/release/amll-ttml-tool
 
+  # The main Linux package. Wraps the Linux binary from the matrix in the GNOME
+  # runtime, so WebKitGTK, GStreamer and GLib match on every distro.
+  build-flatpak:
+    name: Build Flatpak (x86_64)
+    needs: build-tauri-desktop
+    # Only the Linux binary is needed, so a failed macOS leg must not skip this.
+    if: ${{ !cancelled() && needs.build-tauri-desktop.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-51
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v7
+        with:
+          name: Spicy Lyrics TTML Tool linux-x86_64
+          path: linux-build
+      - name: Place the Linux binary where the manifest expects it
+        shell: bash
+        # Not any other copy: the AppImage's AppDir one has been rewritten by
+        # patchelf, and stripping that left a binary with no program headers.
+        run: install -Dm755 linux-build/release/amll-ttml-tool src-tauri/target/release/amll-ttml-tool
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          manifest-path: packaging/flatpak/io.github.spicylyrics.TTMLTool.yml
+          bundle: Spicy-Lyrics-TTML-Tool_x86_64.flatpak
+          artifact-name: Spicy Lyrics TTML Tool flatpak-x86_64
+          cache-key: flatpak-builder-${{ github.sha }}
+
   finalize-release:
     name: Finalize release notes
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: [build-tauri-desktop, prepare-release-notes]
+    # A failed Flatpak only leaves it off the release; notes and Winget still go out.
+    if: ${{ startsWith(github.ref, 'refs/tags/v') && !cancelled() && needs.build-tauri-desktop.result == 'success' && needs.prepare-release-notes.result == 'success' }}
+    needs: [build-tauri-desktop, build-flatpak, prepare-release-notes]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/download-artifact@v7
+        if: needs.build-flatpak.result == 'success'
+        with:
+          name: Spicy Lyrics TTML Tool flatpak-x86_64
+          path: flatpak
+      - name: Upload Flatpak bundle
+        if: needs.build-flatpak.result == 'success'
+        run: gh release upload "${{ github.ref_name }}" flatpak/*.flatpak --repo "$GITHUB_REPOSITORY" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
       - uses: actions/download-artifact@v7
         if: needs.prepare-release-notes.outputs.source == 'changelog'
         with:

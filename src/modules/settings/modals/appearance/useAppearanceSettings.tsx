@@ -2,6 +2,10 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+	logoColorCustomAtom,
+	logoColorPresetAtom,
+} from "$/modules/logo-color/states";
+import {
 	accentColorAtom,
 	advActiveLineBgAtom,
 	advAudioBarBgAtom,
@@ -75,6 +79,8 @@ export function useAppearanceSettings() {
 	const [spicyLyricsDesign, setSpicyLyricsDesign] = useAtom(
 		spicyLyricsDesignAtom,
 	);
+	const [logoColorPreset, setLogoColorPreset] = useAtom(logoColorPresetAtom);
+	const [logoColorCustom, setLogoColorCustom] = useAtom(logoColorCustomAtom);
 	// The Spicy Lyrics design is dark-only, so preview the dark scale under it.
 	const isDarkTheme = useAtomValue(isDarkThemeAtom) || spicyLyricsDesign;
 	const customScale = useMemo(
@@ -216,6 +222,10 @@ export function useAppearanceSettings() {
 		setLegacyDarkTheme,
 		spicyLyricsDesign,
 		setSpicyLyricsDesign,
+		logoColorPreset,
+		setLogoColorPreset,
+		logoColorCustom,
+		setLogoColorCustom,
 		advWaveformColor,
 		setAdvWaveformColor,
 		advWaveformProgress,

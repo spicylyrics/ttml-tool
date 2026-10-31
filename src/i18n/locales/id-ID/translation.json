@@ -3,6 +3,12 @@
     "changelogTitle": "Log perubahan & pembaruan",
     "viewCommits": "Lihat commit di GitHub"
   },
+  "updatedToast": {
+    "message": "Diperbarui ke v{version}",
+    "seeChanges": "Lihat perubahan",
+    "setting": "Tampilkan perubahan setelah pembaruan",
+    "settingDesc": "Saat aplikasi pertama kali dibuka di versi baru, tampilkan pemberitahuan singkat dengan tautan ke log perubahan."
+  },
   "app": {
     "error": {
       "title": "Aduh, terjadi kesalahan!",
@@ -23,6 +29,7 @@
     "window": {
       "minimize": "Perkecil jendela",
       "maximize": "Perbesar jendela",
+      "restore": "Pulihkan jendela",
       "close": "Tutup jendela"
     }
   },
@@ -32,6 +39,15 @@
   "preview": {
     "untimedLines": "{count, plural, other {# baris belum diberi waktu}}",
     "jumpToUntimed": "Sinkronkan baris pertama yang belum diberi waktu"
+  },
+  "previewProblems": {
+    "count": "{count, plural, other {# kata punya masalah waktu}}",
+    "jump": "Pilih yang pertama",
+    "untimed": "Tanpa waktu di baris yang sudah diberi waktu",
+    "untimedLine": "Belum diberi waktu",
+    "endsBeforeStart": "Berakhir sebelum dimulai",
+    "startsBeforeLine": "Dimulai sebelum barisnya",
+    "endsAfterLine": "Berakhir setelah barisnya"
   },
   "beginnerGuide": {
     "empty": {
@@ -210,7 +226,57 @@
       "dropped": "Tidak diimpor",
       "missingTranslation": "Terjemahan kosong",
       "missingRomanization": "Romanisasi kosong"
+    },
+    "search": {
+      "label": "Cari dan ganti",
+      "find": "Cari",
+      "replace": "Ganti dengan",
+      "matchCase": "Cocokkan huruf besar/kecil",
+      "wholeWord": "Seluruh kata",
+      "regex": "Gunakan pola (regex)",
+      "inSelection": "Hanya di pilihan",
+      "showList": "Tampilkan semua hasil",
+      "listLabel": "Hasil",
+      "rows": "Baris yang dicari",
+      "rowsAll": "Semua baris",
+      "rowsLyrics": "Hanya lirik",
+      "rowsTranslations": "Terjemahan dan romanisasi",
+      "previous": "Hasil sebelumnya",
+      "next": "Hasil berikutnya",
+      "toggleReplace": "Tampilkan ganti",
+      "close": "Tutup pencarian",
+      "replaceOne": "Ganti",
+      "replaceAll": "Ganti semua",
+      "replaceThis": "Ganti hasil ini",
+      "count": "{count, plural, other {# hasil}}",
+      "position": "{current} dari {count}",
+      "noMatches": "Tidak ada hasil",
+      "replaced": "{count, plural, other {# hasil diganti}}",
+      "invalid": "Pola tidak valid"
     }
+  },
+  "editAsText": {
+    "menuItem": "Edit sebagai teks...",
+    "title": "Edit sebagai teks",
+    "description": "Edit seluruh lirik sebagai teks biasa. Kata yang tidak Anda ubah tetap mempertahankan timing-nya.",
+    "textLabel": "Teks lirik",
+    "toolsHint": "Proses lirik dan Pisahkan suku kata bekerja pada baris yang dipilih, atau pada semuanya jika tidak ada yang dipilih.",
+    "nothingToProcess": "Tidak ada yang perlu diubah.",
+    "summaryTitle": "Perubahan",
+    "unchanged": "{count, plural, other {# baris tidak berubah}}",
+    "edited": "{count, plural, other {# baris diedit}}",
+    "editedHint": "Timing dipertahankan jika katanya cocok.",
+    "moved": "{count, plural, other {# baris dipindah}}",
+    "added": "{count, plural, other {# baris ditambahkan}}",
+    "removed": "{count, plural, other {# baris dihapus}}",
+    "noChanges": "Belum ada perubahan.",
+    "droppedTimings": "{count, plural, other {# kata bertiming kehilangan timing-nya}}",
+    "lineNumber": "Baris {line}",
+    "more": "{count, plural, other {dan # lainnya}}",
+    "help": "Kata baru masuk tanpa timing. Baris yang hanya dipindah tetap mempertahankan timing-nya. Terapkan adalah satu langkah urungkan.",
+    "apply": "Terapkan",
+    "applied": "Teks diterapkan. Urungkan mengembalikannya dalam satu langkah.",
+    "failed": "Teks tidak dapat diterapkan. Periksa lalu coba lagi."
   },
   "importChooser": {
     "options": {
@@ -257,6 +323,12 @@
       "title": "Impor lirik baru?",
       "description": "File saat ini memiliki perubahan yang belum disimpan. Jika dilanjutkan, perubahan ini akan hilang. Anda yakin ingin mengimpor lirik?"
     },
+    "discardTextEdits": {
+      "title": "Buang perubahan Anda?",
+      "description": "Teks memiliki perubahan yang belum diterapkan. Jika ditutup sekarang, perubahan itu hilang.",
+      "discard": "Buang",
+      "keepEditing": "Lanjut mengedit"
+    },
     "noSongwriter": {
       "description": "Lagu ini belum memiliki penulis lagu. Tetap simpan?"
     },
@@ -277,6 +349,30 @@
       "noPreviousFound": "Tidak ditemukan bagian sebelumnya yang cocok dan sudah diberi waktu.",
       "noMatchingLines": "Tidak ada baris di bagian ini yang cocok dengan bagian sebelumnya, jadi tidak ada yang disalin.",
       "copyPrevious": "Salin waktu sebelumnya"
+    }
+  },
+  "logoColor": {
+    "title": "Warna logo",
+    "description": "Pilih warna logo di bilah judul dan di layar sambutan panduan.",
+    "descriptionDesktop": "Pilih warna ikon jendela dan bilah tugas aplikasi, dan di Windows juga pintasan di desktop dan menu Start.",
+    "colorLabel": "Warna",
+    "customLabel": "Warna logo kustom",
+    "designNote": "Logo hanya tampil saat desain Spicy Lyrics aktif.",
+    "presets": {
+      "default": "Bawaan",
+      "defaultDesc": "Warna bawaan desain",
+      "lilac": "Lila",
+      "lilacDesc": "Dari logo v3",
+      "purple": "Ungu",
+      "purpleDesc": "Dari logo multiwarna",
+      "red": "Merah",
+      "redDesc": "Dari logo v0.9",
+      "gold": "Emas",
+      "green": "Hijau",
+      "blue": "Biru",
+      "white": "Putih",
+      "custom": "Kustom",
+      "customDesc": "Pilih warna apa saja"
     }
   },
   "common": {
@@ -306,6 +402,7 @@
     "preview": "Pratinjau"
   },
   "dialog": {
+    "openFilesIgnored": "{count, plural, other {# file dilewati}}: buka satu file lirik dan satu file audio sekaligus.",
     "createProjectPrompt": {
       "title": "Buat proyek?",
       "description": "Simpan audio dan lirik bersama-sama dalam folder proyek.",
@@ -331,6 +428,18 @@
     "openWorkspace": {
       "title": "Pilih folder ruang kerja yang berisi proyek"
     }
+  },
+  "commandPalette": {
+    "title": "Palet perintah",
+    "placeholder": "Cari perintah dan pengaturan",
+    "noResults": "Tidak ada perintah atau pengaturan yang cocok",
+    "commandTag": "Perintah",
+    "settingTag": "Preferensi",
+    "hint": "Tombol panah untuk berpindah, Enter untuk menjalankan, Esc untuk menutup",
+    "notRunnable": "Perintah tidak dapat dijalankan. Beri pintasan di Preferensi, lalu coba lagi.",
+    "menu": "Palet perintah...",
+    "shortcut": "Tampilan - Buka palet perintah",
+    "shortcutAlternate": "Tampilan - Buka palet perintah (pintasan alternatif)"
   },
   "projectsDialog": {
     "title": "Proyek",
@@ -433,7 +542,7 @@
       "mode": "Modus",
       "standard": "Standard",
       "timing": "Sinkronisasi",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Mode lirik sederhana",
       "forceLineRendering": "Tampilkan sinkronisasi per baris",
       "background": "Latar belakang",
@@ -605,6 +714,15 @@
         "accentNote": "Desain Spicy Lyrics punya warna aksen lavender sendiri. Aktifkan warna aksen kustom untuk memakai warna lain.",
         "legacyDarkThemeNote": "Tidak berpengaruh selama desain Spicy Lyrics aktif.",
         "fontNote": "Geist, dari desain Spicy Lyrics"
+      },
+      "effects": {
+        "title": "Efek visual",
+        "description": "Ringan menghapus blur, cahaya, animasi dialog, dan latar pratinjau yang bergerak, agar aplikasi tetap mulus di tempat efek tersebut lambat digambar. Ini juga mematikan blur kaca.",
+        "auto": "Otomatis",
+        "full": "Penuh",
+        "lite": "Ringan",
+        "autoLite": "Memakai Ringan, karena Linux menggambar efek ini dengan lambat.",
+        "autoFull": "Memakai Penuh."
       },
       "presets": {
         "missingBackground": "Gambar latar preset ini tidak tersedia di perangkat ini. Gambar saat ini dipertahankan.",
@@ -838,7 +956,7 @@
       "timingOverviewAutoScrollDesc": "Jaga ikhtisar waktu tetap tergulir ke posisi pemutaran.",
       "vsyncDesc": "Perbarui pratinjau Standard dan Toxi setiap frame, bukan sekitar 30 kali per detik. Lebih mulus, tetapi memakai lebih banyak CPU.",
       "showFpsDesc": "Tampilkan penghitung frame rate di pratinjau.",
-      "syncLevelDesc": "Kata: beri waktu setiap kata. Baris: beri waktu seluruh baris dan sebarkan kata secara merata sebagai waktu awal yang bisa disempurnakan di spektrogram.",
+      "syncLevelDesc": "Kata: beri waktu setiap kata. Baris: beri waktu seluruh baris dan sebarkan kata secara merata. Mode Baris tetap menyimpan waktu per kata, bukan lirik yang disinkronkan per baris, jadi sempurnakan kata-katanya di spektrogram.",
       "previewModeDesc": "Pilih pratinjau yang ditampilkan tab Pratinjau.",
       "spicyBackgroundDesc": "Apa yang tampil di belakang pratinjau Spicy.",
       "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi."
@@ -858,6 +976,10 @@
     "order": "Urutan",
     "orderChronological": "Kronologis",
     "orderTextual": "Urutan teks"
+  },
+  "joinSplitWords": {
+    "label": "Gabungkan kata terpisah",
+    "description": "Tampilkan kata yang dinyanyikan per bagian sebagai satu kata jika bagian-bagiannya selaras, seperti pengaturan Join Split Words di Spicy Lyrics."
   },
   "topBar": {
     "modeBtns": {
@@ -932,6 +1054,7 @@
     "deleteWords": "{count, plural, other {Hapus # kata}}",
     "bgLyric": "Baris vokal latar",
     "duetLyric": "Baris duet",
+    "lineRole": "Peran baris",
     "moveLineToPlayhead": "Pindahkan baris ke penunjuk putar",
     "copyTimingsTo": "Salin waktu ke…",
     "cancelCopyTimings": "Batalkan penyalinan waktu",
@@ -958,12 +1081,15 @@
   "settingsDialog": {
     "search": "Cari pengaturan",
     "clearSearch": "Hapus pencarian",
-    "noSearchResults": "Tidak ada kategori yang cocok",
+    "matchCount": "Pengaturan yang cocok: {count}",
+    "noResults": "Tidak ada pengaturan yang cocok dengan \"{query}\"",
+    "noResultsDesc": "Coba kata lain, atau hapus pencarian.",
     "title": "Preferensi",
     "common": {
       "latencyTest": "Tes latensi audio/input"
     },
     "keybindings": {
+      "clearWordTiming": "Pengaturan waktu - Hapus stempel waktu kata/suku kata",
       "newFile": "File baru",
       "openFile": "Buka file",
       "saveFile": "Simpan file",
@@ -972,6 +1098,8 @@
       "redoAlternate": "Ulangi (pintasan alternatif)",
       "selectAll": "Pilih semua",
       "unselectAll": "Batalkan semua pilihan",
+      "findInLyrics": "Cari di lirik",
+      "replaceInLyrics": "Ganti di lirik",
       "deleteSelection": "Hapus pilihan",
       "autoSegment": "Segmentasi otomatis cepat",
       "autoSegmentDialog": "Segmentasi otomatis…",
@@ -1010,6 +1138,15 @@
       "auditionSelection": "Spektrogram - Putar pilihan",
       "auditionSelectionAfter": "Spektrogram - Putar pilihan (+0,5 dtk sesudah)",
       "cancelTimelineEditing": "Spektrogram - Batalkan pengeditan linimasa",
+      "exportTtml": "Ekspor lirik: TTML",
+      "exportLrc": "Ekspor lirik: LRC",
+      "exportEslrc": "Ekspor lirik: ESLRC",
+      "exportQrc": "Ekspor lirik: QRC",
+      "exportYrc": "Ekspor lirik: YRC",
+      "exportLys": "Ekspor lirik: Lyricify Syllable",
+      "exportAss": "Ekspor lirik: Subtitle ASS",
+      "newLyricLine": "Baris lirik baru",
+      "advancedRibbonControls": "Kontrol pita lanjutan",
       "resetDefault": "Setel ulang ke bawaan",
       "clear": "Hapus",
       "unbound": "Belum diatur",
@@ -1021,30 +1158,59 @@
         "View": "Tampilan",
         "Sync": "Sinkronisasi",
         "Audio": "Audio",
-        "Spectrogram": "Spektrogram"
+        "Spectrogram": "Spektrogram",
+        "Tools": "Alat",
+        "Help": "Bantuan",
+        "Preview": "Pratinjau"
       },
-      "autoSegmentOptions": "Segmentasi otomatis",
-      "autoSegmentDoublePress": "Perlu tekan dua kali",
-      "autoSegmentDoublePressDesc": "Jalankan segmentasi otomatis cepat hanya saat pintasannya ditekan dua kali dengan cepat."
+      "showAll": "Tampilkan aksi tanpa tombol"
     },
     "tab": {
       "common": "Umum",
       "appearance": "Penampilan",
-      "audio": "Audio",
-      "keybindings": "Pintasan",
-      "spectrogram": "Spektrogram",
+      "editing": "Pengeditan",
+      "syncing": "Sinkronisasi",
+      "preview": "Pratinjau",
+      "audioSpectrogram": "Audio & spektrogram",
+      "importFiles": "Impor & file",
       "backup": "Cadangan",
-      "editor": "Editor & sinkronisasi",
-      "files": "File & penyimpanan"
-    },
-    "page": {
-      "generalDesc": "Bahasa, privasi, dan perilaku seluruh aplikasi.",
-      "editorDesc": "Input waktu, perilaku sinkronisasi, dan petunjuk visual.",
-      "filesDesc": "Pembersihan impor, riwayat simpan otomatis, dan cadangan portabel.",
-      "audioDesc": "Pemutaran, ekualiser, dan tampilan spektrogram."
+      "keybindings": "Pintasan",
+      "changelog": "Log perubahan"
     }
   },
-  "autoSegmentApplied": "Disegmentasi otomatis dengan {engine}",
+  "keyboardView": {
+    "title": "Keyboard",
+    "search": "Cari aksi",
+    "searchResults": "{count, plural, =0 {Tidak ada aksi yang cocok} other {# aksi cocok}}",
+    "layout": "Tata letak keyboard",
+    "layoutAuto": "Otomatis",
+    "layoutDetected": "Terdeteksi: {layout}",
+    "layoutUnavailable": "Tata letak tidak dapat dideteksi di sini, jadi QWERTY ditampilkan",
+    "layerHint": "Klik tombol pengubah, seperti Shift, untuk melihat pintasan yang memakainya.",
+    "category": {
+      "sync": "Sinkronisasi",
+      "edit": "Edit",
+      "playback": "Pemutaran",
+      "navigation": "Navigasi"
+    },
+    "free": "Kosong",
+    "keyFree": "{key}: kosong",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Tampilkan pintasan dengan {key}",
+    "freeKey": "Belum ada yang memakai {key}.",
+    "assignLabel": "Aksi",
+    "assignPlaceholder": "Pilih aksi...",
+    "assign": "Tambahkan ke {key}",
+    "changeKey": "Ganti tombol",
+    "addKey": "Tambah tombol kedua",
+    "removeKey": "Hapus {key}",
+    "duplicateKey": "Tombol itu sudah dipakai untuk aksi ini.",
+    "doublePress": "Tekan dua kali untuk menjalankan",
+    "doublePressDesc": "Hanya berjalan saat tombolnya ditekan dua kali dengan cepat.",
+    "otherLayers": "Juga di tombol ini",
+    "closePanel": "Tutup"
+  },
+  "autoSegmentApplied":"Disegmentasi otomatis dengan {engine}",
   "error": {
     "unsupportedFileFormat": "Format file tidak didukung: {ext}",
     "openFileFailed": "Gagal membuka file",
@@ -1100,11 +1266,23 @@
     "volume": "Volume",
     "playbackRate": "Kecepatan putar",
     "preservesPitch": "Pertahankan nada",
-    "clickToLoadMusic": "Klik ikon musik untuk memuat audio",
+    "audioMenu": "Audio dan pemutaran",
+    "loadedAudio": "Audio dimuat",
+    "replaceAudio": "Ganti",
+    "resetSpeed": "Kembalikan ke 1×",
     "playPause": "Putar / jeda musik",
     "expandSpectrogram": "Perluas / ciutkan spektrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Masukkan offset dalam milidetik bulat",
+    "precision": "Rata-rata kesalahan absolut: {error} ms ({count} ketukan)",
+    "recommendationProgress": "Ketuk setidaknya 20 kali untuk rekomendasi ({count}/20)",
+    "recommendedOffset": "Offset sinkronisasi yang disarankan: {offset} ms",
+    "tryRecommendation": "Coba offset yang disarankan",
+    "trialOffsetHint": "Perubahan tetap di dialog ini sampai Anda menyimpan offset",
+    "saveOffset": "Simpan offset",
+    "useOffset": "Gunakan offset sinkronisasi",
+    "offsetNotice": "Hasil mencakup offset sinkronisasi Anda sebesar {offset} ms.",
     "title": "Tes latensi",
     "latencyDisplay": {
       "fastest": "Tercepat",
@@ -1161,6 +1339,11 @@
     "addPresets": "Tambah semua kolom standar",
     "clear": "Kosongkan"
   },
+  "helpText": {
+    "metadataArtists": "Siapa yang membawakan lagu, sesuai kredit lagu di layanan streaming. Contoh: \"Shake It Off\" oleh Taylor Swift.",
+    "metadataSongwriter": "Siapa yang menulis musik dan liriknya, sesuai kredit penulisan. Sering kali berbeda dari artisnya. Contoh: \"Shake It Off\" ditulis oleh Taylor Swift, Max Martin, dan Shellback.",
+    "openSongwritersGuide": "Buka panduan penulis lagu"
+  },
   "lrclib": {
     "placeholder": "Judul lagu dan artis…",
     "notFound": "Hasil tidak ditemukan, silakan coba ganti kata kunci",
@@ -1182,6 +1365,14 @@
     "wordTimingMismatch": "{count, plural, other {# baris memiliki jumlah kata berbeda; hanya posisi kata yang cocok yang disalin.}}",
     "insertLine": "Sisipkan baris baru di sini",
     "insertWord": "Sisipkan kata di sini…"
+  },
+  "editModeTools": {
+    "splitTypedLinesTitle": "Pecah baris yang diketik menjadi kata",
+    "splitTypedLinesDesc": "Teks yang diketik di baris kosong dipecah menjadi kata, sama seperti impor memecah baris.",
+    "scrollMemoryTitle": "Ingat posisi mode Edit",
+    "scrollMemoryDesc": "Buka setiap proyek di baris terakhir Anda dalam mode Edit.",
+    "swapDuetAll": "Tukar baris utama dan duet",
+    "swapDuetSelected": "Tukar utama dan duet"
   },
   "lyricWordView": {
     "empty": "Kosong",
@@ -1257,6 +1448,16 @@
     "placeholder": "Kata baru",
     "applyToAll": "Ganti semua kata yang sama",
     "caseSensitive": "Cocokkan huruf besar/kecil"
+  },
+  "replaceWordCombinationDialog": {
+    "title": "Ganti kombinasi kata",
+    "description": "Klik kata untuk mengedit teksnya. Waktu tetap sama.",
+    "word": "Kata {index}",
+    "reorderWord": "Pindahkan kata {index}",
+    "reorderHint": "Seret pegangan untuk mengubah urutan, atau fokuskan kata dan tekan Alt+Kiri/Kanan.",
+    "position": "Posisi {index} dari {count}",
+    "applyToAll": "Ganti semua kombinasi yang cocok",
+    "adjacentOnly": "Pilih kata atau suku kata yang bersebelahan dalam satu baris untuk mengganti kombinasi."
   },
   "replaceRomanizationDialog": {
     "title": "Ganti romanisasi",
@@ -1369,6 +1570,14 @@
   "autosave": {
     "legacyProjectName": "Snapshot lama",
     "untitledProjectName": "Proyek tanpa nama"
+  },
+  "didYouKnow": {
+    "title": "Tahukah kamu?",
+    "repeatedSection": "Baris yang berulang bisa memakai ulang timing sebelumnya. Pilih baris sebelumnya, taruh penunjuk putar di awal pengulangan, lalu gunakan Gandakan di penunjuk putar.",
+    "splitInTimeMode": "Kamu bisa memecah kata tanpa keluar dari mode Sinkronisasi: tahan {modifier} lalu klik dua kali kata itu.",
+    "turnOff": "Jangan tampilkan tips",
+    "setting": "Tampilkan tips",
+    "settingDesc": "Saat kamu mengerjakan sesuatu secara manual yang punya cara lebih cepat, tampilkan tips singkat. Setiap tips hanya muncul sekali."
   },
   "time": {
     "daysAgo": "{count, plural, other {# hari yang lalu}}",
@@ -1488,6 +1697,19 @@
     "apply": "Terapkan saran",
     "noSuggestions": "Tidak ada saran pemisahan otomatis yang tersedia untuk konten ini."
   },
+  "changelogScreen": {
+    "viewLabel": "Tampilkan",
+    "viewAll": "Semua",
+    "viewHighlights": "Sorotan",
+    "highlights": "Sorotan",
+    "latest": "Terbaru",
+    "sectionNew": "Baru",
+    "sectionChanged": "Diubah",
+    "sectionFixed": "Diperbaiki",
+    "empty": "Tidak ada rilis untuk ditampilkan.",
+    "versions": "Versi",
+    "earlier": "Sebelumnya"
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Editor TTML dan alat sinkronisasi lirik per kata bergaya Apple Music",
@@ -1510,6 +1732,23 @@
     "openContributorProfile": "Buka profil GitHub {name}",
     "unknown": "Tidak diketahui"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Jalur terpisah",
+    "settingDesc": "Tampilkan baris vokal latar di jalurnya sendiri di bawah baris utama. Jalur hanya untuk tampilan: ubah peran baris di mode edit.",
+    "menu": "Jalur",
+    "visibleLanes": "Tampilkan jalur",
+    "duetLane": "Jalur duet terpisah",
+    "lane": {
+      "main": "Utama",
+      "duet": "Duet",
+      "bg": "Latar"
+    }
+  },
+  "spectrogramLineEnds": {
+    "mergedHandle": "Akhir baris dan kata terakhir. Seret dengan Alt untuk menggeser salah satunya saja.",
+    "wordEndHandle": "Akhir kata terakhir",
+    "lineEndHandle": "Akhir baris"
+  },
   "spectrogram": {
     "invalidEndTime": "Tidak dapat memilih waktu akhir ini",
     "noAudioLoaded": "Muat file audio untuk menampilkan spektrogram",
@@ -1525,6 +1764,17 @@
       "4096": "4096 (detail terbanyak)"
     },
     "height": "Tinggi tampilan"
+  },
+  "spectrogramFollow": {
+    "toggle": "Ikuti playhead",
+    "shortcut": "Spektrogram - Aktifkan/nonaktifkan ikuti playhead",
+    "setting": "Ikuti playhead",
+    "settingDesc": "Menggulir spektrogram agar playhead tetap terlihat. Menggulir atau menyeret menjedanya sampai Anda menekan putar atau membiarkannya sebentar.",
+    "style": "Cara mengikuti",
+    "page": "Per halaman",
+    "pageDesc": "Melompat maju saat playhead keluar dari tampilan.",
+    "continuous": "Terus-menerus",
+    "continuousDesc": "Menggulir bersama playhead dan menjaganya di tengah."
   },
   "export": {
     "recoveryUntimed": "Ekspor pemulihan ini berisi lirik yang belum diberi waktu. Periksa waktunya sebelum mengirim.",

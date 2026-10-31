@@ -1,6 +1,6 @@
 import { Button, Card, Grid } from "@radix-ui/themes";
 import { useStore } from "jotai";
-import type { FC } from "react";
+import type { FC, PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 import {
 	keyMoveNextWordAtom,
@@ -9,12 +9,27 @@ import {
 	keySyncNextAtom,
 	keySyncStartAtom,
 } from "$/states/keybindings.ts";
-import { forceInvokeKeyBindingAtom } from "$/utils/keybindings.ts";
+import {
+	type atomWithKeybindingStorage,
+	forceInvokeKeyBindingAtom,
+} from "$/utils/keybindings.ts";
 import styles from "./index.module.css";
+
+type KeyBindingAtom = ReturnType<typeof atomWithKeybindingStorage>;
 
 export const TouchSyncPanel: FC = () => {
 	const store = useStore();
 	const { t } = useTranslation();
+	// One pointer handler covers mouse, pen and touch. Listening to both
+	// mousedown and touchstart fired every tap twice, because the browser
+	// follows a touch with synthesized mouse events.
+	const pressProps = (action: KeyBindingAtom) => ({
+		onPointerDown: (evt: PointerEvent<HTMLButtonElement>) => {
+			if (evt.button !== 0) return;
+			evt.preventDefault();
+			forceInvokeKeyBindingAtom(store, action, evt.nativeEvent);
+		},
+	});
 	return (
 		<Card
 			data-guide-target="touch-sync"
@@ -27,42 +42,15 @@ export const TouchSyncPanel: FC = () => {
 					variant="soft"
 					size="4"
 					style={{ gridColumn: "span 3" }}
-					onMouseDown={(evt) =>
-						forceInvokeKeyBindingAtom(
-							store,
-							keyMovePrevWordAtom,
-							evt.nativeEvent,
-						)
-					}
-					onTouchStart={(evt) =>
-						forceInvokeKeyBindingAtom(
-							store,
-							keyMovePrevWordAtom,
-							evt.nativeEvent,
-						)
-					}
+					{...pressProps(keyMovePrevWordAtom)}
 				>
 					{t("touchSyncPanel.prevWord", "Previous word")}
 				</Button>
-
 				<Button
 					variant="soft"
 					size="4"
 					style={{ gridColumn: "span 3" }}
-					onMouseDown={(evt) =>
-						forceInvokeKeyBindingAtom(
-							store,
-							keyMoveNextWordAtom,
-							evt.nativeEvent,
-						)
-					}
-					onTouchStart={(evt) =>
-						forceInvokeKeyBindingAtom(
-							store,
-							keyMoveNextWordAtom,
-							evt.nativeEvent,
-						)
-					}
+					{...pressProps(keyMoveNextWordAtom)}
 				>
 					{t("touchSyncPanel.nextWord", "Next word")}
 				</Button>
@@ -70,12 +58,7 @@ export const TouchSyncPanel: FC = () => {
 					variant="soft"
 					size="4"
 					style={{ gridColumn: "span 2" }}
-					onMouseDown={(evt) =>
-						forceInvokeKeyBindingAtom(store, keySyncStartAtom, evt.nativeEvent)
-					}
-					onTouchStart={(evt) =>
-						forceInvokeKeyBindingAtom(store, keySyncStartAtom, evt.nativeEvent)
-					}
+					{...pressProps(keySyncStartAtom)}
 				>
 					{t("ribbonBar.syncMode.startSync", "Start")}
 				</Button>
@@ -83,12 +66,7 @@ export const TouchSyncPanel: FC = () => {
 					variant="soft"
 					size="4"
 					style={{ gridColumn: "span 2" }}
-					onMouseDown={(evt) =>
-						forceInvokeKeyBindingAtom(store, keySyncNextAtom, evt.nativeEvent)
-					}
-					onTouchStart={(evt) =>
-						forceInvokeKeyBindingAtom(store, keySyncNextAtom, evt.nativeEvent)
-					}
+					{...pressProps(keySyncNextAtom)}
 				>
 					{t("ribbonBar.syncMode.continuousSync", "Next")}
 				</Button>
@@ -96,12 +74,7 @@ export const TouchSyncPanel: FC = () => {
 					variant="soft"
 					size="4"
 					style={{ gridColumn: "span 2" }}
-					onMouseDown={(evt) =>
-						forceInvokeKeyBindingAtom(store, keySyncEndAtom, evt.nativeEvent)
-					}
-					onTouchStart={(evt) =>
-						forceInvokeKeyBindingAtom(store, keySyncEndAtom, evt.nativeEvent)
-					}
+					{...pressProps(keySyncEndAtom)}
 				>
 					{t("ribbonBar.syncMode.endSync", "End")}
 				</Button>

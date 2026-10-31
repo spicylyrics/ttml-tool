@@ -1,0 +1,95 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+	height: min(780px, 88vh);
+}
+
+/* Same shape as the import screen: the text takes the room, the summary sits beside it. */
+.body {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 288px;
+	gap: var(--space-5);
+	flex: 1;
+	min-height: 0;
+}
+
+.main {
+	min-width: 0;
+	min-height: 0;
+}
+
+.side {
+	min-height: 0;
+}
+
+.sideInner {
+	padding-right: var(--space-3);
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Each change kind has its icon, so the list reads without color. */
+.change {
+	display: flex;
+	gap: var(--space-2);
+	align-items: flex-start;
+}
+
+.changeIcon {
+	display: flex;
+	flex: none;
+	padding-top: 3px;
+	color: var(--gray-11);
+}
+
+/* Lost timings are a caution, not an error: tinted amber, never filled. */
+.warning {
+	padding: var(--space-3);
+	border: 1px solid var(--amber-a6);
+	border-radius: var(--radius-4);
+	background-color: var(--amber-a2);
+}
+
+.warningTitle {
+	display: flex;
+	gap: var(--space-2);
+	align-items: flex-start;
+}
+
+.warningIcon {
+	flex: none;
+	margin-top: 3px;
+	color: var(--amber-11);
+}
+
+.lossyLine {
+	display: flex;
+	gap: var(--space-2);
+	min-width: 0;
+}
+
+.lineNumber {
+	flex-shrink: 0;
+	font-variant-numeric: tabular-nums;
+}
+
+.lineText {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+@media (prefers-contrast: more) {
+	.warning {
+		border-color: var(--amber-a8);
+	}
+}

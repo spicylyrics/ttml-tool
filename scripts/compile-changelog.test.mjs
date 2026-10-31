@@ -22,7 +22,7 @@ const note = (
 	highlight = false,
 	title = "A change",
 ) =>
-	`---\ntype: ${type}\nimpact: ${impact}\nhighlight: ${highlight}\n---\n${title}\n\nKeep **bold**, \`code\`, and [links](https://example.com).\n`;
+	`---\ntype: ${type}\nimpact: ${impact}\nhighlight: ${highlight}\n---\n${title}\n\nKeep **bold** and \`code\` readable\n`;
 const previous = [{ version: "0.10.3", color: "iris", entries: [] }];
 const directories = [];
 afterEach(() => {
@@ -55,11 +55,11 @@ describe("change note compilation", () => {
 			impact: 5,
 			highlight: true,
 			title: "A change",
-			body: "Keep **bold**, `code`, and [links](https://example.com).",
+			body: "Keep **bold** and `code` readable",
 		});
 	});
 	it.each([
-		["type: fix", "type: change", "type"],
+		["type: fix", "type: changed", "type"],
 		["impact: 3", "impact: 6", "impact"],
 		["impact: 3", "impact: 1.5", "impact"],
 		["highlight: false", "highlight: yes", "highlight"],
@@ -69,6 +69,9 @@ describe("change note compilation", () => {
 		["A change", "", "title"],
 		["A change\n\n", "A change\n", "blank line"],
 		["---\ntype", "type", "frontmatter"],
+		["A change\n", "A change.\n", "punctuation"],
+		["readable\n", "readable. Then more\n", "one sentence"],
+		["\n\nKeep **bold** and `code` readable", "", "body"],
 	])("rejects invalid notes with the filename (%s)", (from, to, message) => {
 		expect(() =>
 			parseChangeNote(note().replace(from, to), "changes/bad.md"),
@@ -80,6 +83,7 @@ describe("change note compilation", () => {
 			parseChangeNote(note("feature", 1, false, "Small")),
 			parseChangeNote(note("feature", 5, true, "Big")),
 			parseChangeNote(note("feature", 5, false, "Tie")),
+			parseChangeNote(note("change", 2, false, "Tweak")),
 		];
 		const release = createRelease(
 			previous,
@@ -92,6 +96,7 @@ describe("change note compilation", () => {
 			"Big",
 			"Tie",
 			"Small",
+			"Tweak",
 			"Fix",
 		]);
 		expect(release.entries[0].highlight).toBe(true);

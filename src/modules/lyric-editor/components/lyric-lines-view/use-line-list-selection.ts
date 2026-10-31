@@ -45,24 +45,22 @@ export function useLineListSelection({
 	const lastPlaybackScrolledIndexRef = useRef<number | undefined>(undefined);
 	const lyricStructure = useAtomValue(lyricLineStructureAtom);
 	const collapsedSections = useAtomValue(collapsedSectionIdsAtom);
-	const visibleItems = useMemo(
-		() =>
-			editLyric
-				.map((lineAtom, sourceIndex) => ({
-					lineAtom,
-					sourceIndex,
-					line: lyricStructure[sourceIndex],
-				}))
-				.filter(
-					({ line, sourceIndex }) =>
-						!line?.sectionId ||
-						!collapsedSections.has(line.sectionId) ||
-						lyricStructure.findIndex(
-							(candidate) => candidate.sectionId === line.sectionId,
-						) === sourceIndex,
-				),
-		[editLyric, lyricStructure, collapsedSections],
-	);
+	const visibleItems = useMemo(() => {
+		const seenSections = new Set<string>();
+		return editLyric
+			.map((lineAtom, sourceIndex) => ({
+				lineAtom,
+				sourceIndex,
+				line: lyricStructure[sourceIndex],
+			}))
+			.filter(({ line }) => {
+				if (!line?.sectionId || !collapsedSections.has(line.sectionId))
+					return true;
+				if (seenSections.has(line.sectionId)) return false;
+				seenSections.add(line.sectionId);
+				return true;
+			});
+	}, [editLyric, lyricStructure, collapsedSections]);
 
 	return {
 		scrollToIndex,

@@ -343,3 +343,16 @@
 	transition: none !important;
 	filter: none !important;
 }
+
+/* Lite effects: no glows or filters, and no compositor layer per Toxi word. */
+:global(:root[data-effects="lite"]) :is(.word, .wordActive) {
+	text-shadow: none;
+}
+
+:global(:root[data-effects="lite"]) :is(.extraLine, .wordActive, .wordPast) {
+	filter: none !important;
+}
+
+:global(:root[data-effects="lite"]) .isToxi :is(.word, .wordStatic) {
+	will-change: auto;
+}

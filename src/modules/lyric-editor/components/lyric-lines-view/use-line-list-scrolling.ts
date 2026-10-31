@@ -32,6 +32,10 @@ import {
 	resolveAnchorLineIndex,
 } from "../selection-scroll";
 import { findCurrentLineIndex } from "./current-line";
+import {
+	type EditScrollMemory,
+	useEditScrollMemory,
+} from "./use-edit-scroll-memory";
 import type { useLineListSelection } from "./use-line-list-selection";
 
 export function useLineListScrolling({
@@ -40,17 +44,22 @@ export function useLineListScrolling({
 	visibleItems,
 	toolMode,
 	store,
+	onAnchorSettled,
 }: {
 	viewElRef: React.RefObject<HTMLDivElement | null>;
 	viewRef: React.RefObject<ViewportListRef | null>;
 	visibleItems: ReturnType<typeof useLineListSelection>["visibleItems"];
 	toolMode: ToolMode;
 	store: ReturnType<typeof useStore>;
+	/** Called once the list sits on its restored line, or has none to restore. */
+	onAnchorSettled: () => void;
 }) {
 	// Explicit ref dependencies preserve the original callbacks: these refs never change identity.
 	const scrollRafRef = useRef<number | null>(null);
 	const isProgrammaticScrollRef = useRef(false);
 	const lastProgrammaticScrollTimeRef = useRef<number>(0);
+	// Set below, once scrollToLineIndex exists.
+	const editScrollMemoryRef = useRef<EditScrollMemory | null>(null);
 
 	const cancelScrollAnimation = useCallback(() => {
 		if (scrollRafRef.current !== null) {
@@ -80,6 +89,7 @@ export function useLineListScrolling({
 		if (closest !== -1) {
 			modeAnchorLines[toolMode] = closest;
 			sharedAnchorLineIndex = closest;
+			editScrollMemoryRef.current?.noteAnchor(closest);
 		}
 	}, [toolMode, viewElRef]);
 
@@ -216,6 +226,11 @@ export function useLineListScrolling({
 			viewRef,
 		],
 	);
+	editScrollMemoryRef.current = useEditScrollMemory({
+		store,
+		toolMode,
+		scrollToLineIndex,
+	});
 	const syncTabPosition = useAtomValue(
 		toolMode === ToolMode.Edit ? editTabPositionAtom : syncTabPositionAtom,
 	);
@@ -230,7 +245,7 @@ export function useLineListScrolling({
 			if (!instance || hasRestoredAnchorRef.current) return;
 
 			const leftState = modeLeftState[toolMode];
-			const targetLineIndex = resolveAnchorLineIndex({
+			const resolvedLineIndex = resolveAnchorLineIndex({
 				syncTabPosition,
 				toolMode,
 				unchangedSinceLeft:
@@ -246,9 +261,14 @@ export function useLineListScrolling({
 				syncFocusMainLine: store.get(syncFocusMainLineAtom),
 				findCurrentLineIndex,
 			});
+			// A project reopened with scroll memory on goes back to its saved spot.
+			const remembered = editScrollMemoryRef.current?.claimRestore() ?? -1;
+			const targetLineIndex =
+				remembered !== -1 ? remembered : resolvedLineIndex;
 
 			if (targetLineIndex === -1) {
 				hasRestoredAnchorRef.current = true;
+				onAnchorSettled();
 				return;
 			}
 
@@ -283,8 +303,13 @@ export function useLineListScrolling({
 				};
 				requestAnimationFrame(() => {
 					requestAnimationFrame(() => {
-						if (!centerTarget()) {
-							setTimeout(centerTarget, 50);
+						if (centerTarget()) {
+							onAnchorSettled();
+						} else {
+							setTimeout(() => {
+								centerTarget();
+								onAnchorSettled();
+							}, 50);
 						}
 					});
 				});
@@ -293,7 +318,7 @@ export function useLineListScrolling({
 				}
 			});
 		},
-		[syncTabPosition, store, toolMode, viewElRef, viewRef],
+		[syncTabPosition, store, toolMode, viewElRef, viewRef, onAnchorSettled],
 	);
 
 	return {

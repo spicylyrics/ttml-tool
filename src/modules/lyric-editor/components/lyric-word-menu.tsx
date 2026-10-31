@@ -10,6 +10,7 @@ import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentat
 import {
 	combineWordsDialogAtom,
 	replaceRomanizationDialogAtom,
+	replaceWordCombinationDialogAtom,
 	replaceWordDialogAtom,
 	splitWordDialogAtom,
 } from "$/states/dialogs";
@@ -30,6 +31,7 @@ import {
 	combineWordsApplyToAllAtom,
 	combineWordsIgnoreCaseAtom,
 } from "../tools/combine-words-options";
+import { getWordCombinationSelection } from "../tools/replace-word-combination";
 import {
 	combineMatchingWordSequences,
 	combineSelectedWords,
@@ -61,6 +63,9 @@ export const LyricWordMenu = ({
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const setOpenSplitWordDialog = useSetAtom(splitWordDialogAtom);
 	const setOpenReplaceWordDialog = useSetAtom(replaceWordDialogAtom);
+	const setReplaceWordCombinationDialog = useSetAtom(
+		replaceWordCombinationDialogAtom,
+	);
 	const setReplaceRomanizationDialog = useSetAtom(
 		replaceRomanizationDialogAtom,
 	);
@@ -73,6 +78,15 @@ export const LyricWordMenu = ({
 	const segmentationEngine = useAtomValue(segmentationEngineAtom);
 	const { config: segmentationConfig, isLoading: segmentationLoading } =
 		useSegmentationConfig();
+	// Read when the menu renders: words on different lines or with gaps can't
+	// be replaced as one combination, so the item greys out instead of opening.
+	const wordCombination =
+		selectedWordsSize > 1
+			? getWordCombinationSelection(
+					store.get(lyricLinesAtom).lyricLines,
+					store.get(selectedWordsAtom),
+				)
+			: null;
 
 	return (
 		<>
@@ -196,19 +210,33 @@ export const LyricWordMenu = ({
 					)}
 				</ContextMenu.Item>
 			)}
-			<ContextMenu.Item
-				disabled={selectedWordsSize !== 1}
-				onSelect={() => {
-					setEditingWordState({
-						wordIndex,
-						lineIndex,
-						word: word.word,
-					});
-					setOpenReplaceWordDialog(true);
-				}}
-			>
-				{t("contextMenu.replaceWord", "替换单词…")}
-			</ContextMenu.Item>
+			{selectedWordsSize > 1 ? (
+				<ContextMenu.Item
+					disabled={!wordCombination}
+					onSelect={() => {
+						setReplaceWordCombinationDialog({
+							open: true,
+							selection: wordCombination,
+						});
+					}}
+				>
+					{t("replaceWordCombinationDialog.title", "Replace word combination")}
+				</ContextMenu.Item>
+			) : (
+				<ContextMenu.Item
+					disabled={selectedWordsSize !== 1}
+					onSelect={() => {
+						setEditingWordState({
+							wordIndex,
+							lineIndex,
+							word: word.word,
+						});
+						setOpenReplaceWordDialog(true);
+					}}
+				>
+					{t("contextMenu.replaceWord", "替换单词…")}
+				</ContextMenu.Item>
+			)}
 			<ContextMenu.Item
 				disabled={selectedWordsSize !== 1}
 				onSelect={() => {

@@ -2,11 +2,13 @@ import { describe, expect, it } from "vitest";
 import { newLyricLine, newLyricWord } from "$/types/ttml";
 import {
 	buildSpicyLines,
+	createSpicyLineBuilder,
 	groupSpicyTokens,
 	isRtl,
 	keyFor,
 	type SpicyToken,
 	type SpicyWordGroup,
+	type SpicyWordProblems,
 } from "./model";
 
 const token = (
@@ -29,6 +31,79 @@ const flatten = (groups: SpicyWordGroup[]) =>
 	groups.flatMap((group) => group.items);
 
 describe("Spicy conversion ownership", () => {
+	it("reuses unchanged tokens and keeps grouping equivalent after edits", () => {
+		const build = createSpicyLineBuilder();
+		const source = Array.from({ length: 8 }, (_, index) => ({
+			...newLyricLine(),
+			id: `line-${index}`,
+			startTime: index * 5000,
+			endTime: index * 5000 + 2000,
+			isBG: index === 2 || index === 3,
+			words: [
+				{
+					...newLyricWord(),
+					word: "Hello ",
+					startTime: index * 5000,
+					endTime: index * 5000 + 2000,
+				},
+			],
+		}));
+		const first = build(source, false, false, false, true, undefined, true);
+		const edited = source.map((line, index) =>
+			index === 2
+				? {
+						...line,
+						endTime: line.endTime + 250,
+						words: line.words.map((word) => ({
+							...word,
+							endTime: word.endTime + 250,
+						})),
+					}
+				: line,
+		);
+		const next = build(edited, false, false, false, true, undefined, true);
+		expect(next).toEqual(
+			buildSpicyLines(edited, false, false, false, true, undefined, true),
+		);
+		expect(next.find((line) => line.id === "line-7")).toBe(
+			first.find((line) => line.id === "line-7"),
+		);
+		expect(next.find((line) => line.id === "line-2")?.words).not.toBe(
+			first.find((line) => line.id === "line-2")?.words,
+		);
+		const untimed = edited.map((line, index) =>
+			index === 0
+				? {
+						...line,
+						startTime: 0,
+						endTime: 0,
+						words: line.words.map((word) => ({
+							...word,
+							startTime: 0,
+							endTime: 0,
+						})),
+					}
+				: line,
+		);
+		for (const simple of [false, true]) {
+			for (const romanized of [false, true]) {
+				expect(
+					build(untimed, simple, romanized, true, false, undefined, true),
+				).toEqual(
+					buildSpicyLines(
+						untimed,
+						simple,
+						romanized,
+						true,
+						false,
+						undefined,
+						true,
+					),
+				);
+			}
+		}
+	});
+
 	it("does not mutate TTML input and preserves token keys across repeated conversion", () => {
 		const word = {
 			...newLyricWord(),
@@ -370,5 +445,211 @@ describe("buildSpicyLines", () => {
 		const [, bg] = buildSpicyLines([main, background], false, false);
 		expect(bg.words.map((word) => word.text)).toEqual(["oh", "yeah"]);
 		expect([bg.startTime, bg.endTime]).toEqual([200, 500]);
+	});
+});
+
+describe("Spicy timing problem marks", () => {
+	const build = (problems?: SpicyWordProblems) => {
+		const line = newLyricLine();
+		line.startTime = 1_000;
+		line.endTime = 2_000;
+		line.words = [
+			{ ...newLyricWord(), id: "ok", word: "Fine ", startTime: 1_000 },
+			{ ...newLyricWord(), id: "backwards", word: "back ", startTime: 1_600 },
+			{ ...newLyricWord(), id: "untimed", word: "none" },
+		];
+		line.words[0].endTime = 1_400;
+		line.words[1].endTime = 1_500;
+		return buildSpicyLines([line], false, false, false, false, problems)[0];
+	};
+
+	it("drops a word that ends before it starts when no problems are shown", () => {
+		const line = build();
+		expect(line.words.map((word) => word.id)).toEqual(["ok", "untimed"]);
+		expect(line.words.every((word) => word.problems === undefined)).toBe(true);
+	});
+
+	it("keeps and marks flagged words, playing a backwards word as zero-length", () => {
+		const line = build(
+			new Map([
+				["backwards", ["endsBeforeStart"]],
+				["untimed", ["untimed"]],
+			]),
+		);
+		expect(line.words.map((word) => [word.id, word.problems])).toEqual([
+			["ok", undefined],
+			["backwards", ["endsBeforeStart"]],
+			["untimed", ["untimed"]],
+		]);
+		const backwards = line.words[1];
+		expect([backwards.startTime, backwards.endTime]).toEqual([1_600, 1_600]);
+	});
+});
+
+describe("Spicy zero-width handling", () => {
+	const zwsp = String.fromCodePoint(0x200b);
+	const wordJoiner = String.fromCodePoint(0x2060);
+	const zwnj = String.fromCodePoint(0x200c);
+	const line = (words: Array<[string, number, number]>) => ({
+		...newLyricLine(),
+		id: "line",
+		startTime: 0,
+		endTime: 3_000,
+		words: words.map(([word, startTime, endTime], index) => ({
+			...newLyricWord(),
+			id: `w${index}`,
+			word,
+			startTime,
+			endTime,
+		})),
+	});
+
+	it("drops a syllable that is only a zero-width space", () => {
+		const [spicy] = buildSpicyLines(
+			[
+				line([
+					["Hi ", 0, 500],
+					[zwsp, 500, 600],
+					["there", 600, 900],
+				]),
+			],
+			false,
+			false,
+		);
+		expect(spicy.words.map((word) => word.text)).toEqual(["Hi", "there"]);
+	});
+
+	it("gives a held word no empty letter for an invisible mark", () => {
+		const [spicy] = buildSpicyLines(
+			[line([[`lo${zwsp}ve${wordJoiner}`, 0, 2_000]])],
+			false,
+			false,
+		);
+		expect(spicy.words[0].text).toBe("love");
+		expect(spicy.words[0].letters).toEqual(["l", "o", "v", "e"]);
+	});
+
+	it("keeps the joiners that shape a word", () => {
+		// Persian "mi" + ZWNJ + "ravam": the ZWNJ keeps the first part unjoined.
+		const word = `می${zwnj}روم`;
+		const [spicy] = buildSpicyLines([line([[word, 0, 400]])], false, false);
+		expect(spicy.words[0].text).toBe(word);
+	});
+});
+
+describe("Spicy untimed lines", () => {
+	const line = (
+		id: string,
+		startTime: number,
+		endTime: number,
+		isBG = false,
+	) => ({
+		...newLyricLine(),
+		id,
+		startTime,
+		endTime,
+		isBG,
+		words: [{ ...newLyricWord(), id: `${id}-w`, word: id, startTime, endTime }],
+	});
+	const build = (lines: ReturnType<typeof line>[]) =>
+		buildSpicyLines(lines, false, false, false, false, undefined, true);
+
+	it("drops untimed lines unless asked to show them", () => {
+		const lines = [line("a", 1_000, 2_000), line("b", 0, 0)];
+		expect(buildSpicyLines(lines, false, false).map((l) => l.id)).toEqual([
+			"a",
+		]);
+		const shown = build(lines);
+		expect(shown.map((l) => [l.id, l.isUntimed])).toEqual([
+			["a", undefined],
+			["b", true],
+		]);
+		// Zero-length where the line before it ends, so it is never active.
+		expect([shown[1].startTime, shown[1].endTime]).toEqual([2_000, 2_000]);
+	});
+
+	it("puts an interlude after untimed lines, right before the next timed one", () => {
+		const shown = build([
+			line("a", 1_000, 2_000),
+			line("b", 0, 0),
+			line("c", 9_000, 10_000),
+		]);
+		expect(shown.map((l) => (l.isDotLine ? "dots" : l.id))).toEqual([
+			"a",
+			"b",
+			"dots",
+			"c",
+		]);
+		expect([shown[2].startTime, shown[2].endTime]).toEqual([2_000, 9_000]);
+	});
+
+	it("keeps the leading interlude next to the first timed line", () => {
+		const shown = build([line("b", 0, 0), line("c", 9_000, 10_000)]);
+		expect(shown.map((l) => (l.isDotLine ? "dots" : l.id))).toEqual([
+			"b",
+			"dots",
+			"c",
+		]);
+	});
+
+	it("never stretches a lead over an untimed background vocal", () => {
+		const shown = build([line("a", 1_000, 2_000), line("bg", 0, 0, true)]);
+		expect(shown.map((l) => [l.id, l.isUntimed])).toEqual([
+			["a", undefined],
+			["bg", true],
+		]);
+		expect([shown[0].startTime, shown[0].endTime]).toEqual([1_000, 2_000]);
+	});
+});
+
+describe("Spicy line being synced", () => {
+	const word = (
+		id: string,
+		text: string,
+		startTime: number,
+		endTime: number,
+	) => ({
+		...newLyricWord(),
+		id,
+		word: text,
+		startTime,
+		endTime,
+	});
+	// Mid-sync: the first word set the line's start, its end comes with the last word.
+	const syncing = {
+		...newLyricLine(),
+		id: "s",
+		startTime: 1_000,
+		endTime: 0,
+		words: [
+			word("a", "One ", 1_000, 1_400),
+			word("b", "two ", 1_400, 0),
+			word("c", "three", 0, 0),
+		],
+	};
+
+	it("shows the line before its last word is synced", () => {
+		expect(buildSpicyLines([syncing], false, false)).toEqual([]);
+		const [line] = buildSpicyLines(
+			[syncing],
+			false,
+			false,
+			false,
+			false,
+			undefined,
+			true,
+		);
+		expect([line.id, line.startTime, line.endTime]).toEqual([
+			"s",
+			1_000,
+			1_400,
+		]);
+		expect(line.isUntimed).toBeUndefined();
+		// The word in progress and the ones after it stay, hollow.
+		expect(line.words.map((token) => [token.text, token.isUntimed])).toEqual([
+			["One", undefined],
+			["two", true],
+			["three", true],
+		]);
 	});
 });

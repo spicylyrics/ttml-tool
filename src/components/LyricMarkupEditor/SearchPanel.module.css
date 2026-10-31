@@ -1,0 +1,170 @@
+/* Nothing here animates: the panel follows typing and stepping through matches. */
+.panel {
+	flex-shrink: 0;
+	min-width: 0;
+	border-bottom: 1px solid var(--gray-a4);
+}
+
+/* Toggle, field, controls; the replace row lines up under the find row. */
+.grid {
+	display: grid;
+	grid-template-columns: auto minmax(200px, 1fr) auto;
+	gap: var(--space-2);
+	align-items: center;
+	padding: var(--space-2);
+}
+
+/* Every icon in the bar at 16px, scaled with the interface. */
+.panel svg {
+	flex-shrink: 0;
+	width: var(--space-4);
+	height: var(--space-4);
+}
+
+.field {
+	min-width: 0;
+}
+
+.controls {
+	min-width: 0;
+}
+
+.count {
+	min-width: 9ch;
+	color: var(--gray-11);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.count[data-error] {
+	color: var(--red-11);
+}
+
+/* Pressed toggles take a fill and a ring, never just a colour change. */
+.toggle {
+	color: var(--gray-11);
+}
+
+.toggle[data-pressed] {
+	background-color: var(--accent-a5);
+	color: var(--accent-12);
+	box-shadow: inset 0 0 0 1px var(--accent-a8);
+}
+
+.toggle[data-pressed]:hover {
+	background-color: var(--accent-a6);
+}
+
+.close {
+	margin-left: var(--space-1);
+}
+
+/* Every match, one per row. Capped so the editor keeps most of the space. */
+.list {
+	max-height: min(32vh, 260px);
+	margin: 0;
+	padding: 0 var(--space-2) var(--space-2);
+	overflow-y: auto;
+	list-style: none;
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-1);
+	border-radius: var(--radius-2);
+}
+
+.row:hover {
+	background-color: var(--gray-a3);
+}
+
+.row[data-current] {
+	background-color: var(--accent-a3);
+}
+
+.rowButton {
+	display: flex;
+	flex: 1;
+	align-items: baseline;
+	gap: var(--space-2);
+	min-width: 0;
+	padding: var(--space-1) var(--space-2);
+	border: 0;
+	border-radius: var(--radius-2);
+	background: none;
+	color: var(--gray-12);
+	font: inherit;
+	font-size: var(--font-size-2);
+	line-height: 1.7;
+	text-align: left;
+	cursor: pointer;
+}
+
+.rowButton:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: -2px;
+}
+
+.lineNumber {
+	flex-shrink: 0;
+	min-width: 3ch;
+	color: var(--gray-11);
+	font-variant-numeric: tabular-nums;
+	text-align: right;
+}
+
+.excerpt {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	color: var(--gray-11);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.hit {
+	border-radius: var(--radius-1);
+	background-color: var(--accent-a5);
+	color: var(--gray-12);
+}
+
+/* Old text struck through, new text right after it. */
+.removed {
+	color: var(--gray-11);
+	text-decoration: line-through;
+	text-decoration-color: var(--gray-a9);
+}
+
+.added {
+	margin-left: 2px;
+	border-radius: var(--radius-1);
+	background-color: var(--accent-a5);
+	color: var(--gray-12);
+}
+
+.rowKind {
+	flex-shrink: 0;
+	color: var(--gray-11);
+	font-size: var(--font-size-2);
+}
+
+.rowReplace {
+	flex-shrink: 0;
+	margin-right: var(--space-1);
+}
+
+.more {
+	padding: 2px var(--space-2);
+}
+
+@media (prefers-contrast: more) {
+	.toggle[data-pressed] {
+		box-shadow: inset 0 0 0 1px var(--accent-11);
+	}
+	.excerpt,
+	.removed,
+	.lineNumber {
+		color: var(--gray-12);
+	}
+}

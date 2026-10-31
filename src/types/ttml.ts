@@ -32,6 +32,8 @@ export interface TTMLLyric {
 	lyricLines: LyricLine[];
 	marks?: Mark[];
 	sections?: LyricSection[];
+	/** `xml:lang` for translations, from the imported file. Export defaults to English. */
+	translationLanguage?: string;
 }
 
 export const LYRIC_SECTION_CATEGORIES = [

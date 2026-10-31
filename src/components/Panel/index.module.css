@@ -1,0 +1,89 @@
+/* Radix Card sets --card-background-color and the ::before blur at the same
+   specificity as a single class, so the doubled class wins regardless of
+   stylesheet order. */
+.panel.panel {
+	--card-background-color: var(--color-panel-solid);
+}
+
+.panel.panel::before {
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+.sunken.sunken {
+	--card-background-color: var(--gray-2);
+}
+
+/* A custom background is the one thing worth seeing through a panel. No blur:
+   panels can sit near the sync surface. */
+:global(:root[data-design="spicy-lyrics"][data-design-backdrop]) .panel.panel {
+	--card-background-color: var(--color-panel-translucent);
+}
+
+:global(:root[data-design="spicy-lyrics"][data-design-backdrop])
+	.sunken.sunken {
+	--card-background-color: color-mix(in oklab, var(--gray-2) 84%, transparent);
+}
+
+/* Same selectors as the translucent rules above, so these win on order. */
+@media (prefers-reduced-transparency: reduce) {
+	:global(:root[data-design="spicy-lyrics"][data-design-backdrop])
+		.panel.panel {
+		--card-background-color: var(--color-panel-solid);
+	}
+
+	:global(:root[data-design="spicy-lyrics"][data-design-backdrop])
+		.sunken.sunken {
+		--card-background-color: var(--gray-2);
+	}
+}
+
+@media (prefers-contrast: more) {
+	.panel.panel {
+		--base-card-surface-box-shadow: 0 0 0 1px var(--gray-a8);
+	}
+}
+
+.interactive {
+	appearance: none;
+	width: 100%;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	text-align: start;
+	cursor: var(--cursor-button, pointer);
+	transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.interactive:active:not(:disabled, :focus-visible) {
+	transform: scale(0.97);
+}
+
+.interactive:disabled {
+	cursor: default;
+	opacity: 0.6;
+}
+
+/* A 2px ring on Radix's border layer (it sits 1px inside the edge, so
+   half the ring spreads out and half in), plus a light accent tint. */
+.selected.selected {
+	--panel-selected-ring:
+		0 0 0 1px var(--accent-9), inset 0 0 0 1px var(--accent-9);
+	--base-card-surface-box-shadow: var(--panel-selected-ring);
+	--base-card-surface-hover-box-shadow: var(--panel-selected-ring);
+	--base-card-surface-active-box-shadow: var(--panel-selected-ring);
+}
+
+.selected.selected::before {
+	background-image: linear-gradient(var(--accent-a3), var(--accent-a3));
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.interactive {
+		transition: none;
+	}
+
+	.interactive:active:not(:disabled, :focus-visible) {
+		transform: none;
+	}
+}

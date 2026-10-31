@@ -1,5 +1,11 @@
 [
 	{
+		"login": "BajekekButLost",
+		"avatarUrl": "https://avatars.githubusercontent.com/u/114338572?v=4",
+		"profileUrl": "https://github.com/BajekekButLost",
+		"contributions": 27
+	},
+	{
 		"login": "VictorGugug",
 		"avatarUrl": "https://avatars.githubusercontent.com/u/172241852?v=4",
 		"profileUrl": "https://github.com/VictorGugug",
@@ -10,6 +16,12 @@
 		"avatarUrl": "https://avatars.githubusercontent.com/u/88393630?v=4",
 		"profileUrl": "https://github.com/Spikerko",
 		"contributions": 9
+	},
+	{
+		"login": "remiuku",
+		"avatarUrl": "https://avatars.githubusercontent.com/u/156341139?v=4",
+		"profileUrl": "https://github.com/remiuku",
+		"contributions": 8
 	},
 	{
 		"login": "olafix52",
@@ -24,12 +36,6 @@
 		"contributions": 5
 	},
 	{
-		"login": "remiuku",
-		"avatarUrl": "https://avatars.githubusercontent.com/u/156341139?v=4",
-		"profileUrl": "https://github.com/remiuku",
-		"contributions": 5
-	},
-	{
 		"login": "Stormanzanii",
 		"avatarUrl": "https://avatars.githubusercontent.com/u/145221345?v=4",
 		"profileUrl": "https://github.com/Stormanzanii",
@@ -40,6 +46,12 @@
 		"avatarUrl": "https://avatars.githubusercontent.com/u/81847?v=4",
 		"profileUrl": "https://github.com/claude",
 		"contributions": 2
+	},
+	{
+		"login": "0xEAF",
+		"avatarUrl": "https://avatars.githubusercontent.com/u/206886329?v=4",
+		"profileUrl": "https://github.com/0xEAF",
+		"contributions": 1
 	},
 	{
 		"login": "lastforathousandyears",

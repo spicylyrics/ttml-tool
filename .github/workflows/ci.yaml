@@ -33,6 +33,13 @@ jobs:
         run: git fetch --no-tags origin "$BASE_SHA"
       - name: Require a change note
         run: node scripts/check-changelog.mjs
+      # Run the release compile on every pending note, so a broken one fails
+      # here instead of at release time.
+      - name: Validate change notes
+        run: |
+          if ls changes/*.md | grep -qv README.md; then
+            node scripts/compile-changelog.mjs --version 999.0.0 --summary "CI check" --dry-run > /dev/null
+          fi
   check:
     name: check
     runs-on: ubuntu-latest

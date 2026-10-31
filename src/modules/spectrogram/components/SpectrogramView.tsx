@@ -2,15 +2,17 @@ import { MusicNote2Filled } from "@fluentui/react-icons";
 import { Button, Flex, Text, Theme } from "@radix-ui/themes";
 import type { useAudioSpectrogram } from "../hooks/useAudioSpectrogram";
 import styles from "./AudioSpectrogram.module.css";
+import { HoverCursor, HoverTimeTooltip } from "./HoverIndicators.tsx";
 import { LyricTimelineOverlay } from "./LyricTimelineOverlay.tsx";
 import { PlayheadCursor, ScrubHandle } from "./Playhead";
 import { SpectrogramContext } from "./SpectrogramContext.ts";
+import { SpectrogramLaneLabels } from "./SpectrogramLaneLabels.tsx";
 import {
 	SpectrogramGainSidebar,
 	SpectrogramSettingsSidebar,
 } from "./SpectrogramSidebars";
 import { TileComponent } from "./TileComponent.tsx";
-import { RULER_HEIGHT, TimelineRuler } from "./TimelineRuler.tsx";
+import { TimelineRuler } from "./TimelineRuler.tsx";
 import { TimeShiftToolbar } from "./TimeShiftToolbar.tsx";
 
 export function SpectrogramView({
@@ -30,10 +32,9 @@ export function SpectrogramView({
 	containerWidth,
 	handleRulerScrubStart,
 	isDragging,
-	hoverPx,
 	isHovering,
-	tooltipBgColor,
-	hoverTimeFormatted,
+	isInvalidEndTime,
+	editingTimeField,
 	scrollContainerRef,
 	scrollLeft,
 	handleMouseEnter,
@@ -52,8 +53,6 @@ export function SpectrogramView({
 	selectionStyle,
 	contextValue,
 	selectedLines,
-	hoverX,
-	hoverLineColor,
 	showUnselectedLines,
 	setShowUnselectedLines,
 	setPreviewActive,
@@ -110,36 +109,11 @@ export function SpectrogramView({
 							/>
 
 							{!isDragging && (
-								<>
-									<div
-										className={styles.hoverTimeTooltip}
-										style={{
-											left: `${hoverPx}px`,
-											opacity: isHovering ? 1 : 0,
-											backgroundColor: tooltipBgColor,
-										}}
-									>
-										{hoverTimeFormatted}
-									</div>
-
-									<div
-										className={`${styles.rulerHoverFade} ${styles.rulerHoverFadeLeft}`}
-										style={{
-											width: `${hoverPx}px`,
-											height: `${RULER_HEIGHT}px`,
-											opacity: isHovering ? 1 : 0,
-										}}
-									/>
-
-									<div
-										className={`${styles.rulerHoverFade} ${styles.rulerHoverFadeRight}`}
-										style={{
-											left: `${hoverPx}px`,
-											height: `${RULER_HEIGHT}px`,
-											opacity: isHovering ? 1 : 0,
-										}}
-									/>
-								</>
+								<HoverTimeTooltip
+									isHovering={isHovering}
+									isInvalidEndTime={isInvalidEndTime}
+									editingTimeField={editingTimeField}
+								/>
 							)}
 
 							<ScrubHandle
@@ -208,22 +182,17 @@ export function SpectrogramView({
 												hiddenLineIds={showRangePreview ? selectedLines : null}
 											/>
 											{!isDragging && (
-												<div
-													className={styles.hoverCursorContainer}
-													style={{
-														left: `${hoverX}px`,
-														opacity: isHovering ? 1 : 0,
-													}}
-												>
-													<div
-														className={styles.hoverCursorLine}
-														style={{ backgroundColor: hoverLineColor }}
-													/>
-												</div>
+												<HoverCursor
+													isHovering={isHovering}
+													isInvalidEndTime={isInvalidEndTime}
+												/>
 											)}
 										</Theme>
 									</SpectrogramContext.Provider>
 								</div>
+								<Theme appearance="dark">
+									<SpectrogramLaneLabels />
+								</Theme>
 							</div>
 							<TimeShiftToolbar />
 						</>

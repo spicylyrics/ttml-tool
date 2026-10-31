@@ -482,7 +482,8 @@ export const TimingOverview = memo(() => {
 							#
 						</div>
 						<div
-							className={styles.fixedCell}
+							className={classNames(styles.fixedCell, styles.headerCell)}
+							title={t("timingOverview.start", "Start")}
 							style={{
 								width: "100px",
 								padding: "8px 12px",
@@ -494,7 +495,8 @@ export const TimingOverview = memo(() => {
 							{t("timingOverview.start", "Start")}
 						</div>
 						<div
-							className={styles.fixedCell}
+							className={classNames(styles.fixedCell, styles.headerCell)}
+							title={t("timingOverview.end", "End")}
 							style={{
 								width: "100px",
 								padding: "8px 12px",
@@ -506,7 +508,8 @@ export const TimingOverview = memo(() => {
 							{t("timingOverview.end", "End")}
 						</div>
 						<div
-							className={styles.fixedCell}
+							className={classNames(styles.fixedCell, styles.headerCell)}
+							title={t("timingOverview.duration", "Duration")}
 							style={{
 								width: "80px",
 								padding: "8px 12px",

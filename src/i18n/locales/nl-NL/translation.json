@@ -3,6 +3,12 @@
     "changelogTitle": "Wijzigingslogboek en updates",
     "viewCommits": "Commits bekijken op GitHub"
   },
+  "updatedToast": {
+    "message": "Bijgewerkt naar v{version}",
+    "seeChanges": "Bekijk wat er is veranderd",
+    "setting": "Na een update laten zien wat er is veranderd",
+    "settingDesc": "Toont bij de eerste start van een nieuwe versie een korte melding met een link naar het wijzigingslogboek."
+  },
   "app": {
     "error": {
       "title": "Oeps, er is een fout opgetreden!",
@@ -23,6 +29,7 @@
     "window": {
       "minimize": "Venster minimaliseren",
       "maximize": "Venster maximaliseren",
+      "restore": "Venster herstellen",
       "close": "Venster sluiten"
     }
   },
@@ -32,6 +39,15 @@
   "preview": {
     "untimedLines": "{count, plural, one {# regel heeft nog geen timing} other {# regels hebben nog geen timing}}",
     "jumpToUntimed": "Synchroniseer de eerste regel zonder timing"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# woord heeft een timingprobleem} other {# woorden hebben timingproblemen}}",
+    "jump": "Selecteer het eerste",
+    "untimed": "Geen timing in een getimede regel",
+    "untimedLine": "Nog niet getimed",
+    "endsBeforeStart": "Eindigt voordat het begint",
+    "startsBeforeLine": "Begint voor zijn regel",
+    "endsAfterLine": "Eindigt na zijn regel"
   },
   "beginnerGuide": {
     "empty": {
@@ -210,7 +226,57 @@
       "dropped": "Niet geïmporteerd",
       "missingTranslation": "Vertaling ontbreekt",
       "missingRomanization": "Romanisering ontbreekt"
+    },
+    "search": {
+      "label": "Zoeken en vervangen",
+      "find": "Zoeken",
+      "replace": "Vervangen door",
+      "matchCase": "Hoofdlettergevoelig",
+      "wholeWord": "Heel woord",
+      "regex": "Patroon gebruiken (regex)",
+      "inSelection": "Alleen in de selectie",
+      "showList": "Alle resultaten tonen",
+      "listLabel": "Resultaten",
+      "rows": "Regels om te doorzoeken",
+      "rowsAll": "Alle regels",
+      "rowsLyrics": "Alleen songtekst",
+      "rowsTranslations": "Vertalingen en romanisering",
+      "previous": "Vorig resultaat",
+      "next": "Volgend resultaat",
+      "toggleReplace": "Vervangen tonen",
+      "close": "Zoeken sluiten",
+      "replaceOne": "Vervangen",
+      "replaceAll": "Alles vervangen",
+      "replaceThis": "Dit resultaat vervangen",
+      "count": "{count, plural, one {# resultaat} other {# resultaten}}",
+      "position": "{current} van {count}",
+      "noMatches": "Geen resultaten",
+      "replaced": "{count, plural, one {# resultaat vervangen} other {# resultaten vervangen}}",
+      "invalid": "Patroon is ongeldig"
     }
+  },
+  "editAsText": {
+    "menuItem": "Bewerken als tekst...",
+    "title": "Bewerken als tekst",
+    "description": "Bewerk de hele songtekst als platte tekst. Woorden die je niet wijzigt, houden hun timing.",
+    "textLabel": "Songtekst",
+    "toolsHint": "Songteksten verwerken en Lettergrepen splitsen werken op de geselecteerde regels, of op alles als er niets is geselecteerd.",
+    "nothingToProcess": "Niets te wijzigen.",
+    "summaryTitle": "Wijzigingen",
+    "unchanged": "{count, plural, one {# regel ongewijzigd} other {# regels ongewijzigd}}",
+    "edited": "{count, plural, one {# regel bewerkt} other {# regels bewerkt}}",
+    "editedHint": "Timing blijft behouden waar woorden overeenkomen.",
+    "moved": "{count, plural, one {# regel verplaatst} other {# regels verplaatst}}",
+    "added": "{count, plural, one {# regel toegevoegd} other {# regels toegevoegd}}",
+    "removed": "{count, plural, one {# regel verwijderd} other {# regels verwijderd}}",
+    "noChanges": "Nog geen wijzigingen.",
+    "droppedTimings": "{count, plural, one {# getimed woord verliest zijn timing} other {# getimede woorden verliezen hun timing}}",
+    "lineNumber": "Regel {line}",
+    "more": "{count, plural, one {en # meer} other {en # meer}}",
+    "help": "Nieuwe woorden komen binnen zonder timing. Regels die alleen verplaatst zijn, houden hun timing. Toepassen is één stap ongedaan maken.",
+    "apply": "Toepassen",
+    "applied": "Tekst toegepast. Ongedaan maken draait het in één stap terug.",
+    "failed": "Kan de tekst niet toepassen. Controleer hem en probeer het opnieuw."
   },
   "importChooser": {
     "options": {
@@ -257,6 +323,12 @@
       "title": "Nieuwe songtekst importeren?",
       "description": "Je hebt niet-opgeslagen wijzigingen. Als je doorgaat, gaan deze wijzigingen verloren. Weet je zeker dat je nieuwe songteksten wilt importeren?"
     },
+    "discardTextEdits": {
+      "title": "Je wijzigingen verwerpen?",
+      "description": "De tekst heeft wijzigingen die je niet hebt toegepast. Als je nu sluit, gaan ze verloren.",
+      "discard": "Verwerpen",
+      "keepEditing": "Verder bewerken"
+    },
     "noSongwriter": {
       "description": "Er zijn geen liedschrijvers toegevoegd. Toch opslaan?"
     },
@@ -277,6 +349,30 @@
       "noPreviousFound": "Geen eerdere overeenkomende sectie met timing gevonden.",
       "noMatchingLines": "Geen regels in deze sectie komen overeen met de eerdere, dus er is niets gekopieerd.",
       "copyPrevious": "Vorige timing kopiëren"
+    }
+  },
+  "logoColor": {
+    "title": "Logokleur",
+    "description": "Kies een kleur voor het logo in de titelbalk en op het welkomstscherm van de gids.",
+    "descriptionDesktop": "Kies een kleur voor het venster- en taakbalkpictogram van de app en op Windows voor de snelkoppelingen op het bureaublad en in het menu Start.",
+    "colorLabel": "Kleur",
+    "customLabel": "Aangepaste logokleur",
+    "designNote": "Het logo is alleen te zien als het Spicy Lyrics-ontwerp aan staat.",
+    "presets": {
+      "default": "Standaard",
+      "defaultDesc": "De eigen kleur van het ontwerp",
+      "lilac": "Lila",
+      "lilacDesc": "Uit het v3-logo",
+      "purple": "Paars",
+      "purpleDesc": "Uit het veelkleurige logo",
+      "red": "Rood",
+      "redDesc": "Uit het v0.9-logo",
+      "gold": "Goud",
+      "green": "Groen",
+      "blue": "Blauw",
+      "white": "Wit",
+      "custom": "Aangepast",
+      "customDesc": "Kies een willekeurige kleur"
     }
   },
   "common": {
@@ -306,6 +402,7 @@
     "preview": "Voorbeeld"
   },
   "dialog": {
+    "openFilesIgnored": "{count, plural, one {# bestand is overgeslagen} other {# bestanden zijn overgeslagen}}: open één songtekstbestand en één audiobestand tegelijk.",
     "createProjectPrompt": {
       "title": "Een project aanmaken?",
       "description": "Bewaar de audio en songteksten bij elkaar in een projectmap.",
@@ -331,6 +428,18 @@
     "openWorkspace": {
       "title": "Kies een werkruimtemap met projecten"
     }
+  },
+  "commandPalette": {
+    "title": "Opdrachtpalet",
+    "placeholder": "Opdrachten en instellingen zoeken",
+    "noResults": "Geen overeenkomende opdrachten of instellingen",
+    "commandTag": "Opdracht",
+    "settingTag": "Voorkeuren",
+    "hint": "Pijltjestoetsen om te bewegen, Enter om uit te voeren, Esc om te sluiten",
+    "notRunnable": "Kan deze opdracht niet uitvoeren. Geef hem een sneltoets in Voorkeuren en probeer het opnieuw.",
+    "menu": "Opdrachtpalet...",
+    "shortcut": "Beeld - Opdrachtpalet openen",
+    "shortcutAlternate": "Beeld - Opdrachtpalet openen (alternatieve sneltoets)"
   },
   "projectsDialog": {
     "title": "Projecten",
@@ -433,7 +542,7 @@
       "mode": "Modus",
       "standard": "Standard",
       "timing": "Timing",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Eenvoudige songtekstmodus",
       "forceLineRendering": "Als regelsynchronisatie tonen",
       "background": "Achtergrond",
@@ -605,6 +714,15 @@
         "accentNote": "Het Spicy Lyrics-ontwerp heeft een eigen lavendelkleurig accent. Zet een eigen accentkleur aan om een andere te gebruiken.",
         "legacyDarkThemeNote": "Heeft geen effect zolang het Spicy Lyrics-ontwerp aan staat.",
         "fontNote": "Geist, uit het Spicy Lyrics-ontwerp"
+      },
+      "effects": {
+        "title": "Visuele effecten",
+        "description": "Lichter schakelt vervaging, gloed, dialooganimaties en de bewegende achtergrond van het voorbeeld uit, zodat de app soepel blijft waar die traag worden getekend. Het zet ook de glasvervaging uit.",
+        "auto": "Automatisch",
+        "full": "Volledig",
+        "lite": "Lichter",
+        "autoLite": "Lichter wordt gebruikt, omdat Linux deze effecten traag tekent.",
+        "autoFull": "Volledig wordt gebruikt."
       },
       "presets": {
         "missingBackground": "De achtergrondafbeelding van deze voorinstelling is niet beschikbaar op dit apparaat. Het huidige beeld werd behouden.",
@@ -838,7 +956,7 @@
       "timingOverviewAutoScrollDesc": "Houd het timingoverzicht gescrold naar de afspeelpositie.",
       "vsyncDesc": "Werk de Standard- en Toxi-voorbeelden elk frame bij in plaats van ongeveer 30 keer per seconde. Vloeiender, maar gebruikt meer CPU.",
       "showFpsDesc": "Toon een framerateteller op het voorbeeld.",
-      "syncLevelDesc": "Woord: synchroniseer elk woord. Regel: synchroniseer hele regels en verdeel de woorden gelijkmatig voor een ruwe timing die je in het spectrogram verfijnt.",
+      "syncLevelDesc": "Woord: synchroniseer elk woord. Regel: synchroniseer hele regels en verdeel de woorden gelijkmatig. Ook Regel slaat timing per woord op, geen per regel gesynchroniseerde songtekst, dus verfijn de woorden in het spectrogram.",
       "previewModeDesc": "Kies welk voorbeeld het tabblad Voorbeeld toont.",
       "spicyBackgroundDesc": "Wat er achter het Spicy-voorbeeld te zien is.",
       "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden."
@@ -858,6 +976,10 @@
     "order": "Volgorde",
     "orderChronological": "Chronologisch",
     "orderTextual": "Tekstvolgorde"
+  },
+  "joinSplitWords": {
+    "label": "Gesplitste woorden samenvoegen",
+    "description": "Toon een woord dat in delen wordt gezongen als één woord wanneer de delen gelijkmatig aansluiten, zoals de instelling Join Split Words in Spicy Lyrics."
   },
   "topBar": {
     "modeBtns": {
@@ -932,6 +1054,7 @@
     "deleteWords": "{count, plural, one {# woord verwijderen} other {# woorden verwijderen}}",
     "bgLyric": "Achtergrondregel",
     "duetLyric": "Duetregel",
+    "lineRole": "Rol van de regel",
     "moveLineToPlayhead": "Regel naar afspeelkop verplaatsen",
     "copyTimingsTo": "Timing kopiëren naar…",
     "cancelCopyTimings": "Kopiëren van timing annuleren",
@@ -958,12 +1081,15 @@
   "settingsDialog": {
     "search": "Instellingen zoeken",
     "clearSearch": "Zoekopdracht wissen",
-    "noSearchResults": "Geen overeenkomende categorieën",
+    "matchCount": "Overeenkomende instellingen: {count}",
+    "noResults": "Geen instellingen gevonden voor \"{query}\"",
+    "noResultsDesc": "Probeer een ander woord of wis de zoekopdracht.",
     "title": "Voorkeuren",
     "common": {
       "latencyTest": "Audio-/invoerlatentietest"
     },
     "keybindings": {
+      "clearWordTiming": "Timing - Tijdstempels van woord/lettergreep wissen",
       "newFile": "Nieuw bestand",
       "openFile": "Bestand openen",
       "saveFile": "Bestand opslaan",
@@ -972,6 +1098,8 @@
       "redoAlternate": "Opnieuw uitvoeren (alternatieve sneltoets)",
       "selectAll": "Alles selecteren",
       "unselectAll": "Alles deselecteren",
+      "findInLyrics": "Zoeken in songtekst",
+      "replaceInLyrics": "Vervangen in songtekst",
       "deleteSelection": "Selectie verwijderen",
       "autoSegment": "Snel automatisch splitsen",
       "autoSegmentDialog": "Automatisch splitsen…",
@@ -1010,6 +1138,15 @@
       "auditionSelection": "Spectrogram - Selectie afspelen",
       "auditionSelectionAfter": "Spectrogram - Selectie afspelen (+0,5 s erna)",
       "cancelTimelineEditing": "Spectrogram - Tijdlijnbewerking annuleren",
+      "exportTtml": "Songtekst exporteren: TTML",
+      "exportLrc": "Songtekst exporteren: LRC",
+      "exportEslrc": "Songtekst exporteren: ESLRC",
+      "exportQrc": "Songtekst exporteren: QRC",
+      "exportYrc": "Songtekst exporteren: YRC",
+      "exportLys": "Songtekst exporteren: Lyricify Syllable",
+      "exportAss": "Songtekst exporteren: ASS-ondertitels",
+      "newLyricLine": "Nieuwe songtekstregel",
+      "advancedRibbonControls": "Geavanceerde lintopties",
       "resetDefault": "Standaard herstellen",
       "clear": "Wissen",
       "unbound": "Niet ingesteld",
@@ -1021,30 +1158,59 @@
         "View": "Beeld",
         "Sync": "Timing",
         "Audio": "Geluid",
-        "Spectrogram": "Spectrogram"
+        "Spectrogram": "Spectrogram",
+        "Tools": "Hulpmiddelen",
+        "Help": "Hulp",
+        "Preview": "Voorbeeld"
       },
-      "autoSegmentOptions": "Automatisch splitsen",
-      "autoSegmentDoublePress": "Dubbele druk vereist",
-      "autoSegmentDoublePressDesc": "Voer snel automatisch splitsen alleen uit als je de sneltoets twee keer snel indrukt."
+      "showAll": "Acties zonder toets tonen"
     },
     "tab": {
       "common": "Algemeen",
       "appearance": "Uiterlijk",
-      "audio": "Geluid",
-      "keybindings": "Sneltoetsen",
-      "spectrogram": "Spectrogram",
+      "editing": "Bewerken",
+      "syncing": "Synchroniseren",
+      "preview": "Voorbeeld",
+      "audioSpectrogram": "Audio en spectrogram",
+      "importFiles": "Importeren en bestanden",
       "backup": "Back-up",
-      "editor": "Editor en synchronisatie",
-      "files": "Bestanden en opslag"
-    },
-    "page": {
-      "generalDesc": "Taal, privacy en algemeen gedrag van de app.",
-      "editorDesc": "Tijdinvoer, synchronisatiegedrag en visuele hints.",
-      "filesDesc": "Opschonen bij importeren, geschiedenis van automatisch opslaan en draagbare back-ups.",
-      "audioDesc": "Afspelen, equalizer en spectrogramweergave."
+      "keybindings": "Sneltoetsen",
+      "changelog": "Wijzigingen"
     }
   },
-  "autoSegmentApplied": "Automatisch gesegmenteerd met {engine}",
+  "keyboardView": {
+    "title": "Toetsenbord",
+    "search": "Acties zoeken",
+    "searchResults": "{count, plural, =0 {Geen acties gevonden} one {# actie gevonden} other {# acties gevonden}}",
+    "layout": "Toetsenbordindeling",
+    "layoutAuto": "Automatisch",
+    "layoutDetected": "Gevonden: {layout}",
+    "layoutUnavailable": "De indeling kan hier niet worden bepaald, dus QWERTY wordt getoond",
+    "layerHint": "Klik op een aanpassingstoets, zoals Shift, om de sneltoetsen te zien die hem gebruiken.",
+    "category": {
+      "sync": "Synchronisatie",
+      "edit": "Bewerken",
+      "playback": "Afspelen",
+      "navigation": "Navigatie"
+    },
+    "free": "Vrij",
+    "keyFree": "{key}: vrij",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Sneltoetsen met {key} tonen",
+    "freeKey": "Nog niets gebruikt {key}.",
+    "assignLabel": "Actie",
+    "assignPlaceholder": "Kies een actie...",
+    "assign": "Toevoegen aan {key}",
+    "changeKey": "Toets wijzigen",
+    "addKey": "Tweede toets toevoegen",
+    "removeKey": "{key} verwijderen",
+    "duplicateKey": "Die toets is al ingesteld voor deze actie.",
+    "doublePress": "Twee keer drukken om uit te voeren",
+    "doublePressDesc": "Wordt alleen uitgevoerd als je de toets twee keer snel indrukt.",
+    "otherLayers": "Ook op deze toets",
+    "closePanel": "Sluiten"
+  },
+  "autoSegmentApplied":"Automatisch gesegmenteerd met {engine}",
   "error": {
     "unsupportedFileFormat": "Niet-ondersteunde bestandsindeling: {ext}",
     "openFileFailed": "Kan bestand niet openen",
@@ -1100,11 +1266,23 @@
     "volume": "Volume",
     "playbackRate": "Afspeelsnelheid",
     "preservesPitch": "Toonhoogte behouden",
-    "clickToLoadMusic": "Klik op het muziekpictogram om audio te laden",
+    "audioMenu": "Audio en afspelen",
+    "loadedAudio": "Geladen audio",
+    "replaceAudio": "Vervangen",
+    "resetSpeed": "Terug naar 1×",
     "playPause": "Muziek afspelen / onderbreken",
     "expandSpectrogram": "Uitvouwen / samenvouwen spectrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Voer een verschuiving in hele milliseconden in",
+    "precision": "Gemiddelde absolute afwijking: {error} ms ({count} aanslagen)",
+    "recommendationProgress": "Druk minstens 20 keer voor een aanbeveling ({count}/20)",
+    "recommendedOffset": "Aanbevolen synchronisatieverschuiving: {offset} ms",
+    "tryRecommendation": "Aanbevolen verschuiving proberen",
+    "trialOffsetHint": "Wijzigingen blijven in dit venster totdat je de verschuiving opslaat",
+    "saveOffset": "Verschuiving opslaan",
+    "useOffset": "Synchronisatieverschuiving gebruiken",
+    "offsetNotice": "De resultaten bevatten je synchronisatieverschuiving van {offset} ms.",
     "title": "Latentietest",
     "latencyDisplay": {
       "fastest": "Snelste",
@@ -1161,6 +1339,11 @@
     "addPresets": "Alle standaardvelden toevoegen",
     "clear": "Wissen"
   },
+  "helpText": {
+    "metadataArtists": "Wie het nummer uitvoert, zoals het op streamingdiensten wordt vermeld. Voorbeeld: \"Shake It Off\" is van Taylor Swift.",
+    "metadataSongwriter": "Wie de muziek en tekst schreef, volgens de schrijverscredits. Vaak andere mensen dan de artiesten. Voorbeeld: \"Shake It Off\" is geschreven door Taylor Swift, Max Martin en Shellback.",
+    "openSongwritersGuide": "Open de gids over songwriters"
+  },
   "lrclib": {
     "placeholder": "Songtitel en artiest…",
     "notFound": "Geen resultaten gevonden, probeer andere trefwoorden",
@@ -1182,6 +1365,14 @@
     "wordTimingMismatch": "{count, plural, one {# regel had een ander aantal woorden; alleen overeenkomende woordposities zijn gekopieerd.} other {# regels hadden een ander aantal woorden; alleen overeenkomende woordposities zijn gekopieerd.}}",
     "insertLine": "Voeg hier een nieuwe regel in",
     "insertWord": "Woord hier invoegen…"
+  },
+  "editModeTools": {
+    "splitTypedLinesTitle": "Getypte regels in woorden splitsen",
+    "splitTypedLinesDesc": "Tekst die je in een lege regel typt, wordt in woorden gesplitst zoals een import regels splitst.",
+    "scrollMemoryTitle": "Positie in bewerkmodus onthouden",
+    "scrollMemoryDesc": "Opent elk project bij de regel waar je in de bewerkmodus was.",
+    "swapDuetAll": "Hoofd- en duetregels omwisselen",
+    "swapDuetSelected": "Hoofd en duet omwisselen"
   },
   "lyricWordView": {
     "empty": "Leeg",
@@ -1257,6 +1448,16 @@
     "placeholder": "Nieuw woord",
     "applyToAll": "Alle identieke woorden vervangen",
     "caseSensitive": "Hoofdlettergevoelig"
+  },
+  "replaceWordCombinationDialog": {
+    "title": "Woordcombinatie vervangen",
+    "description": "Klik op een woord om de tekst te bewerken. De timing blijft hetzelfde.",
+    "word": "Woord {index}",
+    "reorderWord": "Woord {index} verplaatsen",
+    "reorderHint": "Sleep een handgreep om de volgorde te wijzigen, of focus een woord en druk op Alt+Links/Rechts.",
+    "position": "Positie {index} van {count}",
+    "applyToAll": "Alle overeenkomende combinaties vervangen",
+    "adjacentOnly": "Selecteer aangrenzende woorden of lettergrepen op één regel om een combinatie te vervangen."
   },
   "replaceRomanizationDialog": {
     "title": "Romanisatie vervangen",
@@ -1369,6 +1570,14 @@
   "autosave": {
     "legacyProjectName": "Oude momentopnamen",
     "untitledProjectName": "Naamloos project"
+  },
+  "didYouKnow": {
+    "title": "Wist je dat?",
+    "repeatedSection": "Herhaalde regels kunnen eerdere timing hergebruiken. Selecteer de eerdere regels, zet de afspeelkop waar de herhaling begint en gebruik Dupliceren op afspeelkop.",
+    "splitInTimeMode": "Je kunt een woord splitsen zonder de Timing-modus te verlaten: houd {modifier} ingedrukt en dubbelklik op het woord.",
+    "turnOff": "Geen tips tonen",
+    "setting": "Tips tonen",
+    "settingDesc": "Als je iets met de hand doet dat sneller kan, verschijnt een korte tip. Elke tip verschijnt maar één keer."
   },
   "time": {
     "daysAgo": "{count, plural, one {# dag geleden} other {# dagen geleden}}",
@@ -1488,6 +1697,19 @@
     "apply": "Suggestie toepassen",
     "noSuggestions": "Er zijn geen automatische splitsingssuggesties beschikbaar voor deze inhoud."
   },
+  "changelogScreen": {
+    "viewLabel": "Toon",
+    "viewAll": "Alles",
+    "viewHighlights": "Hoogtepunten",
+    "highlights": "Hoogtepunten",
+    "latest": "Nieuwste",
+    "sectionNew": "Nieuw",
+    "sectionChanged": "Gewijzigd",
+    "sectionFixed": "Opgelost",
+    "empty": "Geen versies om te tonen.",
+    "versions": "Versies",
+    "earlier": "Eerder"
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Een TTML-editor om songteksten woord voor woord te bewerken en te synchroniseren in Apple Music-stijl",
@@ -1510,6 +1732,23 @@
     "openContributorProfile": "GitHub-profiel van {name} openen",
     "unknown": "Onbekend"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Aparte sporen",
+    "settingDesc": "Toon achtergrondregels in een eigen spoor onder de hoofdregels. Sporen zijn alleen voor weergave: wijzig de rol van een regel in de bewerkmodus.",
+    "menu": "Sporen",
+    "visibleLanes": "Sporen tonen",
+    "duetLane": "Apart duetspoor",
+    "lane": {
+      "main": "Hoofd",
+      "duet": "Duet",
+      "bg": "Achtergrond"
+    }
+  },
+  "spectrogramLineEnds": {
+    "mergedHandle": "Einde van de regel en het laatste woord. Sleep met Alt om er maar één te verplaatsen.",
+    "wordEndHandle": "Einde van het laatste woord",
+    "lineEndHandle": "Regeleinde"
+  },
   "spectrogram": {
     "invalidEndTime": "Kan deze eindtijd niet selecteren",
     "noAudioLoaded": "Laad een audiobestand om het spectrogram te tonen",
@@ -1525,6 +1764,17 @@
       "4096": "4096 (meeste detail)"
     },
     "height": "Weergavehoogte"
+  },
+  "spectrogramFollow": {
+    "toggle": "Afspeelkop volgen",
+    "shortcut": "Spectrogram - Afspeelkop volgen aan/uit",
+    "setting": "Afspeelkop volgen",
+    "settingDesc": "Scrolt het spectrogram zodat de afspeelkop zichtbaar blijft. Scrollen of slepen pauzeert dit tot je op afspelen drukt of het even laat rusten.",
+    "style": "Volgstijl",
+    "page": "Per pagina",
+    "pageDesc": "Springt vooruit wanneer de afspeelkop uit beeld gaat.",
+    "continuous": "Doorlopend",
+    "continuousDesc": "Scrolt mee met de afspeelkop en houdt die in het midden."
   },
   "export": {
     "recoveryUntimed": "Deze herstelexport bevat ongetimede songteksten. Controleer de timing voordat je instuurt.",

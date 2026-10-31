@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import { useAtomValue, useSetAtom } from "jotai";
-import { type FC, useCallback, useContext } from "react";
+import { useSetAtom, useStore } from "jotai";
+import { type FC, memo, useCallback, useContext } from "react";
 import { processedLyricLinesAtom } from "$/modules/segmentation/utils/segment-processing.ts";
 import { timelineDragAtom } from "$/modules/spectrogram/states/dnd";
+import { getUpdatedLineForMergedEnd } from "$/modules/spectrogram/utils/line-end-handles";
 import {
 	commitUpdatedLine,
 	type DividerEdge,
@@ -20,14 +21,28 @@ interface DividerSegmentProps {
 	isTouching: boolean;
 	edge?: DividerEdge;
 	virtual?: boolean;
+	/** Line-end handle kind while the line-end handles flag is on. */
+	lineEndRole?: LineEndRole;
+	/** Hit zone override, relative to `timeMs` in px. The 2px bar stays where it was. */
+	hitOffsetPx?: number;
+	hitWidthPx?: number;
+	ariaLabel?: string;
 }
+
+export type LineEndRole = "merged" | "word" | "line";
+
+const lineEndRoleClass: Record<LineEndRole, string | undefined> = {
+	merged: styles.mergedEnd,
+	word: styles.wordEnd,
+	line: styles.lineEnd,
+};
 
 const DIVIDER_WIDTH_PX = 15;
 const HALF_DIVIDER_WIDTH_PX = DIVIDER_WIDTH_PX / 2;
 const NUDGE_MS = 10;
 const SHIFT_NUDGE_MS = 50;
 
-export const DividerSegment: FC<DividerSegmentProps> = ({
+const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 	lineId,
 	segmentIndex,
 	timeMs,
@@ -36,9 +51,14 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 	isTouching,
 	edge = "shared",
 	virtual = false,
+	lineEndRole,
+	hitOffsetPx,
+	hitWidthPx,
+	ariaLabel,
 }) => {
+	const mergedLineEnd = lineEndRole === "merged";
 	const setTimelineDrag = useSetAtom(timelineDragAtom);
-	const processedLines = useAtomValue(processedLyricLinesAtom);
+	const store = useStore();
 	const { zoom } = useContext(SpectrogramContext);
 
 	const startDrag = useCallback(
@@ -57,9 +77,10 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 				startX: e.clientX,
 				isGapCreation: edge === "shared" && e.altKey,
 				virtual: virtual,
+				mergedLineEnd,
 			});
 		},
-		[lineId, segmentIndex, edge, setTimelineDrag, zoom, virtual],
+		[lineId, segmentIndex, edge, setTimelineDrag, zoom, virtual, mergedLineEnd],
 	);
 
 	// The timeline blocks mouse focus elsewhere, so drop it on any outside click
@@ -93,7 +114,9 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 			event.preventDefault();
 			event.stopPropagation();
 
-			const lineBeingDragged = processedLines.find((l) => l.id === lineId);
+			const lineBeingDragged = store
+				.get(processedLyricLinesAtom)
+				.find((l) => l.id === lineId);
 			if (!lineBeingDragged) {
 				return;
 			}
@@ -104,19 +127,21 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 					? timeMs + nudgeAmount
 					: timeMs - nudgeAmount;
 
-			const updatedLine = getUpdatedLineForDivider(
-				lineBeingDragged,
-				segmentIndex,
-				newTime,
-				false,
-				zoom,
-				null,
-				edge,
-			);
+			const updatedLine = mergedLineEnd
+				? getUpdatedLineForMergedEnd(lineBeingDragged, newTime)
+				: getUpdatedLineForDivider(
+						lineBeingDragged,
+						segmentIndex,
+						newTime,
+						false,
+						zoom,
+						null,
+						edge,
+					);
 
 			commitUpdatedLine(updatedLine);
 		},
-		[lineId, processedLines, segmentIndex, timeMs, zoom, edge],
+		[lineId, store, segmentIndex, timeMs, zoom, edge, mergedLineEnd],
 	);
 
 	if (timeMs == null || timeMs < 0 || lineStartTime == null) return null;
@@ -137,17 +162,32 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 		handleOffsetPx = -HALF_DIVIDER_WIDTH_PX;
 	}
 
-	const left = timePx + handleOffsetPx;
+	let left = timePx + handleOffsetPx;
+	let width = handleWidthPx;
+	let barStyle: React.CSSProperties | undefined;
+
+	if (hitOffsetPx !== undefined && hitWidthPx !== undefined) {
+		// Widen the grab area only; keep the bar where the classic handle draws it.
+		const barShiftPx =
+			handleOffsetPx + handleWidthPx / 2 - (hitOffsetPx + hitWidthPx / 2);
+		left = timePx + hitOffsetPx;
+		width = hitWidthPx;
+		barStyle = { transform: `translateX(${barShiftPx}px)` };
+	}
 
 	const dynamicStyles = {
 		left: `${left}px`,
-		width: `${handleWidthPx}px`,
+		width: `${width}px`,
 	};
 
 	return (
-		// biome-ignore lint/a11y/useSemanticElements: <hr> 在这里不适用
 		<div
-			className={classNames(styles.divider, isTouching && styles.touching)}
+			className={classNames(
+				styles.divider,
+				isTouching && styles.touching,
+				lineEndRole && lineEndRoleClass[lineEndRole],
+			)}
+			aria-label={ariaLabel}
 			style={dynamicStyles}
 			onMouseDown={startDrag}
 			onContextMenu={(e) => e.preventDefault()}
@@ -158,7 +198,9 @@ export const DividerSegment: FC<DividerSegmentProps> = ({
 			onKeyDown={handleKeyDown}
 			onFocus={releaseFocusOnOutsideClick}
 		>
-			<div className={styles.dividerLine} />
+			<div className={styles.dividerLine} style={barStyle} />
 		</div>
 	);
 };
+
+export const DividerSegment = memo(DividerSegmentImpl);

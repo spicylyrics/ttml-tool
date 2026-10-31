@@ -35,8 +35,10 @@ describe("settings search", () => {
 	it.each([
 		["folder project", "files"],
 		["compact background", "common"],
-		["autosave", "files"],
-		["wrap", "editor"],
+		["autosave", "backup"],
+		["wrap", "syncing"],
+		["vsync", "preview"],
+		["ribbon", "editing"],
 		["equalizer", "audio"],
 		["font", "appearance"],
 		["spicy lyrics design", "appearance"],

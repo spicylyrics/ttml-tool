@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
 import type { SegmentationConfig } from "../types";
-import { segmentSelectedWords } from "./segmentation";
+import { segmentLyricLines, segmentSelectedWords } from "./segmentation";
 
 const config: SegmentationConfig = {
 	engine: "basic",
@@ -28,6 +28,29 @@ const line = (...words: ReturnType<typeof word>[]): LyricLine => ({
 });
 
 describe("segmentSelectedWords", () => {
+	it("prepares protected rules once per batch and refreshes mutated rules for the next batch", () => {
+		const rules = new Map([["hello", ["he", "llo"]]]);
+		const readKeys = vi.spyOn(rules, "keys");
+		const options = {
+			...config,
+			customRules: rules,
+			learnedRules: new Map(),
+			ignoreList: new Set(["world"]),
+		};
+		const source = [
+			line(word("hello world", 0, 1000), word("hello", 1000, 2000)),
+		];
+		expect(
+			segmentLyricLines(source, options)[0].words.map((part) => part.word),
+		).toEqual(["he", "llo", " ", "world", "he", "llo"]);
+		expect(readKeys).toHaveBeenCalledOnce();
+		rules.set("hello", ["hel", "lo"]);
+		expect(
+			segmentLyricLines(source, options)[0].words.map((part) => part.word),
+		).toEqual(["hel", "lo", " ", "world", "hel", "lo"]);
+		expect(readKeys).toHaveBeenCalledTimes(2);
+	});
+
 	it("splits only the selected word and keeps its time span", () => {
 		const target = word("hello", 1000, 2000);
 		const other = word("hello", 2000, 3000);

@@ -39,3 +39,34 @@
 .divider:focus {
 	outline: none;
 }
+
+/* Line-end handles: the merged handle is the classic single bar, always full height. */
+.divider.mergedEnd .dividerLine {
+	height: 100%;
+	align-self: stretch;
+}
+
+/* Split: the last word's end is a short accent bar... */
+.divider.wordEnd .dividerLine {
+	height: 50%;
+	align-self: center;
+}
+
+/* ...and the line end a full-height neutral bar, so the two read apart without color alone. */
+.divider.lineEnd .dividerLine {
+	height: 100%;
+	align-self: stretch;
+	background-color: var(--gray-11);
+}
+
+.divider.lineEnd:hover .dividerLine,
+.divider.lineEnd:focus .dividerLine {
+	background-color: var(--gray-12);
+}
+
+/* Where two lines touch, keep the seam's matching short bars. */
+.divider.touching.mergedEnd .dividerLine,
+.divider.touching.lineEnd .dividerLine {
+	height: 60%;
+	align-self: center;
+}

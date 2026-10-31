@@ -67,6 +67,7 @@ export default function exportTTMLText(
 	if (normalization) ttmlLyric = normalizeLyricText(ttmlLyric, normalization);
 	const params: LyricLine[][] = [];
 	const lyric = ttmlLyric.lyricLines;
+	const translationLanguage = ttmlLyric.translationLanguage || "en";
 
 	const exportableLines = lyric.filter(hasExportableLineContent);
 	if (exportableLines.length > 0) params.push(exportableLines);
@@ -121,7 +122,8 @@ export default function exportTTMLText(
 		const span = doc.createElement("span");
 		span.setAttribute("begin", msToTimestamp(word.startTime));
 		span.setAttribute("end", msToTimestamp(word.endTime));
-		span.appendChild(doc.createTextNode(word.romanWord));
+		// A trailing space is a word gap; it goes between spans, not inside one.
+		span.appendChild(doc.createTextNode(word.romanWord.trimEnd()));
 		return span;
 	}
 
@@ -364,7 +366,7 @@ export default function exportTTMLText(
 				if (bgLine.translatedLyric) {
 					const span = doc.createElement("span");
 					span.setAttribute("ttm:role", "x-translation");
-					span.setAttribute("xml:lang", "zh-CN");
+					span.setAttribute("xml:lang", translationLanguage);
 					span.appendChild(doc.createTextNode(bgLine.translatedLyric));
 					bgLineSpan.appendChild(span);
 				}
@@ -382,7 +384,7 @@ export default function exportTTMLText(
 			if (!exportAsStandaloneBackground && line.translatedLyric) {
 				const span = doc.createElement("span");
 				span.setAttribute("ttm:role", "x-translation");
-				span.setAttribute("xml:lang", "zh-CN");
+				span.setAttribute("xml:lang", translationLanguage);
 				span.appendChild(doc.createTextNode(line.translatedLyric));
 				lineP.appendChild(span);
 			}
@@ -427,9 +429,16 @@ export default function exportTTMLText(
 			const textEl = doc.createElement("text");
 			textEl.setAttribute("for", key);
 
-			for (const word of main) {
+			for (let wordIndex = 0; wordIndex < main.length; wordIndex++) {
+				const word = main[wordIndex];
 				if (word.romanWord && word.romanWord.trim().length > 0) {
 					textEl.appendChild(createRomanizationSpan(word));
+					// Lines without spaces (Japanese) only get romanized word gaps
+					// from the syllable; a spaced line writes its own below.
+					const next = main[wordIndex + 1];
+					if (/\s$/.test(word.romanWord) && next?.word.trim()) {
+						textEl.appendChild(doc.createTextNode(" "));
+					}
 				} else if (word.word.trim().length === 0 && textEl.hasChildNodes()) {
 					textEl.appendChild(doc.createTextNode(word.word));
 				}

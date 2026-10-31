@@ -141,7 +141,10 @@ export function PreviewModeControl({
 					label: t("ribbonBar.previewMode.standard", "Standard"),
 				},
 				{ value: PreviewModeType.Toxi, label: "Toxi" },
-				{ value: PreviewModeType.Spicy, label: "Spicy" },
+				{
+					value: PreviewModeType.Spicy,
+					label: t("ribbonBar.previewMode.spicy", "Spicy Lyrics"),
+				},
 				{
 					value: PreviewModeType.Timing,
 					label: t("ribbonBar.previewMode.timing", "Timing"),

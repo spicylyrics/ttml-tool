@@ -13,6 +13,12 @@
 	animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Lite effects drop the blur, so this faint fill would let the spectrogram
+   show through the controls. */
+:global(:root[data-effects="lite"]) .toolbarContainer {
+	background: var(--color-panel-solid);
+}
+
 @keyframes slideDown {
 	from {
 		opacity: 0;

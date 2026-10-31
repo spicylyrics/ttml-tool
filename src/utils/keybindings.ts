@@ -1,4 +1,4 @@
-import { atom, type createStore, useAtomValue } from "jotai";
+import { type Atom, atom, type createStore, useAtomValue } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { type DependencyList, useEffect } from "react";
 import { warn } from "./logging.ts";
@@ -159,6 +159,22 @@ export function normalizeKeyCode(code: string): string {
 	return code.replace(/^(Control|Meta|Alt|Shift)(Left|Right)$/, "$1");
 }
 
+/**
+ * The binding key an event presses. Letters A-Z follow the character the
+ * layout types, so Ctrl+Z is the key printed Z on QWERTZ, AZERTY or Dvorak.
+ * Every other key keeps its physical position: digits and punctuation move
+ * between layouts, dead keys type nothing, and macOS Option or AltGr turn
+ * letters into other characters (Option+C types ç), so matching their
+ * characters would leave defaults unreachable. Non-Latin layouts stay
+ * physical too, since their letters are not A-Z.
+ */
+export function shortcutKeyFromEvent(
+	event: Pick<KeyboardEvent, "code" | "key">,
+): string {
+	if (/^[a-z]$/i.test(event.key)) return `Key${event.key.toUpperCase()}`;
+	return normalizeKeyCode(event.code);
+}
+
 export function normalizeKeyBindings(cfg: Iterable<string>): KeyBindingsConfig {
 	return [...new Set([...cfg].map(normalizeKeyCode))];
 }
@@ -186,10 +202,12 @@ export function getShortcutKey(cfg: KeyBindingsConfig | Set<string>) {
 }
 
 const keyDownTimes = new Map<string, number>();
+const heldKeyCodes = new Map<string, string>();
 
 function clearPressingKeys() {
 	pressingKeys.clear();
 	keyDownTimes.clear();
+	heldKeyCodes.clear();
 }
 
 /**
@@ -240,7 +258,8 @@ function triggerCallbacks(
 }
 
 window.addEventListener("keydown", (evt) => {
-	if (evt.repeat) return;
+	// IME keystrokes belong to the composition, not to shortcuts.
+	if (evt.repeat || evt.isComposing || evt.key === "Process") return;
 	if (isEditing(evt)) {
 		clearPressingKeys();
 		return;
@@ -249,7 +268,8 @@ window.addEventListener("keydown", (evt) => {
 		downTime = evt.timeStamp;
 	}
 
-	const code = normalizeKeyCode(evt.code);
+	const code = shortcutKeyFromEvent(evt);
+	heldKeyCodes.set(evt.code, code);
 	keyDownTimes.set(code, evt.timeStamp);
 
 	// 阻止空格滚动
@@ -273,8 +293,9 @@ window.addEventListener("keyup", (evt) => {
 		clearPressingKeys();
 		return;
 	}
+	if (!heldKeyCodes.has(evt.code)) return;
 
-	const code = normalizeKeyCode(evt.code);
+	const code = heldKeyCodes.get(evt.code) ?? shortcutKeyFromEvent(evt);
 
 	if (currentTriggerMode === KeyBindingTriggerMode.KeyUp) {
 		dispatchPressingKeys(code, evt);
@@ -282,6 +303,7 @@ window.addEventListener("keyup", (evt) => {
 
 	pressingKeys.delete(code);
 	keyDownTimes.delete(code);
+	heldKeyCodes.delete(evt.code);
 });
 window.addEventListener("blur", clearPressingKeys);
 window.addEventListener("focus", clearPressingKeys);
@@ -326,6 +348,8 @@ export function isEditing(event: KeyboardEvent | MouseEvent) {
 			tagName === "INPUT" ||
 			tagName === "SELECT" ||
 			tagName === "TEXTAREA" ||
+			// A focused slider owns the arrow, Home/End and Page keys.
+			target?.getAttribute?.("role") === "slider" ||
 			!!currentKeyDownEvent ||
 			!!currentKeyUpEvent
 		);
@@ -385,10 +409,16 @@ export function useKeyBinding(
 	}, [cfg, callback, ...(deps || [])]);
 }
 
+/**
+ * Registers an action's shortcut. With `doublePress`, the shortcut only runs it
+ * on a second press in quick succession; the callback on the atom (used by the
+ * command palette and on-screen controls) still runs it at once.
+ */
 export function registerKeyBindingAtom(
 	thisAtom: ReturnType<typeof atomWithKeybindingStorage>,
 	cfg: KeyBindingsConfig,
 	callback: KeyBindingCallback,
+	doublePress = false,
 ) {
 	// On-screen timing controls invoke an action even when its shortcut is unbound.
 	let callbacks = registeredAtomBindings.get(thisAtom);
@@ -397,11 +427,82 @@ export function registerKeyBindingAtom(
 		registeredAtomBindings.set(thisAtom, callbacks);
 	}
 	callbacks.add(callback);
-	const unregisterShortcut = registerKeyBindings(cfg, callback);
+	const unregisterShortcut = (
+		doublePress ? registerDoubleKeyBindings : registerKeyBindings
+	)(cfg, callback);
 	return () => {
 		unregisterShortcut();
 		callbacks?.delete(callback);
 		if (callbacks?.size === 0) registeredAtomBindings.delete(thisAtom);
+	};
+}
+
+/**
+ * Extra shortcuts for an action beyond its stored primary binding. The keyboard
+ * module installs the resolver; without it there are no extras.
+ */
+type ExtraKeyBindingsResolver = (
+	binding: ReturnType<typeof atomWithKeybindingStorage>,
+) => Atom<KeyBindingsConfig[]> | undefined;
+let extraKeyBindingsResolver: ExtraKeyBindingsResolver | undefined;
+const NO_EXTRA_KEY_BINDINGS = atom<KeyBindingsConfig[]>([]);
+
+export function setExtraKeyBindingsResolver(
+	resolver: ExtraKeyBindingsResolver | undefined,
+) {
+	extraKeyBindingsResolver = resolver;
+}
+
+export function useExtraKeyBindings(
+	thisAtom: ReturnType<typeof atomWithKeybindingStorage>,
+): KeyBindingsConfig[] {
+	return useAtomValue(
+		extraKeyBindingsResolver?.(thisAtom) ?? NO_EXTRA_KEY_BINDINGS,
+	);
+}
+
+/**
+ * Whether an action is set to "Press twice to run". The keyboard module
+ * installs the resolver; without it every action runs on one press.
+ */
+type DoublePressResolver = (
+	binding: ReturnType<typeof atomWithKeybindingStorage>,
+) => Atom<boolean> | undefined;
+let doublePressResolver: DoublePressResolver | undefined;
+const SINGLE_PRESS = atom(false);
+
+export function setDoublePressResolver(
+	resolver: DoublePressResolver | undefined,
+) {
+	doublePressResolver = resolver;
+}
+
+export function useDoublePress(
+	thisAtom: ReturnType<typeof atomWithKeybindingStorage>,
+): boolean {
+	return useAtomValue(doublePressResolver?.(thisAtom) ?? SINGLE_PRESS);
+}
+
+/** Registers each extra shortcut once, skipping any that repeat the primary. */
+export function registerExtraKeyBindings(
+	primary: KeyBindingsConfig,
+	extras: readonly KeyBindingsConfig[],
+	callback: KeyBindingCallback,
+	doublePress = false,
+) {
+	const register = doublePress
+		? registerDoubleKeyBindings
+		: registerKeyBindings;
+	const seen = new Set([getShortcutKey(primary)]);
+	const unregister: Array<() => void> = [];
+	for (const extra of extras) {
+		const joined = getShortcutKey(extra);
+		if (extra.length === 0 || seen.has(joined)) continue;
+		seen.add(joined);
+		unregister.push(register(extra, callback));
+	}
+	return () => {
+		for (const fn of unregister) fn();
 	};
 }
 
@@ -414,30 +515,44 @@ export function useKeyBindingAtom(
 	deps?: DependencyList,
 ): KeyBindingsConfig {
 	const keyBindings = useAtomValue(thisAtom);
+	const extraKeyBindings = useExtraKeyBindings(thisAtom);
+	const doublePress = useDoublePress(thisAtom);
 	useEffect(() => {
-		return registerKeyBindingAtom(thisAtom, keyBindings, callback);
-	}, [thisAtom, keyBindings, callback, ...(deps || [])]);
+		const unregister = registerKeyBindingAtom(
+			thisAtom,
+			keyBindings,
+			callback,
+			doublePress,
+		);
+		const unregisterExtras = registerExtraKeyBindings(
+			keyBindings,
+			extraKeyBindings,
+			callback,
+			doublePress,
+		);
+		return () => {
+			unregister();
+			unregisterExtras();
+		};
+	}, [
+		thisAtom,
+		keyBindings,
+		extraKeyBindings,
+		callback,
+		doublePress,
+		...(deps || []),
+	]);
 	return keyBindings;
 }
 
-export function useDoubleKeyBindingAtom(
-	thisAtom: ReturnType<typeof atomWithKeybindingStorage>,
-	callback: KeyBindingCallback,
-	deps?: DependencyList,
-	enabled = true,
-): KeyBindingsConfig {
-	const keyBindings = useAtomValue(thisAtom);
-	useEffect(() => {
-		if (!enabled) return;
-		return registerDoubleKeyBindings(keyBindings, callback);
-	}, [keyBindings, callback, enabled, ...(deps || [])]);
-	return keyBindings;
-}
+/** How quickly the second press must follow for "Press twice to run". */
+export const DOUBLE_PRESS_WINDOW_MS = 350;
 
 export function registerDoubleKeyBindings(
 	cfg: KeyBindingsConfig,
 	callback: KeyBindingCallback,
 ) {
+	if (cfg.length === 0) return () => {};
 	let lastPressTime = -Infinity;
 	let pending: { code: string; downTime: number } | undefined;
 	const joinedKey = getShortcutKey(cfg);
@@ -446,14 +561,19 @@ export function registerDoubleKeyBindings(
 		pending = undefined;
 	};
 	const trigger = (evt: KeyboardEvent, keyDownTime: number) => {
-		if (evt.timeStamp - lastPressTime <= 350) {
+		if (evt.timeStamp - lastPressTime <= DOUBLE_PRESS_WINDOW_MS) {
 			callback({
 				downTime: keyDownTime,
 				downTimeOffset: evt.timeStamp - keyDownTime,
 				triggerTime: evt.timeStamp,
 			});
 			// This capture listener consumes the event before the dispatcher sees it.
-			if (evt.type === "keyup") pressingKeys.delete(normalizeKeyCode(evt.code));
+			if (evt.type === "keyup") {
+				const code = heldKeyCodes.get(evt.code) ?? shortcutKeyFromEvent(evt);
+				pressingKeys.delete(code);
+				keyDownTimes.delete(code);
+				heldKeyCodes.delete(evt.code);
+			}
 			evt.preventDefault();
 			evt.stopPropagation();
 			evt.stopImmediatePropagation();
@@ -467,16 +587,16 @@ export function registerDoubleKeyBindings(
 			reset();
 			return;
 		}
-		if (evt.repeat) return;
+		if (evt.repeat || evt.isComposing || evt.key === "Process") return;
 		const keys = [
 			...(evt.ctrlKey ? ["Control"] : []),
 			...(evt.metaKey ? ["Meta"] : []),
 			...(evt.altKey ? ["Alt"] : []),
 			...(evt.shiftKey ? ["Shift"] : []),
-			normalizeKeyCode(evt.code),
+			shortcutKeyFromEvent(evt),
 		];
 		if (getShortcutKey(keys) !== joinedKey) {
-			const code = normalizeKeyCode(evt.code);
+			const code = shortcutKeyFromEvent(evt);
 			if (
 				MODIFIER_ORDER.includes(code) &&
 				normalizeKeyBindings(cfg).includes(code)
@@ -538,7 +658,8 @@ export function recordShortcut(): Promise<KeyBindingsConfig> {
 		const recorded = new Set<string>();
 		const stack = new Set<string>();
 		const onKeyDown = (evt: KeyboardEvent) => {
-			recorded.add(normalizeKeyCode(evt.code));
+			if (evt.isComposing || evt.key === "Process") return;
+			recorded.add(shortcutKeyFromEvent(evt));
 			stack.add(evt.code);
 			evt.preventDefault();
 			evt.stopPropagation();

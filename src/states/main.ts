@@ -83,8 +83,7 @@ export const projectIdAtom = atom(uid());
  * @readonly
  */
 export const projectIdentityAtom = atom((get) => {
-	const lyrics = get(lyricLinesAtom);
-	return identifyProject(lyrics);
+	return identifyProject({ metadata: get(lyricMetadataAtom) });
 });
 
 /**

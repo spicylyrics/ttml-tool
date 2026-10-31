@@ -26,8 +26,13 @@ const projectOpen = vi.hoisted(() => ({
 	loadProjectFromDir: vi.fn(async () => true),
 }));
 
+const linkedProjects = vi.hoisted(() => ({
+	isLinkedProjectDir: vi.fn(async () => true),
+}));
+
 vi.mock("@tauri-apps/api/core", () => core);
 vi.mock("@tauri-apps/plugin-fs", () => fs);
+vi.mock("./linked-projects", () => linkedProjects);
 vi.mock("./lyric-io", () => lyricIo);
 vi.mock("./project-open", () => projectOpen);
 
@@ -59,6 +64,7 @@ describe("linked backup helpers", () => {
 		fs.stat.mockResolvedValue({ mtime: "2026-10-06T12:00:00Z" } as never);
 		fs.remove.mockResolvedValue(undefined);
 		projectOpen.loadProjectFromDir.mockResolvedValue(true);
+		linkedProjects.isLinkedProjectDir.mockResolvedValue(true);
 	});
 
 	it("returns safe backup path", () => {
@@ -139,6 +145,19 @@ describe("linked backup helpers", () => {
 			manifest,
 		);
 		expect(ok).toBe(false);
+		expect(lyricIo.writeProjectLyricFile).not.toHaveBeenCalled();
+	});
+
+	it("refuses to restore from a folder outside the linked projects root", async () => {
+		linkedProjects.isLinkedProjectDir.mockResolvedValueOnce(false);
+		const ok = await restoreLinkedBackup(
+			{} as never,
+			t as never,
+			"C:/Users/me/Downloads/shared-project",
+			manifest,
+		);
+		expect(ok).toBe(false);
+		expect(fs.readTextFile).not.toHaveBeenCalled();
 		expect(lyricIo.writeProjectLyricFile).not.toHaveBeenCalled();
 	});
 });

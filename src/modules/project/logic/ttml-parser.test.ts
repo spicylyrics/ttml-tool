@@ -40,6 +40,16 @@ describe("separateTrailingWhitespace", () => {
 		expect(separateTrailingWhitespace(words)).toEqual(words);
 		expect(new Set(words.map((word) => word.id)).size).toBe(words.length);
 	});
+
+	it("handles a huge whitespace run before text in linear time", () => {
+		// A backtracking /\s+$/ takes minutes on this input.
+		const word = { ...newLyricWord(), word: `a${" ".repeat(200_000)}b  ` };
+		const words = separateTrailingWhitespace([word]);
+		expect(words.map((w) => w.word)).toEqual([
+			`a${" ".repeat(200_000)}b`,
+			"  ",
+		]);
+	});
 });
 
 describe("appendParentBeforeNestedLines", () => {

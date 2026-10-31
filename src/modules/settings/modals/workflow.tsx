@@ -9,29 +9,33 @@ import {
 	EyeOff24Regular,
 	Flash24Regular,
 	Highlight24Regular,
+	History24Regular,
 	Image24Regular,
-	LayerDiagonal24Regular,
 	NumberSymbol24Regular,
 	Options24Regular,
 	PanelRight24Regular,
 	Rename24Regular,
 	Sparkle24Regular,
 	TapSingle24Regular,
-	TextCaseTitle24Regular,
 	TextDescription24Regular,
 	TextEditStyle24Regular,
 	TextLineSpacing24Regular,
+	TextWordCount24Regular,
 	Timeline24Regular,
 	TopSpeed24Regular,
-	Translate24Regular,
 } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { sectionEditingEnabledAtom } from "$/modules/lyric-editor/states/section-editing";
+import { SlIcon } from "$/components/SlIcon";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import { showPreviewPanelAtom } from "$/states/main";
+// Relative on purpose: keeps this import apart from other settings rows' imports.
+import {
+	editScrollMemoryAtom,
+	splitTypedLinesAtom,
+} from "../../lyric-editor/states/edit-mode-tools";
 import {
 	BackgroundSyncControl,
 	PreviewModeControl,
@@ -89,19 +93,11 @@ const editModeToggles: readonly ToggleRow[] = [
 		advancedRibbonControlsAtom,
 	],
 	[
-		"sectionEditing.toggleTitle",
-		"Section editing tools",
-		"sectionEditing.toggleDesc",
-		"Click a section header to rename or retype it, start a section on any line, and copy timings between repeated sections.",
-		<LayerDiagonal24Regular key="icon" />,
-		sectionEditingEnabledAtom,
-	],
-	[
 		"ribbonBar.editMode.showTranslation",
 		"Show translation line",
 		"settings.workflow.showTranslationDesc",
 		"Show a translation field under each lyric line.",
-		<Translate24Regular key="icon" />,
+		<SlIcon name="translation" size={24} key="icon" />,
 		showLineTranslationAtom,
 	],
 	[
@@ -109,7 +105,7 @@ const editModeToggles: readonly ToggleRow[] = [
 		"Show romanization line",
 		"settings.workflow.showRomanizationDesc",
 		"Show a romanization field under each lyric line.",
-		<TextCaseTitle24Regular key="icon" />,
+		<SlIcon name="romanization" size={24} key="icon" />,
 		showLineRomanizationAtom,
 	],
 	[
@@ -119,6 +115,23 @@ const editModeToggles: readonly ToggleRow[] = [
 		"Show a romanization field on each word.",
 		<TextEditStyle24Regular key="icon" />,
 		showWordRomanizationInputAtom,
+	],
+	// Behavior after the fields: what typing does, and where a project reopens.
+	[
+		"editModeTools.splitTypedLinesTitle",
+		"Split typed lines into words",
+		"editModeTools.splitTypedLinesDesc",
+		"Text typed into an empty line is split into words, the same way an import splits lines.",
+		<TextWordCount24Regular key="icon" />,
+		splitTypedLinesAtom,
+	],
+	[
+		"editModeTools.scrollMemoryTitle",
+		"Remember Edit mode position",
+		"editModeTools.scrollMemoryDesc",
+		"Reopen each project at the line you were on in Edit mode.",
+		<History24Regular key="icon" />,
+		editScrollMemoryAtom,
 	],
 ];
 
@@ -168,7 +181,7 @@ const timeModeDisplayToggles: readonly ToggleRow[] = [
 		"Show per-word romanization",
 		"settings.workflow.showPerWordRomanizationDesc",
 		"Show each word's romanization under it.",
-		<TextCaseTitle24Regular key="icon" />,
+		<SlIcon name="romanization" size={24} key="icon" />,
 		displayRomanizationInSyncAtom,
 	],
 	[
@@ -214,7 +227,7 @@ const previewToggles: readonly ToggleRow[] = [
 		"Show translation",
 		"settings.workflow.previewShowTranslationDesc",
 		"Show translation lines in the preview.",
-		<Translate24Regular key="icon" />,
+		<SlIcon name="translation" size={24} key="icon" />,
 		showTranslationLinesAtom,
 	],
 	[
@@ -222,7 +235,7 @@ const previewToggles: readonly ToggleRow[] = [
 		"Show romanization",
 		"settings.workflow.previewShowRomanDesc",
 		"Show romanization in the preview.",
-		<TextCaseTitle24Regular key="icon" />,
+		<SlIcon name="romanization" size={24} key="icon" />,
 		showRomanLinesAtom,
 	],
 	[
@@ -310,7 +323,27 @@ const SettingRow = ({
 	return <Card>{asLabel ? <Text as="label">{row}</Text> : row}</Card>;
 };
 
-export const WorkflowSettings = () => {
+export type WorkflowGroup =
+	| "editMode"
+	| "timeModeDisplay"
+	| "syncAids"
+	| "preview"
+	| "previewPerformance";
+
+const ALL_GROUPS: readonly WorkflowGroup[] = [
+	"editMode",
+	"timeModeDisplay",
+	"syncAids",
+	"preview",
+	"previewPerformance",
+];
+
+/** The editor's groups of settings; Preferences shows each on its own page. */
+export const WorkflowSettings = ({
+	groups = ALL_GROUPS,
+}: {
+	groups?: readonly WorkflowGroup[];
+}) => {
 	const { t } = useTranslation();
 	const [fadeWidth, setFadeWidth] = useAtom(lyricWordFadeWidthAtom);
 	const toggles = (rows: readonly ToggleRow[]) =>
@@ -327,96 +360,106 @@ export const WorkflowSettings = () => {
 		));
 	return (
 		<Flex direction="column" gap="4">
-			<Flex direction="column" gap="3">
-				<Heading size="4">
-					{t("settings.group.editModeDisplay", "Edit mode")}
-				</Heading>
-				{toggles(editModeToggles)}
-			</Flex>
-			<Flex direction="column" gap="3">
-				<Heading size="4">
-					{t("settings.group.timeModeDisplay", "Time mode display")}
-				</Heading>
-				{toggles(timeModeDisplayToggles)}
-			</Flex>
-			<Flex direction="column" gap="3">
-				<Heading size="4">
-					{t("settings.group.syncAids", "Syncing aids")}
-				</Heading>
-				<SettingRow
-					icon={<Timeline24Regular />}
-					title={t("ribbonBar.syncMode.syncLevel", "Sync by")}
-					description={t(
-						"settings.workflow.syncLevelDesc",
-						"Word: time each word as you go. Line: time whole lines and spread their words out evenly, for a rough sync you fine-tune in the spectrogram.",
-					)}
-				>
-					<SyncLevelControl variant="segmented" />
-				</SettingRow>
-				<SettingRow
-					icon={<EyeOff24Regular />}
-					title={t("ribbonBar.syncMode.bgLyricSync", "Background lines")}
-					description={t(
-						"settings.workflow.bgLyricSyncDesc",
-						"How G and H treat background lines while syncing.",
-					)}
-				>
-					<BackgroundSyncControl variant="segmented" />
-				</SettingRow>
-				{toggles(syncAidToggles)}
-			</Flex>
-			<Flex direction="column" gap="3">
-				<Heading size="4">
-					{t("settings.group.previewControls", "Preview")}
-				</Heading>
-				<SettingRow
-					icon={<Eye24Regular />}
-					title={t("ribbonBar.previewMode.mode", "Mode")}
-					description={t(
-						"settings.workflow.previewModeDesc",
-						"Choose which preview the Preview tab shows.",
-					)}
-				>
-					<PreviewModeControl variant="segmented" />
-				</SettingRow>
-				<SettingRow
-					icon={<Image24Regular />}
-					title={t("ribbonBar.previewMode.background", "Background")}
-					description={t(
-						"settings.workflow.spicyBackgroundDesc",
-						"What shows behind the Spicy preview.",
-					)}
-				>
-					<SpicyBackgroundControl variant="segmented" />
-				</SettingRow>
-				{toggles(previewToggles)}
-				<SettingRow
-					icon={<ArrowAutofitWidth24Regular />}
-					title={t("ribbonBar.previewMode.fadeWidth", "Fade width")}
-					description={t(
-						"settings.workflow.fadeWidthDesc",
-						"How soft the edge of the highlight is as a word fills in the Standard and Toxi previews.",
-					)}
-				>
-					<TextField.Root
-						type="number"
-						min={0}
-						step={0.1}
-						value={fadeWidth}
-						style={{ width: 80 }}
-						onChange={(event) => {
-							const value = event.target.valueAsNumber;
-							if (Number.isFinite(value)) setFadeWidth(Math.max(0, value));
-						}}
-					/>
-				</SettingRow>
-			</Flex>
-			<Flex direction="column" gap="3">
-				<Heading size="4">
-					{t("settings.group.previewPerformance", "Preview performance")}
-				</Heading>
-				{toggles(performanceToggles)}
-			</Flex>
+			{groups.includes("editMode") && (
+				<Flex direction="column" gap="3">
+					<Heading size="4">
+						{t("settings.group.editModeDisplay", "Edit mode")}
+					</Heading>
+					{toggles(editModeToggles)}
+				</Flex>
+			)}
+			{groups.includes("timeModeDisplay") && (
+				<Flex direction="column" gap="3">
+					<Heading size="4">
+						{t("settings.group.timeModeDisplay", "Time mode display")}
+					</Heading>
+					{toggles(timeModeDisplayToggles)}
+				</Flex>
+			)}
+			{groups.includes("syncAids") && (
+				<Flex direction="column" gap="3">
+					<Heading size="4">
+						{t("settings.group.syncAids", "Syncing aids")}
+					</Heading>
+					<SettingRow
+						icon={<Timeline24Regular />}
+						title={t("ribbonBar.syncMode.syncLevel", "Sync by")}
+						description={t(
+							"settings.workflow.syncLevelDesc",
+							"Word: time each word as you go. Line: time whole lines and spread their words out evenly, for a rough sync you fine-tune in the spectrogram.",
+						)}
+					>
+						<SyncLevelControl variant="segmented" />
+					</SettingRow>
+					<SettingRow
+						icon={<EyeOff24Regular />}
+						title={t("ribbonBar.syncMode.bgLyricSync", "Background lines")}
+						description={t(
+							"settings.workflow.bgLyricSyncDesc",
+							"How G and H treat background lines while syncing.",
+						)}
+					>
+						<BackgroundSyncControl variant="segmented" />
+					</SettingRow>
+					{toggles(syncAidToggles)}
+				</Flex>
+			)}
+			{groups.includes("preview") && (
+				<Flex direction="column" gap="3">
+					<Heading size="4">
+						{t("settings.group.previewControls", "Preview")}
+					</Heading>
+					<SettingRow
+						icon={<Eye24Regular />}
+						title={t("ribbonBar.previewMode.mode", "Mode")}
+						description={t(
+							"settings.workflow.previewModeDesc",
+							"Choose which preview the Preview tab shows.",
+						)}
+					>
+						<PreviewModeControl variant="segmented" />
+					</SettingRow>
+					<SettingRow
+						icon={<Image24Regular />}
+						title={t("ribbonBar.previewMode.background", "Background")}
+						description={t(
+							"settings.workflow.spicyBackgroundDesc",
+							"What shows behind the Spicy preview.",
+						)}
+					>
+						<SpicyBackgroundControl variant="segmented" />
+					</SettingRow>
+					{toggles(previewToggles)}
+					<SettingRow
+						icon={<ArrowAutofitWidth24Regular />}
+						title={t("ribbonBar.previewMode.fadeWidth", "Fade width")}
+						description={t(
+							"settings.workflow.fadeWidthDesc",
+							"How soft the edge of the highlight is as a word fills in the Standard and Toxi previews.",
+						)}
+					>
+						<TextField.Root
+							type="number"
+							min={0}
+							step={0.1}
+							value={fadeWidth}
+							style={{ width: 80 }}
+							onChange={(event) => {
+								const value = event.target.valueAsNumber;
+								if (Number.isFinite(value)) setFadeWidth(Math.max(0, value));
+							}}
+						/>
+					</SettingRow>
+				</Flex>
+			)}
+			{groups.includes("previewPerformance") && (
+				<Flex direction="column" gap="3">
+					<Heading size="4">
+						{t("settings.group.previewPerformance", "Preview performance")}
+					</Heading>
+					{toggles(performanceToggles)}
+				</Flex>
+			)}
 		</Flex>
 	);
 };

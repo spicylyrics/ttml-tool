@@ -47,23 +47,23 @@ export const useSyncWordLifecycle = ({
 	const highlightActiveWordRef = useRef(highlightActiveWord);
 	const enableSyncGlowAnimationRef = useRef(enableSyncGlowAnimation);
 
-	const updateActive = useCallback(() => {
-		const el = wordContainerRef.current;
-		if (!el) return;
-		const currentTime = store.get(currentTimeAtom);
-		const isActive = currentTime >= startTime && currentTime < endTime;
-		if (isActive && highlightActiveWordRef.current) {
-			el.classList.add(styles.active);
-			if (enableSyncGlowAnimationRef.current) {
-				el.classList.add(styles.animated);
-			} else {
-				el.classList.remove(styles.animated);
-			}
-		} else {
-			el.classList.remove(styles.active);
-			el.classList.remove(styles.animated);
-		}
-	}, [store, startTime, endTime]);
+	const activeStateRef = useRef({ active: false, animated: false });
+	const updateActive = useCallback(
+		(force = false) => {
+			const el = wordContainerRef.current;
+			if (!el) return;
+			const time = store.get(currentTimeAtom);
+			const active =
+				highlightActiveWordRef.current && time >= startTime && time < endTime;
+			const animated = active && enableSyncGlowAnimationRef.current;
+			if (force || active !== activeStateRef.current.active)
+				el.classList.toggle(styles.active, active);
+			if (force || animated !== activeStateRef.current.animated)
+				el.classList.toggle(styles.animated, animated);
+			activeStateRef.current = { active, animated };
+		},
+		[store, startTime, endTime],
+	);
 
 	useEffect(() => {
 		highlightActiveWordRef.current = highlightActiveWord;
@@ -78,7 +78,7 @@ export const useSyncWordLifecycle = ({
 	// Re-apply active/animated classes synchronously on every React reconciliation
 	// pass so React updating className on the DOM element does not wipe out imperative classes.
 	useLayoutEffect(() => {
-		updateActive();
+		updateActive(true);
 	});
 
 	// Drive the active/animated classes imperatively via store.sub
@@ -86,8 +86,9 @@ export const useSyncWordLifecycle = ({
 	// re-renders of every visible word).
 	useEffect(() => {
 		updateActive();
+		if (!highlightActiveWord) return;
 		return store.sub(currentTimeAtom, updateActive);
-	}, [store, updateActive]);
+	}, [store, updateActive, highlightActiveWord]);
 
 	// Keep editing hooks between active highlighting and timestamp effects, as in the original component.
 	const editing = useSyncWordEditing({

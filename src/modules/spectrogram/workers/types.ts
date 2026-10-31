@@ -20,6 +20,7 @@ export type WorkerRequest =
 	| { type: "GET_TILE"; reqId: number; params: TileGenerationParams };
 
 export type WorkerResponse =
+	| { type: "FATAL_ERROR"; message: string }
 	| { type: "INIT_COMPLETE"; generation: number }
 	| { type: "TILE_READY"; reqId: number; imageBitmap: ImageBitmap }
 	| { type: "ERROR"; reqId: number; message: string };
