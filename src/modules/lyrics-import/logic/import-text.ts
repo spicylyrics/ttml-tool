@@ -40,14 +40,17 @@ export const DEFAULT_IMPORT_TEXT_FORMAT: ImportTextFormat = {
 
 /**
  * Parse the import text into untimed lines. Blank rows are dropped, and
- * `[Header]` rows become sections or are dropped.
+ * `[Header]` rows become sections or are dropped. `splitHyphens: false` keeps
+ * hyphenated words whole, so only the word separator splits.
  */
 export function importTextToLines(
 	text: string,
 	format: ImportTextFormat,
 	makeSections: boolean,
+	options: { splitHyphens?: boolean } = {},
 ): LyricLine[] {
 	return textToLines(text, {
+		splitHyphens: options.splitHyphens ?? true,
 		mode: format.mode,
 		lineSeparatorMode: format.lineSeparatorMode,
 		lineSeparator: format.lineSeparator,

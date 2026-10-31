@@ -3,6 +3,12 @@
     "changelogTitle": "Değişiklik günlüğü ve güncellemeler",
     "viewCommits": "GitHub'daki commit'leri görüntüle"
   },
+  "updatedToast": {
+    "message": "v{version} sürümüne güncellendi",
+    "seeChanges": "Neler değişti",
+    "setting": "Güncellemeden sonra neyin değiştiğini göster",
+    "settingDesc": "Uygulama yeni bir sürümde ilk kez açıldığında, değişiklik günlüğüne bağlantı içeren kısa bir bildirim gösterir."
+  },
   "app": {
     "error": {
       "title": "Hay aksi, bir hata oluştu!",
@@ -23,6 +29,7 @@
     "window": {
       "minimize": "Pencereyi simge durumuna küçült",
       "maximize": "Pencereyi büyüt",
+      "restore": "Pencereyi eski boyutuna getir",
       "close": "Pencereyi kapat"
     }
   },
@@ -32,6 +39,15 @@
   "preview": {
     "untimedLines": "{count, plural, one {# satır henüz zamanlanmamış} other {# satır henüz zamanlanmamış}}",
     "jumpToUntimed": "Zamanlanmamış ilk satırı senkronize et"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# kelimede zamanlama sorunu var} other {# kelimede zamanlama sorunu var}}",
+    "jump": "İlkini seç",
+    "untimed": "Zamanlanmış satırda zamanlaması yok",
+    "untimedLine": "Henüz zamanlanmadı",
+    "endsBeforeStart": "Başlamadan önce bitiyor",
+    "startsBeforeLine": "Satırından önce başlıyor",
+    "endsAfterLine": "Satırından sonra bitiyor"
   },
   "beginnerGuide": {
     "empty": {
@@ -210,7 +226,57 @@
       "dropped": "İçe aktarılmaz",
       "missingTranslation": "Çeviri eksik",
       "missingRomanization": "Romanizasyon eksik"
+    },
+    "search": {
+      "label": "Bul ve değiştir",
+      "find": "Bul",
+      "replace": "Şununla değiştir",
+      "matchCase": "Büyük/küçük harf duyarlı",
+      "wholeWord": "Tam sözcük",
+      "regex": "Desen kullan (regex)",
+      "inSelection": "Yalnızca seçimde",
+      "showList": "Tüm eşleşmeleri listele",
+      "listLabel": "Eşleşmeler",
+      "rows": "Aranacak satırlar",
+      "rowsAll": "Tüm satırlar",
+      "rowsLyrics": "Yalnızca sözler",
+      "rowsTranslations": "Çeviriler ve romanizasyon",
+      "previous": "Önceki eşleşme",
+      "next": "Sonraki eşleşme",
+      "toggleReplace": "Değiştirmeyi göster",
+      "close": "Aramayı kapat",
+      "replaceOne": "Değiştir",
+      "replaceAll": "Tümünü değiştir",
+      "replaceThis": "Bu eşleşmeyi değiştir",
+      "count": "{count, plural, one {# eşleşme} other {# eşleşme}}",
+      "position": "{current}/{count}",
+      "noMatches": "Eşleşme yok",
+      "replaced": "{count, plural, one {# eşleşme değiştirildi} other {# eşleşme değiştirildi}}",
+      "invalid": "Desen geçerli değil"
     }
+  },
+  "editAsText": {
+    "menuItem": "Metin olarak düzenle...",
+    "title": "Metin olarak düzenle",
+    "description": "Şarkı sözlerinin tamamını düz metin olarak düzenleyin. Değiştirmediğiniz kelimeler zamanlamasını korur.",
+    "textLabel": "Şarkı sözü metni",
+    "toolsHint": "Şarkı sözlerini işle ve Hecelere böl seçili satırlarda, hiçbir şey seçili değilse tüm metinde çalışır.",
+    "nothingToProcess": "Değiştirilecek bir şey yok.",
+    "summaryTitle": "Değişiklikler",
+    "unchanged": "{count, plural, one {# satır değişmedi} other {# satır değişmedi}}",
+    "edited": "{count, plural, one {# satır düzenlendi} other {# satır düzenlendi}}",
+    "editedHint": "Kelimelerin eşleştiği yerlerde zamanlama korunur.",
+    "moved": "{count, plural, one {# satır taşındı} other {# satır taşındı}}",
+    "added": "{count, plural, one {# satır eklendi} other {# satır eklendi}}",
+    "removed": "{count, plural, one {# satır kaldırıldı} other {# satır kaldırıldı}}",
+    "noChanges": "Henüz değişiklik yok.",
+    "droppedTimings": "{count, plural, one {# zamanlanmış kelime zamanlamasını kaybeder} other {# zamanlanmış kelime zamanlamasını kaybeder}}",
+    "lineNumber": "Satır {line}",
+    "more": "{count, plural, one {ve # tane daha} other {ve # tane daha}}",
+    "help": "Yeni kelimeler zamanlamasız gelir. Yalnızca taşınan satırlar zamanlamasını korur. Uygula tek adımda geri alınır.",
+    "apply": "Uygula",
+    "applied": "Metin uygulandı. Geri al tek adımda eski haline döndürür.",
+    "failed": "Metin uygulanamadı. Kontrol edip tekrar deneyin."
   },
   "importChooser": {
     "options": {
@@ -257,6 +323,12 @@
       "title": "Yeni şarkı sözleri içe aktarılsın mı?",
       "description": "Kaydedilmemiş değişiklikleriniz var. Eğer devam ederseniz, bunlar kaybolacak. Yeni şarkı sözü içe aktarmak istediğinize emin misiniz?"
     },
+    "discardTextEdits": {
+      "title": "Düzenlemeler atılsın mı?",
+      "description": "Metinde uygulanmamış değişiklikler var. Şimdi kapatırsanız kaybolur.",
+      "discard": "At",
+      "keepEditing": "Düzenlemeye devam et"
+    },
     "noSongwriter": {
       "description": "Şarkı yazarı belirtilmemiş. Yine de kaydedilsin mi?"
     },
@@ -277,6 +349,30 @@
       "noPreviousFound": "Zamanlaması olan önceki bir eşleşen bölüm bulunamadı.",
       "noMatchingLines": "Bu bölümdeki hiçbir satır öncekiyle eşleşmiyor, bu yüzden hiçbir şey kopyalanmadı.",
       "copyPrevious": "Önceki zamanlamayı kopyala"
+    }
+  },
+  "logoColor": {
+    "title": "Logo rengi",
+    "description": "Başlık çubuğundaki ve rehberin karşılama ekranındaki logo için bir renk seçin.",
+    "descriptionDesktop": "Uygulamanın pencere ve görev çubuğu simgesi, Windows'ta ise masaüstü ve Başlat menüsü kısayolları için bir renk seçin.",
+    "colorLabel": "Renk",
+    "customLabel": "Özel logo rengi",
+    "designNote": "Logo yalnızca Spicy Lyrics tasarımı açıkken görünür.",
+    "presets": {
+      "default": "Varsayılan",
+      "defaultDesc": "Tasarımın kendi rengi",
+      "lilac": "Leylak",
+      "lilacDesc": "v3 logosundan",
+      "purple": "Mor",
+      "purpleDesc": "Çok renkli logodan",
+      "red": "Kırmızı",
+      "redDesc": "v0.9 logosundan",
+      "gold": "Altın",
+      "green": "Yeşil",
+      "blue": "Mavi",
+      "white": "Beyaz",
+      "custom": "Özel",
+      "customDesc": "İstediğiniz rengi seçin"
     }
   },
   "common": {
@@ -306,6 +402,7 @@
     "preview": "Önizleme"
   },
   "dialog": {
+    "openFilesIgnored": "{count, plural, one {# dosya dışarıda bırakıldı} other {# dosya dışarıda bırakıldı}}: aynı anda bir şarkı sözü dosyası ve bir ses dosyası açın.",
     "createProjectPrompt": {
       "title": "Proje oluşturulsun mu?",
       "description": "Sesi ve şarkı sözlerini bir proje klasöründe bir arada tutun.",
@@ -331,6 +428,18 @@
     "openWorkspace": {
       "title": "Proje içeren bir çalışma alanı klasörü seçin"
     }
+  },
+  "commandPalette": {
+    "title": "Komut paleti",
+    "placeholder": "Komutlarda ve ayarlarda ara",
+    "noResults": "Eşleşen komut veya ayar yok",
+    "commandTag": "Komut",
+    "settingTag": "Tercihler",
+    "hint": "Ok tuşlarıyla gezinin, Enter ile çalıştırın, Esc ile kapatın",
+    "notRunnable": "Komut çalıştırılamadı. Tercihler'den ona bir kısayol atayın ve tekrar deneyin.",
+    "menu": "Komut paleti...",
+    "shortcut": "Görünüm - Komut paletini aç",
+    "shortcutAlternate": "Görünüm - Komut paletini aç (alternatif kısayol)"
   },
   "projectsDialog": {
     "title": "Projeler",
@@ -433,7 +542,7 @@
       "mode": "Mod",
       "standard": "Standard",
       "timing": "Zamanlama",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Basit şarkı sözleri",
       "forceLineRendering": "Satır senkronizasyonuyla göster",
       "background": "Arka plan",
@@ -605,6 +714,15 @@
         "accentNote": "Spicy Lyrics tasarımının kendi lavanta vurgu rengi var. Başka bir renk kullanmak için özel vurgu rengini açın.",
         "legacyDarkThemeNote": "Spicy Lyrics tasarımı açıkken etkisi yoktur.",
         "fontNote": "Geist, Spicy Lyrics tasarımından"
+      },
+      "effects": {
+        "title": "Görsel efektler",
+        "description": "Hafif; bulanıklığı, parlamaları, iletişim kutusu animasyonlarını ve önizlemenin hareketli arka planını kapatır, böylece uygulama bunların yavaş çizildiği yerlerde akıcı kalır. Cam bulanıklığını da kapatır.",
+        "auto": "Otomatik",
+        "full": "Tam",
+        "lite": "Hafif",
+        "autoLite": "Hafif kullanılıyor, çünkü Linux bu efektleri yavaş çiziyor.",
+        "autoFull": "Tam kullanılıyor."
       },
       "presets": {
         "missingBackground": "Bu ön ayarın arka plan resmi bu cihazda kullanılamıyor. Mevcut görüntü korundu.",
@@ -838,7 +956,7 @@
       "timingOverviewAutoScrollDesc": "Zamanlama görünümünü oynatma konumuna göre kaydırır.",
       "vsyncDesc": "Standard ve Toxi önizlemelerini saniyede yaklaşık 30 kez yerine her karede günceller. Daha akıcıdır, ancak daha fazla CPU kullanır.",
       "showFpsDesc": "Önizlemede kare hızı sayacı gösterir.",
-      "syncLevelDesc": "Kelime: her kelimeyi ayrı zamanlayın. Satır: tüm satırı zamanlayıp kelimeleri eşit dağıtın. Bu kaba senkronizasyonu spektrogramda ince ayarlayabilirsiniz.",
+      "syncLevelDesc": "Kelime: her kelimeyi ayrı zamanlayın. Satır: tüm satırı zamanlayıp kelimeleri eşit dağıtın. Satır modu da her kelimenin zamanını kaydeder, satır senkronlu söz oluşturmaz; kelimeleri spektrogramda ince ayarlayın.",
       "previewModeDesc": "Önizleme sekmesinin hangi önizlemeyi göstereceğini seçin.",
       "spicyBackgroundDesc": "Spicy önizlemesinin arkasında ne görüneceği.",
       "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı."
@@ -858,6 +976,10 @@
     "order": "Sıra",
     "orderChronological": "Zamana göre",
     "orderTextual": "Metne göre"
+  },
+  "joinSplitWords": {
+    "label": "Bölünmüş kelimeleri birleştir",
+    "description": "Parçalar halinde söylenen bir kelimeyi, parçalar düzenli şekilde hizalandığında tek kelime olarak gösterir; Spicy Lyrics'teki Join Split Words ayarı gibi."
   },
   "topBar": {
     "modeBtns": {
@@ -932,6 +1054,7 @@
     "deleteWords": "{count, plural, one {# kelimeyi sil} other {# kelimeyi sil}}",
     "bgLyric": "Arka vokal satırı",
     "duetLyric": "Düet satırı",
+    "lineRole": "Satır rolü",
     "moveLineToPlayhead": "Satırı oynatma konumuna taşı",
     "copyTimingsTo": "Zamanlamaları şuraya kopyala…",
     "cancelCopyTimings": "Zamanlama kopyalamasını iptal et",
@@ -958,12 +1081,15 @@
   "settingsDialog": {
     "search": "Ayarlarda ara",
     "clearSearch": "Aramayı temizle",
-    "noSearchResults": "Eşleşen kategori yok",
+    "matchCount": "Eşleşen ayarlar: {count}",
+    "noResults": "\"{query}\" ile eşleşen ayar yok",
+    "noResultsDesc": "Başka bir kelime deneyin veya aramayı temizleyin.",
     "title": "Tercihler",
     "common": {
       "latencyTest": "Ses/giriş gecikme testi"
     },
     "keybindings": {
+      "clearWordTiming": "Zamanlama - Sözcük/hece zaman damgalarını temizle",
       "newFile": "Yeni dosya",
       "openFile": "Dosya aç",
       "saveFile": "Dosyayı kaydet",
@@ -972,6 +1098,8 @@
       "redoAlternate": "İleri al (alternatif kısayol)",
       "selectAll": "Tümünü seç",
       "unselectAll": "Tüm seçimi kaldır",
+      "findInLyrics": "Sözlerde bul",
+      "replaceInLyrics": "Sözlerde değiştir",
       "deleteSelection": "Seçimi sil",
       "autoSegment": "Hızlı otomatik bölme",
       "autoSegmentDialog": "Otomatik bölme…",
@@ -1010,6 +1138,15 @@
       "auditionSelection": "Spektrogram - Seçimi oynat",
       "auditionSelectionAfter": "Spektrogram - Seçimi oynat (+0,5 sn sonra)",
       "cancelTimelineEditing": "Spektrogram - Zaman çizelgesi düzenlemesini iptal et",
+      "exportTtml": "Şarkı sözlerini dışa aktar: TTML",
+      "exportLrc": "Şarkı sözlerini dışa aktar: LRC",
+      "exportEslrc": "Şarkı sözlerini dışa aktar: ESLRC",
+      "exportQrc": "Şarkı sözlerini dışa aktar: QRC",
+      "exportYrc": "Şarkı sözlerini dışa aktar: YRC",
+      "exportLys": "Şarkı sözlerini dışa aktar: Lyricify Syllable",
+      "exportAss": "Şarkı sözlerini dışa aktar: ASS altyazıları",
+      "newLyricLine": "Yeni şarkı sözü satırı",
+      "advancedRibbonControls": "Gelişmiş şerit denetimleri",
       "resetDefault": "Varsayılana sıfırla",
       "clear": "Temizle",
       "unbound": "Atanmamış",
@@ -1021,30 +1158,59 @@
         "View": "Görünüm",
         "Sync": "Zamanlama",
         "Audio": "Ses",
-        "Spectrogram": "Spektrogram"
+        "Spectrogram": "Spektrogram",
+        "Tools": "Araçlar",
+        "Help": "Yardım",
+        "Preview": "Önizleme"
       },
-      "autoSegmentOptions": "Otomatik bölme",
-      "autoSegmentDoublePress": "Çift basmayı gerektir",
-      "autoSegmentDoublePressDesc": "Hızlı otomatik bölmeyi yalnızca kısayoluna art arda iki kez basıldığında çalıştırır."
+      "showAll": "Tuşu olmayan eylemleri göster"
     },
     "tab": {
       "common": "Genel",
       "appearance": "Görünüm",
-      "audio": "Ses",
-      "keybindings": "Kısayollar",
-      "spectrogram": "Spektrogram",
+      "editing": "Düzenleme",
+      "syncing": "Senkronizasyon",
+      "preview": "Önizleme",
+      "audioSpectrogram": "Ses ve spektrogram",
+      "importFiles": "İçe aktarma ve dosyalar",
       "backup": "Yedekleme",
-      "editor": "Düzenleyici ve senkronizasyon",
-      "files": "Dosyalar ve depolama"
-    },
-    "page": {
-      "generalDesc": "Dil, gizlilik ve uygulama genelindeki davranış.",
-      "editorDesc": "Zamanlama girişi, senkronizasyon davranışı ve görsel ipuçları.",
-      "filesDesc": "İçe aktarma temizliği, otomatik kayıt geçmişi ve taşınabilir yedekler.",
-      "audioDesc": "Oynatma, ekolayzer ve spektrogram görünümü."
+      "keybindings": "Kısayollar",
+      "changelog": "Değişiklik günlüğü"
     }
   },
-  "autoSegmentApplied": "{engine} ile otomatik bölündü",
+  "keyboardView": {
+    "title": "Klavye",
+    "search": "Eylem ara",
+    "searchResults": "{count, plural, =0 {Eşleşen eylem yok} one {# eylem eşleşiyor} other {# eylem eşleşiyor}}",
+    "layout": "Klavye düzeni",
+    "layoutAuto": "Otomatik",
+    "layoutDetected": "Algılanan: {layout}",
+    "layoutUnavailable": "Düzen burada algılanamıyor, bu yüzden QWERTY gösteriliyor",
+    "layerHint": "Onu kullanan kısayolları görmek için Shift gibi bir değiştirici tuşa tıklayın.",
+    "category": {
+      "sync": "Senkron",
+      "edit": "Düzenleme",
+      "playback": "Oynatma",
+      "navigation": "Gezinme"
+    },
+    "free": "Boş",
+    "keyFree": "{key}: boş",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "{key} ile kısayolları göster",
+    "freeKey": "{key} henüz hiçbir şey tarafından kullanılmıyor.",
+    "assignLabel": "Eylem",
+    "assignPlaceholder": "Bir eylem seçin...",
+    "assign": "{key} tuşuna ekle",
+    "changeKey": "Tuşu değiştir",
+    "addKey": "İkinci tuş ekle",
+    "removeKey": "{key} tuşunu kaldır",
+    "duplicateKey": "Bu tuş bu eylem için zaten ayarlı.",
+    "doublePress": "Çalıştırmak için iki kez bas",
+    "doublePressDesc": "Yalnızca tuşuna art arda iki kez basıldığında çalışır.",
+    "otherLayers": "Bu tuşta ayrıca",
+    "closePanel": "Kapat"
+  },
+  "autoSegmentApplied":"{engine} ile otomatik bölündü",
   "error": {
     "unsupportedFileFormat": "Desteklenmeyen dosya biçimi: {ext}",
     "openFileFailed": "Dosya açılamadı",
@@ -1100,11 +1266,23 @@
     "volume": "Ses düzeyi",
     "playbackRate": "Oynatma hızı",
     "preservesPitch": "Ses perdesini koru",
-    "clickToLoadMusic": "Ses yüklemek için müzik simgesine tıklayın",
+    "audioMenu": "Ses ve oynatma",
+    "loadedAudio": "Yüklenen ses",
+    "replaceAudio": "Değiştir",
+    "resetSpeed": "1× değerine sıfırla",
     "playPause": "Müziği oynat/duraklat",
     "expandSpectrogram": "Spektrogramı genişlet/daralt"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Tam milisaniye cinsinden bir kayma girin",
+    "precision": "Ortalama mutlak hata: {error} ms ({count} basış)",
+    "recommendationProgress": "Öneri almak için en az 20 kez basın ({count}/20)",
+    "recommendedOffset": "Önerilen senkronizasyon kayması: {offset} ms",
+    "tryRecommendation": "Önerilen kaymayı dene",
+    "trialOffsetHint": "Kaymayı kaydedene kadar değişiklikler bu pencerede kalır",
+    "saveOffset": "Kaymayı kaydet",
+    "useOffset": "Senkronizasyon kaymasını kullan",
+    "offsetNotice": "Sonuçlar {offset} ms senkronizasyon kaymanızı içerir.",
     "title": "Gecikme testi",
     "latencyDisplay": {
       "fastest": "En hızlı",
@@ -1161,6 +1339,11 @@
     "addPresets": "Tüm standart alanları ekle",
     "clear": "Temizle"
   },
+  "helpText": {
+    "metadataArtists": "Şarkıyı seslendiren kişi, parçanın yayın hizmetlerinde listelendiği şekliyle. Örnek: \"Shake It Off\" Taylor Swift'in şarkısıdır.",
+    "metadataSongwriter": "Müziği ve sözleri yazan kişiler, yazar bilgilerine göre. Çoğu zaman sanatçılardan farklıdır. Örnek: \"Shake It Off\" şarkısını Taylor Swift, Max Martin ve Shellback yazdı.",
+    "openSongwritersGuide": "Söz yazarları rehberini aç"
+  },
   "lrclib": {
     "placeholder": "Şarkı adı ve sanatçı…",
     "notFound": "Sonuç yok. Farklı anahtar kelimeler deneyin.",
@@ -1182,6 +1365,14 @@
     "wordTimingMismatch": "{count, plural, one {# satırda kelime sayısı farklıydı; yalnızca eşleşen kelime konumları kopyalandı.} other {# satırda kelime sayısı farklıydı; yalnızca eşleşen kelime konumları kopyalandı.}}",
     "insertLine": "Buraya yeni satır ekle",
     "insertWord": "Buraya kelime ekle…"
+  },
+  "editModeTools": {
+    "splitTypedLinesTitle": "Yazılan satırları kelimelere böl",
+    "splitTypedLinesDesc": "Boş bir satıra yazılan metin, içe aktarmanın satırları böldüğü gibi kelimelere bölünür.",
+    "scrollMemoryTitle": "Düzenleme modu konumunu hatırla",
+    "scrollMemoryDesc": "Her projeyi Düzenleme modunda kaldığınız satırda açar.",
+    "swapDuetAll": "Ana ve düet satırlarını değiştir",
+    "swapDuetSelected": "Ana ve düeti değiştir"
   },
   "lyricWordView": {
     "empty": "Boş",
@@ -1245,6 +1436,16 @@
     "placeholder": "Yeni kelime",
     "applyToAll": "Tüm aynı kelimeleri değiştir",
     "caseSensitive": "Büyük/küçük harfe duyarlı"
+  },
+  "replaceWordCombinationDialog": {
+    "title": "Kelime birleşimini değiştir",
+    "description": "Metnini düzenlemek için bir kelimeye tıklayın. Zamanlamalar aynı kalır.",
+    "word": "Kelime {index}",
+    "reorderWord": "Kelime {index} konumunu değiştir",
+    "reorderHint": "Sıralamak için tutamacı sürükleyin veya kelimeye odaklanıp Alt+Sol/Sağ tuşlarına basın.",
+    "position": "Konum {index}/{count}",
+    "applyToAll": "Eşleşen tüm birleşimleri değiştir",
+    "adjacentOnly": "Bir birleşimi değiştirmek için aynı satırda bitişik kelimeler veya heceler seçin."
   },
   "replaceRomanizationDialog": {
     "title": "Latin harflerine çeviriyi değiştir",
@@ -1357,6 +1558,14 @@
   "autosave": {
     "legacyProjectName": "Eski anlık görüntüler",
     "untitledProjectName": "Adsız proje"
+  },
+  "didYouKnow": {
+    "title": "Biliyor muydunuz?",
+    "repeatedSection": "Tekrarlanan satırlar önceki zamanlamayı yeniden kullanabilir. Önceki satırları seçin, oynatma konumunu tekrarın başladığı yere getirin ve Oynatma konumunda çoğalt seçeneğini kullanın.",
+    "splitInTimeMode": "Zamanla modundan çıkmadan bir kelimeyi bölebilirsiniz: {modifier} tuşunu basılı tutup kelimeye çift tıklayın.",
+    "turnOff": "İpuçlarını gösterme",
+    "setting": "İpuçlarını göster",
+    "settingDesc": "Daha hızlı bir yolu olan bir işi elle yaptığınızda kısa bir ipucu gösterir. Her ipucu yalnızca bir kez gösterilir."
   },
   "time": {
     "daysAgo": "{count, plural, one {# gün önce} other {# gün önce}}",
@@ -1476,6 +1685,19 @@
     "apply": "Öneriyi uygula",
     "noSuggestions": "Bu içerik için otomatik bölme önerisi yok."
   },
+  "changelogScreen": {
+    "viewLabel": "Göster",
+    "viewAll": "Tümü",
+    "viewHighlights": "Öne çıkanlar",
+    "highlights": "Öne çıkanlar",
+    "latest": "En yeni",
+    "sectionNew": "Yeni",
+    "sectionChanged": "Değişti",
+    "sectionFixed": "Düzeltildi",
+    "empty": "Gösterilecek sürüm yok.",
+    "versions": "Sürümler",
+    "earlier": "Daha eski"
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Apple Music tarzı şarkı sözleri için kelime kelime TTML düzenleyicisi ve zamanlama aracı",
@@ -1498,6 +1720,23 @@
     "openContributorProfile": "{name} kullanıcısının GitHub profilini aç",
     "unknown": "Bilinmiyor"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Ayrı şeritler",
+    "settingDesc": "Arka vokal satırlarını ana satırların altında kendi şeritlerinde göster. Şeritler yalnızca görüntü içindir: bir satırın rolünü Düzenle modunda değiştirin.",
+    "menu": "Şeritler",
+    "visibleLanes": "Şeritleri göster",
+    "duetLane": "Ayrı düet şeridi",
+    "lane": {
+      "main": "Ana",
+      "duet": "Düet",
+      "bg": "Arka vokal"
+    }
+  },
+  "spectrogramLineEnds": {
+    "mergedHandle": "Satırın ve son kelimenin sonu. Yalnızca birini taşımak için Alt ile sürükleyin.",
+    "wordEndHandle": "Son kelimenin sonu",
+    "lineEndHandle": "Satır sonu"
+  },
   "spectrogram": {
     "invalidEndTime": "Bu bitiş zamanı seçilemez",
     "noAudioLoaded": "Spektrogramı göstermek için ses dosyası yükleyin",
@@ -1513,6 +1752,17 @@
       "4096": "4096 (en fazla ayrıntı)"
     },
     "height": "Görünüm yüksekliği"
+  },
+  "spectrogramFollow": {
+    "toggle": "Oynatma imlecini takip et",
+    "shortcut": "Spektrogram - Oynatma imlecini takibi aç/kapat",
+    "setting": "Oynatma imlecini takip et",
+    "settingDesc": "Oynatma imleci görünür kalsın diye spektrogramı kaydırır. Kaydırmak veya sürüklemek, oynatmaya basana ya da bir süre bekleyene kadar takibi duraklatır.",
+    "style": "Takip biçimi",
+    "page": "Sayfa sayfa",
+    "pageDesc": "İmleç görünümden çıkınca ileri atlar.",
+    "continuous": "Sürekli",
+    "continuousDesc": "İmleçle birlikte kayar ve onu ortada tutar."
   },
   "export": {
     "recoveryUntimed": "Bu kurtarma dışa aktarımı zamanlanmamış sözler içeriyor. Göndermeden önce zamanlamayı kontrol edin.",

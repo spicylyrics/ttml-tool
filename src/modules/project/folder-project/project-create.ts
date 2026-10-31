@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { uid } from "uid";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { lyricLinesAtom, saveFileNameAtom } from "$/states/main";
+import { lastFolder, rememberPick, savePathFor } from "$/utils/dialog-folders";
 import { log, error as logError } from "$/utils/logging";
 import { AUDIO_EXTS } from "./audio-io";
 import { getLinkedProjectDir } from "./linked-projects";
@@ -112,8 +113,10 @@ export async function createProjectFromCurrent(
 				"dialog.createProject.parentTitle",
 				"Select where to create the project folder",
 			),
+			defaultPath: lastFolder("projectParent"),
 		});
 		if (!parent || typeof parent !== "string") return false;
+		rememberPick("projectParent", parent);
 
 		const entries = await readDir(parent);
 		const resolved = resolveProjectName({
@@ -201,11 +204,13 @@ export async function createLinkedProjectFromCurrent(
 					"Select the audio file you loaded",
 				),
 				filters: [{ name: "Audio", extensions: [...AUDIO_EXTS] }],
+				defaultPath: lastFolder("linkAudio"),
 			}));
 		if (!audioPath || typeof audioPath !== "string") {
 			log("Skipped linked project: no audio file was chosen");
 			return false;
 		}
+		rememberPick("linkAudio", audioPath);
 
 		const resolved = resolveProjectName({
 			metadata: lyric.metadata,
@@ -219,9 +224,12 @@ export async function createLinkedProjectFromCurrent(
 					"dialog.linkProject.lyricTitle",
 					"Choose the TTML file this project saves to",
 				),
-				defaultPath: ensureExtension(
-					sanitizeFileName(store.get(saveFileNameAtom) || resolved.name),
-					"ttml",
+				defaultPath: savePathFor(
+					"linkLyrics",
+					ensureExtension(
+						sanitizeFileName(store.get(saveFileNameAtom) || resolved.name),
+						"ttml",
+					),
 				),
 				filters: [{ name: "TTML", extensions: ["ttml"] }],
 			}));
@@ -229,6 +237,7 @@ export async function createLinkedProjectFromCurrent(
 			log("Skipped linked project: no TTML file was chosen");
 			return false;
 		}
+		rememberPick("linkLyrics", lyricPath);
 
 		const linked = { lyricPath, audioPath };
 		if (!isLinkedProjectFiles(linked)) {

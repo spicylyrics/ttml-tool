@@ -33,6 +33,32 @@ export function spectralLeadFrames(tempo: number, sampleRate: number) {
  */
 const PREROLL_SECONDS = 0.08;
 
+export function renderPcmBlock(
+	voice: PcmVoice,
+	output: Float32Array[],
+	scratch: Float32Array[],
+): RenderReport | null {
+	for (const channel of output) channel.fill(0);
+	let result: RenderReport | null = null;
+	let offset = 0;
+	while (offset < output[0].length) {
+		const report = voice.render(scratch, 0);
+		if (!report) break;
+		result ??= { ...report, renderedFrames: 0 };
+		for (let channel = 0; channel < output.length; channel++)
+			output[channel].set(
+				scratch[channel].subarray(0, report.renderedFrames),
+				offset,
+			);
+		offset += report.renderedFrames;
+		result.endFrame = report.endFrame;
+		result.renderedFrames = offset;
+		result.ended = report.ended;
+		if (report.ended || report.renderedFrames === 0) break;
+	}
+	return result;
+}
+
 export class PcmVoice {
 	private state: VoiceState;
 	private appliedGeneration = -1;

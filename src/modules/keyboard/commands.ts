@@ -69,6 +69,22 @@ export const cmdUnselectAll = registerCommand(
 	"Edit",
 );
 
+// Edit as text mounts their handlers and opens with its search ready.
+export const cmdFindInLyrics = registerCommand(
+	"findInLyrics",
+	[CONTROL_KEY, "KeyF"],
+	t("settingsDialog.keybindings.findInLyrics"),
+	"Edit",
+);
+
+// Cmd+H hides the app on macOS.
+export const cmdReplaceInLyrics = registerCommand(
+	"replaceInLyrics",
+	IS_MAC ? [CONTROL_KEY, "Alt", "KeyF"] : [CONTROL_KEY, "KeyH"],
+	t("settingsDialog.keybindings.replaceInLyrics"),
+	"Edit",
+);
+
 export const cmdDeleteSelection = registerCommand(
 	"deleteSelection",
 	[DELETE_KEY],
@@ -147,6 +163,21 @@ export const cmdInterfaceScaleReset = registerCommand(
 	"interfaceScaleReset",
 	[CONTROL_KEY, "Digit0"],
 	t("settingsDialog.keybindings.interfaceScaleReset"),
+	"View",
+);
+
+// The command palette mounts their handlers.
+export const cmdOpenCommandPalette = registerCommand(
+	"openCommandPalette",
+	[CONTROL_KEY, "KeyK"],
+	t("commandPalette.shortcut"),
+	"View",
+);
+
+export const cmdOpenCommandPaletteAlternate = registerCommand(
+	"openCommandPaletteAlternate",
+	[CONTROL_KEY, "Shift", "KeyP"],
+	t("commandPalette.shortcutAlternate"),
 	"View",
 );
 
@@ -352,6 +383,13 @@ export const cmdCancelTimelineEditing = registerCommand(
 	"Spectrogram",
 );
 
+export const cmdToggleSpectrogramFollow = registerCommand(
+	"toggleSpectrogramFollow",
+	["Shift", "KeyP"],
+	t("spectrogramFollow.shortcut"),
+	"Spectrogram",
+);
+
 if (import.meta.env.DEV) {
 	t("settingsDialog.keybindings.category.File");
 	t("settingsDialog.keybindings.category.Edit");
@@ -359,4 +397,8 @@ if (import.meta.env.DEV) {
 	t("settingsDialog.keybindings.category.Sync");
 	t("settingsDialog.keybindings.category.Audio");
 	t("settingsDialog.keybindings.category.Spectrogram");
+	// Menu and ribbon actions (src/modules/menu-actions) register these.
+	t("settingsDialog.keybindings.category.Tools");
+	t("settingsDialog.keybindings.category.Help");
+	t("settingsDialog.keybindings.category.Preview");
 }

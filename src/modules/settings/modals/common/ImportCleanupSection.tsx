@@ -1,9 +1,6 @@
-import {
-	MicSparkle24Regular,
-	TextQuote24Regular,
-	Translate24Regular,
-} from "@fluentui/react-icons";
+import { MicSparkle24Regular, TextQuote24Regular } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Switch, Text } from "@radix-ui/themes";
+import { SlIcon } from "$/components/SlIcon";
 import type { CommonSettings } from "./useCommonSettings";
 export const ImportCleanupSection = ({
 	normalizeApostrophesOnImport,
@@ -59,7 +56,7 @@ export const ImportCleanupSection = ({
 		<Card>
 			<Text as="label">
 				<Flex gap="3" align="center">
-					<Translate24Regular />
+					<SlIcon name="translation" size={24} />
 					<Box flexGrow="1">
 						<Flex direction="column" gap="1">
 							<Flex align="center" justify="between" gap="4">

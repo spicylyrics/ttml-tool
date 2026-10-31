@@ -12,14 +12,21 @@
 import { AddFilled } from "@fluentui/react-icons";
 import { Flex, IconButton, TextField } from "@radix-ui/themes";
 import classNames from "classnames";
+import { atom, useAtomValue } from "jotai";
 import { Fragment } from "react";
+import { segmentationLearnedRulesAtom } from "$/modules/segmentation/states";
 import { ToolMode } from "$/states/main.ts";
 import { newLyricWord } from "$/types/ttml.ts";
+import { splitTypedLinesAtom } from "../../states/edit-mode-tools.ts";
+import { typedLineToWords } from "../../utils/typed-line-words.ts";
 import { getWordConnections } from "../../utils/word-connections.ts";
 import styles from "../index.module.css";
 import LyricWordView from "../lyric-word-view.tsx";
 import { RomanWordView } from "../roman-word-view.tsx";
 import type { LyricLineViewState } from "./use-line-view";
+
+// Read only while the flag is on, so rows don't subscribe to learned splits otherwise.
+const noLearnedRulesAtom = atom(new Map<string, number[]>());
 
 export function LineWordRow({
 	lineIndex,
@@ -63,6 +70,10 @@ export function LineWordRow({
 	| "syncWordWrap"
 	| "enableInsert"
 >) {
+	const splitTypedLine = useAtomValue(splitTypedLinesAtom);
+	const learnedRules = useAtomValue(
+		splitTypedLine ? segmentationLearnedRulesAtom : noLearnedRulesAtom,
+	);
 	return (
 		<div
 			className={classNames(
@@ -181,11 +192,16 @@ export function LineWordRow({
 							evt.stopPropagation();
 							const word = evt.currentTarget.value;
 							editLyricLines((state) => {
-								const newWord = newLyricWord();
-								state.lyricLines[lineIndex].words.push({
-									...newWord,
-									word,
-								});
+								// Only a whole line typed into an empty line is split;
+								// adding to a line that has words inserts one word.
+								const typed =
+									splitTypedLine &&
+									state.lyricLines[lineIndex].words.length === 0
+										? typedLineToWords(word, learnedRules)
+										: [word];
+								state.lyricLines[lineIndex].words.push(
+									...typed.map((text) => ({ ...newLyricWord(), word: text })),
+								);
 							});
 							evt.currentTarget.value = "";
 						}

@@ -21,8 +21,10 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { SlIcon } from "$/components/SlIcon";
 import { lyricLinesAtom } from "$/states/main.ts";
 import type { LyricLine } from "$/types/ttml.ts";
+import styles from "../index.module.css";
 
 export const SubLineEdit = memo(
 	({
@@ -84,6 +86,10 @@ export const SubLineEdit = memo(
 							: "var(--romanization-color, inherit)",
 				}}
 			>
+				<SlIcon
+					name={type === "translatedLyric" ? "translation" : "romanization"}
+					className={styles.subLineIcon}
+				/>
 				<Text size="2" style={{ color: "inherit" }}>
 					{label}
 				</Text>

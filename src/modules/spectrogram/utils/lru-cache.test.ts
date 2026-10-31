@@ -2,6 +2,27 @@ import { describe, expect, it, vi } from "vitest";
 import { LRUCache } from "./lru-cache";
 
 describe("LRUCache", () => {
+	it("enforces a byte budget and accounts for replacements and clearing", () => {
+		const evicted = vi.fn();
+		const cache = new LRUCache<string, number>(
+			70,
+			evicted,
+			100,
+			(size) => size,
+		);
+		cache.set("a", 40);
+		cache.set("b", 40);
+		cache.set("c", 40);
+		expect(cache.get("a")).toBeUndefined();
+		expect(evicted).toHaveBeenCalledWith("a", 40);
+		cache.set("b", 70);
+		expect(cache.get("c")).toBeUndefined();
+		expect(cache.get("b")).toBe(70);
+		cache.clear();
+		cache.set("d", 80);
+		expect(cache.get("d")).toBe(80);
+	});
+
 	it("inserts and retrieves items via set and get", () => {
 		const cache = new LRUCache<string, number>(3);
 		cache.set("a", 1);

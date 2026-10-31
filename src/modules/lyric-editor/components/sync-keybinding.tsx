@@ -513,9 +513,10 @@ export const SyncKeyBinding: FC = () => {
 			}
 
 			const _t4 = performance.now();
-			console.debug(
-				`[commit] setup=${(_t1 - _t0).toFixed(2)}ms | lyricLinesAtom.set=${(_t3 - _t2).toFixed(2)}ms | post-set=${(_t4 - _t3).toFixed(2)}ms | TOTAL=${(_t4 - _t0).toFixed(2)}ms`,
-			);
+			if (import.meta.env.DEV)
+				console.debug(
+					`[commit] setup=${(_t1 - _t0).toFixed(2)}ms | lyricLinesAtom.set=${(_t3 - _t2).toFixed(2)}ms | post-set=${(_t4 - _t3).toFixed(2)}ms | TOTAL=${(_t4 - _t0).toFixed(2)}ms`,
+				);
 		},
 		[store, moveToNextWord],
 	);

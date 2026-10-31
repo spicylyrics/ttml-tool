@@ -3,6 +3,12 @@
     "changelogTitle": "Muutosloki ja päivitykset",
     "viewCommits": "Näytä muutokset GitHubissa"
   },
+  "updatedToast": {
+    "message": "Päivitetty versioon v{version}",
+    "seeChanges": "Katso muutokset",
+    "setting": "Näytä muutokset päivityksen jälkeen",
+    "settingDesc": "Kun sovellus käynnistyy ensimmäistä kertaa uudessa versiossa, näytetään lyhyt ilmoitus ja linkki muutoslokiin."
+  },
   "app": {
     "error": {
       "title": "Hups, tapahtui virhe!",
@@ -23,6 +29,7 @@
     "window": {
       "minimize": "Pienennä ikkuna",
       "maximize": "Suurenna ikkuna",
+      "restore": "Palauta ikkuna",
       "close": "Sulje ikkuna"
     }
   },
@@ -32,6 +39,15 @@
   "preview": {
     "untimedLines": "{count, plural, one {# riviltä puuttuu ajoitus} other {# riviltä puuttuu ajoitus}}",
     "jumpToUntimed": "Ajoita ensimmäinen ajoittamaton rivi"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# sanan ajoituksessa on ongelma} other {# sanan ajoituksessa on ongelmia}}",
+    "jump": "Valitse ensimmäinen",
+    "untimed": "Ei ajoitusta ajoitetulla rivillä",
+    "untimedLine": "Ei vielä ajoitettu",
+    "endsBeforeStart": "Päättyy ennen kuin alkaa",
+    "startsBeforeLine": "Alkaa ennen riviään",
+    "endsAfterLine": "Päättyy rivinsä jälkeen"
   },
   "beginnerGuide": {
     "empty": {
@@ -210,7 +226,57 @@
       "dropped": "Ei tuoda",
       "missingTranslation": "Käännös puuttuu",
       "missingRomanization": "Latinisointi puuttuu"
+    },
+    "search": {
+      "label": "Etsi ja korvaa",
+      "find": "Etsi",
+      "replace": "Korvaa tekstillä",
+      "matchCase": "Sama kirjainkoko",
+      "wholeWord": "Koko sana",
+      "regex": "Käytä hakulauseketta (regex)",
+      "inSelection": "Vain valinnassa",
+      "showList": "Näytä kaikki osumat",
+      "listLabel": "Osumat",
+      "rows": "Haettavat rivit",
+      "rowsAll": "Kaikki rivit",
+      "rowsLyrics": "Vain sanoitus",
+      "rowsTranslations": "Käännökset ja latinisointi",
+      "previous": "Edellinen osuma",
+      "next": "Seuraava osuma",
+      "toggleReplace": "Näytä korvaus",
+      "close": "Sulje haku",
+      "replaceOne": "Korvaa",
+      "replaceAll": "Korvaa kaikki",
+      "replaceThis": "Korvaa tämä osuma",
+      "count": "{count, plural, one {# osuma} other {# osumaa}}",
+      "position": "{current}/{count}",
+      "noMatches": "Ei osumia",
+      "replaced": "{count, plural, one {Korvattiin # osuma} other {Korvattiin # osumaa}}",
+      "invalid": "Hakulauseke ei kelpaa"
     }
+  },
+  "editAsText": {
+    "menuItem": "Muokkaa tekstinä...",
+    "title": "Muokkaa tekstinä",
+    "description": "Muokkaa koko sanoitusta pelkkänä tekstinä. Sanat, joita et muuta, säilyttävät ajoituksensa.",
+    "textLabel": "Sanoitusteksti",
+    "toolsHint": "Käsittele sanoitukset ja Jaa tavuihin toimivat valituilla riveillä tai koko tekstillä, jos mitään ei ole valittu.",
+    "nothingToProcess": "Ei muutettavaa.",
+    "summaryTitle": "Muutokset",
+    "unchanged": "{count, plural, one {# rivi ennallaan} other {# riviä ennallaan}}",
+    "edited": "{count, plural, one {# rivi muokattu} other {# riviä muokattu}}",
+    "editedHint": "Ajoitukset säilyvät, kun sanat täsmäävät.",
+    "moved": "{count, plural, one {# rivi siirretty} other {# riviä siirretty}}",
+    "added": "{count, plural, one {# rivi lisätty} other {# riviä lisätty}}",
+    "removed": "{count, plural, one {# rivi poistettu} other {# riviä poistettu}}",
+    "noChanges": "Ei vielä muutoksia.",
+    "droppedTimings": "{count, plural, one {# ajoitettu sana menettää ajoituksensa} other {# ajoitettua sanaa menettää ajoituksensa}}",
+    "lineNumber": "Rivi {line}",
+    "more": "{count, plural, one {ja # muu} other {ja # muuta}}",
+    "help": "Uudet sanat tulevat ilman ajoitusta. Pelkästään siirretyt rivit säilyttävät ajoituksensa. Käyttö kumotaan yhdellä askeleella.",
+    "apply": "Käytä",
+    "applied": "Teksti otettiin käyttöön. Kumoa palauttaa sen yhdellä askeleella.",
+    "failed": "Tekstiä ei voitu ottaa käyttöön. Tarkista se ja yritä uudelleen."
   },
   "importChooser": {
     "options": {
@@ -257,6 +323,12 @@
       "title": "Tuodaanko uudet sanoitukset?",
       "description": "Sinulla on tallentamattomia muutoksia. Jos jatkat, menetät muutokset. Oletko varma että haluat tuoda uudet sanoitukset?"
     },
+    "discardTextEdits": {
+      "title": "Hylätäänkö muokkaukset?",
+      "description": "Tekstissä on muutoksia, joita et ole ottanut käyttöön. Jos suljet nyt, ne menetetään.",
+      "discard": "Hylkää",
+      "keepEditing": "Jatka muokkausta"
+    },
     "noSongwriter": {
       "description": "Kappaleelle ei ole lisätty lauluntekijöitä. Tallennetaanko silti?"
     },
@@ -277,6 +349,30 @@
       "noPreviousFound": "Aiempaa vastaavaa ajoitettua osiota ei löytynyt.",
       "noMatchingLines": "Mikään tämän osion rivi ei vastaa aiempaa, joten mitään ei kopioitu.",
       "copyPrevious": "Kopioi edellinen ajoitus"
+    }
+  },
+  "logoColor": {
+    "title": "Logon väri",
+    "description": "Valitse logon väri otsikkopalkkiin ja oppaan aloitusnäyttöön.",
+    "descriptionDesktop": "Valitse väri sovelluksen ikkuna- ja tehtäväpalkkikuvakkeelle sekä Windowsissa työpöydän ja Käynnistä-valikon pikakuvakkeille.",
+    "colorLabel": "Väri",
+    "customLabel": "Mukautettu logon väri",
+    "designNote": "Logo näkyy vain, kun Spicy Lyrics -ulkoasu on käytössä.",
+    "presets": {
+      "default": "Oletus",
+      "defaultDesc": "Ulkoasun oma väri",
+      "lilac": "Liila",
+      "lilacDesc": "v3-logosta",
+      "purple": "Violetti",
+      "purpleDesc": "Monivärisestä logosta",
+      "red": "Punainen",
+      "redDesc": "v0.9-logosta",
+      "gold": "Kulta",
+      "green": "Vihreä",
+      "blue": "Sininen",
+      "white": "Valkoinen",
+      "custom": "Mukautettu",
+      "customDesc": "Valitse mikä tahansa väri"
     }
   },
   "common": {
@@ -306,6 +402,7 @@
     "preview": "Esikatselu"
   },
   "dialog": {
+    "openFilesIgnored": "{count, plural, one {# tiedosto jätettiin pois} other {# tiedostoa jätettiin pois}}: avaa kerralla yksi sanoitustiedosto ja yksi äänitiedosto.",
     "createProjectPrompt": {
       "title": "Luodaanko projekti?",
       "description": "Säilytä ääni ja sanat yhdessä projektikansiossa.",
@@ -331,6 +428,18 @@
     "openWorkspace": {
       "title": "Valitse projekteja sisältävä työtilakansio"
     }
+  },
+  "commandPalette": {
+    "title": "Komentopaletti",
+    "placeholder": "Etsi komentoja ja asetuksia",
+    "noResults": "Ei vastaavia komentoja tai asetuksia",
+    "commandTag": "Komento",
+    "settingTag": "Asetukset",
+    "hint": "Nuolinäppäimet siirtävät, Enter suorittaa, Esc sulkee",
+    "notRunnable": "Komentoa ei voitu suorittaa. Anna sille pikanäppäin asetuksissa ja yritä uudelleen.",
+    "menu": "Komentopaletti...",
+    "shortcut": "Näkymä - Avaa komentopaletti",
+    "shortcutAlternate": "Näkymä - Avaa komentopaletti (vaihtoehtoinen pikanäppäin)"
   },
   "projectsDialog": {
     "title": "Projektit",
@@ -433,7 +542,7 @@
       "mode": "Tila",
       "standard": "Standard",
       "timing": "Ajoitus",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Yksinkertainen sanoitustila",
       "forceLineRendering": "Näytä rivikohtaisesti ajoitettuna",
       "background": "Tausta",
@@ -605,6 +714,15 @@
         "accentNote": "Spicy Lyrics -ulkoasulla on oma laventelinsävyinen korostusväri. Ota mukautettu korostusväri käyttöön, jos haluat toisen.",
         "legacyDarkThemeNote": "Ei vaikuta, kun Spicy Lyrics -ulkoasu on käytössä.",
         "fontNote": "Geist, Spicy Lyrics -ulkoasusta"
+      },
+      "effects": {
+        "title": "Visuaaliset tehosteet",
+        "description": "Kevyempi poistaa sumennuksen, hehkut, valintaikkunoiden animaatiot ja esikatselun liikkuvan taustan, jotta sovellus pysyy sulavana, kun niiden piirto on hidasta. Se poistaa myös lasisumennuksen.",
+        "auto": "Automaattinen",
+        "full": "Täysi",
+        "lite": "Kevyempi",
+        "autoLite": "Käytössä Kevyempi, koska Linux piirtää nämä tehosteet hitaasti.",
+        "autoFull": "Käytössä Täysi."
       },
       "presets": {
         "missingBackground": "Tämän esiasetuksen taustakuva ei ole käytettävissä tällä laitteella. Nykyinen kuva säilytettiin.",
@@ -838,7 +956,7 @@
       "timingOverviewAutoScrollDesc": "Pidä ajoituskatsaus vieritettynä toistokohtaan.",
       "vsyncDesc": "Päivitä Standard- ja Toxi-esikatselut joka ruudulla noin 30 kertaa sekunnissa tapahtuvan päivityksen sijaan. Sulavampi, mutta kuormittaa suoritinta enemmän.",
       "showFpsDesc": "Näytä esikatselussa kuvataajuuslaskuri.",
-      "syncLevelDesc": "Sana: ajoita jokainen sana erikseen. Rivi: ajoita kokonaiset rivit ja jaa sanat tasaisesti alustavaksi ajoitukseksi, jota tarkennat spektrogrammissa.",
+      "syncLevelDesc": "Sana: ajoita jokainen sana erikseen. Rivi: ajoita kokonaiset rivit ja jaa sanat tasaisesti. Rivi-tilakin tallentaa sanakohtaiset ajat, ei rivikohtaisesti synkronoituja sanoituksia, joten tarkenna sanat spektrogrammissa.",
       "previewModeDesc": "Valitse, mikä esikatselu näkyy Esikatselu-välilehdellä.",
       "spicyBackgroundDesc": "Mitä Spicy-esikatselun taustalla näkyy.",
       "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa."
@@ -858,6 +976,10 @@
     "order": "Järjestys",
     "orderChronological": "Kronologinen",
     "orderTextual": "Tekstijärjestys"
+  },
+  "joinSplitWords": {
+    "label": "Yhdistä jaetut sanat",
+    "description": "Näytä osissa laulettu sana yhtenä sanana, kun osat on ajoitettu tasaisesti, kuten Spicy Lyricsin Join Split Words -asetus."
   },
   "topBar": {
     "modeBtns": {
@@ -932,6 +1054,7 @@
     "deleteWords": "{count, plural, one {Poista # sana} other {Poista # sanaa}}",
     "bgLyric": "Taustalaulurivi",
     "duetLyric": "Duettorivi",
+    "lineRole": "Rivin rooli",
     "moveLineToPlayhead": "Siirrä rivi toistokohdistimeen",
     "copyTimingsTo": "Kopioi ajoitukset kohteeseen…",
     "cancelCopyTimings": "Peruuta ajoituskopiointi",
@@ -958,12 +1081,15 @@
   "settingsDialog": {
     "search": "Etsi asetuksia",
     "clearSearch": "Tyhjennä haku",
-    "noSearchResults": "Ei vastaavia luokkia",
+    "matchCount": "Vastaavat asetukset: {count}",
+    "noResults": "Mikään asetus ei vastaa hakua \"{query}\"",
+    "noResultsDesc": "Kokeile toista sanaa tai tyhjennä haku.",
     "title": "Asetukset",
     "common": {
       "latencyTest": "Äänen ja syötteen viivetesti"
     },
     "keybindings": {
+      "clearWordTiming": "Ajoitus - Tyhjennä sanan/tavun aikaleimat",
       "newFile": "Uusi tiedosto",
       "openFile": "Avaa tiedosto",
       "saveFile": "Tallenna tiedosto",
@@ -972,6 +1098,8 @@
       "redoAlternate": "Tee uudelleen (vaihtoehtoinen pikanäppäin)",
       "selectAll": "Valitse kaikki",
       "unselectAll": "Poista kaikki valinnat",
+      "findInLyrics": "Etsi sanoituksesta",
+      "replaceInLyrics": "Korvaa sanoituksessa",
       "deleteSelection": "Poista valinta",
       "autoSegment": "Nopea automaattinen jako",
       "autoSegmentDialog": "Automaattinen jako…",
@@ -1010,6 +1138,15 @@
       "auditionSelection": "Spektrogrammi - Toista valinta",
       "auditionSelectionAfter": "Spektrogrammi - Toista valinta (+0,5 s jälkeen)",
       "cancelTimelineEditing": "Spektrogrammi - Peruuta aikajanan muokkaus",
+      "exportTtml": "Vie sanoituksia: TTML",
+      "exportLrc": "Vie sanoituksia: LRC",
+      "exportEslrc": "Vie sanoituksia: ESLRC",
+      "exportQrc": "Vie sanoituksia: QRC",
+      "exportYrc": "Vie sanoituksia: YRC",
+      "exportLys": "Vie sanoituksia: Lyricify Syllable",
+      "exportAss": "Vie sanoituksia: ASS-tekstitys",
+      "newLyricLine": "Uusi sanoitusrivi",
+      "advancedRibbonControls": "Valintanauhan lisäasetukset",
       "resetDefault": "Palauta oletusarvo",
       "clear": "Tyhjennä",
       "unbound": "Ei asetettu",
@@ -1021,30 +1158,59 @@
         "View": "Näkymä",
         "Sync": "Ajoitus",
         "Audio": "Ääni",
-        "Spectrogram": "Spektrogrammi"
+        "Spectrogram": "Spektrogrammi",
+        "Tools": "Työkalut",
+        "Help": "Apua",
+        "Preview": "Esikatselu"
       },
-      "autoSegmentOptions": "Automaattinen jako",
-      "autoSegmentDoublePress": "Vaatii kaksoispainalluksen",
-      "autoSegmentDoublePressDesc": "Suorita nopea automaattinen jako vain, kun painat pikanäppäintä nopeasti kahdesti."
+      "showAll": "Näytä toiminnot ilman näppäintä"
     },
     "tab": {
       "common": "Yleiset",
       "appearance": "Ulkonäkö",
-      "audio": "Ääni",
-      "keybindings": "Pikanäppäimet",
-      "spectrogram": "Spektrogrammi",
+      "editing": "Muokkaus",
+      "syncing": "Ajoitus",
+      "preview": "Esikatselu",
+      "audioSpectrogram": "Ääni ja spektrogrammi",
+      "importFiles": "Tuonti ja tiedostot",
       "backup": "Varmuuskopio",
-      "editor": "Editori ja ajoitus",
-      "files": "Tiedostot ja tallennus"
-    },
-    "page": {
-      "generalDesc": "Kieli, yksityisyys ja koko sovelluksen toiminta.",
-      "editorDesc": "Ajoitussyöte, synkronoinnin toiminta ja visuaaliset vihjeet.",
-      "filesDesc": "Tuonnin siivous, automaattitallennuksen historia ja siirrettävät varmuuskopiot.",
-      "audioDesc": "Toisto, taajuuskorjain ja spektrogrammin näyttö."
+      "keybindings": "Pikanäppäimet",
+      "changelog": "Muutosloki"
     }
   },
-  "autoSegmentApplied": "Automaattinen jako tehty moottorilla {engine}",
+  "keyboardView": {
+    "title": "Näppäimistö",
+    "search": "Hae toimintoja",
+    "searchResults": "{count, plural, =0 {Mikään toiminto ei vastaa} one {# toiminto vastaa} other {# toimintoa vastaa}}",
+    "layout": "Näppäimistöasettelu",
+    "layoutAuto": "Automaattinen",
+    "layoutDetected": "Tunnistettu: {layout}",
+    "layoutUnavailable": "Asettelua ei voi tunnistaa täällä, joten näytetään QWERTY",
+    "layerHint": "Napsauta muokkausnäppäintä, kuten Shift, nähdäksesi sitä käyttävät pikanäppäimet.",
+    "category": {
+      "sync": "Ajoitus",
+      "edit": "Muokkaus",
+      "playback": "Toisto",
+      "navigation": "Siirtyminen"
+    },
+    "free": "Vapaa",
+    "keyFree": "{key}: vapaa",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Näytä pikanäppäimet näppäimellä {key}",
+    "freeKey": "Mikään ei vielä käytä näppäintä {key}.",
+    "assignLabel": "Toiminto",
+    "assignPlaceholder": "Valitse toiminto...",
+    "assign": "Lisää näppäimeen {key}",
+    "changeKey": "Vaihda näppäin",
+    "addKey": "Lisää toinen näppäin",
+    "removeKey": "Poista {key}",
+    "duplicateKey": "Tämä näppäin on jo asetettu tälle toiminnolle.",
+    "doublePress": "Suorita kahdella painalluksella",
+    "doublePressDesc": "Suoritetaan vain, kun painat näppäintä nopeasti kahdesti.",
+    "otherLayers": "Myös tässä näppäimessä",
+    "closePanel": "Sulje"
+  },
+  "autoSegmentApplied":"Automaattinen jako tehty moottorilla {engine}",
   "error": {
     "unsupportedFileFormat": "Ei tuettu tiedostomuoto: {ext}",
     "openFileFailed": "Tiedoston avaaminen epäonnistui",
@@ -1100,11 +1266,23 @@
     "volume": "Äänenvoimakkuus",
     "playbackRate": "Toistonopeus",
     "preservesPitch": "Säilytä sävelkorkeus",
-    "clickToLoadMusic": "Lataa ääni napsauttamalla musiikkikuvaketta",
+    "audioMenu": "Ääni ja toisto",
+    "loadedAudio": "Ladattu ääni",
+    "replaceAudio": "Korvaa",
+    "resetSpeed": "Palauta 1×",
     "playPause": "Toista / keskeytä musiikki",
     "expandSpectrogram": "Laajenna / tiivistä spektrogrammi"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Anna siirtymä kokonaisina millisekunteina",
+    "precision": "Keskimääräinen absoluuttinen virhe: {error} ms ({count} painallusta)",
+    "recommendationProgress": "Paina vähintään 20 kertaa saadaksesi suosituksen ({count}/20)",
+    "recommendedOffset": "Suositeltu ajoituksen siirtymä: {offset} ms",
+    "tryRecommendation": "Kokeile suositeltua siirtymää",
+    "trialOffsetHint": "Muutokset tallennetaan vasta, kun valitset Tallenna siirtymä",
+    "saveOffset": "Tallenna siirtymä",
+    "useOffset": "Käytä ajoituksen siirtymää",
+    "offsetNotice": "Tulokset sisältävät ajoituksen siirtymän {offset} ms.",
     "title": "Viivetesti",
     "latencyDisplay": {
       "fastest": "Nopein",
@@ -1161,6 +1339,11 @@
     "addPresets": "Lisää kaikki vakiokentät",
     "clear": "Tyhjennä"
   },
+  "helpText": {
+    "metadataArtists": "Kuka esittää kappaleen, kuten se on merkitty suoratoistopalveluissa. Esimerkki: ”Shake It Off” on Taylor Swiftin kappale.",
+    "metadataSongwriter": "Kuka kirjoitti musiikin ja sanat, tekijätietojen mukaan. Usein eri henkilöt kuin artistit. Esimerkki: ”Shake It Off” -kappaleen kirjoittivat Taylor Swift, Max Martin ja Shellback.",
+    "openSongwritersGuide": "Avaa lauluntekijäopas"
+  },
   "lrclib": {
     "placeholder": "Kappaleen nimi ja esittäjä…",
     "notFound": "Tuloksia ei löytynyt, kokeile eri avainsanoja",
@@ -1182,6 +1365,14 @@
     "wordTimingMismatch": "{count, plural, one {# rivillä oli eri sanamäärä; vain vastaavat sanapaikat kopioitiin.} other {# rivillä oli eri sanamäärä; vain vastaavat sanapaikat kopioitiin.}}",
     "insertLine": "Lisää uusi rivi tähän",
     "insertWord": "Lisää sana tähän…"
+  },
+  "editModeTools": {
+    "splitTypedLinesTitle": "Jaa kirjoitetut rivit sanoiksi",
+    "splitTypedLinesDesc": "Tyhjälle riville kirjoitettu teksti jaetaan sanoiksi samalla tavalla kuin tuonti jakaa rivit.",
+    "scrollMemoryTitle": "Muista muokkaustilan kohta",
+    "scrollMemoryDesc": "Avaa jokainen projekti riviltä, jolla olit muokkaustilassa.",
+    "swapDuetAll": "Vaihda pää- ja duettorivit",
+    "swapDuetSelected": "Vaihda pää- ja duettorivi"
   },
   "lyricWordView": {
     "empty": "Tyhjä",
@@ -1245,6 +1436,16 @@
     "placeholder": "Uusi sana",
     "applyToAll": "Korvaa kaikki samanlaiset sanat",
     "caseSensitive": "Erota kirjainkoko"
+  },
+  "replaceWordCombinationDialog": {
+    "title": "Korvaa sanayhdistelmä",
+    "description": "Muokkaa tekstiä napsauttamalla sanaa. Ajoitukset pysyvät samoina.",
+    "word": "Sana {index}",
+    "reorderWord": "Siirrä sanaa {index}",
+    "reorderHint": "Muuta järjestystä vetämällä kahvasta tai kohdista sanaan ja paina Alt+vasen/oikea.",
+    "position": "Paikka {index}/{count}",
+    "applyToAll": "Korvaa kaikki vastaavat yhdistelmät",
+    "adjacentOnly": "Valitse vierekkäisiä sanoja tai tavuja samalta riviltä korvataksesi yhdistelmän."
   },
   "replaceRomanizationDialog": {
     "title": "Korvaa latinalaistus",
@@ -1357,6 +1558,14 @@
   "autosave": {
     "legacyProjectName": "Vanhat tilannekuvat",
     "untitledProjectName": "Nimetön projekti"
+  },
+  "didYouKnow": {
+    "title": "Tiesitkö?",
+    "repeatedSection": "Toistuvat rivit voivat käyttää aiempaa ajoitusta. Valitse aiemmat rivit, siirrä toistokohdistin toiston alkuun ja valitse Monista toistokohdistimen kohdalle.",
+    "splitInTimeMode": "Voit jakaa sanan poistumatta Ajoitus-tilasta: pidä {modifier} pohjassa ja kaksoisnapsauta sanaa.",
+    "turnOff": "Älä näytä vinkkejä",
+    "setting": "Näytä vinkit",
+    "settingDesc": "Kun teet käsin jotain, mihin on nopeampi tapa, näytetään lyhyt vinkki. Jokainen vinkki näytetään vain kerran."
   },
   "time": {
     "daysAgo": "{count, plural, one {# päivä sitten} other {# päivää sitten}}",
@@ -1476,6 +1685,19 @@
     "apply": "Käytä ehdotusta",
     "noSuggestions": "Tälle sisällölle ei ole saatavilla automaattisia jakoehdotuksia."
   },
+  "changelogScreen": {
+    "viewLabel": "Näytä",
+    "viewAll": "Kaikki",
+    "viewHighlights": "Kohokohdat",
+    "highlights": "Kohokohdat",
+    "latest": "Uusin",
+    "sectionNew": "Uutta",
+    "sectionChanged": "Muutettu",
+    "sectionFixed": "Korjattu",
+    "empty": "Ei näytettäviä julkaisuja.",
+    "versions": "Versiot",
+    "earlier": "Aiemmat"
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Sanakohtainen TTML-editori ja ajoitustyökalu Apple Musicin kaltaisille sanoituksille",
@@ -1498,6 +1720,23 @@
     "openContributorProfile": "Avaa käyttäjän {name} GitHub-profiili",
     "unknown": "Tuntematon"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Erilliset raidat",
+    "settingDesc": "Näytä taustalaulurivit omalla raidallaan päärivien alla. Raidat ovat vain näyttöä varten: vaihda rivin rooli muokkaustilassa.",
+    "menu": "Raidat",
+    "visibleLanes": "Näytä raidat",
+    "duetLane": "Erillinen duettoraita",
+    "lane": {
+      "main": "Pää",
+      "duet": "Duetto",
+      "bg": "Tausta"
+    }
+  },
+  "spectrogramLineEnds": {
+    "mergedHandle": "Rivin ja viimeisen sanan loppu. Siirrä vain toista Alt-vedolla.",
+    "wordEndHandle": "Viimeisen sanan loppu",
+    "lineEndHandle": "Rivin loppu"
+  },
   "spectrogram": {
     "invalidEndTime": "Tätä loppuaikaa ei voi valita",
     "noAudioLoaded": "Lataa äänitiedosto näyttääksesi spektrogrammin",
@@ -1513,6 +1752,17 @@
       "4096": "4096 (tarkin)"
     },
     "height": "Näyttökorkeus"
+  },
+  "spectrogramFollow": {
+    "toggle": "Seuraa toistokohtaa",
+    "shortcut": "Spektrogrammi - Toistokohdan seuraaminen päälle/pois",
+    "setting": "Seuraa toistokohtaa",
+    "settingDesc": "Vierittää spektrogrammia niin, että toistokohta pysyy näkyvissä. Vierittäminen tai vetäminen keskeyttää sen, kunnes painat toistoa tai odotat hetken.",
+    "style": "Seuraamistapa",
+    "page": "Sivuittain",
+    "pageDesc": "Hyppää eteenpäin, kun toistokohta poistuu näkymästä.",
+    "continuous": "Jatkuva",
+    "continuousDesc": "Vierittää toistokohdan mukana ja pitää sen keskellä."
   },
   "export": {
     "recoveryUntimed": "Tämä palautusvienti sisältää ajoittamattomia sanoituksia. Tarkista ajoitus ennen lähettämistä.",

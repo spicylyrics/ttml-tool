@@ -9,7 +9,8 @@ import {
 	TextArea,
 	TextField,
 } from "@radix-ui/themes";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from "jotai";
+import { selectAtom } from "jotai/utils";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import WaveSurfer from "wavesurfer.js";
@@ -23,6 +24,25 @@ import { useHoverGuide } from "../hooks";
 import { AudioRegion } from "./AudioRegion";
 import styles from "./AudioSlider.module.css";
 import { HoverGuide } from "./HoverGuide";
+
+const marksAtom = atom((get) => get(lyricLinesAtom).marks);
+const selectedTimingsAtom = selectAtom(
+	atom((get) => {
+		const selected = get(selectedLinesAtom);
+		return get(lyricLinesAtom)
+			.lyricLines.filter((line) => selected.has(line.id))
+			.map(({ id, startTime, endTime }) => ({ id, startTime, endTime }));
+	}),
+	(value) => value,
+	(previous, next) =>
+		previous.length === next.length &&
+		previous.every(
+			(line, index) =>
+				line.id === next[index].id &&
+				line.startTime === next[index].startTime &&
+				line.endTime === next[index].endTime,
+		),
+);
 
 const WaveformMarkers = memo(
 	({
@@ -175,8 +195,9 @@ export const AudioSlider = memo(() => {
 	const setCurrentDuration = useSetAtom(currentDurationAtom);
 
 	const currentDuration = useAtomValue(currentDurationAtom);
-	const [lyricLines, setLyricLines] = useAtom(lyricLinesAtom);
-	const selectedLines = useAtomValue(selectedLinesAtom);
+	const setLyricLines = useSetAtom(lyricLinesAtom);
+	const marks = useAtomValue(marksAtom);
+	const selectedTimings = useAtomValue(selectedTimingsAtom);
 	const audioBuffer = useAtomValue(audioBufferAtom);
 
 	const wsContainerRef = useRef<HTMLDivElement>(null);
@@ -324,25 +345,22 @@ export const AudioSlider = memo(() => {
 		const pixelsPerMs = sliderWidthPx / currentDuration;
 		const regions: { id: string; left: number; width: number }[] = [];
 
-		for (const line of lyricLines.lyricLines) {
-			if (selectedLines.has(line.id)) {
-				const left = line.startTime * pixelsPerMs;
-				const width = (line.endTime - line.startTime) * pixelsPerMs;
-				regions.push({ id: line.id, left, width });
-			}
+		for (const line of selectedTimings) {
+			const left = line.startTime * pixelsPerMs;
+			const width = (line.endTime - line.startTime) * pixelsPerMs;
+			regions.push({ id: line.id, left, width });
 		}
 		return regions;
-	}, [lyricLines.lyricLines, selectedLines, currentDuration, sliderWidthPx]);
+	}, [selectedTimings, currentDuration, sliderWidthPx]);
 
 	const markers = useMemo(() => {
-		if (currentDuration <= 0 || sliderWidthPx <= 0 || !lyricLines.marks)
-			return [];
-		return lyricLines.marks.map((mark) => ({
+		if (currentDuration <= 0 || sliderWidthPx <= 0 || !marks) return [];
+		return marks.map((mark) => ({
 			...mark,
 			left: (mark.timeMs / currentDuration) * sliderWidthPx,
 			timestamp: msToTimestamp(mark.timeMs),
 		}));
-	}, [lyricLines.marks, currentDuration, sliderWidthPx]);
+	}, [marks, currentDuration, sliderWidthPx]);
 
 	return (
 		<Card

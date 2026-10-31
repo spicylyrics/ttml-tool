@@ -60,7 +60,8 @@ function token() {
 async function main() {
 	const auth = token();
 	const commits = [];
-	let url = `https://api.github.com/repos/${REPO}/compare/${FORK_POINT}...main?per_page=100`;
+	// dev, not main: releases are compiled before dev merges into main.
+	let url = `https://api.github.com/repos/${REPO}/compare/${FORK_POINT}...dev?per_page=100`;
 	while (url) {
 		const response = await fetch(url, {
 			headers: {

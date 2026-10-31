@@ -4,18 +4,18 @@
 	"entries": [
 		{
 			"type": "feature",
-			"title": "Live Spectrogram Alignment",
-			"body": "Drag-and-drop waveform timing adjustments directly onto phonetic events within the Timeline panel. Visually tune your timings against the actual source audio."
+			"title": "Drag timings onto syllables against the waveform",
+			"body": "Drag timing changes onto each syllable in the **Timeline** panel, checked against the waveform"
 		},
 		{
 			"type": "fix",
-			"title": "Sync Keybinding Performance",
-			"body": "Greatly reduced UI freezing issues related to the `undoableLyricLinesAtom` memory stack overcommits by isolating history snapshots from real-time events."
+			"title": "Less freezing while syncing",
+			"body": "Undo history no longer slows down the sync keys"
 		},
 		{
 			"type": "feature",
-			"title": "Genius Songwriter Fetcher",
-			"body": "Integrated tool in the metadata editor to automatically fetch songwriting credits using the Genius API."
+			"title": "Fetch songwriter credits from Genius",
+			"body": "The metadata editor can fetch songwriting credits from Genius automatically"
 		}
 	]
 }

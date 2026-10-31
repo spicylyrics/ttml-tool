@@ -19,6 +19,7 @@ import { useSetImmerAtom } from "jotai-immer";
 import {
 	type FC,
 	forwardRef,
+	useCallback,
 	useEffect,
 	useImperativeHandle,
 	useRef,
@@ -84,6 +85,23 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 
 	useLineDragDrop({ viewElRef, editLyric, toolMode, store, editLyricLines });
 
+	// A new view first draws the top of the song, then jumps to its saved line
+	// and fills in around it over a few frames. Keep it hidden until it has
+	// settled so a mode switch shows the finished list at once. The timeout
+	// covers a list that never finds its line.
+	const [anchorSettled, setAnchorSettled] = useState(false);
+	// The list measures its first row before drawing the rest, so give it two
+	// more frames to fill in.
+	const onAnchorSettled = useCallback(() => {
+		requestAnimationFrame(() =>
+			requestAnimationFrame(() => setAnchorSettled(true)),
+		);
+	}, []);
+	useEffect(() => {
+		const timer = window.setTimeout(onAnchorSettled, 600);
+		return () => window.clearTimeout(timer);
+	}, [onAnchorSettled]);
+
 	const {
 		scrollToIndex,
 		lastSelectionScrolledIndexRef,
@@ -105,6 +123,7 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 		visibleItems,
 		toolMode,
 		store,
+		onAnchorSettled,
 	});
 
 	const geniusCategorizationEnabled = useAtomValue(
@@ -241,6 +260,7 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 					maxHeight: "100%",
 					overflowY: "auto",
 					backgroundColor: "var(--editor-bg, transparent)",
+					visibility: anchorSettled ? undefined : "hidden",
 				}}
 				ref={viewElRef}
 			>

@@ -4,15 +4,49 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import { atom } from "jotai";
-import { selectAtom, splitAtom } from "jotai/utils";
-import { focusAtom } from "jotai-optics";
+import { type Atom, atom } from "jotai";
+import { selectAtom } from "jotai/utils";
 import { lyricLinesAtom } from "$/states/main.ts";
 import type { LyricLine } from "$/types/ttml.ts";
 
-export const lyricLinesOnlyAtom = splitAtom(
-	focusAtom(lyricLinesAtom, (o) => o.prop("lyricLines")),
-	(line) => line.id,
+const lyricLineArrayAtom = atom((get) => get(lyricLinesAtom).lyricLines);
+const lyricLinesByIdAtom = atom(
+	(get) => new Map(get(lyricLineArrayAtom).map((line) => [line.id, line])),
+);
+
+type LineRow = { id: string; lineAtom: Atom<LyricLine> };
+
+const lyricLineRowsAtom = selectAtom(
+	lyricLinesByIdAtom,
+	(lines, previous: LineRow[] = []) => {
+		if (lines.size === previous.length) {
+			let index = 0;
+			let sameOrder = true;
+			for (const id of lines.keys()) {
+				if (id !== previous[index++].id) {
+					sameOrder = false;
+					break;
+				}
+			}
+			if (sameOrder) return previous;
+		}
+		const existing = new Map(previous.map((row) => [row.id, row]));
+		return Array.from(
+			lines,
+			([id, initialLine]) =>
+				existing.get(id) ?? {
+					id,
+					lineAtom: selectAtom(
+						lyricLinesByIdAtom,
+						(current, lastLine) => current.get(id) ?? lastLine ?? initialLine,
+					),
+				},
+		);
+	},
+);
+
+export const lyricLinesOnlyAtom = atom((get) =>
+	get(lyricLineRowsAtom).map((row) => row.lineAtom),
 );
 
 // Adapted from apoint123's upstream structural subscription fix (eb67dea0).

@@ -3,6 +3,12 @@
     "changelogTitle": "Ændringslog og opdateringer",
     "viewCommits": "Se commits på GitHub"
   },
+  "updatedToast": {
+    "message": "Opdateret til v{version}",
+    "seeChanges": "Se hvad der er ændret",
+    "setting": "Vis hvad der er ændret efter en opdatering",
+    "settingDesc": "Første gang appen starter på en ny version, vises en kort besked med et link til ændringsloggen."
+  },
   "app": {
     "error": {
       "title": "Ups, der opstod en fejl!",
@@ -23,6 +29,7 @@
     "window": {
       "minimize": "Minimér vindue",
       "maximize": "Maksimér vindue",
+      "restore": "Gendan vindue",
       "close": "Luk vindue"
     }
   },
@@ -32,6 +39,15 @@
   "preview": {
     "untimedLines": "{count, plural, one {# linje mangler timing} other {# linjer mangler timing}}",
     "jumpToUntimed": "Sæt tider for første linje uden timing"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# ord har et timingproblem} other {# ord har timingproblemer}}",
+    "jump": "Vælg det første",
+    "untimed": "Ingen timing i en linje med timing",
+    "untimedLine": "Ingen timing endnu",
+    "endsBeforeStart": "Slutter, før det starter",
+    "startsBeforeLine": "Starter før sin linje",
+    "endsAfterLine": "Slutter efter sin linje"
   },
   "beginnerGuide": {
     "empty": {
@@ -210,7 +226,57 @@
       "dropped": "Importeres ikke",
       "missingTranslation": "Mangler oversættelse",
       "missingRomanization": "Mangler romanisering"
+    },
+    "search": {
+      "label": "Find og erstat",
+      "find": "Find",
+      "replace": "Erstat med",
+      "matchCase": "Forskel på store og små bogstaver",
+      "wholeWord": "Hele ord",
+      "regex": "Brug et mønster (regex)",
+      "inSelection": "Kun i markeringen",
+      "showList": "Vis alle resultater",
+      "listLabel": "Resultater",
+      "rows": "Rækker at søge i",
+      "rowsAll": "Alle rækker",
+      "rowsLyrics": "Kun sangtekst",
+      "rowsTranslations": "Oversættelser og romanisering",
+      "previous": "Forrige resultat",
+      "next": "Næste resultat",
+      "toggleReplace": "Vis erstat",
+      "close": "Luk søgning",
+      "replaceOne": "Erstat",
+      "replaceAll": "Erstat alle",
+      "replaceThis": "Erstat dette resultat",
+      "count": "{count, plural, one {# resultat} other {# resultater}}",
+      "position": "{current} af {count}",
+      "noMatches": "Ingen resultater",
+      "replaced": "{count, plural, one {Erstattede # resultat} other {Erstattede # resultater}}",
+      "invalid": "Mønsteret er ikke gyldigt"
     }
+  },
+  "editAsText": {
+    "menuItem": "Rediger som tekst...",
+    "title": "Rediger som tekst",
+    "description": "Rediger hele sangteksten som almindelig tekst. Ord, du ikke ændrer, beholder deres timing.",
+    "textLabel": "Sangtekst",
+    "toolsHint": "Behandl sangtekster og Opdel stavelser virker på de markerede linjer, eller på det hele, når intet er markeret.",
+    "nothingToProcess": "Intet at ændre.",
+    "summaryTitle": "Ændringer",
+    "unchanged": "{count, plural, one {# linje uændret} other {# linjer uændret}}",
+    "edited": "{count, plural, one {# linje redigeret} other {# linjer redigeret}}",
+    "editedHint": "Timing bevares, hvor ordene matcher.",
+    "moved": "{count, plural, one {# linje flyttet} other {# linjer flyttet}}",
+    "added": "{count, plural, one {# linje tilføjet} other {# linjer tilføjet}}",
+    "removed": "{count, plural, one {# linje fjernet} other {# linjer fjernet}}",
+    "noChanges": "Ingen ændringer endnu.",
+    "droppedTimings": "{count, plural, one {# timet ord mister sin timing} other {# timede ord mister deres timing}}",
+    "lineNumber": "Linje {line}",
+    "more": "{count, plural, one {og # mere} other {og # mere}}",
+    "help": "Nye ord kommer ind uden timing. Linjer, der kun er flyttet, beholder deres timing. Anvend er ét fortrydelsestrin.",
+    "apply": "Anvend",
+    "applied": "Teksten er anvendt. Fortryd fjerner den i ét trin.",
+    "failed": "Teksten kunne ikke anvendes. Tjek den, og prøv igen."
   },
   "importChooser": {
     "options": {
@@ -257,6 +323,12 @@
       "title": "Importér ny sangtekst?",
       "description": "Du har ikke-gemte ændringer. Hvis du fortsætter, vil disse ændringer gå tabt. Er du sikker på, at du vil importere nye sangtekster?"
     },
+    "discardTextEdits": {
+      "title": "Kassér dine ændringer?",
+      "description": "Teksten har ændringer, du ikke har anvendt. Lukker du nu, går de tabt.",
+      "discard": "Kassér",
+      "keepEditing": "Fortsæt redigering"
+    },
     "noSongwriter": {
       "description": "Sangen har ingen sangskrivere. Gem alligevel?"
     },
@@ -277,6 +349,30 @@
       "noPreviousFound": "Ingen tidligere tilsvarende sektion med timing fundet.",
       "noMatchingLines": "Ingen linjer i denne sektion matcher den tidligere, så intet blev kopieret.",
       "copyPrevious": "Kopiér forrige timing"
+    }
+  },
+  "logoColor": {
+    "title": "Logofarve",
+    "description": "Vælg en farve til logoet i titellinjen og på guidens velkomstskærm.",
+    "descriptionDesktop": "Vælg en farve til appens vindues- og proceslinjeikon og i Windows også genvejene på skrivebordet og i menuen Start.",
+    "colorLabel": "Farve",
+    "customLabel": "Brugerdefineret logofarve",
+    "designNote": "Logoet vises kun, når Spicy Lyrics-designet er slået til.",
+    "presets": {
+      "default": "Standard",
+      "defaultDesc": "Designets egen farve",
+      "lilac": "Syrenlilla",
+      "lilacDesc": "Fra v3-logoet",
+      "purple": "Lilla",
+      "purpleDesc": "Fra det flerfarvede logo",
+      "red": "Rød",
+      "redDesc": "Fra v0.9-logoet",
+      "gold": "Guld",
+      "green": "Grøn",
+      "blue": "Blå",
+      "white": "Hvid",
+      "custom": "Brugerdefineret",
+      "customDesc": "Vælg en hvilken som helst farve"
     }
   },
   "common": {
@@ -306,6 +402,7 @@
     "preview": "Forhåndsvisning"
   },
   "dialog": {
+    "openFilesIgnored": "{count, plural, one {# fil blev udeladt} other {# filer blev udeladt}}: åbn én tekstfil og én lydfil ad gangen.",
     "createProjectPrompt": {
       "title": "Opret et projekt?",
       "description": "Hold lyden og sangteksten sammen i en projektmappe.",
@@ -331,6 +428,18 @@
     "openWorkspace": {
       "title": "Vælg en arbejdsområdemappe med projekter"
     }
+  },
+  "commandPalette": {
+    "title": "Kommandopalet",
+    "placeholder": "Søg i kommandoer og indstillinger",
+    "noResults": "Ingen matchende kommandoer eller indstillinger",
+    "commandTag": "Kommando",
+    "settingTag": "Indstillinger",
+    "hint": "Piletaster flytter, Enter kører, Esc lukker",
+    "notRunnable": "Kommandoen kunne ikke køres. Giv den en genvej i Indstillinger, og prøv igen.",
+    "menu": "Kommandopalet...",
+    "shortcut": "Vis - Åbn kommandopaletten",
+    "shortcutAlternate": "Vis - Åbn kommandopaletten (alternativ genvej)"
   },
   "projectsDialog": {
     "title": "Projekter",
@@ -433,7 +542,7 @@
       "mode": "Tilstand",
       "standard": "Standard",
       "timing": "Timing",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Enkel sangteksttilstand",
       "forceLineRendering": "Vis som linjesynkroniseret",
       "background": "Baggrund",
@@ -605,6 +714,15 @@
         "accentNote": "Spicy Lyrics-designet har sin egen lavendelfarvede accent. Slå en brugerdefineret accentfarve til for at bruge en anden.",
         "legacyDarkThemeNote": "Har ingen effekt, mens Spicy Lyrics-designet er slået til.",
         "fontNote": "Geist, fra Spicy Lyrics-designet"
+      },
+      "effects": {
+        "title": "Visuelle effekter",
+        "description": "Lettere fjerner sløring, glød, dialoganimationer og den bevægelige baggrund i forhåndsvisningen, så appen forbliver jævn, hvor de tegnes langsomt. Den slår også glassløring fra.",
+        "auto": "Automatisk",
+        "full": "Fuld",
+        "lite": "Lettere",
+        "autoLite": "Bruger Lettere, fordi Linux tegner disse effekter langsomt.",
+        "autoFull": "Bruger Fuld."
       },
       "presets": {
         "missingBackground": "Denne forudindstillings baggrundsbillede er ikke tilgængelig på denne enhed. Det aktuelle billede blev bevaret.",
@@ -838,7 +956,7 @@
       "timingOverviewAutoScrollDesc": "Hold tidsoversigten rullet til afspilningspositionen.",
       "vsyncDesc": "Opdater Standard- og Toxi-forhåndsvisningerne hvert billede i stedet for cirka 30 gange i sekundet. Mere flydende, men bruger mere CPU.",
       "showFpsDesc": "Vis en billedfrekvenstæller på forhåndsvisningen.",
-      "syncLevelDesc": "Ord: Synkronisér hvert ord. Linje: Synkronisér hele linjer, og fordel ordene jævnt som en grov timing, du finjusterer i spektrogrammet.",
+      "syncLevelDesc": "Ord: Synkronisér hvert ord. Linje: Synkronisér hele linjer, og fordel ordene jævnt. Linje gemmer stadig timing for hvert ord, ikke linjesynkroniseret tekst, så finjustér ordene i spektrogrammet.",
       "previewModeDesc": "Vælg, hvilken forhåndsvisning fanen Forhåndsvisning viser.",
       "spicyBackgroundDesc": "Hvad der vises bag Spicy-forhåndsvisningen.",
       "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne."
@@ -858,6 +976,10 @@
     "order": "Rækkefølge",
     "orderChronological": "Kronologisk",
     "orderTextual": "Tekstrækkefølge"
+  },
+  "joinSplitWords": {
+    "label": "Saml opdelte ord",
+    "description": "Vis et ord, der synges i dele, som ét ord, når delene passer jævnt sammen, som indstillingen Join Split Words i Spicy Lyrics."
   },
   "topBar": {
     "modeBtns": {
@@ -932,6 +1054,7 @@
     "deleteWords": "{count, plural, one {Slet # ord} other {Slet # ord}}",
     "bgLyric": "Baggrundslinje",
     "duetLyric": "Duetlinje",
+    "lineRole": "Linjens rolle",
     "moveLineToPlayhead": "Flyt linje til afspilningsmarkør",
     "copyTimingsTo": "Kopiér timing til…",
     "cancelCopyTimings": "Annuller kopiering af timing",
@@ -958,12 +1081,15 @@
   "settingsDialog": {
     "search": "Søg i indstillinger",
     "clearSearch": "Ryd søgning",
-    "noSearchResults": "Ingen matchende kategorier",
+    "matchCount": "Matchende indstillinger: {count}",
+    "noResults": "Ingen indstillinger matcher \"{query}\"",
+    "noResultsDesc": "Prøv et andet ord, eller ryd søgningen.",
     "title": "Indstillinger",
     "common": {
       "latencyTest": "Lyd/input-latenstest"
     },
     "keybindings": {
+      "clearWordTiming": "Timing - Ryd tidsstempler for ord/stavelse",
       "newFile": "Ny fil",
       "openFile": "Åbn fil",
       "saveFile": "Gem fil",
@@ -972,6 +1098,8 @@
       "redoAlternate": "Gentag (alternativ genvej)",
       "selectAll": "Vælg alle",
       "unselectAll": "Fravælg alle",
+      "findInLyrics": "Find i sangteksten",
+      "replaceInLyrics": "Erstat i sangteksten",
       "deleteSelection": "Slet markering",
       "autoSegment": "Hurtig automatisk opdeling",
       "autoSegmentDialog": "Automatisk opdeling…",
@@ -1010,6 +1138,15 @@
       "auditionSelection": "Spektrogram - Afspil markering",
       "auditionSelectionAfter": "Spektrogram - Afspil markering (+0,5 s efter)",
       "cancelTimelineEditing": "Spektrogram - Annuller redigering af tidslinje",
+      "exportTtml": "Eksportér sangtekster: TTML",
+      "exportLrc": "Eksportér sangtekster: LRC",
+      "exportEslrc": "Eksportér sangtekster: ESLRC",
+      "exportQrc": "Eksportér sangtekster: QRC",
+      "exportYrc": "Eksportér sangtekster: YRC",
+      "exportLys": "Eksportér sangtekster: Lyricify Syllable",
+      "exportAss": "Eksportér sangtekster: ASS-undertekster",
+      "newLyricLine": "Ny sangtekstlinje",
+      "advancedRibbonControls": "Avancerede kontroller i båndet",
       "resetDefault": "Nulstil til standard",
       "clear": "Ryd",
       "unbound": "Ikke indstillet",
@@ -1021,30 +1158,59 @@
         "View": "Vis",
         "Sync": "Timing",
         "Audio": "Lyd",
-        "Spectrogram": "Spektrogram"
+        "Spectrogram": "Spektrogram",
+        "Tools": "Værktøjer",
+        "Help": "Hjælp",
+        "Preview": "Forhåndsvisning"
       },
-      "autoSegmentOptions": "Automatisk opdeling",
-      "autoSegmentDoublePress": "Kræver dobbelttryk",
-      "autoSegmentDoublePressDesc": "Kør kun hurtig automatisk opdeling, når genvejen trykkes to gange hurtigt."
+      "showAll": "Vis handlinger uden tast"
     },
     "tab": {
       "common": "Generelt",
       "appearance": "Udseende",
-      "audio": "Lyd",
-      "keybindings": "Genveje",
-      "spectrogram": "Spektrogram",
+      "editing": "Redigering",
+      "syncing": "Synkronisering",
+      "preview": "Forhåndsvisning",
+      "audioSpectrogram": "Lyd og spektrogram",
+      "importFiles": "Import og filer",
       "backup": "Sikkerhedskopi",
-      "editor": "Editor og synkronisering",
-      "files": "Filer og lager"
-    },
-    "page": {
-      "generalDesc": "Sprog, privatliv og adfærd for hele appen.",
-      "editorDesc": "Tidsinput, synkroniseringsadfærd og visuelle signaler.",
-      "filesDesc": "Oprydning ved import, historik for automatisk lagring og flytbare sikkerhedskopier.",
-      "audioDesc": "Afspilning, equalizer og spektrogramvisning."
+      "keybindings": "Genveje",
+      "changelog": "Ændringslog"
     }
   },
-  "autoSegmentApplied": "Automatisk opdelt med {engine}",
+  "keyboardView": {
+    "title": "Tastatur",
+    "search": "Søg i handlinger",
+    "searchResults": "{count, plural, =0 {Ingen handlinger passer} one {# handling passer} other {# handlinger passer}}",
+    "layout": "Tastaturlayout",
+    "layoutAuto": "Automatisk",
+    "layoutDetected": "Fundet: {layout}",
+    "layoutUnavailable": "Layoutet kan ikke findes her, så QWERTY vises",
+    "layerHint": "Klik på en ændringstast som Shift for at se de genveje, der bruger den.",
+    "category": {
+      "sync": "Synkronisering",
+      "edit": "Redigering",
+      "playback": "Afspilning",
+      "navigation": "Navigation"
+    },
+    "free": "Ledig",
+    "keyFree": "{key}: ledig",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Vis genveje med {key}",
+    "freeKey": "Intet bruger {key} endnu.",
+    "assignLabel": "Handling",
+    "assignPlaceholder": "Vælg en handling...",
+    "assign": "Tilføj til {key}",
+    "changeKey": "Skift tast",
+    "addKey": "Tilføj ekstra tast",
+    "removeKey": "Fjern {key}",
+    "duplicateKey": "Den tast er allerede sat til denne handling.",
+    "doublePress": "Tryk to gange for at køre",
+    "doublePressDesc": "Kører kun, når du trykker på tasten to gange hurtigt.",
+    "otherLayers": "Også på denne tast",
+    "closePanel": "Luk"
+  },
+  "autoSegmentApplied":"Automatisk opdelt med {engine}",
   "error": {
     "unsupportedFileFormat": "Ikke-understøttet filformat: {ext}",
     "openFileFailed": "Kunne ikke åbne fil",
@@ -1100,11 +1266,23 @@
     "volume": "Lydstyrke",
     "playbackRate": "Afspilningshastighed",
     "preservesPitch": "Bevar tonehøjde",
-    "clickToLoadMusic": "Klik på musikikonet for at indlæse lyd",
+    "audioMenu": "Lyd og afspilning",
+    "loadedAudio": "Indlæst lyd",
+    "replaceAudio": "Erstat",
+    "resetSpeed": "Nulstil til 1×",
     "playPause": "Afspil / pause musik",
     "expandSpectrogram": "Udvid / skjul spektrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Indtast en forskydning i hele millisekunder",
+    "precision": "Gennemsnitlig absolut fejl: {error} ms ({count} tryk)",
+    "recommendationProgress": "Tryk mindst 20 gange for en anbefaling ({count}/20)",
+    "recommendedOffset": "Anbefalet synkroniseringsforskydning: {offset} ms",
+    "tryRecommendation": "Prøv anbefalet forskydning",
+    "trialOffsetHint": "Ændringer gemmes først, når du vælger Gem forskydning",
+    "saveOffset": "Gem forskydning",
+    "useOffset": "Brug synkroniseringsforskydning",
+    "offsetNotice": "Resultaterne inkluderer din synkroniseringsforskydning på {offset} ms.",
     "title": "Test af forsinkelse",
     "latencyDisplay": {
       "fastest": "Hurtigste",
@@ -1161,6 +1339,11 @@
     "addPresets": "Tilføj alle standardfelter",
     "clear": "Ryd"
   },
+  "helpText": {
+    "metadataArtists": "Hvem der fremfører sangen, som nummeret er krediteret på streamingtjenester. Eksempel: \"Shake It Off\" er af Taylor Swift.",
+    "metadataSongwriter": "Hvem der skrev musikken og teksten, ifølge sangskriverkrediteringerne. Ofte andre end kunstnerne. Eksempel: \"Shake It Off\" er skrevet af Taylor Swift, Max Martin og Shellback.",
+    "openSongwritersGuide": "Åbn guiden om sangskrivere"
+  },
   "lrclib": {
     "placeholder": "Sangtitel og kunstner…",
     "notFound": "Ingen resultater fundet, prøv andre søgeord",
@@ -1182,6 +1365,14 @@
     "wordTimingMismatch": "{count, plural, one {# linje havde et andet antal ord, så kun tilsvarende ordpositioner blev kopieret.} other {# linjer havde et andet antal ord, så kun tilsvarende ordpositioner blev kopieret.}}",
     "insertLine": "Indsæt ny linje her",
     "insertWord": "Indsæt ord her…"
+  },
+  "editModeTools": {
+    "splitTypedLinesTitle": "Del indtastede linjer i ord",
+    "splitTypedLinesDesc": "Tekst skrevet i en tom linje deles i ord på samme måde, som en import deler linjer.",
+    "scrollMemoryTitle": "Husk position i redigeringstilstand",
+    "scrollMemoryDesc": "Åbn hvert projekt ved den linje, du var på i redigeringstilstand.",
+    "swapDuetAll": "Byt om på hoved- og duetlinjer",
+    "swapDuetSelected": "Byt om på hoved og duet"
   },
   "lyricWordView": {
     "empty": "Tom",
@@ -1245,6 +1436,16 @@
     "placeholder": "Nyt ord",
     "applyToAll": "Erstat alle identiske ord",
     "caseSensitive": "Skeln mellem store og små bogstaver"
+  },
+  "replaceWordCombinationDialog": {
+    "title": "Erstat ordkombination",
+    "description": "Klik på et ord for at redigere teksten. Tidsangivelserne forbliver de samme.",
+    "word": "Ord {index}",
+    "reorderWord": "Flyt ord {index}",
+    "reorderHint": "Træk i et håndtag for at ændre rækkefølgen, eller fokuser et ord og tryk Alt+venstre/højre.",
+    "position": "Placering {index} af {count}",
+    "applyToAll": "Erstat alle matchende kombinationer",
+    "adjacentOnly": "Vælg tilstødende ord eller stavelser på én linje for at erstatte en kombination."
   },
   "replaceRomanizationDialog": {
     "title": "Erstat romanisering",
@@ -1357,6 +1558,14 @@
   "autosave": {
     "legacyProjectName": "Ældre øjebliksbilleder",
     "untitledProjectName": "Projekt uden titel"
+  },
+  "didYouKnow": {
+    "title": "Vidste du?",
+    "repeatedSection": "Gentagne linjer kan genbruge tidligere timing. Vælg de tidligere linjer, sæt afspilningsmarkøren, hvor gentagelsen starter, og brug Duplikér ved afspilningsmarkør.",
+    "splitInTimeMode": "Du kan dele et ord uden at forlade Timing-tilstand: hold {modifier} nede, og dobbeltklik på det.",
+    "turnOff": "Vis ikke tips",
+    "setting": "Vis tips",
+    "settingDesc": "Når du gør noget i hånden, som har en hurtigere vej, vises et kort tip om det. Hvert tip vises kun én gang."
   },
   "time": {
     "daysAgo": "{count, plural, one {# dag siden} other {# dage siden}}",
@@ -1476,6 +1685,19 @@
     "apply": "Anvend forslag",
     "noSuggestions": "Der er ingen tilgængelige automatiske opdelingsforslag for dette indhold."
   },
+  "changelogScreen": {
+    "viewLabel": "Vis",
+    "viewAll": "Alt",
+    "viewHighlights": "Højdepunkter",
+    "highlights": "Højdepunkter",
+    "latest": "Nyeste",
+    "sectionNew": "Nyt",
+    "sectionChanged": "Ændret",
+    "sectionFixed": "Rettet",
+    "empty": "Ingen udgivelser at vise.",
+    "versions": "Versioner",
+    "earlier": "Ældre"
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "Et værktøj til redigering og synkronisering af TTML-sangtekster ord for ord i stil med Apple Music",
@@ -1498,6 +1720,23 @@
     "openContributorProfile": "Åbn GitHub-profilen for {name}",
     "unknown": "Ukendt"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Separate spor",
+    "settingDesc": "Vis baggrundslinjer i deres eget spor under hovedlinjerne. Spor er kun til visning: skift en linjes rolle i redigeringstilstand.",
+    "menu": "Spor",
+    "visibleLanes": "Vis spor",
+    "duetLane": "Separat duetspor",
+    "lane": {
+      "main": "Hoved",
+      "duet": "Duet",
+      "bg": "Baggrund"
+    }
+  },
+  "spectrogramLineEnds": {
+    "mergedHandle": "Slut på linje og sidste ord. Træk med Alt for kun at flytte det ene.",
+    "wordEndHandle": "Slut på sidste ord",
+    "lineEndHandle": "Linjens slut"
+  },
   "spectrogram": {
     "invalidEndTime": "Kan ikke vælge denne sluttid",
     "noAudioLoaded": "Indlæs en lydfil for at vise spektrogrammet",
@@ -1513,6 +1752,17 @@
       "4096": "4096 (flest detaljer)"
     },
     "height": "Visningshøjde"
+  },
+  "spectrogramFollow": {
+    "toggle": "Følg afspilningshovedet",
+    "shortcut": "Spektrogram - Følg afspilningshovedet til/fra",
+    "setting": "Følg afspilningshovedet",
+    "settingDesc": "Ruller spektrogrammet, så afspilningshovedet forbliver synligt. Rulning eller træk sætter det på pause, indtil du trykker afspil eller venter et øjeblik.",
+    "style": "Følgemåde",
+    "page": "Side for side",
+    "pageDesc": "Springer frem, når afspilningshovedet forlader visningen.",
+    "continuous": "Løbende",
+    "continuousDesc": "Ruller med afspilningshovedet og holder det i midten."
   },
   "export": {
     "recoveryUntimed": "Denne gendannede eksport indeholder tekster uden timing. Tjek timingen, før du indsender.",

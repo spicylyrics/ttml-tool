@@ -1,0 +1,40 @@
+/* Doubled so it beats Radix's `display: block` on the card whatever the
+   stylesheet order. */
+.card.card {
+	display: flex;
+	align-items: center;
+	min-height: 60px;
+}
+
+.tallCard.tallCard {
+	display: flex;
+	align-items: center;
+	min-height: 80px;
+}
+
+.cardBody {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	width: 100%;
+	min-width: 0;
+}
+
+.cardText {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	gap: var(--space-1);
+	min-width: 0;
+}
+
+.sample {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.check {
+	flex-shrink: 0;
+	color: var(--accent-11);
+}

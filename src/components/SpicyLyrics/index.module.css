@@ -416,6 +416,12 @@
 	display: inline-block;
 	white-space: nowrap;
 }
+/* Only non-RTL words are split into letters, but in an RTL line their letters
+ * would inherit its direction and lay out backwards ("hello" as "olleh").
+ * Spicy Lyrics itself still does this; the preview keeps the word readable. */
+.rtl .letterGroup {
+	direction: ltr;
+}
 .breakableToken {
 	min-width: 0;
 	max-width: 100%;
@@ -471,6 +477,83 @@
 .simple .dot {
 	opacity: 0.27;
 	scale: 1;
+}
+
+/* "Show timing problems": a word whose timing the preview would hide or play
+ * wrong keeps its fill animation in red ink, with a dashed outline so it does
+ * not rely on color alone. Outline never moves layout, and nothing here
+ * transitions, since these words sit in the sync loop. */
+.line .timingProblem,
+.line .problemGroup {
+	outline: 0.045em dashed rgba(255, 120, 120, 0.9);
+	outline-offset: 0.06em;
+	border-radius: 0.12em;
+}
+/* A split word gets one box; its flagged syllables keep only the red ink. */
+.line .problemGroup .timingProblem {
+	outline: none;
+}
+.line .word.timingProblem,
+.line .timingProblem .letter {
+	background-image: linear-gradient(
+		90deg,
+		rgba(255, 150, 150, 0.95) var(--gradient-position),
+		rgba(255, 110, 110, 0.6) calc(var(--gradient-position) + 20%)
+	);
+}
+.rtl .word.timingProblem,
+.rtl .timingProblem .letter,
+.line .word.timingProblem[dir="rtl"],
+.line .timingProblem[dir="rtl"] .letter {
+	background-image: linear-gradient(
+		-90deg,
+		rgba(255, 150, 150, 0.95) var(--gradient-position),
+		rgba(255, 110, 110, 0.6) calc(var(--gradient-position) + 20%)
+	);
+}
+.simple .line .word.timingProblem,
+.simple .line .timingProblem .letter {
+	background-image: linear-gradient(
+		90deg,
+		rgba(255, 150, 150, 1) var(--gradient-position),
+		rgba(255, 110, 110, 0.45) calc(var(--gradient-position) + 50%)
+	);
+}
+/* An untimed line stays in place, hollow: outlined letters with nothing filled
+ * in yet. It can't be sought to, and keeps one look whichever side of the
+ * playhead it sits on. Static, so nothing here animates. */
+.line.untimedLine,
+.line.untimedLine[data-state] {
+	cursor: default;
+	opacity: 0.51;
+}
+.line.untimedLine :is(.word, .letter),
+.line.untimedLine.lineSynced,
+.line .word.untimedWord {
+	background-image: none;
+	-webkit-text-stroke: 0.025em white;
+	text-shadow: none;
+}
+/* Lite effects: the glow is a text-shadow whose blur changes every frame. */
+:global(:root[data-effects="lite"])
+	:is(.line, .lineSynced, .word, .letter, .dot) {
+	text-shadow: none;
+}
+@media (prefers-contrast: more) {
+	.line .timingProblem,
+	.line .problemGroup {
+		outline-style: solid;
+		outline-width: 0.07em;
+	}
+	.line.untimedLine,
+	.line.untimedLine[data-state] {
+		opacity: 0.75;
+	}
+	.line.untimedLine :is(.word, .letter),
+	.line.untimedLine.lineSynced,
+	.line .word.untimedWord {
+		-webkit-text-stroke-width: 0.04em;
+	}
 }
 
 @keyframes spicyAmbientBackground {

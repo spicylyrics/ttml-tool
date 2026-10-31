@@ -19,11 +19,21 @@ export function createPlaybackClock(
 	},
 ) {
 	let position = source.interpolatedCurrentTime;
+	let playing = source.musicPlaying;
 	let frame: number | null = null;
 	let disposed = false;
 	const listeners = new Set<PlaybackClockListener>();
-	const publish = (now: number, seeked = false) => {
-		position = source.interpolatedCurrentTime;
+	const publish = (now: number, seeked = false, skipUnchanged = false) => {
+		const nextPosition = source.interpolatedCurrentTime;
+		const nextPlaying = source.musicPlaying;
+		if (
+			skipUnchanged &&
+			Object.is(position, nextPosition) &&
+			playing === nextPlaying
+		)
+			return;
+		position = nextPosition;
+		playing = nextPlaying;
 		for (const listener of listeners) listener(position, now, seeked);
 	};
 	const schedule = () => {
@@ -40,10 +50,13 @@ export function createPlaybackClock(
 		frame = null;
 	};
 	const onChange = (event: Event) => {
-		// The engine already emits ~60Hz timeupdate events. Coalesce those into
-		// the frame sample while playing; seeks and pause must publish immediately.
 		if (event.type !== "music-timeupdate" || !source.musicPlaying) {
-			publish(frames.now(), event.type === "music-seeked");
+			const seeked = event.type === "music-seeked";
+			publish(
+				frames.now(),
+				seeked,
+				!seeked && event.type !== "music-load" && event.type !== "music-unload",
+			);
 		}
 		if (source.musicPlaying) schedule();
 		else stop();

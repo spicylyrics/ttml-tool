@@ -25,8 +25,10 @@ Instructions for coding agents working on the Spicy Lyrics TTML Tool. Read this 
 
 ## Release documentation
 
-- Add a `changes/<short-slug>.md` note for every user-visible feature or fix. See `changes/README.md` for frontmatter: `type`, `impact` (1-5, 5 is biggest), and `highlight`.
-- Set `highlight: true` for headline changes. The flag is stored in the compiled changelog; nothing renders it since the What's New window was retired, but the planned changelog screen will. Highlights describe what is new for our users, including fixes and refinements.
+- Add a `changes/<short-slug>.md` note for every user-visible feature or fix. See `changes/README.md` for frontmatter (`type`, `impact` 1-5, `highlight`) and the entry format.
+- Every entry is one line everywhere (app, GitHub, Discord): a bold title of at most 60 characters and one body sentence of at most 120, neither with a final period. `changelog:compile` rejects notes that break it, and a test checks the compiled data.
+- Set `highlight: true` for headline changes; they go in the release's Highlights box in **Preferences › Changelog**. Highlights describe what is new for our users, including fixes and refinements.
+- `node scripts/generate-release-notes.mjs --version X.Y.Z --discord` prints the release's Discord announcement.
 - Never edit `src/data/changelog.json` by hand except to fix typos. The changelog dialog and GitHub release notes render from compiled data; `changelog-legacy.json` preserves the migrated historical list.
 - Release order: `pnpm contributors:update` (refreshes the About tab contributor list from GitHub), `pnpm changelog:compile --version X.Y.Z --summary "Short summary"` (1-5 words), `pnpm version:bump <patch|minor|major>`, a `release: vX.Y.Z` commit, then tag `vX.Y.Z`. Preview compilation with `--dry-run`; it validates and sorts features then fixes by descending impact, rotates Radix colors, and deletes compiled notes. Version bumping does not compile notes automatically.
 - Treat requests to update or correct release documentation as edit-only. Do not commit it unless the user explicitly asks to commit.
@@ -123,7 +125,6 @@ Decide by how often people see it:
 - **Never animate the sync surface or keyboard actions:**
   - word chips, line selection and Time-mode highlights
   - spectrogram, playhead
-  - Edit/Time/Preview switching
   - anything a shortcut triggers
   Visual changes there must not move layout (no padding, size or border-width changes) or slow it down. Test with a long song.
 - **Press feedback:** `scale(0.97)` over 150ms, pointer presses only (`:not(:focus-visible)`). Already global for Radix buttons.

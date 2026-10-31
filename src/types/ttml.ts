@@ -37,6 +37,8 @@ export interface TTMLLyric {
 	sections?: LyricSection[];
 	/** Missing in projects saved before line syncing existed; read as word. */
 	timingMode?: TimingMode;
+	/** `xml:lang` for translations, from the imported file. Export defaults to English. */
+	translationLanguage?: string;
 }
 
 export const LYRIC_SECTION_CATEGORIES = [

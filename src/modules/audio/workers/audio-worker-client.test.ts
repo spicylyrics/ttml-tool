@@ -13,7 +13,7 @@ const { FakeWorker } = vi.hoisted(() => {
 		postMessage(request: WorkerRequest) {
 			this.requests.push(request);
 		}
-		terminate() {}
+		terminate = vi.fn();
 		emit(data: WorkerResponse) {
 			this.onmessage?.({ data });
 		}
@@ -33,6 +33,27 @@ const handlers = () => ({
 });
 
 describe("audio worker ownership", () => {
+	it("terminates obsolete decoding and recreates a usable worker", async () => {
+		const client = new AudioWorkerClient(handlers());
+		const operation = client.readMetadata(new Blob());
+		const obsolete = FakeWorker.instance;
+		const rejected = expect(operation).rejects.toMatchObject({
+			name: "AbortError",
+		});
+		client.cancelPending();
+		await rejected;
+		expect(obsolete.terminate).toHaveBeenCalledOnce();
+		expect(FakeWorker.instance).not.toBe(obsolete);
+		const latest = client.readMetadata(new Blob());
+		const id = FakeWorker.instance.requests[0].id;
+		FakeWorker.instance.emit({
+			type: "ERROR",
+			id,
+			error: "Latest request reached worker",
+		});
+		await expect(latest).rejects.toThrow("Latest request reached worker");
+	});
+
 	it("lets an obsolete transcode settle without mutating the replacement song's UI", async () => {
 		const ui = handlers();
 		const client = new AudioWorkerClient(ui);

@@ -9,13 +9,10 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import {
-	AddFilled,
-	TextAlignRightFilled,
-	VideoBackgroundEffectFilled,
-} from "@fluentui/react-icons";
+import { AddFilled } from "@fluentui/react-icons";
 import { Flex, IconButton, Text } from "@radix-ui/themes";
 import classNames from "classnames";
+import { ROLE_COLORS, SlIcon } from "$/components/SlIcon";
 import { ToolMode } from "$/states/main.ts";
 import styles from "../index.module.css";
 import { LineSectionHeader } from "./line-section-header.tsx";
@@ -111,8 +108,20 @@ export function LineContent({
 				>
 					{displayNumber > 0 && displayNumber}
 				</Text>
-				{line.isBG && <VideoBackgroundEffectFilled color="var(--accent-9)" />}
-				{line.isDuet && <TextAlignRightFilled color="#44AA33" />}
+				{line.isBG && (
+					<SlIcon
+						name="background"
+						className={styles.roleBadge}
+						color={ROLE_COLORS.background}
+					/>
+				)}
+				{line.isDuet && (
+					<SlIcon
+						name="duet"
+						className={styles.roleBadge}
+						color={ROLE_COLORS.duet}
+					/>
+				)}
 			</Flex>
 			<div
 				className={classNames(

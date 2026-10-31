@@ -57,6 +57,8 @@ export type PresetSnapshotInput = Pick<
 	| "legacyDarkTheme"
 	| "legacySpaceLabels"
 	| "spicyLyricsDesign"
+	| "logoColorPreset"
+	| "logoColorCustom"
 >;
 export function capturePresetSettings({
 	accentColor,
@@ -114,6 +116,8 @@ export function capturePresetSettings({
 	legacyDarkTheme,
 	legacySpaceLabels,
 	spicyLyricsDesign,
+	logoColorPreset,
+	logoColorCustom,
 }: PresetSnapshotInput): AppearancePreset["settings"] {
 	return {
 		// Basic & General
@@ -175,5 +179,7 @@ export function capturePresetSettings({
 		legacyDarkTheme,
 		legacySpaceLabels,
 		spicyLyricsDesign,
+		logoColorPreset,
+		logoColorCustom,
 	};
 }

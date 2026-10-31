@@ -786,6 +786,29 @@
 	}
 }
 
+/* Lite effects: keep the fills, drop the glows and the burst while syncing. */
+:global(:root[data-effects="lite"])
+	.lyricWord.sync.active:is(.animated, .selected) {
+	animation: none;
+	box-shadow: none;
+
+	.displayWord {
+		text-shadow: none;
+	}
+}
+
+/* The translation or romanization icon before a line's sub-line label. */
+.subLineIcon {
+	align-self: center;
+	margin-right: var(--space-1);
+	font-size: 15px;
+}
+
+/* Background and duet markers beside the line number. */
+.roleBadge {
+	font-size: 1.1em;
+}
+
 .lineNumber {
 	min-width: 2em;
 	position: relative;

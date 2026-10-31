@@ -1,12 +1,11 @@
 import { Box, Flex } from "@radix-ui/themes";
-import { useAtomValue } from "jotai";
 import { Toolbar } from "radix-ui";
-import { type FC, useCallback, useEffect, useState } from "react";
+import { type FC, useEffect, useState } from "react";
 import {
 	cmdAutoSegmentDialog,
 	cmdRedoAlternate,
 } from "$/modules/keyboard/commands";
-import { autoSegmentDoublePressAtom } from "$/modules/keyboard/states";
+import { MenuActionShortcuts } from "$/modules/menu-actions/MenuActionShortcuts";
 import {
 	keyAutoSegmentAtom,
 	keyDeleteSelectionAtom,
@@ -18,10 +17,7 @@ import {
 	keyUndoAtom,
 	keyUnselectAllAtom,
 } from "$/states/keybindings";
-import {
-	useDoubleKeyBindingAtom,
-	useKeyBindingAtom,
-} from "$/utils/keybindings";
+import { useKeyBindingAtom } from "$/utils/keybindings";
 import { HeaderFileInfo } from "./HeaderFileInfo";
 import { EditMenu } from "./modals/EditMenu";
 import { FileMenu } from "./modals/FileMenu";
@@ -57,10 +53,6 @@ export const TopMenu: FC = () => {
 	const { width } = useWindowSize();
 	const showHomeButton = width < 800;
 	const menu = useTopMenuActions();
-	const autoSegmentDoublePress = useAtomValue(autoSegmentDoublePressAtom);
-	const onSingleAutoSegment = useCallback(() => {
-		if (!autoSegmentDoublePress) menu.onQuickAutoSegment();
-	}, [autoSegmentDoublePress, menu.onQuickAutoSegment]);
 
 	useKeyBindingAtom(keyNewFileAtom, menu.onNewFile, [menu.onNewFile]);
 	useKeyBindingAtom(keyOpenFileAtom, menu.onOpenFile, [menu.onOpenFile]);
@@ -75,15 +67,10 @@ export const TopMenu: FC = () => {
 	useKeyBindingAtom(keyDeleteSelectionAtom, menu.onDeleteSelection, [
 		menu.onDeleteSelection,
 	]);
-	useKeyBindingAtom(keyAutoSegmentAtom, onSingleAutoSegment, [
-		onSingleAutoSegment,
-	]);
-	useDoubleKeyBindingAtom(
-		keyAutoSegmentAtom,
+	// Waits for a second press when Auto segment is set to "Press twice to run".
+	useKeyBindingAtom(keyAutoSegmentAtom, menu.onQuickAutoSegment, [
 		menu.onQuickAutoSegment,
-		[menu.onQuickAutoSegment],
-		autoSegmentDoublePress,
-	);
+	]);
 	useKeyBindingAtom(cmdAutoSegmentDialog.atom, menu.onAutoSegment, [
 		menu.onAutoSegment,
 	]);
@@ -98,6 +85,7 @@ export const TopMenu: FC = () => {
 				whiteSpace: "nowrap",
 			}}
 		>
+			<MenuActionShortcuts menu={menu} />
 			{showHomeButton ? (
 				<HomeMenu />
 			) : (

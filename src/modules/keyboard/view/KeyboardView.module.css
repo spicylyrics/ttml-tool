@@ -1,0 +1,220 @@
+.root {
+	container-type: inline-size;
+}
+
+.search {
+	flex: 1 1 220px;
+	min-width: 0;
+}
+
+/* The side panel sits beside the board when there is room, below it otherwise. */
+.layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: var(--space-4);
+	align-items: start;
+}
+
+@container (min-width: 900px) {
+	.layout {
+		grid-template-columns: minmax(0, 1fr) 280px;
+	}
+}
+
+.board {
+	display: grid;
+	grid-template-columns: minmax(0, 15fr) minmax(0, 3fr);
+	gap: var(--space-3);
+}
+
+.block {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	min-width: 0;
+}
+
+.row {
+	display: flex;
+	gap: 4px;
+	height: 34px;
+}
+
+.gap {
+	flex: var(--w) var(--w) 0;
+}
+
+.cap {
+	--cap-bg: var(--gray-a2);
+	--cap-border: var(--gray-a5);
+	position: relative;
+	flex: var(--w) var(--w) 0;
+	min-width: 0;
+	display: flex;
+	align-items: flex-start;
+	padding: 3px 5px;
+	border: 1px solid var(--cap-border);
+	border-radius: var(--radius-2);
+	background: var(--cap-bg);
+	color: var(--gray-11);
+	font: inherit;
+	font-size: var(--font-size-1);
+	line-height: 1.15;
+	text-align: left;
+	cursor: pointer;
+	transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cap:active:not(:focus-visible) {
+	transform: scale(0.97);
+}
+
+.cap:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: 1px;
+}
+
+.capLabel {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* At the settings modal's narrowest, one-unit caps are about 34px wide. */
+@container (max-width: 760px) {
+	.cap {
+		padding-inline: 4px;
+		font-size: 11px;
+		letter-spacing: -0.01em;
+	}
+
+	/* Home, End, PgUp and PgDn sit on one-unit caps. */
+	.block + .block .cap {
+		padding-inline: 3px;
+		font-size: 10px;
+	}
+}
+
+.capIcon {
+	position: absolute;
+	right: 3px;
+	bottom: 2px;
+	display: flex;
+	color: var(--gray-12);
+}
+
+.capIcon svg,
+.swatch svg {
+	width: 12px;
+	height: 12px;
+}
+
+.cap[data-category],
+.swatch[data-category] {
+	color: var(--gray-12);
+}
+
+.cap[data-category="sync"],
+.swatch[data-category="sync"] {
+	--cap-bg: var(--cyan-a4);
+	--cap-border: var(--cyan-a8);
+}
+
+.cap[data-category="edit"],
+.swatch[data-category="edit"] {
+	--cap-bg: var(--amber-a4);
+	--cap-border: var(--amber-a8);
+}
+
+.cap[data-category="playback"],
+.swatch[data-category="playback"] {
+	--cap-bg: var(--grass-a4);
+	--cap-border: var(--grass-a8);
+}
+
+.cap[data-category="navigation"],
+.swatch[data-category="navigation"] {
+	--cap-bg: var(--pink-a4);
+	--cap-border: var(--pink-a8);
+}
+
+/* A held modifier layer uses the one loud fill, like a checked control. */
+.cap[aria-pressed="true"] {
+	--cap-bg: var(--gray-12);
+	--cap-border: var(--gray-12);
+	color: var(--gray-1);
+	font-weight: var(--font-weight-medium);
+}
+
+/* Outside the cap, so it reads on every category fill. Search matches don't
+   get a ring; the keys that don't match dim instead. */
+.cap[data-selected="true"] {
+	outline: 2px solid var(--accent-9);
+	outline-offset: 1px;
+	z-index: 1;
+}
+
+.cap[data-match="false"] {
+	opacity: 0.35;
+}
+
+.swatch {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	width: 20px;
+	height: 20px;
+	border: 1px solid var(--cap-border, var(--gray-a5));
+	border-radius: var(--radius-2);
+	background: var(--cap-bg, var(--gray-a2));
+}
+
+.panel {
+	padding: var(--space-3);
+	border: 1px solid var(--gray-a5);
+	border-radius: var(--radius-4);
+	background: var(--color-panel-solid);
+}
+
+.action + .action {
+	padding-top: var(--space-3);
+	border-top: 1px solid var(--gray-a5);
+}
+
+.chip {
+	min-width: 0;
+}
+
+:global(:root[data-design="spicy-lyrics"])
+	.cap:not([data-category]):not([aria-pressed="true"]) {
+	--cap-bg: var(--sl-card);
+	--cap-border: var(--sl-border);
+}
+
+:global(:root[data-design="spicy-lyrics"]) .panel {
+	background: var(--sl-card);
+	border-color: var(--sl-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cap {
+		transition: none;
+	}
+
+	.cap:active:not(:focus-visible) {
+		transform: none;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.cap,
+	.swatch {
+		--cap-border: var(--gray-a9);
+	}
+
+	.cap[data-match="false"] {
+		opacity: 0.55;
+	}
+}

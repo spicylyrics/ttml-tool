@@ -1,7 +1,7 @@
 {
 	"name": "amll-ttml-tool",
 	"private": true,
-	"version": "0.16.0",
+	"version": "0.20.1",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -68,9 +68,6 @@
 		"jotai-history": "^0.5.0",
 		"jotai-immer": "^0.4.1",
 		"jotai-optics": "^0.4.0",
-		"kuromoji": "^0.1.2",
-		"kuroshiro": "^1.2.0",
-		"kuroshiro-analyzer-kuromoji": "^1.1.0",
 		"pako": "^2.1.0",
 		"pinyin-pro": "^3.28.0",
 		"radix-ui": "^1.4.3",

@@ -4,6 +4,7 @@ import type { getDefaultStore } from "jotai";
 import { toast } from "react-toastify";
 import { confirmDialogAtom } from "$/states/dialogs";
 import { isDirtyAtom } from "$/states/main";
+import { lastFolder, rememberPick } from "$/utils/dialog-folders";
 import { error as logError } from "$/utils/logging";
 import {
 	workspaceDirAtom,
@@ -63,8 +64,10 @@ export async function openWorkspaceDialog(
 					"dialog.openWorkspace.title",
 					"Select a workspace folder containing projects",
 				),
+				defaultPath: lastFolder("workspace"),
 			});
 			if (!dir || typeof dir !== "string") return;
+			rememberPick("workspace", dir);
 
 			store.set(workspaceScanningAtom, true);
 			store.set(workspaceDirAtom, dir);

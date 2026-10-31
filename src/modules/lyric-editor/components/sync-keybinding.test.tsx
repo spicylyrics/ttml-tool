@@ -3,7 +3,9 @@ import { createStore, Provider } from "jotai";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vitest";
+import { lyricLinesOnlyAtom } from "$/modules/lyric-editor/states/document-structure";
 import type { SyncLane } from "$/modules/lyric-editor/utils/lyric-states";
+import { processedLyricLinesAtom } from "$/modules/segmentation/utils/segment-processing";
 import { smartLastWordAtom } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
 import {
@@ -87,6 +89,89 @@ function press(key: object, seconds: number) {
 }
 
 describe("normal-word sync controls", () => {
+	it("updates F, G and H without repeated line-ID searches in a 10,000-line song", () => {
+		const view = mount();
+		const lines = Array.from({ length: 10_000 }, (_, index) => ({
+			...newLyricLine(),
+			id: `perf-line-${index}`,
+			words: [{ ...newLyricWord(), word: "next" }],
+		}));
+		lines[5000] = { ...view.first, id: "perf-line-5000" };
+		view.store.set(lyricLinesAtom, { metadata: [], lyricLines: lines });
+		view.store.set(selectedLinesAtom, new Set([lines[5000].id]));
+		const listChanged = vi.fn();
+		const unsubscribes = [view.store.sub(lyricLinesOnlyAtom, listChanged)];
+		const rows = view.store.get(lyricLinesOnlyAtom);
+		for (const row of rows.slice(4975, 5025))
+			unsubscribes.push(view.store.sub(row, () => {}));
+		const indexOf = Array.prototype.indexOf;
+		let lineSearches = 0;
+		const spy = vi
+			.spyOn(Array.prototype, "indexOf")
+			.mockImplementation(function (
+				this: unknown[],
+				value: unknown,
+				from?: number,
+			) {
+				if (typeof value === "string" && value.startsWith("perf-line-"))
+					lineSearches++;
+				return indexOf.call(this, value, from);
+			});
+		try {
+			press(keySyncStartAtom, 1);
+			press(keySyncNextAtom, 2);
+			press(keySyncEndAtom, 3);
+			expect(lineSearches).toBe(0);
+			expect(view.store.get(lyricLinesOnlyAtom)).toBe(rows);
+			expect(listChanged).not.toHaveBeenCalled();
+			expect(
+				view.store
+					.get(rows[5000])
+					.words.map((word) => [word.startTime, word.endTime]),
+			).toEqual([
+				[1000, 2000],
+				[0, 0],
+				[2000, 3000],
+			]);
+			expect(view.store.get(selectedLinesAtom)).toEqual(
+				new Set([lines[5001].id]),
+			);
+		} finally {
+			spy.mockRestore();
+			for (const unsubscribe of unsubscribes) unsubscribe();
+			view.cleanup();
+		}
+	});
+
+	it.each([
+		keySyncNextAtom,
+		keySyncEndAtom,
+	])("updates the timeline after each completed span without waiting for line end", (key) => {
+		const view = mount();
+		try {
+			press(keySyncStartAtom, 1);
+			const before = view.store.get(processedLyricLinesAtom);
+			expect(before[0].segments).toEqual([]);
+			press(key, 2);
+			const after = view.store.get(processedLyricLinesAtom);
+			expect(after[0]).toMatchObject({ startTime: 1000, endTime: 2000 });
+			expect(after[0].segments).toEqual([
+				expect.objectContaining({
+					id: view.words[0].id,
+					type: "word",
+					startTime: 1000,
+					endTime: 2000,
+				}),
+			]);
+			expect(view.store.get(lyricLinesAtom).lyricLines[0].endTime).toBe(0);
+			expect(view.store.get(selectedLinesAtom)).toEqual(
+				new Set([view.first.id]),
+			);
+		} finally {
+			view.cleanup();
+		}
+	});
+
 	it("F starts, G commits and advances past spaces, and H ends the last word", () => {
 		const view = mount();
 		try {

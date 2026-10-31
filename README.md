@@ -21,6 +21,29 @@ You can use the online version of this tool by visiting [https://tool.spicylyric
 
 You can also use the Tauri desktop version built via GitHub Actions; see the [Latest Release](https://github.com/spicylyrics/ttml-tool/releases/latest) for details.
 
+### Linux
+
+The desktop app on Linux runs on WebKitGTK, which draws this app's effects much slower than Chrome or Firefox do. If it feels laggy on your machine, the [website](https://tool.spicylyrics.org/) in Chrome or Firefox is the smoothest option today.
+
+- **Flatpak (recommended):** download the `.flatpak` file from the [latest release](https://github.com/spicylyrics/ttml-tool/releases/latest), then install it with the Flathub remote added:
+
+  ```sh
+  flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  flatpak install --user ./Spicy-Lyrics-TTML-Tool_x86_64.flatpak
+  ```
+
+  WebKitGTK, GStreamer and GLib come from the GNOME runtime, so the app behaves the same on every distro. Install newer releases the same way; it is not on Flathub yet.
+- **Arch Linux:** the `amll-ttml-tool-git` AUR package builds the app against your system libraries. See [`packaging/archlinux`](./packaging/archlinux).
+- **AppImage (unsupported):** still published so existing installs keep updating, but it mixes Ubuntu's WebKitGTK and GLib with your system's GStreamer and GPU driver, which breaks on some distros. Move to the Flatpak.
+
+On Linux the app starts with lighter visual effects: no blur, glows, dialog animations or moving preview background. Change it in **Preferences → Appearance → Visual effects**.
+
+If the window stays black or blank on Wayland, try turning off WebKitGTK's compositing:
+
+```sh
+flatpak override --user --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 io.github.spicylyrics.TTMLTool
+```
+
 ## New Editor Features over the Original AMLL TTML Tool
 
 - **Folder Projects** — The opt-in desktop feature keeps lyrics and audio together in a project folder with a `project.json` manifest, recent projects, workspace scanning, project-wide Ctrl+S saving, and file tracking that survives renames made outside the app. Linked projects leave the TTML and audio where they are, and only an explicit save writes back to the original, after keeping a one-time backup.
@@ -59,4 +82,4 @@ All active code and translation contributions are welcome! We also welcome bug r
 
 For questions, bug reports and ideas, you can also post in [#ttml-tool](https://discord.com/channels/1369992682214264993/1558259984318603334) on the [Spicy Lyrics Discord](https://discord.com/invite/uqgXU5wh8j) (join first, then the channel link works).
 
-If you want to provide a new language translation, please refer to [`./src/i18n/index.ts`](./src/i18n/index.ts) and [`./locales/zh-CN/translation.json`](./locales/zh-CN/translation.json)!
+If you want to provide a new language translation, please refer to [`./src/i18n/index.ts`](./src/i18n/index.ts) and [`./src/i18n/locales/en-US/translation.json`](./src/i18n/locales/en-US/translation.json)!

@@ -97,6 +97,7 @@ export const TimeStretchDialog = () => {
 					extensions: ["mp3", "flac", "wav", "ogg", "m4a", "opus", "webm"],
 				},
 			],
+			place: "timeStretchAudio",
 		});
 		if (!file || Array.isArray(file)) return;
 

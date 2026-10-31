@@ -1,5 +1,377 @@
 [
 	{
+		"version": "0.20.1",
+		"summary": "Flatpak and latency fixes",
+		"color": "blue",
+		"date": "2026-10-31",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Test input precision with your sync offset",
+				"body": "Try and save sync offsets, measure timing precision, and get a recommended offset after 20 presses",
+				"highlight": true
+			},
+			{
+				"type": "change",
+				"title": "Clearer latency test results and offset controls",
+				"body": "Adjust the sync offset to recalculate every timing result immediately, with grouped controls and a clearer timing graph",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "The Flatpak opens instead of hanging at startup",
+				"body": "The Flatpak builds its font cache on first launch, so the window opens instead of hanging with a CPU core at full use",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Shortcuts follow your keyboard layout",
+				"body": "Letter shortcuts follow the letters your layout types, while other keys and non-Latin layouts keep key positions",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Stop preview backgrounds after leaving Preview",
+				"body": "Standard and Toxi previews now release their animated backgrounds when closed to keep editing and syncing responsive",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Latency test measures the beat you hear",
+				"body": "Taps are judged against the audible beat, so results no longer count your audio output delay twice",
+				"highlight": false
+			}
+		]
+	},
+	{
+		"version": "0.20.0",
+		"summary": "Keyboard, palette and text editing",
+		"color": "green",
+		"date": "2026-10-30",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Edit the whole lyrics as text and keep your timings",
+				"body": "**Edit › Edit as text** opens the whole lyrics as text, and words you don't change keep their timing",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Find and replace in lyrics",
+				"body": "`Ctrl+F` and `Ctrl+H` search Edit as text and the import screen, across syllable splits, with patterns and a match list",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Command palette",
+				"body": "Press **Ctrl+K** to find and run any command or Preferences page",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Process lyrics and split syllables in Edit as text",
+				"body": "Both buttons in **Edit › Edit as text** work on the selected lines, or on everything when nothing is selected",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Second keys and a keyboard view for shortcuts",
+				"body": "**Preferences › Shortcuts** shows every shortcut on a keyboard, finds actions by name or key and adds second keys",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Shortcuts for every menu item and ribbon switch",
+				"body": "Give any menu item, ribbon switch or Load audio file a key in **Preferences**, and find them all with **Ctrl+K**",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Open lyrics and audio together",
+				"body": "Open and Load audio take lyrics, audio or one of each, and dropping a lyric file with its audio opens both",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Swap duet lines and type whole lines in Edit mode",
+				"body": "Swap from the Tools or line menu, typed lines split into words, and Edit mode reopens where you left off",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Role icons across the editor, and a quicker line menu",
+				"body": "The line menu puts background, duet and swap in one row of icon buttons, and the same icons mark lines and the ribbon",
+				"highlight": true
+			},
+			{
+				"type": "change",
+				"title": "File dialogs remember their own folder",
+				"body": "Open, Load audio and the project pickers each reopen in the folder you last used them in, on desktop",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Line numbers and role icons in the lyrics text editor",
+				"body": "The import screen and Edit as text number each lyric line and mark backgrounds, duets and headers with icons",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Press twice to run for any shortcut",
+				"body": "Any action can wait for a second press of its key, set in the keyboard view; Auto segment keeps your old setting",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Tidier shortcut list and command palette",
+				"body": "Shortcut rows fit on one line and show second keys, and palette rows show their group icon instead of \"Command\"",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "No Advanced switch in the Preview ribbon",
+				"body": "Preview has no advanced controls, so its ribbon no longer shows the Advanced switch",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Saving works again on macOS and Linux",
+				"body": "Save, Export and settings backups open the system save dialog on every desktop app, where macOS and Linux did nothing",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Safer handling of shared lyric files and projects",
+				"body": "Crafted TTML files can no longer freeze the editor, and shared project folders can't redirect saves elsewhere",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Tooltips stay out of the way",
+				"body": "Tooltips close as soon as the pointer leaves their control, and stay hidden while a menu or dropdown is open",
+				"highlight": false
+			}
+		]
+	},
+	{
+		"version": "0.19.1",
+		"summary": "Linux build fix",
+		"color": "ruby",
+		"date": "2026-10-29",
+		"entries": [
+			{
+				"type": "fix",
+				"title": "The Flatpak and the fixed AppImage are back",
+				"body": "The v0.19.0 Linux build stopped early, so it had no Flatpak and an AppImage that lags on newer distros",
+				"highlight": false
+			}
+		]
+	},
+	{
+		"version": "0.19.0",
+		"summary": "New Preferences and Flatpak",
+		"color": "teal",
+		"date": "2026-10-29",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Linux gets a Flatpak",
+				"body": "Each release has a `.flatpak` that starts where the AppImage failed, like Debian 13, and replaces it",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Changelog moved into Preferences",
+				"body": "Open **Preferences › Changelog** to see every release, or show only the highlights",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Pick a color for the app icon",
+				"body": "**Logo color** in **Preferences › Appearance** recolors the window, taskbar and shortcut icons",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Replace selected word combinations",
+				"body": "Right-click adjacent words in Edit mode and pick **Replace word combination**, keeping their timing slots",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Lighter visual effects for slow renderers",
+				"body": "**Visual effects** in **Preferences › Appearance** drops blur, glows and animations, automatic on Linux",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "See what changed after an update",
+				"body": "The first start on a new version shows a notice that opens the changelog",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Preferences has new pages and a search that filters",
+				"body": "Settings are split into clearer pages like **Editing**, **Syncing** and **Backup**, and search hides what doesn't match",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Unavailable word menu actions look unavailable",
+				"body": "Disabled right-click actions have dimmed text and a disabled cursor in both designs",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "The Flatpak draws the app's own title bar",
+				"body": "It replaces GNOME's default header bar with round window buttons and draggable edges",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Solid cards in Urban Dictionary and the font library",
+				"body": "Picked fonts show a check, font cards work by keyboard, and Escape closes Urban Dictionary",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Switching between Edit, Time and Preview is instant",
+				"body": "Modes no longer fade and slide in, which left the panel blank for a moment and flickered on Linux",
+				"highlight": false
+			}
+		]
+	},
+	{
+		"version": "0.18.0",
+		"summary": "Less lag, smarter spectrogram",
+		"color": "orange",
+		"date": "2026-10-29",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Spectrogram follows the playhead",
+				"body": "Pick **Page** or **Continuous** in **Preferences › Spectrogram**, or toggle it with `Shift+P`",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Separate spectrogram lanes",
+				"body": "Turn on **Separate lanes** to draw background and duet lines in their own rows",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "One handle at the end of a spectrogram line",
+				"body": "When a line and its last word end together they share one handle, and `Alt`-drag pulls them apart",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "No more lag spikes on sync keys",
+				"body": "Pressing `F`, `G` or `H` no longer stalls in long songs",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Less lag while syncing long songs",
+				"body": "The editor, preview and spectrogram do less work on each change, so long songs stay responsive",
+				"highlight": true
+			}
+		]
+	},
+	{
+		"version": "0.17.0",
+		"summary": "See what's left to sync",
+		"color": "violet",
+		"date": "2026-10-28",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "See words on the spectrogram as you sync them",
+				"body": "Each word appears on the spectrogram as soon as you time it, and untimed lines start at their first timed word",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Audio and playback in one menu",
+				"body": "Click the music note to open one menu with speed presets, volume, pitch preservation and the loaded song",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Spicy preview flags timing mistakes and unsynced lines",
+				"body": "Broken words show in red with a dashed outline, and lines you haven't synced stay visible as hollow letters",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Spanish (Mexico) interface",
+				"body": "Pick **Español de México** in **Preferences › General** for Mexican wording",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Join split words in the Spicy preview",
+				"body": "A **Join split words** toggle in the Preview ribbon shows a split word as one word, and it's off by default",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Clearer help for Artists, Songwriter and Sync by",
+				"body": "The metadata editor says who goes in **Artists** and **Songwriter**, and that **Line** still saves word timings",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Smoother spectrogram while hovering, scrolling and playing",
+				"body": "Hovering, scrolling and playing redraw only what changed, so the editor stays responsive on long songs",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Touch sync panel buttons fire once per tap",
+				"body": "On iPads and other touch screens, **Start**, **Next**, **End** and the word buttons no longer count a tap twice",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "ASS export opens in ytsubconverter",
+				"body": "Exported `.ass` files now open in strict tools, and each line fills white over gray while it's sung",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Smaller download",
+				"body": "An unused 17 MB dictionary is gone, so the download is smaller",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Spicy preview matches Spicy Lyrics more closely",
+				"body": "In Simple Lyrics mode words fill at the same pace as Spicy Lyrics, and **Spicy** is now called **Spicy Lyrics**",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Show the Advanced switch's knob when it's on",
+				"body": "With the Spicy Lyrics design, the knob of the **Advanced** switch in the ribbon stays visible when switched on",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Long translated labels no longer spill out of their space",
+				"body": "Long option menus, the **Auto-saved at** button and Timing overview titles end in \"...\" with the full text on hover",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Held Latin words in right-to-left lines read correctly",
+				"body": "In the Spicy preview, a Latin word held for a second or more no longer shows its letters backwards",
+				"highlight": false
+			}
+		]
+	},
+	{
 		"version": "0.16.0",
 		"summary": "Import and preview overhaul",
 		"color": "cyan",
@@ -8,43 +380,43 @@
 			{
 				"type": "feature",
 				"title": "One import screen for pasted text, LRCLIB and Genius",
-				"body": "Pick a source at the top, then clean up, **split syllables** (with your learned splits) and review Genius sections in the same place before importing. The text shows section headers as pills, background and duet lines by role, syllable splits as dots and translations under their line, while the line you're on stays plain text.",
+				"body": "Pick a source at the top, then clean up, **split syllables** and review Genius sections before importing",
 				"highlight": true
 			},
 			{
 				"type": "feature",
-				"title": "Choose what Process lyrics does, and run it safely more than once",
-				"body": "Every step of **Process lyrics** (em dashes, splitting hyphenated words, parentheses to background lines and the rest) now has its own switch under **Advanced**. Running it twice no longer mangles the text, quotes and closing punctuation like `sorry,\"` stay on their word, and tool changes in the import text can be undone with `Ctrl+Z`.",
+				"title": "Switch each Process lyrics step on or off",
+				"body": "Each step has its own switch under **Advanced**, and running it twice no longer mangles quotes or punctuation",
 				"highlight": false
 			},
 			{
 				"type": "feature",
 				"title": "Tooltips on ribbon and mode buttons",
-				"body": "Hover any ribbon control or the **Edit**, **Time** and **Preview** buttons to see what it does and its shortcut, which follows your own keybindings. The **Preview panel** toggle now sits in the Time ribbon without turning on Advanced. The **Background lines** options are now called **Sync with main** and **Skip while syncing** (previously Inline and Separate pass); your saved choice carries over.",
+				"body": "Hover any ribbon control or mode button to see what it does and its shortcut, which follows your keybindings",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Spicy preview now matches Spicy Lyrics for background vocals",
-				"body": "A line now stays active until its **background vocal** ends, so the next line and interludes no longer start early. Background vocals placed before their line, consecutive and standalone background vocals, and split or hyphenated words render the way Spicy Lyrics renders them. Lines that aren't being sung are no longer redrawn every frame. Spicy is now the default preview if you haven't picked one; a mode you chose before stays.",
+				"title": "Background vocals render like Spicy Lyrics",
+				"body": "A line stays active until its background vocal ends, so the next line and interludes no longer start early",
 				"highlight": true
 			},
 			{
 				"type": "fix",
 				"title": "Spicy preview keeps up with long songs",
-				"body": "The Spicy preview now only keeps the lines near the screen loaded, and scrolls to the next line the way Spicy Lyrics does by default, waiting for an interlude to close first. On a 220-line test song, each frame takes a fraction of the work it did before.",
+				"body": "Only lines near the screen stay loaded, and the preview scrolls to the next line the way Spicy Lyrics does",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Sync keys do less work on long songs",
-				"body": "Each **F**, **G** or **H** press used to re-render the menu bar and about a dozen closed dialogs, and rebuild data for every line. On a 180-line song that is now about 230 component renders per press instead of 500, and the closed dialogs no longer react to timing changes.",
+				"title": "Less work per sync key press on long songs",
+				"body": "Pressing `F`, `G` or `H` no longer redraws the menu bar and closed dialogs on every press",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Readable shortcut names",
-				"body": "Shortcuts in menus, tooltips and **Preferences › Shortcuts** now read as you'd type them, like **Shift+2**, **Ctrl+=** and **Num 5**, instead of internal key codes like \"Shift + Digit2\".",
+				"body": "Shortcuts in menus, tooltips and **Preferences › Shortcuts** read as you'd type them, like `Shift+2` or `Num 5`",
 				"highlight": false
 			}
 		]
@@ -57,44 +429,44 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Preferences search finds settings by their name or description, in your language",
-				"body": "Search used to know only a short list of English words for each page. It now looks through everything on every page, including descriptions, in whatever language the app is in. Accents are optional, so \"sincronizacion\" finds \"Sincronización\".",
+				"title": "Preferences search covers descriptions in your language",
+				"body": "Search covers every setting and description on every page, and accents are optional",
 				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "More Preferences explain what they do",
-				"body": "Autosave, its snapshot interval and limit, the Edit/Time playback switch, the Appearance layout picker and Background now have a one-line description, in every language.",
+				"body": "Autosave, the Edit/Time playback switch, the Appearance layout picker and Background now have descriptions",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Half-timed words respond to clicks again in Edit mode",
-				"body": "A word with a start time but no end time is marked as a timing error, and in the Spicy Lyrics design and the newer dark theme that hid its red outline and every hover and selection highlight, so it looked stuck. It now shows a red outline, and clicking it visibly selects it.",
+				"body": "A word with a start but no end time now shows a red outline, and clicking it selects it",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Dragging a word shows where it will land again",
-				"body": "The drop marker was hidden in the Spicy Lyrics design and the newer dark theme. It now shows as a bar between words in every theme, and no longer nudges the line while you drag.",
+				"body": "The drop marker is a bar between words in every theme, and it no longer nudges the line while you drag",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "The ribbon's Advanced switch shows whether it's on",
-				"body": "When it was on, the switch drew a white thumb on a white track in the Spicy Lyrics design, and in the classic look its track didn't slide. Both now match the other switches, and screen readers announce it as \"Advanced\".",
+				"body": "When on, the switch now matches the others, and screen readers announce it as **Advanced**",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Audio bar times stay on one line on macOS",
-				"body": "The current time and duration no longer push their last digit onto a second line when the system's monospace font is wider than expected.",
+				"body": "The current time and duration no longer push their last digit onto a second line with a wider system font",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "The empty editor's buttons line up when Projects is on",
-				"body": "With folder projects turned on, the four buttons (Start guide, Import lyrics, Open lyrics file, Projects) sit in an even two-by-two grid instead of one button wrapping onto its own line. Long translations wrap inside their button.",
+				"body": "With folder projects on, the four buttons sit in an even two-by-two grid instead of one wrapping alone",
 				"highlight": false
 			}
 		]
@@ -106,57 +478,57 @@
 		"date": "2026-10-25",
 		"entries": [
 			{
-				"type": "feature",
-				"title": "Removed the Guides tab from plain-text import",
-				"body": "The flashing Guides tab in **Import from plain text** is gone. The TTML guides are still in **Help → TTML guides**.",
+				"type": "change",
+				"title": "Plain-text import no longer has a Guides tab",
+				"body": "The TTML guides are still in **Help → TTML guides**",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "The desktop app no longer fails to open on some Macs and Linux systems",
-				"body": "If something goes wrong while the app starts, its window now still opens instead of the app running invisibly. On macOS, a window styling step that could fail on some systems no longer closes the app at launch.",
+				"title": "Desktop app no longer runs invisibly after a startup error",
+				"body": "If something goes wrong while starting, the window still opens instead of the app running invisibly",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "The Linux AppImage opens on newer distros and plays audio again",
-				"body": "The AppImage no longer fails to start on Debian 13 and other recent distros, and audio inside the app works on all of them, including Arch. On NVIDIA, the app turns off the driver's explicit sync itself, so you no longer need to set `__NV_DISABLE_EXPLICIT_SYNC=1`.",
+				"title": "Linux AppImage opens on newer distros and plays audio",
+				"body": "It starts on Debian 13 and other recent distros, audio works everywhere, and NVIDIA needs no workaround",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Songwriters no longer show as \"[object Object]\" in Spicy Lyrics",
-				"body": "TTMLs saved from the macOS and Linux apps, or from the website in Safari, made Spicy Lyrics show \"[object Object]\" instead of the songwriter names. They now save the same as from Windows or Chrome. Save an affected file again to fix it.",
+				"title": "Songwriters show correctly in Spicy Lyrics",
+				"body": "Files saved from the macOS or Linux app or Safari showed \"[object Object]\" instead of names, so save them again",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Edit mode stays where you left it when you switch tabs",
-				"body": "Going to **Time** or **Preview** and back no longer jumps Edit to the playing line or the start of the song. If you played or selected lines in the other tab, Edit still follows them.",
+				"title": "Edit mode stays put when you switch tabs",
+				"body": "Going to **Time** or **Preview** and back no longer jumps Edit to the playing line or the start of the song",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Scrolling the spectrogram while dragging a word no longer drops the drag",
-				"body": "Words, lines and word edges now stay under your cursor when you scroll or **Ctrl**+scroll to zoom mid-drag, and letting go keeps the new timing.",
+				"title": "Scrolling or zooming mid-drag no longer drops the drag",
+				"body": "Words and edges stay under your cursor when you scroll or `Ctrl`+scroll mid-drag, and letting go keeps the timing",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Stretching overlapping words in the spectrogram keeps the overlap",
-				"body": "When two words on a line overlap, as background vocals often do, each now has its own end and start handle. Dragging one no longer snaps the other word to it.",
+				"title": "Stretching overlapping words keeps the overlap",
+				"body": "Each word in an overlapping pair gets its own start and end handle, so dragging one leaves the other alone",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Easier to seek on the spectrogram timeline",
-				"body": "The time ruler above the spectrogram is taller, seeks as soon as you press it, and follows your pointer while you hold it, so a near miss is one drag away.",
+				"body": "The time ruler is taller, seeks as soon as you press it, and follows your pointer while you hold it",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Screen readers can name the audio bar and spectrogram buttons",
-				"body": "The load audio, play/pause and spectrogram toggle buttons, plus the spectrogram's show unselected lines and Time Shift buttons, now have names, and the toggles say whether they're on.",
+				"title": "Screen readers name the audio bar and spectrogram buttons",
+				"body": "Toggles also say whether they're on, and the spectrogram's Time Shift buttons have names too",
 				"highlight": false
 			}
 		]
@@ -170,19 +542,19 @@
 			{
 				"type": "feature",
 				"title": "New Spicy Lyrics design, on by default",
-				"body": "The editor now uses the dark lavender look and Geist type from the rest of Spicy Lyrics. Turn it off in **Preferences → Appearance** to get the previous theme back. Preferences tabs fade in when clicked, toasts slide in without bouncing, and dialogs still fade with reduced motion on. The **Advanced** switch on the ribbons also stops showing as on when it's off.",
+				"body": "The editor uses the dark lavender look and Geist type, and you can turn it off in **Preferences › Appearance**",
 				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Star the project on GitHub from Help or About",
-				"body": "Stars help more people find the tool.",
+				"body": "Stars help more people find the tool",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "The website can no longer be installed as an app",
-				"body": "Use the [desktop app](https://github.com/spicylyrics/ttml-tool/releases/latest) for an installed, offline TTML Tool. The website now always opens in a normal browser tab.",
+				"body": "The website always opens in a normal browser tab, so use the desktop app for an installed, offline version",
 				"highlight": false
 			}
 		]
@@ -196,31 +568,31 @@
 			{
 				"type": "feature",
 				"title": "The website is moving to tool.spicylyrics.org",
-				"body": "Opening the old address shows a prompt to **move your projects, settings, shortcuts, appearance and Genius token** to the new one. The transfer goes straight between two browser windows and is never uploaded, and you can download a backup instead.",
+				"body": "Opening the old address offers to move your projects and settings to the new one, without uploading them",
 				"highlight": true
 			},
 			{
-				"type": "feature",
+				"type": "change",
 				"title": "The app is now called the Spicy Lyrics TTML Tool",
-				"body": "It's now the official Spicy Lyrics tool, so \"NaeNae's AMLL TTML Tool Fork\" is now **Spicy Lyrics TTML Tool**, or **TTML Tool** for short, in the title bar, About, Discord presence and link previews. The Crowdin translation links are gone; translations now happen directly in the [repository](https://github.com/spicylyrics/ttml-tool).",
+				"body": "It's now **Spicy Lyrics TTML Tool**, or **TTML Tool** for short, in the title bar, About and Discord presence",
 				"highlight": true
 			},
 			{
-				"type": "feature",
+				"type": "change",
 				"title": "The website no longer works offline",
-				"body": "The website's offline mode removes itself on your next visit, so you always get the latest version. For offline use, install the [desktop app](https://github.com/spicylyrics/ttml-tool/releases/latest).",
+				"body": "The website's offline mode turns itself off on your next visit, so you always get the latest version",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Help → TTML guides opens the Spicy Lyrics guides",
-				"body": "It used to point at a documentation page that no longer exists.",
+				"body": "It used to point at a documentation page that no longer exists",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "The project now lives at spicylyrics/ttml-tool on GitHub",
-				"body": "The source code moved to the [Spicy Lyrics organization](https://github.com/spicylyrics/ttml-tool). Links in the app point there, and desktop updates now come from the new address directly. Old links keep redirecting.",
+				"body": "Links in the app and desktop updates now come from the new GitHub address, and old links still redirect",
 				"highlight": false
 			}
 		]
@@ -234,73 +606,73 @@
 			{
 				"type": "feature",
 				"title": "Sync background lines in a separate pass",
-				"body": "**Time › Background lines** (also in **Preferences › Editor & sync**) replaces the \"Skip background lines\" checkbox. **Inline** works as before. **Separate pass** keeps **G** and **H** on whichever kind of line you start on: start on a main line and they skip background lines, so finishing a line jumps to the next main line; click a background line and they move between background lines only.",
+				"body": "**Separate pass** under **Time › Background lines** keeps `G` and `H` on whichever kind of line you start on",
 				"highlight": true
 			},
 			{
 				"type": "feature",
-				"title": "Duplicate at playhead and auto-segment words from the right-click menu",
-				"body": "The line menu has **Duplicate at playhead** (or **Duplicate into spectrogram selection** when one is active), showing its shortcut. **Ctrl+L** now works with any line selection, not only after **Duplicate to…**. The word menu in Edit mode has **Auto-segment selected words**, which splits just those words with your saved engine and Learned Splits.",
+				"title": "Duplicate at playhead and auto-segment from right-click",
+				"body": "The line menu has **Duplicate at playhead**, and the word menu in Edit mode has **Auto-segment selected words**",
 				"highlight": false
 			},
 			{
-				"type": "feature",
-				"title": "Compact pickers in the ribbon and toolbars",
-				"body": "Where space is tight, choices like **Time › Sync by**, **Background lines**, the Preview ribbon's mode and background, the timing overview order, spectrogram FFT size and Time Shift's move/copy now use a small dropdown that shows the current value instead of a row of buttons. Preferences keep the side-by-side buttons.",
+				"type": "change",
+				"title": "Compact dropdowns in the ribbon and toolbars",
+				"body": "Where space is tight, choices like **Time › Sync by** and **Background lines** show the current value in a dropdown",
 				"highlight": false
 			},
 			{
-				"type": "feature",
-				"title": "Advanced editor layout removed",
-				"body": "**Preferences › General › Editor layout** is gone, and Edit mode always uses the regular layout. Everything the Advanced layout showed per word is still there: start and end times in the Edit ribbon, and split and delete in the word's right-click menu.",
+				"type": "change",
+				"title": "Advanced editor layout is gone",
+				"body": "Edit mode always uses the regular layout, with times in the ribbon and split or delete in the word menu",
 				"highlight": false
 			},
 			{
-				"type": "feature",
-				"title": "Lyrically import removed",
-				"body": "**Import from Lyrically** is gone from the import cards, the File menu and the guide. Use **Genius**, **LRCLIB** or **Plain text** instead. Existing projects aren't affected.",
+				"type": "change",
+				"title": "Lyrically import is removed",
+				"body": "Use **Genius**, **LRCLIB** or **Plain text** instead, and existing projects aren't affected",
 				"highlight": false
 			},
 			{
-				"type": "feature",
-				"title": "Section check warnings removed",
-				"body": "Saving or exporting no longer shows the **Section check** warning toast, and section headers no longer show an orange warning count. Sections themselves, and the section review when importing lyrics, are unchanged.",
+				"type": "change",
+				"title": "Section check warnings are gone",
+				"body": "Saving and exporting no longer show a section warning, and section headers no longer show an orange count",
 				"highlight": false
 			},
 			{
-				"type": "feature",
-				"title": "What's New window removed",
-				"body": "The fork-vs-upstream **What's new** window is gone from the Help menu. Everything it covered is in **Changelog & updates**.",
+				"type": "change",
+				"title": "What's New window is removed",
+				"body": "Everything it covered now lives in **Changelog & updates**",
 				"highlight": false
 			},
 			{
-				"type": "feature",
-				"title": "Shortcut list removed from the Time ribbon",
-				"body": "The **Shortcut list** section that showed the Start/Next/End keys is gone, freeing up ribbon space. The shortcuts themselves are unchanged and can still be viewed and rebound in **Preferences › Shortcuts**.",
+				"type": "change",
+				"title": "Shortcut list is removed from the Time ribbon",
+				"body": "The shortcuts still work, and you can view or change them in **Preferences › Shortcuts**",
 				"highlight": false
 			},
 			{
-				"type": "feature",
-				"title": "Start-only first word setting removed",
-				"body": "**Preferences › Editor & sync › Start-only first word** is gone. The first word of a line now always syncs like every other word. If you had it on, your existing timings are unchanged.",
+				"type": "change",
+				"title": "Start-only first word setting is removed",
+				"body": "The first word of a line now syncs like every other word, and existing timings stay as they were",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Editing lines inside Genius sections keeps the section together",
-				"body": "A line you insert, paste, duplicate or drag into the middle of a section now joins that section, instead of splitting it into extra headers. Deleting that line again leaves the section whole. **Insert new line before/after** and **Move words to new line** keep the line's section too. Section headers update right away instead of after switching tabs. **Snap to playhead** no longer gives untimed words a time, and **Copy previous timing** finds earlier sections that start on an untimed line and says so when no lines match.",
+				"title": "Genius sections stay together when you edit lines",
+				"body": "Lines you insert, paste, duplicate or drag into a section join it, and deleting them leaves the section whole",
 				"highlight": true
 			},
 			{
 				"type": "fix",
 				"title": "Fast syncing no longer drops key presses",
-				"body": "Pressing **G** or **H** before letting go of the previous sync key now counts every press, and **G** on a song's last word sets the last line's end time.",
+				"body": "Pressing `G` or `H` before letting go of the previous key now counts every press",
 				"highlight": true
 			},
 			{
 				"type": "fix",
 				"title": "Deleting words updates the line's start and end",
-				"body": "Deleting words with **Delete** now shrinks the line to the words that are left, like the right-click delete already did. Trailing spaces no longer hold the old end in place. Duplicating a line and trimming each copy no longer leaves both highlighted as current.",
+				"body": "Deleting words with `Delete` now shrinks the line to the words left, as right-click delete already did",
 				"highlight": false
 			}
 		]
@@ -314,7 +686,7 @@
 			{
 				"type": "fix",
 				"title": "Duet singers are saved as people",
-				"body": "Exported TTML now marks the second singer as `type=\"person\"` instead of `type=\"other\"`, and opening a file keeps `v1` as the main singer even when its agents are declared in a different order.",
+				"body": "Exported files mark the second singer as a person, and the main singer stays first even if agents are listed differently",
 				"highlight": false
 			}
 		]
@@ -326,117 +698,111 @@
 		"date": "2026-10-15",
 		"entries": [
 			{
-				"type": "feature",
+				"type": "change",
 				"title": "Clearer names for sync tools and settings",
-				"body": "Names that people found confusing now say what they do. The F, G and H actions are **Start**, **Next** and **End**. **Time Offset** and **Commit Offset** are now **Sync offset** and **Next key offset**, **Sync Level** is **Sync by: Word / Line**, and **Sync to Spectrogram Cursor** is **Sync at mouse position**. **Sync Line Timestamps** is now **Fit lines to their words**, **Ignore Sync** is **Skip when syncing**, and **V-Sync** is **Smooth preview (every frame)**. Shortcuts, layouts and metadata fields use one name each, and the interface now uses sentence case throughout.",
+				"body": "The F, G and H actions are now **Start**, **Next** and **End**, and several sync settings got plainer names",
 				"highlight": true
 			},
 			{
-				"type": "feature",
-				"title": "Removed tools Spicy Lyrics doesn't use",
-				"body": "Obscene marks, empty beats, the NetEase, QQ Music, Spotify, Apple Music, ISRC and TTML-author fields in the metadata editor, and the upcoming-word highlight in Time mode are gone. Spicy Lyrics ignores all of them, so they only added clutter. TTML files that contain these marks still open normally; they're just left out when you save. Metadata already in a file still shows and saves as a regular metadata entry.",
+				"type": "change",
+				"title": "Removed fields and marks Spicy Lyrics ignores",
+				"body": "Obscene marks, empty beats, streaming service fields and the upcoming-word highlight are gone, but old files still open",
 				"highlight": true
 			},
 			{
-				"type": "feature",
+				"type": "change",
 				"title": "Ruby editing removed",
-				"body": "Ruby editing is removed because Spicy Lyrics doesn't display it. Files with ruby still open and keep their words and timing; readings are discarded. The `|` character now stays part of your text when inserting or editing words.",
+				"body": "Ruby readings are dropped on import, words and timing stay, and `|` now stays in your text",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Translations that fit the app",
-				"body": "All 15 languages were retranslated with the context of where each string appears, instead of word by word. Settings, buttons and messages now use natural wording and the same terms throughout, the new Start, Next and End names are translated everywhere, and counts like \"3 words\" use each language's proper plural forms. The language picker no longer marks names like TTML or Genius as untranslated, so complete languages show 100%.",
+				"title": "Complete, natural translations in all 15 languages",
+				"body": "Every language is retranslated in context, missing text is filled in, and joke languages now fall back to English",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Complete translations for all supported languages",
-				"body": "Fill missing translations and correct misplaced Chinese text and romanization labels. Remove joke languages; saved selections of those languages fall back to English.",
+				"title": "Lyric and audio imports work the same everywhere",
+				"body": "Repeated LRC timestamps import everywhere, every audio button accepts AAC, and failed loads leave project audio alone",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Make lyric and audio imports consistent",
-				"body": "LRC imports recognize repeated timestamps and metadata tags in every entry point. Online imports now keep the text importer's hyphen boundaries, and **Process lyrics** uses the same background-vocal rules throughout. All load audio buttons accept the same formats, including AAC, and failed loads no longer become pending project audio. New suggested file and folder names preserve Unicode and avoid Windows-invalid names.",
-				"highlight": true
-			},
-			{
-				"type": "fix",
-				"title": "Consistent TTML saving and recovery",
-				"body": "Save, guided export, clipboard copy, and project saves now share timing and section checks. Guided and recovery saves use the document name and update saved state after success; clipboard copy keeps unsaved changes. Recovery exports warn without waiting for an app dialog and can rescue a standalone copy if project saving fails.",
+				"title": "Saving and recovery behave the same everywhere",
+				"body": "Save, guided export, copy and project saves run the same timing checks, and copying keeps your unsaved changes",
 				"highlight": true
 			},
 			{
 				"type": "fix",
 				"title": "Updates on Windows stop putting the desktop shortcut back",
-				"body": "Windows updates always ran the MSI installer, which re-creates its desktop shortcut on every upgrade, so deleting it never stuck. Updates now go through the regular setup installer, which leaves your shortcuts alone. If your copy was updated through the MSI before, the next update switches it over once: Windows asks to remove the old version (choose Yes and allow the admin prompt), and after that updates are quiet.",
+				"body": "Updates use the setup installer now, so deleted shortcuts stay gone, but older MSI installs get one removal prompt first",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Keep lyric previews aligned with audible playback",
-				"body": "All previews now share the editor's playback clock, including paused seeks and speed changes. Auto-scroll respects manual scrolling, follows offscreen active lines, and centers paused seeks consistently while retaining each preview's layout.",
+				"title": "Lyric previews stay in sync with the audio",
+				"body": "Previews follow the editor's clock through paused seeks and speed changes, and auto-scroll respects your scrolling",
 				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "The beginner guide, project folders and the new Preferences pages are translated",
-				"body": "About 170 pieces of text showed in English (or Chinese) in every language: the whole beginner guide, folder and linked project messages, the Editor & Sync and Files & Storage pages in Preferences, Discord Rich Presence settings, window buttons, the font picker and several appearance options. They are now translated in all 15 languages. The guide's empty-line warning also keeps its own message instead of being replaced by the \"structure is valid\" text once translated.",
+				"title": "Beginner guide and Preferences pages translated",
+				"body": "About 170 pieces of text that were stuck in English or Chinese are now translated in all 15 languages",
 				"highlight": true
 			},
 			{
 				"type": "fix",
 				"title": "Theme resets and presets cover every appearance setting",
-				"body": "**Reset theme** and **Reset all advanced overrides** now also reset the Genius header color and legacy space labels, and appearance presets save legacy space labels too. Four fonts no longer appear twice in the font library.",
+				"body": "**Reset theme** and **Reset all advanced overrides** now reset the Genius header color, and presets save space labels",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Reliable draft word timings",
-				"body": "Segmentation, line sync, and spectrogram initialization now distribute whole-millisecond times without rounding gaps, overlaps, or negative final durations. Whitespace gets zero duration, and zero-weight segments are preserved.",
+				"title": "No gaps or overlaps in draft word timings",
+				"body": "Auto segmenting, line sync and new spectrogram setups split time into whole milliseconds with no gaps or overlaps",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Escape cancels word edits, and clicked dividers take arrow keys",
-				"body": "Pressing Escape while editing a word in Edit mode now cancels the edit instead of being ignored, and canceling in Time mode can no longer save the text by accident. Clicking a word divider on the spectrogram now selects it, so holding the left or right arrow keeps nudging it; clicking anywhere else or pressing Escape hands the arrows back to audio seeking. The line count shown while dragging several lines sits in its own badge again instead of overlapping the line number.",
+				"title": "Escape cancels word edits",
+				"body": "Escape cancels a word edit in Edit mode, and clicked spectrogram dividers take the arrow keys to nudge them",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Section color and line focus fixes",
-				"body": "**Focus main line during playback** turned off now follows background lines too, post-chorus sections are purple instead of chorus pink, and changing a line to or from a section header updates its words right away.",
+				"title": "Post-chorus sections use their own color",
+				"body": "Post-chorus sections are purple instead of chorus pink, and section header changes update the words right away",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Importing with Process lyrics off keeps hyphenated words whole",
-				"body": "With Process lyrics turned off, the lyrics import used to split every line after its hyphens, so \"twenty-one\" came in as two words. Those lines now import as-is. With Process lyrics on, hyphenated words are still split as before.",
+				"title": "Hyphenated words stay whole without Process lyrics",
+				"body": "With **Process lyrics** off, words like twenty-one import as one word instead of splitting at the hyphen",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "One full home for workflow settings",
-				"body": "Preferences now includes the editor and preview options previously available only in ribbons, grouped into Edit mode, Time mode display, Syncing aids, Preview and Preview performance, each with an icon and a short description of what it does. Set-and-forget options such as layout, wrapping, FPS, fades, and editing gestures live in Preferences, while ribbons retain controls useful during lyric work. Sync offsets use the same whole-millisecond input behavior in both places.",
+				"title": "Editor and preview options all live in Preferences",
+				"body": "Options that were only in ribbons now sit in **Preferences**, and ribbons keep the controls you need while syncing",
 				"highlight": true
 			},
 			{
 				"type": "fix",
 				"title": "Edit menu shows the right shortcuts",
-				"body": "**Deselect all lines** now shows its own shortcut instead of the one for Select all, and **Delete selection** shows its shortcut too.",
+				"body": "**Deselect all lines** and **Delete selection** now show their own shortcuts instead of Select all's",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Highlight the selected system font in Preferences",
-				"body": "The font library now marks a system font as selected after you apply it.",
+				"title": "Selected system font is marked in the font library",
+				"body": "The font library marks a system font as selected once you apply it",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Ignore invisible cover colors in Spicy highlights",
-				"body": "Fully transparent cover-art pixels no longer determine the Spicy preview's highlight color.",
+				"body": "Fully transparent cover art pixels no longer change the highlight color in the Spicy preview",
 				"highlight": false
 			}
 		]
@@ -450,7 +816,7 @@
 			{
 				"type": "fix",
 				"title": "Sync Next no longer overwrites the next word's end time",
-				"body": "Pressing **Sync Next** now only sets the next word's start, like it used to, instead of also stamping the same time onto its end.",
+				"body": "**Sync Next** only sets the next word's start again, instead of also stamping the same time onto its end",
 				"highlight": false
 			}
 		]
@@ -464,145 +830,139 @@
 			{
 				"type": "feature",
 				"title": "Exact playback and seeking for every audio format",
-				"body": "Audio now plays from the decoded file, so seeking and sync keys land on the exact time in any format, including VBR MP3s that used to be off by up to 2 seconds. The MP3 to FLAC conversion prompt is gone because it is no longer needed.",
+				"body": "Seeking and sync keys land on the exact time in every format, including VBR MP3s that used to drift up to 2 seconds",
 				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "More control over keyboard shortcuts",
-				"body": "Reset or clear individual shortcuts and see warnings about conflicts in the keybinding editor. Zoom, redo, and timeline Escape are remappable, and editor shortcuts stay out of the way while typing.",
+				"body": "Reset or clear single shortcuts and get conflict warnings, and zoom, redo and timeline Escape can now be remapped",
 				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Find the right version of a song faster",
-				"body": "Online lyric search is prefilled from the audio's tags. LRCLIB results show their length, and versions that match your audio are badged and listed first.",
+				"body": "Online lyric search starts from your audio's tags, and results that match your audio are badged and listed first",
 				"highlight": true
 			},
 			{
-				"type": "feature",
-				"title": "A simpler editor with fewer broken features",
-				"body": "Removed the AI sidebar, plugins, grammar checker, Developer tab, AMLL preview, AMLL database upload, experimental side toolbar, and empty menu commands. Spicy remains the lyric preview.",
+				"type": "change",
+				"title": "Simpler editor without the broken extras",
+				"body": "The AI sidebar, plugins, grammar checker, Developer tab and AMLL preview are gone, and Spicy stays the lyric preview",
 				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Better sounding slowdown",
-				"body": "Slowing playback down with **Keep pitch** on now uses SoundTouch, and auditions stop exactly at the end of the word at any speed.",
+				"body": "Slowing down with **Keep pitch** on sounds better, and auditions stop exactly at the end of the word at any speed",
 				"highlight": true
 			},
 			{
 				"type": "feature",
-				"title": "Complete appearance presets and independent editor settings",
-				"body": "Appearance presets also save the font, interface scale, and background, with one glass blur setting. Edit and Time modes have separate auto-scroll and highlight settings.",
+				"title": "Appearance presets save the font and background too",
+				"body": "Presets also save font, scale and background, and Edit and Time modes each have their own scroll and highlight settings",
 				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Song info fills itself in",
-				"body": "Empty title, artist and album fields are filled from the audio's tags and from confirmed online imports. Values you typed are never replaced.",
+				"body": "Empty title, artist and album fields fill in from audio tags or confirmed online imports, and typed values are kept",
 				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Preview skips lines without timing",
-				"body": "Untimed lines no longer pile up at 0:00 in the preview. A banner counts them and jumps to the first one in Time mode.",
+				"body": "Untimed lines no longer pile up at 0:00, and a banner counts them and jumps to the first one in Time mode",
 				"highlight": false
 			},
 			{
 				"type": "feature",
 				"title": "Clearer timing and a roomier editor",
-				"body": "Untimed timestamps look different from synced ones, the beginner guide shows how many words are timed, and empty translation and romanization rows only appear on the selected line.",
-				"highlight": false
-			},
-			{
-				"type": "feature",
-				"title": "Release notes and highlights stay together",
-				"body": "The changelog and What's New now share compiled release notes, so highlighted changes appear automatically when a release is prepared.",
+				"body": "Untimed timestamps look different, the guide counts timed words, and empty translation rows show only when selected",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Consistent playback controls and ESLRC round trips",
-				"body": "Speed and volume stay in sync across the tool, with playback speed limited to 0.1–2x. Closing the latency test fully stops it, and exported ESLRC lyrics re-import correctly.",
+				"title": "Playback speed limits and ESLRC round trips fixed",
+				"body": "Playback speed is capped at 0.1x to 2x, closing the latency test stops it fully, and exported ESLRC re-imports correctly",
 				"highlight": false
 			},
 			{
 				"type": "fix",
-				"title": "Selection and audition shortcuts behave correctly",
-				"body": "Ctrl+A selects without also deselecting, audition works for words at 0:00, and move-to-word-and-play shortcuts start playback.",
+				"title": "Selection and audition shortcuts work properly",
+				"body": "`Ctrl`+`A` selects without deselecting, audition works on words at 0:00, and move-and-play shortcuts start playback",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Remapped shortcuts work reliably",
-				"body": "Shortcuts using Ctrl, Shift, or Alt now work, and Home and End can be recorded. Escape cancels shortcut recording, and arrow and bracket labels show their direction.",
+				"body": "Shortcuts with `Ctrl`, `Shift` or `Alt` work now, `Home` and `End` can be recorded, and `Escape` cancels recording",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Faster editing in long songs",
-				"body": "Changing one word's timing only redraws that line instead of the whole lyric list.",
+				"body": "Changing one word's timing only redraws its line instead of the whole lyric list",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Browsing online imports no longer renames your project",
-				"body": "The project is only renamed when you confirm an import, and only if it still has its default name. Importing into an empty editor no longer warns about unsaved changes.",
+				"body": "Your project is only renamed after you confirm an import, and only if it still has its default name",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Sync keys give the same time every press while paused",
-				"body": "Pressing a sync key while paused now uses the exact playhead and your sync offset, instead of a slightly different time on every press.",
+				"body": "While paused, sync keys use the exact playhead and your sync offset, so each press gives the same time",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Text imports split words predictably",
-				"body": "Hidden, stale switches no longer change how imported text is split into words.",
+				"body": "Hidden old settings no longer change how imported text splits into words",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Default shortcuts no longer clash",
-				"body": "Audition uses Q/B/N instead of conflicting with S/W. Urban Dictionary uses Shift+F in both modes, and Auto Segment uses Shift+E.",
+				"body": "**Audition** uses `Q`, `B` and `N`, **Urban Dictionary** is `Shift`+`F`, and **Auto Segment** is `Shift`+`E`",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Alt-drag gaps preview correctly",
-				"body": "Alt-dragging a word boundary in the spectrogram shows the new gap while dragging and no longer flips sides mid-drag.",
+				"body": "Alt-dragging a word boundary on the spectrogram shows the new gap as you drag, without flipping sides",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Spectrogram ruler keeps its size",
-				"body": "The time ruler no longer grows on every redraw on high-DPI screens.",
+				"body": "The time ruler no longer grows on every redraw on high-DPI screens",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Imported syllables no longer keep trailing spaces",
-				"body": "Trailing spaces in imported TTML syllables are split into their own untimed word, so timed words stay clean and export keeps the spacing.",
+				"body": "Trailing spaces in imported syllables become their own untimed word, so timed words stay clean and spacing is kept",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Long names fit in the history dialog",
-				"body": "Long project names and metadata values wrap instead of overflowing the restore dialog.",
+				"body": "Long project names and metadata values wrap inside the restore dialog instead of overflowing it",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Open lyrics file and TTML export are easier to find",
-				"body": "Open buttons in the empty editor and guide say **Open lyrics file** and accept every format, and Export lists TTML first.",
+				"body": "The open buttons say **Open lyrics file** and accept every format, and **Export** lists TTML first",
 				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Notifications stay clickable over dialogs",
-				"body": "Buttons on notifications, like the update **Refresh** prompt, can be clicked while a dialog is open.",
+				"body": "Buttons on notifications, like the update **Refresh** prompt, work while a dialog is open",
 				"highlight": false
 			}
 		]
@@ -615,18 +975,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Linked Project Backup",
-				"body": "Linked projects show a header icon that restores the one-time backup of the original TTML after confirming (the backup is removed once restored), and the Linked tab can open the folder that holds it. The header also shows an unsaved changes button that saves the project."
+				"title": "Restore the original file of a linked project",
+				"body": "A header icon restores the original TTML from its one-time backup after confirming, and the Linked tab opens that folder"
 			},
 			{
 				"type": "feature",
 				"title": "Contributors in About",
-				"body": "The About tab lists everyone who has contributed to this fork, with their GitHub profiles and a link to the full contributor graph."
+				"body": "The **About** tab lists everyone who has contributed to this fork, with links to their GitHub profiles"
 			},
 			{
 				"type": "fix",
-				"title": "Sync Timing",
-				"body": "Synced times no longer drift when the audio stalls, buffers or changes speed, and the delay between pressing a sync key and the app handling it is removed at every playback speed. Syncing into the next line no longer leaves its first word with an old end time."
+				"title": "Sync times stay accurate when audio stalls or changes speed",
+				"body": "Synced times no longer drift when audio stalls, buffers or changes speed, and the sync key delay is gone at every speed"
 			}
 		]
 	},
@@ -638,58 +998,58 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Linked Projects",
-				"body": "When the app offers to create a project, choose Keep files in place to leave your TTML and audio where they are. The project only stores their locations, and reopening works from Projects. Nothing is written on linking or autosave: only an explicit save writes the TTML back to the original file, after keeping a one-time backup of the original in the project's data folder."
+				"title": "Keep files in place with linked projects",
+				"body": "Choose **Keep files in place** to leave your files where they are, and only an explicit save writes back to the original"
 			},
 			{
 				"type": "feature",
-				"title": "Projects Window",
-				"body": "Added a Linked tab with an Open projects folder button, a search field for Recent, Linked, and Workspace projects, and labels that show whether a project is a folder or linked files."
+				"title": "Linked tab and search in the Projects window",
+				"body": "The Projects window gets a Linked tab, a search field for all project lists, and labels for folder or linked projects"
 			},
 			{
 				"type": "feature",
-				"title": "Settings Search",
-				"body": "Preferences has a search field. Typing a setting name filters the categories, opens the best match, and highlights the closest setting."
+				"title": "Search in Preferences",
+				"body": "Typing a setting name filters the categories, opens the best match, and highlights the closest setting"
 			},
 			{
 				"type": "feature",
-				"title": "Backup Contents Preview",
-				"body": "Added an expandable preview dropdown before exporting settings and data backups, displaying category counts, item lists, and estimated total file size."
+				"title": "See what a backup contains before exporting",
+				"body": "An expandable preview shows category counts, item lists and estimated size before you export settings or data backups"
 			},
 			{
 				"type": "fix",
-				"title": "Backup Assets",
-				"body": "Appearance presets and the custom font are now exported and restored with the Assets category."
+				"title": "Appearance presets and fonts are backed up",
+				"body": "Appearance presets and the custom font are now exported and restored with the Assets backup category"
 			},
 			{
 				"type": "fix",
-				"title": "Preferences UI Polish & Icons",
-				"body": "Clarified preset actions with dedicated apply/delete icons and tooltips, harmonized semantic icons across General, Editor, Files, Audio, Keybindings, Appearance, Developer, and Custom Background tabs, and improved contrast for advanced configuration resets."
+				"title": "Clearer preset and reset icons in Preferences",
+				"body": "Preset apply and delete actions have their own icons and tooltips, and reset buttons have better contrast"
 			},
 			{
 				"type": "fix",
-				"title": "Spectrogram Divider Styling",
-				"body": "Decluttered touching dividers when adjacent lyric lines meet by shortening handle indicators and removing corner notches for seamless line boundaries."
+				"title": "Cleaner dividers where lyric lines meet",
+				"body": "Touching spectrogram dividers are shorter and have no corner notches, so line boundaries look seamless"
 			},
 			{
 				"type": "fix",
-				"title": "Backup Safety",
-				"body": "API keys (Genius and AI Sidebar) now have their own opt-in \"API keys\" category, off by default, and are never included with Settings. The last workspace folder and recent project paths are not exported because they only make sense on the original device."
+				"title": "API keys are opt-in for backups",
+				"body": "API keys have their own opt-in category, off by default, and recent project paths are no longer backed up"
 			},
 			{
 				"type": "fix",
-				"title": "Timing Overview Header",
-				"body": "Kept the timing overview header compact and readable when resizing to narrow side panels, and remember whether the side preview is open between sessions."
+				"title": "Compact timing header in narrow side panels",
+				"body": "The timing overview header stays readable in narrow panels, and the side preview remembers whether it was open"
 			},
 			{
 				"type": "fix",
-				"title": "Domain Move Complete",
-				"body": "The old tool addresses now redirect to tool.community.spicylyrics.org, so the one-time data transfer from them has been removed."
+				"title": "Old tool addresses still work",
+				"body": "Links to the old tool addresses now redirect to the new site"
 			},
 			{
 				"type": "fix",
-				"title": "Backup Tab Translation",
-				"body": "The Backup settings tab is now fully translated to Spanish."
+				"title": "Backup settings fully translated to Spanish",
+				"body": "Every part of the Backup settings tab now appears in Spanish"
 			}
 		]
 	},
@@ -701,8 +1061,8 @@
 		"entries": [
 			{
 				"type": "fix",
-				"title": "Duplicate Desktop Installs",
-				"body": "v0.10.0 and v0.10.1 were installed as \"NaeNae AMLL TTML Tool Fork\" next to the existing \"AMLL TTML Tool\" instead of replacing it. The installed app is named \"AMLL TTML Tool\" again, and the Windows installers, .deb, and .rpm packages now remove the extra copy. Your settings and projects are kept, and Winget recognizes the app again."
+				"title": "The app installs as one copy again",
+				"body": "The duplicate from 0.10.0 and 0.10.1 is removed, and your settings and projects are kept"
 			}
 		]
 	},
@@ -713,14 +1073,14 @@
 		"date": "2026-10-01",
 		"entries": [
 			{
-				"type": "feature",
-				"title": "macOS Downloads",
-				"body": "Releases now ship separate Apple Silicon (aarch64) and Intel (x64) DMGs only. The universal DMG is no longer built, which makes releases noticeably faster to publish."
+				"type": "change",
+				"title": "Separate DMG downloads for Mac",
+				"body": "Mac releases now come as separate Apple Silicon and Intel DMGs, with no universal download"
 			},
 			{
 				"type": "fix",
-				"title": "App Icon Shape",
-				"body": "The purple app icon is a rounded tile with transparent padding again instead of a sharp full-bleed square, so it matches other apps on the taskbar, dock, and in browser tabs."
+				"title": "App icon has rounded edges again",
+				"body": "The purple icon is a rounded tile again, so it matches other apps in the taskbar, dock and browser tabs"
 			}
 		]
 	},
@@ -732,43 +1092,43 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Folder Projects (Opt-In)",
-				"body": "Open, save, and organize lyrics as project folders from the File menu (Projects), with a project.json manifest, recent projects, and workspace scanning. Enable it under Files & Storage settings; it stays off by default and the app behaves exactly as before while disabled."
+				"title": "Folder projects (opt-in)",
+				"body": "Save and organize lyrics as project folders from the File menu, turned on under **Files & Storage** settings"
 			},
 			{
 				"type": "feature",
-				"title": "Create Project Prompt",
-				"body": "Loading a lyric file together with audio now offers to create a project. Choosing Create asks for a location and builds a folder named after the song, or Untitled Song-1, Untitled Song-2, and so on when no name is available."
+				"title": "Create a project when loading lyrics",
+				"body": "Loading lyrics with audio offers to make a project folder named after the song, or Untitled Song-1 if there is no name"
 			},
 			{
 				"type": "feature",
-				"title": "Automatic Folder Naming",
-				"body": "The project folder follows the song metadata when you save. Folders you rename yourself are never touched, and existing folders are never renamed unless the app created them."
+				"title": "Folder names follow the song",
+				"body": "Project folders update their name from the song details when you save, but folders you renamed yourself are left alone"
 			},
 			{
 				"type": "feature",
-				"title": "Project-Wide Saving",
-				"body": "Ctrl+S inside a project saves the project instead of exporting standalone TTML, without prompting when nothing changed, and unsaved changes still trigger a warning before opening another file or project."
+				"title": "Files found again after renaming",
+				"body": "Lyric and audio files are found again after you rename them outside the app, and older projects keep working"
 			},
 			{
 				"type": "feature",
-				"title": "Resilient Project Manifest",
-				"body": "project.json now carries a project identifier and a song fingerprint, so the lyric and audio files are found again after being renamed outside the app. Older manifests keep working."
+				"title": "Project access limited to folders you pick",
+				"body": "Projects only open folders you choose in the system dialog, and file sizes have a limit"
 			},
 			{
 				"type": "feature",
-				"title": "Safe File Access",
-				"body": "All project paths are validated against traversal and reserved names, file sizes are capped, and folder access is granted only through folders you pick in the native dialog."
+				"title": "Undo history kept after saving",
+				"body": "Saving clears the unsaved warning but keeps your undo history, and undoing back to the saved version counts as saved"
 			},
 			{
 				"type": "feature",
-				"title": "Saved-State Tracking",
-				"body": "Saving now clears the unsaved-changes warning while keeping your undo history, edits made during a save stay marked as unsaved, and undoing back to the saved version reads as saved again."
+				"title": "Import options open the file picker right away",
+				"body": "Clicking an LRC, ESLRC, QRC, YRC or Lyricify Syllable option in the **File** menu opens the file picker immediately"
 			},
 			{
-				"type": "feature",
-				"title": "Lyric File Import",
-				"body": "Fixed file dialog triggers for LRC, ESLRC, QRC, YRC, and Lyricify Syllable formats so clicking import options in the File menu immediately opens the file picker."
+				"type": "change",
+				"title": "Save projects with Ctrl+S",
+				"body": "Inside a project, `Ctrl+S` saves the project instead of exporting TTML, and unsaved changes still get a warning"
 			}
 		]
 	},
@@ -780,48 +1140,48 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Link Embeds",
-				"body": "Added short link embeds for Discord, Google, social sharing, and search previews."
+				"title": "Links show rich previews",
+				"body": "Short links now show rich previews on Discord, Google, social sharing and search results"
 			},
 			{
 				"type": "feature",
-				"title": "New App Logo & Naming",
-				"body": "Replaced the red icon across the website, PWA, desktop, and mobile assets with the new multicolor logo, using platform-specific padding and masks. The app now consistently uses NaeNae's AMLL TTML Tool Fork, with the full Apple Music-like Lyrics name where space permits."
+				"title": "New multicolor logo and name",
+				"body": "The new multicolor logo replaces the red icon everywhere, and the app is now named NaeNae's AMLL TTML Tool Fork"
 			},
 			{
 				"type": "feature",
-				"title": "Themed Glassmorphic Toast Notifications",
-				"body": "Toast notifications now feature glassmorphic translucent styling with background blur, follow the app's global radius, and synchronize icon and progress bar colors with the active theme accent."
+				"title": "Toasts with blur and theme colors",
+				"body": "Toast notifications get a translucent blurred look, follow the global radius and match the theme accent color"
 			},
 			{
 				"type": "feature",
-				"title": "Updated Beginner Guide Links",
-				"body": "In-app onboarding and Genius token help now open the current Spicy Lyrics guides instead of the retired documentation site."
+				"title": "Jump to words from the timing overview",
+				"body": "Clicking a word in the Technical Timing Overview jumps to its timestamp, and the table keeps up with playback"
 			},
 			{
 				"type": "feature",
-				"title": "Timing Overview Syllable Seeking",
-				"body": "Clicking any syllable or word in the Technical Timing Overview now seeks directly to that word's timestamp and displays its active frame, while table auto-scroll smoothly follows playback without getting stuck."
+				"title": "Playback position kept across tabs",
+				"body": "Switching between **Edit**, **Time** and **Preview** keeps your playback position and the active line centered"
 			},
 			{
 				"type": "feature",
-				"title": "Cross-Tab Position Sync",
-				"body": "Switching between Edit, Time, and Preview tabs maintains playback position and keeps the active line centered, with anchor restoration scoped to tab mounting to prevent view jitter during word and line synchronization."
+				"title": "Wrapped rows keep their border and highlights",
+				"body": "Wrapped rows without timestamps show their left border, and syllable highlights stay in sync when selecting or pausing"
 			},
 			{
 				"type": "feature",
-				"title": "Wrapped Line Borders & Highlight Persistence",
-				"body": "Wrapped lyric rows without timestamps now display their left border indicator, active syllable highlights remain synchronized across selection and pause states, and auto-scroll easing uses a smooth sine curve with proportional duration."
+				"title": "Timing overview order toggle",
+				"body": "Switch the Technical Timing Overview between time order and lyric text order, with unsynced lines kept in place"
 			},
 			{
 				"type": "feature",
-				"title": "Timing Overview Order Mode",
-				"body": "Added a toggle in the Technical Timing Overview between chronological order and natural textual document order, keeping unsynchronized lines in their original lyrical sequence."
+				"title": "Smoother spectrogram resizing",
+				"body": "Resizing the spectrogram no longer redraws parts that did not change"
 			},
 			{
-				"type": "feature",
-				"title": "Test Runner & Spectrogram Optimization",
-				"body": "Configured standard test runner scripts for Vitest and full-suite runs, eliminated redundant spectrogram tile re-renders during resizing, and removed unused dependencies across spectrogram components."
+				"type": "change",
+				"title": "Guide links open the current guides",
+				"body": "Onboarding and Genius token help now open the current Spicy Lyrics guides instead of the retired docs site"
 			}
 		]
 	},
@@ -833,33 +1193,33 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Word Wrap in Time Mode",
-				"body": "Lyric word cards in the Time tab now wrap onto multiple lines instead of overflowing horizontally. Toggle \"Wrap Words in Time Mode\" from the Display Options ribbon or the Editor & Sync settings. Wrapping is on by default and animates smoothly with a fade-in reflow."
+				"title": "Words wrap in Time mode",
+				"body": "Word cards wrap onto new lines, toggled by **Wrap Words in Time Mode** in Display Options or Editor & Sync settings"
 			},
 			{
 				"type": "feature",
-				"title": "Playback Auto-Scroll",
-				"body": "While playing back in the Time tab the editor automatically scrolls to keep the active lyric line centered. Auto-scroll can be toggled from Editor & Sync settings and defaults to on."
+				"title": "Time mode follows playback",
+				"body": "The editor keeps the active line centered during playback, and you can turn this off in **Editor & Sync** settings"
 			},
 			{
 				"type": "feature",
-				"title": "Main Vocal Focus Priority",
-				"body": "When auto-scroll is active the editor focuses on the main (v1) vocal line and disregards background vocals unless no main vocal is ongoing. This can be toggled via \"Focus Main Line During Playback\", which greys out when auto-scroll is disabled."
+				"title": "Main vocals take focus during playback",
+				"body": "Auto-scroll favors main vocals over background vocals, toggled by **Focus Main Line During Playback**"
 			},
 			{
 				"type": "feature",
-				"title": "User-Scroll Pause & Resume",
-				"body": "Scrolling with the mouse wheel suspends auto-scroll for one second before smoothly resuming to the active line. Auto-scroll and resume timers remain inactive while playback is paused."
+				"title": "Mouse wheel pauses auto-scroll briefly",
+				"body": "Scrolling with the wheel pauses auto-scroll for a second, then glides back to the active line"
 			},
 			{
 				"type": "feature",
-				"title": "Sync to Spectrogram Cursor",
-				"body": "Added an opt-in setting to record timing trigger keys (F, G, H) at the spectrogram hover cursor position instead of the current audio playback time."
+				"title": "Record sync keys at the spectrogram cursor",
+				"body": "An optional setting records `F`, `G` and `H` at the spectrogram hover position instead of the playback time"
 			},
 			{
 				"type": "feature",
-				"title": "Dynamic Spectrogram Height & Dividers",
-				"body": "The spectrogram height slider now dynamically measures titlebar and playback controls to prevent pushing UI controls offscreen. Word divider dragging no longer imposes artificial zoom-dependent minimum duration limits, and FFT resolution uses a clean inline selector."
+				"title": "Spectrogram height fits the window",
+				"body": "The height slider keeps playback controls on screen, and word dividers no longer have a zoom-based minimum length"
 			}
 		]
 	},
@@ -871,23 +1231,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Focused Default Dark Theme",
-				"body": "Reworked the modern dark theme with clearer charcoal layers, quieter labels, tighter lyric cards, and crimson reserved for active states and primary actions. The legacy theme remains unchanged."
+				"title": "Adjustable interface scale",
+				"body": "Scale the whole app from **Appearance** settings or with `Ctrl`/`Cmd` and `+`, `-` or `0`, remembered between sessions"
 			},
 			{
 				"type": "feature",
-				"title": "Adjustable Interface Scale",
-				"body": "Resize the whole app from Appearance settings or with Ctrl/Cmd +, -, and 0 shortcuts, with the chosen scale remembered across sessions."
+				"title": "Background vocal export uses the saved setting",
+				"body": "Exports now use the saved consecutive and standalone background vocal setting right away"
 			},
 			{
-				"type": "feature",
-				"title": "Remembered Background Vocal Export",
-				"body": "Fixed exports sometimes ignoring the saved consecutive and standalone background-vocal setting until it was toggled again."
+				"type": "change",
+				"title": "Reworked default dark theme",
+				"body": "Clearer layers, quieter labels and tighter lyric cards, with red kept for active states and main buttons"
 			},
 			{
 				"type": "fix",
-				"title": "Stable Mode Switching",
-				"body": "Switching between Edit and Time mode now keeps the same lyric line in view without centering lines selected while editing."
+				"title": "Edit and Time keep the same line in view",
+				"body": "Switching modes keeps the same lyric line in view without centering lines you are editing"
 			}
 		]
 	},
@@ -899,18 +1259,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Clearer Beginner Guide",
-				"body": "Added a preparation step that pairs the in-app walkthrough with the full TTML guide, provides compact lyric-source cards, and fixes guide navigation and documentation links."
+				"title": "Clearer beginner guide",
+				"body": "A preparation step links the walkthrough to the full TTML guide, with compact source cards and working links"
 			},
 			{
 				"type": "feature",
-				"title": "Flexible Background Vocal Export",
-				"body": "Added an optional Spicy Lyrics-compatible export mode for consecutive and standalone background-vocal lines, with reliable re-importing and empty editor lines ignored during export."
+				"title": "Optional background vocal export mode",
+				"body": "An optional Spicy Lyrics-compatible mode exports background vocal lines, re-imports them reliably and skips empty lines"
 			},
 			{
 				"type": "feature",
-				"title": "Remembered Lyric Import Options",
-				"body": "Process Lyrics and Genius songwriter and header options now persist across import sources and app sessions."
+				"title": "Import options are remembered",
+				"body": "**Process Lyrics** and Genius songwriter and header options stay set across import sources and app restarts"
 			}
 		]
 	},
@@ -922,13 +1282,13 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Discord Album Artwork",
-				"body": "Show a project's web cover image in native Discord presence, with safe fallback to the app logo when no usable cover URL is available."
+				"title": "Album art in Discord presence",
+				"body": "Discord presence shows the project's cover image, and falls back to the app logo when no usable cover is found"
 			},
 			{
 				"type": "fix",
-				"title": "Reliable Word Auditioning",
-				"body": "Play exact word slices from the spectrogram on Linux and web without duplicate right-click playback or incorrect desktop volume scaling."
+				"title": "Word preview plays the exact slice",
+				"body": "Word previews from the spectrogram play the exact slice on Linux and web, without doubled playback or wrong volume"
 			}
 		]
 	},
@@ -940,28 +1300,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Organized Settings",
-				"body": "Replaced the crowded tab strip with sidebar navigation, grouped editor, file, audio, and appearance controls by purpose, consolidated AI setup, and collapsed advanced configuration until it is needed."
+				"title": "Custom Discord status, with badges that show",
+				"body": "Write status lines from project, editor and playback details, with timers and auto-hiding after inactivity"
 			},
 			{
 				"type": "feature",
-				"title": "Customizable Discord Presence",
-				"body": "Build native Discord status lines from project, editor, playback, and session variables; control timers, badges, and the repository button; and automatically hide project details after a configurable period of inactivity."
+				"title": "Quick combine with Shift-click",
+				"body": "Shift-click **Combine Words** to skip the confirmation and use your last-used combination options"
 			},
 			{
-				"type": "feature",
-				"title": "Quick Combine Words",
-				"body": "Shift-click Combine Words to skip the confirmation dialog and immediately use the last-used combination options."
-			},
-			{
-				"type": "feature",
-				"title": "Discord Status Badge",
-				"body": "Play and pause badges now use valid image assets so the selected status icon appears in Discord."
+				"type": "change",
+				"title": "Settings grouped in a sidebar",
+				"body": "Sidebar navigation groups settings by purpose, puts AI setup in one place and hides advanced options until needed"
 			},
 			{
 				"type": "fix",
-				"title": "Reliable Rapid Undo",
-				"body": "Undo and redo now wait for the editor to paint between full-project history updates, preventing repeated shortcuts from freezing the app window."
+				"title": "Rapid undo no longer freezes the window",
+				"body": "Undo and redo let the editor repaint between updates, so repeated shortcut presses no longer freeze the app"
 			}
 		]
 	},
@@ -973,28 +1328,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Native Arch Linux Package",
-				"body": "Added a PKGBUILD and desktop entry for native installation on Arch Linux and Arch-based distributions, avoiding AppImage system-library compatibility problems."
+				"title": "Native Arch Linux package",
+				"body": "Install natively on Arch Linux and Arch-based distributions, which avoids AppImage compatibility problems"
 			},
 			{
 				"type": "feature",
-				"title": "Optional Time Mode Double-Click Editing",
-				"body": "Added an Assistant setting to disable inline word and romanization editing on double-click while keeping the Split Word shortcut."
+				"title": "Turn off double-click editing in Time mode",
+				"body": "An **Assistant** setting disables inline word and romanization editing on double-click, while Split Word still works"
 			},
 			{
 				"type": "fix",
-				"title": "Reliable Native Builds",
-				"body": "Arch packages now use locked dependencies, preserve distribution build flags, declare the AppIndicator dependency, and fail when compilation fails."
+				"title": "Audio loads again on current Arch and CachyOS",
+				"body": "AppImage builds use your system's matching audio components, so audio loads on current Arch Linux and CachyOS"
 			},
 			{
 				"type": "fix",
-				"title": "Modern Linux AppImage Audio",
-				"body": "AppImages now use the host's matching GStreamer runtime and plugins, restoring audio loading on current Arch Linux and CachyOS systems."
-			},
-			{
-				"type": "fix",
-				"title": "Official Domain Migration",
-				"body": "Old web domains now offer a private browser-to-browser transfer for settings, projects, history, backgrounds, keybindings, and plugins before moving to tool.community.spicylyrics.org."
+				"title": "Move to the new official web address",
+				"body": "Old domains offer a private transfer of your settings and data before moving to tool.community.spicylyrics.org"
 			}
 		]
 	},
@@ -1006,8 +1356,8 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Classic Dark Theme",
-				"body": "Added an Advanced Customization toggle for restoring the lighter dark palette used before the Intonated Black redesign."
+				"title": "Classic dark theme as an option",
+				"body": "A toggle in **Advanced Customization** restores the lighter dark palette used before the Intonated Black redesign"
 			}
 		]
 	},
@@ -1019,13 +1369,13 @@
 		"entries": [
 			{
 				"type": "fix",
-				"title": "Reliable Linux Startup",
-				"body": "Fixed the desktop app remaining hidden at launch when WebKitGTK pauses animation frames for hidden windows."
+				"title": "Linux window shows on launch",
+				"body": "The desktop app no longer stays hidden at launch when Linux pauses drawing for hidden windows"
 			},
 			{
 				"type": "fix",
-				"title": "Single Linux Title Bar",
-				"body": "Disabled the native window decoration so Linux shows only the app's custom title bar."
+				"title": "One title bar on Linux",
+				"body": "Linux now shows only the app's own title bar, without the system window frame"
 			}
 		]
 	},
@@ -1037,18 +1387,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Intonated Black Theme",
-				"body": "Revamped the default dark theme with a premium, deep-black aesthetic, eliminating washed-out gray hues and introducing elegant translucent panel overlays."
+				"title": "One-click appearance reset",
+				"body": "A single button in basic appearance settings resets colors, backgrounds, gradients and advanced overrides to defaults"
 			},
 			{
 				"type": "feature",
-				"title": "Master Theme Reset",
-				"body": "Added a single-click button in the basic appearance settings to completely reset all colors, backgrounds, custom gradients, and advanced granular overrides back to their defaults."
+				"title": "Friendlier onboarding",
+				"body": "Adds a \"Before you start\" tip, links to appearance settings, and an edge button that brings the guide back"
 			},
 			{
-				"type": "feature",
-				"title": "Onboarding Enhancements",
-				"body": "Added a \"Before you start\" tip box to step one of the beginner guide, direct links to appearance settings, a sleek hover-based edge restore button, and smooth fade transitions when tucking the guide."
+				"type": "change",
+				"title": "Deep black default theme",
+				"body": "The default dark theme is now deep black, with no washed-out grays and translucent panel overlays"
 			}
 		]
 	},
@@ -1060,23 +1410,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Native Desktop File Dialogs",
-				"body": "Desktop builds now use native system pickers for lyrics and audio while the web app keeps its browser file picker."
+				"title": "Native file pickers on desktop",
+				"body": "Desktop builds use the system file pickers for lyrics and audio, while the web app keeps its browser picker"
 			},
 			{
 				"type": "feature",
-				"title": "Import Source Chooser",
-				"body": "The empty editor now offers clear Plain Text, LRCLIB, Lyrically, and Genius cards so you can choose an import source before opening its workflow."
+				"title": "Pick an import source first",
+				"body": "The empty editor shows Plain Text, LRCLIB, Lyrically and Genius cards, so you choose a source before its workflow"
 			},
 			{
 				"type": "fix",
-				"title": "Linux Audio Playback",
-				"body": "Desktop audio now loads reliably through Tauri's selected-file protocol on Linux, without breaking playback volume or seeking."
+				"title": "Desktop audio loads reliably on Linux",
+				"body": "Audio loads on Linux desktop builds without breaking volume or seeking"
 			},
 			{
 				"type": "fix",
-				"title": "Reliable Word Double-Clicks",
-				"body": "Selecting a word in Edit mode no longer recenters the lyric line or word before the second click lands. The horizontal ribbon also keeps a stable height as selection-specific controls appear, while Time mode tracking and explicit navigation retain their existing centering behavior."
+				"title": "Double-clicking a word stays put",
+				"body": "In Edit mode the line no longer recenters before the second click lands, and the ribbon keeps a steady height"
 			}
 		]
 	},
@@ -1088,8 +1438,8 @@
 		"entries": [
 			{
 				"type": "fix",
-				"title": "Fixed First-Run Welcome",
-				"body": "The beginner welcome now appears automatically only once instead of reopening on every app startup. It remains available from the Help menu."
+				"title": "Welcome guide shows once",
+				"body": "The beginner welcome opens automatically only once instead of on every startup, and stays in the **Help** menu"
 			}
 		]
 	},
@@ -1101,28 +1451,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Interactive Beginner Guide",
-				"body": "A first-run, in-app workflow now teaches audio import, lyric review, timing, credits, export, and local testing using your own song with focused, state-aware steps. The guide window can be moved or tucked into a compact edge tab. Contextual ribbon controls keep advanced options out of the way until needed."
+				"title": "Interactive beginner guide",
+				"body": "A first-run guide walks through audio, lyrics, timing, credits and export using your own song"
 			},
 			{
 				"type": "feature",
-				"title": "Edge-to-Edge Audio Bar",
-				"body": "The playback controls now span the full workspace width without an outer inset."
+				"title": "Connected word groups",
+				"body": "Split words and words with no space between them join edge to edge, and romanization follows the same grouping"
 			},
 			{
-				"type": "feature",
-				"title": "Edge-to-Edge Lyric Lines",
-				"body": "Lyric line cards now extend to both sides of the editor without outer margins."
+				"type": "change",
+				"title": "Audio bar and lyric lines run edge to edge",
+				"body": "The playback controls and lyric lines reach both sides of the editor, with no outer margins"
 			},
 			{
-				"type": "feature",
-				"title": "Connected Word Groups",
-				"body": "Split words and other adjacent words without a space now join edge-to-edge, with rounded corners only at the outside of each group. Per-word romanization follows the same grouping and appearance controls."
-			},
-			{
-				"type": "feature",
-				"title": "Compact Space Chips",
-				"body": "Blank words in Edit mode now use empty chips whose width reflects the number of spaces, while keeping the count on hover and offering a legacy Space xN display option in Appearance settings."
+				"type": "change",
+				"title": "Blank words show as compact chips",
+				"body": "Blank words in Edit mode become chips sized by their spaces, with a legacy **Space xN** option in **Appearance**"
 			}
 		]
 	},
@@ -1134,48 +1479,48 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Combine Words Bulk Controls",
-				"body": "Preview a word combination before confirming it, apply the same combination to matching sequences throughout the lyrics, and optionally ignore case and surrounding punctuation."
+				"title": "Combine words across all lyrics",
+				"body": "Preview a combination before confirming, apply it to every match, and optionally ignore case and punctuation"
 			},
 			{
 				"type": "feature",
-				"title": "Replace Romanization",
-				"body": "Edit one word's romanization or apply the replacement to every matching lyric word with optional case-sensitive matching. Both replacement tools remember their last-used matching options."
+				"title": "Replace romanization across all lyrics",
+				"body": "Edit one word's romanization or replace every match, with optional case matching and remembered options"
 			},
 			{
 				"type": "feature",
-				"title": "Header-Free Timing Tools",
-				"body": "Copy selected line and word timings onto existing lyric lines, or snap any selected timing block to the playhead in Edit and Time modes without Genius headers."
+				"title": "Timing tools work without Genius headers",
+				"body": "Copy timings onto existing lines, or snap a selected block to the playhead in Edit and Time mode"
 			},
 			{
 				"type": "feature",
-				"title": "Remembered Desktop Window",
-				"body": "Desktop builds now restore the previous window size, maximized state, and fullscreen state when reopened."
+				"title": "Desktop window remembers its state",
+				"body": "Reopening restores the previous window size, and whether it was maximized or fullscreen"
 			},
 			{
 				"type": "feature",
-				"title": "Polish Syllabification",
-				"body": "Polish lyrics can now use dedicated hyphenation patterns and automatically suggest the matching segmentation engine."
+				"title": "Polish syllable splitting",
+				"body": "Polish lyrics get dedicated hyphenation, and the matching splitting method is suggested automatically"
 			},
 			{
 				"type": "feature",
-				"title": "Persistent Discord Project Time",
-				"body": "Discord Rich Presence now remembers time spent on each project across line changes, pauses, project switches, and app restarts."
+				"title": "Discord keeps time per project",
+				"body": "Discord presence remembers time spent on each project across line changes, pauses, switches and restarts"
 			},
 			{
 				"type": "feature",
-				"title": "Global Text Normalization",
-				"body": "The apostrophe and Cyrillic E options now clean all user-visible fields during import and every export, including metadata, sections, marks, ruby text, and legacy headers, while preserving internal identifiers."
+				"title": "Apostrophe and Cyrillic E cleanup everywhere",
+				"body": "The apostrophe and Cyrillic E options clean every visible field on import and export, including metadata"
 			},
 			{
 				"type": "fix",
-				"title": "Romanization Performance & Accuracy",
-				"body": "Conversion uses bounded remote requests and retryable fallbacks, maps contextual Mandarin readings to individual Han characters, and preserves source spacing in mixed-language line romanization."
+				"title": "More reliable and accurate romanization",
+				"body": "Conversion retries with fallbacks, picks the right Mandarin reading for each character, and keeps mixed-line spacing"
 			},
 			{
 				"type": "fix",
-				"title": "Editor Input Polish",
-				"body": "Word and romanization inputs now size and center their contents more naturally, with improved lyric-line editing hit areas."
+				"title": "Word inputs center their text",
+				"body": "Word and romanization fields size and center their text more naturally, and lyric lines are easier to click"
 			}
 		]
 	},
@@ -1186,14 +1531,9 @@
 		"date": "2026-08-03",
 		"entries": [
 			{
-				"type": "feature",
-				"title": "Consistent Release Versioning",
-				"body": "Maintainers can preview and apply patch, minor, or major version bumps with one command, keeping the package, Tauri, Cargo, and lockfile versions synchronized."
-			},
-			{
 				"type": "fix",
-				"title": "Line Insert Button Fix",
-				"body": "The add button at the right of a lyric line now works correctly while line dragging is enabled."
+				"title": "Line insert button works while dragging lines",
+				"body": "The add button at the right of a lyric line works while line dragging is turned on"
 			}
 		]
 	},
@@ -1205,8 +1545,8 @@
 		"entries": [
 			{
 				"type": "fix",
-				"title": "Word-Timed TTML Export Fix",
-				"body": "Lines containing multiple timed words no longer export as a single line when they retain a stale line-synced flag."
+				"title": "Word-timed lines export correctly",
+				"body": "Lines with several timed words no longer export as a single line by mistake"
 			}
 		]
 	},
@@ -1218,13 +1558,13 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Discord Rich Presence",
-				"body": "Desktop users can optionally share the current file or track, editor mode, line progress, play/pause status, and a speed-aware playback timeline, with a link to this repository."
+				"title": "Optional Discord Rich Presence",
+				"body": "Desktop users can optionally show their file, editor mode, line progress and play or pause state in Discord"
 			},
 			{
 				"type": "fix",
-				"title": "Reliable PreMiD Presence",
-				"body": "The website now exposes live editor and playback state through a stable bridge. The base editor keeps a compatibility fallback and each version links to its correct repository."
+				"title": "PreMiD presence works more reliably",
+				"body": "The website now shares live editor and playback state with PreMiD, and each version links to its own repository"
 			}
 		]
 	},
@@ -1236,53 +1576,53 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Inline Time-Tab Editing",
-				"body": "Double-click a synced word to edit it directly; when per-word romanization is displayed, it edits the romanization instead."
+				"title": "Edit synced words by double-clicking",
+				"body": "Double-click a synced word to edit it, or its romanization when that is shown"
 			},
 			{
 				"type": "feature",
-				"title": "Split Word Shortcut",
-				"body": "Ctrl/Cmd-double-clicking a word in either Edit or Time mode now opens the standard Split Word dialog for that word instead of using the legacy line-level shortcut."
+				"title": "Ctrl or Cmd double-click opens Split Word",
+				"body": "In **Edit** or **Time** mode, `Ctrl` or `Cmd` plus double-click opens the Split Word dialog for that word"
 			},
 			{
 				"type": "feature",
-				"title": "TTML Checklist",
-				"body": "Keep a persistent local queue of songs to sync, with notes and a completed history."
+				"title": "Song checklist for syncing",
+				"body": "Keep a saved local queue of songs to sync, with notes and a history of finished ones"
 			},
 			{
 				"type": "fix",
-				"title": "Website Update Recovery",
-				"body": "Website users can now force a refresh or clear cached website files when an update prompt fails to appear."
+				"title": "Recover when the update prompt is missing",
+				"body": "Website users can force a refresh or clear cached files if an update prompt does not appear"
 			},
 			{
 				"type": "fix",
-				"title": "Translation Updates",
-				"body": "Refreshed translations for 16 supported locales."
+				"title": "Refreshed translations for 16 languages",
+				"body": "All 16 supported languages have fresh translations"
 			},
 			{
 				"type": "fix",
-				"title": "Edit-Tab Romanization Cleanup",
-				"body": "Removed the redundant gray romanization text under words now that each word has its own editor."
+				"title": "No repeated romanization under words in Edit",
+				"body": "Each word has its own editor now, so the gray romanization text under words is gone"
 			},
 			{
 				"type": "fix",
-				"title": "Quick Fixes Cleanup",
-				"body": "Removed the unused grammar Quick Fixes controls from sync and assistant settings."
+				"title": "Unused grammar Quick Fixes controls removed",
+				"body": "The unused grammar **Quick Fixes** controls are gone from sync and assistant settings"
 			},
 			{
 				"type": "fix",
-				"title": "Line Reordering Fix",
-				"body": "Dragging lyric lines now scrolls the editor reliably at its edges and supports mouse-wheel and trackpad scrolling while held."
+				"title": "Dragging lines scrolls the editor at the edges",
+				"body": "Mouse wheel and trackpad scrolling also work while you hold a dragged line"
 			},
 			{
 				"type": "fix",
-				"title": "Linux AppImage Fix",
-				"body": "AppImages now use the host Wayland libraries and show their window reliably, preventing startup failures on newer Linux graphics stacks."
+				"title": "AppImage starts reliably on newer Linux",
+				"body": "The window now shows reliably, so newer Linux graphics setups no longer cause startup failures"
 			},
 			{
 				"type": "fix",
-				"title": "External Links & Build Info Fix",
-				"body": "About and changelog links now open correctly in the desktop app, and hosted builds show their Git commit instead of “unknown.”"
+				"title": "About and changelog links open in the desktop app",
+				"body": "They open correctly again, and hosted builds show their commit ID instead of \"unknown\""
 			}
 		]
 	},
@@ -1294,28 +1634,28 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Optional AI Fun Sidebar",
-				"body": "Enable a manual, bring-your-own-provider TTML vibe check with personalities ranging from Glazer to Unhinged. It stays off by default and never changes your lyrics."
+				"title": "Optional AI vibe check sidebar",
+				"body": "Get a manual vibe check from your own AI provider, from Glazer to Unhinged; off by default, never edits lyrics"
 			},
 			{
 				"type": "feature",
-				"title": "Cyrillic E Import Preference",
-				"body": "Added an optional workaround that corrects Cyrillic Е/е lookalikes inside otherwise Latin text across imported lyric fields."
+				"title": "Optional fix for Cyrillic E lookalikes",
+				"body": "Corrects Cyrillic Е and е letters hiding inside Latin words in imported lyrics, when turned on"
 			},
 			{
 				"type": "feature",
-				"title": "Apostrophe Import Preference",
-				"body": "Added a setting to standardize curly and other apostrophe-like characters when importing lyric text, metadata, sections, and marks."
+				"title": "Standardize apostrophes on import",
+				"body": "A setting standardizes curly and other apostrophe-like characters in imported lyrics, metadata, sections and marks"
 			},
 			{
 				"type": "fix",
-				"title": "Genius Import Fix",
-				"body": "Restored the Change API Key button in the Genius lyric-import dialog."
+				"title": "Change API Key button is back in Genius import",
+				"body": "The **Change API Key** button is visible again in the Genius lyric import dialog"
 			},
 			{
 				"type": "fix",
-				"title": "Playback Timeline Fix",
-				"body": "The waveform playhead now recovers from audio stalls and long frame gaps without sacrificing smooth playback at slower speeds."
+				"title": "Waveform playhead recovers from audio stalls",
+				"body": "It recovers from audio stalls and long frame gaps, and playback stays smooth at slower speeds"
 			}
 		]
 	},
@@ -1327,43 +1667,43 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Genius Section Improvements",
-				"body": "Duplicated lyric lines now create independent repeat-linked sections; collapsed headers select their whole section; unassigned lyric blocks can be merged into neighboring sections; repeated-section timing copy matches lyric text and skips mismatches; and a section manager makes reviewing and editing sections easier."
+				"title": "Easier Genius section editing",
+				"body": "Duplicated lines get their own repeat-linked sections, and a section manager makes reviewing them easier"
 			},
 			{
 				"type": "feature",
-				"title": "Auto Segment Shortcut",
-				"body": "Press the configured Auto Segment key once or twice, with a Keybindings option to choose the preferred behavior. It applies immediately when the saved engine matches the detected lyric language, otherwise it opens the engine picker."
+				"title": "Auto Segment shortcut with a behavior choice",
+				"body": "Press the Auto Segment key once or twice, and choose the behavior in the **Keybindings** options"
 			},
 			{
 				"type": "feature",
-				"title": "Spicy Lyrics Option",
-				"body": "Added a preview toggle to force every lyric line to use line rendering due to unreliable line-synced lyrics detection."
+				"title": "Force line rendering in Spicy Lyrics preview",
+				"body": "A preview toggle makes every lyric line render as a line when line-sync detection is unreliable"
 			},
 			{
 				"type": "feature",
-				"title": "Localization",
-				"body": "Added missing translation keys and localized section, timing, and auto-segmentation controls."
+				"title": "Section and timing controls are localized",
+				"body": "Missing translations were added, and the section, timing and auto-segment controls are localized"
 			},
 			{
 				"type": "fix",
-				"title": "Prosodic Segmentation Fix",
-				"body": "English contractions using typographic apostrophes, such as “we’re” and “they’re”, now stay together."
+				"title": "Contractions stay together with curly apostrophes",
+				"body": "Words like we're and they're stay together when they use typographic apostrophes"
 			},
 			{
 				"type": "fix",
-				"title": "Desktop Update Fix",
-				"body": "Desktop builds now check immutable published releases for updates, so future updates download from permanent versioned installers."
+				"title": "Desktop updates use permanent versioned installers",
+				"body": "Desktop builds only check releases that never change, so future updates come from versioned installers"
 			},
 			{
 				"type": "fix",
-				"title": "Spicy Lyrics Fix",
-				"body": "The Spicy Lyrics preview now preserves TTML line order when line timestamps are out of sequence."
+				"title": "Preview keeps line order with out-of-order timestamps",
+				"body": "The Spicy Lyrics preview shows lines in TTML order even when their timestamps are out of sequence"
 			},
 			{
 				"type": "fix",
-				"title": "Spicy Lyrics Fix",
-				"body": "Interlude dots now ignore background-vocal endings while waiting for all main vocals to finish."
+				"title": "Interlude dots wait only for main vocals",
+				"body": "Interlude dots ignore background vocal endings and wait only for the main vocals to finish"
 			}
 		]
 	},
@@ -1375,23 +1715,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Selectable Syllabification Engines",
-				"body": "Auto Segment and Advanced Segmentation now offer dedicated English, Spanish, French, Russian, Japanese, and CJK engines alongside clearly labelled legacy fallbacks. The Auto Segment dialog suggests an engine from the lyric language."
+				"title": "Language-specific segmentation engines",
+				"body": "Auto Segment and Advanced Segmentation now include English, Spanish, French, Russian, Japanese and CJK engines"
 			},
 			{
 				"type": "feature",
-				"title": "Learned Word Splits",
-				"body": "Manual split boundaries can now be remembered and automatically reused for future occurrences of the same word."
+				"title": "Word splits are remembered",
+				"body": "Splits you set by hand can be reused automatically for later occurrences of the same word"
 			},
 			{
 				"type": "feature",
-				"title": "Persistent Split Dialog Options",
-				"body": "The Split Word dialog now remembers its last-used options, reducing repeated setup when correcting multiple words."
+				"title": "Split Word dialog remembers your options",
+				"body": "It keeps your last-used options, so fixing several words takes less setup"
 			},
 			{
 				"type": "fix",
-				"title": "Lyric Preparation Fix",
-				"body": "CJK text now splits correctly around non-Latin commas even when there is no surrounding space."
+				"title": "CJK text splits around commas without spaces",
+				"body": "CJK text now splits correctly around non-Latin commas, even with no space around them"
 			}
 		]
 	},
@@ -1403,13 +1743,13 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Scoped Time Stretch",
-				"body": "Time Stretch can now be applied to all lines, selected lines, selected lines and everything following them, or a custom line range."
+				"title": "Time stretch can target specific lines",
+				"body": "Apply it to all lines, selected lines, selected lines and everything after them, or a custom range"
 			},
 			{
 				"type": "feature",
-				"title": "Genius Section Workflow",
-				"body": "Added normalized section categories, required import review, repeat detection, a collapsible section navigator, rich section metadata and actions, live validation, and lossless TTML section metadata."
+				"title": "Clearer Genius section workflow",
+				"body": "Sections get standard types, repeat detection, a collapsible navigator and live checks, with a review step on import"
 			}
 		]
 	},
@@ -1421,43 +1761,38 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Spicy Lyrics Preview Mode",
-				"body": "Added a high-fidelity Spicy Lyrics renderer with its dedicated SF Pro-derived font; animated, custom, and cover-art backgrounds; karaoke, Simple Lyrics, and line-synced rendering; interlude dots; RTL- and duet-aware layouts; CJK/romanized word wrapping; automatic scrolling; and an optional FPS counter."
+				"title": "Spicy Lyrics preview mode",
+				"body": "High-fidelity preview with karaoke, line and Simple Lyrics modes, cover-art backgrounds and an optional FPS counter"
 			},
 			{
 				"type": "feature",
-				"title": "Timing Stretch",
-				"body": "Added a TTML timing-stretch tool that can import audio duration and scale lyric timing to match it."
+				"title": "Stretch timing to match an audio file",
+				"body": "Import an audio file's duration and scale the lyric timing to match it"
 			},
 			{
 				"type": "feature",
-				"title": "Unified Lyrics Import",
-				"body": "Consolidated text, LRCLIB, Lyrically, and Genius imports into one workflow with shared lyric preparation, replacement confirmation, and consistent punctuation, CJK/Latin boundary, word-separator, and background-vocal handling."
+				"title": "One import flow for all lyric sources",
+				"body": "Text, LRCLIB, Lyrically and Genius imports share one flow with replacement confirmation and consistent punctuation"
 			},
 			{
 				"type": "feature",
-				"title": "Genius Header Categorization & Section Tools",
-				"body": "Preserve bracketed Genius headers such as `[Chorus]` and `[Verse]` as section metadata instead of lyric lines. Sections are visually grouped and color-coded by type, with a customizable header-color override; unrecognized headers use the theme accent. Sync actions can snap an entire section to the playhead or copy timing from a previous matching section."
+				"title": "Genius headers become color-coded sections",
+				"body": "Headers like [Chorus] become section metadata instead of lyric lines, grouped and colored by type"
 			},
 			{
 				"type": "feature",
-				"title": "Backup System",
-				"body": "Added a new backup system to help protect project data and simplify recovery."
-			},
-			{
-				"type": "feature",
-				"title": "Tauri CI",
-				"body": "Repaired the GitHub Actions build key configuration."
+				"title": "Backup system for project data",
+				"body": "A new backup system helps protect your project data and makes recovery simpler"
 			},
 			{
 				"type": "fix",
-				"title": "Preview Layout Fixes",
-				"body": "Fixed the Time-mode preview pane being pushed off-screen after its contents loaded, and hide the side preview pane when the full Preview screen is active."
+				"title": "Time-mode preview stays on screen",
+				"body": "The Time-mode preview no longer gets pushed off-screen after loading, and the side pane hides on the full Preview screen"
 			},
 			{
 				"type": "fix",
-				"title": "Genius Import Fixes",
-				"body": "Switched Genius fetching to its CORS-enabled embed endpoint and cleaned up parsed newlines and import-dialog crashes."
+				"title": "Genius imports no longer crash the dialog",
+				"body": "Genius imports clean up parsed line breaks and no longer crash the import dialog"
 			}
 		]
 	},
@@ -1469,13 +1804,13 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Bouncy Indicator",
-				"body": "Words in the Sync view that qualify as long-duration syllables now display a small animated bouncing dot beneath them. A word qualifies when its letter count is 12 or fewer *and* its duration meets the threshold `1000 + (letterLength - 1) × 25` ms — helping you instantly spot held or sustained syllables that may need extra timing attention."
+				"title": "Bouncing dot marks long held syllables",
+				"body": "In Sync view, a small bouncing dot appears under words of 12 letters or fewer held longer than their length suggests"
 			},
 			{
 				"type": "fix",
-				"title": "Zero Performance Cost",
-				"body": "The indicator is driven purely by CSS keyframe animation with no runtime subscriptions or re-renders. It appears only in Sync mode and is invisible during playback active state, keeping the editing surface clean."
+				"title": "Indicator stays out of the way",
+				"body": "The dot only appears in Sync mode and hides while a word plays back, keeping the editing surface clean"
 			}
 		]
 	},
@@ -1487,13 +1822,13 @@
 		"entries": [
 			{
 				"type": "fix",
-				"title": "Preview Panel Stability",
-				"body": "Fixed a critical \"white page\" crash when toggling the Preview Panel in Sync mode by resolving a missing component import in the main application layout."
+				"title": "Preview panel no longer crashes the app",
+				"body": "Toggling the Preview panel in Sync mode no longer leaves a white page"
 			},
 			{
 				"type": "fix",
-				"title": "Toxi Animation Correction",
-				"body": "Fixed a bug where the \"jump-down\" word animation was incorrectly disabled when \"Instant Fade Out\" was active. High-fidelity Toxi animations now work consistently with all highlight settings."
+				"title": "Toxi jump-down works with Instant Fade Out",
+				"body": "The jump-down word animation stays on when **Instant Fade Out** is turned on"
 			}
 		]
 	},
@@ -1505,18 +1840,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Instant Highlight Fade",
-				"body": "Added a new toggle in both Preview and Sync modes to switch between smooth fading and instant transitions for word highlights. Perfect for high-precision timing review."
+				"title": "Instant word highlight option",
+				"body": "A new toggle in Preview and Sync switches word highlights between smooth fading and instant changes"
+			},
+			{
+				"type": "change",
+				"title": "Element Resizing mode removed",
+				"body": "The experimental mode and its `Ctrl`+`Alt` shortcuts are gone, which simplifies the interface"
 			},
 			{
 				"type": "feature",
-				"title": "Scrapped Element Resizing",
-				"body": "Officially scrapped the experimental \"Element Resizing\" mode and associated keybindings (Ctrl+Alt). This eliminates potential layout conflicts and simplifies the core interface."
-			},
-			{
-				"type": "feature",
-				"title": "Enhanced \"What's New\"",
-				"body": "Expanded the feature guide to include 12 core tool features with dedicated \"Info\" buttons for direct usage guidance and localized documentation."
+				"title": "Feature guide covers 12 core tools",
+				"body": "Each of the 12 core tools has an **Info** button for usage help, translated into your language"
 			}
 		]
 	},
@@ -1528,28 +1863,28 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Millisecond Sync Precision",
-				"body": "Implemented high-precision audio time interpolation and eliminated rounding jitter in the sync engine. Timing errors of 1-3ms are now fully resolved."
+				"title": "Millisecond-precise sync timing",
+				"body": "Sync timing is more precise, and 1 to 3 ms timing errors are now resolved"
 			},
 			{
 				"type": "feature",
-				"title": "Export Validation",
-				"body": "Added an automated sync health check when exporting. The tool now detects untimed lyrics and offers to jump directly to errors for correction."
+				"title": "Export checks for untimed lyrics",
+				"body": "Export runs a sync health check, finds untimed lyrics and offers to jump to the errors"
 			},
 			{
 				"type": "feature",
-				"title": "Genius Tag Filtering",
-				"body": "The \"Process Lyrics\" tool now automatically strips section headers (e.g., [Chorus]) and removes empty lines for a cleaner import."
+				"title": "Genius imports skip section headers",
+				"body": "**Process Lyrics** removes headers like [Chorus] and empty lines for a cleaner import"
 			},
 			{
-				"type": "feature",
-				"title": "Standardized Defaults",
-				"body": "Updated the default preview mode to \"Standard\" for better initial clarity on new projects."
+				"type": "change",
+				"title": "New projects open in Standard preview",
+				"body": "The default preview mode is now **Standard**, for a clearer first look at new projects"
 			},
 			{
 				"type": "fix",
-				"title": "Improved Dialogs",
-				"body": "Enhanced the confirmation dialog system with support for custom action labels and better navigation between error states."
+				"title": "Confirmation dialogs support custom button labels",
+				"body": "Dialogs can show custom action labels, and moving between error states works better"
 			}
 		]
 	},
@@ -1561,33 +1896,13 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "GPU Bottleneck Elimination",
-				"body": "Removed expensive `backdrop-filter: blur` on the full-viewport overlay, resolving severe rendering lag and re-compositing overhead on integrated GPUs."
+				"title": "Smoother rendering on integrated GPUs",
+				"body": "Less blur, a lighter mesh background and a cheaper text shadow on active words reduce lag and GPU load"
 			},
 			{
 				"type": "feature",
-				"title": "Optimized Mesh Gradients",
-				"body": "Implemented 0.5x Smart Scaling for the mesh background. This reduces the background GPU workload by ~50% with no visible quality loss on blurred surfaces."
-			},
-			{
-				"type": "feature",
-				"title": "Smart Mesh Animation",
-				"body": "Tied background animation state directly to audio playback. The mesh gradient now freezes when paused to eliminate idle power consumption and GPU usage."
-			},
-			{
-				"type": "feature",
-				"title": "High-Efficiency Bloom",
-				"body": "Switched from `drop-shadow` filters to multi-layered `text-shadow` for active words in Standard mode, significantly improving frame pacing and stability."
-			},
-			{
-				"type": "feature",
-				"title": "GPU VRAM Management",
-				"body": "Removed global `will-change` over-promotion from static words to prevent VRAM exhaustion and layout thrashing on large projects."
-			},
-			{
-				"type": "feature",
-				"title": "Scoped Layer Promotion",
-				"body": "Optimized hardware layer promotion to trigger only on active words, ensuring maximum rendering throughput for the Toxi engine."
+				"title": "Background stops animating when paused",
+				"body": "The mesh gradient freezes while playback is paused, saving power and GPU use"
 			}
 		]
 	},
@@ -1599,28 +1914,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Project Migration",
-				"body": "The repository has officially moved to `NaeNaeTart/NaeNae-AMLL-TTML-TOOL`. All documentation, license headers, and internal links have been standardized to reflect this change."
+				"title": "Project moved to a new GitHub home",
+				"body": "The repository now lives at NaeNaeTart/NaeNae-AMLL-TTML-TOOL on GitHub"
 			},
 			{
 				"type": "feature",
-				"title": "Snap to Playhead",
-				"body": "Added a high-precision synchronization tool in the Time Shift toolbar. Align your lyrics instantly by snapping line start times to your current audio playback position."
+				"title": "Snap line starts to the playhead",
+				"body": "Use the round record button in the **Time Shift** toolbar to set line starts to the current playback position"
 			},
 			{
 				"type": "feature",
-				"title": "Circular Snap Button",
-				"body": "Refined the Snap tool with a dedicated circular \"Record\" icon for a cleaner, more intuitive synchronization workflow."
-			},
-			{
-				"type": "feature",
-				"title": "Context Menu Enhancements",
-				"body": "Added \"Move line to playhead\" to the lyric line right-click menu and optimized existing sync actions for better usability."
-			},
-			{
-				"type": "fix",
-				"title": "Repository Cleanup",
-				"body": "Removed legacy lockfiles and workspace definitions to optimize the environment for modern package managers like pnpm."
+				"title": "Move lines to the playhead from right-click",
+				"body": "The right-click menu on a lyric line now has **Move line to playhead**"
 			}
 		]
 	},
@@ -1632,23 +1937,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Enhanced Duplicate-to-Selection",
-				"body": "`CTRL + L` now intelligently uses the spectrogram selection range. Duplicated lines and their words are automatically distributed equally across the selected time range for instant, high-precision timing application."
+				"title": "Duplicate lines across a spectrogram selection",
+				"body": "Press `Ctrl+L` to spread duplicated lines and their words evenly across the selected time range"
 			},
 			{
 				"type": "feature",
-				"title": "Interactive UI Rain Effect",
-				"body": "Clicking the mascot in the title bar triggers a high-performance \"rain\" animation. Built with optimized React memoization to ensure zero impact on the core editing performance."
+				"title": "Click the title bar mascot for a rain effect",
+				"body": "Clicking the mascot in the title bar starts the rain, with no slowdown while you edit"
 			},
 			{
-				"type": "feature",
-				"title": "Rendering Stack Optimization",
-				"body": "Refactored global layout components to isolate dynamic visual effects, preventing unnecessary re-renders of the main application during animations."
-			},
-			{
-				"type": "feature",
-				"title": "Mascot Asset Restoration",
-				"body": "Updated the title bar mascot with a working high-reliability remote GIF asset, resolving the broken image issue."
+				"type": "fix",
+				"title": "Title bar mascot loads again",
+				"body": "The mascot in the title bar shows its animation instead of a broken image"
 			}
 		]
 	},
@@ -1660,23 +1960,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Community Plugin Store",
-				"body": "Introduced a new, cloud-synced plugin architecture. Browse and install community-made WASM plugins directly from the integrated store."
+				"title": "Browse and install community plugins",
+				"body": "A new plugin store inside the app lists community-made plugins you can install"
 			},
 			{
 				"type": "feature",
-				"title": "Security Verification Engine",
-				"body": "Implemented SHA-256 integrity checks for all community plugins. The tool now automatically verifies every download to protect your environment from tampering."
+				"title": "Every plugin download is checked before install",
+				"body": "Each community plugin is verified on download to protect you from tampered files"
 			},
 			{
 				"type": "feature",
-				"title": "Flexible Plugin Registry",
-				"body": "Switched to a GitHub-backed remote registry system, allowing for instant, zero-cost updates and community contributions via Pull Requests."
+				"title": "New plugins show up without an app update",
+				"body": "The plugin list comes from a remote registry, so new plugins can appear without an app update"
 			},
 			{
 				"type": "fix",
-				"title": "Improved Hash Handling",
-				"body": "Standardized plugin verification to be case-insensitive, ensuring reliable installation across different platforms and hash tools (like PowerShell vs Browser)."
+				"title": "Plugin checks ignore hash letter case",
+				"body": "Plugins install reliably whether their hash is written in upper or lower case"
 			}
 		]
 	},
@@ -1688,23 +1988,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Toxi Lyrics Engine",
-				"body": "Re-engineered the Toxi lyric style with high-fidelity \"jump-down\" animations, instant-hit blooming with smooth fade-out, and adjustable wipe softness."
+				"title": "Toxi style with new jump and bloom animations",
+				"body": "Toxi lines jump down, bloom on hit and fade out smoothly, and the wipe softness is adjustable"
 			},
 			{
 				"type": "feature",
-				"title": "144Hz+ Rendering Loop",
-				"body": "Implemented a dedicated interpolation engine that bypasses React bottlenecks, enabling true high-refresh-rate rendering on ProMotion and gaming monitors."
+				"title": "Smooth lyric animation on high refresh screens",
+				"body": "Lyrics animate smoothly on 144Hz and faster screens, including ProMotion displays"
 			},
 			{
 				"type": "feature",
-				"title": "V-Sync & FPS Counter",
-				"body": "Introduced performance monitoring tools. Uncap your frame rate with the new V-Sync toggle and track real-time delivery with the FPS counter overlay."
+				"title": "V-Sync toggle and FPS counter",
+				"body": "Use the V-Sync toggle to uncap your frame rate and the FPS counter overlay to track it"
 			},
 			{
 				"type": "fix",
-				"title": "Rendering Consistency",
-				"body": "Unified the rendering path across all word states to eliminate font \"thickening\" artifacts and sub-pixel shifts, ensuring perfectly sharp lyrics from start to finish."
+				"title": "Lyric text stays sharp and steady",
+				"body": "Words no longer look thicker or shift slightly when they change state"
 			}
 		]
 	},
@@ -1716,23 +2016,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Advanced Appearance Editor",
-				"body": "Introduced a high-fidelity visual editor with support for 40+ granular visual parameters. Customize everything from background gradients and glassmorphism levels to global border radii and drop shadows."
+				"title": "Advanced appearance editor with 40+ settings",
+				"body": "Customize backgrounds, glass effects, corner roundness and drop shadows"
 			},
 			{
 				"type": "feature",
-				"title": "Visual Preset System",
-				"body": "Added a robust preset management system. Save your favorite visual configurations, load them instantly, and share your unique themes with the community."
+				"title": "Save and share appearance presets",
+				"body": "Save your favorite looks as presets, load them instantly and share them with the community"
 			},
 			{
 				"type": "feature",
-				"title": "Audio Pitch Preservation",
-				"body": "Added a new \"Preserve Pitch\" toggle in the audio settings. You can now choose whether the audio pitch should change when adjusting the playback speed — perfect for high-speed transcription."
+				"title": "Choose whether speed changes pitch",
+				"body": "Turn **Preserve Pitch** on or off in the audio settings to decide what happens to pitch"
 			},
 			{
 				"type": "fix",
-				"title": "Stability & Localization",
-				"body": "Resolved multiple compilation conflicts and duplicate state declarations. Standardized English labels across new audio controls for better international consistency."
+				"title": "Audio controls use consistent English labels",
+				"body": "The new audio controls now use matching English labels"
 			}
 		]
 	},
@@ -1744,8 +2044,8 @@
 		"entries": [
 			{
 				"type": "fix",
-				"title": "Preferences Tab Overflow",
-				"body": "Enabled horizontal scrolling and fixed-width triggers for the Preferences dialog tabs. This prevents labels from being cut off or compressed in languages with long strings like Russian."
+				"title": "Preferences tabs no longer cut off labels",
+				"body": "Long tab names in languages like Russian scroll sideways instead of getting cut off"
 			}
 		],
 		"heading": "v0.3.2 Hotfix (Layout)"
@@ -1758,23 +2058,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Urban Dictionary Syllable Concatenation",
-				"body": "When fetching from Urban Dictionary, if multiple syllables or words are selected, they are now automatically combined into a single query term. This is especially useful for slang words that are split across multiple timing segments."
+				"title": "Urban Dictionary lookups use all selected syllables",
+				"body": "Select several syllables or words and they are searched as one term"
 			},
 			{
 				"type": "feature",
-				"title": "Header Glassmorphism Overhaul",
-				"body": "Fixed inconsistent blur effects in the top bar area. The TitleBar and RibbonBar are now unified with a robust glassmorphism effect, featuring improved backdrop-filter settings (`blur(16px) saturate(160%)`) and matching semi-transparent backgrounds (`var(--gray-a5)`)."
-			},
-			{
-				"type": "feature",
-				"title": "Integrated Header Layout",
-				"body": "Removed margins from the RibbonBar card and unified its style with the TitleBar to create a single, cohesive blurred header area."
+				"title": "One blurred header across the title bar and ribbon",
+				"body": "The title bar and ribbon share one blur and transparency, with no gap between them"
 			},
 			{
 				"type": "fix",
-				"title": "Improved Layout Stability",
-				"body": "Fixed several invalid `0fr` CSS Grid column definitions in the preview and sync mode ribbon bars, ensuring more stable rendering across different window sizes."
+				"title": "Ribbon bars hold their layout at more window sizes",
+				"body": "Preview and sync ribbon bars render more reliably at different window sizes"
 			}
 		]
 	},
@@ -1786,33 +2081,28 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "AMLL Preview Mode",
-				"body": "Added a dedicated high-fidelity **AMLL** preview mode powered by the local Apple Music-like lyrics rendering engine, featuring a fluid Mesh Gradient background running at 60 FPS. The mode now correctly fills the entire preview window with the background properly rendered."
+				"title": "AMLL preview mode with a gradient background",
+				"body": "Pick the new **AMLL** preview for a smooth gradient background across the full window"
 			},
 			{
 				"type": "feature",
-				"title": "Background Vocal Grouping (Standard Mode)",
-				"body": "Main and background vocal lines are rendered as a single unified visual block. When a line becomes active, both the main vocal and its BG vocal(s) scale up together — matching official Apple Music behavior. BG vocals appear in italic beneath the main line with word-level highlighting."
+				"title": "Background vocals grouped with their main line",
+				"body": "Background vocals sit under their main line in italics and grow with it when it becomes active"
 			},
 			{
 				"type": "feature",
-				"title": "Promotion-based Rendering Architecture",
-				"body": "Inactive lyric lines are now rendered as static, near-zero-cost elements with no real-time subscriptions. Only the active line promotes to full dynamic rendering, reducing React reconciliation work by ~95% and eliminating word-transition lag."
+				"title": "Less lag and CPU use on lyric lines",
+				"body": "Only the active line gets full animation, and lines off screen are skipped"
 			},
 			{
-				"type": "feature",
-				"title": "GPU-First Acceleration",
-				"body": "Applied `translate3d`, `backface-visibility: hidden`, `content-visibility: auto`, and `will-change` hints across all lyric lines to maximize GPU compositing, minimize CPU usage, and enable DOM culling for off-screen lines."
-			},
-			{
-				"type": "feature",
-				"title": "Removed \"Rendered\" Mode",
-				"body": "Consolidated the legacy Rendered AMLL preview into the new AMLL mode. The preview selector now cleanly presents: **Standard**, **AMLL**, and **Timing**."
+				"type": "change",
+				"title": "Rendered preview merged into AMLL",
+				"body": "The preview selector now offers **Standard**, **AMLL** and **Timing**"
 			},
 			{
 				"type": "fix",
-				"title": "Bug Fixes",
-				"body": "Fixed a Jotai \"Atom is undefined\" crash, fixed the AMLL background appearing solid black due to a z-index layering conflict, and fixed lyric auto-scroll snapping to the top on every line change."
+				"title": "Auto-scroll no longer snaps to the top",
+				"body": "Auto-scroll stays on the current line, and the AMLL background no longer turns solid black"
 			}
 		]
 	},
@@ -1824,33 +2114,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Community WASM Plugin System",
-				"body": "A revolutionary extension framework allowing developers to write high-performance importers and exporters in C++ or Rust. Features persistent IndexedDB storage and a dedicated management console located in the brand new **Dev** preferences tab."
+				"title": "Community plugins, managed from a new Dev tab",
+				"body": "Plugins can add importers and exporters, and the new **Dev** tab in Preferences manages them"
 			},
 			{
 				"type": "feature",
-				"title": "Advanced Romanization Engine",
-				"body": "Completely rebuilt the phonetic system for professional-grade synchronization. Supports automated Romaji (JA), Pinyin (ZH), and Romaji (KO) generation with project-level language priority and **capsule-aware distribution** for perfect Japanese mora syncing."
+				"title": "Automatic romanization for Japanese, Chinese and Korean",
+				"body": "Adds Romaji for Japanese and Korean and Pinyin for Chinese, with a project-wide language priority"
 			},
 			{
 				"type": "feature",
-				"title": "Developer Preferences Tab",
-				"body": "Introduced a dedicated \"Dev\" category in the Preferences dialog to house advanced technical features, plugin management, and system debug information. Access it to manage your community extensions or check build environments."
-			},
-			{
-				"type": "feature",
-				"title": "Integrated MP3-to-FLAC Converter",
-				"body": "Added a high-fidelity audio processing bridge powered by **FFmpeg.wasm**. The tool now automatically detects MP3 files and offers a streamlined conversion to FLAC format to ensure 100% timing accuracy and eliminate browser-level audio decoding drift during synchronization."
-			},
-			{
-				"type": "feature",
-				"title": "Type-Safe Plugin Architecture",
-				"body": "Refactored the internal core to be fully type-safe, preventing runtime crashes and improving the developer experience for community contributors."
+				"title": "Convert MP3 to FLAC inside the app",
+				"body": "MP3 files are detected automatically and can be converted to FLAC for more accurate timing"
 			},
 			{
 				"type": "fix",
-				"title": "UI Performance & Stability",
-				"body": "Resolved critical Ribbon Bar layout issues, implemented invisible scrollbar utilities for horizontal navigation, and fixed dynamic import failures to ensure a 100% stable and fluid editing experience."
+				"title": "Ribbon bar layout and import failures fixed",
+				"body": "Fixes ribbon layout problems and features that failed to load, with hidden scrollbars in the ribbon"
 			}
 		]
 	},
@@ -1862,18 +2142,13 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Automated Lyrics Prep Engine",
-				"body": "Completely replaced the external `Lyrprep` dependency with a built-in, local processing engine. The new **\"Process Lyrics\"** button handles background vocal splitting, space escaping (`\\ `), and hyphen splitting (`sh-\\sh-`) on the spot without leaving the app."
+				"title": "One-click lyrics prep for syllable sync",
+				"body": "**Process Lyrics** splits background vocals and turns plain text into syllable-sync-ready lines"
 			},
 			{
-				"type": "feature",
-				"title": "Syllable-Level Alignment",
-				"body": "Refined the processing logic to match professional synchronization standards. It automatically converts plain text into a syllable-sync-ready format with escaped spaces and hyphens, saving hours of manual formatting."
-			},
-			{
-				"type": "feature",
-				"title": "Feature Retirement",
-				"body": "Removed the experimental AI Auto-Sync tool in favor of more predictable and stable local lyrics processing workflows."
+				"type": "change",
+				"title": "AI auto-sync tool removed",
+				"body": "The experimental AI auto-sync tool is gone, leaving the more predictable local lyrics processing"
 			}
 		]
 	},
@@ -1885,23 +2160,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Compact Sync Layout",
-				"body": "Added a new \"Compact Background Vocals\" feature for the Time tab. This reduces vertical space for background vocals during synchronization, making it easier to manage dense projects. This behavior is toggleable in the Display settings."
+				"title": "Compact background vocals on the Time tab",
+				"body": "Turn on **Compact Background Vocals** in Display settings to save space while syncing"
 			},
 			{
 				"type": "fix",
-				"title": "Smart Space Handling",
-				"body": "Refined synchronization logic to automatically skip over whitespace-only words. Navigation shortcuts like **H** (Set End Time) and **D** (Next Word) now always land on syllables with actual content."
+				"title": "Shortcuts skip over blank spaces",
+				"body": "`H` (Set End Time) and `D` (Next Word) now land only on syllables with actual text"
 			},
 			{
 				"type": "fix",
-				"title": "Clean Imports",
-				"body": "Standardized lyric cleaning during import to automatically strip backslashes (`\\`) across all major sources (Genius, Lyrically, Text, LRC) for higher project stability and quality."
+				"title": "Imports drop stray backslashes",
+				"body": "Lyrics from Genius, Lyrically, plain text and LRC import without backslash characters"
 			},
 			{
 				"type": "fix",
-				"title": "UI Refinements",
-				"body": "Improved word separation in Plain Text imports to cleanly remove delimiters without polluting the project with empty words or markers."
+				"title": "Plain text imports no longer add empty words",
+				"body": "Separators are removed cleanly, so imports don't leave blank words or stray markers"
 			}
 		]
 	},
@@ -1913,28 +2188,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Custom Audio Equalizer",
-				"body": "Introduced a professional 10-band equalizer with support for custom presets. Save, name, and manage your own audio profiles for a tailored listening experience."
+				"title": "10-band equalizer with built-in and custom presets",
+				"body": "Pick a preset like Bass Boost or Vocal Boost, or save and name your own"
 			},
 			{
 				"type": "feature",
-				"title": "Enhanced EQ Presets",
-				"body": "Added a curated list of built-in presets including Bass Boost, Treble Boost, Vocal Boost, Rock, Jazz, Pop, and more."
-			},
-			{
-				"type": "feature",
-				"title": "Persistence",
-				"body": "Equalizer settings and custom presets are now automatically saved and persisted across application sessions."
+				"title": "EQ settings and presets are remembered",
+				"body": "Your equalizer settings and custom presets are saved automatically and kept when you reopen the app"
 			},
 			{
 				"type": "fix",
-				"title": "UI Stability Fixes",
-				"body": "Resolved critical layout issues where \"space-between\" align properties were incorrectly applied, ensuring smoother rendering of settings panels."
-			},
-			{
-				"type": "fix",
-				"title": "Type Safety Improvements",
-				"body": "Optimized component prop typing to prevent runtime UI errors and layout shifts."
+				"title": "Settings panels no longer misalign",
+				"body": "Content in some settings panels lines up correctly again"
 			}
 		]
 	},
@@ -1946,58 +2211,53 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Duplicate-to-Spot",
-				"body": "Introduced a \"Duplicate to...\" workflow. Click indicators between any two lines to instantly place copies of your selection at that exact position."
+				"title": "Duplicate a selection to any spot in the editor",
+				"body": "Turn on **Duplicate to** to show insertion markers between all lines, then click one to place copies"
 			},
 			{
 				"type": "feature",
-				"title": "Global Placement Mode",
-				"body": "Activating \"Duplicate to\" reveals insertion spacers globally across the editor, providing a one-click visual map for project restructuring."
+				"title": "Hold Shift to place copies repeatedly",
+				"body": "Hold `Shift` while clicking insertion markers to keep placing copies without turning the mode on again"
 			},
 			{
 				"type": "feature",
-				"title": "Continuous Duplication (Shift)",
-				"body": "Holding **Shift** while clicking insertion points keeps the placement mode active, allowing for high-speed batch line replication."
+				"title": "Assistant tab in Settings",
+				"body": "A new **Assistant** tab in Settings holds Quick Fixes and timing visualization in one place"
 			},
 			{
 				"type": "feature",
-				"title": "Redo Shortcut",
-				"body": "Updated the Redo shortcut to **Shift + Ctrl + Z** across all platforms for a more intuitive editing workflow."
+				"title": "Lock timings against typing in Sync mode",
+				"body": "A new toggle turns off typing timestamps by hand in Sync mode, so timings stay locked"
 			},
 			{
-				"type": "feature",
-				"title": "Redo Memory",
-				"body": "Optimized state management by limiting the Redo/Undo history to the 10 most recent actions for better performance."
+				"type": "change",
+				"title": "Redo uses Shift+Ctrl+Z on all platforms",
+				"body": "Use `Shift+Ctrl+Z` to redo, the same on every platform"
 			},
 			{
-				"type": "feature",
-				"title": "Static Highlighting",
-				"body": "Disabled word move animations and glow effects during playback for a more focused and distraction-free synchronization experience."
+				"type": "change",
+				"title": "Undo and redo keep the last 10 actions",
+				"body": "Older actions drop out of undo and redo, which keeps the editor lighter"
 			},
 			{
-				"type": "feature",
-				"title": "Assistant Tab",
-				"body": "Introduced a dedicated \"Assistant\" tab in Settings to manage helper features like Quick Fixes and timing visualization in one place."
-			},
-			{
-				"type": "feature",
-				"title": "Flexible Syncing",
-				"body": "Added a toggle to enable or disable manual timestamp typing in Sync mode, allowing you to lock timings to prevent accidental changes."
+				"type": "change",
+				"title": "No word animations or glow during playback",
+				"body": "Words no longer animate or glow while the song plays"
 			},
 			{
 				"type": "fix",
-				"title": "Smart Selection Persistence",
-				"body": "Right-clicking no longer clears multi-word selections. This enables powerful bulk operations like \"Combine Words\" for complex phonetic merging."
+				"title": "Right-click keeps multi-word selections",
+				"body": "Multi-word selections survive a right-click, so **Combine Words** works on them"
 			},
 			{
 				"type": "fix",
-				"title": "Clean UI Logic",
-				"body": "Rebuilt the insertion spacer rendering to resolve stacking bugs and collision issues, ensuring a clutter-free interface with perfectly centered placement points."
+				"title": "Insertion markers no longer overlap",
+				"body": "Insertion markers stop stacking on each other and sit centered between lines"
 			},
 			{
 				"type": "fix",
-				"title": "Refined Plain Text Import",
-				"body": "Disabled automatic space padding by default to prevent unwanted spacing in imported projects."
+				"title": "Plain text imports no longer add extra spaces",
+				"body": "Automatic space padding is now off by default to avoid unwanted spacing in imports"
 			}
 		]
 	},
@@ -2009,23 +2269,23 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Lyrically Engine Integration",
-				"body": "Added a high-reliability alternative lyrics source via the **Lyrically API** (powered by lyrics.ovh). This fallback completely bypasses CORS restrictions and Genius anti-bot measures using server-side aggregation."
+				"title": "Lyrically as a backup lyrics source",
+				"body": "A fallback lyrics source that still works when Genius blocks imports"
 			},
 			{
 				"type": "feature",
-				"title": "Bulletproof Scraper Engine",
-				"body": "Rebuilt the Genius scraper with a **Multi-Proxy Rotation** system and deep `__PRELOADED_STATE__` JSON extraction, ensuring imports work even when the site's layout changes or blocks standard requests."
+				"title": "More reliable Genius imports",
+				"body": "Genius imports keep working when the site layout changes or blocks standard requests"
 			},
 			{
 				"type": "feature",
-				"title": "Optimized Import Workflow",
-				"body": "The import menu now features a dedicated **English Translation** layer with better fallbacks and a cleaner, more responsive preview panel for Lyrically-sourced lyrics."
+				"title": "English translations in the import menu",
+				"body": "Lyrically imports include an English translation and a cleaner preview panel"
 			},
 			{
 				"type": "fix",
-				"title": "Native CDN Image Loading",
-				"body": "Switched to direct **Genius CDN** and **HTTPS forced** image links for cover arts. This resolves persistent \"403 Forbidden\" blocks and \"Mixed Content\" security errors in browser environments."
+				"title": "Cover art no longer fails to load",
+				"body": "Genius cover art loads in the browser without 403 errors or security warnings"
 			}
 		]
 	},
@@ -2037,8 +2297,8 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Multi-Provider Scaling",
-				"body": "Improved backend logic for handling concurrent requests across different lyric providers."
+				"title": "Better handling of several lyric lookups at once",
+				"body": "Lookups to different lyric sources at the same time are handled more reliably"
 			}
 		]
 	},
@@ -2050,23 +2310,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Advanced Font Selection Menu",
-				"body": "Replaced the basic font list with a high-performance Gallery interface. Features over 300+ of the most popular Google Fonts and system font stacks for total visual control."
+				"title": "Searchable font gallery with 300+ fonts",
+				"body": "Search 300+ popular Google Fonts and system font stacks, with live previews and no clipped names"
 			},
 			{
 				"type": "feature",
-				"title": "Custom Typography Support",
-				"body": "You can now import your own `.ttf`, `.otf`, and `.woff` font files directly. Your custom fonts are securely stored and persist across app sessions."
+				"title": "Import your own font files",
+				"body": "Add .ttf, .otf or .woff files, and they stay saved between sessions"
 			},
 			{
 				"type": "feature",
-				"title": "Global Font Variations",
-				"body": "Integrated full support for **Bold** and *Italic* styles. The tool dynamically fetches the appropriate variants from Google for every library font."
-			},
-			{
-				"type": "feature",
-				"title": "Enhanced Font Library UI",
-				"body": "A refined, searchable interface with live previews, categorized list stacks, and improved spacing to handle long font names without clipping."
+				"title": "Bold and italic for library fonts",
+				"body": "Bold and italic now work with library fonts, pulling matching styles from Google"
 			}
 		]
 	},
@@ -2078,18 +2333,18 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Rich Preview Panel",
-				"body": "A new visual preview system for Genius imports that allows you to review, edit, and verify perfectly formatted lyrics before they hit your project."
+				"title": "Review and edit Genius imports before adding them",
+				"body": "The import preview lets you check and fix lyrics before they go into your project"
 			},
 			{
 				"type": "feature",
-				"title": "Genius Background Lyric Parser",
-				"body": "Automatically recognizes parenthesized text as background vocals during import, stripping brackets and setting the appropriate background flag."
+				"title": "Parenthesized lines import as background vocals",
+				"body": "Text in parentheses imports as background vocals, and the parentheses are removed"
 			},
 			{
 				"type": "fix",
-				"title": "Ultra-Reliable Genius Cover Arts",
-				"body": "Implemented a high-performance image proxy service to ensure Genius cover arts load reliably across all platforms, bypassing hotlink protection."
+				"title": "Genius cover art loads reliably",
+				"body": "Cover art from Genius loads on every platform instead of getting blocked"
 			}
 		]
 	},
@@ -2101,28 +2356,28 @@
 		"entries": [
 			{
 				"type": "feature",
-				"title": "Line Sync Mode",
-				"body": "Easily perform macro-level (line-by-line) syncing. Go to Time > Sync Level and set it to Line instead of Word. Pressing \"Start Next Word/Line\" automatically fills empty beats with proportionately distributed offsets based on syllables."
+				"title": "Sync whole lines instead of words",
+				"body": "Set **Time › Sync Level** to Line and empty beats fill in based on syllable count"
 			},
 			{
 				"type": "feature",
-				"title": "Syllable Chunk Splitting",
-				"body": "The Sub-word split menu gives you the option of \"Syllable Split\" utilizing native hyphenation processing to instantly distribute polysyllabic words properly."
+				"title": "Split words into syllables automatically",
+				"body": "The **Sub-word split** menu has a **Syllable Split** option that splits longer words for you"
 			},
 			{
 				"type": "feature",
-				"title": "Community Guide Repository",
-				"body": "An interactive catalog is now available on the Import Page with embedded community guides/references for creating perfectly formatted AMLL lyrics."
+				"title": "Community lyric guides on the Import page",
+				"body": "The Import page now has a catalog of community guides for formatting lyrics"
 			},
 			{
 				"type": "feature",
-				"title": "Smart Double Click Editor",
-				"body": "If Quick Fixes is disabled, double clicking skips context evaluation saving resources and opening the inline-editor quickly."
+				"title": "Faster double-click editing without Quick Fixes",
+				"body": "With **Quick Fixes** off, double-clicking opens the inline editor right away"
 			},
 			{
 				"type": "feature",
-				"title": "Full Genius Lyrics Import",
-				"body": "Directly search and import song lyrics from Genius into the editor. Featuring a direct-from-source scraper with **Auto-Slop Removal** to automatically strip section markers ([Chorus], etc.) and metadata blocks."
+				"title": "Import lyrics from Genius with section tags removed",
+				"body": "Search Genius and import lyrics directly, with section markers like [Chorus] and metadata blocks removed"
 			}
 		]
 	}

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Spicy Lyrics TTML Tool
+Comment=Word-by-word TTML lyrics editor and timing tool for Spicy Lyrics
+Categories=AudioVideo;Audio;AudioVideoEditing;
+Keywords=lyrics;ttml;karaoke;sync;
+Exec=amll-ttml-tool %U
+Icon=io.github.spicylyrics.TTMLTool
+Terminal=false
+# Tauri doesn't set a GTK app ID (enableGTKAppId is off), so the window is
+# named after the binary, not the Flatpak ID.
+StartupWMClass=amll-ttml-tool

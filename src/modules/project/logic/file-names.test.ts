@@ -28,6 +28,14 @@ describe("new file names", () => {
 		expect(isSafeProjectFileName(output)).toBe(true);
 	});
 
+	it("trims huge dot and space runs from untrusted metadata in linear time", () => {
+		// A backtracking /[.\s]+$/ takes minutes on this input.
+		const run = ". ".repeat(100_000);
+		// Truncation keeps only "a" plus the run, which then trims away.
+		expect(sanitizeFileName(`a${run}x`, 120)).toBe("a");
+		expect(sanitizeFileName(`${run}name${run}`)).toBe("name");
+	});
+
 	it("keeps extensions on long files and repeated metadata sanitization stable", () => {
 		const audio = sanitizeFileName(`${"a".repeat(300)}.mp3`);
 		expect(audio.length).toBe(240);

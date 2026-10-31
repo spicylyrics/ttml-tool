@@ -1,12 +1,8 @@
-import { isolateHistory } from "@codemirror/commands";
-import { Compartment, EditorState, Transaction } from "@codemirror/state";
+import { Compartment, EditorState } from "@codemirror/state";
 import { EditorView, placeholder as placeholderText } from "@codemirror/view";
+import { SearchRegular, TextWordCountRegular } from "@fluentui/react-icons";
 import {
-	PeopleRegular,
-	PersonVoiceRegular,
-	TextWordCountRegular,
-} from "@fluentui/react-icons";
-import {
+	Button,
 	Flex,
 	IconButton,
 	Popover,
@@ -14,19 +10,23 @@ import {
 	Text,
 	TextField,
 } from "@radix-ui/themes";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useAtom } from "jotai";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { SlIcon } from "$/components/SlIcon";
 import {
 	LYRIC_SECTION_CATEGORIES,
 	type LyricSectionCategory,
 } from "$/types/ttml";
 import {
 	callbacksFacet,
+	dispatchInPlace,
 	formatFacet,
 	type LyricMarkupLabels,
 	labelsFacet,
 	lyricMarkupExtensions,
 	markupField,
+	openSearch as openSearchCommand,
 	splitOrJoin,
 	toggleLinePrefix,
 } from "./extensions";
@@ -36,8 +36,45 @@ import {
 	type LyricMarkupFormat,
 	normalizeHeaderCategory,
 } from "./markup";
+import { SearchPanel } from "./SearchPanel";
+import {
+	type LyricSearchRequest,
+	lyricSearchRequestAtom,
+	trackMountedEditor,
+} from "./search-view";
+import { lineChanges } from "./text-changes";
 
 export type { LyricMarkupFormat } from "./markup";
+
+/**
+ * Rewrites the text as one undo step. Only the lines that differ are touched,
+ * so the editor keeps the line at the top of the view, and the cursor, where
+ * they were.
+ */
+function replaceInPlace(
+	view: EditorView,
+	before: string,
+	after: string,
+	userEvent?: string,
+) {
+	dispatchInPlace(
+		view,
+		view.state.changes(lineChanges(before, after)),
+		userEvent,
+	);
+}
+
+/** Lines a tool works on, 0-based and inclusive, or null for the whole text. */
+export type LyricMarkupLineRange = { from: number; to: number } | null;
+
+/** A text-wide action in the toolbar, run on the selected lines or everything. */
+export interface LyricMarkupTool {
+	key: string;
+	icon: ReactNode;
+	label: string;
+	disabled?: boolean;
+	run: (text: string, lines: LyricMarkupLineRange) => string;
+}
 
 /**
  * A plain-text lyric editor that draws its markup as it goes: section headers
@@ -51,12 +88,14 @@ export function LyricMarkupEditor({
 	format,
 	ariaLabel,
 	placeholder,
+	tools,
 }: {
 	value: string;
 	onChange: (value: string) => void;
 	format: LyricMarkupFormat;
 	ariaLabel: string;
 	placeholder?: string;
+	tools?: LyricMarkupTool[];
 }) {
 	const { t } = useTranslation();
 	const wrapperRef = useRef<HTMLDivElement>(null);
@@ -73,9 +112,55 @@ export function LyricMarkupEditor({
 	const [menu, setMenu] = useState<{ line: number; rect: DOMRect } | null>(
 		null,
 	);
+	// The open search, and the editor state it reads, kept current while it's open.
+	const [search, setSearch] = useState<LyricSearchRequest | null>(null);
+	const [searchState, setSearchState] = useState<EditorState | null>(null);
+	const [within, setWithin] = useState<{ from: number; to: number } | null>(
+		null,
+	);
+	const searchOpen = useRef(false);
+	searchOpen.current = !!search;
+	const openSearch = (mode: "find" | "replace", text = "") => {
+		if (viewRef.current) setSearchState(viewRef.current.state);
+		setSearch({ mode, text, id: Date.now() });
+	};
 	const callbacks = useRef({
 		openHeaderMenu: (line: number, rect: DOMRect) => setMenu({ line, rect }),
+		openSearch: (mode: "find" | "replace", text: string) =>
+			openSearchRef.current(mode, text),
 	}).current;
+	const openSearchRef = useRef(openSearch);
+	openSearchRef.current = openSearch;
+	const closeSearch = () => {
+		setSearch(null);
+		setSearchState(null);
+		setWithin(null);
+	};
+
+	const [request, setRequest] = useAtom(lyricSearchRequestAtom);
+	useEffect(trackMountedEditor, []);
+
+	// Escape closes the search, not the dialog around the editor. The dialog
+	// listens on the document while capturing, so this has to get there first.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: closeSearch only sets state
+	useEffect(() => {
+		if (!search) return;
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (
+				event.key !== "Escape" ||
+				!wrapperRef.current?.contains(event.target as Node) ||
+				// An open dropdown in the panel closes first.
+				document.querySelector("[data-radix-popper-content-wrapper]")
+			)
+				return;
+			event.stopPropagation();
+			event.preventDefault();
+			closeSearch();
+			viewRef.current?.focus();
+		};
+		window.addEventListener("keydown", onKeyDown, true);
+		return () => window.removeEventListener("keydown", onKeyDown, true);
+	}, [search]);
 
 	const labels = useMemo<LyricMarkupLabels>(
 		() => ({
@@ -126,7 +211,22 @@ export function LyricMarkupEditor({
 					callbacksFacet.of(callbacks),
 					lyricMarkupExtensions,
 					EditorView.updateListener.of((update) => {
+						if (
+							searchOpen.current &&
+							(update.docChanged || update.selectionSet)
+						)
+							setSearchState(update.state);
 						if (!update.docChanged) return;
+						setWithin((range) => {
+							if (!range) return range;
+							// Text replaced at either edge stays inside.
+							const from = update.changes.mapPos(range.from, -1);
+							const to = update.changes.mapPos(range.to, 1);
+							// The same object when nothing moved, so the search doesn't rerun.
+							return from === range.from && to === range.to
+								? range
+								: { from, to };
+						});
 						const text = update.state.doc.toString();
 						knownValue.current = text;
 						onChangeRef.current(text);
@@ -157,18 +257,21 @@ export function LyricMarkupEditor({
 		});
 	}, [attributes, compartments]);
 
+	// A shortcut or the command palette asked from outside the editor. After
+	// the effect that creates the view, so a request made before it opened lands.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: runs per request
+	useEffect(() => {
+		if (!request) return;
+		openSearch(request.mode, request.text);
+		setRequest(null);
+	}, [request]);
+
 	// A tool or a fetched song replaced the text: one undo step of its own.
 	useEffect(() => {
 		const view = viewRef.current;
 		if (!view || value === knownValue.current) return;
 		knownValue.current = value;
-		view.dispatch({
-			changes: { from: 0, to: view.state.doc.length, insert: value },
-			annotations: [
-				Transaction.addToHistory.of(true),
-				isolateHistory.of("full"),
-			],
-		});
+		replaceInPlace(view, view.state.doc.toString(), value);
 	}, [value]);
 
 	const run = (command: (view: EditorView) => boolean) => {
@@ -176,6 +279,24 @@ export function LyricMarkupEditor({
 		if (!view) return;
 		command(view);
 		view.focus();
+	};
+
+	// Runs on the lines the selection touches, or the whole text without one.
+	// The rewrite is one undo step.
+	const runTool = (tool: LyricMarkupTool) => {
+		const view = viewRef.current;
+		if (!view) return;
+		const { doc, selection } = view.state;
+		const { from, to, empty } = selection.main;
+		const first = doc.lineAt(from).number - 1;
+		const last = doc.lineAt(to).number - 1;
+		// A selection ending at the start of a line doesn't pick that line.
+		const end = last > first && doc.lineAt(to).from === to ? last - 1 : last;
+		const before = doc.toString();
+		const after = tool.run(before, empty ? null : { from: first, to: end });
+		if (after !== before) replaceInPlace(view, before, after, "input.tool");
+		// A plain focus() would scroll the cursor into view.
+		view.contentDOM.focus({ preventScroll: true });
 	};
 
 	// The header the open menu edits, read fresh from the document.
@@ -220,7 +341,7 @@ export function LyricMarkupEditor({
 					title={`${t("lyricMarkup.background", "Background line")} (Alt+B)`}
 					onClick={() => run(toggleLinePrefix("background"))}
 				>
-					<PersonVoiceRegular />
+					<SlIcon name="background" className={styles.roleBackground} />
 				</IconButton>
 				<IconButton
 					size="1"
@@ -231,7 +352,7 @@ export function LyricMarkupEditor({
 					title={`${t("lyricMarkup.duet", "Duet line")} (Alt+D)`}
 					onClick={() => run(toggleLinePrefix("duet"))}
 				>
-					<PeopleRegular />
+					<SlIcon name="duet" className={styles.roleDuet} />
 				</IconButton>
 				<IconButton
 					size="1"
@@ -244,13 +365,57 @@ export function LyricMarkupEditor({
 				>
 					<TextWordCountRegular />
 				</IconButton>
+				<IconButton
+					size="1"
+					variant="ghost"
+					color="gray"
+					aria-label={t("lyricMarkup.search.label", "Find and replace")}
+					title={`${t("lyricMarkup.search.label", "Find and replace")} (${navigator.userAgent.includes("Mac") ? "Cmd" : "Ctrl"}+F)`}
+					aria-pressed={!!search}
+					onClick={() =>
+						search ? closeSearch() : run(openSearchCommand("find"))
+					}
+				>
+					<SearchRegular />
+				</IconButton>
 				<Text size="1" className={styles.hint}>
 					{t(
 						"lyricMarkup.hint",
 						"Alt+click between letters to split, click a dot to join. Alt+C changes a section.",
 					)}
 				</Text>
+				{tools && tools.length > 0 && (
+					<Flex gap="1" align="center" className={styles.tools}>
+						{tools.map((tool) => (
+							<Button
+								key={tool.key}
+								size="1"
+								variant="ghost"
+								color="gray"
+								disabled={tool.disabled}
+								// Keeps focus, and the scroll position, in the editor.
+								onMouseDown={(event) => event.preventDefault()}
+								onClick={() => runTool(tool)}
+							>
+								{tool.icon}
+								{tool.label}
+							</Button>
+						))}
+					</Flex>
+				)}
 			</Flex>
+			{search && viewRef.current && (
+				<SearchPanel
+					view={viewRef.current}
+					// A request that came in before the view existed has no state yet.
+					state={searchState ?? viewRef.current.state}
+					format={format}
+					request={search}
+					within={within}
+					onWithinChange={setWithin}
+					onClose={closeSearch}
+				/>
+			)}
 			<div className={styles.editor} ref={parentRef} />
 
 			<Popover.Root

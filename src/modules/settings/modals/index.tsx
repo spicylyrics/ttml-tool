@@ -1,28 +1,17 @@
+import { Dismiss24Regular, Search24Regular } from "@fluentui/react-icons";
 import {
-	Dismiss24Regular,
-	Edit24Regular,
-	Folder24Regular,
-	Info24Regular,
-	Keyboard12324Regular,
-	PaintBrush24Regular,
-	Search24Regular,
-	Settings24Regular,
-	Speaker224Regular,
-} from "@fluentui/react-icons";
-import {
-	Box,
+	Button,
 	Dialog,
-	Flex,
 	Heading,
 	IconButton,
 	Tabs,
-	Text,
 	TextField,
 } from "@radix-ui/themes";
 import { useAtom } from "jotai";
+import { VisuallyHidden } from "radix-ui";
 import {
+	Fragment,
 	memo,
-	type ReactNode,
 	useEffect,
 	useLayoutEffect,
 	useMemo,
@@ -30,167 +19,67 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { EmptyState } from "$/components/EmptyState";
 import { settingsDialogAtom, settingsTabAtom } from "$/states/dialogs.ts";
 import {
-	matchesSettingsPage,
+	applySearchVisibility,
+	clearSearchVisibility,
+	collectPageElements,
+	ROW_SELECTOR,
+} from "../logic/page-snapshot";
+import {
+	isSearchQuery,
+	type PageSnapshot,
+	pickActivePage,
+	sameSnapshots,
+	searchSettingsPages,
+} from "../logic/search";
+import {
 	matchesSettingsSearch,
 	settingsSearchKeywords,
 } from "../logic/settings-search";
-import { SettingsAboutTab } from "./about";
-import { SettingsAppearanceTab } from "./appearance";
-import { AudioSettingsTab } from "./audio";
-import { SettingsBackupTab } from "./backup";
-import { SettingsCommonTab } from "./common";
-import { SettingsKeyBindingsDialog } from "./keybindings";
+import { getSettingsPages, resolveSettingsPage } from "./pages";
 import styles from "./settings.module.css";
-import { SettingsSpectrogramTab } from "./spectrogram";
 
-const SettingsPage = ({
-	title,
-	description,
-	children,
-}: {
-	title: string;
-	description?: string;
-	children: ReactNode;
-}) => (
-	<Flex direction="column" gap="4" className={styles.page}>
-		<Box>
-			<Heading size="7">{title}</Heading>
-			{description && (
-				<Text size="2" color="gray">
-					{description}
-				</Text>
-			)}
-		</Box>
-		{children}
-	</Flex>
-);
-
-const NavigationItem = ({
-	value,
-	icon,
-	children,
-}: {
-	value: string;
-	icon: ReactNode;
-	children: ReactNode;
-}) => (
-	<Tabs.Trigger value={value} className={styles.navigationItem}>
-		{icon}
-		<span>{children}</span>
-	</Tabs.Trigger>
-);
+function pageBody(pane: Element, value: string) {
+	return pane.querySelector(`[data-settings-page-body="${value}"]`);
+}
 
 /**
- * Every page, as tab panels. While searching, all of them stay mounted (the
- * inactive ones hidden) so their text can be matched. Memoized on that flag
- * alone so typing in the search box doesn't re-render seven pages.
+ * Every page as a tab panel. While searching, the searchable ones stay mounted
+ * (the inactive ones hidden) so their rows can be read and filtered. Memoized
+ * on that flag alone so typing in the search box doesn't re-render every page.
  */
 const SettingsPages = memo(({ forceMount }: { forceMount: boolean }) => {
 	const { t } = useTranslation();
-	const mount = forceMount || undefined;
+	const pages = useMemo(() => getSettingsPages(t), [t]);
 	return (
 		<>
-			<Tabs.Content
-				value="common"
-				forceMount={mount}
-				className={styles.tabContent}
-			>
-				<SettingsPage
-					title={t("settingsDialog.tab.common", "General")}
-					description={t(
-						"settingsDialog.page.generalDesc",
-						"Language, privacy, and app-wide behavior.",
-					)}
+			{pages.map(({ value, label, searchText, Content }) => (
+				<Tabs.Content
+					key={value}
+					value={value}
+					forceMount={(forceMount && searchText) || undefined}
+					className={styles.tabContent}
 				>
-					<SettingsCommonTab section="general" />
-				</SettingsPage>
-			</Tabs.Content>
-			<Tabs.Content
-				value="editor"
-				forceMount={mount}
-				className={styles.tabContent}
-			>
-				<SettingsPage
-					title={t("settingsDialog.tab.editor", "Editor & sync")}
-					description={t(
-						"settingsDialog.page.editorDesc",
-						"Timing input, synchronization behavior, and visual cues.",
-					)}
-				>
-					<SettingsCommonTab section="editor" />
-				</SettingsPage>
-			</Tabs.Content>
-			<Tabs.Content
-				value="files"
-				forceMount={mount}
-				className={styles.tabContent}
-			>
-				<SettingsPage
-					title={t("settingsDialog.tab.files", "Files & storage")}
-					description={t(
-						"settingsDialog.page.filesDesc",
-						"Import cleanup, autosave history, and portable backups.",
-					)}
-				>
-					<SettingsCommonTab section="files" />
-					<SettingsBackupTab />
-				</SettingsPage>
-			</Tabs.Content>
-			<Tabs.Content
-				value="audio"
-				forceMount={mount}
-				className={styles.tabContent}
-			>
-				<SettingsPage
-					title={t("settingsDialog.tab.audio", "Audio")}
-					description={t(
-						"settingsDialog.page.audioDesc",
-						"Playback, equalizer, and spectrogram display.",
-					)}
-				>
-					<SettingsCommonTab section="audio" />
-					<AudioSettingsTab />
-					<SettingsSpectrogramTab />
-				</SettingsPage>
-			</Tabs.Content>
-			<Tabs.Content
-				value="keybinding"
-				forceMount={mount}
-				className={styles.tabContent}
-			>
-				<SettingsPage title={t("settingsDialog.tab.keybindings", "Shortcuts")}>
-					<SettingsKeyBindingsDialog />
-				</SettingsPage>
-			</Tabs.Content>
-			<Tabs.Content
-				value="appearance"
-				forceMount={mount}
-				className={styles.tabContent}
-			>
-				<SettingsPage title={t("settingsDialog.tab.appearance", "Appearance")}>
-					<SettingsAppearanceTab />
-				</SettingsPage>
-			</Tabs.Content>
-			<Tabs.Content
-				value="about"
-				forceMount={mount}
-				className={styles.tabContent}
-			>
-				<SettingsPage title={t("common.about", "About")}>
-					<SettingsAboutTab />
-				</SettingsPage>
-			</Tabs.Content>
+					<div className={styles.page}>
+						<Heading as="h2" size="7" className={styles.pageTitle}>
+							{label}
+						</Heading>
+						<div className={styles.pageBody} data-settings-page-body={value}>
+							<Content />
+						</div>
+					</div>
+				</Tabs.Content>
+			))}
 		</>
 	);
 });
 
 export const SettingsDialog = memo(() => {
-	const [settingsDialogOpen, setSettingsDialogOpen] =
-		useAtom(settingsDialogAtom);
+	const [open, setOpen] = useAtom(settingsDialogAtom);
 	const [activeTab, setActiveTab] = useAtom(settingsTabAtom);
-	const [searchQuery, setSearchQuery] = useState("");
+	const [query, setQuery] = useState("");
 	// Only a click fades the new pane in. Arrow keys, search and the first
 	// open swap instantly: they repeat too often for motion to be anything but drag.
 	const [instantTab, setInstantTab] = useState(true);
@@ -198,76 +87,45 @@ export const SettingsDialog = memo(() => {
 	const searchRef = useRef<HTMLInputElement>(null);
 	const contentRef = useRef<HTMLElement>(null);
 	const { t } = useTranslation();
-	const displayedTab = ["assistant", "ai", "dev"].includes(activeTab)
-		? "common"
-		: activeTab;
-	const navigationItems = useMemo(
-		() => [
-			{
-				value: "common",
-				icon: <Settings24Regular />,
-				label: t("settingsDialog.tab.common", "General"),
-			},
-			{
-				value: "editor",
-				icon: <Edit24Regular />,
-				label: t("settingsDialog.tab.editor", "Editor & sync"),
-			},
-			{
-				value: "files",
-				icon: <Folder24Regular />,
-				label: t("settingsDialog.tab.files", "Files & storage"),
-			},
-			{
-				value: "audio",
-				icon: <Speaker224Regular />,
-				label: t("settingsDialog.tab.audio", "Audio"),
-			},
-			{
-				value: "keybinding",
-				icon: <Keyboard12324Regular />,
-				label: t("settingsDialog.tab.keybindings", "Shortcuts"),
-			},
-			{
-				value: "appearance",
-				icon: <PaintBrush24Regular />,
-				label: t("settingsDialog.tab.appearance", "Appearance"),
-			},
-			{
-				value: "about",
-				icon: <Info24Regular />,
-				label: t("common.about", "About"),
-			},
-		],
-		[t],
+	const displayedTab = resolveSettingsPage(activeTab);
+	const pages = useMemo(() => getSettingsPages(t), [t]);
+	const searchablePages = useMemo(
+		() =>
+			pages.map((page) => ({
+				value: page.value,
+				label: page.label,
+				keywords: settingsSearchKeywords[page.value] ?? "",
+			})),
+		[pages],
 	);
-	const searching = settingsDialogOpen && searchQuery.trim() !== "";
-	// Rendered text of every page while searching. Force-mounted panels fill in
-	// a commit later (and some sections load async), so re-read on DOM changes.
-	const [pageTexts, setPageTexts] = useState<Record<string, string> | null>(
-		null,
+	const textPages = useMemo(
+		() => pages.filter((page) => page.searchText),
+		[pages],
 	);
+	const searching = open && isSearchQuery(query);
+
+	// What every page renders, read while searching. Force-mounted panels fill
+	// in a commit later (and some sections load async), so re-read on changes.
+	const [snapshots, setSnapshots] = useState<Record<
+		string,
+		PageSnapshot
+	> | null>(null);
 	useLayoutEffect(() => {
 		const pane = contentRef.current;
 		if (!searching || !pane) {
-			setPageTexts(null);
+			setSnapshots(null);
 			return;
 		}
 		const read = () => {
-			const texts: Record<string, string> = {};
-			for (const item of navigationItems) {
-				const panel = pane.querySelector(`[id$="-content-${item.value}"]`);
+			const next: Record<string, PageSnapshot> = {};
+			for (const page of textPages) {
+				const body = pageBody(pane, page.value);
 				// Not filled in yet: stay null so the tab jump doesn't act on
 				// keyword-only results.
-				if (!panel?.childElementCount) return;
-				texts[item.value] = panel.textContent ?? "";
+				if (!body?.childElementCount) return;
+				next[page.value] = collectPageElements(body).snapshot;
 			}
-			setPageTexts((prev) =>
-				prev &&
-				navigationItems.every(({ value }) => prev[value] === texts[value])
-					? prev
-					: texts,
-			);
+			setSnapshots((prev) => (sameSnapshots(prev, next) ? prev : next));
 		};
 		read();
 		const observer = new MutationObserver(read);
@@ -277,81 +135,106 @@ export const SettingsDialog = memo(() => {
 			characterData: true,
 		});
 		return () => observer.disconnect();
-	}, [searching, navigationItems]);
-	const visibleItems = useMemo(
-		() =>
-			navigationItems.filter((item) =>
-				matchesSettingsPage(
-					{
-						label: item.label,
-						keywords: settingsSearchKeywords[item.value],
-						text: pageTexts?.[item.value],
-					},
-					searchQuery,
-				),
-			),
-		[navigationItems, searchQuery, pageTexts],
+	}, [searching, textPages]);
+
+	const results = useMemo(
+		() => searchSettingsPages(searchablePages, snapshots, query),
+		[searchablePages, snapshots, query],
 	);
+	const resultByPage = useMemo(
+		() => new Map(results.map((result) => [result.value, result])),
+		[results],
+	);
+	const visiblePages = pages.filter(
+		(page) => resultByPage.get(page.value)?.visible,
+	);
+	// Wait for the pages' text, or a text-only match flashes "nothing found".
+	const nothingFound =
+		searching && snapshots !== null && visiblePages.length === 0;
+
+	// Hide the rows a search filters out. Only attributes change, which the
+	// observer above ignores, so this can't loop.
+	useLayoutEffect(() => {
+		const pane = contentRef.current;
+		if (!pane) return;
+		if (!searching || !snapshots) {
+			clearSearchVisibility(pane);
+			return;
+		}
+		for (const result of results) {
+			const body = pageBody(pane, result.value);
+			if (!body) continue;
+			const elements = collectPageElements(body);
+			applySearchVisibility(elements.rows, result.rows);
+			applySearchVisibility(elements.groups, result.groups);
+		}
+	}, [searching, snapshots, results]);
 
 	useEffect(() => {
-		if (!settingsDialogOpen) {
-			setSearchQuery("");
+		if (!open) {
+			setQuery("");
 			setInstantTab(true);
 			return;
 		}
-		if (
-			searching &&
-			pageTexts &&
-			visibleItems.length &&
-			!visibleItems.some((item) => item.value === displayedTab)
-		) {
-			setActiveTab(visibleItems[0].value);
-		}
-	}, [
-		settingsDialogOpen,
-		searching,
-		pageTexts,
-		displayedTab,
-		visibleItems,
-		setActiveTab,
-	]);
+		if (!searching || !snapshots) return;
+		const next = pickActivePage(displayedTab, results);
+		if (next !== displayedTab) setActiveTab(next);
+	}, [open, searching, snapshots, results, displayedTab, setActiveTab]);
 
+	// Bring the best match on the open page into view and ring it, once the
+	// pages have rendered and been filtered.
 	useEffect(() => {
-		if (!settingsDialogOpen || !searchQuery.trim()) return;
+		if (!searching || !snapshots) return;
 		let target: HTMLElement | undefined;
 		const frame = requestAnimationFrame(() => {
-			const content = contentRef.current?.querySelector(
-				`[id$="-content-${displayedTab}"][data-state="active"]`,
-			);
-			if (!content) return;
-			const matches = Array.from(
-				content.querySelectorAll<HTMLElement>(
+			const pane = contentRef.current;
+			if (!pane) return;
+			pane.scrollTop = 0;
+			const body = pageBody(pane, displayedTab);
+			if (!body) return;
+			const match = Array.from(
+				body.querySelectorAll<HTMLElement>(
 					"h1, h2, h3, h4, label, p, span, button",
 				),
 			)
 				.filter(
 					(element) =>
 						element.getClientRects().length &&
-						matchesSettingsSearch(element.textContent ?? "", searchQuery),
+						matchesSettingsSearch(element.textContent ?? "", query),
 				)
 				.sort(
 					(a, b) => (a.textContent?.length ?? 0) - (b.textContent?.length ?? 0),
-				);
-			const match = matches[0];
+				)[0];
 			if (!match) return;
-			target = match.closest<HTMLElement>(".rt-Card") ?? match;
-			target.classList.add(styles.searchHighlight);
-			target.scrollIntoView({ block: "center", behavior: "instant" });
+			target = match.closest<HTMLElement>(ROW_SELECTOR) ?? match;
+			target.setAttribute("data-search-match", "");
+			target.scrollIntoView({ block: "nearest", behavior: "instant" });
 		});
 		return () => {
 			cancelAnimationFrame(frame);
-			target?.classList.remove(styles.searchHighlight);
+			target?.removeAttribute("data-search-match");
 		};
-	}, [settingsDialogOpen, displayedTab, searchQuery]);
+	}, [searching, displayedTab, query, snapshots]);
+
+	const clearSearch = () => {
+		setQuery("");
+		searchRef.current?.focus();
+	};
 
 	return (
-		<Dialog.Root open={settingsDialogOpen} onOpenChange={setSettingsDialogOpen}>
-			<Dialog.Content maxWidth="980px" className={styles.dialogContent}>
+		<Dialog.Root open={open} onOpenChange={setOpen}>
+			<Dialog.Content
+				maxWidth="1040px"
+				className={styles.dialogContent}
+				aria-describedby={undefined}
+				onEscapeKeyDown={(event) => {
+					// The first Escape in a filled search box clears it; the next closes.
+					if (query && document.activeElement === searchRef.current) {
+						event.preventDefault();
+						setQuery("");
+					}
+				}}
+			>
 				<Tabs.Root
 					value={displayedTab}
 					onValueChange={(value) => {
@@ -368,9 +251,9 @@ export const SettingsDialog = memo(() => {
 						<TextField.Root
 							ref={searchRef}
 							className={styles.searchField}
-							value={searchQuery}
+							value={query}
 							onChange={(event) => {
-								setSearchQuery(event.target.value);
+								setQuery(event.target.value);
 								setInstantTab(true);
 							}}
 							placeholder={t("settingsDialog.search", "Search settings")}
@@ -379,17 +262,14 @@ export const SettingsDialog = memo(() => {
 							<TextField.Slot>
 								<Search24Regular width="18" height="18" />
 							</TextField.Slot>
-							{searchQuery && (
+							{query && (
 								<TextField.Slot side="right">
 									<IconButton
 										size="1"
 										variant="ghost"
 										color="gray"
 										aria-label={t("settingsDialog.clearSearch", "Clear search")}
-										onClick={() => {
-											setSearchQuery("");
-											searchRef.current?.focus();
-										}}
+										onClick={clearSearch}
 									>
 										<Dismiss24Regular width="16" height="16" />
 									</IconButton>
@@ -398,6 +278,7 @@ export const SettingsDialog = memo(() => {
 						</TextField.Root>
 						<Tabs.List
 							className={styles.navigation}
+							aria-label={t("settingsDialog.title", "Preferences")}
 							onPointerDown={() => {
 								tabPointerRef.current = true;
 							}}
@@ -406,33 +287,90 @@ export const SettingsDialog = memo(() => {
 								tabPointerRef.current = false;
 							}}
 						>
-							{visibleItems.map((item) => (
-								<NavigationItem
-									key={item.value}
-									value={item.value}
-									icon={item.icon}
-								>
-									{item.label}
-								</NavigationItem>
-							))}
+							{visiblePages.map((page, index) => {
+								const count = resultByPage.get(page.value)?.matchCount ?? 0;
+								// Clusters are told apart by space alone while browsing;
+								// search results run as one list.
+								const newCluster =
+									!searching &&
+									index > 0 &&
+									visiblePages[index - 1].cluster !== page.cluster;
+								return (
+									<Fragment key={page.value}>
+										{newCluster && (
+											<span className={styles.clusterGap} aria-hidden="true" />
+										)}
+										<Tabs.Trigger
+											value={page.value}
+											className={styles.navigationItem}
+										>
+											<span
+												className={styles.navigationIcon}
+												aria-hidden="true"
+											>
+												{page.icon}
+											</span>
+											<span className={styles.navigationLabel}>
+												{page.label}
+											</span>
+											{searching && count > 0 && (
+												<span className={styles.count}>
+													<span aria-hidden="true">{count}</span>
+													<VisuallyHidden.Root>
+														{t(
+															"settingsDialog.matchCount",
+															"Matching settings: {count}",
+															{ count },
+														)}
+													</VisuallyHidden.Root>
+												</span>
+											)}
+										</Tabs.Trigger>
+									</Fragment>
+								);
+							})}
 						</Tabs.List>
-						{visibleItems.length === 0 && (
-							<Text
-								size="2"
-								color="gray"
-								role="status"
-								className={styles.noResults}
-							>
-								{t("settingsDialog.noSearchResults", "No matching categories")}
-							</Text>
-						)}
 					</aside>
 
 					<main
 						ref={contentRef}
 						className={styles.contentPane}
 						data-instant={instantTab || undefined}
+						data-empty={nothingFound || undefined}
 					>
+						<Dialog.Close>
+							<IconButton
+								variant="ghost"
+								color="gray"
+								className={styles.close}
+								aria-label={t("common.close", "Close")}
+							>
+								<Dismiss24Regular width="20" height="20" />
+							</IconButton>
+						</Dialog.Close>
+						{/* Always rendered, so screen readers hear it when it fills. */}
+						<div role="status">
+							{nothingFound && (
+								<EmptyState
+									icon={<Search24Regular />}
+									title={t(
+										"settingsDialog.noResults",
+										'No settings match "{query}"',
+										{ query: query.trim() },
+									)}
+									description={t(
+										"settingsDialog.noResultsDesc",
+										"Try another word, or clear the search.",
+									)}
+									actions={
+										<Button variant="soft" color="gray" onClick={clearSearch}>
+											{t("settingsDialog.clearSearch", "Clear search")}
+										</Button>
+									}
+									className={styles.empty}
+								/>
+							)}
+						</div>
 						<SettingsPages forceMount={searching} />
 					</main>
 				</Tabs.Root>
