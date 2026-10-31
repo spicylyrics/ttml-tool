@@ -1089,6 +1089,7 @@
       "latencyTest": "Lyd/input-latenstest"
     },
     "keybindings": {
+      "clearWordTiming": "Timing - Ryd tidsstempler for ord/stavelse",
       "newFile": "Ny fil",
       "openFile": "Åbn fil",
       "saveFile": "Gem fil",

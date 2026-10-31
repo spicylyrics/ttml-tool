@@ -1089,6 +1089,7 @@
       "latencyTest": "Test de latence audio/entrée"
     },
     "keybindings": {
+      "clearWordTiming": "Synchronisation - Effacer les horodatages du mot/de la syllabe",
       "newFile": "Nouveau fichier",
       "openFile": "Ouvrir un fichier",
       "saveFile": "Enregistrer le fichier",

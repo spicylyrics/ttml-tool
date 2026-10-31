@@ -1089,6 +1089,7 @@
       "latencyTest": "Äänen ja syötteen viivetesti"
     },
     "keybindings": {
+      "clearWordTiming": "Ajoitus - Tyhjennä sanan/tavun aikaleimat",
       "newFile": "Uusi tiedosto",
       "openFile": "Avaa tiedosto",
       "saveFile": "Tallenna tiedosto",

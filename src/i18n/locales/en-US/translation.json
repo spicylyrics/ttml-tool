@@ -1089,6 +1089,7 @@
       "latencyTest": "Audio/input latency test"
     },
     "keybindings": {
+      "clearWordTiming": "Timing - Clear word/syllable timestamps",
       "newFile": "New file",
       "openFile": "Open file",
       "saveFile": "Save file",
