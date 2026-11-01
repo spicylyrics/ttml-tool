@@ -1,0 +1,36 @@
+.match {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 4px;
+	color: var(--gray-11);
+	font-size: var(--font-size-1);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+/* The percentage says it in text; the bar lets you compare rows at a glance. */
+.meter {
+	display: block;
+	width: 48px;
+	height: 3px;
+	overflow: hidden;
+	border-radius: var(--sl-radius-pill, 9999px);
+	background-color: var(--gray-a4);
+}
+
+.meter > span {
+	display: block;
+	height: 100%;
+	border-radius: inherit;
+	background-color: var(--gray-9);
+}
+
+.meter[data-strong] > span {
+	background-color: var(--accent-9);
+}
+
+.showMore {
+	align-self: flex-start;
+	margin-left: var(--space-1);
+}

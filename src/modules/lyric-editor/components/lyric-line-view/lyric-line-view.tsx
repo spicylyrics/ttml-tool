@@ -11,9 +11,13 @@
 
 import { ContextMenu, Flex } from "@radix-ui/themes";
 import classNames from "classnames";
-import type { Atom } from "jotai";
-import { type FC, memo } from "react";
-import { selectedLinesAtom, ToolMode } from "$/states/main.ts";
+import { type Atom, atom, useAtomValue } from "jotai";
+import { type FC, memo, useMemo } from "react";
+import {
+	collapsedSectionIdsAtom,
+	selectedLinesAtom,
+	ToolMode,
+} from "$/states/main.ts";
 import type { LyricLine } from "$/types/ttml.ts";
 import styles from "../index.module.css";
 import { InsertLineButton } from "./insert-line-button";
@@ -83,6 +87,27 @@ export const LyricLineView: FC<{
 		setSelectedLines,
 		setSelectedWords,
 	});
+	const sectionId = line.sectionId;
+	const collapsedAtom = useMemo(
+		() =>
+			atom((get) =>
+				sectionId ? get(collapsedSectionIdsAtom).has(sectionId) : false,
+			),
+		[sectionId],
+	);
+	const collapsed = useAtomValue(collapsedAtom);
+
+	const sectionDivider = (
+		<SectionDivider
+			lineIndex={lineIndex}
+			sectionId={line.sectionId}
+			geniusHeader={line.geniusHeader}
+		/>
+	);
+
+	// The list keeps a collapsed section's first line only to carry its
+	// divider, so the line itself stays hidden like the rest.
+	if (collapsed) return sectionDivider;
 
 	return (
 		<>
@@ -93,11 +118,7 @@ export const LyricLineView: FC<{
 					editingRomanWordIndex={editingRomanWordIndex}
 				/>
 			)}
-			<SectionDivider
-				lineIndex={lineIndex}
-				sectionId={line.sectionId}
-				geniusHeader={line.geniusHeader}
-			/>
+			{sectionDivider}
 			{
 				<LineTimingPlacement
 					lineIndex={lineIndex}
