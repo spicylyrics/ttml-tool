@@ -1114,9 +1114,6 @@
       "syncStart": "Časovanie – Začiatok",
       "syncNext": "Časovanie – Ďalšie",
       "syncEnd": "Časovanie – Koniec",
-      "syncLineStart": "Časovanie – Začiatok riadku",
-      "syncLineNext": "Časovanie – Koniec riadku a začiatok ďalšieho",
-      "syncLineEnd": "Časovanie – Koniec riadku",
       "toggleWordHighlight": "Časovanie – prepnúť zvýraznenie aktívneho slova",
       "urbanDictionary": "Úpravy – vyhľadať v Urban Dictionary",
       "urbanDictionarySync": "Časovanie – vyhľadať v Urban Dictionary",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Predchádzajúce slovo",
-    "nextWord": "Ďalšie slovo",
-    "startLine": "Začiatok riadku",
-    "nextLine": "Ďalší riadok",
-    "endLine": "Koniec riadku"
-  },
-  "lineSync": {
-    "timing": "Časovanie skladby",
-    "timingDesc": "Ako sa skladba exportuje: Slovo, keď majú slová vlastné časovanie, Riadok, keď majú riadky len začiatok a koniec.",
-    "word": "Slovo",
-    "line": "Riadok",
-    "mixed": "Zmiešané",
-    "none": "Bez časovania",
-    "mixedDesc": "Niektoré riadky majú len začiatok a koniec, iné sú časované po slovách. Spicy Lyrics očakáva jeden štýl na skladbu.",
-    "spreadWords": "Rozložiť časy riadkov do slov",
-    "clearWords": "Vymazať časovanie slov",
-    "previewNotice": "Spicy Lyrics zobrazuje skladby časované po riadkoch bez sprievodných vokálov a bez strán duetu. Uložia sa však aj tak."
+    "nextWord": "Ďalšie slovo"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

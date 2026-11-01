@@ -1114,9 +1114,6 @@
       "syncStart": "打轴 - 开始",
       "syncNext": "打轴 - 下一个",
       "syncEnd": "打轴 - 结束",
-      "syncLineStart": "打轴 - 开始整行",
-      "syncLineNext": "打轴 - 结束整行并开始下一行",
-      "syncLineEnd": "打轴 - 结束整行",
       "toggleWordHighlight": "打轴 - 切换当前字高亮",
       "urbanDictionary": "编辑 - 在 Urban Dictionary 中查找",
       "urbanDictionarySync": "打轴 - 在 Urban Dictionary 中查找",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "上一个字",
-    "nextWord": "下一个字",
-    "startLine": "开始整行",
-    "nextLine": "下一行",
-    "endLine": "结束整行"
-  },
-  "lineSync": {
-    "timing": "歌曲计时",
-    "timingDesc": "歌曲的导出方式：单词有自己的时间时为逐字，行只有开始和结束时间时为逐行。",
-    "word": "逐字",
-    "line": "逐行",
-    "mixed": "混合",
-    "none": "未打轴",
-    "mixedDesc": "部分行只有开始和结束时间，其他行是逐字打轴的。Spicy Lyrics 要求每首歌只用一种方式。",
-    "spreadWords": "把行时间分配到单词",
-    "clearWords": "清除单词时间",
-    "previewNotice": "Spicy Lyrics 显示逐行计时的歌曲时不包含背景人声和对唱分侧。它们仍会被保存。"
+    "nextWord": "下一个字"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -1114,9 +1114,6 @@
       "syncStart": "Ajoitus - Aloita",
       "syncNext": "Ajoitus - Seuraava",
       "syncEnd": "Ajoitus - Lopeta",
-      "syncLineStart": "Ajoitus - Aloita rivi",
-      "syncLineNext": "Ajoitus - Lopeta rivi ja aloita seuraava",
-      "syncLineEnd": "Ajoitus - Lopeta rivi",
       "toggleWordHighlight": "Ajoitus - Vaihda aktiivisen sanan korostusta",
       "urbanDictionary": "Muokkaus - Hae Urban Dictionarysta",
       "urbanDictionarySync": "Ajoitus - Hae Urban Dictionarysta",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Edellinen sana",
-    "nextWord": "Seuraava sana",
-    "startLine": "Aloita rivi",
-    "nextLine": "Seuraava rivi",
-    "endLine": "Lopeta rivi"
-  },
-  "lineSync": {
-    "timing": "Kappaleen ajastus",
-    "timingDesc": "Miten kappale viedään: Sana, kun sanoilla on oma ajastus, Rivi, kun riveillä on vain alku ja loppu.",
-    "word": "Sana",
-    "line": "Rivi",
-    "mixed": "Sekoitettu",
-    "none": "Ei ajastettu",
-    "mixedDesc": "Joillakin riveillä on vain alku ja loppu, toiset on ajastettu sana sanalta. Spicy Lyrics odottaa yhtä tyyliä kappaletta kohden.",
-    "spreadWords": "Jaa rivien ajat sanoille",
-    "clearWords": "Tyhjennä sanojen ajastus",
-    "previewNotice": "Spicy Lyrics näyttää riviajastetut kappaleet ilman taustalauluja ja duettopuolia. Ne tallennetaan silti."
+    "nextWord": "Seuraava sana"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -1114,9 +1114,6 @@
       "syncStart": "Sincronizare - Începe",
       "syncNext": "Sincronizare - Următorul",
       "syncEnd": "Sincronizare - Încheie",
-      "syncLineStart": "Sincronizare - Începe versul",
-      "syncLineNext": "Sincronizare - Încheie versul și începe următorul",
-      "syncLineEnd": "Sincronizare - Încheie versul",
       "toggleWordHighlight": "Sincronizare - Comută evidențierea cuvântului activ",
       "urbanDictionary": "Editare - Caută în Urban Dictionary",
       "urbanDictionarySync": "Sincronizare - Caută în Urban Dictionary",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Cuvântul anterior",
-    "nextWord": "Cuvântul următor",
-    "startLine": "Începe rândul",
-    "nextLine": "Rândul următor",
-    "endLine": "Încheie rândul"
-  },
-  "lineSync": {
-    "timing": "Sincronizarea melodiei",
-    "timingDesc": "Cum se exportă melodia: Cuvânt când cuvintele au sincronizare proprie, Rând când rândurile au doar început și sfârșit.",
-    "word": "Cuvânt",
-    "line": "Rând",
-    "mixed": "Mixtă",
-    "none": "Nesincronizată",
-    "mixedDesc": "Unele rânduri au doar început și sfârșit, iar altele sunt sincronizate cuvânt cu cuvânt. Spicy Lyrics așteaptă un singur stil pe melodie.",
-    "spreadWords": "Împarte timpul rândurilor pe cuvinte",
-    "clearWords": "Șterge sincronizarea cuvintelor",
-    "previewNotice": "Spicy Lyrics afișează melodiile sincronizate pe rânduri fără voci de fundal și fără părți de duet. Ele se salvează totuși."
+    "nextWord": "Cuvântul următor"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

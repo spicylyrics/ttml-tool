@@ -1,9 +1,6 @@
 import {
 	cmdOpenCommandPalette,
 	cmdOpenCommandPaletteAlternate,
-	cmdSyncLineEnd,
-	cmdSyncLineNext,
-	cmdSyncLineStart,
 } from "$/modules/keyboard/commands";
 import type { KeyBindingCommand } from "$/modules/keyboard/types";
 
@@ -29,21 +26,9 @@ export const PALETTE_COMMAND_IDS: ReadonlySet<string> = new Set([
  * They're pressed in rhythm with the audio, so running one from a search
  * box is never useful.
  */
-export function isSyncCommand(
-	command: Pick<KeyBindingCommand, "id" | "category">,
-) {
-	return command.category === "Sync" && !LINE_SYNC_COMMAND_IDS.has(command.id);
+export function isSyncCommand(command: Pick<KeyBindingCommand, "category">) {
+	return command.category === "Sync";
 }
-
-/**
- * Whole-line timing stays listed so it can be found by name; it's newer than
- * the word keys and works paused too, timing against the playhead.
- */
-const LINE_SYNC_COMMAND_IDS: ReadonlySet<string> = new Set([
-	cmdSyncLineStart.id,
-	cmdSyncLineNext.id,
-	cmdSyncLineEnd.id,
-]);
 
 /**
  * Whether the palette lists a command in an editor mode: it has to run there,

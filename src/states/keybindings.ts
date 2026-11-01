@@ -30,9 +30,6 @@ import {
 	cmdSwitchPreviewMode,
 	cmdSwitchSyncMode,
 	cmdSyncEnd,
-	cmdSyncLineEnd,
-	cmdSyncLineNext,
-	cmdSyncLineStart,
 	cmdSyncNext,
 	cmdSyncStart,
 	cmdToggleWordHighlight,
@@ -78,9 +75,6 @@ export const keyMoveNextWordAndPlayAtom = cmdMoveNextWordAndPlay.atom;
 export const keySyncStartAtom = cmdSyncStart.atom;
 export const keySyncNextAtom = cmdSyncNext.atom;
 export const keySyncEndAtom = cmdSyncEnd.atom;
-export const keySyncLineStartAtom = cmdSyncLineStart.atom;
-export const keySyncLineNextAtom = cmdSyncLineNext.atom;
-export const keySyncLineEndAtom = cmdSyncLineEnd.atom;
 export const keyToggleWordHighlightAtom = cmdToggleWordHighlight.atom;
 export const keyUrbanDictionaryAtom = cmdUrbanDictionary.atom;
 export const keyUrbanDictionarySyncAtom = cmdUrbanDictionarySync.atom;

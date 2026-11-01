@@ -1114,9 +1114,6 @@
       "syncStart": "Timing - Start",
       "syncNext": "Timing - Næste",
       "syncEnd": "Timing - Slut",
-      "syncLineStart": "Timing - Start linje",
-      "syncLineNext": "Timing - Slut linje og start næste",
-      "syncLineEnd": "Timing - Slut linje",
       "toggleWordHighlight": "Timing - Slå fremhævning af aktivt ord til/fra",
       "urbanDictionary": "Rediger - Slå op i Urban Dictionary",
       "urbanDictionarySync": "Timing - Slå op i Urban Dictionary",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Forrige ord",
-    "nextWord": "Næste ord",
-    "startLine": "Start linje",
-    "nextLine": "Næste linje",
-    "endLine": "Slut linje"
-  },
-  "lineSync": {
-    "timing": "Sangens timing",
-    "timingDesc": "Sådan eksporteres sangen: Ord, når ordene har deres egen timing, Linje, når linjerne kun har start og slut.",
-    "word": "Ord",
-    "line": "Linje",
-    "mixed": "Blandet",
-    "none": "Ikke timet",
-    "mixedDesc": "Nogle linjer har kun start og slut, mens andre er timet ord for ord. Spicy Lyrics forventer én stil pr. sang.",
-    "spreadWords": "Fordel linjetider over ordene",
-    "clearWords": "Ryd ordtiming",
-    "previewNotice": "Spicy Lyrics viser linjetimede sange uden baggrundsvokal og uden duetsider. De gemmes stadig."
+    "nextWord": "Næste ord"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -1114,9 +1114,6 @@
       "syncStart": "Sincronización - Iniciar",
       "syncNext": "Sincronización - Siguiente",
       "syncEnd": "Sincronización - Finalizar",
-      "syncLineStart": "Sincronización - Iniciar línea",
-      "syncLineNext": "Sincronización - Terminar línea e iniciar la siguiente",
-      "syncLineEnd": "Sincronización - Terminar línea",
       "toggleWordHighlight": "Sincronización: alternar resaltado de palabra activa",
       "urbanDictionary": "Editar - Buscar en Urban Dictionary",
       "urbanDictionarySync": "Sincronización: buscar en Urban Dictionary",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Palabra anterior",
-    "nextWord": "Palabra siguiente",
-    "startLine": "Iniciar línea",
-    "nextLine": "Línea siguiente",
-    "endLine": "Terminar línea"
-  },
-  "lineSync": {
-    "timing": "Sincronización de la canción",
-    "timingDesc": "Cómo se exporta la canción: Palabra cuando las palabras tienen su propia sincronización, Línea cuando las líneas solo tienen inicio y fin.",
-    "word": "Palabra",
-    "line": "Línea",
-    "mixed": "Mixta",
-    "none": "Sin sincronizar",
-    "mixedDesc": "Algunas líneas solo tienen inicio y fin y otras están sincronizadas palabra por palabra. Spicy Lyrics espera un solo estilo por canción.",
-    "spreadWords": "Repartir el tiempo de cada línea entre sus palabras",
-    "clearWords": "Borrar la sincronización de palabras",
-    "previewNotice": "Spicy Lyrics muestra las canciones sincronizadas por líneas sin voces de fondo ni lados de dúo. Aun así se guardan."
+    "nextWord": "Palabra siguiente"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

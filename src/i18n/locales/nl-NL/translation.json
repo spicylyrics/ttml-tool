@@ -1114,9 +1114,6 @@
       "syncStart": "Timing - Start",
       "syncNext": "Timing - Volgende",
       "syncEnd": "Timing - Einde",
-      "syncLineStart": "Timing - Regel starten",
-      "syncLineNext": "Timing - Regel beëindigen en volgende starten",
-      "syncLineEnd": "Timing - Regel beëindigen",
       "toggleWordHighlight": "Timing - Markering actief woord aan/uit",
       "urbanDictionary": "Bewerken - Opzoeken in Urban Dictionary",
       "urbanDictionarySync": "Timing - Opzoeken in Urban Dictionary",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Vorig woord",
-    "nextWord": "Volgend woord",
-    "startLine": "Regel starten",
-    "nextLine": "Volgende regel",
-    "endLine": "Regel beëindigen"
-  },
-  "lineSync": {
-    "timing": "Timing van het nummer",
-    "timingDesc": "Hoe het nummer wordt geëxporteerd: Woord als woorden hun eigen timing hebben, Regel als regels alleen een begin en einde hebben.",
-    "word": "Woord",
-    "line": "Regel",
-    "mixed": "Gemengd",
-    "none": "Niet getimed",
-    "mixedDesc": "Sommige regels hebben alleen een begin en einde, andere zijn woord voor woord getimed. Spicy Lyrics verwacht één stijl per nummer.",
-    "spreadWords": "Regeltijden over de woorden verdelen",
-    "clearWords": "Woordtiming wissen",
-    "previewNotice": "Spicy Lyrics toont nummers met regeltiming zonder achtergrondzang en zonder duetkanten. Ze worden wel opgeslagen."
+    "nextWord": "Volgend woord"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

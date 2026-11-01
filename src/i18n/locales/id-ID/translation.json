@@ -1114,9 +1114,6 @@
       "syncStart": "Sinkronisasi - Mulai",
       "syncNext": "Sinkronisasi - Berikutnya",
       "syncEnd": "Sinkronisasi - Akhiri",
-      "syncLineStart": "Sinkronisasi - Mulai baris",
-      "syncLineNext": "Sinkronisasi - Akhiri baris dan mulai berikutnya",
-      "syncLineEnd": "Sinkronisasi - Akhiri baris",
       "toggleWordHighlight": "Sinkronisasi - Alihkan sorotan kata aktif",
       "urbanDictionary": "Edit - Cari di Urban Dictionary",
       "urbanDictionarySync": "Sinkronisasi - Cari di Urban Dictionary",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Kata sebelumnya",
-    "nextWord": "Kata berikutnya",
-    "startLine": "Mulai baris",
-    "nextLine": "Baris berikutnya",
-    "endLine": "Akhiri baris"
-  },
-  "lineSync": {
-    "timing": "Waktu lagu",
-    "timingDesc": "Cara lagu diekspor: Kata jika kata punya waktunya sendiri, Baris jika baris hanya punya awal dan akhir.",
-    "word": "Kata",
-    "line": "Baris",
-    "mixed": "Campuran",
-    "none": "Belum diatur waktunya",
-    "mixedDesc": "Sebagian baris hanya punya awal dan akhir, sementara yang lain diatur per kata. Spicy Lyrics mengharapkan satu gaya per lagu.",
-    "spreadWords": "Bagi waktu baris ke kata-katanya",
-    "clearWords": "Hapus waktu kata",
-    "previewNotice": "Spicy Lyrics menampilkan lagu dengan waktu per baris tanpa vokal latar dan tanpa sisi duet. Semuanya tetap disimpan."
+    "nextWord": "Kata berikutnya"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

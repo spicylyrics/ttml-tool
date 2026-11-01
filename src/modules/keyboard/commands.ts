@@ -248,28 +248,6 @@ export const cmdSyncEnd = registerCommand(
 	"Sync",
 );
 
-// Whole-line timing: F, G and H with Alt, so the plain keys stay word sync.
-export const cmdSyncLineStart = registerCommand(
-	"syncLineStart",
-	["Alt", "KeyF"],
-	t("settingsDialog.keybindings.syncLineStart"),
-	"Sync",
-);
-
-export const cmdSyncLineNext = registerCommand(
-	"syncLineNext",
-	["Alt", "KeyG"],
-	t("settingsDialog.keybindings.syncLineNext"),
-	"Sync",
-);
-
-export const cmdSyncLineEnd = registerCommand(
-	"syncLineEnd",
-	["Alt", "KeyH"],
-	t("settingsDialog.keybindings.syncLineEnd"),
-	"Sync",
-);
-
 export const cmdToggleWordHighlight = registerCommand(
 	"toggleWordHighlight",
 	["KeyK"],

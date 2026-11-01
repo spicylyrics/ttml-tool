@@ -1114,9 +1114,6 @@
       "syncStart": "Zamanlama - Başlat",
       "syncNext": "Zamanlama - Sonraki",
       "syncEnd": "Zamanlama - Bitir",
-      "syncLineStart": "Zamanlama - Satırı başlat",
-      "syncLineNext": "Zamanlama - Satırı bitir ve sonrakini başlat",
-      "syncLineEnd": "Zamanlama - Satırı bitir",
       "toggleWordHighlight": "Zamanlama - Etkin kelime vurgusunu aç/kapat",
       "urbanDictionary": "Düzenle - Urban Dictionary'de ara",
       "urbanDictionarySync": "Zamanlama - Urban Dictionary'de ara",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Önceki kelime",
-    "nextWord": "Sonraki kelime",
-    "startLine": "Satırı başlat",
-    "nextLine": "Sonraki satır",
-    "endLine": "Satırı bitir"
-  },
-  "lineSync": {
-    "timing": "Şarkı zamanlaması",
-    "timingDesc": "Şarkının nasıl dışa aktarılacağı: Kelimelerin kendi zamanlaması varsa Kelime, satırların yalnızca başı ve sonu varsa Satır.",
-    "word": "Kelime",
-    "line": "Satır",
-    "mixed": "Karışık",
-    "none": "Zamanlanmamış",
-    "mixedDesc": "Bazı satırların yalnızca başı ve sonu var, diğerleri kelime kelime zamanlanmış. Spicy Lyrics şarkı başına tek bir stil bekler.",
-    "spreadWords": "Satır sürelerini kelimelere dağıt",
-    "clearWords": "Kelime zamanlamasını temizle",
-    "previewNotice": "Spicy Lyrics satır zamanlı şarkıları arka vokaller ve düet tarafları olmadan gösterir. Yine de kaydedilirler."
+    "nextWord": "Sonraki kelime"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

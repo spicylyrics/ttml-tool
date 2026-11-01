@@ -106,7 +106,6 @@ import AudioControls from "./modules/audio/components/index.tsx";
 import { useAudioFeedback } from "./modules/audio/hooks/useAudioFeedback.ts";
 import { DiscordPresence } from "./modules/discord-presence/DiscordPresence";
 import { MigrationNotice } from "./modules/domain-migration/MigrationNotice";
-import { LineSyncKeyBinding } from "./modules/line-sync/LineSyncKeyBinding.tsx";
 import { LogoColorStyle } from "./modules/logo-color/LogoColorStyle";
 import { SyncKeyBinding } from "./modules/lyric-editor/components/sync-keybinding.tsx";
 import { UrbanDictionaryKeybinding } from "./modules/lyric-editor/components/urban-dictionary-keybinding.tsx";
@@ -725,12 +724,7 @@ function App() {
 					<div className={styles.appContent}>
 						<AutosaveManager />
 						<GlobalDragOverlay />
-						{toolMode === ToolMode.Sync && (
-							<>
-								<SyncKeyBinding />
-								<LineSyncKeyBinding />
-							</>
-						)}
+						{toolMode === ToolMode.Sync && <SyncKeyBinding />}
 						<UrbanDictionaryKeybinding />
 						<DarkThemeDetector />
 						<LogoColorStyle />

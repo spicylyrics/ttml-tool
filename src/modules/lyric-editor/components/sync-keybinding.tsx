@@ -11,12 +11,22 @@ import {
 	isInSyncLane,
 	isSynchronizableLine,
 } from "$/modules/lyric-editor/utils/lyric-states";
+import { calculateSyncTime } from "$/modules/lyric-editor/utils/sync-timing";
 import {
 	highlightActiveWordAtom,
 	smartLastWordAtom,
+	syncJudgeModeAtom,
 } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
-import { syncCommitOffsetAtom } from "$/modules/settings/states/sync";
+import {
+	spectrogramHoverSyncEnabledAtom,
+	syncCommitOffsetAtom,
+	syncTimeOffsetAtom,
+} from "$/modules/settings/states/sync";
+import {
+	spectrogramHoverTimeMsAtom,
+	spectrogramIsHoveringAtom,
+} from "$/modules/spectrogram/states";
 import {
 	keyMoveFirstWordAndPlayAtom,
 	keyMoveLastWordAndPlayAtom,
@@ -37,8 +47,10 @@ import {
 	selectedWordsAtom,
 } from "$/states/main.ts";
 import type { LyricLine, LyricWord, TTMLLyric } from "$/types/ttml";
-import { useKeyBindingAtom } from "$/utils/keybindings.ts";
-import { useSyncJudgeTime } from "./use-sync-judge-time";
+import {
+	type KeyBindingEvent,
+	useKeyBindingAtom,
+} from "$/utils/keybindings.ts";
 
 const getUnitStartTime = (unit: { word: LyricWord }) => unit.word.startTime;
 
@@ -79,7 +91,31 @@ function setUnitEndTimeCloned(
 export const SyncKeyBinding: FC = () => {
 	const store = useStore();
 
-	const calcJudgeTime = useSyncJudgeTime();
+	const calcJudgeTime = useCallback(
+		(evt: KeyBindingEvent, actionOffset = 0) => {
+			const spectrogramHoverSync = store.get(spectrogramHoverSyncEnabledAtom);
+			const isSpectrogramHovering = store.get(spectrogramIsHoveringAtom);
+			if (spectrogramHoverSync && isSpectrogramHovering) {
+				const hoverTimeMs = Math.round(store.get(spectrogramHoverTimeMsAtom));
+				if (hoverTimeMs >= 0) {
+					return hoverTimeMs;
+				}
+			}
+
+			return calculateSyncTime({
+				audioTimeSeconds: audioEngine.interpolatedCurrentTime,
+				playbackRate: audioEngine.musicPlayBackRate,
+				isPlaying: audioEngine.musicPlaying,
+				event: evt,
+				judgeMode: store.get(syncJudgeModeAtom),
+				syncTimeOffset: store.get(syncTimeOffsetAtom),
+				actionOffset,
+				performanceTime: performance.now(),
+				performanceTimeOrigin: performance.timeOrigin,
+			});
+		},
+		[store],
+	);
 
 	const moveToNextWordBase = useCallback(
 		(play: boolean): boolean => {

@@ -1114,9 +1114,6 @@
       "syncStart": "Timing - Start",
       "syncNext": "Timing - Next",
       "syncEnd": "Timing - End",
-      "syncLineStart": "Timing - Start line",
-      "syncLineNext": "Timing - End line and start next",
-      "syncLineEnd": "Timing - End line",
       "toggleWordHighlight": "Timing - Toggle active word highlight",
       "urbanDictionary": "Edit - Look up in Urban Dictionary",
       "urbanDictionarySync": "Timing - Look up in Urban Dictionary",
@@ -1407,22 +1404,7 @@
   },
   "touchSyncPanel": {
     "prevWord": "Previous word",
-    "nextWord": "Next word",
-    "startLine": "Start line",
-    "nextLine": "Next line",
-    "endLine": "End line"
-  },
-  "lineSync": {
-    "timing": "Song timing",
-    "timingDesc": "How the song exports: Word when words have their own timing, Line when lines only have a start and end.",
-    "word": "Word",
-    "line": "Line",
-    "mixed": "Mixed",
-    "none": "Not timed",
-    "mixedDesc": "Some lines have only a start and end while others are timed word by word. Spicy Lyrics expects one style per song.",
-    "spreadWords": "Spread line times across words",
-    "clearWords": "Clear word timing",
-    "previewNotice": "Spicy Lyrics shows line-timed songs without background vocals or duet sides. They are still saved."
+    "nextWord": "Next word"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -3,7 +3,6 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
-import { LineTimingPreviewNotice } from "$/modules/line-sync/LineTimingPreviewNotice";
 import { PreviewProblemsBanner } from "$/modules/preview-problems/PreviewProblemsBanner";
 import {
 	PreviewModeType,
@@ -50,7 +49,6 @@ export const PreviewModeSwitcher = () => {
 				</Flex>
 			)}
 			<PreviewProblemsBanner />
-			<LineTimingPreviewNotice />
 			<Flex
 				flexGrow="1"
 				direction="column"

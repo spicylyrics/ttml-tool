@@ -22,16 +22,30 @@ import {
 } from "../../../utils/apostrophe-normalization.ts";
 import { log } from "../../../utils/logging.ts";
 import { msToTimestamp } from "../../../utils/timestamp.ts";
-import {
-	getSongTiming,
-	isLineOnly,
-	lineText,
-} from "../../line-sync/line-timing.ts";
 
 export function shouldExportAsLineSynced(line: LyricLine): boolean {
 	if (!line.isLineSynced) return false;
 
 	return line.words.filter((word) => word.word.trim().length > 0).length <= 1;
+}
+
+/**
+ * The root's itunes:timing, matching how the lines are written: Line when
+ * every timed line is written as plain text, Word when any is written as
+ * timed words, None when nothing is timed. Counting words instead called a
+ * song of one-word lines synced word by word Line.
+ */
+export function getITunesTiming(lines: LyricLine[]): "Word" | "Line" | "None" {
+	const timedLines = lines.filter((line) =>
+		shouldExportAsLineSynced(line)
+			? line.endTime > line.startTime ||
+				line.words.some((w) => w.endTime > w.startTime)
+			: line.words.some(
+					(w) => w.word.trim().length > 0 && w.endTime > w.startTime,
+				),
+	);
+	if (timedLines.length === 0) return "None";
+	return timedLines.every(shouldExportAsLineSynced) ? "Line" : "Word";
 }
 
 export function collectFollowingBackgroundLines(
@@ -143,23 +157,7 @@ export default function exportTTMLText(
 		"http://music.apple.com/lyric-ttml-internal",
 	);
 
-	// itunes:timing for Spicy Lyrics. Line when no word has timing of its own,
-	// so every line is written as plain text with its start and end. A Mixed
-	// song is Word, and its lines timed only as a whole are written as text so
-	// they still show (the linter flags the mix). None when nothing is timed.
-	const songTiming = getSongTiming(lyric);
-	const lineTimed = songTiming === "line";
-	const timingMode = lineTimed
-		? "Line"
-		: songTiming === "none"
-			? "None"
-			: "Word";
-	ttRoot.setAttribute("itunes:timing", timingMode);
-	const writeAsText = (line: LyricLine) =>
-		lineTimed || shouldExportAsLineSynced(line) || isLineOnly(line);
-	// Background lines timed on their own keep their bounds when written as text.
-	const keepsOwnBounds = (line: LyricLine) =>
-		lineTimed || (!line.isLineSynced && isLineOnly(line));
+	ttRoot.setAttribute("itunes:timing", getITunesTiming(lyric));
 
 	doc.appendChild(ttRoot);
 
@@ -284,8 +282,10 @@ export default function exportTTMLText(
 
 			if (exportAsStandaloneBackground) {
 				// The line is emitted below as x-bg inside an otherwise empty p.
-			} else if (writeAsText(line)) {
-				lineP.appendChild(doc.createTextNode(lineText(line)));
+			} else if (shouldExportAsLineSynced(line)) {
+				lineP.appendChild(
+					doc.createTextNode(line.words.map((word) => word.word).join("")),
+				);
 			} else {
 				for (const word of line.words) {
 					if (word.word.trim().length === 0) {
@@ -323,12 +323,12 @@ export default function exportTTMLText(
 				const bgLineSpan = doc.createElement("span");
 				bgLineSpan.setAttribute("ttm:role", "x-bg");
 
-				if (writeAsText(bgLine)) {
-					if (keepsOwnBounds(bgLine) && bgLine.endTime > bgLine.startTime) {
-						bgLineSpan.setAttribute("begin", msToTimestamp(bgLine.startTime));
-						bgLineSpan.setAttribute("end", msToTimestamp(bgLine.endTime));
-					}
-					bgLineSpan.appendChild(doc.createTextNode(`(${lineText(bgLine)})`));
+				if (shouldExportAsLineSynced(bgLine)) {
+					bgLineSpan.appendChild(
+						doc.createTextNode(
+							`(${bgLine.words.map((word) => word.word).join("")})`,
+						),
+					);
 				} else {
 					let beginTime = Number.POSITIVE_INFINITY;
 					let endTime = 0;
