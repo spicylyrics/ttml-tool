@@ -72,8 +72,9 @@
 	display: flex;
 }
 
-.divider:hover .meta,
-.divider:focus-within .meta,
+/* The count makes room for the tools; rows without tools keep it. */
+.divider:has(.actions):hover .meta,
+.divider:has(.actions):focus-within .meta,
 .divider:has([data-state="open"]) .meta {
 	display: none;
 }
