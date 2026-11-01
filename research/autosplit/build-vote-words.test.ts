@@ -8,6 +8,7 @@
  * AUTOSPLIT_WORDS=<words.jsonl> AUTOSPLIT_VOTE_OUT=<file.json> pnpm exec vitest run research/autosplit/build-vote-words
  */
 import { readFileSync, writeFileSync } from "node:fs";
+import nlp from "compromise";
 import { franc } from "franc-min";
 import { it } from "vitest";
 import prosodicDictionary from "$/modules/segmentation/data/prosodic-dict.json";
@@ -134,6 +135,8 @@ it.skipIf(!wordsPath || !outPath)(
 
 		// lowercase core -> split string -> songs using it
 		const corpus = new Map<string, Map<string, Set<string>>>();
+		// lowercase core -> spelling as written -> songs using it
+		const casing = new Map<string, Map<string, Set<string>>>();
 		for (const row of rows) {
 			if (!english.has(row.file)) continue;
 			const word = core(row.word);
@@ -158,7 +161,31 @@ it.skipIf(!wordsPath || !outPath)(
 			songs.add(songKey(row.file));
 			variants.set(split, songs);
 			corpus.set(key, variants);
+			const forms = casing.get(key) ?? new Map<string, Set<string>>();
+			const formSongs = forms.get(word) ?? new Set<string>();
+			formSongs.add(songKey(row.file));
+			forms.set(word, formSongs);
+			casing.set(key, forms);
 		}
+
+		// Show names as names (`Johnny`, `Kentucky`). Makers capitalize line
+		// starts too, and a chorus repeats one song's lines many times, so a
+		// word counts as a name from the TTMLs only when every song (3 or more)
+		// capitalizes it and the parser doesn't call it a common word.
+		const displayCase = (key: string) => {
+			const tags = (nlp(key).json()[0] as { terms: { tags: string[] }[] } | undefined)
+				?.terms[0]?.tags ?? [];
+			const capitalized = `${key[0].toUpperCase()}${key.slice(1)}`;
+			if (tags.some((t) => NAME_TAGS.has(t))) return capitalized;
+			const forms = [...(casing.get(key) ?? new Map<string, Set<string>>())];
+			const songs = new Set(forms.flatMap(([, s]) => [...s]));
+			const lowerSongs = new Set(
+				forms.filter(([form]) => !/^\p{Lu}/u.test(form)).flatMap(([, s]) => [...s]),
+			);
+			if (songs.size >= 3 && lowerSongs.size === 0 && !tags.some((t) => COMMON_TAGS.has(t)))
+				return forms.sort((a, b) => b[1].size - a[1].size)[0][0];
+			return key;
+		};
 
 		const hyphenate = await loadHyphenator("en-us");
 		const engineSplit = (word: string, engine: SegmentationEngineId) => {
@@ -264,7 +291,7 @@ it.skipIf(!wordsPath || !outPath)(
 			.filter(({ key, songs }) => songs >= 2 || dictionary.has(key))
 			.sort((a, b) => b.songs - a.songs || a.key.localeCompare(b.key))
 			.slice(0, CORPUS_COUNT);
-		for (const { key } of frequent) addWord(key, "corpus");
+		for (const { key } of frequent) addWord(displayCase(key), "corpus");
 
 		// Fill with dictionary words, round-robin across spelling patterns in
 		// frequency order, so rare patterns get as many words as common ones.
@@ -286,7 +313,7 @@ it.skipIf(!wordsPath || !outPath)(
 				if (entries.length >= TARGET) break;
 				while (queue.words.length) {
 					const word = queue.words.shift() as string;
-					if (addWord(word, `dictionary: ${queue.pattern}`)) break;
+					if (addWord(displayCase(word), `dictionary: ${queue.pattern}`)) break;
 				}
 			}
 		}
@@ -309,6 +336,14 @@ it.skipIf(!wordsPath || !outPath)(
 );
 
 const dictionary = new Set(Object.keys(prosodicDictionary));
+// Parser tags that mean a capitalized name. A bare `FirstName` isn't enough:
+// `mark`, `grace` and `jack` get it too.
+const NAME_TAGS = new Set(
+	"MaleName FemaleName Place Country City Region WeekDay Month".split(" "),
+);
+const COMMON_TAGS = new Set(
+	"Expression Pronoun Determiner Conjunction Preposition Verb Adverb".split(" "),
+);
 const CONTRACTION_FRAGMENTS = new Set(
 	"aren couldn didn doesn hadn hasn isn mightn mustn needn oughtn shouldn wasn weren wouldn".split(
 		" ",
