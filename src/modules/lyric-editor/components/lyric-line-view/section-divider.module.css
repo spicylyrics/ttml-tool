@@ -72,10 +72,11 @@
 	display: flex;
 }
 
-/* The count makes room for the tools; rows without tools keep it. */
-.divider:has(.actions):hover .meta,
-.divider:has(.actions):focus-within .meta,
-.divider:has([data-state="open"]) .meta {
+/* The count makes room for a section's tools. The No section row has only a
+   small menu and plenty of room, so it keeps its count. */
+.divider:not([data-unsectioned]):has(.actions):hover .meta,
+.divider:not([data-unsectioned]):has(.actions):focus-within .meta,
+.divider:not([data-unsectioned]):has([data-state="open"]) .meta {
 	display: none;
 }
 

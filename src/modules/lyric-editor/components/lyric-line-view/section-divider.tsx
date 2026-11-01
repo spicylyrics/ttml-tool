@@ -40,6 +40,7 @@ import {
 import {
 	getSectionBoundsById,
 	mergeSectionWithAdjacent,
+	mergeUnassignedBlock,
 	removeSectionMetadata,
 } from "../../utils/section-system.ts";
 import { lastLineDragEndAtom } from "../lyric-line-view-states.ts";
@@ -190,6 +191,8 @@ function UnsectionedRow({ lineIndex }: { lineIndex: number }) {
 	const store = useStore();
 	// Like a section's row: a click on the row (not its controls) selects the stretch.
 	const selectStretch = (event: React.MouseEvent) => {
+		// Menu clicks bubble here through React's portal too; only the row counts.
+		if (!event.currentTarget.contains(event.target as Node)) return;
 		if ((event.target as Element).closest("button")) return;
 		const lines = store.get(lyricLinesAtom).lyricLines;
 		const ids = new Set<string>();
@@ -197,39 +200,88 @@ function UnsectionedRow({ lineIndex }: { lineIndex: number }) {
 			ids.add(lines[i].id);
 		store.set(selectedLinesAtom, ids);
 	};
+	// The row only shows after a section ends or at the very top, so anything
+	// but the first line has a section above to merge into.
+	const hasPrevious = lineIndex > 0;
+	const mergePrevious = () =>
+		editLyrics((draft) => {
+			mergeUnassignedBlock(draft, lineIndex, "previous");
+		});
+	const editMode = toolMode === ToolMode.Edit;
+	const mergeLabel = t("sectionActions.mergePrevious", "Merge with previous");
+	const startLabel = t("sectionEditing.startHere", "Start section here");
 	return (
-		<div
-			className={styles.divider}
-			onClick={selectStretch}
-			onContextMenu={(event) => event.preventDefault()}
-		>
-			{lineId ? (
-				<CollapseToggle collapseKey={`unsectioned:${lineId}`} />
-			) : (
-				<span className={styles.chevronSpace} />
-			)}
-			<SectionPill
-				size="1"
-				category={undefined}
-				className={`${styles.label} ${styles.unsectioned}`}
-				title={
-					toolMode === ToolMode.Edit
-						? t("sectionEditing.startHere", "Start section here")
-						: undefined
-				}
-				onClick={toolMode === ToolMode.Edit ? startSection : undefined}
-			>
-				{t("sectionEditing.noSection", "No section")}
-			</SectionPill>
-			<span className={styles.meta}>
-				{t(
-					"sectionImportReview.lineCount",
-					"{count, plural, one {# lyric line} other {# lyric lines}}",
-					{ count: lineCount },
-				)}
-			</span>
-			<span className={styles.rule} aria-hidden />
-		</div>
+		// Restructuring is Edit mode's job, so the menus only exist there.
+		<ContextMenu.Root>
+			<ContextMenu.Trigger disabled={!editMode}>
+				<div
+					className={styles.divider}
+					data-unsectioned
+					onClick={selectStretch}
+					onContextMenu={
+						editMode ? undefined : (event) => event.preventDefault()
+					}
+				>
+					{lineId ? (
+						<CollapseToggle collapseKey={`unsectioned:${lineId}`} />
+					) : (
+						<span className={styles.chevronSpace} />
+					)}
+					<SectionPill
+						size="1"
+						category={undefined}
+						className={`${styles.label} ${styles.unsectioned}`}
+						title={editMode ? startLabel : undefined}
+						onClick={editMode ? startSection : undefined}
+					>
+						{t("sectionEditing.noSection", "No section")}
+					</SectionPill>
+					<span className={styles.meta}>
+						{t(
+							"sectionImportReview.lineCount",
+							"{count, plural, one {# lyric line} other {# lyric lines}}",
+							{ count: lineCount },
+						)}
+					</span>
+					{editMode && (
+						<div className={styles.actions}>
+							<DropdownMenu.Root>
+								<DropdownMenu.Trigger>
+									<IconButton
+										size="1"
+										variant="ghost"
+										color="gray"
+										aria-label={t("sectionEditing.menu", "Section actions")}
+									>
+										<MoreHorizontal16Regular />
+									</IconButton>
+								</DropdownMenu.Trigger>
+								<DropdownMenu.Content align="start">
+									<DropdownMenu.Item
+										disabled={!hasPrevious}
+										onSelect={mergePrevious}
+									>
+										{mergeLabel}
+									</DropdownMenu.Item>
+									<DropdownMenu.Item onSelect={startSection}>
+										{startLabel}
+									</DropdownMenu.Item>
+								</DropdownMenu.Content>
+							</DropdownMenu.Root>
+						</div>
+					)}
+					<span className={styles.rule} aria-hidden />
+				</div>
+			</ContextMenu.Trigger>
+			<ContextMenu.Content>
+				<ContextMenu.Item disabled={!hasPrevious} onSelect={mergePrevious}>
+					{mergeLabel}
+				</ContextMenu.Item>
+				<ContextMenu.Item onSelect={startSection}>
+					{startLabel}
+				</ContextMenu.Item>
+			</ContextMenu.Content>
+		</ContextMenu.Root>
 	);
 }
 
