@@ -17,27 +17,11 @@ const customBackgroundDbPromise = openDB(CUSTOM_BACKGROUND_DB, 1, {
 		}
 	},
 });
-const readLegacyCustomBackground = async () => {
-	try {
-		const raw = localStorage.getItem("customBackgroundImage");
-		if (!raw) return null;
-		const parsed = JSON.parse(raw) as string | null;
-		if (!parsed || typeof parsed !== "string") {
-			localStorage.removeItem("customBackgroundImage");
-			return null;
-		}
-		if (!parsed.startsWith("data:")) {
-			localStorage.removeItem("customBackgroundImage");
-			return null;
-		}
-		const response = await fetch(parsed);
-		const blob = await response.blob();
-		localStorage.removeItem("customBackgroundImage");
-		return blob;
-	} catch {
-		return null;
-	}
-};
+// Versions before 2026-02 kept the image here as a data URL. It is no longer
+// read; drop it so it stops using up the storage quota.
+try {
+	localStorage.removeItem("customBackgroundImage");
+} catch {}
 export const customBackgroundImageKeyAtom = atomWithStorage<string | null>(
 	"customBackgroundImageKey",
 	"main",
@@ -65,19 +49,7 @@ export const readCustomBackgroundBlob = async (
 			| undefined;
 		if (record?.blob) return record.blob;
 	} catch {}
-	if (key !== CUSTOM_BACKGROUND_KEY) return null;
-	const legacy = await readLegacyCustomBackground();
-	if (!legacy) return null;
-	try {
-		const db = await customBackgroundDbPromise;
-		const record: CustomBackgroundRecord = {
-			key: CUSTOM_BACKGROUND_KEY,
-			blob: legacy,
-			updatedAt: Date.now(),
-		};
-		await db.put(CUSTOM_BACKGROUND_STORE, record);
-	} catch {}
-	return legacy;
+	return null;
 };
 export const writeCustomBackgroundBlob = async (
 	blob: Blob | null,
