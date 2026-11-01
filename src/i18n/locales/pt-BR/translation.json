@@ -1407,9 +1407,21 @@
   },
   "touchSyncPanel": {
     "prevWord": "Palavra anterior",
-    "nextWord": "Próxima palavra"
+    "nextWord": "Próxima palavra",
+    "startLine": "Iniciar linha",
+    "nextLine": "Próxima linha",
+    "endLine": "Encerrar linha"
   },
   "lineSync": {
+    "timing": "Sincronização da música",
+    "timingDesc": "Como a música é exportada: Palavra quando as palavras têm sincronização própria, Linha quando as linhas só têm início e fim.",
+    "word": "Palavra",
+    "line": "Linha",
+    "mixed": "Mista",
+    "none": "Sem sincronização",
+    "mixedDesc": "Algumas linhas só têm início e fim, enquanto outras estão sincronizadas palavra por palavra. O Spicy Lyrics espera um estilo por música.",
+    "spreadWords": "Distribuir o tempo das linhas entre as palavras",
+    "clearWords": "Limpar a sincronização das palavras",
     "previewNotice": "O Spicy Lyrics mostra músicas sincronizadas por linha sem vocais de fundo e sem lados de dueto. Eles continuam salvos."
   },
   "urbanDictionary": {

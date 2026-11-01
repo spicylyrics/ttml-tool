@@ -53,7 +53,7 @@ flatpak override --user --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 io.github.spicyl
 - **Combine Words Across Lyrics** — Preview a word combination, apply it to matching sequences throughout the project, and optionally ignore case and surrounding punctuation.
 - **Header-Free Timing Tools** — Copy line and word timings onto existing lyrics or snap any selected timing block to the playhead without relying on imported Genius headers.
 - **Remembered Desktop Window** — Restore the previous window size, maximized state, and fullscreen state across desktop app launches without persisting its position or visibility.
-- **Line Timing** — Start line and End line actions time whole lines from the command palette or your own shortcuts, and a song with no word timing exports as line-synced TTML with a matching Spicy Lyrics preview.
+- **Line Timing** — Time whole lines with Alt+F/G/H, the touch panel or the command palette. The Time ribbon shows whether a song exports as Word or Line, a song with no word timing exports as line-synced TTML with a matching Spicy Lyrics preview, and a song that mixes both offers a one-click fix.
 - **Inline Time-Tab Editing** — Double-click a synced word to edit it directly in Time mode, or edit per-word romanizations inline when displayed.
 - **TTML Checklist** — Maintain a persistent local queue of songs to sync with notes, progress tracking, and completed history.
 - **Smarter Lyrics Splitting** — Choose dedicated syllabification engines for English, Polish, Spanish, French, German, Indonesian, Italian, Portuguese, Russian, Japanese, and CJK lyrics; Auto Segment suggests an engine from the lyric language, while legacy fallbacks remain available.

@@ -3,6 +3,6 @@ type: feature
 impact: 4
 highlight: true
 ---
-Time whole lines with Start line and End line
+Time whole lines with Alt+F, Alt+G and Alt+H
 
-Run them from the command palette in Time mode or give them shortcuts; they set a line's start and end only
+Start line, Next line and End line set a line's start and end only, from the keys, the touch panel or the palette

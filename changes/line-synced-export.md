@@ -3,6 +3,6 @@ type: feature
 impact: 3
 highlight: false
 ---
-Songs timed only by line export as line-synced TTML
+The Time ribbon shows whether a song exports Word or Line
 
-When no word has its own timing, each line is saved as plain text and the preview shows it the way Spicy Lyrics will
+Songs with only line times export line-synced, and a Mixed song offers to spread line times or clear word timing

@@ -1407,9 +1407,21 @@
   },
   "touchSyncPanel": {
     "prevWord": "Önceki kelime",
-    "nextWord": "Sonraki kelime"
+    "nextWord": "Sonraki kelime",
+    "startLine": "Satırı başlat",
+    "nextLine": "Sonraki satır",
+    "endLine": "Satırı bitir"
   },
   "lineSync": {
+    "timing": "Şarkı zamanlaması",
+    "timingDesc": "Şarkının nasıl dışa aktarılacağı: Kelimelerin kendi zamanlaması varsa Kelime, satırların yalnızca başı ve sonu varsa Satır.",
+    "word": "Kelime",
+    "line": "Satır",
+    "mixed": "Karışık",
+    "none": "Zamanlanmamış",
+    "mixedDesc": "Bazı satırların yalnızca başı ve sonu var, diğerleri kelime kelime zamanlanmış. Spicy Lyrics şarkı başına tek bir stil bekler.",
+    "spreadWords": "Satır sürelerini kelimelere dağıt",
+    "clearWords": "Kelime zamanlamasını temizle",
     "previewNotice": "Spicy Lyrics satır zamanlı şarkıları arka vokaller ve düet tarafları olmadan gösterir. Yine de kaydedilirler."
   },
   "urbanDictionary": {

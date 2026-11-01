@@ -1407,9 +1407,21 @@
   },
   "touchSyncPanel": {
     "prevWord": "Předchozí slovo",
-    "nextWord": "Další slovo"
+    "nextWord": "Další slovo",
+    "startLine": "Začátek řádku",
+    "nextLine": "Další řádek",
+    "endLine": "Konec řádku"
   },
   "lineSync": {
+    "timing": "Časování skladby",
+    "timingDesc": "Jak se skladba exportuje: Slovo, když mají slova vlastní časování, Řádek, když mají řádky jen začátek a konec.",
+    "word": "Slovo",
+    "line": "Řádek",
+    "mixed": "Smíšené",
+    "none": "Bez časování",
+    "mixedDesc": "Některé řádky mají jen začátek a konec, jiné jsou časované po slovech. Spicy Lyrics čeká jeden styl na skladbu.",
+    "spreadWords": "Rozložit časy řádků do slov",
+    "clearWords": "Vymazat časování slov",
     "previewNotice": "Spicy Lyrics zobrazuje skladby časované po řádcích bez doprovodných vokálů a bez stran duetu. Uloží se ale i tak."
   },
   "urbanDictionary": {

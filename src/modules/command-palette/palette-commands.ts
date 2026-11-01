@@ -36,8 +36,8 @@ export function isSyncCommand(
 }
 
 /**
- * Whole-line timing ships with no shortcut, so the palette is how it's found
- * and run until one is set. It times against the playhead like the keys do.
+ * Whole-line timing stays listed so it can be found by name; it's newer than
+ * the word keys and works paused too, timing against the playhead.
  */
 const LINE_SYNC_COMMAND_IDS: ReadonlySet<string> = new Set([
 	cmdSyncLineStart.id,

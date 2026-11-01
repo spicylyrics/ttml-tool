@@ -6,6 +6,9 @@ import {
 	keyMoveNextWordAtom,
 	keyMovePrevWordAtom,
 	keySyncEndAtom,
+	keySyncLineEndAtom,
+	keySyncLineNextAtom,
+	keySyncLineStartAtom,
 	keySyncNextAtom,
 	keySyncStartAtom,
 } from "$/states/keybindings.ts";
@@ -37,7 +40,7 @@ export const TouchSyncPanel: FC = () => {
 			mt="0"
 			style={{ flexShrink: "0" }}
 		>
-			<Grid rows="2" columns="6" gap="2" className={styles.syncButtons}>
+			<Grid rows="3" columns="6" gap="2" className={styles.syncButtons}>
 				<Button
 					variant="soft"
 					size="4"
@@ -77,6 +80,30 @@ export const TouchSyncPanel: FC = () => {
 					{...pressProps(keySyncEndAtom)}
 				>
 					{t("ribbonBar.syncMode.endSync", "End")}
+				</Button>
+				<Button
+					variant="soft"
+					size="4"
+					style={{ gridColumn: "span 2" }}
+					{...pressProps(keySyncLineStartAtom)}
+				>
+					{t("touchSyncPanel.startLine", "Start line")}
+				</Button>
+				<Button
+					variant="soft"
+					size="4"
+					style={{ gridColumn: "span 2" }}
+					{...pressProps(keySyncLineNextAtom)}
+				>
+					{t("touchSyncPanel.nextLine", "Next line")}
+				</Button>
+				<Button
+					variant="soft"
+					size="4"
+					style={{ gridColumn: "span 2" }}
+					{...pressProps(keySyncLineEndAtom)}
+				>
+					{t("touchSyncPanel.endLine", "End line")}
 				</Button>
 			</Grid>
 		</Card>

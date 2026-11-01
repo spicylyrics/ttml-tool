@@ -1,8 +1,13 @@
 import { atom } from "jotai";
 import { lyricLinesAtom } from "$/states/main";
-import { isLineTimedSong } from "./line-timing";
+import { getSongTiming } from "./line-timing";
 
-/** Whether the open song exports as line-timed; a primitive, so readers skip edits that don't change it. */
-export const songExportsLineTimedAtom = atom((get) =>
-	isLineTimedSong(get(lyricLinesAtom).lyricLines),
+/** How the open song is timed, so how it exports; a primitive, so readers skip edits that don't change it. */
+export const songTimingAtom = atom((get) =>
+	getSongTiming(get(lyricLinesAtom).lyricLines),
+);
+
+/** Whether the open song exports as line-timed. */
+export const songExportsLineTimedAtom = atom(
+	(get) => get(songTimingAtom) === "line",
 );

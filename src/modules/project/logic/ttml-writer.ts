@@ -22,7 +22,11 @@ import {
 } from "../../../utils/apostrophe-normalization.ts";
 import { log } from "../../../utils/logging.ts";
 import { msToTimestamp } from "../../../utils/timestamp.ts";
-import { isLineTimedSong, lineText } from "../../line-sync/line-timing.ts";
+import {
+	getSongTiming,
+	isLineOnly,
+	lineText,
+} from "../../line-sync/line-timing.ts";
 
 export function shouldExportAsLineSynced(line: LyricLine): boolean {
 	if (!line.isLineSynced) return false;
@@ -140,16 +144,22 @@ export default function exportTTMLText(
 	);
 
 	// itunes:timing for Spicy Lyrics. Line when no word has timing of its own,
-	// so every line is written as plain text with its start and end. None when
-	// no word is timed at all, as before.
-	const lineTimed = isLineTimedSong(lyric);
-	const hasAnyTiming = lyric.some((l) =>
-		l.words.some((w) => w.word.trim().length > 0 && w.endTime > w.startTime),
-	);
-	const timingMode = lineTimed ? "Line" : hasAnyTiming ? "Word" : "None";
+	// so every line is written as plain text with its start and end. A Mixed
+	// song is Word, and its lines timed only as a whole are written as text so
+	// they still show (the linter flags the mix). None when nothing is timed.
+	const songTiming = getSongTiming(lyric);
+	const lineTimed = songTiming === "line";
+	const timingMode = lineTimed
+		? "Line"
+		: songTiming === "none"
+			? "None"
+			: "Word";
 	ttRoot.setAttribute("itunes:timing", timingMode);
 	const writeAsText = (line: LyricLine) =>
-		lineTimed || shouldExportAsLineSynced(line);
+		lineTimed || shouldExportAsLineSynced(line) || isLineOnly(line);
+	// Background lines timed on their own keep their bounds when written as text.
+	const keepsOwnBounds = (line: LyricLine) =>
+		lineTimed || (!line.isLineSynced && isLineOnly(line));
 
 	doc.appendChild(ttRoot);
 
@@ -314,8 +324,7 @@ export default function exportTTMLText(
 				bgLineSpan.setAttribute("ttm:role", "x-bg");
 
 				if (writeAsText(bgLine)) {
-					// A line-timed song times background lines on their own; keep it.
-					if (lineTimed && bgLine.endTime > bgLine.startTime) {
+					if (keepsOwnBounds(bgLine) && bgLine.endTime > bgLine.startTime) {
 						bgLineSpan.setAttribute("begin", msToTimestamp(bgLine.startTime));
 						bgLineSpan.setAttribute("end", msToTimestamp(bgLine.endTime));
 					}

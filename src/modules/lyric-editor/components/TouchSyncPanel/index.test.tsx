@@ -8,6 +8,9 @@ import {
 	keyMoveNextWordAtom,
 	keyMovePrevWordAtom,
 	keySyncEndAtom,
+	keySyncLineEndAtom,
+	keySyncLineNextAtom,
+	keySyncLineStartAtom,
 	keySyncNextAtom,
 	keySyncStartAtom,
 } from "$/states/keybindings";
@@ -29,6 +32,9 @@ const actions = [
 	keySyncStartAtom,
 	keySyncNextAtom,
 	keySyncEndAtom,
+	keySyncLineStartAtom,
+	keySyncLineNextAtom,
+	keySyncLineEndAtom,
 ];
 
 function mount() {
@@ -96,7 +102,7 @@ function touch(type: string) {
 describe("TouchSyncPanel", () => {
 	it("fires once per pointerdown and cancels the default action", () => {
 		const { buttons, calls } = mount();
-		expect(buttons).toHaveLength(5);
+		expect(buttons).toHaveLength(8);
 		const down = fire(
 			buttons[3],
 			pointer("pointerdown", { pointerType: "mouse" }),

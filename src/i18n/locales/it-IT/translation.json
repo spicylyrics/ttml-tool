@@ -1407,9 +1407,21 @@
   },
   "touchSyncPanel": {
     "prevWord": "Parola precedente",
-    "nextWord": "Parola successiva"
+    "nextWord": "Parola successiva",
+    "startLine": "Inizia la riga",
+    "nextLine": "Riga successiva",
+    "endLine": "Termina la riga"
   },
   "lineSync": {
+    "timing": "Sincronizzazione del brano",
+    "timingDesc": "Come viene esportato il brano: Parola quando le parole hanno una sincronizzazione propria, Riga quando le righe hanno solo inizio e fine.",
+    "word": "Parola",
+    "line": "Riga",
+    "mixed": "Mista",
+    "none": "Non sincronizzato",
+    "mixedDesc": "Alcune righe hanno solo inizio e fine, altre sono sincronizzate parola per parola. Spicy Lyrics si aspetta un solo stile per brano.",
+    "spreadWords": "Distribuisci il tempo delle righe sulle parole",
+    "clearWords": "Cancella la sincronizzazione delle parole",
     "previewNotice": "Spicy Lyrics mostra i brani sincronizzati per riga senza cori e senza lati del duetto. Vengono comunque salvati."
   },
   "urbanDictionary": {

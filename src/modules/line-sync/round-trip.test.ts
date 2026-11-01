@@ -105,12 +105,42 @@ describe("a song with any word timing exports Word", () => {
 		expect(exportTTMLText(oneWord)).toContain('itunes:timing="Word"');
 	});
 
-	it("when only one line has word timing", () => {
+	it("when the song is mixed, with its line-only lines written as text", () => {
 		const mixed = song([
-			line([word("Hello", 1000, 1500)], 1000, 1500),
+			line(
+				[word("Hello", 1000, 1400), word(" "), word("there", 1400, 2000)],
+				1000,
+				2000,
+			),
 			line([word("Second"), word(" "), word("line")], 2000, 3000),
 		]);
-		expect(exportTTMLText(mixed)).toContain('itunes:timing="Word"');
+		const xml = exportTTMLText(mixed);
+		expect(xml).toContain('itunes:timing="Word"');
+		expect(xml).toContain(
+			'<p begin="00:02.000" end="00:03.000" ttm:agent="v1" itunes:key="L2">Second line</p>',
+		);
+	});
+});
+
+describe("a one-word line timed as a whole decides nothing", () => {
+	it("so it joins a line-timed song as Line", () => {
+		const lyric = song([
+			line([word("Yeah", 1000, 1500)], 1000, 1500),
+			line([word("Second"), word(" "), word("line")], 2000, 3000),
+		]);
+		expect(exportTTMLText(lyric)).toContain('itunes:timing="Line"');
+	});
+
+	it("and joins a word-timed song as Word", () => {
+		const lyric = song([
+			line([word("Yeah", 1000, 1500)], 1000, 1500, { isLineSynced: true }),
+			line(
+				[word("Hello", 2000, 2400), word(" "), word("there", 2400, 3000)],
+				2000,
+				3000,
+			),
+		]);
+		expect(exportTTMLText(lyric)).toContain('itunes:timing="Word"');
 	});
 });
 
