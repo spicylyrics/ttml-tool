@@ -16,6 +16,12 @@
 	line-height: 1.7;
 }
 
+/* Compact, for rows where the pill labels something else (dividers, lists). */
+.pill[data-size="1"] {
+	font-size: var(--font-size-1);
+	line-height: 18px;
+}
+
 .pill:is(button) {
 	cursor: pointer;
 }

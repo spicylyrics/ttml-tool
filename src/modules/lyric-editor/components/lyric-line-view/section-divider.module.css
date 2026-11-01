@@ -6,7 +6,9 @@
 	align-items: center;
 	gap: var(--space-2);
 	height: 32px;
-	margin: var(--space-3) var(--space-1) 0;
+	/* Equal above and below (the lines' own 4px margins collapse into these),
+	   so the name sits the same distance from the line above and below. */
+	margin: var(--space-2) var(--space-1);
 	padding-inline: var(--space-1);
 	user-select: none;
 }

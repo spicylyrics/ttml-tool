@@ -155,7 +155,10 @@ export function ApplySectionTimingsDialog() {
 										return {
 											value: candidate.section.id,
 											title: (
-												<SectionPill category={candidate.section.category}>
+												<SectionPill
+													size="1"
+													category={candidate.section.category}
+												>
 													{displayLabel(candidate.section.label)}
 												</SectionPill>
 											),

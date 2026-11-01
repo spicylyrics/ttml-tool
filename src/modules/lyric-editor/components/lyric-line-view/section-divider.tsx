@@ -97,6 +97,7 @@ export function SectionDivider({
 			>
 				<span className={styles.chevronSpace} />
 				<SectionPill
+					size="1"
 					category={undefined}
 					className={styles.label}
 					style={{ color: headerColor || undefined }}
@@ -192,6 +193,7 @@ function SectionRow({
 						/>
 					) : (
 						<SectionPill
+							size="1"
 							category={section.category}
 							className={styles.label}
 							style={{ color: headerColor || undefined }}
