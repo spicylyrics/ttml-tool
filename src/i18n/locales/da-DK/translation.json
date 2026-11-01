@@ -1668,6 +1668,22 @@
     "suggested": "Foreslået fra sangtekster:",
     "applyAll": "Anvend på alle linjer"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# usikker opdeling markeret} other {# usikre opdelinger markeret}}",
+    "review": "Gennemse",
+    "markChecked": "Markér opdeling som tjekket",
+    "next": "Næste usikre opdeling",
+    "wordLabel": "Usikker opdeling, tjek den",
+    "mode": {
+      "label": "Når en opdeling er usikker",
+      "flag": "Opdel og markér",
+      "flagDescription": "Opdel ordet og markér det, så du kan tjekke det",
+      "split": "Opdel uden markering",
+      "splitDescription": "Opdel ordet som alle andre",
+      "whole": "Behold helt",
+      "wholeDescription": "Behold ordet i ét stykke"
+    }
+  },
   "suggestedSplits": {
     "title": "Foreslåede opdelinger",
     "description": "{type, select, word {Vælg en foreslået opdeling for dette ord.} other {Vælg en foreslået opdeling for denne linje.}}",

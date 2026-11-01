@@ -4,7 +4,7 @@
 
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import type { SegmentationEngineId } from "../types";
+import type { SegmentationEngineId, UnsureSplitMode } from "../types";
 
 type Scope = "all" | "range";
 type PunctuationMode = "merge" | "standalone";
@@ -35,6 +35,10 @@ export const segmentationSplitEnglishAtom = atomWithStorage(
 export const segmentationEngineAtom = atomWithStorage<SegmentationEngineId>(
 	"segmentation.engine",
 	"prosodic",
+);
+export const segmentationUnsureSplitsAtom = atomWithStorage<UnsureSplitMode>(
+	"segmentation.unsureSplits",
+	"flag",
 );
 export const segmentationPunctuationModeAtom = atomWithStorage<PunctuationMode>(
 	"segmentation.punctuationMode",

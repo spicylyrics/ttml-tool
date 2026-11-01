@@ -19,6 +19,7 @@ import {
 	type ExportTranslation,
 	saveTTML,
 } from "$/modules/project/ttml-save";
+import { notifyUnsureSplits } from "$/modules/segmentation/components/UnsureSplitsToast";
 import {
 	segmentationEngineAtom,
 	segmentationSplitEnglishAtom,
@@ -325,6 +326,7 @@ export const useTopMenuActions = () => {
 					)?.name ?? savedSegmentationEngine,
 			}),
 		);
+		notifyUnsureSplits(store.get(lyricLinesAtom).lyricLines);
 	}, [
 		editLyricLines,
 		savedSegmentationEngine,

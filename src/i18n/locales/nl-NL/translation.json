@@ -1668,6 +1668,22 @@
     "suggested": "Suggestie uit de tekst:",
     "applyAll": "Toepassen op alle regels"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# onzekere splitsing gemarkeerd} other {# onzekere splitsingen gemarkeerd}}",
+    "review": "Bekijken",
+    "markChecked": "Splitsing als gecontroleerd markeren",
+    "next": "Volgende onzekere splitsing",
+    "wordLabel": "Onzekere splitsing, controleer deze",
+    "mode": {
+      "label": "Bij een onzekere splitsing",
+      "flag": "Splitsen en markeren",
+      "flagDescription": "Splitst het woord en markeert het zodat je het kunt controleren",
+      "split": "Splitsen zonder markering",
+      "splitDescription": "Splitst het woord zoals elk ander",
+      "whole": "Heel laten",
+      "wholeDescription": "Houdt het woord in één stuk"
+    }
+  },
   "suggestedSplits": {
     "title": "Voorgestelde splitsingen",
     "description": "{type, select, word {Kies een voorgestelde splitsing voor dit woord.} other {Kies een voorgestelde splitsing voor deze regel.}}",

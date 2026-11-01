@@ -167,6 +167,20 @@
 	width: 100%;
 }
 
+/* Auto-split guessed this word's cuts. Decoration only, so nothing moves. */
+.lyricWord.splitUnsure .wordMainText {
+	text-decoration: underline dotted var(--amber-10);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.2em;
+}
+
+@media (prefers-contrast: more) {
+	.lyricWord.splitUnsure .wordMainText {
+		text-decoration-style: dashed;
+		text-decoration-color: var(--amber-11);
+	}
+}
+
 .autoSizeInput {
 	position: relative;
 	display: inline-block;

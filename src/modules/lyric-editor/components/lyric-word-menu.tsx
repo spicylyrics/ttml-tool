@@ -4,8 +4,14 @@ import { useSetImmerAtom } from "jotai-immer";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { notifyUnsureSplits } from "$/modules/segmentation/components/UnsureSplitsToast";
 import { segmentationEngineAtom } from "$/modules/segmentation/states";
 import { segmentSelectedWords } from "$/modules/segmentation/utils/segmentation";
+import {
+	clearUnsureSplits,
+	selectNextUnsureSplitAtom,
+	unsureSplitWordsAtom,
+} from "$/modules/segmentation/utils/unsure-splits";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
 	combineWordsDialogAtom,
@@ -45,6 +51,7 @@ import { insertLinesInSection } from "../utils/section-system";
 
 const selectedLinesSizeAtom = atom((get) => get(selectedLinesAtom).size);
 const selectedWordsSizeAtom = atom((get) => get(selectedWordsAtom).size);
+const hasUnsureSplitsAtom = atom((get) => get(unsureSplitWordsAtom).length > 0);
 
 export const LyricWordMenu = ({
 	wordIndex,
@@ -78,6 +85,8 @@ export const LyricWordMenu = ({
 	const segmentationEngine = useAtomValue(segmentationEngineAtom);
 	const { config: segmentationConfig, isLoading: segmentationLoading } =
 		useSegmentationConfig();
+	const hasUnsureSplits = useAtomValue(hasUnsureSplitsAtom);
+	const selectNextUnsureSplit = useSetAtom(selectNextUnsureSplitAtom);
 	// Read when the menu renders: words on different lines or with gaps can't
 	// be replaced as one combination, so the item greys out instead of opening.
 	const wordCombination =
@@ -126,6 +135,8 @@ export const LyricWordMenu = ({
 								"Nothing to split in the selected words.",
 							),
 						);
+					} else {
+						notifyUnsureSplits(store.get(lyricLinesAtom).lyricLines);
 					}
 				}}
 			>
@@ -134,6 +145,23 @@ export const LyricWordMenu = ({
 					defaultValue: "Auto-segment selected words",
 				})}
 			</ContextMenu.Item>
+			{word.splitUnsure && (
+				<ContextMenu.Item
+					onSelect={() => {
+						const selectedWordIds = store.get(selectedWordsAtom);
+						editLyricLines((state) => {
+							clearUnsureSplits(state.lyricLines, selectedWordIds);
+						});
+					}}
+				>
+					{t("unsureSplits.markChecked", "Mark split as checked")}
+				</ContextMenu.Item>
+			)}
+			{hasUnsureSplits && (
+				<ContextMenu.Item onSelect={() => selectNextUnsureSplit()}>
+					{t("unsureSplits.next", "Next unsure split")}
+				</ContextMenu.Item>
+			)}
 			{/[\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u4E00-\u9FA5]/.test(
 				word.word,
 			) && (

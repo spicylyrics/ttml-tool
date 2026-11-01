@@ -1668,6 +1668,22 @@
     "suggested": "Suggéré à partir des paroles :",
     "applyAll": "Appliquer à toutes les lignes"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# découpage incertain marqué} many {# découpages incertains marqués} other {# découpages incertains marqués}}",
+    "review": "Vérifier",
+    "markChecked": "Marquer le découpage comme vérifié",
+    "next": "Découpage incertain suivant",
+    "wordLabel": "Découpage incertain, à vérifier",
+    "mode": {
+      "label": "Quand un découpage est incertain",
+      "flag": "Découper et marquer",
+      "flagDescription": "Découpe le mot et le marque pour que vous le vérifiiez",
+      "split": "Découper sans marquer",
+      "splitDescription": "Découpe le mot comme les autres",
+      "whole": "Laisser entier",
+      "wholeDescription": "Garde le mot en un seul morceau"
+    }
+  },
   "suggestedSplits": {
     "title": "Divisions suggérées",
     "description": "{type, select, word {Choisissez un découpage suggéré pour ce mot.} other {Choisissez un découpage suggéré pour cette ligne.}}",

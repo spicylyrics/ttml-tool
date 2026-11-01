@@ -10,6 +10,7 @@ import {
 	segmentationRemoveEmptySegmentsAtom,
 	segmentationSplitCJKAtom,
 	segmentationSplitEnglishAtom,
+	segmentationUnsureSplitsAtom,
 } from "../states";
 import type { HyphenatorFunc, SegmentationConfig } from "../types";
 import { loadHyphenator } from "../utils/hyphen-loader";
@@ -25,6 +26,7 @@ export const useSegmentationConfig = () => {
 	const ignoreListText = useAtomValue(segmentationIgnoreListTextAtom);
 	const customRules = useAtomValue(segmentationCustomRulesAtom);
 	const learnedRules = useAtomValue(segmentationLearnedRulesAtom);
+	const unsureSplits = useAtomValue(segmentationUnsureSplitsAtom);
 
 	const [hyphenator, setHyphenator] = useState<HyphenatorFunc | undefined>();
 	const [isLoading, setIsLoading] = useState(false);
@@ -68,9 +70,11 @@ export const useSegmentationConfig = () => {
 			ignoreList,
 			customRules,
 			learnedRules,
+			unsureSplits,
 			hyphenator,
 		};
 	}, [
+		unsureSplits,
 		engine,
 		splitCJK,
 		splitEnglish,

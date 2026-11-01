@@ -1668,6 +1668,22 @@
     "suggested": "Şarkı sözlerine göre önerilen:",
     "applyAll": "Tüm satırlara uygula"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# belirsiz bölme işaretlendi} other {# belirsiz bölme işaretlendi}}",
+    "review": "İncele",
+    "markChecked": "Bölmeyi kontrol edildi olarak işaretle",
+    "next": "Sonraki belirsiz bölme",
+    "wordLabel": "Belirsiz bölme, kontrol edin",
+    "mode": {
+      "label": "Bölme belirsiz olduğunda",
+      "flag": "Böl ve işaretle",
+      "flagDescription": "Kelimeyi böler ve kontrol etmeniz için işaretler",
+      "split": "İşaretlemeden böl",
+      "splitDescription": "Kelimeyi diğerleri gibi böler",
+      "whole": "Bütün bırak",
+      "wholeDescription": "Kelimeyi tek parça tutar"
+    }
+  },
   "suggestedSplits": {
     "title": "Önerilen bölmeler",
     "description": "{type, select, word {Bu kelime için önerilen bir bölme seçin.} other {Bu satır için önerilen bir bölme seçin.}}",

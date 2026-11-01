@@ -1668,6 +1668,22 @@
     "suggested": "Suggerito dal testo:",
     "applyAll": "Applica a tutti i versi"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# divisione incerta segnata} many {# divisioni incerte segnate} other {# divisioni incerte segnate}}",
+    "review": "Controlla",
+    "markChecked": "Segna divisione come controllata",
+    "next": "Prossima divisione incerta",
+    "wordLabel": "Divisione incerta, controllala",
+    "mode": {
+      "label": "Quando una divisione è incerta",
+      "flag": "Dividi e segna",
+      "flagDescription": "Divide la parola e la segna per poterla controllare",
+      "split": "Dividi senza segnare",
+      "splitDescription": "Divide la parola come tutte le altre",
+      "whole": "Lascia intera",
+      "wholeDescription": "Tiene la parola in un unico pezzo"
+    }
+  },
   "suggestedSplits": {
     "title": "Divisioni suggerite",
     "description": "{type, select, word {Scegli una divisione suggerita per questa parola.} other {Scegli una divisione suggerita per questo verso.}}",

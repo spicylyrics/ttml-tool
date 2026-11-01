@@ -221,7 +221,7 @@ export function mergeWords(
 					const text = newTexts[index];
 					if (old.word === text) return old;
 					if (oldKeys[index] === newKeys[index]) return { ...old, word: text };
-					const { romanWarning: _stale, ...kept } = old;
+					const { romanWarning: _stale, splitUnsure: _guess, ...kept } = old;
 					return { ...kept, word: text, romanWord: "" };
 				}),
 				droppedTimed: 0,
