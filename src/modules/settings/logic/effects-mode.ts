@@ -5,8 +5,6 @@
  */
 export type EffectsMode = "auto" | "full" | "lite";
 
-export const EFFECTS_MODES: readonly EffectsMode[] = ["auto", "full", "lite"];
-
 /** `platform` is `import.meta.env.TAURI_ENV_PLATFORM`, undefined on the web. */
 export function usesLiteEffects(
 	mode: EffectsMode,

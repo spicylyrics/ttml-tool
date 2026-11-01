@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Değişiklik günlüğü ve güncellemeler",
     "viewCommits": "GitHub'daki commit'leri görüntüle"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Ara",
     "success": "Geri yükleme başarılı",
     "error": "Veri bozuk veya kayıp",
-    "edit": "Düzenle",
     "apply": "Uygula",
     "confirm": "Onayla",
     "back": "Geri",
@@ -419,7 +417,6 @@
     "title": "Komut paleti",
     "placeholder": "Komutlarda ve ayarlarda ara",
     "noResults": "Eşleşen komut veya ayar yok",
-    "commandTag": "Komut",
     "settingTag": "Tercihler",
     "hint": "Ok tuşlarıyla gezinin, Enter ile çalıştırın, Esc ile kapatın",
     "notRunnable": "Komut çalıştırılamadı. Tercihler'den ona bir kısayol atayın ve tekrar deneyin.",
@@ -547,15 +544,12 @@
       "timeOffset": "Senkronizasyon kayması",
       "commitOffset": "Sonraki tuşu kayması",
       "assistSettings": "Senkronizasyon yardımcıları",
-      "showTimestampUpdate": "Zaman damgası güncellemelerini göster",
       "touchSyncPanel": "Dokunmatik senkronizasyon paneli",
       "bgLyricSync": "Arka vokal satırları",
       "bgSyncInline": "Ana satırla birlikte",
       "bgSyncInlineDesc": "Her arka vokal satırını ana satırından hemen sonra senkronize edin.",
       "bgSyncSeparate": "Senkronizasyonda atla",
       "bgSyncSeparateDesc": "G ve H ana satırlarda kalır. Arka vokalleri ayrıca senkronize etmek için bir arka vokal satırına tıklayın.",
-      "quickFixes": "Hızlı düzeltmeler",
-      "manualTimestampEdit": "Zaman damgalarını elle düzenleme",
       "doubleClickEdit": "Çift tıklamayla kelime düzenleme",
       "displayOptions": "Görünüm seçenekleri",
       "showTimestamps": "Zaman damgalarını göster",
@@ -566,11 +560,6 @@
       "startSync": "Başlat",
       "continuousSync": "Sonraki",
       "endSync": "Bitir",
-      "manageQuickFixExclusions": {
-        "title": "Hızlı düzeltme istisnalarını yönet",
-        "description": "Hızlı düzeltmelerde görmezden gelinecek kelimeler ekleyin.",
-        "placeholder": "Görmezden gelinecek kelime yazın"
-      },
       "playbackTracking": "Takip",
       "autoScroll": "Otomatik kaydırma",
       "highlightActiveLine": "Satırı vurgula",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# kayıtlı değer} other {# kayıtlı değer}}",
         "keybindings": "{count, plural, one {# kısayol} other {# kısayol}}",
-        "assetsSet": "Özel arka plan resmi ayarlandı",
         "assetsNone": "Özel görünüm dosyası yok",
         "presetsCount": "{count, plural, one {# ön ayar} other {# ön ayar}}",
         "backgroundSet": "Özel arka plan",
@@ -883,9 +871,7 @@
       "exportTitle": "Dışa aktarma",
       "exportDesc": "Ayarlarınızı ve verilerinizi daha sonra geri yükleyebileceğiniz veya başka bir cihaza taşıyabileceğiniz bir dosyaya kaydedin.",
       "exportButton": "Yedeği dışa aktar",
-      "previewToggle": "İçeriği önizle",
       "previewLoading": "Önizleme yükleniyor…",
-      "previewEmpty": "Önizlemek için hiçbir şey seçilmedi",
       "previewCategoryEmpty": "Bu kategoride dışa aktarılacak bir şey yok",
       "previewMore": "+{count} daha",
       "previewTotal": "Tahmini toplam boyut",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Bu tuşta ayrıca",
     "closePanel": "Kapat"
   },
-  "autoSegmentApplied":"{engine} ile otomatik bölündü",
+  "autoSegmentApplied": "{engine} ile otomatik bölündü",
   "error": {
     "unsupportedFileFormat": "Desteklenmeyen dosya biçimi: {ext}",
     "openFileFailed": "Dosya açılamadı",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Boş",
-    "spaceCount": "Boşluk ×{count}",
-    "removeWord": "Yinelenen kelimeyi kaldır",
-    "editingWordTitle": "Kelime düzenleme",
-    "editingWordDesc": "Kelimeyi düzenleyin veya önerilen hızlı düzeltmeleri uygulayın.",
-    "correctedWordPlaceholder": "Düzeltilen kelimeyi yazın",
-    "noSuggestions": "Öneri yok"
+    "spaceCount": "Boşluk ×{count}"
   },
   "sectionActions": {
     "expand": "Bölümü genişlet",
@@ -1745,12 +1726,6 @@
     "settings": "Spektrogram ayarları",
     "fftSize": "FFT boyutu",
     "resolution": "FFT çözünürlüğü",
-    "fftSizeOption": {
-      "512": "512 (en hızlı)",
-      "1024": "1024 (dengeli)",
-      "2048": "2048 (daha fazla frekans ayrıntısı)",
-      "4096": "4096 (en fazla ayrıntı)"
-    },
     "height": "Görünüm yüksekliği"
   },
   "spectrogramFollow": {

@@ -60,11 +60,6 @@
 			"romanize": "Completa la romanización de las líneas o palabras seleccionadas."
 		},
 		"syncMode": {
-			"manageQuickFixExclusions": {
-				"title": "Administrar exclusiones de correcciones rápidas",
-				"description": "Agrega palabras que se omitirán en las correcciones rápidas.",
-				"placeholder": "Ingresa la palabra a ignorar"
-			},
 			"spectrogramHoverSync": "Sincronizar en la posición del mouse"
 		}
 	},

@@ -4,9 +4,9 @@ import { distributeTime as distributeUnitTimes } from "$/modules/lyric-editor/ut
  */
 
 import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml";
+import { escapeRegExp } from "$/utils/text";
 import { CharType, type SegmentationConfig } from "../types";
 import {
-	escapeRegExp,
 	getCharType,
 	getMergeDirection,
 	MergeDirection,

@@ -254,14 +254,3 @@ export async function loadExportParts(
 	await Promise.all(jobs);
 	return parts;
 }
-
-export async function previewExportBackup(
-	selected: Set<BackupCategoryId>,
-	labels?: ExportPreviewLabels,
-): Promise<ExportPreview> {
-	return summarizeExportParts(
-		await loadExportParts(selected),
-		selected,
-		labels,
-	);
-}

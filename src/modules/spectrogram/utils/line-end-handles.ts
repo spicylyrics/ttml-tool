@@ -10,9 +10,7 @@ import type {
  */
 export const LINE_END_MERGE_TOLERANCE_MS = 20;
 
-/** Visual handle width the classic divider uses. */
-export const LINE_END_BASE_HIT_PX = 15;
-/** Hit width for the line-end handles while the flag is on. The bar stays 2px. */
+/** Hit width for the line-end handles. The bar stays 2px. */
 export const LINE_END_WIDE_HIT_PX = 23;
 
 const MIN_WORD_DURATION_MS = 10;

@@ -360,25 +360,6 @@ export function isEditing(event: KeyboardEvent | MouseEvent) {
 	);
 }
 
-export function isInteracting(event: KeyboardEvent | MouseEvent) {
-	const checkElement = (target: HTMLElement | null) => {
-		const tagName = target?.tagName;
-		return (
-			target?.isContentEditable ||
-			tagName === "INPUT" ||
-			tagName === "SELECT" ||
-			tagName === "TEXTAREA" ||
-			tagName === "BUTTON" ||
-			!!currentKeyDownEvent ||
-			!!currentKeyUpEvent
-		);
-	};
-	return (
-		checkElement((event.target || event.srcElement) as HTMLElement | null) ||
-		checkElement(document.activeElement as HTMLElement | null)
-	);
-}
-
 export function registerKeyBindings(
 	cfg: KeyBindingsConfig,
 	callback: KeyBindingCallback,
@@ -506,9 +487,6 @@ export function registerExtraKeyBindings(
 	};
 }
 
-/**
- * @deprecated 请使用 useCommand
- */
 export function useKeyBindingAtom(
 	thisAtom: ReturnType<typeof atomWithKeybindingStorage>,
 	callback: KeyBindingCallback,

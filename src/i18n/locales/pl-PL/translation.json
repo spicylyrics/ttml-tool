@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Lista zmian i aktualizacje",
     "viewCommits": "Zobacz commity na GitHubie"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Szukaj",
     "success": "Przywracanie powiodło się",
     "error": "Dane uszkodzone lub utracone",
-    "edit": "Edytuj",
     "apply": "Zastosuj",
     "confirm": "Potwierdź",
     "back": "Powrót",
@@ -419,7 +417,6 @@
     "title": "Paleta poleceń",
     "placeholder": "Szukaj poleceń i ustawień",
     "noResults": "Brak pasujących poleceń i ustawień",
-    "commandTag": "Polecenie",
     "settingTag": "Preferencje",
     "hint": "Strzałki przesuwają, Enter uruchamia, Esc zamyka",
     "notRunnable": "Nie udało się uruchomić polecenia. Przypisz mu skrót w Preferencjach i spróbuj ponownie.",
@@ -547,15 +544,12 @@
       "timeOffset": "Przesunięcie synchronizacji",
       "commitOffset": "Przesunięcie klawisza Dalej",
       "assistSettings": "Pomoc w synchronizacji",
-      "showTimestampUpdate": "Pokaż aktualizacje znaczników czasu",
       "touchSyncPanel": "Panel synchronizacji dotykowej",
       "bgLyricSync": "Wersy wokalu w tle",
       "bgSyncInline": "Z głównym wersem",
       "bgSyncInlineDesc": "Synchronizuj każdy wers wokalu w tle zaraz po jego głównym wersie.",
       "bgSyncSeparate": "Pomijaj przy synchronizacji",
       "bgSyncSeparateDesc": "G i H zostają na głównych wersach. Kliknij wers wokalu w tle, aby zsynchronizować je osobno.",
-      "quickFixes": "Szybkie poprawki",
-      "manualTimestampEdit": "Ręczna edycja znaczników czasu",
       "doubleClickEdit": "Edytuj słowa dwuklikiem",
       "displayOptions": "Opcje wyświetlania",
       "showTimestamps": "Pokaż znaczniki czasu",
@@ -566,11 +560,6 @@
       "startSync": "Początek",
       "continuousSync": "Dalej",
       "endSync": "Koniec",
-      "manageQuickFixExclusions": {
-        "title": "Zarządzaj wykluczeniami szybkich poprawek",
-        "description": "Dodaj słowa, które chcesz zignorować w szybkich poprawkach.",
-        "placeholder": "Wpisz słowo, które chcesz zignorować"
-      },
       "playbackTracking": "Śledzenie",
       "autoScroll": "Automatyczne przewijanie",
       "highlightActiveLine": "Podświetl wers",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# zapisana wartość} few {# zapisane wartości} many {# zapisanych wartości} other {# zapisanej wartości}}",
         "keybindings": "{count, plural, one {# skrót klawiszowy} few {# skróty klawiszowe} many {# skrótów klawiszowych} other {# skrótu klawiszowego}}",
-        "assetsSet": "Ustawiono własny obraz tła",
         "assetsNone": "Brak własnych zasobów",
         "presetsCount": "{count, plural, one {# zestaw ustawień} few {# zestawy ustawień} many {# zestawów ustawień} other {# zestawu ustawień}}",
         "backgroundSet": "Niestandardowe tło",
@@ -883,9 +871,7 @@
       "exportTitle": "Eksport",
       "exportDesc": "Zapisz swoje ustawienia i dane w pliku, który możesz później przywrócić lub przenieść na inne urządzenie.",
       "exportButton": "Eksportuj kopię zapasową",
-      "previewToggle": "Podgląd zawartości",
       "previewLoading": "Ładowanie podglądu…",
-      "previewEmpty": "Nie wybrano nic do podglądu",
       "previewCategoryEmpty": "W tej kategorii nie ma nic do eksportu",
       "previewMore": "+{count} więcej",
       "previewTotal": "Szacunkowy rozmiar całkowity",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Również na tym klawiszu",
     "closePanel": "Zamknij"
   },
-  "autoSegmentApplied":"Automatycznie podzielono za pomocą {engine}",
+  "autoSegmentApplied": "Automatycznie podzielono za pomocą {engine}",
   "error": {
     "unsupportedFileFormat": "Nieobsługiwany format pliku: {ext}",
     "openFileFailed": "Nie udało się otworzyć pliku",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Pusty",
-    "spaceCount": "Spacja ×{count}",
-    "removeWord": "Usuń zduplikowane słowo",
-    "editingWordTitle": "Edytowanie słowa",
-    "editingWordDesc": "Edytuj słowo lub zastosuj sugerowane szybkie poprawki.",
-    "correctedWordPlaceholder": "Wpisz poprawione słowo",
-    "noSuggestions": "Żadnych sugestii"
+    "spaceCount": "Spacja ×{count}"
   },
   "sectionActions": {
     "expand": "Rozwiń sekcję",
@@ -1745,12 +1726,6 @@
     "settings": "Ustawienia spektrogramu",
     "fftSize": "Rozmiar FFT",
     "resolution": "Rozdzielczość FFT",
-    "fftSizeOption": {
-      "512": "512 (najszybciej)",
-      "1024": "1024 (zrównoważone)",
-      "2048": "2048 (więcej szczegółów częstotliwości)",
-      "4096": "4096 (najwięcej szczegółów)"
-    },
     "height": "Wysokość widoku"
   },
   "spectrogramFollow": {
