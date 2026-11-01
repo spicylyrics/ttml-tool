@@ -24,17 +24,11 @@
 	outline: none;
 }
 
-/* Line timing: the block is the line, which already draws the border. The
-   text starts at the line's start and trails off, instead of being cut on
-   both sides when zoomed out. */
+/* Line timing: the block is the line, which already draws the border. Its
+   text sits in a full-width span, so it stays centered when it fits and
+   trails off from the start, instead of being cut on both sides, when not. */
 .lineBlock {
 	border-color: transparent;
-	align-items: flex-start;
-}
-
-.lineBlock .romanText,
-.lineBlock .originText {
-	text-align: start;
 }
 
 .romanText {
