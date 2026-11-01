@@ -452,17 +452,11 @@ export const appearancePresetsAtom = atomWithStorage<AppearancePreset[]>(
 	[],
 );
 
-export const geniusCategorizationEnabledAtom = atomWithStorage<boolean>(
-	"geniusCategorizationEnabled",
-	false,
+/** Where Apply timings from... starts the copied timings, remembered between uses. */
+export const sectionTimingsAnchorAtom = atomWithStorage<"section" | "playhead">(
+	"sectionTimingsAnchor",
+	"section",
 );
-
-export const geniusHeaderDetectionDialogShownAtom = atomWithStorage<boolean>(
-	"geniusHeaderDetectionDialogShown",
-	false,
-);
-
-export const geniusHeaderDetectionDialogOpenAtom = atom(false);
 
 /** Show "Updated to vX.Y.Z" the first time the app starts on a new version. */
 export const showUpdatedToastAtom = atomWithStorage(

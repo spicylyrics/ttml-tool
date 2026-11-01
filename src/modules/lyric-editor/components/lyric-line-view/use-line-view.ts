@@ -16,9 +16,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { activeLineIdsAtom } from "$/modules/audio/states/index.ts";
 import {
-	advGeniusHeaderColorAtom,
 	compactBGInSyncAtom,
-	geniusCategorizationEnabledAtom,
 	legacySpaceLabelsAtom,
 	showLineRomanizationAtom,
 	showLineTranslationAtom,
@@ -45,11 +43,7 @@ import {
 	globalEnableInsertAtom,
 	timingCopyPlacementAtom,
 } from "../lyric-line-view-states.ts";
-import {
-	getCategoryColor,
-	getHeaderType,
-	hasTimingError,
-} from "./line-presentation";
+import { hasTimingError } from "./line-presentation";
 import { useLineTiming } from "./use-line-timing";
 
 export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
@@ -97,55 +91,6 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 	const showTimestamps = useAtomValue(showTimestampsAtom);
 	const showEndTimeAsDuration = useAtomValue(showEndTimeAsDurationAtom);
 	const store = useStore();
-	const geniusCategorizationEnabled = useAtomValue(
-		geniusCategorizationEnabledAtom,
-	);
-	const sectionAtom = useMemo(
-		() =>
-			atom((get) =>
-				get(lyricLinesAtom).sections?.find(
-					(section) => section.id === line.sectionId,
-				),
-			),
-		[line.sectionId],
-	);
-	const activeSection = useAtomValue(sectionAtom);
-	const sectionActionsEnabled = geniusCategorizationEnabled && !!activeSection;
-	const manualCategorizationEnabled =
-		geniusCategorizationEnabled && !activeSection;
-
-	const activeGeniusHeader = geniusCategorizationEnabled
-		? (activeSection?.label ?? line.geniusHeader)
-		: undefined;
-
-	const customHeaderColor = useAtomValue(advGeniusHeaderColorAtom);
-
-	const headerType = useMemo(
-		() => getHeaderType(activeGeniusHeader, activeSection),
-		[activeGeniusHeader, activeSection],
-	);
-
-	// Subscribed, not read once: merging or moving the previous line into this
-	// line's section has to hide this header right away, not after a remount.
-	const isSectionStartAtom = useMemo(
-		() =>
-			atom((get) => {
-				if (!activeGeniusHeader) return false;
-				if (lineIndex === 0) return true;
-				const prevLine = get(lyricLinesAtom).lyricLines[lineIndex - 1];
-				return line.sectionId
-					? prevLine?.sectionId !== line.sectionId
-					: prevLine?.geniusHeader !== activeGeniusHeader;
-			}),
-		[activeGeniusHeader, line.sectionId, lineIndex],
-	);
-	const isSectionStart = useAtomValue(isSectionStartAtom);
-
-	const categoryColor = useMemo(
-		() => getCategoryColor(headerType),
-		[headerType],
-	);
-
 	const wordsContainerRef = useRef<HTMLDivElement>(null);
 	const blockDragRef = useRef(false);
 
@@ -244,13 +189,6 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 		showTimestamps,
 		showEndTimeAsDuration,
 		store,
-		activeSection,
-		sectionActionsEnabled,
-		manualCategorizationEnabled,
-		activeGeniusHeader,
-		customHeaderColor,
-		isSectionStart,
-		categoryColor,
 		wordsContainerRef,
 		blockDragRef,
 		isLastLine,

@@ -1,0 +1,105 @@
+/* A sunken well, so the rows read as one set of options. */
+.list {
+	/* Long lists scroll inside the well. The scrollbar gets a fixed width and
+	   its space is kept on both sides, then added to the top and bottom too,
+	   so every edge has the same gap with or without a scrollbar. */
+	--choice-scrollbar: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	max-height: 18rem;
+	overflow-y: auto;
+	scrollbar-gutter: stable both-edges;
+	padding: calc(var(--space-1) + var(--choice-scrollbar)) var(--space-1);
+	border: 1px solid var(--gray-a5);
+	border-radius: var(--radius-4);
+	background-color: var(--gray-2);
+}
+
+.list::-webkit-scrollbar {
+	width: var(--choice-scrollbar);
+}
+
+.list::-webkit-scrollbar-thumb {
+	border-width: 2px;
+}
+
+.row {
+	all: unset;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	min-width: 0;
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-2);
+	cursor: pointer;
+	color: var(--gray-12);
+}
+
+.row:hover {
+	background-color: var(--gray-a3);
+}
+
+.row[data-state="checked"] {
+	background-color: var(--accent-a4);
+}
+
+.row:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: -2px;
+}
+
+.main {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.head {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	min-width: 0;
+}
+
+.title {
+	font-size: var(--font-size-2);
+	font-weight: 600;
+	line-height: var(--line-height-2);
+	letter-spacing: -0.014em;
+	white-space: nowrap;
+}
+
+.meta {
+	color: var(--gray-11);
+	font-size: var(--font-size-1);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.detail {
+	overflow: hidden;
+	color: var(--gray-11);
+	font-size: var(--font-size-1);
+	line-height: var(--line-height-1);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.trailing {
+	flex-shrink: 0;
+}
+
+@media (prefers-contrast: more) {
+	.list {
+		border-color: var(--gray-a8);
+	}
+
+	.row[data-state="checked"] {
+		outline: 1px solid var(--accent-9);
+		outline-offset: -1px;
+	}
+}

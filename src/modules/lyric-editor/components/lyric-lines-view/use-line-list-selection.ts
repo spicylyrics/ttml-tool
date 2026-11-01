@@ -47,6 +47,9 @@ export function useLineListSelection({
 	const collapsedSections = useAtomValue(collapsedSectionIdsAtom);
 	const visibleItems = useMemo(() => {
 		const seenSections = new Set<string>();
+		// Same keys as collapseKey, in one pass: a section, or a stretch of
+		// lines outside any section named by its first line.
+		let runKey: string | undefined;
 		return editLyric
 			.map((lineAtom, sourceIndex) => ({
 				lineAtom,
@@ -54,10 +57,14 @@ export function useLineListSelection({
 				line: lyricStructure[sourceIndex],
 			}))
 			.filter(({ line }) => {
-				if (!line?.sectionId || !collapsedSections.has(line.sectionId))
-					return true;
-				if (seenSections.has(line.sectionId)) return false;
-				seenSections.add(line.sectionId);
+				if (!line) return true;
+				if (line.sectionId) runKey = undefined;
+				else runKey ??= `unsectioned:${line.id}`;
+				const key = line.sectionId ?? runKey;
+				if (!key || !collapsedSections.has(key)) return true;
+				// The first line stays to carry the divider; it draws only that.
+				if (seenSections.has(key)) return false;
+				seenSections.add(key);
 				return true;
 			});
 	}, [editLyric, lyricStructure, collapsedSections]);

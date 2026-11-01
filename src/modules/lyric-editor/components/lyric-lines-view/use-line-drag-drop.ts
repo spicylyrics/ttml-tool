@@ -15,6 +15,11 @@ import { useEffect } from "react";
 import { lyricLinesAtom, selectedLinesAtom, ToolMode } from "$/states/main.ts";
 import type { LyricLine, TTMLLyric } from "$/types/ttml.ts";
 import {
+	moveSectionTo,
+	type SectionDropSlot,
+	sectionDropSlot,
+} from "../../utils/section-editing.ts";
+import {
 	insertLinesInSection,
 	sectionIdAt,
 } from "../../utils/section-system.ts";
@@ -54,6 +59,8 @@ export function useLineDragDrop({
 		let lastFrameTime: number | null = null;
 		let dropTarget: { element: HTMLElement; insertAfter: boolean } | null =
 			null;
+		// Where a dragged section lands, snapped to a section boundary.
+		let sectionSlot: SectionDropSlot | undefined;
 		let dragPreview: HTMLElement | null = null;
 
 		const updateDragPreview = () => {
@@ -84,8 +91,13 @@ export function useLineDragDrop({
 			);
 			const lyricText = document.createElement("span");
 			lyricText.className = styles.dragPreviewText;
+			const section = store.get(lineDragAtom)?.sectionId
+				? store
+						.get(lyricLinesAtom)
+						.sections?.find((item) => item.id === line.sectionId)
+				: undefined;
 			lyricText.textContent =
-				line.words.map((word) => word.word).join("") || "…";
+				section?.label ?? (line.words.map((word) => word.word).join("") || "…");
 			dragPreview.append(lineNumber, lyricText);
 			const selectedCount = store.get(selectedLinesAtom).size;
 			if (selectedCount > 1) {
@@ -97,6 +109,7 @@ export function useLineDragDrop({
 		};
 
 		const clearDropTarget = () => {
+			sectionSlot = undefined;
 			if (!dropTarget) return;
 			dropTarget.element.classList.remove(styles.dropTop, styles.dropBottom);
 			dropTarget = null;
@@ -117,7 +130,7 @@ export function useLineDragDrop({
 				clearDropTarget();
 				return;
 			}
-			const element = document
+			let element = document
 				.elementFromPoint(pointer.x, pointer.y)
 				?.closest<HTMLElement>("[data-lyric-line-id]");
 			const selectedLines = store.get(selectedLinesAtom);
@@ -129,9 +142,43 @@ export function useLineDragDrop({
 				clearDropTarget();
 				return;
 			}
-			const insertAfter =
+			let insertAfter =
 				pointer.y >=
 				element.getBoundingClientRect().top + element.clientHeight / 2;
+			if (drag.sectionId) {
+				const slot = sectionDropSlot(
+					store.get(lyricLinesAtom).lyricLines,
+					drag.sectionId,
+					element.dataset.lyricLineId ?? "",
+					insertAfter,
+				);
+				if (!slot) {
+					clearDropTarget();
+					return;
+				}
+				// The boundary line may be scrolled out or collapsed; the drop
+				// still lands on the slot, only the marker stays where you point.
+				const slotElement = viewEl.querySelector<HTMLElement>(
+					`[data-lyric-line-id="${slot.lineId}"]`,
+				);
+				if (slotElement) {
+					element = slotElement;
+					insertAfter = slot.insertAfter;
+				}
+				if (
+					dropTarget?.element === element &&
+					dropTarget.insertAfter === insertAfter
+				) {
+					sectionSlot = slot;
+					return;
+				}
+				clearDropTarget();
+				sectionSlot = slot;
+				element.classList.toggle(styles.dropTop, !insertAfter);
+				element.classList.toggle(styles.dropBottom, insertAfter);
+				dropTarget = { element, insertAfter };
+				return;
+			}
 			if (
 				dropTarget?.element === element &&
 				dropTarget.insertAfter === insertAfter
@@ -178,6 +225,30 @@ export function useLineDragDrop({
 			if (!event.isPrimary || event.button !== 0) return;
 			const target = event.target;
 			if (!(target instanceof Element)) return;
+			const divider = target.closest<HTMLElement>("[data-section-divider]");
+			if (divider) {
+				const sectionId = divider.dataset.sectionDivider;
+				if (
+					!sectionId ||
+					!viewEl.contains(divider) ||
+					target.closest("button, input, [role=combobox]")
+				)
+					return;
+				const first = store
+					.get(lyricLinesAtom)
+					.lyricLines.find((line) => line.sectionId === sectionId);
+				if (!first) return;
+				divider.setPointerCapture(event.pointerId);
+				store.set(lineDragAtom, {
+					id: first.id,
+					sectionId,
+					pointerId: event.pointerId,
+					startX: event.clientX,
+					startY: event.clientY,
+					isDragging: false,
+				});
+				return;
+			}
 			const lineElement = target.closest<HTMLElement>("[data-lyric-line-id]");
 			if (
 				target.closest(
@@ -207,6 +278,18 @@ export function useLineDragDrop({
 					return;
 				store.set(lineDragAtom, { ...drag, isDragging: true });
 				store.set(draggingIdAtom, drag.id);
+				if (drag.sectionId) {
+					// The section's lines are what moves, and can't be a drop target.
+					store.set(
+						selectedLinesAtom,
+						new Set(
+							store
+								.get(lyricLinesAtom)
+								.lyricLines.filter((line) => line.sectionId === drag.sectionId)
+								.map((line) => line.id),
+						),
+					);
+				}
 				showDragPreview(drag.id);
 			}
 			event.preventDefault();
@@ -219,7 +302,14 @@ export function useLineDragDrop({
 		const finishDragging = (event?: PointerEvent) => {
 			const drag = store.get(lineDragAtom);
 			if (!drag || (event && drag.pointerId !== event.pointerId)) return;
-			if (drag.isDragging && dropTarget) {
+			const sectionId = drag.sectionId;
+			const slot = sectionSlot;
+			if (drag.isDragging && sectionId) {
+				if (slot)
+					editLyricLines((state) => {
+						moveSectionTo(state, sectionId, slot);
+					});
+			} else if (drag.isDragging && dropTarget) {
 				const targetId = dropTarget.element.dataset.lyricLineId;
 				const insertAfter = dropTarget.insertAfter;
 				const selectedLines = store.get(selectedLinesAtom);

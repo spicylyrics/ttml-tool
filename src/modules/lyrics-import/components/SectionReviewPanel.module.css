@@ -13,13 +13,21 @@
 	border-color: var(--amber-a7);
 }
 
+/* The column is narrow, so the name and the first line give up width; the
+   type picker and the line count never get cut off. */
 .label {
+	flex: 1;
+	min-width: 0;
+}
+
+.firstLine {
 	flex: 1;
 	min-width: 0;
 }
 
 .count {
 	flex-shrink: 0;
+	white-space: nowrap;
 }
 
 .warning {

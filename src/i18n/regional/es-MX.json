@@ -45,11 +45,6 @@
 			"description": "¿Usar \"{name}\" como nombre de archivo?"
 		}
 	},
-	"experimentalFeatures": {
-		"geniusCategorization": {
-			"noPreviousFound": "No se encontró una sección anterior del mismo tipo con tiempos."
-		}
-	},
 	"dialog": {
 		"createProjectPrompt": {
 			"link": "Mantener archivos en su lugar"

@@ -19,6 +19,7 @@
 import { uid } from "uid";
 import type {
 	LyricLine,
+	LyricSection,
 	LyricWord,
 	Mark,
 	TTMLLyric,
@@ -26,6 +27,13 @@ import type {
 } from "../../../types/ttml.ts";
 import { log } from "../../../utils/logging.ts";
 import { parseTimespan } from "../../../utils/timestamp.ts";
+import { createSongPartReader } from "./song-part.ts";
+
+type LegacySection = LyricSection & {
+	color?: unknown;
+	notes?: unknown;
+	vocalist?: unknown;
+};
 
 interface RomanWord {
 	startTime: number;
@@ -588,8 +596,18 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 		appendParentBeforeNestedLines(lyricLines, nestedStartIndex, line);
 	}
 
+	// Apple's `itunes:song-part` becomes sections, unless we wrote our own.
+	const songParts = metadata.some((m) => m.key === "amll:sections")
+		? undefined
+		: createSongPartReader();
 	for (const lineEl of ttmlDoc.querySelectorAll("body p[begin][end]")) {
-		parseLineElement(lineEl, false, false, null);
+		parseLineElement(
+			lineEl,
+			false,
+			false,
+			null,
+			songParts?.sectionIdFor(lineEl, (el) => getAttr(el, "song-part")),
+		);
 	}
 
 	const marks: Mark[] = [];
@@ -616,12 +634,17 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 		try {
 			const parsed = JSON.parse(sectionMeta.value[0]);
 			if (parsed?.version === 1 && Array.isArray(parsed.sections)) {
-				sections = parsed.sections;
+				// Files from older versions can carry section colors, notes and
+				// vocalists. The tool no longer edits them, so they're dropped.
+				sections = (parsed.sections as LegacySection[]).map(
+					({ color, notes, vocalist, ...section }) => section,
+				);
 			}
 		} catch {
 			// Optional section metadata should never make an otherwise valid TTML fail.
 		}
 	}
+	if (!sections && songParts?.sections.length) sections = songParts.sections;
 
 	return {
 		metadata: metadata.filter(

@@ -4,6 +4,8 @@ import type { LineTimingSnapshot } from "../utils/line-timing";
 export const draggingIdAtom = atom("");
 export const lineDragAtom = atom<{
 	id: string;
+	/** Set when the drag started on a section's divider: the whole section moves. */
+	sectionId?: string;
 	pointerId: number;
 	startX: number;
 	startY: number;

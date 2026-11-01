@@ -38,7 +38,6 @@ import {
 } from "$/modules/lyrics-import/states";
 import { segmentWord } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
-import { geniusCategorizationEnabledAtom } from "$/modules/settings/states/index.ts";
 import { confirmDialogAtom } from "$/states/dialogs.ts";
 import {
 	lyricLinesAtom,
@@ -229,8 +228,6 @@ function EditAsTextBody({
 				lyricLines: result.lyricLines,
 				sections: result.sections,
 			});
-			if (result.sections.length && !current.sections?.length)
-				store.set(geniusCategorizationEnabledAtom, true);
 			const lineIds = new Set(result.lyricLines.map((line) => line.id));
 			const wordIds = new Set(
 				result.lyricLines.flatMap((line) => line.words.map((word) => word.id)),
