@@ -139,14 +139,20 @@ const splitCompound = (word: string) => {
 	return undefined;
 };
 
-/** Keeps `ck` and `ght` in the syllable they close: `rock/ing`, `fight/ing`. */
+/**
+ * Keeps `ck`, `x` and `ight` in the syllable they close: `rock/ing`,
+ * `sex/y`, `fight/ing`. `daugh/ter` is left alone.
+ */
 const fixOnsets = (parts: string[]) => {
 	const result = [...parts];
 	for (let index = 1; index < result.length; index++) {
 		const previous = result[index - 1];
-		const moved = /^ck/i.test(result[index])
+		const part = result[index];
+		const moved = /^ck/i.test(part)
 			? 2
-			: /gh$/i.test(previous) && /^t./i.test(result[index])
+			: (/^x/i.test(part) && VOWEL.test(part.slice(1))) ||
+					(/igh$/i.test(previous) &&
+						/^t(?:ing|in['’]?|er|ers|en|ed|est)$/i.test(part))
 				? 1
 				: 0;
 		if (moved === 0) continue;
@@ -154,6 +160,19 @@ const fixOnsets = (parts: string[]) => {
 		result[index] = result[index].slice(moved);
 	}
 	return result.filter(Boolean);
+};
+
+/** A piece with no vowel is not a sung syllable: join it to its neighbor. */
+const mergeVowelless = (parts: string[]) => {
+	const result: string[] = [];
+	for (const part of parts) {
+		if (result.length > 0 && !VOWEL.test(part))
+			result[result.length - 1] += part;
+		else if (result.length > 0 && !VOWEL.test(result[result.length - 1]))
+			result[result.length - 1] += part;
+		else result.push(part);
+	}
+	return result;
 };
 
 const lookupDictionary = (word: string) => {
@@ -202,7 +221,7 @@ function prosodicSplit(word: string): string[] {
 	const parts =
 		splitCompound(word) ??
 		lookupDictionary(word) ??
-		fixOnsets(mergeContractionSuffix(compromiseSplit(word)));
+		mergeVowelless(fixOnsets(mergeContractionSuffix(compromiseSplit(word))));
 	if (
 		/^un[b-df-hj-np-tv-z]{2}/i.test(word) &&
 		parts.length > 1 &&

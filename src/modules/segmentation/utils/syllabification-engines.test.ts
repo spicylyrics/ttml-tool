@@ -69,6 +69,12 @@ describe("syllabification engines", () => {
 		["HMM", "HMM"],
 		["LOVE", "LOVE"],
 		["I'ma", "I'/ma"],
+		// ck, x and ight close their syllable
+		["rocking", "rock/ing"],
+		["brighter", "bright/er"],
+		["daughter", "daugh/ter"],
+		["sexy", "sex/y"],
+		["exactly", "ex/act/ly"],
 	])("splits %s as %s", (word, expected) => {
 		expect(getSyllabificationEngine("prosodic").split(word).join("/")).toBe(
 			expected,
