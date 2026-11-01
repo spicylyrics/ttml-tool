@@ -198,11 +198,16 @@ it.skipIf(!wordsPath || !outPath)(
 			// offer the first split with one cut moved a letter either way.
 			const first = [...sources.keys()].find((s) => s.includes("/"));
 			if (first) for (const shifted of shifts(first)) push(shifted, "shift");
-			// The whole word is always a candidate: the guide says unsplit is valid.
+			// The page offers "Keep whole" on every word, so it's no candidate.
 			sources.delete(word);
+			// Words nobody splits (`real`, `prayer`, `loved`) still need a split to
+			// judge, or the page would only show the decoy.
+			if (sources.size === 0 && !group.startsWith("dictionary")) {
+				const split = vowelSplit(word);
+				if (split) sources.set(split, ["vowels"]);
+			}
 			const candidates = [...sources.keys()].slice(0, MAX_CANDIDATES);
-			// Words with nothing to vote on but "whole" teach little.
-			if (candidates.length === 0 && group.startsWith("dictionary")) return false;
+			if (candidates.length === 0) return false;
 			seen.add(key);
 			const wrong = decoy(candidates[0] ?? word);
 			entries.push({
@@ -274,6 +279,33 @@ it.skipIf(!wordsPath || !outPath)(
 		);
 	},
 );
+
+/**
+ * A split by vowel groups, for words no source splits: `re/al`, `lo/ved`,
+ * `Ro/lex`. One consonant goes with the next vowel; two vowels in a row are
+ * cut apart only when the word has a single vowel group.
+ */
+function vowelSplit(word: string) {
+	const vowel = /[aeiouyàâäéèêëïîôöùûü]/i;
+	const groups = [...word.matchAll(/[aeiouyàâäéèêëïîôöùûü]+/gi)].filter(
+		(m) => !(m[0].toLowerCase() === "y" && m.index === 0),
+	);
+	const cuts: number[] = [];
+	if (groups.length >= 2) {
+		for (let i = 1; i < groups.length; i++) {
+			const start = groups[i].index;
+			const end = groups[i - 1].index + groups[i - 1][0].length;
+			cuts.push(start > end ? start - 1 : start);
+		}
+	} else if (groups.length === 1 && groups[0][0].length >= 2) {
+		cuts.push(groups[0].index + 1);
+	}
+	const split = cut(word, cuts);
+	const pieces = split.split("/");
+	return pieces.length > 1 && pieces.every((p) => vowel.test(p) || p.includes("'"))
+		? split
+		: undefined;
+}
 
 /** `split` with one cut moved one letter, keeping a vowel in every piece. */
 function shifts(split: string) {
