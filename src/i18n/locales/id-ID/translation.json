@@ -1114,6 +1114,9 @@
       "syncStart": "Sinkronisasi - Mulai",
       "syncNext": "Sinkronisasi - Berikutnya",
       "syncEnd": "Sinkronisasi - Akhiri",
+      "syncLineStart": "Sinkronisasi - Mulai baris",
+      "syncLineNext": "Sinkronisasi - Akhiri baris dan mulai berikutnya",
+      "syncLineEnd": "Sinkronisasi - Akhiri baris",
       "toggleWordHighlight": "Sinkronisasi - Alihkan sorotan kata aktif",
       "urbanDictionary": "Edit - Cari di Urban Dictionary",
       "urbanDictionarySync": "Sinkronisasi - Cari di Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Kata berikutnya"
   },
   "lineSync": {
-    "timing": "Waktu lagu",
-    "timingDesc": "Kata: setiap kata punya waktunya sendiri. Baris: setiap baris adalah satu blok teks dengan awal dan akhir, disimpan sebagai lirik tersinkron per baris.",
-    "word": "Kata",
-    "line": "Baris",
-    "confirmTitle": "Beralih ke waktu per baris?",
-    "confirmDescription": "Setiap baris menjadi satu blok teks dan tetap menyimpan awal dan akhirnya. Waktu kata dan pemisahan suku kata dihapus. Kamu bisa membatalkannya.",
-    "confirmAction": "Beralih ke Baris",
-    "toWordTitle": "Beralih ke waktu per kata?",
-    "toWordDescription": "Setiap baris dipisah menjadi kata-kata di setiap spasi. Sinkronisasi kata tetap berada di dalam awal dan akhir setiap baris. Kamu bisa membatalkannya.",
-    "wordTimes": "Waktu kata",
-    "wordTimesUntimed": "Biarkan kata tanpa waktu",
-    "wordTimesSpread": "Sebarkan waktu setiap baris ke kata-katanya",
-    "wordTimesSpreadDesc": "Kata yang lebih panjang mendapat waktu lebih banyak. Baris tanpa waktu tetap tanpa waktu.",
-    "toWordAction": "Beralih ke Kata",
-    "splitBlocked": "Beralih ke waktu per kata untuk memisah kata",
-    "previewNotice": "Spicy Lyrics menampilkan lagu dengan waktu per baris tanpa vokal latar dan tanpa sisi duet. Semuanya tetap disimpan.",
-    "editAsTextDescription": "Edit seluruh lirik sebagai teks biasa. Setiap baris teks adalah satu baris dan tetap menyimpan waktunya.",
-    "editAsTextToolsHint": "Proses lirik bekerja pada baris yang dipilih, atau pada semuanya jika tidak ada yang dipilih. Pemisah kata diabaikan pada waktu per baris.",
-    "editAsTextEditedHint": "Baris yang diedit tetap menyimpan waktunya.",
-    "lineText": "Teks baris"
+    "previewNotice": "Spicy Lyrics menampilkan lagu dengan waktu per baris tanpa vokal latar dan tanpa sisi duet. Semuanya tetap disimpan."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -275,12 +275,6 @@
 	max-lines: 1;
 }
 
-/* Line timing: the whole line is one text field in Edit mode. */
-.lineTextField {
-	flex: 1;
-	min-width: 0;
-}
-
 .insertWordField {
 	opacity: 0;
 	transition: opacity 0.2s ease-in-out;

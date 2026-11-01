@@ -12,9 +12,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 import { useLyricLinesWhileOpen } from "$/hooks/useLyricLinesWhileOpen.ts";
-import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import {
 	segmentationCustomRulesAtom,
 	segmentationEngineAtom,
@@ -55,15 +53,6 @@ export const SplitWordDialog = memo(() => {
 	const lyricLines = useLyricLinesWhileOpen(splitWordDialog);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const { t } = useTranslation();
-	// Line timing keeps each line one block, so there is nothing to split.
-	const lineTimed = useAtomValue(lineSyncActiveAtom);
-	useEffect(() => {
-		if (!splitWordDialog || !lineTimed) return;
-		splitWordDialogOpen(false);
-		toast.info(
-			t("lineSync.splitBlocked", "Switch to Word timing to split words"),
-		);
-	}, [splitWordDialog, lineTimed, splitWordDialogOpen, t]);
 
 	const [splitIndices, setSplitIndices] = useState(new Set<number>());
 	const [targetWordText, setTargetWordText] = useState("");
@@ -280,10 +269,7 @@ export const SplitWordDialog = memo(() => {
 	]);
 
 	return (
-		<Dialog.Root
-			open={splitWordDialog && !lineTimed}
-			onOpenChange={splitWordDialogOpen}
-		>
+		<Dialog.Root open={splitWordDialog} onOpenChange={splitWordDialogOpen}>
 			<Dialog.Content>
 				<Dialog.Title>{t("splitWordDialog.title", "Split word")}</Dialog.Title>
 				<Flex direction="column" gap="2">

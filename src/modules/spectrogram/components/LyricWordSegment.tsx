@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import {
 	type FC,
@@ -8,7 +7,6 @@ import {
 	useContext,
 } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine.ts";
-import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import type { WordSegment } from "$/modules/segmentation/utils/segment-processing.ts";
 import { displayRomanizationInSyncAtom } from "$/modules/settings/states/index.ts";
 import { spectrogramScrollLeftAtom } from "$/modules/spectrogram/states";
@@ -41,7 +39,6 @@ const LyricWordSegmentImpl: FC<LyricWordSegmentProps> = ({
 	const store = useStore();
 	const showPerWordRomanization = useAtomValue(displayRomanizationInSyncAtom);
 	const editingTimeField = useAtomValue(editingTimeFieldAtom);
-	const lineTimed = useAtomValue(lineSyncActiveAtom);
 
 	const { startTime, endTime, word, romanWord } = segment;
 
@@ -77,8 +74,6 @@ const LyricWordSegmentImpl: FC<LyricWordSegmentProps> = ({
 		if (isGhost) return;
 		if (editingTimeField) return;
 		if (e.button !== 0) return;
-		// Line timing: the block is the line, so let the line's own drag take it.
-		if (store.get(lineSyncActiveAtom)) return;
 
 		e.preventDefault();
 		e.stopPropagation();
@@ -125,9 +120,7 @@ const LyricWordSegmentImpl: FC<LyricWordSegmentProps> = ({
 
 	return (
 		<div
-			className={classNames(styles.wordSegment, lineTimed && styles.lineBlock)}
-			// Zoomed out, a line block shows only its start; hover for the rest.
-			title={lineTimed ? word : undefined}
+			className={styles.wordSegment}
 			style={dynamicStyles}
 			onClick={handleClick}
 			onMouseDown={handlePanStart}
@@ -141,8 +134,6 @@ const LyricWordSegmentImpl: FC<LyricWordSegmentProps> = ({
 					<span className={styles.romanText}>{romanWord}</span>
 					<span className={styles.originText}>{word}</span>
 				</>
-			) : lineTimed ? (
-				<span className={styles.originText}>{word}</span>
 			) : (
 				word
 			)}

@@ -1114,6 +1114,9 @@
       "syncStart": "Sincronización - Iniciar",
       "syncNext": "Sincronización - Siguiente",
       "syncEnd": "Sincronización - Finalizar",
+      "syncLineStart": "Sincronización - Iniciar línea",
+      "syncLineNext": "Sincronización - Terminar línea e iniciar la siguiente",
+      "syncLineEnd": "Sincronización - Terminar línea",
       "toggleWordHighlight": "Sincronización: alternar resaltado de palabra activa",
       "urbanDictionary": "Editar - Buscar en Urban Dictionary",
       "urbanDictionarySync": "Sincronización: buscar en Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Palabra siguiente"
   },
   "lineSync": {
-    "timing": "Sincronización de la canción",
-    "timingDesc": "Palabra: cada palabra tiene su propio tiempo. Línea: cada línea es un bloque de texto con inicio y final, guardado como letra sincronizada por líneas.",
-    "word": "Palabra",
-    "line": "Línea",
-    "confirmTitle": "¿Cambiar a sincronización por líneas?",
-    "confirmDescription": "Cada línea pasa a ser un bloque de texto y conserva su inicio y su final. Se eliminan los tiempos de las palabras y las divisiones en sílabas. Puedes deshacerlo.",
-    "confirmAction": "Cambiar a Línea",
-    "toWordTitle": "¿Cambiar a sincronización por palabras?",
-    "toWordDescription": "Cada línea se divide en palabras por sus espacios. La sincronización de palabras se queda dentro del inicio y el final de cada línea. Puedes deshacerlo.",
-    "wordTimes": "Tiempos de las palabras",
-    "wordTimesUntimed": "Dejar las palabras sin tiempo",
-    "wordTimesSpread": "Repartir el tiempo de cada línea entre sus palabras",
-    "wordTimesSpreadDesc": "Las palabras más largas reciben más tiempo. Las líneas sin tiempo siguen sin tiempo.",
-    "toWordAction": "Cambiar a Palabra",
-    "splitBlocked": "Cambia a sincronización por palabras para dividir palabras",
-    "previewNotice": "Spicy Lyrics muestra las canciones sincronizadas por líneas sin voces de fondo ni lados de dúo. Aun así se guardan.",
-    "editAsTextDescription": "Edita toda la letra como texto plano. Cada fila es una línea y conserva su tiempo.",
-    "editAsTextToolsHint": "Procesar letra actúa sobre las líneas seleccionadas, o sobre todo si no hay nada seleccionado. En la sincronización por líneas se ignoran los separadores de palabras.",
-    "editAsTextEditedHint": "Las líneas editadas conservan su tiempo.",
-    "lineText": "Texto de la línea"
+    "previewNotice": "Spicy Lyrics muestra las canciones sincronizadas por líneas sin voces de fondo ni lados de dúo. Aun así se guardan."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

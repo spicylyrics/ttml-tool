@@ -1114,6 +1114,9 @@
       "syncStart": "打轴 - 开始",
       "syncNext": "打轴 - 下一个",
       "syncEnd": "打轴 - 结束",
+      "syncLineStart": "打轴 - 开始整行",
+      "syncLineNext": "打轴 - 结束整行并开始下一行",
+      "syncLineEnd": "打轴 - 结束整行",
       "toggleWordHighlight": "打轴 - 切换当前字高亮",
       "urbanDictionary": "编辑 - 在 Urban Dictionary 中查找",
       "urbanDictionarySync": "打轴 - 在 Urban Dictionary 中查找",
@@ -1407,26 +1410,7 @@
     "nextWord": "下一个字"
   },
   "lineSync": {
-    "timing": "歌曲计时",
-    "timingDesc": "逐字：每个字都有自己的时间。逐行：每行是一个带开始和结束时间的文本块，保存为逐行同步歌词。",
-    "word": "逐字",
-    "line": "逐行",
-    "confirmTitle": "切换为逐行计时？",
-    "confirmDescription": "每行会变成一个文本块，并保留开始和结束时间。逐字时间和音节拆分会被移除。此操作可以撤销。",
-    "confirmAction": "切换为逐行",
-    "toWordTitle": "切换为逐字计时？",
-    "toWordDescription": "每行会在空格处拆分为单词。逐字打轴会限制在每行的开始和结束时间之内。此操作可以撤销。",
-    "wordTimes": "单词时间",
-    "wordTimesUntimed": "单词保持未计时",
-    "wordTimesSpread": "把每行的时间分配给其中的单词",
-    "wordTimesSpreadDesc": "较长的单词分到更多时间。未计时的行保持未计时。",
-    "toWordAction": "切换为逐字",
-    "splitBlocked": "切换为逐字计时后才能拆分单词",
-    "previewNotice": "Spicy Lyrics 显示逐行计时的歌曲时不包含背景人声和对唱分侧。它们仍会被保存。",
-    "editAsTextDescription": "以纯文本编辑全部歌词。每一行文本就是一行歌词，并保留其时间。",
-    "editAsTextToolsHint": "“处理歌词”作用于选中的行；未选中时作用于全部内容。逐行计时下会忽略分词符。",
-    "editAsTextEditedHint": "编辑过的行会保留其时间。",
-    "lineText": "行文本"
+    "previewNotice": "Spicy Lyrics 显示逐行计时的歌曲时不包含背景人声和对唱分侧。它们仍会被保存。"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

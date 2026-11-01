@@ -8,12 +8,12 @@ import {
 } from "$/modules/settings/states/preview";
 import { lyricLinesAtom } from "$/states/main";
 import { hasHiddenLineTimedVocals } from "./spicy-preview";
-import { lineSyncActiveAtom } from "./states";
+import { songExportsLineTimedAtom } from "./states";
 
 const showNoticeAtom = atom(
 	(get) =>
 		get(previewModeTypeAtom) === PreviewModeType.Spicy &&
-		get(lineSyncActiveAtom) &&
+		get(songExportsLineTimedAtom) &&
 		hasHiddenLineTimedVocals(get(lyricLinesAtom).lyricLines),
 );
 

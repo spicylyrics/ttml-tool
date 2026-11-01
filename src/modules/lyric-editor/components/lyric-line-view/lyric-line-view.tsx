@@ -42,7 +42,6 @@ export const LyricLineView: FC<{
 		editLyricLines,
 		showTimestamps,
 		showEndTimeAsDuration,
-		syncLevelMode,
 		store,
 		activeSection,
 		sectionActionsEnabled,
@@ -85,7 +84,6 @@ export const LyricLineView: FC<{
 		toolMode,
 		blockDragRef,
 		store,
-		syncLevelMode,
 		setSelectedLines,
 		setSelectedWords,
 	});

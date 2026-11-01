@@ -1,28 +1,16 @@
-import { useAtomValue, useStore } from "jotai";
+import { useStore } from "jotai";
 import { type FC, useCallback } from "react";
-import { audioEngine } from "$/modules/audio/audio-engine";
-import { SyncKeyBinding } from "$/modules/lyric-editor/components/sync-keybinding";
 import { useSyncJudgeTime } from "$/modules/lyric-editor/components/use-sync-judge-time";
 import {
 	getCurrentLineLocation,
 	getSynchronizableUnits,
 } from "$/modules/lyric-editor/utils/lyric-states";
-import { highlightActiveWordAtom } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
 import { syncCommitOffsetAtom } from "$/modules/settings/states/sync";
 import {
-	keyMoveFirstWordAndPlayAtom,
-	keyMoveLastWordAndPlayAtom,
-	keyMoveNextLineAtom,
-	keyMoveNextWordAndPlayAtom,
-	keyMoveNextWordAtom,
-	keyMovePrevLineAtom,
-	keyMovePrevWordAndPlayAtom,
-	keyMovePrevWordAtom,
-	keySyncEndAtom,
-	keySyncNextAtom,
-	keySyncStartAtom,
-	keyToggleWordHighlightAtom,
+	keySyncLineEndAtom,
+	keySyncLineNextAtom,
+	keySyncLineStartAtom,
 } from "$/states/keybindings";
 import {
 	lyricLinesAtom,
@@ -32,37 +20,20 @@ import {
 import type { LyricLine } from "$/types/ttml";
 import { useKeyBindingAtom } from "$/utils/keybindings";
 import {
-	findNextLineSyncIndex,
-	findPrevLineSyncIndex,
 	type LineSyncResult,
 	lineSyncEnd,
 	lineSyncNext,
 	lineSyncStart,
 } from "./line-keys";
-import { lineSyncActiveAtom } from "./states";
 
 /**
- * Keyboard syncing for Line mode. F starts the selected line, G ends it and
- * starts the next, H ends it. Word navigation keys move by whole lines.
+ * Whole-line timing in Time mode, next to word syncing: Start line, End line
+ * and start next, End line. They set the selected line's start and end only.
+ * No default keys; they run from the palette or a shortcut set in Preferences.
  */
 export const LineSyncKeyBinding: FC = () => {
 	const store = useStore();
-
 	const calcJudgeTime = useSyncJudgeTime();
-
-	const selectLine = useCallback(
-		(line: LyricLine | undefined, play: boolean) => {
-			if (!line) return;
-			store.set(selectedLinesAtom, new Set([line.id]));
-			store.set(
-				selectedWordsAtom,
-				new Set(getSynchronizableUnits(line).map((unit) => unit.id)),
-			);
-			if (play && line.endTime > line.startTime)
-				void audioEngine.resumeOrSeekMusic(line.startTime / 1000);
-		},
-		[store],
-	);
 
 	const runSync = useCallback(
 		(apply: (lines: LyricLine[], lineIndex: number) => LineSyncResult) => {
@@ -74,33 +45,18 @@ export const LineSyncKeyBinding: FC = () => {
 				nextIndex = result.nextIndex;
 				return { ...prev, lyricLines: result.lines };
 			});
-			if (nextIndex !== -1)
-				selectLine(store.get(lyricLinesAtom).lyricLines[nextIndex], false);
+			const next = store.get(lyricLinesAtom).lyricLines[nextIndex];
+			if (!next) return;
+			// Land on the next line's first word, like moving to the next line does.
+			const first = getSynchronizableUnits(next)[0];
+			store.set(selectedLinesAtom, new Set([next.id]));
+			store.set(selectedWordsAtom, new Set(first ? [first.id] : []));
 		},
-		[store, selectLine],
+		[store],
 	);
-
-	const moveBy = useCallback(
-		(direction: 1 | -1, play: boolean) => {
-			const location = getCurrentLineLocation(store);
-			if (!location) return;
-			const lane = store.get(backgroundSyncLaneAtom);
-			const index =
-				direction === 1
-					? findNextLineSyncIndex(location.lines, location.lineIndex, lane)
-					: findPrevLineSyncIndex(location.lines, location.lineIndex, lane);
-			if (index !== -1) selectLine(location.lines[index], play);
-		},
-		[store, selectLine],
-	);
-
-	const replayLine = useCallback(() => {
-		const location = getCurrentLineLocation(store);
-		if (location) selectLine(location.line, true);
-	}, [store, selectLine]);
 
 	useKeyBindingAtom(
-		keySyncStartAtom,
+		keySyncLineStartAtom,
 		(evt) => {
 			const time = calcJudgeTime(evt);
 			runSync((lines, index) => lineSyncStart(lines, index, time));
@@ -108,7 +64,7 @@ export const LineSyncKeyBinding: FC = () => {
 		[calcJudgeTime, runSync],
 	);
 	useKeyBindingAtom(
-		keySyncNextAtom,
+		keySyncLineNextAtom,
 		(evt) => {
 			const time = calcJudgeTime(evt, store.get(syncCommitOffsetAtom));
 			const lane = store.get(backgroundSyncLaneAtom);
@@ -117,7 +73,7 @@ export const LineSyncKeyBinding: FC = () => {
 		[store, calcJudgeTime, runSync],
 	);
 	useKeyBindingAtom(
-		keySyncEndAtom,
+		keySyncLineEndAtom,
 		(evt) => {
 			const time = calcJudgeTime(evt);
 			const lane = store.get(backgroundSyncLaneAtom);
@@ -126,30 +82,5 @@ export const LineSyncKeyBinding: FC = () => {
 		[store, calcJudgeTime, runSync],
 	);
 
-	useKeyBindingAtom(keyMoveNextLineAtom, () => moveBy(1, false), [moveBy]);
-	useKeyBindingAtom(keyMovePrevLineAtom, () => moveBy(-1, false), [moveBy]);
-	useKeyBindingAtom(keyMoveNextWordAtom, () => moveBy(1, false), [moveBy]);
-	useKeyBindingAtom(keyMovePrevWordAtom, () => moveBy(-1, false), [moveBy]);
-	useKeyBindingAtom(keyMoveNextWordAndPlayAtom, () => moveBy(1, true), [
-		moveBy,
-	]);
-	useKeyBindingAtom(keyMovePrevWordAndPlayAtom, () => moveBy(-1, true), [
-		moveBy,
-	]);
-	useKeyBindingAtom(keyMoveFirstWordAndPlayAtom, replayLine, [replayLine]);
-	useKeyBindingAtom(keyMoveLastWordAndPlayAtom, replayLine, [replayLine]);
-
-	useKeyBindingAtom(keyToggleWordHighlightAtom, () => {
-		store.set(highlightActiveWordAtom, (v) => !v);
-	}, [store]);
-
 	return null;
 };
-
-/** Time-mode keys: Line mode gets its own set, everything else keeps word syncing. */
-export const SyncKeyBindings: FC = () =>
-	useAtomValue(lineSyncActiveAtom) ? (
-		<LineSyncKeyBinding />
-	) : (
-		<SyncKeyBinding />
-	);

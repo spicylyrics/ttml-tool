@@ -32,7 +32,6 @@ import {
 	cmdFindInLyrics,
 	cmdReplaceInLyrics,
 } from "$/modules/keyboard/commands";
-import { getTimingMode } from "$/modules/line-sync/timing-mode";
 import {
 	importTextFormatAtom,
 	processStepsAtom,
@@ -155,14 +154,10 @@ function EditAsTextBody({
 	const { t } = useTranslation();
 	const store = useStore();
 	// The text is written once when the dialog opens.
-	const [{ format, original, lineTimed }] = useState(() => {
+	const [{ format, original }] = useState(() => {
 		const lyrics = store.get(lyricLinesAtom);
 		const format = editTextFormat(lyrics, store.get(importTextFormatAtom));
-		return {
-			format,
-			original: serializeLyrics(lyrics, format),
-			lineTimed: getTimingMode(lyrics) === "line",
-		};
+		return { format, original: serializeLyrics(lyrics, format) };
 	});
 	const [text, setText] = useState(original);
 	const dirty = text !== original;
@@ -180,9 +175,8 @@ function EditAsTextBody({
 
 	const { config: segmentationConfig, isLoading: segmentationLoading } =
 		useSegmentationConfig();
-	// Both run on the selected lines, or everything with no selection. Line
-	// timing keeps each line one block, so it has no syllables to split.
-	const allTools: LyricMarkupTool[] = [
+	// Both run on the selected lines, or everything with no selection.
+	const tools: LyricMarkupTool[] = [
 		{
 			key: "process",
 			icon: <SparkleRegular />,
@@ -220,9 +214,6 @@ function EditAsTextBody({
 			},
 		},
 	];
-	const tools = lineTimed
-		? allTools.filter((tool) => tool.key !== "split")
-		: allTools;
 
 	const apply = () => {
 		try {
@@ -281,15 +272,10 @@ function EditAsTextBody({
 			</Dialog.Title>
 			<VisuallyHidden>
 				<Dialog.Description>
-					{lineTimed
-						? t(
-								"lineSync.editAsTextDescription",
-								"Edit the whole lyrics as plain text. Each row is one line and keeps its timing.",
-							)
-						: t(
-								"editAsText.description",
-								"Edit the whole lyrics as plain text. Words you don't change keep their timing.",
-							)}
+					{t(
+						"editAsText.description",
+						"Edit the whole lyrics as plain text. Words you don't change keep their timing.",
+					)}
 				</Dialog.Description>
 			</VisuallyHidden>
 
@@ -303,20 +289,15 @@ function EditAsTextBody({
 						tools={tools}
 					/>
 					<Text size="1" color="gray">
-						{lineTimed
-							? t(
-									"lineSync.editAsTextToolsHint",
-									"Process lyrics works on the selected lines, or on everything when nothing is selected. Word separators are ignored in Line timing.",
-								)
-							: t(
-									"editAsText.toolsHint",
-									"Process lyrics and Split syllables work on the selected lines, or on everything when nothing is selected.",
-								)}
+						{t(
+							"editAsText.toolsHint",
+							"Process lyrics and Split syllables work on the selected lines, or on everything when nothing is selected.",
+						)}
 					</Text>
 				</Flex>
 				<ScrollArea type="auto" scrollbars="vertical" className={styles.side}>
 					<div className={styles.sideInner}>
-						<SummaryPanel summary={summary} lineTimed={lineTimed} />
+						<SummaryPanel summary={summary} />
 					</div>
 				</ScrollArea>
 			</div>
@@ -335,13 +316,7 @@ function EditAsTextBody({
 	);
 }
 
-function SummaryPanel({
-	summary,
-	lineTimed,
-}: {
-	summary: TextEditSummary | null;
-	lineTimed: boolean;
-}) {
+function SummaryPanel({ summary }: { summary: TextEditSummary | null }) {
 	const { t } = useTranslation();
 	if (!summary)
 		return (
@@ -370,9 +345,7 @@ function SummaryPanel({
 				"{count, plural, one {# line edited} other {# lines edited}}",
 				{ count: summary.edited },
 			),
-			hint: lineTimed
-				? t("lineSync.editAsTextEditedHint", "Edited lines keep their timing.")
-				: t("editAsText.editedHint", "Timings are kept where words match."),
+			hint: t("editAsText.editedHint", "Timings are kept where words match."),
 		},
 		{
 			count: summary.moved,

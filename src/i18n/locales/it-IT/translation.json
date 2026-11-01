@@ -1114,6 +1114,9 @@
       "syncStart": "Sincronizzazione - Inizia",
       "syncNext": "Sincronizzazione - Avanti",
       "syncEnd": "Sincronizzazione - Termina",
+      "syncLineStart": "Sincronizzazione - Inizia il verso",
+      "syncLineNext": "Sincronizzazione - Termina il verso e inizia il successivo",
+      "syncLineEnd": "Sincronizzazione - Termina il verso",
       "toggleWordHighlight": "Sincronizzazione - Attiva/disattiva evidenziazione della parola attiva",
       "urbanDictionary": "Modifica - Cerca in Urban Dictionary",
       "urbanDictionarySync": "Sincronizzazione - Cerca in Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Parola successiva"
   },
   "lineSync": {
-    "timing": "Sincronizzazione del brano",
-    "timingDesc": "Parola: ogni parola ha il suo tempo. Riga: ogni riga è un blocco di testo con inizio e fine, salvato come testo sincronizzato per riga.",
-    "word": "Parola",
-    "line": "Riga",
-    "confirmTitle": "Passare alla sincronizzazione per riga?",
-    "confirmDescription": "Ogni riga diventa un blocco di testo e mantiene inizio e fine. I tempi delle parole e le divisioni in sillabe vengono rimossi. Puoi annullare.",
-    "confirmAction": "Passa a Riga",
-    "toWordTitle": "Passare alla sincronizzazione per parola?",
-    "toWordDescription": "Ogni riga viene divisa in parole in corrispondenza degli spazi. La sincronizzazione delle parole resta entro l'inizio e la fine di ogni riga. Puoi annullare.",
-    "wordTimes": "Tempi delle parole",
-    "wordTimesUntimed": "Lascia le parole senza tempo",
-    "wordTimesSpread": "Distribuisci il tempo di ogni riga tra le sue parole",
-    "wordTimesSpreadDesc": "Le parole più lunghe ricevono più tempo. Le righe senza tempo restano senza tempo.",
-    "toWordAction": "Passa a Parola",
-    "splitBlocked": "Passa alla sincronizzazione per parola per dividere le parole",
-    "previewNotice": "Spicy Lyrics mostra i brani sincronizzati per riga senza cori e senza lati del duetto. Vengono comunque salvati.",
-    "editAsTextDescription": "Modifica tutto il testo come testo semplice. Ogni riga di testo è una riga e mantiene il suo tempo.",
-    "editAsTextToolsHint": "Elabora testo agisce sulle righe selezionate, o su tutto se non è selezionato nulla. Nella sincronizzazione per riga i separatori di parola vengono ignorati.",
-    "editAsTextEditedHint": "Le righe modificate mantengono il loro tempo.",
-    "lineText": "Testo della riga"
+    "previewNotice": "Spicy Lyrics mostra i brani sincronizzati per riga senza cori e senza lati del duetto. Vengono comunque salvati."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -27,16 +27,11 @@ export interface Mark {
 	description?: string;
 }
 
-/** How the song is timed: per word, or whole lines only. Never mixed. */
-export type TimingMode = "word" | "line";
-
 export interface TTMLLyric {
 	metadata: TTMLMetadata[];
 	lyricLines: LyricLine[];
 	marks?: Mark[];
 	sections?: LyricSection[];
-	/** Missing in projects saved before line syncing existed; read as word. */
-	timingMode?: TimingMode;
 	/** `xml:lang` for translations, from the imported file. Export defaults to English. */
 	translationLanguage?: string;
 }
@@ -115,13 +110,6 @@ export interface LyricLine extends AMLLLyricLine {
 	ignoreSync: boolean;
 	/** Whether the source stores this lyric as direct text in a timed <p>. */
 	isLineSynced?: boolean;
-	/**
-	 * The start and end this line was given in Line mode. While the line still
-	 * has exactly these times, word syncing stays inside them (R48); editing
-	 * the line's times any other way turns that off. Not written to TTML, so a
-	 * Word-mode song reopened from a file loses it.
-	 */
-	syncedLineBounds?: { startTime: number; endTime: number };
 	language?: string;
 	agent?: string;
 	/**

@@ -1,9 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from "vitest";
 import { parseLyric } from "$/modules/project/logic/ttml-parser";
-import exportTTMLText, {
-	shouldExportAsLineSynced,
-} from "$/modules/project/logic/ttml-writer";
+import exportTTMLText from "$/modules/project/logic/ttml-writer";
 import {
 	type LyricLine,
 	type LyricWord,
@@ -11,7 +9,6 @@ import {
 	newLyricWord,
 	type TTMLLyric,
 } from "$/types/ttml";
-import { switchToLineMode, switchToWordMode } from "./timing-mode";
 
 const word = (text: string, startTime = 0, endTime = 0): LyricWord => ({
 	...newLyricWord(),
@@ -27,160 +24,99 @@ const line = (
 	extra: Partial<LyricLine> = {},
 ): LyricLine => ({ ...newLyricLine(), words, startTime, endTime, ...extra });
 
-const wordTimed: TTMLLyric = {
+const song = (lyricLines: LyricLine[]): TTMLLyric => ({
 	metadata: [],
-	lyricLines: [
-		line(
-			[word("Hello", 1000, 1500), word(" "), word("world", 1500, 2200)],
-			1000,
-			2200,
-		),
-		line([word("ooh", 2000, 2400)], 2000, 2400, { isBG: true }),
-		line(
-			[word("Second", 2500, 3000), word(" "), word("line", 3000, 4000)],
-			2500,
-			4000,
-			{
-				isDuet: true,
-			},
-		),
-	],
-};
+	lyricLines,
+});
 
-const lineTimed = switchToLineMode(wordTimed);
+/** Lines timed with the line keys: start and end only, words untimed. */
+const lineTimed = song([
+	line([word("Hello"), word(" "), word("world")], 1000, 2200),
+	line([word("ooh")], 2000, 2400, { isBG: true }),
+	line([word("Second"), word(" "), word("line")], 2500, 4000, {
+		isDuet: true,
+	}),
+]);
 
 const summary = (lyric: TTMLLyric) =>
 	lyric.lyricLines.map((l) => ({
-		words: l.words.map((w) => w.word),
+		text: l.words.map((w) => w.word).join(""),
 		startTime: l.startTime,
 		endTime: l.endTime,
 		isBG: l.isBG,
 		isDuet: l.isDuet,
 	}));
 
-describe("shouldExportAsLineSynced", () => {
-	it("writes a block as text and a line of words as spans", () => {
-		expect(
-			shouldExportAsLineSynced({
-				...line([word("Whole line")], 0, 1000),
-				isLineSynced: true,
-			}),
-		).toBe(true);
-		expect(
-			shouldExportAsLineSynced({
-				...line([word("a"), word(" "), word("b")], 0, 1000),
-				isLineSynced: true,
-			}),
-		).toBe(false);
-	});
-});
-
-describe("Line-mode export", () => {
+describe("a song with no word timing exports line-timed", () => {
 	const xml = exportTTMLText(lineTimed);
 
-	it("marks the root as Line timed and stores the mode", () => {
+	it("marks the root Line and writes each line as plain text", () => {
 		expect(xml).toContain('itunes:timing="Line"');
-		expect(xml).toContain('key="amll:timingMode" value="line"');
-	});
-
-	it("writes lines and background lines as plain text", () => {
 		expect(xml).toContain(
 			'<p begin="00:01.000" end="00:02.200" ttm:agent="v1" itunes:key="L1">Hello world<span ttm:role="x-bg" begin="00:02.000" end="00:02.400">(ooh)</span></p>',
 		);
 		expect(xml).not.toMatch(/<span begin=/);
 	});
 
-	it("round-trips to the same blocks and timings", () => {
+	it("round-trips to the same lines and timings", () => {
 		const parsed = parseLyric(xml);
-		expect(parsed.timingMode).toBe("line");
-		expect(parsed.metadata.some((m) => m.key === "amll:timingMode")).toBe(
-			false,
-		);
 		expect(summary(parsed)).toEqual(summary(lineTimed));
 		expect(parsed.lyricLines.every((l) => l.isLineSynced)).toBe(true);
 		expect(exportTTMLText(parsed)).toBe(xml);
 	});
 
-	it("can switch a reopened Line-mode file back to Word mode with every word to sync", () => {
-		const reopened = switchToWordMode(parseLyric(xml));
-		expect(reopened.lyricLines[0].words.map((w) => w.word)).toEqual([
-			"Hello",
-			" ",
-			"world",
+	it("keeps lines that came from LRC or line-synced TTML line-timed", () => {
+		const lrc = song([
+			line([word("First line", 1000, 2000)], 1000, 2000, {
+				isLineSynced: true,
+			}),
+			line([word("Second line", 2000, 3000)], 2000, 3000, {
+				isLineSynced: true,
+			}),
 		]);
-		expect(reopened.lyricLines[0]).toMatchObject({
-			startTime: 1000,
-			endTime: 2200,
-			syncedLineBounds: { startTime: 1000, endTime: 2200 },
-		});
+		expect(exportTTMLText(lrc)).toContain('itunes:timing="Line"');
 	});
 
-	it("exports a song switched back to Word mode without a stored mode", () => {
-		const out = exportTTMLText(switchToWordMode(lineTimed));
-		expect(out).not.toContain("amll:timingMode");
+	it("opens a line-timed file from elsewhere and saves it the same way", () => {
+		const ttml = `<tt xmlns="http://www.w3.org/ns/ttml" xmlns:itunes="http://music.apple.com/lyric-ttml-internal" itunes:timing="Line"><body><div><p begin="00:01.000" end="00:02.000">First line</p><p begin="00:02.000" end="00:03.000">Second line</p></div></body></tt>`;
+		const out = exportTTMLText(parseLyric(ttml));
+		expect(out).toContain('itunes:timing="Line"');
+		expect(out).toContain(">First line</p>");
 	});
 });
 
-describe("line-timed files from elsewhere", () => {
-	const ttml = (body: string) =>
-		`<tt xmlns="http://www.w3.org/ns/ttml" xmlns:itunes="http://music.apple.com/lyric-ttml-internal" itunes:timing="Line"><body><div>${body}</div></body></tt>`;
-
-	it("open in Line mode when every line is plain text", () => {
-		const parsed = parseLyric(
-			ttml(
-				'<p begin="00:01.000" end="00:02.000">First line</p><p begin="00:02.000" end="00:03.000">Second line</p>',
+describe("a song with any word timing exports Word", () => {
+	it("when words are timed", () => {
+		const timed = song([
+			line(
+				[word("Hello", 1000, 1500), word(" "), word("world", 1500, 2200)],
+				1000,
+				2200,
 			),
-		);
-		expect(parsed.timingMode).toBe("line");
-		expect(parsed.lyricLines.map((l) => l.words.map((w) => w.word))).toEqual([
-			["First line"],
-			["Second line"],
 		]);
+		expect(exportTTMLText(timed)).toContain('itunes:timing="Word"');
 	});
 
-	it("stay in Word mode when a line has timed words", () => {
-		const parsed = parseLyric(
-			ttml(
-				'<p begin="00:01.000" end="00:02.000"><span begin="00:01.000" end="00:01.500">First</span> <span begin="00:01.500" end="00:02.000">line</span></p>',
-			),
-		);
-		expect(parsed.timingMode).toBeUndefined();
+	it("when lines are one timed word each", () => {
+		const oneWord = song([
+			line([word("Hey", 1000, 1500)], 1000, 1500),
+			line([word("You", 2000, 2500)], 2000, 2500),
+		]);
+		expect(exportTTMLText(oneWord)).toContain('itunes:timing="Word"');
+	});
+
+	it("when only one line has word timing", () => {
+		const mixed = song([
+			line([word("Hello", 1000, 1500)], 1000, 1500),
+			line([word("Second"), word(" "), word("line")], 2000, 3000),
+		]);
+		expect(exportTTMLText(mixed)).toContain('itunes:timing="Word"');
 	});
 });
 
-describe("itunes:timing follows the timing mode", () => {
-	it("writes Word for a Word-mode song whose lines are one word each", () => {
-		const oneWordLines: TTMLLyric = {
-			metadata: [],
-			lyricLines: [
-				line([word("Hey", 1000, 1500)], 1000, 1500),
-				line([word("You", 2000, 2500)], 2000, 2500),
-			],
-		};
-		const xml = exportTTMLText(oneWordLines);
-		expect(xml).toContain('itunes:timing="Word"');
-		expect(parseLyric(xml).timingMode).toBeUndefined();
-	});
-
-	it("writes None when nothing is timed", () => {
-		const untimed: TTMLLyric = {
-			metadata: [],
-			lyricLines: [line([word("Hey")], 0, 0)],
-		};
+describe("an untimed song", () => {
+	it("exports None, as before", () => {
+		const untimed = song([line([word("Hey"), word(" "), word("you")], 0, 0)]);
 		expect(exportTTMLText(untimed)).toContain('itunes:timing="None"');
-		expect(exportTTMLText(switchToLineMode(untimed))).toContain(
-			'itunes:timing="None"',
-		);
-	});
-});
-
-describe("projects without a timing mode", () => {
-	it("load as Word mode and export exactly as before", () => {
-		const xml = exportTTMLText(wordTimed);
-		expect(xml).not.toContain("amll:timingMode");
-		expect(xml).toContain('itunes:timing="Word"');
-		const parsed = parseLyric(xml);
-		expect(parsed.timingMode).toBeUndefined();
-		expect(parsed.lyricLines.some((l) => l.syncedLineBounds)).toBe(false);
 	});
 });

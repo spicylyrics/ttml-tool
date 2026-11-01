@@ -1114,6 +1114,9 @@
       "syncStart": "Timing - Start",
       "syncNext": "Timing - Næste",
       "syncEnd": "Timing - Slut",
+      "syncLineStart": "Timing - Start linje",
+      "syncLineNext": "Timing - Slut linje og start næste",
+      "syncLineEnd": "Timing - Slut linje",
       "toggleWordHighlight": "Timing - Slå fremhævning af aktivt ord til/fra",
       "urbanDictionary": "Rediger - Slå op i Urban Dictionary",
       "urbanDictionarySync": "Timing - Slå op i Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Næste ord"
   },
   "lineSync": {
-    "timing": "Sangens timing",
-    "timingDesc": "Ord: hvert ord får sin egen tid. Linje: hver linje er én tekstblok med start og slutning, gemt som linjesynkroniseret tekst.",
-    "word": "Ord",
-    "line": "Linje",
-    "confirmTitle": "Skift til linjetiming?",
-    "confirmDescription": "Hver linje bliver én tekstblok og beholder sin start og slutning. Ordtiming og stavelsesopdelinger fjernes. Du kan fortryde det.",
-    "confirmAction": "Skift til Linje",
-    "toWordTitle": "Skift til ordtiming?",
-    "toWordDescription": "Hver linje deles op i ord ved mellemrummene. Ordsynkronisering holder sig inden for hver linjes start og slutning. Du kan fortryde det.",
-    "wordTimes": "Ordtider",
-    "wordTimesUntimed": "Lad ordene være uden timing",
-    "wordTimesSpread": "Fordel hver linjes tid over dens ord",
-    "wordTimesSpreadDesc": "Længere ord får mere tid. Linjer uden timing forbliver uden timing.",
-    "toWordAction": "Skift til Ord",
-    "splitBlocked": "Skift til ordtiming for at dele ord",
-    "previewNotice": "Spicy Lyrics viser linjetimede sange uden baggrundsvokal og uden duetsider. De gemmes stadig.",
-    "editAsTextDescription": "Redigér hele teksten som almindelig tekst. Hver række er én linje og beholder sin timing.",
-    "editAsTextToolsHint": "Behandl sangtekster virker på de markerede linjer, eller på det hele, når intet er markeret. Ordskilletegn ignoreres ved linjetiming.",
-    "editAsTextEditedHint": "Redigerede linjer beholder deres timing.",
-    "lineText": "Linjetekst"
+    "previewNotice": "Spicy Lyrics viser linjetimede sange uden baggrundsvokal og uden duetsider. De gemmes stadig."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

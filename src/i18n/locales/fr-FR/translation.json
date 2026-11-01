@@ -1114,6 +1114,9 @@
       "syncStart": "Synchronisation - Démarrer",
       "syncNext": "Synchronisation - Suivant",
       "syncEnd": "Synchronisation - Terminer",
+      "syncLineStart": "Synchronisation - Démarrer la ligne",
+      "syncLineNext": "Synchronisation - Terminer la ligne et démarrer la suivante",
+      "syncLineEnd": "Synchronisation - Terminer la ligne",
       "toggleWordHighlight": "Synchronisation - Activer/désactiver le surlignage du mot actif",
       "urbanDictionary": "Modifier – Rechercher dans Urban Dictionary",
       "urbanDictionarySync": "Synchronisation – Rechercher dans Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Mot suivant"
   },
   "lineSync": {
-    "timing": "Synchronisation de la chanson",
-    "timingDesc": "Mot : chaque mot a son propre temps. Ligne : chaque ligne est un bloc de texte avec un début et une fin, enregistré en paroles synchronisées par ligne.",
-    "word": "Mot",
-    "line": "Ligne",
-    "confirmTitle": "Passer à la synchronisation par ligne ?",
-    "confirmDescription": "Chaque ligne devient un bloc de texte et garde son début et sa fin. Les temps des mots et les découpages en syllabes sont supprimés. Vous pouvez annuler.",
-    "confirmAction": "Passer en Ligne",
-    "toWordTitle": "Passer à la synchronisation par mot ?",
-    "toWordDescription": "Chaque ligne est découpée en mots à ses espaces. La synchronisation des mots reste entre le début et la fin de chaque ligne. Vous pouvez annuler.",
-    "wordTimes": "Temps des mots",
-    "wordTimesUntimed": "Laisser les mots sans temps",
-    "wordTimesSpread": "Répartir le temps de chaque ligne entre ses mots",
-    "wordTimesSpreadDesc": "Les mots plus longs reçoivent plus de temps. Les lignes sans temps restent sans temps.",
-    "toWordAction": "Passer en Mot",
-    "splitBlocked": "Passez à la synchronisation par mot pour découper les mots",
-    "previewNotice": "Spicy Lyrics affiche les chansons synchronisées par ligne sans chœurs ni côtés de duo. Ils sont tout de même enregistrés.",
-    "editAsTextDescription": "Modifiez toutes les paroles en texte brut. Chaque rangée est une ligne et garde sa synchronisation.",
-    "editAsTextToolsHint": "Préparer les paroles s'applique aux lignes sélectionnées, ou à tout le texte si rien n'est sélectionné. En synchronisation par ligne, les séparateurs de mots sont ignorés.",
-    "editAsTextEditedHint": "Les lignes modifiées gardent leur synchronisation.",
-    "lineText": "Texte de la ligne"
+    "previewNotice": "Spicy Lyrics affiche les chansons synchronisées par ligne sans chœurs ni côtés de duo. Ils sont tout de même enregistrés."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

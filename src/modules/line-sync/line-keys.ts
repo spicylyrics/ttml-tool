@@ -5,9 +5,8 @@ import {
 	type SyncLane,
 } from "$/modules/lyric-editor/utils/lyric-states";
 import type { LyricLine } from "$/types/ttml";
-import { withLineBounds } from "./timing-mode";
 
-/** Index of the next line after `lineIndex` that Line-mode keys can land on, or -1. */
+/** Index of the next line after `lineIndex` that the line keys can land on, or -1. */
 export function findNextLineSyncIndex(
 	lines: LyricLine[],
 	lineIndex: number,
@@ -23,22 +22,24 @@ export function findNextLineSyncIndex(
 	);
 }
 
-export function findPrevLineSyncIndex(
-	lines: LyricLine[],
-	lineIndex: number,
-	lane: SyncLane,
-): number {
-	const from = lines[lineIndex];
-	for (let index = lineIndex - 1; index >= 0; index--) {
-		const line = lines[index];
-		if (
-			isSynchronizableLine(line) &&
-			(!from || isInSyncLane(from, line, lane)) &&
-			getSynchronizableUnits(line).length > 0
-		)
-			return index;
-	}
-	return -1;
+/**
+ * Sets a line's start and end and leaves its words alone. A line stored as
+ * direct text (line-synced TTML, LRC) is one token timed like the line, so
+ * that token follows.
+ */
+function withLineBounds(
+	line: LyricLine,
+	startTime: number,
+	endTime: number,
+): LyricLine {
+	const block =
+		line.isLineSynced && line.words.length === 1 ? line.words[0] : undefined;
+	return {
+		...line,
+		startTime,
+		endTime,
+		words: block ? [{ ...block, startTime, endTime }] : line.words,
+	};
 }
 
 export interface LineSyncResult {
@@ -47,7 +48,7 @@ export interface LineSyncResult {
 	nextIndex: number;
 }
 
-/** F in Line mode: start this line. */
+/** Start line: sets this line's start. */
 export function lineSyncStart(
 	lines: LyricLine[],
 	lineIndex: number,
@@ -60,7 +61,7 @@ export function lineSyncStart(
 	return { lines: next, nextIndex: -1 };
 }
 
-/** G in Line mode: end this line and start the next one at the same time. */
+/** End line and start next: ends this line and starts the next at the same time. */
 export function lineSyncNext(
 	lines: LyricLine[],
 	lineIndex: number,
@@ -79,7 +80,7 @@ export function lineSyncNext(
 	return { lines: next, nextIndex };
 }
 
-/** H in Line mode: end this line and move to the next one without starting it. */
+/** End line: ends this line and moves to the next one without starting it. */
 export function lineSyncEnd(
 	lines: LyricLine[],
 	lineIndex: number,

@@ -1114,6 +1114,9 @@
       "syncStart": "Timing - Start",
       "syncNext": "Timing - Volgende",
       "syncEnd": "Timing - Einde",
+      "syncLineStart": "Timing - Regel starten",
+      "syncLineNext": "Timing - Regel beëindigen en volgende starten",
+      "syncLineEnd": "Timing - Regel beëindigen",
       "toggleWordHighlight": "Timing - Markering actief woord aan/uit",
       "urbanDictionary": "Bewerken - Opzoeken in Urban Dictionary",
       "urbanDictionarySync": "Timing - Opzoeken in Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Volgend woord"
   },
   "lineSync": {
-    "timing": "Timing van het nummer",
-    "timingDesc": "Woord: elk woord krijgt een eigen tijd. Regel: elke regel is één tekstblok met een begin en einde, opgeslagen als per regel gesynchroniseerde tekst.",
-    "word": "Woord",
-    "line": "Regel",
-    "confirmTitle": "Overschakelen naar regeltiming?",
-    "confirmDescription": "Elke regel wordt één tekstblok en houdt zijn begin en einde. Woordtimings en lettergreepsplitsingen worden verwijderd. Je kunt dit ongedaan maken.",
-    "confirmAction": "Naar Regel",
-    "toWordTitle": "Overschakelen naar woordtiming?",
-    "toWordDescription": "Elke regel wordt bij de spaties in woorden gesplitst. Woordsynchronisatie blijft binnen het begin en einde van elke regel. Je kunt dit ongedaan maken.",
-    "wordTimes": "Woordtijden",
-    "wordTimesUntimed": "Woorden zonder timing laten",
-    "wordTimesSpread": "De tijd van elke regel over de woorden verdelen",
-    "wordTimesSpreadDesc": "Langere woorden krijgen meer tijd. Regels zonder timing blijven zonder timing.",
-    "toWordAction": "Naar Woord",
-    "splitBlocked": "Schakel over naar woordtiming om woorden te splitsen",
-    "previewNotice": "Spicy Lyrics toont nummers met regeltiming zonder achtergrondzang en zonder duetkanten. Ze worden wel opgeslagen.",
-    "editAsTextDescription": "Bewerk de hele tekst als platte tekst. Elke rij is één regel en houdt zijn timing.",
-    "editAsTextToolsHint": "Songteksten verwerken werkt op de geselecteerde regels, of op alles als er niets is geselecteerd. Bij regeltiming worden woordscheidingstekens genegeerd.",
-    "editAsTextEditedHint": "Bewerkte regels houden hun timing.",
-    "lineText": "Regeltekst"
+    "previewNotice": "Spicy Lyrics toont nummers met regeltiming zonder achtergrondzang en zonder duetkanten. Ze worden wel opgeslagen."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -24,13 +24,6 @@
 	outline: none;
 }
 
-/* Line timing: the block is the line, which already draws the border. Its
-   text sits in a full-width span, so it stays centered when it fits and
-   trails off from the start, instead of being cut on both sides, when not. */
-.lineBlock {
-	border-color: transparent;
-}
-
 .romanText {
 	font-size: 12px;
 	line-height: 1.2;

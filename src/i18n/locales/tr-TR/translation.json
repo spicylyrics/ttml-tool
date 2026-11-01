@@ -1114,6 +1114,9 @@
       "syncStart": "Zamanlama - Başlat",
       "syncNext": "Zamanlama - Sonraki",
       "syncEnd": "Zamanlama - Bitir",
+      "syncLineStart": "Zamanlama - Satırı başlat",
+      "syncLineNext": "Zamanlama - Satırı bitir ve sonrakini başlat",
+      "syncLineEnd": "Zamanlama - Satırı bitir",
       "toggleWordHighlight": "Zamanlama - Etkin kelime vurgusunu aç/kapat",
       "urbanDictionary": "Düzenle - Urban Dictionary'de ara",
       "urbanDictionarySync": "Zamanlama - Urban Dictionary'de ara",
@@ -1407,26 +1410,7 @@
     "nextWord": "Sonraki kelime"
   },
   "lineSync": {
-    "timing": "Şarkı zamanlaması",
-    "timingDesc": "Kelime: her kelimenin kendi zamanı olur. Satır: her satır başlangıcı ve bitişi olan tek bir metin bloğudur ve satır senkronlu şarkı sözü olarak kaydedilir.",
-    "word": "Kelime",
-    "line": "Satır",
-    "confirmTitle": "Satır zamanlamasına geçilsin mi?",
-    "confirmDescription": "Her satır tek bir metin bloğuna dönüşür ve başlangıcını ve bitişini korur. Kelime zamanlamaları ve hece bölmeleri kaldırılır. Bunu geri alabilirsin.",
-    "confirmAction": "Satıra geç",
-    "toWordTitle": "Kelime zamanlamasına geçilsin mi?",
-    "toWordDescription": "Her satır boşluklarından kelimelere bölünür. Kelime senkronu her satırın başlangıcı ve bitişi içinde kalır. Bunu geri alabilirsin.",
-    "wordTimes": "Kelime zamanları",
-    "wordTimesUntimed": "Kelimeleri zamansız bırak",
-    "wordTimesSpread": "Her satırın zamanını kelimelerine dağıt",
-    "wordTimesSpreadDesc": "Uzun kelimeler daha fazla zaman alır. Zamanlanmamış satırlar zamansız kalır.",
-    "toWordAction": "Kelimeye geç",
-    "splitBlocked": "Kelimeleri bölmek için kelime zamanlamasına geç",
-    "previewNotice": "Spicy Lyrics satır zamanlı şarkıları arka vokaller ve düet tarafları olmadan gösterir. Yine de kaydedilirler.",
-    "editAsTextDescription": "Tüm şarkı sözünü düz metin olarak düzenle. Her metin satırı bir satırdır ve zamanlamasını korur.",
-    "editAsTextToolsHint": "Şarkı sözlerini işle seçili satırlarda, hiçbir şey seçili değilse tüm metinde çalışır. Satır zamanlamasında kelime ayırıcıları yok sayılır.",
-    "editAsTextEditedHint": "Düzenlenen satırlar zamanlamalarını korur.",
-    "lineText": "Satır metni"
+    "previewNotice": "Spicy Lyrics satır zamanlı şarkıları arka vokaller ve düet tarafları olmadan gösterir. Yine de kaydedilirler."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

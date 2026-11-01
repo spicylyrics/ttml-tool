@@ -1114,6 +1114,9 @@
       "syncStart": "Ajoitus - Aloita",
       "syncNext": "Ajoitus - Seuraava",
       "syncEnd": "Ajoitus - Lopeta",
+      "syncLineStart": "Ajoitus - Aloita rivi",
+      "syncLineNext": "Ajoitus - Lopeta rivi ja aloita seuraava",
+      "syncLineEnd": "Ajoitus - Lopeta rivi",
       "toggleWordHighlight": "Ajoitus - Vaihda aktiivisen sanan korostusta",
       "urbanDictionary": "Muokkaus - Hae Urban Dictionarysta",
       "urbanDictionarySync": "Ajoitus - Hae Urban Dictionarysta",
@@ -1407,26 +1410,7 @@
     "nextWord": "Seuraava sana"
   },
   "lineSync": {
-    "timing": "Kappaleen ajastus",
-    "timingDesc": "Sana: jokainen sana saa oman aikansa. Rivi: jokainen rivi on yksi tekstilohko, jolla on alku ja loppu, ja se tallennetaan rivisynkronoituna.",
-    "word": "Sana",
-    "line": "Rivi",
-    "confirmTitle": "Vaihdetaanko riviajastukseen?",
-    "confirmDescription": "Jokaisesta rivistä tulee yksi tekstilohko, joka säilyttää alkunsa ja loppunsa. Sanojen ajastukset ja tavujaot poistetaan. Voit kumota tämän.",
-    "confirmAction": "Vaihda riviin",
-    "toWordTitle": "Vaihdetaanko sana-ajastukseen?",
-    "toWordDescription": "Jokainen rivi jaetaan sanoiksi välilyöntien kohdalta. Sanojen ajastus pysyy kunkin rivin alun ja lopun sisällä. Voit kumota tämän.",
-    "wordTimes": "Sanojen ajat",
-    "wordTimesUntimed": "Jätä sanat ajastamatta",
-    "wordTimesSpread": "Jaa kunkin rivin aika sen sanoille",
-    "wordTimesSpreadDesc": "Pidemmät sanat saavat enemmän aikaa. Ajastamattomat rivit pysyvät ajastamattomina.",
-    "toWordAction": "Vaihda sanaan",
-    "splitBlocked": "Vaihda sana-ajastukseen jakaaksesi sanoja",
-    "previewNotice": "Spicy Lyrics näyttää riviajastetut kappaleet ilman taustalauluja ja duettopuolia. Ne tallennetaan silti.",
-    "editAsTextDescription": "Muokkaa koko sanoitusta tavallisena tekstinä. Jokainen tekstirivi on yksi rivi ja säilyttää ajastuksensa.",
-    "editAsTextToolsHint": "Käsittele sanoitukset toimii valituilla riveillä tai koko tekstillä, jos mitään ei ole valittu. Riviajastuksessa sanaerottimet jätetään huomiotta.",
-    "editAsTextEditedHint": "Muokatut rivit säilyttävät ajastuksensa.",
-    "lineText": "Rivin teksti"
+    "previewNotice": "Spicy Lyrics näyttää riviajastetut kappaleet ilman taustalauluja ja duettopuolia. Ne tallennetaan silti."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

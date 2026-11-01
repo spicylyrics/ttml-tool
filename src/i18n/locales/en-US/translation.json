@@ -1114,6 +1114,9 @@
       "syncStart": "Timing - Start",
       "syncNext": "Timing - Next",
       "syncEnd": "Timing - End",
+      "syncLineStart": "Timing - Start line",
+      "syncLineNext": "Timing - End line and start next",
+      "syncLineEnd": "Timing - End line",
       "toggleWordHighlight": "Timing - Toggle active word highlight",
       "urbanDictionary": "Edit - Look up in Urban Dictionary",
       "urbanDictionarySync": "Timing - Look up in Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Next word"
   },
   "lineSync": {
-    "timing": "Song timing",
-    "timingDesc": "Word: every word gets its own time. Line: each line is one block of text with a start and end, saved as line-synced lyrics.",
-    "word": "Word",
-    "line": "Line",
-    "confirmTitle": "Switch to Line timing?",
-    "confirmDescription": "Each line becomes one block of text and keeps its start and end. Word timings and syllable splits are removed. You can undo this.",
-    "confirmAction": "Switch to Line",
-    "toWordTitle": "Switch to Word timing?",
-    "toWordDescription": "Each line is split into words at its spaces. Word syncing stays inside each line's start and end. You can undo this.",
-    "wordTimes": "Word times",
-    "wordTimesUntimed": "Leave words untimed",
-    "wordTimesSpread": "Spread each line's time across its words",
-    "wordTimesSpreadDesc": "Longer words get more time. Untimed lines stay untimed.",
-    "toWordAction": "Switch to Word",
-    "splitBlocked": "Switch to Word timing to split words",
-    "previewNotice": "Spicy Lyrics shows line-timed songs without background vocals or duet sides. They are still saved.",
-    "editAsTextDescription": "Edit the whole lyrics as plain text. Each row is one line and keeps its timing.",
-    "editAsTextToolsHint": "Process lyrics works on the selected lines, or on everything when nothing is selected. Word separators are ignored in Line timing.",
-    "editAsTextEditedHint": "Edited lines keep their timing.",
-    "lineText": "Line text"
+    "previewNotice": "Spicy Lyrics shows line-timed songs without background vocals or duet sides. They are still saved."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -1,5 +1,4 @@
 import type { LyricMarkupFormat } from "$/components/LyricMarkupEditor/markup";
-import { getTimingMode, toLineBlock } from "$/modules/line-sync/timing-mode";
 import {
 	createSectionFromHeader,
 	getSectionHeader,
@@ -80,33 +79,20 @@ const lineKey = (line: LyricLine, format: LyricMarkupFormat) =>
 // The preview diffs on every edit; project lines don't change meanwhile.
 const canonicalCache = new WeakMap<
 	LyricLine,
-	{
-		format: LyricMarkupFormat;
-		lineTimed: boolean;
-		line: LyricLine | undefined;
-	}
+	{ format: LyricMarkupFormat; line: LyricLine | undefined }
 >();
 
-/**
- * What a project line reads as after a trip through the text. A Line-timed
- * song reads every row as one block, the shape the project keeps.
- */
-function canonicalLine(
-	line: LyricLine,
-	format: LyricMarkupFormat,
-	lineTimed: boolean,
-) {
+/** What a project line reads as after a trip through the text. */
+function canonicalLine(line: LyricLine, format: LyricMarkupFormat) {
 	const cached = canonicalCache.get(line);
-	if (cached?.format === format && cached.lineTimed === lineTimed)
-		return cached.line;
-	const parsed = importTextToLines(
+	if (cached?.format === format) return cached.line;
+	const canonical = importTextToLines(
 		serializeLine(line, format).join("\n"),
 		format,
 		true,
 		{ splitHyphens: false },
 	)[0];
-	const canonical = parsed && lineTimed ? toLineBlock(parsed) : parsed;
-	canonicalCache.set(line, { format, lineTimed, line: canonical });
+	canonicalCache.set(line, { format, line: canonical });
 	return canonical;
 }
 
@@ -298,8 +284,6 @@ export function applyEditedText(
 	format: LyricMarkupFormat,
 ): TextEditResult {
 	const oldLines = lyrics.lyricLines;
-	// Line timing: a row is one block, so an edited row keeps its line's time.
-	const lineTimed = getTimingMode(lyrics) === "line";
 	const sectionsById = new Map(
 		(lyrics.sections ?? []).map((section) => [section.id, section]),
 	);
@@ -324,7 +308,7 @@ export function applyEditedText(
 		}
 		previousSection = section?.id;
 		oldHeaderAbove[index] = lastHeader;
-		const canonical = canonicalLine(line, format, lineTimed);
+		const canonical = canonicalLine(line, format);
 		oldCanonical[index] = canonical;
 		oldSides.push({
 			key: canonical ? `l:${lineKey(canonical, format)}` : null,
@@ -332,11 +316,7 @@ export function applyEditedText(
 		});
 	}
 
-	const tokens = parseEditedText(text, format).map((token) =>
-		lineTimed && token.type === "line"
-			? { ...token, line: toLineBlock(token.line) }
-			: token,
-	);
+	const tokens = parseEditedText(text, format);
 	const newLines: LyricLine[] = [];
 	const newSides: Side[] = tokens.map((token) => {
 		if (token.type === "header")

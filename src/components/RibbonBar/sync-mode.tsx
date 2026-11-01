@@ -20,7 +20,6 @@ import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ActionTooltip } from "$/components/ActionTooltip";
 import { cmdToggleWordHighlight } from "$/modules/keyboard/commands";
-import { TimingModeRibbonSection } from "$/modules/line-sync/TimingModeControl";
 import { MENU_ACTIONS } from "$/modules/menu-actions/actions";
 import { RIBBON_ACTIONS } from "$/modules/menu-actions/ribbon-actions";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
@@ -72,7 +71,6 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 					<SyncOffsetControl commit compact />
 				</Grid>
 			</RibbonSection>
-			<TimingModeRibbonSection />
 			<RibbonSection
 				label={t("ribbonBar.syncMode.playbackTracking", "Tracking")}
 			>

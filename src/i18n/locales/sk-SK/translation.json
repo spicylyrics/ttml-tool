@@ -1114,6 +1114,9 @@
       "syncStart": "Časovanie – Začiatok",
       "syncNext": "Časovanie – Ďalšie",
       "syncEnd": "Časovanie – Koniec",
+      "syncLineStart": "Časovanie – Začiatok riadku",
+      "syncLineNext": "Časovanie – Koniec riadku a začiatok ďalšieho",
+      "syncLineEnd": "Časovanie – Koniec riadku",
       "toggleWordHighlight": "Časovanie – prepnúť zvýraznenie aktívneho slova",
       "urbanDictionary": "Úpravy – vyhľadať v Urban Dictionary",
       "urbanDictionarySync": "Časovanie – vyhľadať v Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Ďalšie slovo"
   },
   "lineSync": {
-    "timing": "Časovanie skladby",
-    "timingDesc": "Slovo: každé slovo má vlastný čas. Riadok: každý riadok je jeden blok textu so začiatkom a koncom, uložený ako text synchronizovaný po riadkoch.",
-    "word": "Slovo",
-    "line": "Riadok",
-    "confirmTitle": "Prepnúť na časovanie po riadkoch?",
-    "confirmDescription": "Každý riadok sa stane jedným blokom textu a ponechá si začiatok a koniec. Časovanie slov a rozdelenie na slabiky sa odstráni. Dá sa to vrátiť späť.",
-    "confirmAction": "Prepnúť na Riadok",
-    "toWordTitle": "Prepnúť na časovanie po slovách?",
-    "toWordDescription": "Každý riadok sa rozdelí na slová v miestach medzier. Synchronizácia slov zostane v rámci začiatku a konca každého riadku. Dá sa to vrátiť späť.",
-    "wordTimes": "Časy slov",
-    "wordTimesUntimed": "Ponechať slová bez časovania",
-    "wordTimesSpread": "Rozložiť čas každého riadku medzi jeho slová",
-    "wordTimesSpreadDesc": "Dlhšie slová dostanú viac času. Riadky bez časovania zostanú bez časovania.",
-    "toWordAction": "Prepnúť na Slovo",
-    "splitBlocked": "Na rozdelenie slov prepnite na časovanie po slovách",
-    "previewNotice": "Spicy Lyrics zobrazuje skladby časované po riadkoch bez sprievodných vokálov a bez strán duetu. Uložia sa však aj tak.",
-    "editAsTextDescription": "Upravte celý text ako obyčajný text. Každý riadok textu je jeden riadok a ponechá si časovanie.",
-    "editAsTextToolsHint": "Spracovať text pracuje s vybranými riadkami, alebo so všetkým, keď nie je nič vybraté. Pri časovaní po riadkoch sa oddeľovače slov ignorujú.",
-    "editAsTextEditedHint": "Upravené riadky si ponechajú časovanie.",
-    "lineText": "Text riadku"
+    "previewNotice": "Spicy Lyrics zobrazuje skladby časované po riadkoch bez sprievodných vokálov a bez strán duetu. Uložia sa však aj tak."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

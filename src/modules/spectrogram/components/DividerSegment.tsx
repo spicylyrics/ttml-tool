@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { useSetAtom, useStore } from "jotai";
 import { type FC, memo, useCallback, useContext } from "react";
-import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import { processedLyricLinesAtom } from "$/modules/segmentation/utils/segment-processing.ts";
 import { timelineDragAtom } from "$/modules/spectrogram/states/dnd";
 import { getUpdatedLineForMergedEnd } from "$/modules/spectrogram/utils/line-end-handles";
@@ -79,23 +78,12 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 				edge,
 				zoom: zoom,
 				startX: e.clientX,
-				// Line timing has no words to pull apart from the line.
-				isGapCreation:
-					edge === "shared" && e.altKey && !store.get(lineSyncActiveAtom),
+				isGapCreation: edge === "shared" && e.altKey,
 				virtual: virtual,
 				mergedLineEnd,
 			});
 		},
-		[
-			lineId,
-			segmentIndex,
-			edge,
-			setTimelineDrag,
-			zoom,
-			virtual,
-			mergedLineEnd,
-			store,
-		],
+		[lineId, segmentIndex, edge, setTimelineDrag, zoom, virtual, mergedLineEnd],
 	);
 
 	// The timeline blocks mouse focus elsewhere, so drop it on any outside click

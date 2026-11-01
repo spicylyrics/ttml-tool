@@ -3,6 +3,6 @@ type: fix
 impact: 1
 highlight: false
 ---
-Line edge handles stay inside the line's rounded corners
+Line edge handles sit evenly on the spectrogram
 
-The drag bars at the start and end of a line on the spectrogram no longer stick out past its corners
+Where two lines meet the bars sit the same distance from the seam, and a line's end bar stays inside its corner

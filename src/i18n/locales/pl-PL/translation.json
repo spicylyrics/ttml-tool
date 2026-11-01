@@ -1114,6 +1114,9 @@
       "syncStart": "Synchronizacja – Początek",
       "syncNext": "Synchronizacja – Dalej",
       "syncEnd": "Synchronizacja – Koniec",
+      "syncLineStart": "Synchronizacja – Początek wersu",
+      "syncLineNext": "Synchronizacja – Koniec wersu i początek następnego",
+      "syncLineEnd": "Synchronizacja – Koniec wersu",
       "toggleWordHighlight": "Synchronizacja – przełącz podświetlenie aktywnego słowa",
       "urbanDictionary": "Edycja – wyszukaj w Urban Dictionary",
       "urbanDictionarySync": "Synchronizacja – wyszukaj w Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Następne słowo"
   },
   "lineSync": {
-    "timing": "Synchronizacja utworu",
-    "timingDesc": "Słowo: każde słowo ma własny czas. Linia: każda linia to jeden blok tekstu z początkiem i końcem, zapisany jako tekst synchronizowany liniami.",
-    "word": "Słowo",
-    "line": "Linia",
-    "confirmTitle": "Przełączyć na synchronizację liniami?",
-    "confirmDescription": "Każda linia staje się jednym blokiem tekstu i zachowuje swój początek i koniec. Czasy słów i podziały na sylaby zostaną usunięte. Możesz to cofnąć.",
-    "confirmAction": "Przełącz na Linię",
-    "toWordTitle": "Przełączyć na synchronizację słowami?",
-    "toWordDescription": "Każda linia zostanie podzielona na słowa w miejscach spacji. Synchronizacja słów pozostaje w granicach początku i końca każdej linii. Możesz to cofnąć.",
-    "wordTimes": "Czasy słów",
-    "wordTimesUntimed": "Zostaw słowa bez czasu",
-    "wordTimesSpread": "Rozłóż czas każdej linii na jej słowa",
-    "wordTimesSpreadDesc": "Dłuższe słowa dostają więcej czasu. Linie bez czasu pozostają bez czasu.",
-    "toWordAction": "Przełącz na Słowo",
-    "splitBlocked": "Przełącz na synchronizację słowami, aby dzielić słowa",
-    "previewNotice": "Spicy Lyrics pokazuje utwory synchronizowane liniami bez wokali w tle i bez stron duetu. Nadal są zapisywane.",
-    "editAsTextDescription": "Edytuj cały tekst jako zwykły tekst. Każdy wiersz to jedna linia i zachowuje swój czas.",
-    "editAsTextToolsHint": "Przetwórz tekst działa na zaznaczonych wierszach albo na całości, gdy nic nie jest zaznaczone. Przy synchronizacji liniami separatory słów są ignorowane.",
-    "editAsTextEditedHint": "Edytowane linie zachowują swój czas.",
-    "lineText": "Tekst wiersza"
+    "previewNotice": "Spicy Lyrics pokazuje utwory synchronizowane liniami bez wokali w tle i bez stron duetu. Nadal są zapisywane."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

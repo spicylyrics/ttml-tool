@@ -13,7 +13,6 @@ import classNames from "classnames";
 import { type Atom, atom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { type FC, useMemo } from "react";
-import { effectiveSyncLevelAtom } from "$/modules/line-sync/states";
 import {
 	enableManualTimestampEditAtom,
 	enableSyncGlowAnimationAtom,
@@ -81,7 +80,6 @@ export const LyricSyncWordView: FC<{
 	const highlightErrors = useAtomValue(highlightErrorsAtom);
 	const highlightActiveWord = useAtomValue(highlightActiveWordAtom);
 	const toolMode = useAtomValue(toolModeAtom);
-	const syncLevelMode = useAtomValue(effectiveSyncLevelAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const enableSyncGlowAnimation = useAtomValue(enableSyncGlowAnimationAtom);
 	const enableManualTimestampEdit = useAtomValue(enableManualTimestampEditAtom);
@@ -182,7 +180,6 @@ export const LyricSyncWordView: FC<{
 	} = useSyncWordEvents({
 		line,
 		syncId,
-		syncLevelMode,
 		wordIndex,
 		lineIndex,
 		word,

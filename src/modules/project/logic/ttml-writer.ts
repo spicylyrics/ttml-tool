@@ -22,7 +22,7 @@ import {
 } from "../../../utils/apostrophe-normalization.ts";
 import { log } from "../../../utils/logging.ts";
 import { msToTimestamp } from "../../../utils/timestamp.ts";
-import { getTimingMode } from "../../line-sync/timing-mode.ts";
+import { isLineTimedSong, lineText } from "../../line-sync/line-timing.ts";
 
 export function shouldExportAsLineSynced(line: LyricLine): boolean {
 	if (!line.isLineSynced) return false;
@@ -139,19 +139,17 @@ export default function exportTTMLText(
 		"http://music.apple.com/lyric-ttml-internal",
 	);
 
-	// itunes:timing follows the song's timing mode, so Spicy Lyrics reads it the
-	// way it was timed. None only when nothing is timed at all.
-	const hasAnyTiming = lyric.some(
-		(l) =>
-			l.endTime > l.startTime ||
-			l.words.some((w) => w.word.trim().length > 0 && w.endTime > w.startTime),
+	// itunes:timing for Spicy Lyrics. Line when no word has timing of its own,
+	// so every line is written as plain text with its start and end. None when
+	// no word is timed at all, as before.
+	const lineTimed = isLineTimedSong(lyric);
+	const hasAnyTiming = lyric.some((l) =>
+		l.words.some((w) => w.word.trim().length > 0 && w.endTime > w.startTime),
 	);
-	const timingMode = !hasAnyTiming
-		? "None"
-		: getTimingMode(ttmlLyric) === "line"
-			? "Line"
-			: "Word";
+	const timingMode = lineTimed ? "Line" : hasAnyTiming ? "Word" : "None";
 	ttRoot.setAttribute("itunes:timing", timingMode);
+	const writeAsText = (line: LyricLine) =>
+		lineTimed || shouldExportAsLineSynced(line);
 
 	doc.appendChild(ttRoot);
 
@@ -206,7 +204,6 @@ export default function exportTTMLText(
 	for (const metadata of ttmlLyric.metadata) {
 		if (metadata.key === "songwriter") continue;
 		if (metadata.key === "amll:marks") continue; // We'll handle this separately
-		if (metadata.key === "amll:timingMode") continue;
 		for (const value of metadata.value) {
 			const metaEl = doc.createElement("amll:meta");
 			metaEl.setAttribute("key", metadata.key);
@@ -231,14 +228,6 @@ export default function exportTTMLText(
 			"value",
 			JSON.stringify({ version: 1, sections: ttmlLyric.sections }),
 		);
-		metadataEl.appendChild(metaEl);
-	}
-
-	// Word timing is the default, so only Line mode is written.
-	if (ttmlLyric.timingMode === "line") {
-		const metaEl = doc.createElement("amll:meta");
-		metaEl.setAttribute("key", "amll:timingMode");
-		metaEl.setAttribute("value", ttmlLyric.timingMode);
 		metadataEl.appendChild(metaEl);
 	}
 
@@ -285,10 +274,8 @@ export default function exportTTMLText(
 
 			if (exportAsStandaloneBackground) {
 				// The line is emitted below as x-bg inside an otherwise empty p.
-			} else if (shouldExportAsLineSynced(line)) {
-				lineP.appendChild(
-					doc.createTextNode(line.words.map((word) => word.word).join("")),
-				);
+			} else if (writeAsText(line)) {
+				lineP.appendChild(doc.createTextNode(lineText(line)));
 			} else {
 				for (const word of line.words) {
 					if (word.word.trim().length === 0) {
@@ -326,17 +313,13 @@ export default function exportTTMLText(
 				const bgLineSpan = doc.createElement("span");
 				bgLineSpan.setAttribute("ttm:role", "x-bg");
 
-				if (shouldExportAsLineSynced(bgLine)) {
-					// Line mode times background lines on their own, so keep their bounds.
-					if (ttmlLyric.timingMode === "line") {
+				if (writeAsText(bgLine)) {
+					// A line-timed song times background lines on their own; keep it.
+					if (lineTimed && bgLine.endTime > bgLine.startTime) {
 						bgLineSpan.setAttribute("begin", msToTimestamp(bgLine.startTime));
 						bgLineSpan.setAttribute("end", msToTimestamp(bgLine.endTime));
 					}
-					bgLineSpan.appendChild(
-						doc.createTextNode(
-							`(${bgLine.words.map((word) => word.word).join("")})`,
-						),
-					);
+					bgLineSpan.appendChild(doc.createTextNode(`(${lineText(bgLine)})`));
 				} else {
 					let beginTime = Number.POSITIVE_INFINITY;
 					let endTime = 0;

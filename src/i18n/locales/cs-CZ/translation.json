@@ -1114,6 +1114,9 @@
       "syncStart": "Časování – Začátek",
       "syncNext": "Časování – Další",
       "syncEnd": "Časování – Konec",
+      "syncLineStart": "Časování – Začátek řádku",
+      "syncLineNext": "Časování – Konec řádku a začátek dalšího",
+      "syncLineEnd": "Časování – Konec řádku",
       "toggleWordHighlight": "Časování – přepnout zvýraznění aktivního slova",
       "urbanDictionary": "Úpravy – vyhledat v Urban Dictionary",
       "urbanDictionarySync": "Časování – vyhledat v Urban Dictionary",
@@ -1407,26 +1410,7 @@
     "nextWord": "Další slovo"
   },
   "lineSync": {
-    "timing": "Časování skladby",
-    "timingDesc": "Slovo: každé slovo má vlastní čas. Řádek: každý řádek je jeden blok textu se začátkem a koncem, uložený jako text synchronizovaný po řádcích.",
-    "word": "Slovo",
-    "line": "Řádek",
-    "confirmTitle": "Přepnout na časování po řádcích?",
-    "confirmDescription": "Každý řádek se stane jedním blokem textu a ponechá si začátek a konec. Časování slov a rozdělení na slabiky se odstraní. Lze to vrátit zpět.",
-    "confirmAction": "Přepnout na Řádek",
-    "toWordTitle": "Přepnout na časování po slovech?",
-    "toWordDescription": "Každý řádek se rozdělí na slova v místě mezer. Synchronizace slov zůstane uvnitř začátku a konce každého řádku. Lze to vrátit zpět.",
-    "wordTimes": "Časy slov",
-    "wordTimesUntimed": "Ponechat slova bez časování",
-    "wordTimesSpread": "Rozložit čas každého řádku mezi jeho slova",
-    "wordTimesSpreadDesc": "Delší slova dostanou více času. Řádky bez časování zůstanou bez časování.",
-    "toWordAction": "Přepnout na Slovo",
-    "splitBlocked": "Pro rozdělení slov přepněte na časování po slovech",
-    "previewNotice": "Spicy Lyrics zobrazuje skladby časované po řádcích bez doprovodných vokálů a bez stran duetu. Uloží se ale i tak.",
-    "editAsTextDescription": "Upravte celý text jako prostý text. Každý řádek textu je jeden řádek a ponechá si časování.",
-    "editAsTextToolsHint": "Zpracovat text pracuje s vybranými řádky, nebo se vším, když není nic vybráno. Při časování po řádcích se oddělovače slov ignorují.",
-    "editAsTextEditedHint": "Upravené řádky si ponechají časování.",
-    "lineText": "Text řádku"
+    "previewNotice": "Spicy Lyrics zobrazuje skladby časované po řádcích bez doprovodných vokálů a bez stran duetu. Uloží se ale i tak."
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -9,11 +9,10 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import { type Atom, atom, type SetStateAction } from "jotai";
+import { type Atom, atom } from "jotai";
 import { atomWithStorage, selectAtom } from "jotai/utils";
 import { REDO, RESET, UNDO, withHistory } from "jotai-history";
 import { uid } from "uid";
-import { keepLineBlocks } from "$/modules/line-sync/timing-mode";
 import {
 	migrateLegacySections,
 	repairSectionIntegrity,
@@ -37,22 +36,12 @@ export const previewPanelWidthAtom = atomWithStorage("previewPanelWidth", 400);
 export const autoDarkModeAtom = atom(true);
 export const isDarkThemeAtom = autoDarkModeAtom;
 
-const lyricDocumentAtom = atom({
+export const lyricLinesAtom = atom({
 	lyricLines: [],
 	metadata: [],
 	marks: [],
 	sections: [],
 } as TTMLLyric);
-
-/** The open song. In Line mode every write is kept as one block per line. */
-export const lyricLinesAtom = atom(
-	(get) => get(lyricDocumentAtom),
-	(get, set, update: SetStateAction<TTMLLyric>) => {
-		const prev = get(lyricDocumentAtom);
-		const next = typeof update === "function" ? update(prev) : update;
-		set(lyricDocumentAtom, keepLineBlocks(prev, next));
-	},
-);
 
 /** Keeps its identity through word and line edits, unlike the whole document. */
 export const lyricMetadataAtom = atom((get) => get(lyricLinesAtom).metadata);

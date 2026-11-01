@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { audioCoverArtAtom, currentTimeAtom } from "$/modules/audio/states";
 import { asSpicyLineTimed } from "$/modules/line-sync/spicy-preview";
-import { lineSyncActiveAtom } from "$/modules/line-sync/states";
+import { songExportsLineTimedAtom } from "$/modules/line-sync/states";
 import { playbackClock } from "$/modules/playback-clock";
 import { usePreviewScroll } from "$/modules/playback-clock/use-preview-scroll";
 import { previewTimingProblemsAtom } from "$/modules/preview-problems/states";
@@ -39,7 +39,8 @@ export function useSpicyLyrics() {
 	// Every line, untimed ones included: they stay in place, hollow.
 	const lyrics = useAtomValue(lyricLinesAtom);
 	const simple = useAtomValue(spicySimpleLyricsModeAtom);
-	const lineTimed = useAtomValue(lineSyncActiveAtom);
+	// A song that exports line-timed previews the way Spicy Lyrics reads it.
+	const lineTimed = useAtomValue(songExportsLineTimedAtom);
 	const joinWords = useAtomValue(spicyJoinSplitWordsAtom);
 	// Off, the lines pass through untouched, so the preview is unchanged.
 	const sourceLines = useMemo(

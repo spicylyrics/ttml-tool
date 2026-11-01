@@ -17,7 +17,6 @@ import {
 	useMemo,
 	useRef,
 } from "react";
-import { effectiveSyncLevelAtom } from "$/modules/line-sync/states";
 import {
 	lyricLinesAtom,
 	selectedLinesAtom,
@@ -26,7 +25,6 @@ import {
 	toolModeAtom,
 } from "$/states/main.ts";
 import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml.ts";
-import { getSynchronizableUnits } from "../../utils/lyric-states.ts";
 import { normalizeLineTime } from "../../utils/normalize-line-time.ts";
 import styles from "../index.module.css";
 import { isDraggingAtom } from "./states";
@@ -64,25 +62,8 @@ export const LyricWordViewEditSpan = ({
 	const toolMode = useAtomValue(toolModeAtom);
 	const blockDragRef = useRef(false);
 	const lastClickTimeRef = useRef(0);
-	const syncLevelMode = useAtomValue(effectiveSyncLevelAtom);
 
 	function onWordSelect(evt: MouseEvent<HTMLSpanElement>) {
-		if (toolMode === ToolMode.Sync && syncLevelMode === "line") {
-			setSelectedLines((state) => {
-				if (!state.has(line.id) || state.size !== 1) {
-					state.clear();
-					state.add(line.id);
-				}
-			});
-			setSelectedWords((state) => {
-				const units = getSynchronizableUnits(line);
-				state.clear();
-				for (const unit of units) {
-					state.add(unit.id);
-				}
-			});
-			return;
-		}
 		if (evt.ctrlKey || evt.metaKey) {
 			setSelectedWords((v) => {
 				if (v.has(word.id)) {

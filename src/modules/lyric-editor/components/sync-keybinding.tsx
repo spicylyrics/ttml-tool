@@ -1,7 +1,6 @@
 import { useStore } from "jotai";
 import { type FC, useCallback } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
-import { clampToSyncedLineBounds } from "$/modules/line-sync/timing-mode";
 import {
 	findNextWord,
 	getCurrentLineLocation,
@@ -246,10 +245,7 @@ export const SyncKeyBinding: FC = () => {
 				setUnitStartTimeCloned(nextLine, location.wordIndex, currentTime);
 				nextLines[location.lineIndex] = nextLine;
 
-				return clampToSyncedLineBounds(prev, {
-					...state,
-					lyricLines: nextLines,
-				});
+				return { ...state, lyricLines: nextLines };
 			});
 		},
 		[store],
@@ -278,10 +274,7 @@ export const SyncKeyBinding: FC = () => {
 					nextLine.endTime = currentTime;
 					nextLines[location.lineIndex] = nextLine;
 
-					return clampToSyncedLineBounds(prev, {
-						...state,
-						lyricLines: nextLines,
-					});
+					return { ...state, lyricLines: nextLines };
 				});
 				moveToNextWord();
 				return;
@@ -364,10 +357,7 @@ export const SyncKeyBinding: FC = () => {
 				// The song's last word has no next line to close this one, so close it here.
 				if (!targetSelection) nextLines[iterLineIndex].endTime = currentTime;
 
-				return clampToSyncedLineBounds(prev, {
-					...state,
-					lyricLines: nextLines,
-				});
+				return { ...state, lyricLines: nextLines };
 			});
 			const _t3 = performance.now();
 
@@ -409,10 +399,7 @@ export const SyncKeyBinding: FC = () => {
 				if (location.isLastWord) nextLine.endTime = currentTime;
 				nextLines[location.lineIndex] = nextLine;
 
-				return clampToSyncedLineBounds(prev, {
-					...state,
-					lyricLines: nextLines,
-				});
+				return { ...state, lyricLines: nextLines };
 			});
 			moveToNextWord();
 		},

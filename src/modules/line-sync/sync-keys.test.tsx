@@ -3,7 +3,8 @@ import { createStore, Provider } from "jotai";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vitest";
-import { SyncKeyBindings } from "$/modules/line-sync/LineSyncKeyBinding";
+import { LineSyncKeyBinding } from "$/modules/line-sync/LineSyncKeyBinding";
+import { SyncKeyBinding } from "$/modules/lyric-editor/components/sync-keybinding";
 import { smartLastWordAtom } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
 import {
@@ -11,7 +12,9 @@ import {
 	syncTimeOffsetAtom,
 } from "$/modules/settings/states/sync";
 import {
-	keySyncEndAtom,
+	keySyncLineEndAtom,
+	keySyncLineNextAtom,
+	keySyncLineStartAtom,
 	keySyncNextAtom,
 	keySyncStartAtom,
 } from "$/states/keybindings";
@@ -20,7 +23,7 @@ import {
 	selectedLinesAtom,
 	selectedWordsAtom,
 } from "$/states/main";
-import { newLyricLine, newLyricWord, type TimingMode } from "$/types/ttml";
+import { newLyricLine, newLyricWord } from "$/types/ttml";
 import type { KeyBindingCallback } from "$/utils/keybindings";
 
 const bindings = vi.hoisted(() => new Map<object, KeyBindingCallback>());
@@ -40,35 +43,16 @@ vi.mock("$/utils/keybindings", async (importOriginal) => ({
 	globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
 
-function mount({
-	timingMode,
-	bounded,
-}: {
-	timingMode?: TimingMode;
-	bounded: boolean;
-}) {
+function mount() {
 	bindings.clear();
 	const store = createStore();
 	const words = ["a", " ", "bbb"].map((word) => ({ ...newLyricWord(), word }));
-	const first = {
-		...newLyricLine(),
-		words,
-		startTime: bounded ? 1000 : 0,
-		endTime: bounded ? 3000 : 0,
-		syncedLineBounds: bounded ? { startTime: 1000, endTime: 3000 } : undefined,
-	};
+	const first = { ...newLyricLine(), words };
 	const second = {
 		...newLyricLine(),
 		words: [{ ...newLyricWord(), word: "next" }],
-		startTime: bounded ? 4000 : 0,
-		endTime: bounded ? 6000 : 0,
-		syncedLineBounds: bounded ? { startTime: 4000, endTime: 6000 } : undefined,
 	};
-	store.set(lyricLinesAtom, {
-		metadata: [],
-		lyricLines: [first, second],
-		timingMode,
-	});
+	store.set(lyricLinesAtom, { metadata: [], lyricLines: [first, second] });
 	store.set(selectedLinesAtom, new Set([first.id]));
 	store.set(selectedWordsAtom, new Set([words[0].id]));
 	store.set(syncTimeOffsetAtom, 0);
@@ -79,7 +63,8 @@ function mount({
 	act(() =>
 		root.render(
 			<Provider store={store}>
-				<SyncKeyBindings />
+				<SyncKeyBinding />
+				<LineSyncKeyBinding />
 			</Provider>,
 		),
 	);
@@ -100,107 +85,39 @@ function press(key: object, seconds: number) {
 	act(() => callback({ downTime: now, downTimeOffset: 0, triggerTime: now }));
 }
 
-describe("R48 word syncing inside synced line bounds", () => {
-	it("G on the last word past the line end ends it at the line end and moves on", () => {
-		const view = mount({ bounded: true });
+describe("whole-line timing keys", () => {
+	it("time whole lines and leave the words untimed", () => {
+		const view = mount();
 		try {
-			press(keySyncStartAtom, 0.5);
-			press(keySyncNextAtom, 2);
-			press(keySyncNextAtom, 3.5);
-			const [first, second] = view.store.get(lyricLinesAtom).lyricLines;
-			expect(first.words.map((w) => [w.startTime, w.endTime])).toEqual([
-				[1000, 2000],
-				[0, 0],
-				[2000, 3000],
-			]);
-			expect(first).toMatchObject({ startTime: 1000, endTime: 3000 });
-			expect(second.words[0].startTime).toBe(4000);
-			expect(second).toMatchObject({ startTime: 4000, endTime: 6000 });
-			expect(view.store.get(selectedLinesAtom)).toEqual(new Set([second.id]));
-		} finally {
-			view.cleanup();
-		}
-	});
-
-	it("stops once the line's times were edited by hand", () => {
-		const view = mount({ bounded: true });
-		try {
-			// A typed or dragged start, as the line fields or spectrogram set it.
-			act(() =>
-				view.store.set(lyricLinesAtom, (prev) => ({
-					...prev,
-					lyricLines: prev.lyricLines.map((line) => ({
-						...line,
-						startTime: line.startTime - 100,
-					})),
-				})),
-			);
-			press(keySyncStartAtom, 0.5);
-			press(keySyncNextAtom, 2);
-			press(keySyncNextAtom, 3.5);
-			const [first, second] = view.store.get(lyricLinesAtom).lyricLines;
-			expect(first.words[0].startTime).toBe(500);
-			expect(first).toMatchObject({ startTime: 500, endTime: 3500 });
-			expect(second.words[0].startTime).toBe(3500);
-		} finally {
-			view.cleanup();
-		}
-	});
-
-	it("leaves lines without synced bounds to normal word syncing", () => {
-		const view = mount({ bounded: false });
-		try {
-			press(keySyncStartAtom, 0.5);
-			press(keySyncNextAtom, 2);
-			press(keySyncEndAtom, 3.5);
-			const [first] = view.store.get(lyricLinesAtom).lyricLines;
-			expect(first).toMatchObject({ startTime: 500, endTime: 3500 });
-		} finally {
-			view.cleanup();
-		}
-	});
-});
-
-describe("Line-mode keys", () => {
-	it("F, G and H time whole lines", () => {
-		const view = mount({ timingMode: "line", bounded: false });
-		try {
-			press(keySyncStartAtom, 1);
-			press(keySyncNextAtom, 3);
+			press(keySyncLineStartAtom, 1);
+			press(keySyncLineNextAtom, 3);
 			expect(view.store.get(selectedLinesAtom)).toEqual(
 				new Set([view.second.id]),
 			);
 			expect(view.store.get(selectedWordsAtom)).toEqual(
 				new Set([view.second.words[0].id]),
 			);
-			press(keySyncEndAtom, 5);
+			press(keySyncLineEndAtom, 5);
 			const [first, second] = view.store.get(lyricLinesAtom).lyricLines;
-			expect(first).toMatchObject({
-				startTime: 1000,
-				endTime: 3000,
-				isLineSynced: true,
-			});
-			// The song keeps one block per line, timed like the line.
-			expect(first.words).toHaveLength(1);
-			expect(first.words[0]).toMatchObject({
-				word: "a bbb",
-				startTime: 1000,
-				endTime: 3000,
-			});
+			expect(first).toMatchObject({ startTime: 1000, endTime: 3000 });
+			expect(first.words).toBe(view.words);
 			expect(second).toMatchObject({ startTime: 3000, endTime: 5000 });
+			expect(second.words[0]).toMatchObject({ startTime: 0, endTime: 0 });
 		} finally {
 			view.cleanup();
 		}
 	});
 
-	it("keeps word keys in a Word-mode song", () => {
-		const view = mount({ bounded: false });
+	it("sit next to word syncing, which F and G still do", () => {
+		const view = mount();
 		try {
 			press(keySyncStartAtom, 1);
 			press(keySyncNextAtom, 3);
 			expect(view.store.get(selectedWordsAtom)).toEqual(
 				new Set([view.words[2].id]),
 			);
+			const [first] = view.store.get(lyricLinesAtom).lyricLines;
+			expect(first.words[0]).toMatchObject({ startTime: 1000, endTime: 3000 });
 		} finally {
 			view.cleanup();
 		}
