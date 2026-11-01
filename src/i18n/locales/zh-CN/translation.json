@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "将输入的行拆分为单词",
-    "splitTypedLinesDesc": "在空行中输入的文本会像导入时一样拆分为单词。",
+    "splitTypedLinesDesc": "在行中输入的文本会在空格和连字符处拆分为单词，并应用已学习的拆分。",
     "scrollMemoryTitle": "记住编辑模式位置",
     "scrollMemoryDesc": "重新打开项目时回到上次在编辑模式中所在的行。",
     "swapDuetAll": "互换主唱行与对唱行",

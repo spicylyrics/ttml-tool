@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Split typed lines into words",
-    "splitTypedLinesDesc": "Text typed into an empty line is split into words, the same way an import splits lines.",
+    "splitTypedLinesDesc": "Text typed into a line is split into words at spaces and hyphens, and with your learned splits.",
     "scrollMemoryTitle": "Remember Edit mode position",
     "scrollMemoryDesc": "Reopen each project at the line you were on in Edit mode.",
     "swapDuetAll": "Swap main and duet lines",

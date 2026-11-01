@@ -172,13 +172,9 @@ export function LineWordRow({
 							evt.stopPropagation();
 							const word = evt.currentTarget.value;
 							editLyricLines((state) => {
-								// Only a whole line typed into an empty line is split;
-								// adding to a line that has words inserts one word.
-								const typed =
-									splitTypedLine &&
-									state.lyricLines[lineIndex].words.length === 0
-										? typedLineToWords(word, learnedRules)
-										: [word];
+								const typed = splitTypedLine
+									? typedLineToWords(word, learnedRules)
+									: [word];
 								state.lyricLines[lineIndex].words.push(
 									...typed.map((text) => ({ ...newLyricWord(), word: text })),
 								);

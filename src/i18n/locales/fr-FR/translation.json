@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Découper les lignes saisies en mots",
-    "splitTypedLinesDesc": "Le texte saisi dans une ligne vide est découpé en mots, comme une importation découpe les lignes.",
+    "splitTypedLinesDesc": "Le texte saisi dans une ligne est découpé en mots aux espaces et aux traits d'union, et selon vos découpages appris.",
     "scrollMemoryTitle": "Mémoriser la position du mode Édition",
     "scrollMemoryDesc": "Rouvre chaque projet à la ligne où vous étiez en mode Édition.",
     "swapDuetAll": "Inverser les lignes principales et de duo",

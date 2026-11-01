@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Dziel wpisane wersy na słowa",
-    "splitTypedLinesDesc": "Tekst wpisany w pusty wers jest dzielony na słowa tak samo, jak import dzieli wersy.",
+    "splitTypedLinesDesc": "Tekst wpisany w wers jest dzielony na słowa przy spacjach i łącznikach oraz według nauczonych podziałów.",
     "scrollMemoryTitle": "Zapamiętuj pozycję w trybie edycji",
     "scrollMemoryDesc": "Otwiera każdy projekt na wersie, na którym byłeś w trybie edycji.",
     "swapDuetAll": "Zamień wersy główne i duetu",

@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Dividi in parole le righe digitate",
-    "splitTypedLinesDesc": "Il testo digitato in una riga vuota viene diviso in parole come fa l'importazione con le righe.",
+    "splitTypedLinesDesc": "Il testo digitato in una riga viene diviso in parole agli spazi e ai trattini, e secondo le divisioni apprese.",
     "scrollMemoryTitle": "Ricorda la posizione in modalità Modifica",
     "scrollMemoryDesc": "Riapre ogni progetto alla riga in cui eri in modalità Modifica.",
     "swapDuetAll": "Scambia righe principali e del duetto",

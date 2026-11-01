@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Yazılan satırları kelimelere böl",
-    "splitTypedLinesDesc": "Boş bir satıra yazılan metin, içe aktarmanın satırları böldüğü gibi kelimelere bölünür.",
+    "splitTypedLinesDesc": "Bir satıra yazılan metin, boşluklarda ve kısa çizgilerde ve öğrenilmiş bölmelere göre kelimelere bölünür.",
     "scrollMemoryTitle": "Düzenleme modu konumunu hatırla",
     "scrollMemoryDesc": "Her projeyi Düzenleme modunda kaldığınız satırda açar.",
     "swapDuetAll": "Ana ve düet satırlarını değiştir",

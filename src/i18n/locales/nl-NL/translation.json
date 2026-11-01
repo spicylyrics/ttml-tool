@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Getypte regels in woorden splitsen",
-    "splitTypedLinesDesc": "Tekst die je in een lege regel typt, wordt in woorden gesplitst zoals een import regels splitst.",
+    "splitTypedLinesDesc": "Tekst die je in een regel typt, wordt bij spaties en koppeltekens in woorden gesplitst, en volgens je geleerde splitsingen.",
     "scrollMemoryTitle": "Positie in bewerkmodus onthouden",
     "scrollMemoryDesc": "Opent elk project bij de regel waar je in de bewerkmodus was.",
     "swapDuetAll": "Hoofd- en duetregels omwisselen",

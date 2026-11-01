@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Dividir en palabras las líneas escritas",
-    "splitTypedLinesDesc": "El texto escrito en una línea vacía se divide en palabras igual que una importación divide las líneas.",
+    "splitTypedLinesDesc": "El texto escrito en una línea se divide en palabras en los espacios y guiones, y según tus divisiones aprendidas.",
     "scrollMemoryTitle": "Recordar la posición del modo Edición",
     "scrollMemoryDesc": "Abre cada proyecto en la línea donde estabas en el modo Edición.",
     "swapDuetAll": "Intercambiar líneas principales y de dúo",
