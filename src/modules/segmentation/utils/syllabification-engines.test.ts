@@ -47,10 +47,6 @@ describe("syllabification engines", () => {
 		["don't", "don't"],
 		["can't", "can't"],
 		["weren't", "weren't"],
-		// two-syllable every
-		["every", "eve/ry"],
-		["Everything", "Eve/ry/thing"],
-		["everybody", "eve/ry/bo/dy"],
 		// compounds split at the seam
 		["upstate", "up/state"],
 		["mainstream", "main/stream"],
@@ -68,7 +64,6 @@ describe("syllabification engines", () => {
 		["DJ", "D/J"],
 		["HMM", "HMM"],
 		["LOVE", "LOVE"],
-		["I'ma", "I'/ma"],
 		// ck, x and ight close their syllable
 		["rocking", "rock/ing"],
 		["brighter", "bright/er"],

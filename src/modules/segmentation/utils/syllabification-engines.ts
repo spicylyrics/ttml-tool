@@ -91,10 +91,6 @@ const mergeContractionSuffix = (parts: string[]) => {
 	for (const part of parts) {
 		if (/^[’'](?:s|re|ve|ll|d|m|t)$/i.test(part) && result.length > 0) {
 			result[result.length - 1] += part;
-		} else if (/^[’']./.test(part) && result.length > 0) {
-			// The apostrophe ends the previous syllable: `I'/ma`, not `I/'ma`.
-			result[result.length - 1] += part[0];
-			result.push(part.slice(1));
 		} else {
 			result.push(part);
 		}
@@ -115,7 +111,7 @@ const VOWEL = /[aeiouy]/i;
 // Common first and second halves of lyric compounds. The dictionary splits
 // these by sound alone (`ups/tate`, `mains/tream`); singers split at the seam.
 const COMPOUND_HEADS = new Set(
-	"some any no what how when where who with through out in up down back main week birth sun moon star heart life day night rain fire home side high low under over after mid good bad for every".split(
+	"some any no what how when where who with through out in up down back main week birth sun moon star heart life day night rain fire home side high low under over after mid good bad for".split(
 		" ",
 	),
 );
@@ -241,13 +237,6 @@ function prosodicSplit(word: string): string[] {
 	) {
 		const full = prosodicSplit(`${droppedG[1]}g`);
 		if (full.length > 1) return splitLike(word, full);
-	}
-
-	// Two-syllable `every` is sung `eve/ry`, also in `everything`.
-	const every = /^(every)(.*)$/i.exec(word);
-	if (every) {
-		const head = [every[1].slice(0, 3), every[1].slice(3)];
-		return every[2] ? [...head, ...prosodicSplit(every[2])] : head;
 	}
 
 	// `un-` keeps its own syllable: `un/stop/pa/ble`, not `uns/top/pa/ble`.
