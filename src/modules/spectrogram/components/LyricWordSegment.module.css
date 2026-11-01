@@ -29,6 +29,11 @@
    trails off from the start, instead of being cut on both sides, when not. */
 .lineBlock {
 	border-color: transparent;
+	/* Cover the line's border box exactly, not its padding box, so the hover
+	   border lands on the line's own instead of 1px beside it. */
+	top: -1px;
+	height: calc(100% + 2px);
+	margin-left: -1px;
 }
 
 .romanText {

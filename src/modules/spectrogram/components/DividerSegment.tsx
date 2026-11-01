@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useSetAtom, useStore } from "jotai";
+import { useAtomValue, useSetAtom, useStore } from "jotai";
 import { type FC, memo, useCallback, useContext } from "react";
 import { lineSyncActiveAtom } from "$/modules/line-sync/states";
 import { processedLyricLinesAtom } from "$/modules/segmentation/utils/segment-processing.ts";
@@ -60,6 +60,7 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 	const mergedLineEnd = lineEndRole === "merged";
 	const setTimelineDrag = useSetAtom(timelineDragAtom);
 	const store = useStore();
+	const lineTimed = useAtomValue(lineSyncActiveAtom);
 	const { zoom } = useContext(SpectrogramContext);
 
 	const startDrag = useCallback(
@@ -198,6 +199,7 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 				styles.divider,
 				isTouching && styles.touching,
 				isLineStartHandle && styles.lineStart,
+				lineTimed && styles.lineTimed,
 				lineEndRole && lineEndRoleClass[lineEndRole],
 			)}
 			aria-label={ariaLabel}
