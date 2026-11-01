@@ -105,6 +105,8 @@ const splitLike = (word: string, parts: string[]) => {
 };
 
 const VOWEL = /[aeiouy]/i;
+/** Also counts accented vowels: `ché` and `jà` have one. */
+const hasVowel = (text: string) => VOWEL.test(text.normalize("NFD"));
 
 // Common first and second halves of lyric compounds. The dictionary splits
 // these by sound alone (`ups/tate`, `mains/tream`); singers split at the seam.
@@ -135,36 +137,12 @@ const splitCompound = (word: string) => {
 	return undefined;
 };
 
-/**
- * Keeps `ck`, `x` and `ight` in the syllable they close: `rock/ing`,
- * `sex/y`, `fight/ing`. `daugh/ter` is left alone.
- */
-const fixOnsets = (parts: string[]) => {
-	const result = [...parts];
-	for (let index = 1; index < result.length; index++) {
-		const previous = result[index - 1];
-		const part = result[index];
-		const moved = /^ck/i.test(part)
-			? 2
-			: (/^x/i.test(part) && VOWEL.test(part.slice(1))) ||
-					(/igh$/i.test(previous) &&
-						/^t(?:ing|in['’]?|er|ers|en|ed|est)$/i.test(part))
-				? 1
-				: 0;
-		if (moved === 0) continue;
-		result[index - 1] = previous + result[index].slice(0, moved);
-		result[index] = result[index].slice(moved);
-	}
-	return result.filter(Boolean);
-};
-
 /** A piece with no vowel is not a sung syllable: join it to its neighbor. */
 const mergeVowelless = (parts: string[]) => {
 	const result: string[] = [];
 	for (const part of parts) {
-		if (result.length > 0 && !VOWEL.test(part))
-			result[result.length - 1] += part;
-		else if (result.length > 0 && !VOWEL.test(result[result.length - 1]))
+		if (result.length > 0 && !hasVowel(part)) result[result.length - 1] += part;
+		else if (result.length > 0 && !hasVowel(result[result.length - 1]))
 			result[result.length - 1] += part;
 		else result.push(part);
 	}
@@ -174,9 +152,7 @@ const mergeVowelless = (parts: string[]) => {
 const lookupDictionary = (word: string) => {
 	const entry = dictionary.get(word.toLowerCase());
 	if (entry === undefined) return undefined;
-	return fixOnsets(
-		splitAtLengths(word, typeof entry === "number" ? [entry] : entry),
-	);
+	return splitAtLengths(word, typeof entry === "number" ? [entry] : entry);
 };
 
 function prosodicSplit(word: string): string[] {
@@ -188,7 +164,7 @@ function prosodicSplit(word: string): string[] {
 	// `didn't`, `couldn't`: `n't` after a consonant is its own syllable.
 	// After a vowel (`don't`, `can't`, `aren't`) it stays in one.
 	const negation = /^(.*[b-df-hj-np-tv-xz])(n['’]t)$/i.exec(word);
-	if (negation && VOWEL.test(negation[1])) {
+	if (negation && hasVowel(negation[1])) {
 		return [...prosodicSplit(negation[1]), negation[2]];
 	}
 	if (/[aeiou]n['’]t$/i.test(word)) return [word];
@@ -210,7 +186,7 @@ function prosodicSplit(word: string): string[] {
 	const parts =
 		splitCompound(word) ??
 		lookupDictionary(word) ??
-		mergeVowelless(fixOnsets(mergeContractionSuffix(compromiseSplit(word))));
+		mergeVowelless(mergeContractionSuffix(compromiseSplit(word)));
 	if (
 		/^un[b-df-hj-np-tv-z]{2}/i.test(word) &&
 		parts.length > 1 &&

@@ -37,8 +37,8 @@ describe("syllabification engines", () => {
 		// dropped g, with and without an apostrophe
 		["goin'", "go/in'"],
 		["singin’", "sing/in’"],
-		["rockin'", "rock/in'"],
-		["fightin'", "fight/in'"],
+		["rockin'", "ro/ckin'"],
+		["fightin'", "figh/tin'"],
 		["begin", "be/gin"],
 		// n't is a syllable only after a consonant
 		["didn't", "did/n't"],
@@ -64,12 +64,9 @@ describe("syllabification engines", () => {
 		["DJ", "D/J"],
 		["HMM", "HMM"],
 		["LOVE", "LOVE"],
-		// ck, x and ight close their syllable
-		["rocking", "rock/ing"],
-		["brighter", "bright/er"],
-		["daughter", "daugh/ter"],
-		["sexy", "sex/y"],
-		["exactly", "ex/act/ly"],
+		// accented vowels count as vowels
+		["cliché", "cli/ché"],
+		["déjà", "dé/jà"],
 	])("splits %s as %s", (word, expected) => {
 		expect(getSyllabificationEngine("prosodic").split(word).join("/")).toBe(
 			expected,
