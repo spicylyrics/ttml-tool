@@ -39,6 +39,9 @@ const lineEndRoleClass: Record<LineEndRole, string | undefined> = {
 
 const DIVIDER_WIDTH_PX = 15;
 const HALF_DIVIDER_WIDTH_PX = DIVIDER_WIDTH_PX / 2;
+/** The line's border and the bar's resting width, as in the CSS modules. */
+const BORDER_PX = 1;
+const BAR_WIDTH_PX = 2;
 const NUDGE_MS = 10;
 const SHIFT_NUDGE_MS = 50;
 
@@ -164,16 +167,28 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 
 	let left = timePx + handleOffsetPx;
 	let width = handleWidthPx;
-	let barStyle: React.CSSProperties | undefined;
+	let barShiftPx = 0;
 
 	if (hitOffsetPx !== undefined && hitWidthPx !== undefined) {
 		// Widen the grab area only; keep the bar where the classic handle draws it.
-		const barShiftPx =
+		barShiftPx =
 			handleOffsetPx + handleWidthPx / 2 - (hitOffsetPx + hitWidthPx / 2);
 		left = timePx + hitOffsetPx;
 		width = hitWidthPx;
-		barStyle = { transform: `translateX(${barShiftPx}px)` };
 	}
+
+	// Positions start inside the line's 1px border, so a line's own edge is at
+	// -1px and its width minus 1px. Measured from there, a seam's two bars sit
+	// equally far from it, and a free end's bar lies on the border, as the
+	// start's already does, instead of just outside it.
+	if (isLineStartHandle && isTouching) {
+		barShiftPx -= BORDER_PX;
+	} else if (isLineEndHandle) {
+		barShiftPx -= isTouching ? BORDER_PX : BORDER_PX + BAR_WIDTH_PX / 2;
+	}
+	const barStyle: React.CSSProperties | undefined = barShiftPx
+		? { transform: `translateX(${barShiftPx}px)` }
+		: undefined;
 
 	const dynamicStyles = {
 		left: `${left}px`,
@@ -185,6 +200,7 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 			className={classNames(
 				styles.divider,
 				isTouching && styles.touching,
+				isLineStartHandle && styles.lineStart,
 				lineEndRole && lineEndRoleClass[lineEndRole],
 			)}
 			aria-label={ariaLabel}

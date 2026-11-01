@@ -6,7 +6,7 @@ export const settingsSearchKeywords: Record<string, string> = {
 	syncing:
 		"sync timing timestamp judgment keybinding trigger offset commit smart last word upcoming highlight threshold color wrap scroll focus spectrogram hover tab position glow manual double click background line touch panel skip separate pass inline sync with main skip while syncing background vocals romanization",
 	preview:
-		"preview fps vsync fade rendering romanization translation simple lyrics line synced background instant auto scroll",
+		"preview fps vsync fade rendering romanization translation simple lyrics background instant auto scroll",
 	files:
 		"import export cleanup normalize apostrophes cyrillic folder project storage preview files consecutive standalone background vocals",
 	backup:

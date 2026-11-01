@@ -11,11 +11,7 @@ import {
 	previewModeTypeAtom,
 	spicyBackgroundModeAtom,
 } from "../states/preview";
-import {
-	syncCommitOffsetAtom,
-	syncLevelModeAtom,
-	syncTimeOffsetAtom,
-} from "../states/sync";
+import { syncCommitOffsetAtom, syncTimeOffsetAtom } from "../states/sync";
 
 // atomWithStorage setters also accept RESET/updater values; the controls only
 // need the common boolean setter contract.
@@ -61,27 +57,6 @@ export function SyncOffsetControl({
 			style={compact ? { width: "8em" } : undefined}
 			value={value}
 			onChange={(event) => setValue(parseSyncOffset(event.target.value))}
-		/>
-	);
-}
-
-export function SyncLevelControl({
-	variant,
-}: {
-	variant?: OptionPickerVariant;
-} = {}) {
-	const [value, setValue] = useAtom(syncLevelModeAtom);
-	const { t } = useTranslation();
-	return (
-		<OptionPicker
-			variant={variant}
-			value={value}
-			onValueChange={setValue}
-			label={t("ribbonBar.syncMode.syncLevel", "Sync by")}
-			options={[
-				{ value: "word", label: t("ribbonBar.syncMode.syncLevelWord", "Word") },
-				{ value: "line", label: t("ribbonBar.syncMode.syncLevelLine", "Line") },
-			]}
 		/>
 	);
 }

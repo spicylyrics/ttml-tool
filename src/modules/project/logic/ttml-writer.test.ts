@@ -3,6 +3,7 @@ import type { LyricLine } from "../../../types/ttml";
 import { newLyricLine, newLyricWord } from "../../../types/ttml";
 import {
 	collectFollowingBackgroundLines,
+	getITunesTiming,
 	hasExportableLineContent,
 	removeEmptyDefaultNamespaces,
 	shouldExportAsLineSynced,
@@ -31,6 +32,58 @@ describe("shouldExportAsLineSynced", () => {
 		];
 
 		expect(shouldExportAsLineSynced(line)).toBe(false);
+	});
+});
+
+describe("getITunesTiming", () => {
+	const line = (
+		words: [string, number, number][],
+		startTime: number,
+		endTime: number,
+		isLineSynced = false,
+	): LyricLine => ({
+		...newLyricLine(),
+		startTime,
+		endTime,
+		isLineSynced,
+		words: words.map(([word, start, end]) => ({
+			...newLyricWord(),
+			word,
+			startTime: start,
+			endTime: end,
+		})),
+	});
+
+	it("calls one-word lines synced word by word Word, not Line", () => {
+		expect(
+			getITunesTiming([
+				line([["Yeah", 1000, 1500]], 1000, 1500),
+				line([["Hey", 2000, 2500]], 2000, 2500),
+			]),
+		).toBe("Word");
+	});
+
+	it("calls a song of plain-text lines, as LRC opens, Line", () => {
+		expect(
+			getITunesTiming([
+				line([["Whole line", 1000, 2000]], 1000, 2000, true),
+				line([["Yeah", 2000, 2500]], 2000, 2500, true),
+			]),
+		).toBe("Line");
+	});
+
+	it("calls it Word as soon as one timed line is written as words", () => {
+		expect(
+			getITunesTiming([
+				line([["Whole line", 1000, 2000]], 1000, 2000, true),
+				line([["Yeah", 2000, 2500]], 2000, 2500),
+			]),
+		).toBe("Word");
+	});
+
+	it("calls a song with no timed words None, as before", () => {
+		expect(getITunesTiming([line([["Hey", 0, 0]], 1000, 2000)])).toBe("None");
+		expect(getITunesTiming([])).toBe("None");
 	});
 });
 

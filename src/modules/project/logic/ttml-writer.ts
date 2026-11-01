@@ -29,6 +29,25 @@ export function shouldExportAsLineSynced(line: LyricLine): boolean {
 	return line.words.filter((word) => word.word.trim().length > 0).length <= 1;
 }
 
+/**
+ * The root's itunes:timing, matching how the lines are written: Line when
+ * every timed line is written as plain text, Word when any is written as
+ * timed words, None when nothing is timed. Counting words instead called a
+ * song of one-word lines synced word by word Line.
+ */
+export function getITunesTiming(lines: LyricLine[]): "Word" | "Line" | "None" {
+	const timedLines = lines.filter((line) =>
+		shouldExportAsLineSynced(line)
+			? line.endTime > line.startTime ||
+				line.words.some((w) => w.endTime > w.startTime)
+			: line.words.some(
+					(w) => w.word.trim().length > 0 && w.endTime > w.startTime,
+				),
+	);
+	if (timedLines.length === 0) return "None";
+	return timedLines.every(shouldExportAsLineSynced) ? "Line" : "Word";
+}
+
 export function collectFollowingBackgroundLines(
 	lines: LyricLine[],
 	mainLineIndex: number,
@@ -138,25 +157,7 @@ export default function exportTTMLText(
 		"http://music.apple.com/lyric-ttml-internal",
 	);
 
-	// Determine itunes:timing mode for Spicylyrics compatibility
-	// Word = at least one line has 2+ non-blank words (dynamic/per-word timing)
-	// Line = has lyric lines but every line has 0 or 1 non-blank word
-	// None = no timed words at all
-	const nonBlankWordCountsPerLine = lyric.map(
-		(l) => l.words.filter((w) => w.word.trim().length > 0).length,
-	);
-	const totalNonBlankWords = nonBlankWordCountsPerLine.reduce(
-		(sum, v) => sum + v,
-		0,
-	);
-	const hasAnyTiming = lyric.some((l) =>
-		l.words.some((w) => w.word.trim().length > 0 && w.endTime > w.startTime),
-	);
-	let timingMode: "Word" | "Line" | "None";
-	if (totalNonBlankWords === 0 || !hasAnyTiming) timingMode = "None";
-	else if (nonBlankWordCountsPerLine.some((c) => c > 1)) timingMode = "Word";
-	else timingMode = "Line";
-	ttRoot.setAttribute("itunes:timing", timingMode);
+	ttRoot.setAttribute("itunes:timing", getITunesTiming(lyric));
 
 	doc.appendChild(ttRoot);
 

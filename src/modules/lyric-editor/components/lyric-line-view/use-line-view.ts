@@ -28,7 +28,6 @@ import {
 import {
 	editActiveLineHighlightAtom,
 	syncActiveLineHighlightAtom,
-	syncLevelModeAtom,
 	syncWordWrapAtom,
 	visualizeTimestampUpdateAtom,
 } from "$/modules/settings/states/sync.ts";
@@ -97,7 +96,6 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 	const visualizeTimestampUpdate = useAtomValue(visualizeTimestampUpdateAtom);
 	const showTimestamps = useAtomValue(showTimestampsAtom);
 	const showEndTimeAsDuration = useAtomValue(showEndTimeAsDurationAtom);
-	const syncLevelMode = useAtomValue(syncLevelModeAtom);
 	const store = useStore();
 	const geniusCategorizationEnabled = useAtomValue(
 		geniusCategorizationEnabledAtom,
@@ -245,7 +243,6 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 		editLyricLines,
 		showTimestamps,
 		showEndTimeAsDuration,
-		syncLevelMode,
 		store,
 		activeSection,
 		sectionActionsEnabled,

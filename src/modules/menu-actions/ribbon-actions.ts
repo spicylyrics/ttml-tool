@@ -18,7 +18,6 @@ import {
 import {
 	showRomanLinesAtom,
 	showTranslationLinesAtom,
-	spicyForceLineSyncedAtom,
 	spicyJoinSplitWordsAtom,
 	spicySimpleLyricsModeAtom,
 } from "$/modules/settings/states/preview";
@@ -230,13 +229,6 @@ export const RIBBON_ACTIONS = {
 		"Preview",
 		[key("ribbonBar.previewMode.simpleLyrics"), "Simple Lyrics mode"],
 		spicySimpleLyricsModeAtom,
-		PREVIEW,
-	),
-	forceLineSynced: defineToggle(
-		"toggleForceLineSynced",
-		"Preview",
-		[key("ribbonBar.previewMode.forceLineRendering"), "Show as line-synced"],
-		spicyForceLineSyncedAtom,
 		PREVIEW,
 	),
 	timingAutoScroll: defineToggle(

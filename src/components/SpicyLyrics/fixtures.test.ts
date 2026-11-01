@@ -12,13 +12,7 @@ import standaloneBg from "./fixtures/standalone-bg.ttml?raw";
 import { buildSpicyLines, groupSpicyTokens, type SpicyLine } from "./model";
 
 const rows = (ttml: string, allowConsecutive = false) =>
-	buildSpicyLines(
-		parseLyric(ttml).lyricLines,
-		false,
-		false,
-		false,
-		allowConsecutive,
-	);
+	buildSpicyLines(parseLyric(ttml).lyricLines, false, false, allowConsecutive);
 
 const shape = (lines: SpicyLine[]) =>
 	lines.map((line) => [
