@@ -174,5 +174,9 @@ export default defineConfig({
 			// Session worktrees are full checkouts of the repo.
 			".claude/**",
 		],
+		// Node 25+ ships its own localStorage global, which is undefined without
+		// --localstorage-file and hides jsdom's, so atomWithStorage atoms lose
+		// what tests set. Turn Node's off so jsdom's is used.
+		execArgv: ["--no-experimental-webstorage"],
 	},
 });
