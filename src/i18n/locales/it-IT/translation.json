@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics mostra i brani sincronizzati per riga senza cori e senza lati del duetto. Vengono comunque salvati.",
     "editAsTextDescription": "Modifica tutto il testo come testo semplice. Ogni riga di testo è una riga e mantiene il suo tempo.",
     "editAsTextToolsHint": "Elabora testo agisce sulle righe selezionate, o su tutto se non è selezionato nulla. Nella sincronizzazione per riga i separatori di parola vengono ignorati.",
-    "editAsTextEditedHint": "Le righe modificate mantengono il loro tempo."
+    "editAsTextEditedHint": "Le righe modificate mantengono il loro tempo.",
+    "lineText": "Testo della riga"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

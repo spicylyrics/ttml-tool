@@ -24,6 +24,7 @@ import { getWordConnections } from "../../utils/word-connections.ts";
 import styles from "../index.module.css";
 import LyricWordView from "../lyric-word-view.tsx";
 import { RomanWordView } from "../roman-word-view.tsx";
+import { LineTextField } from "./line-text-field.tsx";
 import type { LyricLineViewState } from "./use-line-view";
 
 // Read only while the flag is on, so rows don't subscribe to learned splits otherwise.
@@ -101,116 +102,130 @@ export function LineWordRow({
 				padding: activeGeniusHeader ? "4px 8px" : undefined,
 			}}
 		>
-			{words.map((wordAtom, wi) => {
-				const word = store.get(wordAtom);
-				const connections = getWordConnections(wordTexts, wi);
-				return (
-					<Fragment key={`word-${word.id}`}>
-						{insertWords && (
-							<IconButton
-								size="1"
-								variant="soft"
-								onClick={(evt) => {
+			{lineTimed && toolMode === ToolMode.Edit ? (
+				<LineTextField
+					line={line}
+					lineIndex={lineIndex}
+					editLyricLines={editLyricLines}
+					t={t}
+				/>
+			) : (
+				<>
+					{words.map((wordAtom, wi) => {
+						const word = store.get(wordAtom);
+						const connections = getWordConnections(wordTexts, wi);
+						return (
+							<Fragment key={`word-${word.id}`}>
+								{insertWords && (
+									<IconButton
+										size="1"
+										variant="soft"
+										onClick={(evt) => {
+											evt.preventDefault();
+											evt.stopPropagation();
+											editLyricLines((state) => {
+												state.lyricLines[lineIndex].words.splice(
+													wi,
+													0,
+													newLyricWord(),
+												);
+											});
+										}}
+									>
+										<AddFilled />
+									</IconButton>
+								)}
+								<Flex
+									direction="column"
+									align="stretch"
+									gap={showWordRomanizationInput ? "0" : "3"}
+									data-word-index={wi}
+									className={classNames(
+										styles.wordGroup,
+										!legacySpaceLabels &&
+											word.word.length > 0 &&
+											word.word.trim().length === 0 &&
+											styles.spaceGroup,
+										showWordRomanizationInput && styles.withRomanization,
+										toolMode === ToolMode.Edit &&
+											!enableInsert &&
+											connections.previous &&
+											styles.connectedPrevious,
+										toolMode === ToolMode.Edit &&
+											!enableInsert &&
+											connections.next &&
+											styles.connectedNext,
+									)}
+								>
+									<LyricWordView
+										wordAtom={wordAtom}
+										wordIndex={wi}
+										line={line}
+										lineIndex={lineIndex}
+										isHeaderLine={false}
+									/>
+									{toolMode === ToolMode.Edit && showWordRomanizationInput && (
+										<RomanWordView
+											wordAtom={wordAtom}
+											wordIndex={wi}
+											editingIndexAtom={editingRomanWordIndexAtom}
+										/>
+									)}
+								</Flex>
+							</Fragment>
+						);
+					})}
+					{insertWords && (
+						<IconButton
+							size="1"
+							variant="soft"
+							onClick={(evt) => {
+								evt.preventDefault();
+								evt.stopPropagation();
+								editLyricLines((state) => {
+									state.lyricLines[lineIndex].words.push(newLyricWord());
+								});
+							}}
+						>
+							<AddFilled />
+						</IconButton>
+					)}
+					{toolMode === ToolMode.Edit && (
+						<TextField.Root
+							placeholder={t("lyricLineView.insertWord", "插入单词…")}
+							className={classNames(
+								styles.insertWordField,
+								words.length === 0 && styles.empty,
+							)}
+							style={{
+								alignSelf: "center",
+							}}
+							onKeyDown={(evt) => {
+								if (evt.key === "Enter") {
 									evt.preventDefault();
 									evt.stopPropagation();
+									const word = evt.currentTarget.value;
 									editLyricLines((state) => {
-										state.lyricLines[lineIndex].words.splice(
-											wi,
-											0,
-											newLyricWord(),
+										// Only a whole line typed into an empty line is split;
+										// adding to a line that has words inserts one word.
+										const typed =
+											splitTypedLine &&
+											state.lyricLines[lineIndex].words.length === 0
+												? typedLineToWords(word, learnedRules)
+												: [word];
+										state.lyricLines[lineIndex].words.push(
+											...typed.map((text) => ({
+												...newLyricWord(),
+												word: text,
+											})),
 										);
 									});
-								}}
-							>
-								<AddFilled />
-							</IconButton>
-						)}
-						<Flex
-							direction="column"
-							align="stretch"
-							gap={showWordRomanizationInput ? "0" : "3"}
-							data-word-index={wi}
-							className={classNames(
-								styles.wordGroup,
-								!legacySpaceLabels &&
-									word.word.length > 0 &&
-									word.word.trim().length === 0 &&
-									styles.spaceGroup,
-								showWordRomanizationInput && styles.withRomanization,
-								toolMode === ToolMode.Edit &&
-									!enableInsert &&
-									connections.previous &&
-									styles.connectedPrevious,
-								toolMode === ToolMode.Edit &&
-									!enableInsert &&
-									connections.next &&
-									styles.connectedNext,
-							)}
-						>
-							<LyricWordView
-								wordAtom={wordAtom}
-								wordIndex={wi}
-								line={line}
-								lineIndex={lineIndex}
-								isHeaderLine={false}
-							/>
-							{toolMode === ToolMode.Edit && showWordRomanizationInput && (
-								<RomanWordView
-									wordAtom={wordAtom}
-									wordIndex={wi}
-									editingIndexAtom={editingRomanWordIndexAtom}
-								/>
-							)}
-						</Flex>
-					</Fragment>
-				);
-			})}
-			{insertWords && (
-				<IconButton
-					size="1"
-					variant="soft"
-					onClick={(evt) => {
-						evt.preventDefault();
-						evt.stopPropagation();
-						editLyricLines((state) => {
-							state.lyricLines[lineIndex].words.push(newLyricWord());
-						});
-					}}
-				>
-					<AddFilled />
-				</IconButton>
-			)}
-			{toolMode === ToolMode.Edit && (
-				<TextField.Root
-					placeholder={t("lyricLineView.insertWord", "插入单词…")}
-					className={classNames(
-						styles.insertWordField,
-						words.length === 0 && styles.empty,
+									evt.currentTarget.value = "";
+								}
+							}}
+						/>
 					)}
-					style={{
-						alignSelf: "center",
-					}}
-					onKeyDown={(evt) => {
-						if (evt.key === "Enter") {
-							evt.preventDefault();
-							evt.stopPropagation();
-							const word = evt.currentTarget.value;
-							editLyricLines((state) => {
-								// Only a whole line typed into an empty line is split;
-								// adding to a line that has words inserts one word.
-								const typed =
-									splitTypedLine &&
-									state.lyricLines[lineIndex].words.length === 0
-										? typedLineToWords(word, learnedRules)
-										: [word];
-								state.lyricLines[lineIndex].words.push(
-									...typed.map((text) => ({ ...newLyricWord(), word: text })),
-								);
-							});
-							evt.currentTarget.value = "";
-						}
-					}}
-				/>
+				</>
 			)}
 		</div>
 	);

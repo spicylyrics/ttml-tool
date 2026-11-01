@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics menampilkan lagu dengan waktu per baris tanpa vokal latar dan tanpa sisi duet. Semuanya tetap disimpan.",
     "editAsTextDescription": "Edit seluruh lirik sebagai teks biasa. Setiap baris teks adalah satu baris dan tetap menyimpan waktunya.",
     "editAsTextToolsHint": "Proses lirik bekerja pada baris yang dipilih, atau pada semuanya jika tidak ada yang dipilih. Pemisah kata diabaikan pada waktu per baris.",
-    "editAsTextEditedHint": "Baris yang diedit tetap menyimpan waktunya."
+    "editAsTextEditedHint": "Baris yang diedit tetap menyimpan waktunya.",
+    "lineText": "Teks baris"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics näyttää riviajastetut kappaleet ilman taustalauluja ja duettopuolia. Ne tallennetaan silti.",
     "editAsTextDescription": "Muokkaa koko sanoitusta tavallisena tekstinä. Jokainen tekstirivi on yksi rivi ja säilyttää ajastuksensa.",
     "editAsTextToolsHint": "Käsittele sanoitukset toimii valituilla riveillä tai koko tekstillä, jos mitään ei ole valittu. Riviajastuksessa sanaerottimet jätetään huomiotta.",
-    "editAsTextEditedHint": "Muokatut rivit säilyttävät ajastuksensa."
+    "editAsTextEditedHint": "Muokatut rivit säilyttävät ajastuksensa.",
+    "lineText": "Rivin teksti"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

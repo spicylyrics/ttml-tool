@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics zobrazuje skladby časované po řádcích bez doprovodných vokálů a bez stran duetu. Uloží se ale i tak.",
     "editAsTextDescription": "Upravte celý text jako prostý text. Každý řádek textu je jeden řádek a ponechá si časování.",
     "editAsTextToolsHint": "Zpracovat text pracuje s vybranými řádky, nebo se vším, když není nic vybráno. Při časování po řádcích se oddělovače slov ignorují.",
-    "editAsTextEditedHint": "Upravené řádky si ponechají časování."
+    "editAsTextEditedHint": "Upravené řádky si ponechají časování.",
+    "lineText": "Text řádku"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

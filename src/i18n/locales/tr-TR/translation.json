@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics satır zamanlı şarkıları arka vokaller ve düet tarafları olmadan gösterir. Yine de kaydedilirler.",
     "editAsTextDescription": "Tüm şarkı sözünü düz metin olarak düzenle. Her metin satırı bir satırdır ve zamanlamasını korur.",
     "editAsTextToolsHint": "Şarkı sözlerini işle seçili satırlarda, hiçbir şey seçili değilse tüm metinde çalışır. Satır zamanlamasında kelime ayırıcıları yok sayılır.",
-    "editAsTextEditedHint": "Düzenlenen satırlar zamanlamalarını korur."
+    "editAsTextEditedHint": "Düzenlenen satırlar zamanlamalarını korur.",
+    "lineText": "Satır metni"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

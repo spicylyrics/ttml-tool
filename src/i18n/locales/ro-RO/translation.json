@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics afișează melodiile sincronizate pe rânduri fără voci de fundal și fără părți de duet. Ele se salvează totuși.",
     "editAsTextDescription": "Editează toate versurile ca text simplu. Fiecare rând de text este un rând și își păstrează timpul.",
     "editAsTextToolsHint": "Procesează versurile lucrează pe rândurile selectate sau pe tot textul când nu e nimic selectat. La sincronizarea pe rânduri, separatorii de cuvinte sunt ignorați.",
-    "editAsTextEditedHint": "Rândurile editate își păstrează timpul."
+    "editAsTextEditedHint": "Rândurile editate își păstrează timpul.",
+    "lineText": "Textul rândului"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

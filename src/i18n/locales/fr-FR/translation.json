@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics affiche les chansons synchronisées par ligne sans chœurs ni côtés de duo. Ils sont tout de même enregistrés.",
     "editAsTextDescription": "Modifiez toutes les paroles en texte brut. Chaque rangée est une ligne et garde sa synchronisation.",
     "editAsTextToolsHint": "Préparer les paroles s'applique aux lignes sélectionnées, ou à tout le texte si rien n'est sélectionné. En synchronisation par ligne, les séparateurs de mots sont ignorés.",
-    "editAsTextEditedHint": "Les lignes modifiées gardent leur synchronisation."
+    "editAsTextEditedHint": "Les lignes modifiées gardent leur synchronisation.",
+    "lineText": "Texte de la ligne"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

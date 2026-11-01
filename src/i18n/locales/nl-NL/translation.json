@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics toont nummers met regeltiming zonder achtergrondzang en zonder duetkanten. Ze worden wel opgeslagen.",
     "editAsTextDescription": "Bewerk de hele tekst als platte tekst. Elke rij is één regel en houdt zijn timing.",
     "editAsTextToolsHint": "Songteksten verwerken werkt op de geselecteerde regels, of op alles als er niets is geselecteerd. Bij regeltiming worden woordscheidingstekens genegeerd.",
-    "editAsTextEditedHint": "Bewerkte regels houden hun timing."
+    "editAsTextEditedHint": "Bewerkte regels houden hun timing.",
+    "lineText": "Regeltekst"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

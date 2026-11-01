@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics 显示逐行计时的歌曲时不包含背景人声和对唱分侧。它们仍会被保存。",
     "editAsTextDescription": "以纯文本编辑全部歌词。每一行文本就是一行歌词，并保留其时间。",
     "editAsTextToolsHint": "“处理歌词”作用于选中的行；未选中时作用于全部内容。逐行计时下会忽略分词符。",
-    "editAsTextEditedHint": "编辑过的行会保留其时间。"
+    "editAsTextEditedHint": "编辑过的行会保留其时间。",
+    "lineText": "行文本"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

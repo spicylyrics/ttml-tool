@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics muestra las canciones sincronizadas por líneas sin voces de fondo ni lados de dúo. Aun así se guardan.",
     "editAsTextDescription": "Edita toda la letra como texto plano. Cada fila es una línea y conserva su tiempo.",
     "editAsTextToolsHint": "Procesar letra actúa sobre las líneas seleccionadas, o sobre todo si no hay nada seleccionado. En la sincronización por líneas se ignoran los separadores de palabras.",
-    "editAsTextEditedHint": "Las líneas editadas conservan su tiempo."
+    "editAsTextEditedHint": "Las líneas editadas conservan su tiempo.",
+    "lineText": "Texto de la línea"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

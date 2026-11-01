@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics viser linjetimede sange uden baggrundsvokal og uden duetsider. De gemmes stadig.",
     "editAsTextDescription": "Redigér hele teksten som almindelig tekst. Hver række er én linje og beholder sin timing.",
     "editAsTextToolsHint": "Behandl sangtekster virker på de markerede linjer, eller på det hele, når intet er markeret. Ordskilletegn ignoreres ved linjetiming.",
-    "editAsTextEditedHint": "Redigerede linjer beholder deres timing."
+    "editAsTextEditedHint": "Redigerede linjer beholder deres timing.",
+    "lineText": "Linjetekst"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

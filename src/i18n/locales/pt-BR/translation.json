@@ -1425,7 +1425,8 @@
     "previewNotice": "O Spicy Lyrics mostra músicas sincronizadas por linha sem vocais de fundo e sem lados de dueto. Eles continuam salvos.",
     "editAsTextDescription": "Edite a letra inteira como texto simples. Cada linha do texto é uma linha e mantém seu tempo.",
     "editAsTextToolsHint": "Processar letra age nas linhas selecionadas, ou em tudo quando nada está selecionado. Na sincronização por linha, os separadores de palavras são ignorados.",
-    "editAsTextEditedHint": "Linhas editadas mantêm seu tempo."
+    "editAsTextEditedHint": "Linhas editadas mantêm seu tempo.",
+    "lineText": "Texto da linha"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

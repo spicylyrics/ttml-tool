@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics shows line-timed songs without background vocals or duet sides. They are still saved.",
     "editAsTextDescription": "Edit the whole lyrics as plain text. Each row is one line and keeps its timing.",
     "editAsTextToolsHint": "Process lyrics works on the selected lines, or on everything when nothing is selected. Word separators are ignored in Line timing.",
-    "editAsTextEditedHint": "Edited lines keep their timing."
+    "editAsTextEditedHint": "Edited lines keep their timing.",
+    "lineText": "Line text"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",

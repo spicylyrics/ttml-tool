@@ -1425,7 +1425,8 @@
     "previewNotice": "Spicy Lyrics pokazuje utwory synchronizowane liniami bez wokali w tle i bez stron duetu. Nadal są zapisywane.",
     "editAsTextDescription": "Edytuj cały tekst jako zwykły tekst. Każdy wiersz to jedna linia i zachowuje swój czas.",
     "editAsTextToolsHint": "Przetwórz tekst działa na zaznaczonych wierszach albo na całości, gdy nic nie jest zaznaczone. Przy synchronizacji liniami separatory słów są ignorowane.",
-    "editAsTextEditedHint": "Edytowane linie zachowują swój czas."
+    "editAsTextEditedHint": "Edytowane linie zachowują swój czas.",
+    "lineText": "Tekst wiersza"
   },
   "urbanDictionary": {
     "title": "Urban Dictionary",
