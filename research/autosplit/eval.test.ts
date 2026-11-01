@@ -14,6 +14,7 @@ import type {
 } from "$/modules/segmentation/types";
 import { loadHyphenator } from "$/modules/segmentation/utils/hyphen-loader";
 import { segmentWord } from "$/modules/segmentation/utils/segmentation";
+import { getSyllabificationEngine } from "$/modules/segmentation/utils/syllabification-engines";
 import { newLyricWord } from "$/types/ttml";
 
 interface Row {
@@ -246,6 +247,16 @@ it.skipIf(!wordsPath || !outDir)(
 					const pred = boundaries(row.word, predict(row.word, engine));
 					add(`eng/${engine}`, row.word, gold, pred);
 				}
+				const detailed = getSyllabificationEngine("prosodic").splitDetailed?.(
+					row.word.replace(/^[^\p{L}]+|[^\p{L}'’]+$/gu, ""),
+				);
+				const pros0 = boundaries(row.word, predict(row.word, "prosodic"));
+				add(
+					`eng/prosodic-${detailed?.unsure ? "unsure" : "sure"}`,
+					row.word,
+					gold,
+					pros0,
+				);
 				const lex = lexiconLookup(row.word, song, false);
 				add("eng/lexicon-only", row.word, gold, lex);
 				const pros = boundaries(row.word, predict(row.word, "prosodic"));
