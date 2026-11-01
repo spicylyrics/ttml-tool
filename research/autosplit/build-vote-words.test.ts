@@ -259,6 +259,9 @@ it.skipIf(!wordsPath || !outPath)(
 				key,
 				songs: new Set([...variants.values()].flatMap((s) => [...s])).size,
 			}))
+			// A spelling from one song is often a one-off (`ainoo`) or a name;
+			// keep it only when it's a known word.
+			.filter(({ key, songs }) => songs >= 2 || dictionary.has(key))
 			.sort((a, b) => b.songs - a.songs || a.key.localeCompare(b.key))
 			.slice(0, CORPUS_COUNT);
 		for (const { key } of frequent) addWord(key, "corpus");
@@ -268,6 +271,9 @@ it.skipIf(!wordsPath || !outPath)(
 		const buckets = new Map<string, string[]>();
 		for (const key of Object.keys(prosodicDictionary)) {
 			if (!/^[a-z]{4,}$/.test(key) || seen.has(key)) continue;
+			// The dictionary was built from text split at apostrophes, so it has
+			// the front halves of contractions (`doesn`, `couldn`).
+			if (CONTRACTION_FRAGMENTS.has(key)) continue;
 			const pattern = patternOf(key);
 			buckets.set(pattern, [...(buckets.get(pattern) ?? []), key]);
 		}
@@ -303,6 +309,11 @@ it.skipIf(!wordsPath || !outPath)(
 );
 
 const dictionary = new Set(Object.keys(prosodicDictionary));
+const CONTRACTION_FRAGMENTS = new Set(
+	"aren couldn didn doesn hadn hasn isn mightn mustn needn oughtn shouldn wasn weren wouldn".split(
+		" ",
+	),
+);
 const VOWEL = /[aeiouyàâäéèêëïîôöùûü]/i;
 // Consonant clusters English syllables can start with.
 const ONSETS = new Set(
