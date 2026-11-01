@@ -214,13 +214,17 @@ it.skipIf(!wordsPath || !outPath)(
 			if (first) for (const shifted of shifts(first)) push(shifted, "shift");
 			for (const [split, songs] of variants.slice(1))
 				push(split, `corpus:${songs.size}`);
+			// Fewer cuts are always allowed by the guide (`remem/ber`), and they
+			// show whether voters prefer every syllable split.
+			if (first && first.split("/").length >= 3)
+				for (const merged of fewer(first)) push(merged, "fewer");
 			// The page offers "Keep whole" on every word, so it's no candidate.
 			sources.delete(word);
-			// Words nobody splits (`real`, `prayer`, `loved`) still need a split to
-			// judge, or the page would only show the decoy.
-			if (sources.size === 0 && !group.startsWith("dictionary")) {
+			// Words with one option or none (`real`, `fire`) get a split by vowel
+			// sounds, so there's something to compare.
+			if (sources.size < 2) {
 				const split = vowelSplit(word);
-				if (split) sources.set(split, ["vowels"]);
+				if (split && split !== word) push(split, "vowels");
 			}
 			const candidates = [...sources.keys()].slice(0, MAX_CANDIDATES);
 			if (candidates.length === 0) return false;
@@ -309,7 +313,7 @@ const ONSETS = new Set(
 // Letter pairs that make one sound and are never cut apart.
 const DIGRAPHS = new Set("ch ck gh ph qu sh th wh".split(" "));
 // Two vowels that are often two syllables (`li/on`, `fu/el`, `pra/yer`).
-const HIATUS = /^(ia|io|iu|eo|ua|ue|uo|ui|ya|ye|yo|.[ïëü])$/i;
+const HIATUS = /^(ia|io|iu|eo|ua|ue|uo|ya|ye|yo|.[ïëü])$/i;
 
 /**
  * True when cutting `word` before index `at`, inside the piece from `start` to
@@ -327,17 +331,31 @@ function plausibleCut(word: string, at: number, start = 0, end = word.length) {
 	// one before a vowel starts the next syllable (`you/th`, not `y/outh`).
 	if (/^y[^aeiou]/i.test(right)) return false;
 	if (/^y$/i.test(left) && /^[aeiou]/i.test(right)) return false;
-	// The `u` after `q` is a consonant sound (`qu/een`).
-	if (/^q$/i.test(word[at - 2] ?? "") && /^u$/i.test(word[at - 1])) return false;
-	// A consonant pulled onto the left (`play/ing`, `rock/ing`) is only sung
-	// when the left part is a word on its own; `nev/er`, `craz/y` aren't.
+	// The `u` after `q` or `g` is a consonant sound (`qu/een`, `gu/ard`).
+	if (/^[qg]$/i.test(word[at - 2] ?? "") && /^u$/i.test(word[at - 1])) return false;
+	// A hyphen stays at the end of the piece before it (`check-/up`).
+	if (right.startsWith("-")) return false;
+	// A silent final `e`, `-ue` or a plain `-ed` is no syllable of its own
+	// (`smi/le`, `e/yes`, `lea/gue`, `lo/ved`); `-ted` and `-ded` are (`wan/ted`).
+	if (/^[^aeiou]*es?$/i.test(right) || /^gues?$/i.test(right)) return false;
+	if (/^[^aeiou]?ed$/i.test(right) && !/^[td]ed$/i.test(right)) return false;
+	if (/^y$/i.test(right) && VOWEL.test(word[at - 1])) return false;
+	// A consonant pulled onto the left is how dictionaries cut (`nev/er`,
+	// `plan/et`): one consonant between two vowels, leaving more than a lone
+	// vowel letter (`craz/y`). Grabbing the second of two consonants (`aft/er`,
+	// `summ/er`) is not, unless the left part is a word (`play/ing`).
 	if (
 		!VOWEL.test(word[at - 1]) &&
 		VOWEL.test(word[at]) &&
 		!/^y[aeiou]/i.test(right) &&
-		!dictionary.has(word.slice(0, at).toLowerCase())
+		!dictionary.has(word.slice(0, at).toLowerCase()) &&
+		(right.length < 2 || !VOWEL.test(word[at - 2] ?? ""))
 	)
 		return false;
+	// `-tion`, `-sion`, `-cial` are one syllable (`ac/tion`, not `act/ion`).
+	if (/^[tsc]$/i.test(word[at - 1]) && /^i[aoe]/i.test(right)) return false;
+	// A silent `e` before a suffix is no syllable (`grate/ful`, not `grat/eful`).
+	if (/^e(ful|ly|ment|less|ness)/i.test(right)) return false;
 	// Two vowels side by side: only where they're usually two sounds.
 	if (VOWEL.test(word[at - 1]) && VOWEL.test(word[at]) && !/^y/i.test(right))
 		return HIATUS.test(pair);
@@ -347,10 +365,6 @@ function plausibleCut(word: string, at: number, start = 0, end = word.length) {
 		.toLowerCase();
 	if (onset && onset.length > 1 && !ONSETS.has(onset)) return false;
 	if (onset === "x" || onset === "ng") return false;
-	// A silent final `e` or a plain `-ed` is no syllable of its own
-	// (`smi/le`, `lo/ved`); `-ted` and `-ded` are (`wan/ted`).
-	if (/^[^aeiouy]*es?$/i.test(right)) return false;
-	if (/^[^aeiouy]ed$/i.test(right) && !/^[td]ed$/i.test(right)) return false;
 	return true;
 }
 
@@ -408,6 +422,15 @@ function shifts(split: string) {
 		}
 	});
 	return result;
+}
+
+/** `split` with its first two and its last two pieces joined. */
+function fewer(split: string) {
+	const pieces = split.split("/");
+	return [
+		[pieces[0] + pieces[1], ...pieces.slice(2)].join("/"),
+		[...pieces.slice(0, -2), pieces.at(-2) + pieces.at(-1)].join("/"),
+	];
 }
 
 /** A small stable hash, so the same words get decoys on every build. */
