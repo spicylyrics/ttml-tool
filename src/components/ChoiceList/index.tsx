@@ -23,21 +23,16 @@ export function ChoiceList<T extends string>({
 	choices,
 	onValueChange,
 	label,
-	maxHeight,
 }: {
 	value: T | undefined;
 	choices: readonly Choice<T>[];
 	onValueChange: (value: T) => void;
 	/** Accessible name for the group. */
 	label: string;
-	/** Scroll inside the list past this height (a CSS length). */
-	maxHeight?: string;
 }) {
 	return (
 		<RadioGroup.Root
 			className={styles.list}
-			data-scroll={maxHeight ? "" : undefined}
-			style={maxHeight ? { maxHeight } : undefined}
 			value={value ?? ""}
 			onValueChange={(next) => onValueChange(next as T)}
 			aria-label={label}

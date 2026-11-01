@@ -9,13 +9,6 @@
 	background-color: var(--gray-2);
 }
 
-/* Long lists scroll inside the well. The gutter is kept on both edges so the
-   scrollbar doesn't leave the right side padded differently from the left. */
-.list[data-scroll] {
-	overflow-y: auto;
-	scrollbar-gutter: stable both-edges;
-}
-
 .row {
 	all: unset;
 	box-sizing: border-box;

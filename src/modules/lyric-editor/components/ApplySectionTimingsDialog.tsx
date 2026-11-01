@@ -147,7 +147,6 @@ export function ApplySectionTimingsDialog() {
 							<>
 								<ChoiceList
 									label={t("sectionEditing.source", "Copy from")}
-									maxHeight="18rem"
 									value={sourceId}
 									onValueChange={setSourceId}
 									choices={shown.map(({ candidate, firstLine, start }) => {
