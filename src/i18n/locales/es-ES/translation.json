@@ -1668,6 +1668,22 @@
     "suggested": "Sugerido de la letra:",
     "applyAll": "Aplicar a todas las líneas"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# división dudosa marcada} many {# divisiones dudosas marcadas} other {# divisiones dudosas marcadas}}",
+    "review": "Revisar",
+    "markChecked": "Marcar división como revisada",
+    "next": "Siguiente división dudosa",
+    "wordLabel": "División dudosa, revísala",
+    "mode": {
+      "label": "Cuando una división es dudosa",
+      "flag": "Dividir y marcar",
+      "flagDescription": "Divide la palabra y la marca para que la revises",
+      "split": "Dividir sin marcar",
+      "splitDescription": "Divide la palabra como cualquier otra",
+      "whole": "Dejar entera",
+      "wholeDescription": "Mantiene la palabra en una sola pieza"
+    }
+  },
   "suggestedSplits": {
     "title": "Divisiones sugeridas",
     "description": "{type, select, word {Elige una división sugerida para esta palabra.} other {Elige una división sugerida para esta línea.}}",

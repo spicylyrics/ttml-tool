@@ -1668,6 +1668,22 @@
     "suggested": "Ehdotettu sanoituksesta:",
     "applyAll": "Käytä kaikkiin riveihin"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# epävarma tavutus merkitty} other {# epävarmaa tavutusta merkitty}}",
+    "review": "Tarkista",
+    "markChecked": "Merkitse tavutus tarkistetuksi",
+    "next": "Seuraava epävarma tavutus",
+    "wordLabel": "Epävarma tavutus, tarkista se",
+    "mode": {
+      "label": "Kun tavutus on epävarma",
+      "flag": "Tavuta ja merkitse",
+      "flagDescription": "Tavuttaa sanan ja merkitsee sen tarkistettavaksi",
+      "split": "Tavuta merkitsemättä",
+      "splitDescription": "Tavuttaa sanan kuten muutkin",
+      "whole": "Jätä kokonaiseksi",
+      "wholeDescription": "Pitää sanan yhtenä kappaleena"
+    }
+  },
   "suggestedSplits": {
     "title": "Ehdotetut jaot",
     "description": "{type, select, word {Valitse ehdotettu jako tälle sanalle.} other {Valitse ehdotettu jako tälle riville.}}",

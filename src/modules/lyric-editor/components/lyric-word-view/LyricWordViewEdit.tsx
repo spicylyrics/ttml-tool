@@ -102,9 +102,21 @@ export const LyricWordViewEdit = ({
 				isWordBlank && styles.blank,
 				useCompactSpace && styles.compactSpace,
 				hasError && toolMode === ToolMode.Edit && styles.error,
+				word.splitUnsure && toolMode === ToolMode.Edit && styles.splitUnsure,
 			),
-		[isWordBlank, useCompactSpace, isWordSelected, hasError, toolMode],
+		[
+			isWordBlank,
+			useCompactSpace,
+			isWordSelected,
+			hasError,
+			toolMode,
+			word.splitUnsure,
+		],
 	);
+	const unsureLabel =
+		word.splitUnsure && toolMode === ToolMode.Edit
+			? t("unsureSplits.wordLabel", "Unsure split, check it")
+			: undefined;
 	const onEnter = useCallback(
 		(evt: SyntheticEvent<HTMLInputElement>) => {
 			if (editCancelledRef.current) return;
@@ -115,6 +127,7 @@ export const LyricWordViewEdit = ({
 					const targetWord = state.lyricLines[lineIndex]?.words[wordIndex];
 					if (!targetWord) return;
 					targetWord.word = parsedWord;
+					delete targetWord.splitUnsure;
 				});
 			}
 		},
@@ -187,8 +200,9 @@ export const LyricWordViewEdit = ({
 						<div className={styles.wordMainContainer}>
 							<div
 								className={styles.wordMainText}
-								title={spaceLabel}
+								title={spaceLabel ?? unsureLabel}
 								aria-label={spaceLabel}
+								aria-description={unsureLabel}
 							>
 								{useCompactSpace ? null : displayWord}
 							</div>

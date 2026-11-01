@@ -13,6 +13,8 @@ export interface SyllabificationEngine {
 	name: string;
 	description: string;
 	split: (word: string) => string[];
+	/** Like `split`, and says whether the cuts are a guess worth checking. */
+	splitDetailed?: (word: string) => { parts: string[]; unsure: boolean };
 }
 
 const hyphenationLanguages = [
@@ -175,6 +177,37 @@ const mergeVowelless = (parts: string[]) => {
 	return result;
 };
 
+/** Vowel sounds in a written part, not counting a silent final `e`, `es` or `ed`. */
+const countVowelGroups = (part: string) => {
+	let letters = part
+		.toLowerCase()
+		.replace(/[^a-z]/g, "")
+		.replace(/^y(?=[aeiou])/, "");
+	if (/[aeiouy].*[^aeiouy]e[sd]?$/.test(letters))
+		letters = letters.replace(/e[sd]?$/, "");
+	return letters.match(/[aeiouy]+/g)?.length ?? 0;
+};
+
+/**
+ * Cuts worth a second look: a part with no vowel sound or with two of them
+ * (`Balen/ci/a/ga`), or a cut between two sounded vowels, which depends on
+ * how the word is sung (`li/on`, `wo/ah`). `n't` and `-ing` after a vowel
+ * (`did/n't`, `go/in'`) are fine, and so is a silent `e` (`some/one`).
+ */
+export const isUnsureSplit = (parts: string[]) => {
+	if (parts.length < 2 || parts.every((part) => /^[A-Z]$/.test(part)))
+		return false;
+	return parts.some(
+		(part, index) =>
+			(countVowelGroups(part) !== 1 && !/^n['’]t$/i.test(part)) ||
+			(index > 0 &&
+				/[aeiou]$/i.test(parts[index - 1]) &&
+				!/[^aeiou]e$/i.test(parts[index - 1]) &&
+				/^[aeiou]/i.test(part) &&
+				!/^in(?:g|['’])?$/i.test(part)),
+	);
+};
+
 const lookupDictionary = (word: string) => {
 	const entry = dictionary.get(word.toLowerCase());
 	if (entry === undefined) return undefined;
@@ -277,7 +310,11 @@ export const SYLLABIFICATION_ENGINES: SyllabificationEngine[] = [
 		name: "English (Prosodic)",
 		description:
 			"Dictionary-backed English syllable boundaries with a speech fallback.",
-		split: prosodicSplit,
+		split: (word) => prosodicSplit(word),
+		splitDetailed: (word) => {
+			const parts = prosodicSplit(word);
+			return { parts, unsure: isUnsureSplit(parts) };
+		},
 	},
 	{
 		id: "basic",

@@ -1668,6 +1668,22 @@
     "suggested": "Sugerat din versuri:",
     "applyAll": "Aplică tuturor versurilor"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# despărțire nesigură marcată} few {# despărțiri nesigure marcate} other {# de despărțiri nesigure marcate}}",
+    "review": "Verifică",
+    "markChecked": "Marchează despărțirea ca verificată",
+    "next": "Următoarea despărțire nesigură",
+    "wordLabel": "Despărțire nesigură, verific-o",
+    "mode": {
+      "label": "Când o despărțire e nesigură",
+      "flag": "Desparte și marchează",
+      "flagDescription": "Desparte cuvântul și îl marchează ca să-l verifici",
+      "split": "Desparte fără marcaj",
+      "splitDescription": "Desparte cuvântul ca pe oricare altul",
+      "whole": "Lasă întreg",
+      "wholeDescription": "Păstrează cuvântul într-o singură bucată"
+    }
+  },
   "suggestedSplits": {
     "title": "Divizări sugerate",
     "description": "{type, select, word {Alege o împărțire sugerată pentru acest cuvânt.} other {Alege o împărțire sugerată pentru acest vers.}}",

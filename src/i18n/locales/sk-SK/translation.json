@@ -1668,6 +1668,22 @@
     "suggested": "Odporúčané podľa textu:",
     "applyAll": "Použiť na všetky riadky"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {Označené # neisté rozdelenie} few {Označené # neisté rozdelenia} many {Označeného # neistého rozdelenia} other {Označených # neistých rozdelení}}",
+    "review": "Skontrolovať",
+    "markChecked": "Označiť rozdelenie ako skontrolované",
+    "next": "Ďalšie neisté rozdelenie",
+    "wordLabel": "Neisté rozdelenie, skontrolujte ho",
+    "mode": {
+      "label": "Pri neistom rozdelení",
+      "flag": "Rozdeliť a označiť",
+      "flagDescription": "Rozdelí slovo a označí ho na kontrolu",
+      "split": "Rozdeliť bez označenia",
+      "splitDescription": "Rozdelí slovo ako každé iné",
+      "whole": "Ponechať celé",
+      "wholeDescription": "Ponechá slovo v jednom kuse"
+    }
+  },
   "suggestedSplits": {
     "title": "Navrhované delenia",
     "description": "{type, select, word {Vyberte navrhované rozdelenie pre toto slovo.} other {Vyberte navrhované rozdelenie pre tento riadok.}}",

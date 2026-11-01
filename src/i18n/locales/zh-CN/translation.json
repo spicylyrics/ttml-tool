@@ -1668,6 +1668,22 @@
     "suggested": "根据歌词建议：",
     "applyAll": "应用到所有行"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, other {已标记 # 处不确定的拆分}}",
+    "review": "检查",
+    "markChecked": "将拆分标记为已检查",
+    "next": "下一个不确定的拆分",
+    "wordLabel": "拆分不确定，请检查",
+    "mode": {
+      "label": "拆分不确定时",
+      "flag": "拆分并标记",
+      "flagDescription": "拆分该词并标记，方便你检查",
+      "split": "拆分但不标记",
+      "splitDescription": "像其他词一样拆分",
+      "whole": "保持完整",
+      "wholeDescription": "让该词保持为一个整体"
+    }
+  },
   "suggestedSplits": {
     "title": "拆分建议",
     "description": "{type, select, word {为这个字选择建议的拆分方式。} other {为这一行选择建议的拆分方式。}}",

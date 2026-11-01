@@ -85,6 +85,8 @@ export interface LyricWord extends AMLLLyricWord {
 	/** Required by AMLL's renderer types; always false, the tool no longer edits or exports it. */
 	obscene: boolean;
 	romanWarning?: boolean;
+	/** Auto-split guessed this word's cuts; shown in Edit mode until checked. Never exported. */
+	splitUnsure?: boolean;
 	romanWord: string;
 }
 

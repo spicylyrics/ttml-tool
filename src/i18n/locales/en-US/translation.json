@@ -1668,6 +1668,22 @@
     "suggested": "Suggested from lyrics:",
     "applyAll": "Apply to all lines"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# unsure split marked} other {# unsure splits marked}}",
+    "review": "Review",
+    "markChecked": "Mark split as checked",
+    "next": "Next unsure split",
+    "wordLabel": "Unsure split, check it",
+    "mode": {
+      "label": "When a split is unsure",
+      "flag": "Split and mark",
+      "flagDescription": "Split the word and mark it so you can check it",
+      "split": "Split without marking",
+      "splitDescription": "Split the word like any other",
+      "whole": "Leave whole",
+      "wholeDescription": "Keep the word in one piece"
+    }
+  },
   "suggestedSplits": {
     "title": "Suggested splits",
     "description": "{type, select, word {Choose a suggested split for this word.} other {Choose a suggested split for this line.}}",

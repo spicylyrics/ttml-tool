@@ -53,7 +53,11 @@ function isMergeablePair(
 /**
  * @description 自动将一个字符串拆分为 token
  */
-function autoTokenize(text: string, config: SegmentationConfig): string[] {
+function autoTokenize(
+	text: string,
+	config: SegmentationConfig,
+	unsureSplits?: string[][],
+): string[] {
 	if (!text) {
 		return [];
 	}
@@ -63,6 +67,19 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 	let currentToken = "";
 	let lastCharType: CharType | null = null;
 
+	const splitLatin = (token: string) => {
+		if (getHyphenationLanguage(config.engine) && config.hyphenator)
+			return config.hyphenator(token).split("\u00AD");
+		const engine = getSyllabificationEngine(config.engine);
+		if (!engine.splitDetailed) return engine.split(token);
+		const { parts, unsure } = engine.splitDetailed(token);
+		const mode = config.unsureSplits ?? "flag";
+		if (!unsure || mode === "split") return parts;
+		if (mode === "whole") return [token];
+		unsureSplits?.push(parts);
+		return parts;
+	};
+
 	const pushCurrentToken = () => {
 		if (!currentToken) return;
 
@@ -71,11 +88,7 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 			config.splitEnglish &&
 			currentToken.length > 1
 		) {
-			const syllables =
-				getHyphenationLanguage(config.engine) && config.hyphenator
-					? config.hyphenator(currentToken).split("\u00AD")
-					: getSyllabificationEngine(config.engine).split(currentToken);
-			tokens.push(...syllables);
+			tokens.push(...splitLatin(currentToken));
 		} else {
 			tokens.push(currentToken);
 		}
@@ -309,6 +322,35 @@ function prepareProtectedPattern(config: SegmentationConfig): RegExp | null {
 		: null;
 }
 
+const stripEdgePunctuation = (text: string) =>
+	text.replace(/^[^\p{L}\p{M}\p{N}'’]+|[^\p{L}\p{M}\p{N}'’]+$/gu, "");
+
+/**
+ * Marks the new words that came from an unsure split, matched in order by
+ * text (punctuation merged onto a part is ignored), and clears old marks on
+ * the rest. A word left whole keeps its mark.
+ */
+function markUnsure(words: LyricWord[], unsureSplits: string[][]): LyricWord[] {
+	if (words.length < 2) return words;
+	for (const word of words) delete word.splitUnsure;
+	let from = 0;
+	for (const parts of unsureSplits) {
+		for (let start = from; start + parts.length <= words.length; start++) {
+			const matches = parts.every(
+				(part, offset) =>
+					stripEdgePunctuation(words[start + offset].word) ===
+					stripEdgePunctuation(part),
+			);
+			if (!matches) continue;
+			for (let offset = 0; offset < parts.length; offset++)
+				words[start + offset].splitUnsure = true;
+			from = start + parts.length;
+			break;
+		}
+	}
+	return words;
+}
+
 export function segmentWord(
 	word: LyricWord,
 	config: SegmentationConfig,
@@ -320,16 +362,20 @@ export function segmentWord(
 		const weights = learnedSegments.map((token) =>
 			calculateLearnedWeight(token, config),
 		);
-		return distributeTime(word, learnedSegments, weights);
+		return markUnsure(distributeTime(word, learnedSegments, weights), []);
 	}
 
 	const ctx = context || { isQuoteOpen: false };
+	const unsureSplits: string[][] = [];
 
 	if (!pattern) {
-		const tokens = autoTokenize(word.word, config);
+		const tokens = autoTokenize(word.word, config, unsureSplits);
 		if (tokens.length === 0) return [];
 		const { finalTokens, finalWeights } = postProcess(tokens, config, ctx);
-		return distributeTime(word, finalTokens, finalWeights);
+		return markUnsure(
+			distributeTime(word, finalTokens, finalWeights),
+			unsureSplits,
+		);
 	}
 
 	const parts = word.word.split(pattern);
@@ -353,14 +399,14 @@ export function segmentWord(
 			allTokens.push(part);
 			allWeights.push(weight);
 		} else {
-			const tokens = autoTokenize(part, config);
+			const tokens = autoTokenize(part, config, unsureSplits);
 			const { finalTokens, finalWeights } = postProcess(tokens, config, ctx);
 			allTokens.push(...finalTokens);
 			allWeights.push(...finalWeights);
 		}
 	}
 
-	return distributeTime(word, allTokens, allWeights);
+	return markUnsure(distributeTime(word, allTokens, allWeights), unsureSplits);
 }
 
 /**

@@ -1668,6 +1668,22 @@
     "suggested": "Sugerowane na podstawie tekstu:",
     "applyAll": "Zastosuj do wszystkich wersów"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {Oznaczono # niepewny podział} few {Oznaczono # niepewne podziały} many {Oznaczono # niepewnych podziałów} other {Oznaczono # niepewnego podziału}}",
+    "review": "Sprawdź",
+    "markChecked": "Oznacz podział jako sprawdzony",
+    "next": "Następny niepewny podział",
+    "wordLabel": "Niepewny podział, sprawdź go",
+    "mode": {
+      "label": "Gdy podział jest niepewny",
+      "flag": "Podziel i oznacz",
+      "flagDescription": "Dzieli słowo i oznacza je do sprawdzenia",
+      "split": "Podziel bez oznaczania",
+      "splitDescription": "Dzieli słowo jak każde inne",
+      "whole": "Zostaw w całości",
+      "wholeDescription": "Zostawia słowo w jednym kawałku"
+    }
+  },
   "suggestedSplits": {
     "title": "Sugerowane podziały",
     "description": "{type, select, word {Wybierz sugerowany podział dla tego słowa.} other {Wybierz sugerowany podział dla tego wersu.}}",

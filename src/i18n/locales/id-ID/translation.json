@@ -1668,6 +1668,22 @@
     "suggested": "Disarankan dari lirik:",
     "applyAll": "Terapkan ke semua baris"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, other {# pemisahan yang belum pasti ditandai}}",
+    "review": "Tinjau",
+    "markChecked": "Tandai pemisahan sudah dicek",
+    "next": "Pemisahan belum pasti berikutnya",
+    "wordLabel": "Pemisahan belum pasti, cek lagi",
+    "mode": {
+      "label": "Jika pemisahan belum pasti",
+      "flag": "Pisahkan dan tandai",
+      "flagDescription": "Pisahkan kata dan tandai agar bisa Anda cek",
+      "split": "Pisahkan tanpa tanda",
+      "splitDescription": "Pisahkan kata seperti kata lainnya",
+      "whole": "Biarkan utuh",
+      "wholeDescription": "Biarkan kata tetap satu bagian"
+    }
+  },
   "suggestedSplits": {
     "title": "Pemisahan yang disarankan",
     "description": "{type, select, word {Pilih pemisahan yang disarankan untuk kata ini.} other {Pilih pemisahan yang disarankan untuk baris ini.}}",

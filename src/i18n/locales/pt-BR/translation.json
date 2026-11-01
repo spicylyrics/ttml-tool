@@ -1668,6 +1668,22 @@
     "suggested": "Sugerido a partir da letra:",
     "applyAll": "Aplicar a todas as linhas"
   },
+  "unsureSplits": {
+    "toast": "{count, plural, one {# divisão incerta marcada} many {# divisões incertas marcadas} other {# divisões incertas marcadas}}",
+    "review": "Revisar",
+    "markChecked": "Marcar divisão como revisada",
+    "next": "Próxima divisão incerta",
+    "wordLabel": "Divisão incerta, revise",
+    "mode": {
+      "label": "Quando uma divisão é incerta",
+      "flag": "Dividir e marcar",
+      "flagDescription": "Divide a palavra e a marca para você revisar",
+      "split": "Dividir sem marcar",
+      "splitDescription": "Divide a palavra como qualquer outra",
+      "whole": "Deixar inteira",
+      "wholeDescription": "Mantém a palavra em uma só parte"
+    }
+  },
   "suggestedSplits": {
     "title": "Divisões sugeridas",
     "description": "{type, select, word {Escolha uma divisão sugerida para esta palavra.} other {Escolha uma divisão sugerida para esta linha.}}",
