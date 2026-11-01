@@ -330,9 +330,19 @@ describe("applySectionTimings", () => {
 		expect(applySectionTimings(lyrics, "c1", "c2", 0)).toBeUndefined();
 	});
 
-	it("anchors on the target's first timed line", () => {
+	it("anchors on the target's first start time", () => {
 		const lyrics = make();
 		expect(sectionTimingAnchor(lyrics, "v")).toBe(3000);
 		expect(sectionTimingAnchor(lyrics, "c2")).toBeUndefined();
+	});
+
+	it("anchors on a first word with only its start marked", () => {
+		const lyrics = make();
+		const second = lyrics.lyricLines.find(
+			(item) => item.sectionId === "c2" && item.words[0].word === "brand",
+		);
+		if (!second) throw new Error("missing line");
+		second.words[0].startTime = 21000;
+		expect(sectionTimingAnchor(lyrics, "c2")).toBe(21000);
 	});
 });

@@ -26,7 +26,7 @@ export function SectionReviewPanel({
 				<Text size="1" className={styles.hint}>
 					{t(
 						"importLyrics.reviewHint",
-						"Fix any category that was guessed wrong. Colors, vocalists and notes can be set later from the section menu.",
+						"Fix any type that was guessed wrong. You can rename sections later by clicking their name in the editor.",
 					)}
 				</Text>
 			</Flex>
@@ -42,7 +42,7 @@ export function SectionReviewPanel({
 					>
 						<Flex gap="2" align="center">
 							<TextField.Root
-								size="1"
+								size="2"
 								className={styles.label}
 								aria-label={t("importLyrics.sectionLabel", "Section label")}
 								value={section.label}
@@ -62,7 +62,7 @@ export function SectionReviewPanel({
 							/>
 						</Flex>
 						<Flex gap="2" align="center" justify="between">
-							<Text size="1" color="gray" truncate>
+							<Text size="1" color="gray" truncate className={styles.firstLine}>
 								{wordSeparator
 									? section.firstLine?.split(wordSeparator).join("")
 									: section.firstLine}

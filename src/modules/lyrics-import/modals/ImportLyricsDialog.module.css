@@ -23,6 +23,13 @@
 	min-height: 0;
 }
 
+/* The scroll area wraps its content in a box that grows to the widest child,
+   so one long lyric line widened the whole column past its edge. Holding the
+   box to the column lets rows wrap and truncate instead. */
+.side :global(.rt-ScrollAreaViewport) > div {
+	max-width: 100%;
+}
+
 .sideInner {
 	padding-right: var(--space-3);
 }

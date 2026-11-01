@@ -391,12 +391,17 @@ export function applySectionTimings(
 }
 
 /**
- * Where Apply timings anchors by default: the target's first timed line if it
- * has one, otherwise the playhead.
+ * Where Apply timings can start: the section's first start time, from its
+ * first word that has one. Marking just the first word's start is enough;
+ * nothing needs a full sync first. Undefined means only the playhead works.
  */
 export function sectionTimingAnchor(lyrics: TTMLLyric, sectionId: string) {
 	const bounds = getSectionBoundsById(lyrics.lyricLines, sectionId);
 	if (!bounds) return undefined;
-	return lyrics.lyricLines.slice(bounds.start, bounds.end).find(isTimedLine)
-		?.startTime;
+	for (const line of lyrics.lyricLines.slice(bounds.start, bounds.end)) {
+		const word = line.words.find((item) => item.startTime > 0);
+		if (word) return word.startTime;
+		if (line.startTime > 0) return line.startTime;
+	}
+	return undefined;
 }

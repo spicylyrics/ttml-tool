@@ -301,7 +301,7 @@ function SectionMenu({ actions }: { actions: SectionActions }) {
 					<MoreHorizontal16Regular />
 				</IconButton>
 			</DropdownMenu.Trigger>
-			<DropdownMenu.Content size="1" align="end">
+			<DropdownMenu.Content align="end">
 				<DropdownMenu.Item onSelect={actions.rename}>
 					{t("sectionEditing.rename", "Rename")}
 				</DropdownMenu.Item>
@@ -330,7 +330,7 @@ function SectionContextMenu({
 }) {
 	const { t } = useTranslation();
 	return (
-		<ContextMenu.Content size="1">
+		<ContextMenu.Content>
 			<ContextMenu.Item onSelect={actions.rename}>
 				{t("sectionEditing.rename", "Rename")}
 			</ContextMenu.Item>
@@ -422,7 +422,7 @@ function SectionLabelEditor({
 		>
 			<TextField.Root
 				ref={inputRef}
-				size="1"
+				size="2"
 				className={styles.labelInput}
 				aria-label={t("sectionEditing.label", "Section name")}
 				value={text}

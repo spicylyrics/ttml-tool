@@ -13,7 +13,7 @@ export function SectionCategorySelect({
 	onOpenChange,
 	onCloseAutoFocus,
 	"aria-label": ariaLabel,
-	size = "1",
+	size = "2",
 }: {
 	value: LyricSectionCategory;
 	onValueChange: (category: LyricSectionCategory) => void;

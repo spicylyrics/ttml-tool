@@ -443,7 +443,7 @@ export function LyricMarkupEditor({
 							<Text as="label" size="1" weight="medium">
 								{t("lyricMarkup.headerText", "Header text")}
 								<TextField.Root
-									size="1"
+									size="2"
 									mt="1"
 									value={header.text.slice(1, -1)}
 									onChange={(event) => replaceHeader(`[${event.target.value}]`)}

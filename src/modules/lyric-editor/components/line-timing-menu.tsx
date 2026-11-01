@@ -80,47 +80,39 @@ export function LineTimingMenuItems() {
 		setTimingCopyPlacement(null);
 	};
 
-	// While a timing copy is waiting for its target, cancelling it is the only
-	// thing worth a right-click, so it stands on its own.
-	if (timingCopyPlacement)
-		return (
-			<ContextMenu.Item onSelect={toggleTimingCopy}>
-				{t("contextMenu.cancelCopyTimings", "Cancel timing copy")}
-			</ContextMenu.Item>
-		);
-
-	// One-off tools, so they share one row instead of three.
 	return (
-		<ContextMenu.Sub>
-			<ContextMenu.SubTrigger disabled={selectedLinesSize === 0}>
-				{t("contextMenu.timing", "Timing")}
-			</ContextMenu.SubTrigger>
-			<ContextMenu.SubContent>
-				<ContextMenu.Item onSelect={toggleTimingCopy}>
-					{t("contextMenu.copyTimingsTo", "Copy timings to…")}
-				</ContextMenu.Item>
-				<ContextMenu.Item onSelect={snapToPlayhead}>
-					{t(
-						"contextMenu.snapSelectedLinesToPlayhead",
-						"Snap selected lines to playhead",
-					)}
-				</ContextMenu.Item>
-				<ContextMenu.Item
-					onSelect={duplicateAtPlayhead}
-					shortcut={
-						duplicatePasteKeys
-							? formatKeyBindings(duplicatePasteKeys)
-							: undefined
-					}
-				>
-					{spectrogramSelection
-						? t(
-								"contextMenu.duplicateIntoSelection",
-								"Duplicate into spectrogram selection",
-							)
-						: t("contextMenu.duplicateAtPlayhead", "Duplicate at playhead")}
-				</ContextMenu.Item>
-			</ContextMenu.SubContent>
-		</ContextMenu.Sub>
+		<>
+			<ContextMenu.Item
+				disabled={!timingCopyPlacement && selectedLinesSize === 0}
+				onSelect={toggleTimingCopy}
+			>
+				{timingCopyPlacement
+					? t("contextMenu.cancelCopyTimings", "Cancel timing copy")
+					: t("contextMenu.copyTimingsTo", "Copy timings to…")}
+			</ContextMenu.Item>
+			<ContextMenu.Item
+				disabled={selectedLinesSize === 0}
+				onSelect={snapToPlayhead}
+			>
+				{t(
+					"contextMenu.snapSelectedLinesToPlayhead",
+					"Snap selected lines to playhead",
+				)}
+			</ContextMenu.Item>
+			<ContextMenu.Item
+				disabled={selectedLinesSize === 0}
+				onSelect={duplicateAtPlayhead}
+				shortcut={
+					duplicatePasteKeys ? formatKeyBindings(duplicatePasteKeys) : undefined
+				}
+			>
+				{spectrogramSelection
+					? t(
+							"contextMenu.duplicateIntoSelection",
+							"Duplicate into spectrogram selection",
+						)
+					: t("contextMenu.duplicateAtPlayhead", "Duplicate at playhead")}
+			</ContextMenu.Item>
+		</>
 	);
 }
