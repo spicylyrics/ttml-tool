@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Bölüm eylemleri",
     "startHere": "Bölümü buradan başlat",
+    "noSection": "Bölüm yok",
     "rename": "Yeniden adlandır",
     "renameHint": "Yeniden adlandır veya türünü değiştir",
     "label": "Bölüm adı",

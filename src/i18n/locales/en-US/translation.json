@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Section actions",
     "startHere": "Start section here",
+    "noSection": "No section",
     "rename": "Rename",
     "renameHint": "Rename or change type",
     "label": "Section name",

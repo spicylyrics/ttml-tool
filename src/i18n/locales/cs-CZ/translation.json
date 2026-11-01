@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Akce sekce",
     "startHere": "Začít sekci zde",
+    "noSection": "Bez sekce",
     "rename": "Přejmenovat",
     "renameHint": "Přejmenovat nebo změnit typ",
     "label": "Název sekce",

@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Akcie sekcie",
     "startHere": "Začať sekciu tu",
+    "noSection": "Bez sekcie",
     "rename": "Premenovať",
     "renameHint": "Premenovať alebo zmeniť typ",
     "label": "Názov sekcie",

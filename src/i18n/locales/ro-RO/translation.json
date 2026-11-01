@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Acțiuni pentru secțiune",
     "startHere": "Începe secțiunea aici",
+    "noSection": "Nicio secțiune",
     "rename": "Redenumește",
     "renameHint": "Redenumește sau schimbă tipul",
     "label": "Numele secțiunii",

@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Aksi bagian",
     "startHere": "Mulai bagian di sini",
+    "noSection": "Tanpa bagian",
     "rename": "Ganti nama",
     "renameHint": "Ganti nama atau ubah jenis",
     "label": "Nama bagian",

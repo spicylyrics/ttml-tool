@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "分段操作",
     "startHere": "从此处开始分段",
+    "noSection": "无分段",
     "rename": "重命名",
     "renameHint": "重命名或更改类型",
     "label": "分段名称",

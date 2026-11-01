@@ -23,6 +23,14 @@
 	width: 20px;
 }
 
+/* Lines outside any section: an outline instead of a fill, in muted ink. */
+.divider .unsectioned {
+	--pill-hue-a: transparent;
+	--pill-hue-border: var(--gray-a7);
+	--pill-hue-text: var(--gray-11);
+	border-style: dashed;
+}
+
 /* The name is a SectionPill; this only keeps a long one to one line. */
 .label {
 	flex: none;

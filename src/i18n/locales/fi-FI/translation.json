@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Osion toiminnot",
     "startHere": "Aloita osio tästä",
+    "noSection": "Ei osiota",
     "rename": "Nimeä uudelleen",
     "renameHint": "Nimeä uudelleen tai vaihda tyyppi",
     "label": "Osion nimi",

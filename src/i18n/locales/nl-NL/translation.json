@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Sectieacties",
     "startHere": "Sectie hier beginnen",
+    "noSection": "Geen sectie",
     "rename": "Hernoemen",
     "renameHint": "Hernoemen of type wijzigen",
     "label": "Sectienaam",

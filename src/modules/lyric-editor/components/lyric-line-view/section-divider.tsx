@@ -33,6 +33,7 @@ import {
 import { shiftSectionToTime } from "../../utils/genius-sections.ts";
 import {
 	relabelForCategory,
+	startSectionAt,
 	toHeaderLabel,
 	updateSection,
 } from "../../utils/section-editing.ts";
@@ -86,7 +87,23 @@ export function SectionDivider({
 		[label, lineIndex, sectionId],
 	);
 	const isStart = useAtomValue(isStartAtom);
+	// Lines outside any section, after a section ends: without a row of their
+	// own they read as part of the section above.
+	const startsUnsectionedAtom = useMemo(
+		() =>
+			atom((get) => {
+				if (label) return false;
+				const lyrics = get(lyricLinesAtom);
+				if (!lyrics.sections?.length) return false;
+				if (lineIndex === 0) return true;
+				const previous = lyrics.lyricLines[lineIndex - 1];
+				return !!(previous?.sectionId || previous?.geniusHeader);
+			}),
+		[label, lineIndex],
+	);
+	const startsUnsectioned = useAtomValue(startsUnsectionedAtom);
 	const headerColor = useAtomValue(advGeniusHeaderColorAtom);
+	if (startsUnsectioned) return <UnsectionedRow lineIndex={lineIndex} />;
 	if (!isStart || !label) return null;
 	if (!section)
 		return (
@@ -108,6 +125,43 @@ export function SectionDivider({
 			</div>
 		);
 	return <SectionRow section={section} headerColor={headerColor} />;
+}
+
+/** Marks where lines outside any section begin. In Edit mode, click to start one there. */
+function UnsectionedRow({ lineIndex }: { lineIndex: number }) {
+	const { t } = useTranslation();
+	const toolMode = useAtomValue(toolModeAtom);
+	const editLyrics = useSetImmerAtom(lyricLinesAtom);
+	const setEditingId = useSetAtom(editingSectionIdAtom);
+	const startSection = () => {
+		let createdId: string | undefined;
+		editLyrics((draft) => {
+			createdId = startSectionAt(draft, lineIndex, "verse")?.id;
+		});
+		if (createdId) setEditingId(createdId);
+	};
+	return (
+		<div
+			className={styles.divider}
+			onContextMenu={(event) => event.preventDefault()}
+		>
+			<span className={styles.chevronSpace} />
+			<SectionPill
+				size="1"
+				category={undefined}
+				className={`${styles.label} ${styles.unsectioned}`}
+				title={
+					toolMode === ToolMode.Edit
+						? t("sectionEditing.startHere", "Start section here")
+						: undefined
+				}
+				onClick={toolMode === ToolMode.Edit ? startSection : undefined}
+			>
+				{t("sectionEditing.noSection", "No section")}
+			</SectionPill>
+			<span className={styles.rule} aria-hidden />
+		</div>
+	);
 }
 
 function SectionRow({

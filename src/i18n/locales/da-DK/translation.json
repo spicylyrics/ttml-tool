@@ -1384,6 +1384,7 @@
   "sectionEditing": {
     "menu": "Sektionshandlinger",
     "startHere": "Start sektion her",
+    "noSection": "Ingen sektion",
     "rename": "Omdøb",
     "renameHint": "Omdøb eller skift type",
     "label": "Sektionsnavn",
