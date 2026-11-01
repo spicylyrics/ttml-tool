@@ -197,7 +197,7 @@ function SectionRow({
 							{displayLabel(section.label)}
 						</button>
 					)}
-					<span className={styles.rule} aria-hidden />
+					{/* Next to the name, where the eye already is; the hairline fills the rest. */}
 					{!editing && (
 						<span className={styles.meta}>
 							{t(
@@ -213,6 +213,7 @@ function SectionRow({
 						)}
 						{toolMode === ToolMode.Edit && <SectionMenu actions={actions} />}
 					</div>
+					<span className={styles.rule} aria-hidden />
 				</div>
 			</ContextMenu.Trigger>
 			<SectionContextMenu actions={actions} toolMode={toolMode} />
@@ -301,7 +302,7 @@ function SectionMenu({ actions }: { actions: SectionActions }) {
 					<MoreHorizontal16Regular />
 				</IconButton>
 			</DropdownMenu.Trigger>
-			<DropdownMenu.Content align="end">
+			<DropdownMenu.Content align="start">
 				<DropdownMenu.Item onSelect={actions.rename}>
 					{t("sectionEditing.rename", "Rename")}
 				</DropdownMenu.Item>
