@@ -30,7 +30,7 @@ const wordsPath = process.env.AUTOSPLIT_WORDS;
 const outPath = process.env.AUTOSPLIT_VOTE_OUT;
 const TARGET = 2500;
 const CORPUS_COUNT = 900;
-const MAX_CANDIDATES = 5;
+const MAX_CANDIDATES = 3;
 
 const isLetter = (c: string) => /[\p{L}\p{M}]/u.test(c);
 const core = (word: string) =>
@@ -188,16 +188,32 @@ it.skipIf(!wordsPath || !outPath)(
 				const cased = recase(split, word);
 				sources.set(cased, [...(sources.get(cased) ?? []), source]);
 			};
+			// Order is priority: only the first MAX_CANDIDATES are shown.
 			push(engineSplit(word, "prosodic"), "rules");
-			push(engineSplit(word, "hyphenation-en-us"), "hyphenation");
 			const variants = [...(corpus.get(key) ?? new Map())].sort(
 				(a, b) => b[1].size - a[1].size,
 			);
-			for (const [split, songs] of variants) push(split, `corpus:${songs.size}`);
+			for (const [split, songs] of variants.slice(0, 1))
+				push(split, `corpus:${songs.size}`);
+			// Hyphenation often cuts fewer times at real boundaries (`vanes/sa`),
+			// but sometimes inside a sung syllable (`bliv/ion`). Keep it when a TTML
+			// maker used it or every cut is one a singer could make.
+			const hyphenated = recase(engineSplit(word, "hyphenation-en-us"), word);
+			const hyphenCuts = cutsOf(hyphenated);
+			if (
+				sources.has(hyphenated) ||
+				hyphenCuts.every((at, i) =>
+					plausibleCut(word, at, hyphenCuts[i - 1], hyphenCuts[i + 1]),
+				)
+			)
+				push(hyphenated, "hyphenation");
 			// Cut placement is the open question (`pla/ying` vs `play/ing`), so
-			// offer the first split with one cut moved a letter either way.
+			// offer the first split with one cut moved a letter, when it's a cut a
+			// singer could make.
 			const first = [...sources.keys()].find((s) => s.includes("/"));
 			if (first) for (const shifted of shifts(first)) push(shifted, "shift");
+			for (const [split, songs] of variants.slice(1))
+				push(split, `corpus:${songs.size}`);
 			// The page offers "Keep whole" on every word, so it's no candidate.
 			sources.delete(word);
 			// Words nobody splits (`real`, `prayer`, `loved`) still need a split to
@@ -209,7 +225,9 @@ it.skipIf(!wordsPath || !outPath)(
 			const candidates = [...sources.keys()].slice(0, MAX_CANDIDATES);
 			if (candidates.length === 0) return false;
 			seen.add(key);
-			const wrong = decoy(candidates[0] ?? word);
+			// A decoy on every word clutters the list; about one word in four
+			// is enough to spot voters who tick everything.
+			const wrong = hash(key) % 4 === 0 ? decoy(candidates[0]) : undefined;
 			entries.push({
 				word,
 				group,
@@ -280,13 +298,78 @@ it.skipIf(!wordsPath || !outPath)(
 	},
 );
 
+const dictionary = new Set(Object.keys(prosodicDictionary));
+const VOWEL = /[aeiouyàâäéèêëïîôöùûü]/i;
+// Consonant clusters English syllables can start with.
+const ONSETS = new Set(
+	"bl br ch cl cr dr dw fl fr gl gr kn ph pl pr qu sc sch scr sh shr sk sl sm sn sp sph spl spr squ st str sw th thr tr tw wh wr".split(
+		" ",
+	),
+);
+// Letter pairs that make one sound and are never cut apart.
+const DIGRAPHS = new Set("ch ck gh ph qu sh th wh".split(" "));
+// Two vowels that are often two syllables (`li/on`, `fu/el`, `pra/yer`).
+const HIATUS = /^(ia|io|iu|eo|ua|ue|uo|ui|ya|ye|yo|.[ïëü])$/i;
+
 /**
- * A split by vowel groups, for words no source splits: `re/al`, `lo/ved`,
- * `Ro/lex`. One consonant goes with the next vowel; two vowels in a row are
- * cut apart only when the word has a single vowel group.
+ * True when cutting `word` before index `at`, inside the piece from `start` to
+ * `end`, gives pieces a singer could sing.
+ */
+function plausibleCut(word: string, at: number, start = 0, end = word.length) {
+	const left = word.slice(start, at);
+	const right = word.slice(at, end);
+	if (!VOWEL.test(left) || !VOWEL.test(right) || /['’]/.test(word)) return false;
+	const pair = word.slice(at - 1, at + 1).toLowerCase();
+	if (DIGRAPHS.has(pair)) return false;
+	// A consonant plus `l` or `r` starts one syllable together (`a/gree`, not `ag/ree`).
+	if (/^[bcdfgkpt][lr]$/.test(pair) && pair !== "tl" && pair !== "dl") return false;
+	// A `y` before a consonant ends the vowel before it (`may/be`, not `ma/ybe`);
+	// one before a vowel starts the next syllable (`you/th`, not `y/outh`).
+	if (/^y[^aeiou]/i.test(right)) return false;
+	if (/^y$/i.test(left) && /^[aeiou]/i.test(right)) return false;
+	// The `u` after `q` is a consonant sound (`qu/een`).
+	if (/^q$/i.test(word[at - 2] ?? "") && /^u$/i.test(word[at - 1])) return false;
+	// A consonant pulled onto the left (`play/ing`, `rock/ing`) is only sung
+	// when the left part is a word on its own; `nev/er`, `craz/y` aren't.
+	if (
+		!VOWEL.test(word[at - 1]) &&
+		VOWEL.test(word[at]) &&
+		!/^y[aeiou]/i.test(right) &&
+		!dictionary.has(word.slice(0, at).toLowerCase())
+	)
+		return false;
+	// Two vowels side by side: only where they're usually two sounds.
+	if (VOWEL.test(word[at - 1]) && VOWEL.test(word[at]) && !/^y/i.test(right))
+		return HIATUS.test(pair);
+	// `y` before a vowel is a consonant (`pla/ying`).
+	const onset = /^(?:y(?=[aeiou])|[^aeiouyàâäéèêëïîôöùûü])*/i
+		.exec(right)?.[0]
+		.toLowerCase();
+	if (onset && onset.length > 1 && !ONSETS.has(onset)) return false;
+	if (onset === "x" || onset === "ng") return false;
+	// A silent final `e` or a plain `-ed` is no syllable of its own
+	// (`smi/le`, `lo/ved`); `-ted` and `-ded` are (`wan/ted`).
+	if (/^[^aeiouy]*es?$/i.test(right)) return false;
+	if (/^[^aeiouy]ed$/i.test(right) && !/^[td]ed$/i.test(right)) return false;
+	return true;
+}
+
+const cutsOf = (split: string) => {
+	const cuts: number[] = [];
+	let offset = 0;
+	for (const part of split.split("/").slice(0, -1)) {
+		offset += part.length;
+		cuts.push(offset);
+	}
+	return cuts;
+};
+
+/**
+ * A split by vowel groups, for words no source splits: `fu/el`, `Ro/lex`,
+ * `na/ïve`. One consonant goes with the next vowel. Undefined when the result
+ * isn't something a singer would do (`qu/een`, `smi/le`).
  */
 function vowelSplit(word: string) {
-	const vowel = /[aeiouyàâäéèêëïîôöùûü]/i;
 	const groups = [...word.matchAll(/[aeiouyàâäéèêëïîôöùûü]+/gi)].filter(
 		(m) => !(m[0].toLowerCase() === "y" && m.index === 0),
 	);
@@ -300,40 +383,38 @@ function vowelSplit(word: string) {
 	} else if (groups.length === 1 && groups[0][0].length >= 2) {
 		cuts.push(groups[0].index + 1);
 	}
-	const split = cut(word, cuts);
-	const pieces = split.split("/");
-	return pieces.length > 1 && pieces.every((p) => vowel.test(p) || p.includes("'"))
-		? split
+	return cuts.length &&
+		cuts.every((at, i) => plausibleCut(word, at, cuts[i - 1], cuts[i + 1]))
+		? cut(word, cuts)
 		: undefined;
 }
 
-/** `split` with one cut moved one letter, keeping a vowel in every piece. */
+/**
+ * `split` with one cut moved one letter, where the moved cut is one a singer
+ * could make (`play/ing` vs `pla/ying`, `mo/ney` vs `mon/ey`). Some of these
+ * are wrong on purpose: that's what the vote is for.
+ */
 function shifts(split: string) {
 	const word = split.replaceAll("/", "");
-	const cuts: number[] = [];
-	let offset = 0;
-	for (const part of split.split("/").slice(0, -1)) {
-		offset += part.length;
-		cuts.push(offset);
-	}
-	const vowel = /[aeiouyàâäéèêëïîôöùûü]/i;
+	if (!/^\p{L}+$/u.test(word)) return [];
+	const cuts = cutsOf(split);
 	const result: string[] = [];
 	cuts.forEach((at, i) => {
 		for (const moved of [at - 1, at + 1]) {
-			const next = cuts.with(i, moved);
-			const pieces = cut(word, next).split("/");
-			if (
-				pieces.length === cuts.length + 1 &&
-				pieces.every((piece) => piece && vowel.test(piece)) &&
-				// A silent final `e` is no syllable of its own (`en/tir/e`).
-				!/^[^aeiouy]*es?$/i.test(pieces.at(-1) ?? "") &&
-				// Moving a cut between two vowels mostly breaks a vowel sound (`dre/am`).
-				!(vowel.test(word[moved - 1]) && vowel.test(word[moved]))
-			)
-				result.push(cut(word, next));
+			if (moved <= (cuts[i - 1] ?? 0) || moved >= (cuts[i + 1] ?? word.length))
+				continue;
+			if (plausibleCut(word, moved, cuts[i - 1], cuts[i + 1]))
+				result.push(cut(word, cuts.with(i, moved)));
 		}
 	});
 	return result;
+}
+
+/** A small stable hash, so the same words get decoys on every build. */
+function hash(text: string) {
+	let h = 2166136261;
+	for (const c of text) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+	return h;
 }
 
 function cut(word: string, cuts: number[]) {
