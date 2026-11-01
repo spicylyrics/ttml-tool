@@ -1,3 +1,5 @@
+import { foldSearchText } from "$/utils/text";
+
 export const settingsSearchKeywords: Record<string, string> = {
 	common:
 		"interface language privacy display discord presence compact background vocals sync",
@@ -20,11 +22,6 @@ export const settingsSearchKeywords: Record<string, string> = {
 	changelog: "changelog release notes what's new changed fixed history",
 	about: "version update credits license",
 };
-
-/** Lowercases and drops accents, so "edicion" finds "Edición". */
-function foldSearchText(text: string): string {
-	return text.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase();
-}
 
 export function matchesSettingsSearch(text: string, query: string): boolean {
 	const tokens = foldSearchText(query).trim().split(/\s+/).filter(Boolean);

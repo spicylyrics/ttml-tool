@@ -1,3 +1,4 @@
+import { escapeRegExp } from "$/utils/text";
 import type { MarkupLine } from "./markup";
 import type { TextChange } from "./text-changes";
 
@@ -97,11 +98,8 @@ function regionsOf(
 	return regions;
 }
 
-const escapeRegex = (text: string) =>
-	text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
 function buildRegex(options: SearchOptions): RegExp | null {
-	const source = options.regex ? options.query : escapeRegex(options.query);
+	const source = options.regex ? options.query : escapeRegExp(options.query);
 	try {
 		return new RegExp(source, `gu${options.caseSensitive ? "" : "i"}`);
 	} catch {

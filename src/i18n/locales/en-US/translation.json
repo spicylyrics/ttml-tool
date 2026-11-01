@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Changelog & updates",
     "viewCommits": "View Commits on GitHub"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Search",
     "success": "Restored",
     "error": "The data is corrupted or missing",
-    "edit": "Edit",
     "apply": "Apply",
     "confirm": "Confirm",
     "back": "Back",
@@ -419,7 +417,6 @@
     "title": "Command palette",
     "placeholder": "Search commands and settings",
     "noResults": "No matching commands or settings",
-    "commandTag": "Command",
     "settingTag": "Preferences",
     "hint": "Arrow keys to move, Enter to run, Esc to close",
     "notRunnable": "Couldn't run this command. Give it a shortcut in Preferences, then try again.",
@@ -547,15 +544,12 @@
       "timeOffset": "Sync offset",
       "commitOffset": "Next key offset",
       "assistSettings": "Sync aids",
-      "showTimestampUpdate": "Show timestamp updates",
       "touchSyncPanel": "Touch sync panel",
       "bgLyricSync": "Background lines",
       "bgSyncInline": "Sync with main",
       "bgSyncInlineDesc": "Sync each background line right after its main line.",
       "bgSyncSeparate": "Skip while syncing",
       "bgSyncSeparateDesc": "G and H stay on main lines. Click a background line to sync them on their own.",
-      "quickFixes": "Quick fixes",
-      "manualTimestampEdit": "Manual timestamp editing",
       "doubleClickEdit": "Double-click word editing",
       "displayOptions": "Display options",
       "showTimestamps": "Show timestamps",
@@ -566,11 +560,6 @@
       "startSync": "Start",
       "continuousSync": "Next",
       "endSync": "End",
-      "manageQuickFixExclusions": {
-        "title": "Manage quick fix exclusions",
-        "description": "Add words to ignore in quick fixes.",
-        "placeholder": "Enter word to ignore"
-      },
       "playbackTracking": "Tracking",
       "autoScroll": "Auto-scroll",
       "highlightActiveLine": "Highlight line",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# stored value} other {# stored values}}",
         "keybindings": "{count, plural, one {# shortcut} other {# shortcuts}}",
-        "assetsSet": "Custom background image set",
         "assetsNone": "No custom assets",
         "presetsCount": "{count, plural, one {# preset} other {# presets}}",
         "backgroundSet": "Custom background",
@@ -883,9 +871,7 @@
       "exportTitle": "Export",
       "exportDesc": "Save your settings and data to a file you can restore later or move to another device.",
       "exportButton": "Export backup",
-      "previewToggle": "Preview contents",
       "previewLoading": "Loading preview…",
-      "previewEmpty": "Nothing selected to preview",
       "previewCategoryEmpty": "Nothing to export in this category",
       "previewMore": "+{count} more",
       "previewTotal": "Estimated total size",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Also on this key",
     "closePanel": "Close"
   },
-  "autoSegmentApplied":"Auto-segmented with {engine}",
+  "autoSegmentApplied": "Auto-segmented with {engine}",
   "error": {
     "unsupportedFileFormat": "Unsupported file format: {ext}",
     "openFileFailed": "Failed to open file",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Empty",
-    "spaceCount": "Space ×{count}",
-    "removeWord": "Remove duplicate word",
-    "editingWordTitle": "Editing word",
-    "editingWordDesc": "Edit the word or apply suggested quick fixes.",
-    "correctedWordPlaceholder": "Type the corrected word",
-    "noSuggestions": "No suggestions"
+    "spaceCount": "Space ×{count}"
   },
   "sectionActions": {
     "expand": "Expand section",
@@ -1745,12 +1726,6 @@
     "settings": "Spectrogram settings",
     "fftSize": "FFT size",
     "resolution": "FFT resolution",
-    "fftSizeOption": {
-      "512": "512 (fastest)",
-      "1024": "1024 (balanced)",
-      "2048": "2048 (more frequency detail)",
-      "4096": "4096 (most detail)"
-    },
     "height": "Display height"
   },
   "spectrogramFollow": {

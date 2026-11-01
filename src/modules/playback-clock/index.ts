@@ -1,4 +1,3 @@
-import { useSyncExternalStore } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { currentTimeAtom } from "$/modules/audio/states";
 import { globalStore } from "$/states/store";
@@ -17,13 +16,5 @@ globalStore.set(currentTimeAtom, playbackClock.getSnapshot() * 1000);
 playbackClock.subscribe((seconds) => {
 	globalStore.set(currentTimeAtom, seconds * 1000);
 });
-
-export function usePlaybackTime() {
-	return useSyncExternalStore(
-		playbackClock.subscribe,
-		playbackClock.getSnapshot,
-		playbackClock.getSnapshot,
-	);
-}
 
 if (import.meta.hot) import.meta.hot.dispose(() => playbackClock.dispose());

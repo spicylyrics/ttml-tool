@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "更新日志与更新",
     "viewCommits": "在 GitHub 上查看提交"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "搜索",
     "success": "恢复成功",
     "error": "数据损坏或丢失",
-    "edit": "编辑",
     "apply": "应用",
     "confirm": "确定",
     "back": "返回",
@@ -419,7 +417,6 @@
     "title": "命令面板",
     "placeholder": "搜索命令和设置",
     "noResults": "没有匹配的命令或设置",
-    "commandTag": "命令",
     "settingTag": "偏好设置",
     "hint": "方向键移动，Enter 运行，Esc 关闭",
     "notRunnable": "无法运行此命令。请在偏好设置中为它指定快捷键后重试。",
@@ -547,15 +544,12 @@
       "timeOffset": "打轴偏移",
       "commitOffset": "下一个键偏移",
       "assistSettings": "打轴辅助",
-      "showTimestampUpdate": "显示时间戳更新",
       "touchSyncPanel": "触控打轴面板",
       "bgLyricSync": "背景人声行",
       "bgSyncInline": "随主行打轴",
       "bgSyncInlineDesc": "每行背景人声紧跟其主行打轴。",
       "bgSyncSeparate": "打轴时跳过",
       "bgSyncSeparateDesc": "G 和 H 只在主行间移动。点击一行背景人声即可单独为它们打轴。",
-      "quickFixes": "快速修复",
-      "manualTimestampEdit": "手动编辑时间戳",
       "doubleClickEdit": "双击编辑字内容",
       "displayOptions": "显示选项",
       "showTimestamps": "显示时间戳",
@@ -566,11 +560,6 @@
       "startSync": "开始",
       "continuousSync": "下一个",
       "endSync": "结束",
-      "manageQuickFixExclusions": {
-        "title": "管理快速修复例外",
-        "description": "在快速修复中添加要忽略的单词。",
-        "placeholder": "输入要忽略的单词"
-      },
       "playbackTracking": "追踪",
       "autoScroll": "自动滚动",
       "highlightActiveLine": "高亮歌词行",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, other {# 个已保存值}}",
         "keybindings": "{count, plural, other {# 个快捷键}}",
-        "assetsSet": "已设置自定义背景图",
         "assetsNone": "无自定义资源",
         "presetsCount": "{count, plural, other {# 个预设}}",
         "backgroundSet": "自定义背景",
@@ -883,9 +871,7 @@
       "exportTitle": "导出",
       "exportDesc": "将设置和数据保存到文件，以便日后恢复或迁移到其他设备。",
       "exportButton": "导出备份",
-      "previewToggle": "预览内容",
       "previewLoading": "正在加载预览...",
-      "previewEmpty": "未选择要预览的内容",
       "previewCategoryEmpty": "此类别中没有可导出的内容",
       "previewMore": "另有 {count} 项",
       "previewTotal": "预计总大小",
@@ -1196,7 +1182,7 @@
     "otherLayers": "此按键上的其他快捷键",
     "closePanel": "关闭"
   },
-  "autoSegmentApplied":"已使用 {engine} 自动分词",
+  "autoSegmentApplied": "已使用 {engine} 自动分词",
   "error": {
     "unsupportedFileFormat": "不支持的文件格式: {ext}",
     "openFileFailed": "打开文件失败",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "空白",
-    "spaceCount": "空格 ×{count}",
-    "removeWord": "删除重复字",
-    "editingWordTitle": "编辑字",
-    "editingWordDesc": "编辑单词或应用建议的快速修复。",
-    "correctedWordPlaceholder": "输入更正的单词",
-    "noSuggestions": "无建议"
+    "spaceCount": "空格 ×{count}"
   },
   "sectionActions": {
     "expand": "展开分段",
@@ -1745,12 +1726,6 @@
     "settings": "频谱图设置",
     "fftSize": "FFT 尺寸",
     "resolution": "FFT 分辨率",
-    "fftSizeOption": {
-      "512": "512（最快）",
-      "1024": "1024（均衡）",
-      "2048": "2048（更多频率细节）",
-      "4096": "4096（最多细节）"
-    },
     "height": "显示高度"
   },
   "spectrogramFollow": {

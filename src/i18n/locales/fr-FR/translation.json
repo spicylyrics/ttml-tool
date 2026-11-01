@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Journal des modifications et mises à jour",
     "viewCommits": "Voir les commits sur GitHub"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Rechercher",
     "success": "Restauration réussie",
     "error": "Données corrompues ou perdues",
-    "edit": "Éditer",
     "apply": "Appliquer",
     "confirm": "Confirmer",
     "back": "Retour",
@@ -419,7 +417,6 @@
     "title": "Palette de commandes",
     "placeholder": "Rechercher des commandes et des paramètres",
     "noResults": "Aucune commande ni aucun paramètre correspondant",
-    "commandTag": "Commande",
     "settingTag": "Préférences",
     "hint": "Flèches pour se déplacer, Entrée pour exécuter, Échap pour fermer",
     "notRunnable": "Impossible d'exécuter cette commande. Attribuez-lui un raccourci dans les Préférences, puis réessayez.",
@@ -547,15 +544,12 @@
       "timeOffset": "Décalage de synchronisation",
       "commitOffset": "Décalage de la touche Suivant",
       "assistSettings": "Aides à la synchronisation",
-      "showTimestampUpdate": "Afficher les mises à jour d'horodatage",
       "touchSyncPanel": "Panneau de synchronisation tactile",
       "bgLyricSync": "Lignes de chœurs",
       "bgSyncInline": "Avec la principale",
       "bgSyncInlineDesc": "Synchronisez chaque ligne de chœurs juste après sa ligne principale.",
       "bgSyncSeparate": "Ignorer pendant la synchro",
       "bgSyncSeparateDesc": "G et H restent sur les lignes principales. Cliquez sur une ligne de chœurs pour les synchroniser à part.",
-      "quickFixes": "Corrections rapides",
-      "manualTimestampEdit": "Modification manuelle de l'horodatage",
       "doubleClickEdit": "Modification des mots par double-clic",
       "displayOptions": "Options d'affichage",
       "showTimestamps": "Afficher les horodatages",
@@ -566,11 +560,6 @@
       "startSync": "Démarrer",
       "continuousSync": "Suivant",
       "endSync": "Terminer",
-      "manageQuickFixExclusions": {
-        "title": "Gérer les exclusions des corrections rapides",
-        "description": "Ajoutez des mots à ignorer dans les correctifs rapides.",
-        "placeholder": "Entrez le mot à ignorer"
-      },
       "playbackTracking": "Suivi",
       "autoScroll": "Défilement automatique",
       "highlightActiveLine": "Surligner la ligne",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# valeur enregistrée} many {# valeurs enregistrées} other {# valeurs enregistrées}}",
         "keybindings": "{count, plural, one {# raccourci} many {# raccourcis} other {# raccourcis}}",
-        "assetsSet": "Image d’arrière-plan personnalisée définie",
         "assetsNone": "Aucune ressource personnalisée",
         "presetsCount": "{count, plural, one {# préréglage} many {# préréglages} other {# préréglages}}",
         "backgroundSet": "Arrière-plan personnalisé",
@@ -883,9 +871,7 @@
       "exportTitle": "Exporter",
       "exportDesc": "Enregistrez vos paramètres et vos données dans un fichier que vous pourrez restaurer ultérieurement ou déplacer vers un autre appareil.",
       "exportButton": "Exporter la sauvegarde",
-      "previewToggle": "Aperçu du contenu",
       "previewLoading": "Chargement de l'aperçu…",
-      "previewEmpty": "Rien de sélectionné pour prévisualiser",
       "previewCategoryEmpty": "Rien à exporter dans cette catégorie",
       "previewMore": "+{count} de plus",
       "previewTotal": "Taille totale estimée",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Aussi sur cette touche",
     "closePanel": "Fermer"
   },
-  "autoSegmentApplied":"Segmentation automatique avec {engine}",
+  "autoSegmentApplied": "Segmentation automatique avec {engine}",
   "error": {
     "unsupportedFileFormat": "Format de fichier non pris en charge : {ext}",
     "openFileFailed": "Échec de l'ouverture du fichier",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Vide",
-    "spaceCount": "Espace ×{count}",
-    "removeWord": "Supprimer le mot en double",
-    "editingWordTitle": "Modification d'un mot",
-    "editingWordDesc": "Modifiez le mot ou appliquez les corrections rapides proposées.",
-    "correctedWordPlaceholder": "Tapez le mot corrigé",
-    "noSuggestions": "Aucune suggestion"
+    "spaceCount": "Espace ×{count}"
   },
   "sectionActions": {
     "expand": "Déplier la section",
@@ -1745,12 +1726,6 @@
     "settings": "Paramètres du spectrogramme",
     "fftSize": "Taille FFT",
     "resolution": "Résolution FFT",
-    "fftSizeOption": {
-      "512": "512 (le plus rapide)",
-      "1024": "1024 (équilibré)",
-      "2048": "2048 (plus de détails fréquentiels)",
-      "4096": "4096 (maximum de détails)"
-    },
     "height": "Hauteur d'affichage"
   },
   "spectrogramFollow": {

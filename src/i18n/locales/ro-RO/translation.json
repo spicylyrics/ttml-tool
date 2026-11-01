@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Jurnal de modificări și actualizări",
     "viewCommits": "Vezi commit-urile pe GitHub"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Caută",
     "success": "Restaurare reușită",
     "error": "Date corupte sau pierdute",
-    "edit": "Editează",
     "apply": "Aplică",
     "confirm": "Confirmă",
     "back": "Înapoi",
@@ -419,7 +417,6 @@
     "title": "Paleta de comenzi",
     "placeholder": "Caută comenzi și setări",
     "noResults": "Nu există comenzi sau setări care se potrivesc",
-    "commandTag": "Comandă",
     "settingTag": "Preferințe",
     "hint": "Săgețile mută selecția, Enter rulează, Esc închide",
     "notRunnable": "Comanda nu a putut fi rulată. Atribuie-i o scurtătură în Preferințe și încearcă din nou.",
@@ -547,15 +544,12 @@
       "timeOffset": "Decalaj de sincronizare",
       "commitOffset": "Decalajul tastei Următorul",
       "assistSettings": "Ajutoare de sincronizare",
-      "showTimestampUpdate": "Arată actualizările marcajelor temporale",
       "touchSyncPanel": "Panou de sincronizare tactilă",
       "bgLyricSync": "Versurile vocilor de fundal",
       "bgSyncInline": "Cu versul principal",
       "bgSyncInlineDesc": "Sincronizezi fiecare vers al vocilor de fundal imediat după versul principal.",
       "bgSyncSeparate": "Omite la sincronizare",
       "bgSyncSeparateDesc": "G și H rămân pe versurile principale. Dă clic pe un vers al vocilor de fundal pentru a le sincroniza separat.",
-      "quickFixes": "Corecții rapide",
-      "manualTimestampEdit": "Editare manuală a marcajelor temporale",
       "doubleClickEdit": "Editarea cuvintelor prin dublu clic",
       "displayOptions": "Opțiuni de afișare",
       "showTimestamps": "Arată marcajele temporale",
@@ -566,11 +560,6 @@
       "startSync": "Începe",
       "continuousSync": "Următorul",
       "endSync": "Încheie",
-      "manageQuickFixExclusions": {
-        "title": "Gestionează excluderile corecțiilor rapide",
-        "description": "Adaugă cuvinte de ignorat la corecțiile rapide.",
-        "placeholder": "Introdu un cuvânt de ignorat"
-      },
       "playbackTracking": "Urmărire",
       "autoScroll": "Defilare automată",
       "highlightActiveLine": "Evidențiază versul",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# valoare stocată} few {# valori stocate} other {# de valori stocate}}",
         "keybindings": "{count, plural, one {# scurtătură} few {# scurtături} other {# de scurtături}}",
-        "assetsSet": "Imagine de fundal personalizată setată",
         "assetsNone": "Nicio resursă personalizată",
         "presetsCount": "{count, plural, one {# presetare} few {# presetări} other {# de presetări}}",
         "backgroundSet": "Fundal personalizat",
@@ -883,9 +871,7 @@
       "exportTitle": "Export",
       "exportDesc": "Salvează setările și datele într-un fișier pe care îl poți restaura mai târziu sau muta pe alt dispozitiv.",
       "exportButton": "Exportă copia de siguranță",
-      "previewToggle": "Previzualizează conținutul",
       "previewLoading": "Se încarcă previzualizarea...",
-      "previewEmpty": "Nu a fost selectat nimic pentru previzualizare",
       "previewCategoryEmpty": "Nimic de exportat în această categorie",
       "previewMore": "încă {count}",
       "previewTotal": "Dimensiunea totală estimată",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Tot pe această tastă",
     "closePanel": "Închide"
   },
-  "autoSegmentApplied":"Segmentat automat cu {engine}",
+  "autoSegmentApplied": "Segmentat automat cu {engine}",
   "error": {
     "unsupportedFileFormat": "Format de fișier nesuportat: {ext}",
     "openFileFailed": "Nu s-a putut deschide fișierul",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Gol",
-    "spaceCount": "Spațiu ×{count}",
-    "removeWord": "Elimină cuvântul duplicat",
-    "editingWordTitle": "Editarea cuvântului",
-    "editingWordDesc": "Editează cuvântul sau aplică corecțiile rapide sugerate.",
-    "correctedWordPlaceholder": "Introdu cuvântul corectat",
-    "noSuggestions": "Fără sugestii"
+    "spaceCount": "Spațiu ×{count}"
   },
   "sectionActions": {
     "expand": "Extinde secțiunea",
@@ -1745,12 +1726,6 @@
     "settings": "Setările spectrogramei",
     "fftSize": "Dimensiune FFT",
     "resolution": "Rezoluție FFT",
-    "fftSizeOption": {
-      "512": "512 (cel mai rapid)",
-      "1024": "1024 (echilibrat)",
-      "2048": "2048 (mai multe detalii de frecvență)",
-      "4096": "4096 (cele mai multe detalii)"
-    },
     "height": "Înălțimea afișajului"
   },
   "spectrogramFollow": {

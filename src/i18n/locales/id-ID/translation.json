@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Log perubahan & pembaruan",
     "viewCommits": "Lihat commit di GitHub"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Cari",
     "success": "Berhasil dipulihkan",
     "error": "Data rusak atau hilang",
-    "edit": "Edit",
     "apply": "Terapkan",
     "confirm": "Konfirmasi",
     "back": "Kembali",
@@ -419,7 +417,6 @@
     "title": "Palet perintah",
     "placeholder": "Cari perintah dan pengaturan",
     "noResults": "Tidak ada perintah atau pengaturan yang cocok",
-    "commandTag": "Perintah",
     "settingTag": "Preferensi",
     "hint": "Tombol panah untuk berpindah, Enter untuk menjalankan, Esc untuk menutup",
     "notRunnable": "Perintah tidak dapat dijalankan. Beri pintasan di Preferensi, lalu coba lagi.",
@@ -547,15 +544,12 @@
       "timeOffset": "Offset sinkronisasi",
       "commitOffset": "Offset tombol Berikutnya",
       "assistSettings": "Bantuan sinkronisasi",
-      "showTimestampUpdate": "Tampilkan perubahan penanda waktu",
       "touchSyncPanel": "Panel sinkronisasi sentuh",
       "bgLyricSync": "Baris vokal latar",
       "bgSyncInline": "Bersama baris utama",
       "bgSyncInlineDesc": "Sinkronkan setiap baris vokal latar tepat setelah baris utamanya.",
       "bgSyncSeparate": "Lewati saat sinkronisasi",
       "bgSyncSeparateDesc": "G dan H tetap di baris utama. Klik baris vokal latar untuk menyinkronkannya secara terpisah.",
-      "quickFixes": "Perbaikan cepat",
-      "manualTimestampEdit": "Edit penanda waktu manual",
       "doubleClickEdit": "Edit kata dengan klik dua kali",
       "displayOptions": "Opsi tampilan",
       "showTimestamps": "Tampilkan penanda waktu",
@@ -566,11 +560,6 @@
       "startSync": "Mulai",
       "continuousSync": "Berikutnya",
       "endSync": "Akhiri",
-      "manageQuickFixExclusions": {
-        "title": "Kelola pengecualian perbaikan cepat",
-        "description": "Tambahkan kata-kata untuk diabaikan dalam perbaikan cepat.",
-        "placeholder": "Masukkan kata untuk diabaikan"
-      },
       "playbackTracking": "Pelacakan",
       "autoScroll": "Gulir otomatis",
       "highlightActiveLine": "Sorot baris",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, other {# nilai tersimpan}}",
         "keybindings": "{count, plural, other {# pintasan}}",
-        "assetsSet": "Gambar latar kustom diatur",
         "assetsNone": "Tidak ada aset kustom",
         "presetsCount": "{count, plural, other {# preset}}",
         "backgroundSet": "Latar belakang kustom",
@@ -883,9 +871,7 @@
       "exportTitle": "Ekspor",
       "exportDesc": "Simpan pengaturan dan data Anda ke file yang dapat Anda pulihkan nanti atau pindahkan ke perangkat lain.",
       "exportButton": "Ekspor cadangan",
-      "previewToggle": "Pratinjau konten",
       "previewLoading": "Memuat pratinjau…",
-      "previewEmpty": "Tidak ada yang dipilih untuk dipratinjau",
       "previewCategoryEmpty": "Tidak ada yang bisa diekspor dalam kategori ini",
       "previewMore": "+{count} lagi",
       "previewTotal": "Perkiraan ukuran keseluruhan",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Juga di tombol ini",
     "closePanel": "Tutup"
   },
-  "autoSegmentApplied":"Disegmentasi otomatis dengan {engine}",
+  "autoSegmentApplied": "Disegmentasi otomatis dengan {engine}",
   "error": {
     "unsupportedFileFormat": "Format file tidak didukung: {ext}",
     "openFileFailed": "Gagal membuka file",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Kosong",
-    "spaceCount": "Spasi ×{count}",
-    "removeWord": "Hapus kata duplikat",
-    "editingWordTitle": "Pengeditan kata",
-    "editingWordDesc": "Edit kata atau terapkan perbaikan cepat yang disarankan.",
-    "correctedWordPlaceholder": "Ketikkan kata yang dikoreksi",
-    "noSuggestions": "Tidak ada saran"
+    "spaceCount": "Spasi ×{count}"
   },
   "sectionActions": {
     "expand": "Perluas bagian",
@@ -1745,12 +1726,6 @@
     "settings": "Pengaturan spektrogram",
     "fftSize": "Ukuran FFT",
     "resolution": "Resolusi FFT",
-    "fftSizeOption": {
-      "512": "512 (tercepat)",
-      "1024": "1024 (seimbang)",
-      "2048": "2048 (detail frekuensi lebih tinggi)",
-      "4096": "4096 (detail terbanyak)"
-    },
     "height": "Tinggi tampilan"
   },
   "spectrogramFollow": {
