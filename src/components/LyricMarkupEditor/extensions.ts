@@ -26,6 +26,7 @@ import {
 	type ViewUpdate,
 	WidgetType,
 } from "@codemirror/view";
+import { sectionPillClassName } from "$/components/SectionPill";
 import { type SlIconName, slIconElement } from "$/components/SlIcon";
 import { buildDecorationSpecs } from "./decorations";
 import { type LyricMarkupFormat, type MarkupLine, parseMarkup } from "./markup";
@@ -95,7 +96,7 @@ class HeaderWidget extends WidgetType {
 	override toDOM(view: EditorView) {
 		const button = document.createElement("button");
 		button.type = "button";
-		button.className = "lm-pill";
+		button.className = `lm-pill ${sectionPillClassName}`;
 		button.dataset.category = this.category ?? "other";
 		button.setAttribute("aria-label", this.ariaLabel);
 		button.setAttribute("aria-haspopup", "dialog");

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { ChoiceList } from "$/components/ChoiceList";
 import { OptionPicker } from "$/components/OptionPicker";
+import { SectionPill } from "$/components/SectionPill";
 import { useLyricLinesWhileOpen } from "$/hooks/useLyricLinesWhileOpen.ts";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
 import { sectionTimingsAnchorAtom } from "$/modules/settings/states/index.ts";
@@ -153,7 +154,11 @@ export function ApplySectionTimingsDialog() {
 										const percent = Math.round(candidate.similarity * 100);
 										return {
 											value: candidate.section.id,
-											title: displayLabel(candidate.section.label),
+											title: (
+												<SectionPill category={candidate.section.category}>
+													{displayLabel(candidate.section.label)}
+												</SectionPill>
+											),
 											meta:
 												start === undefined ? undefined : msToTimestamp(start),
 											detail: firstLine,

@@ -21,37 +21,14 @@
 	width: 20px;
 }
 
+/* The name is a SectionPill; this only keeps a long one to one line. */
 .label {
-	appearance: none;
-	background: none;
-	border: 0;
+	flex: none;
 	margin: 0;
-	padding: 2px 6px;
-	margin-inline-start: -6px;
-	border-radius: var(--radius-2);
-	font: inherit;
-	font-size: var(--font-size-2);
-	font-weight: 600;
-	letter-spacing: -0.014em;
-	line-height: 20px;
-	color: var(--gray-12);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 50%;
-}
-
-button.label {
-	cursor: pointer;
-}
-
-button.label:hover {
-	background: var(--gray-a3);
-}
-
-button.label:focus-visible {
-	outline: 2px solid var(--focus-8);
-	outline-offset: 1px;
 }
 
 .rule {

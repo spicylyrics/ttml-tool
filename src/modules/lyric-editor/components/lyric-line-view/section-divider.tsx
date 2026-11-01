@@ -15,6 +15,7 @@ import { useSetImmerAtom } from "jotai-immer";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SectionCategorySelect } from "$/components/SectionCategorySelect";
+import { SectionPill } from "$/components/SectionPill";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
 import { advGeniusHeaderColorAtom } from "$/modules/settings/states/index.ts";
 import {
@@ -95,12 +96,13 @@ export function SectionDivider({
 				onContextMenu={(event) => event.preventDefault()}
 			>
 				<span className={styles.chevronSpace} />
-				<span
+				<SectionPill
+					category={undefined}
 					className={styles.label}
 					style={{ color: headerColor || undefined }}
 				>
 					{displayLabel(label)}
-				</span>
+				</SectionPill>
 				<span className={styles.rule} aria-hidden />
 			</div>
 		);
@@ -189,15 +191,15 @@ function SectionRow({
 							onDone={() => setEditingId(null)}
 						/>
 					) : (
-						<button
-							type="button"
+						<SectionPill
+							category={section.category}
 							className={styles.label}
 							style={{ color: headerColor || undefined }}
 							title={t("sectionEditing.renameHint", "Rename or change type")}
 							onClick={() => setEditingId(section.id)}
 						>
 							{displayLabel(section.label)}
-						</button>
+						</SectionPill>
 					)}
 					{/* Next to the name, where the eye already is; the hairline fills the rest. */}
 					{!editing && (
