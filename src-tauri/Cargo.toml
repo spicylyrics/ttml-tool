@@ -38,6 +38,8 @@ resvg = { version = "0.49", default-features = false }
 [target.'cfg(any(target_os = "macos", windows, target_os = "linux"))'.dependencies]
 tauri-plugin-updater = "2.9.0"
 tauri-plugin-window-state = "2"
+# Opening a .ttml while the app runs hands it to the open window.
+tauri-plugin-single-instance = "2"
 
 [target.'cfg(windows)'.dependencies]
 webview2-com = "0.38"

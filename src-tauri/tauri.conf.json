@@ -45,7 +45,16 @@
 			"icons/icon.icns",
 			"icons/icon.ico"
 		],
-		"createUpdaterArtifacts": true
+		"createUpdaterArtifacts": true,
+		"fileAssociations": [
+			{
+				"ext": ["ttml"],
+				"name": "TTML lyrics",
+				"description": "TTML lyrics",
+				"role": "Editor",
+				"mimeType": "application/ttml+xml"
+			}
+		]
 	},
 	"plugins": {
 		"updater": {

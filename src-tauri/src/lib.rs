@@ -1,7 +1,7 @@
 mod app_icon;
 
 use std::fs;
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 
@@ -233,32 +233,71 @@ fn uses_custom_title_bar() -> bool {
     cfg!(target_os = "linux") && std::path::Path::new("/.flatpak-info").exists()
 }
 
-#[derive(serde::Serialize)]
+#[derive(Clone, serde::Serialize)]
 struct OpenFileData {
     pub filename: String,
     pub data: String,
     pub ext: String,
 }
 
-#[tauri::command]
-fn get_open_file_data() -> Option<OpenFileData> {
-    let filename = std::env::args().nth(1);
-    if let Some(filename) = filename {
-        let path = std::path::Path::new(&filename);
-        let ext = path
-            .extension()
-            .map(|x| x.to_string_lossy().into_owned())
-            .unwrap_or_default();
-        if let Ok(data) = std::fs::read_to_string(&filename) {
-            return Some(OpenFileData {
-                filename,
-                data,
-                ext,
-            });
-        }
-    }
+/// A file the OS asked us to open (double-clicked `.ttml`, "Open with").
+/// It waits here until the frontend is listening for `open-file`.
+#[derive(Default)]
+struct OpenFileState {
+    frontend_ready: AtomicBool,
+    pending: Mutex<Option<OpenFileData>>,
+}
 
-    None
+/// Reads a file the OS handed us. Linux launchers may pass a `file://` URL
+/// instead of a path.
+fn read_open_file(arg: &str) -> Option<OpenFileData> {
+    let path = tauri::Url::parse(arg)
+        .ok()
+        .filter(|url| url.scheme() == "file")
+        .and_then(|url| url.to_file_path().ok())
+        .unwrap_or_else(|| std::path::PathBuf::from(arg));
+    let data = fs::read_to_string(&path).ok()?;
+    let ext = path
+        .extension()
+        .map(|x| x.to_string_lossy().into_owned())
+        .unwrap_or_default();
+    Some(OpenFileData {
+        filename: path.to_string_lossy().into_owned(),
+        data,
+        ext,
+    })
+}
+
+/// Sends an opened file to the frontend, or keeps it for `get_open_file_data`
+/// when the frontend hasn't started listening yet.
+fn deliver_open_file(app: &tauri::AppHandle, file: OpenFileData) {
+    use tauri::{Emitter, Manager};
+
+    let state = app.state::<OpenFileState>();
+    if state.frontend_ready.load(Ordering::SeqCst) {
+        if let Err(error) = app.emit("open-file", file) {
+            log::warn!("Couldn't send the opened file to the window: {error}");
+        }
+    } else if let Ok(mut pending) = state.pending.lock() {
+        *pending = Some(file);
+    }
+}
+
+/// The frontend calls this once it listens for `open-file`. Returns the file
+/// the app was launched with, if any.
+#[tauri::command]
+#[allow(clippy::needless_pass_by_value)]
+fn get_open_file_data(state: tauri::State<'_, OpenFileState>) -> Option<OpenFileData> {
+    state.frontend_ready.store(true, Ordering::SeqCst);
+    if let Some(file) = state
+        .pending
+        .lock()
+        .ok()
+        .and_then(|mut pending| pending.take())
+    {
+        return Some(file);
+    }
+    std::env::args().nth(1).as_deref().and_then(read_open_file)
 }
 
 #[tauri::command]
@@ -527,7 +566,26 @@ fn show_main_window_if_frontend_stalls(app: &tauri::App) {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 #[allow(clippy::missing_panics_doc)]
 pub fn run() {
-    let mut builder = tauri::Builder::default()
+    let mut builder = tauri::Builder::default();
+
+    // Has to be the first plugin. A second launch (say, double-clicking a
+    // .ttml while the app is open) focuses this window and passes the file on.
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|app, argv, _cwd| {
+            use tauri::Manager;
+
+            if let Some(window) = app.get_webview_window("main") {
+                let _ = window.unminimize();
+                let _ = window.set_focus();
+            }
+            if let Some(file) = argv.get(1).and_then(|arg| read_open_file(arg)) {
+                deliver_open_file(app, file);
+            }
+        }));
+    }
+
+    builder = builder
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_decorum::init())
@@ -569,6 +627,7 @@ pub fn run() {
     builder
         .manage(DiscordState::default())
         .manage(DroppedPaths::default())
+        .manage(OpenFileState::default())
         .setup(|app| {
             #[cfg(windows)]
             {
@@ -635,6 +694,17 @@ pub fn run() {
             allow_dropped_file,
             app_icon::apply_app_icon,
         ])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|_app, _event| {
+            // macOS hands over opened files as an event, not as an argument.
+            #[cfg(target_os = "macos")]
+            if let tauri::RunEvent::Opened { urls } = _event {
+                for url in urls {
+                    if let Some(file) = read_open_file(url.as_str()) {
+                        deliver_open_file(_app, file);
+                    }
+                }
+            }
+        });
 }

@@ -25,6 +25,7 @@ import { log } from "$/utils/logging.ts";
 import "$/modules/keyboard/binding-list";
 import "@radix-ui/themes/styles.css";
 import { invoke } from "@tauri-apps/api/core";
+import { listen } from "@tauri-apps/api/event";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { platform, version } from "@tauri-apps/plugin-os";
 import { useAtomValue, useSetAtom, useStore } from "jotai";
@@ -556,23 +557,32 @@ function App() {
 			return;
 		}
 
+		type OpenFileData = { filename: string; data: string; ext: string };
+		const openFromOs = (file: OpenFileData) => {
+			log("File opened by the OS", file.filename);
+			const name = file.filename.split(/[\\/]/).pop() || file.filename;
+			openFile(new File([file.data], name, { type: "text/plain" }));
+		};
+
+		let disposed = false;
+		let unlisten: (() => void) | undefined;
 		(async () => {
-			const file: {
-				filename: string;
-				data: string;
-				ext: string;
-			} | null = await invoke("get_open_file_data");
-
-			if (file) {
-				log("File data from tauri args", file);
-
-				const fileObj = new File([file.data], file.filename, {
-					type: "text/plain",
-				});
-
-				openFile(fileObj);
+			// Listen before asking, so a file opened in between isn't lost.
+			const stop = await listen<OpenFileData>("open-file", (event) =>
+				openFromOs(event.payload),
+			);
+			if (disposed) {
+				stop();
+				return;
 			}
+			unlisten = stop;
+			const file: OpenFileData | null = await invoke("get_open_file_data");
+			if (file && !disposed) openFromOs(file);
 		})();
+		return () => {
+			disposed = true;
+			unlisten?.();
+		};
 	}, [openFile]);
 
 	useEffect(() => {
