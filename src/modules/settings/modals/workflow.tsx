@@ -19,7 +19,6 @@ import {
 	TapSingle24Regular,
 	TextDescription24Regular,
 	TextEditStyle24Regular,
-	TextLineSpacing24Regular,
 	TextWordCount24Regular,
 	TopSpeed24Regular,
 } from "@fluentui/react-icons";
@@ -58,7 +57,6 @@ import {
 	showFpsCounterAtom,
 	showRomanLinesAtom,
 	showTranslationLinesAtom,
-	spicyForceLineSyncedAtom,
 	spicySimpleLyricsModeAtom,
 	vsyncAtom,
 } from "../states/preview";
@@ -243,14 +241,6 @@ const previewToggles: readonly ToggleRow[] = [
 		"Match Spicy Lyrics' Simple Lyrics mode, with calmer word animations.",
 		<TextDescription24Regular key="icon" />,
 		spicySimpleLyricsModeAtom,
-	],
-	[
-		"ribbonBar.previewMode.forceLineRendering",
-		"Show as line-synced",
-		"settings.workflow.forceLineRenderingDesc",
-		"Show every line in the Spicy preview as line-synced, without word timing.",
-		<TextLineSpacing24Regular key="icon" />,
-		spicyForceLineSyncedAtom,
 	],
 	[
 		"ribbonBar.previewMode.instantFade",

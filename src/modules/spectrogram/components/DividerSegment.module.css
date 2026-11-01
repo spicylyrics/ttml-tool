@@ -40,10 +40,12 @@
 	outline: none;
 }
 
-/* Line-end handles: the merged handle is the classic single bar, always full height. */
+/* Bars on a line's outer edge stop where its rounded corners start, so they
+   don't poke out past the curve. */
+.divider.lineStart .dividerLine,
 .divider.mergedEnd .dividerLine {
-	height: 100%;
-	align-self: stretch;
+	height: calc(100% - 2 * var(--radius-1));
+	align-self: center;
 }
 
 /* Split: the last word's end is a short accent bar... */
@@ -54,8 +56,8 @@
 
 /* ...and the line end a full-height neutral bar, so the two read apart without color alone. */
 .divider.lineEnd .dividerLine {
-	height: 100%;
-	align-self: stretch;
+	height: calc(100% - 2 * var(--radius-1));
+	align-self: center;
 	background-color: var(--gray-11);
 }
 
@@ -65,6 +67,7 @@
 }
 
 /* Where two lines touch, keep the seam's matching short bars. */
+.divider.touching.lineStart .dividerLine,
 .divider.touching.mergedEnd .dividerLine,
 .divider.touching.lineEnd .dividerLine {
 	height: 60%;

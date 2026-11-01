@@ -197,6 +197,7 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 			className={classNames(
 				styles.divider,
 				isTouching && styles.touching,
+				isLineStartHandle && styles.lineStart,
 				lineEndRole && lineEndRoleClass[lineEndRole],
 			)}
 			aria-label={ariaLabel}

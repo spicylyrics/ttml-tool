@@ -23,7 +23,6 @@ import {
 	showRomanLinesAtom,
 	showTranslationLinesAtom,
 	spicyBackgroundModeAtom,
-	spicyForceLineSyncedAtom,
 	spicyJoinSplitWordsAtom,
 	spicySimpleLyricsModeAtom,
 } from "$/modules/settings/states/preview";
@@ -40,7 +39,6 @@ export function useSpicyLyrics() {
 	// Every line, untimed ones included: they stay in place, hollow.
 	const lyrics = useAtomValue(lyricLinesAtom);
 	const simple = useAtomValue(spicySimpleLyricsModeAtom);
-	const forceLineSynced = useAtomValue(spicyForceLineSyncedAtom);
 	const lineTimed = useAtomValue(lineSyncActiveAtom);
 	const joinWords = useAtomValue(spicyJoinSplitWordsAtom);
 	// Off, the lines pass through untouched, so the preview is unchanged.
@@ -89,7 +87,6 @@ export function useSpicyLyrics() {
 				sourceLines,
 				simple,
 				romanized,
-				forceLineSynced,
 				allowConsecutiveBackgrounds,
 				problems,
 				true,
@@ -99,7 +96,6 @@ export function useSpicyLyrics() {
 			sourceLines,
 			simple,
 			romanized,
-			forceLineSynced,
 			allowConsecutiveBackgrounds,
 			problems,
 		],

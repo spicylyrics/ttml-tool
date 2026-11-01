@@ -24,6 +24,19 @@
 	outline: none;
 }
 
+/* Line timing: the block is the line, which already draws the border. The
+   text starts at the line's start and trails off, instead of being cut on
+   both sides when zoomed out. */
+.lineBlock {
+	border-color: transparent;
+	align-items: flex-start;
+}
+
+.lineBlock .romanText,
+.lineBlock .originText {
+	text-align: start;
+}
+
 .romanText {
 	font-size: 12px;
 	line-height: 1.2;

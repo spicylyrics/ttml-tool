@@ -48,7 +48,7 @@ describe("Spicy conversion ownership", () => {
 				},
 			],
 		}));
-		const first = build(source, false, false, false, true, undefined, true);
+		const first = build(source, false, false, true, undefined, true);
 		const edited = source.map((line, index) =>
 			index === 2
 				? {
@@ -61,9 +61,9 @@ describe("Spicy conversion ownership", () => {
 					}
 				: line,
 		);
-		const next = build(edited, false, false, false, true, undefined, true);
+		const next = build(edited, false, false, true, undefined, true);
 		expect(next).toEqual(
-			buildSpicyLines(edited, false, false, false, true, undefined, true),
+			buildSpicyLines(edited, false, false, true, undefined, true),
 		);
 		expect(next.find((line) => line.id === "line-7")).toBe(
 			first.find((line) => line.id === "line-7"),
@@ -88,17 +88,9 @@ describe("Spicy conversion ownership", () => {
 		for (const simple of [false, true]) {
 			for (const romanized of [false, true]) {
 				expect(
-					build(untimed, simple, romanized, true, false, undefined, true),
+					build(untimed, simple, romanized, false, undefined, true),
 				).toEqual(
-					buildSpicyLines(
-						untimed,
-						simple,
-						romanized,
-						true,
-						false,
-						undefined,
-						true,
-					),
+					buildSpicyLines(untimed, simple, romanized, false, undefined, true),
 				);
 			}
 		}
@@ -303,19 +295,6 @@ describe("buildSpicyLines", () => {
 		});
 	});
 
-	it("can force every lyric line onto the line-synced renderer", () => {
-		const line = newLyricLine();
-		line.startTime = 0;
-		line.endTime = 1_000;
-		line.words = [
-			{ ...newLyricWord(), startTime: 0, endTime: 1_000, word: "Hello" },
-		];
-
-		expect(buildSpicyLines([line], false, false, true)[0].isLineSynced).toBe(
-			true,
-		);
-	});
-
 	it("places interlude dots on the next vocal line's side", () => {
 		const first = newLyricLine();
 		first.id = "first";
@@ -460,7 +439,7 @@ describe("Spicy timing problem marks", () => {
 		];
 		line.words[0].endTime = 1_400;
 		line.words[1].endTime = 1_500;
-		return buildSpicyLines([line], false, false, false, false, problems)[0];
+		return buildSpicyLines([line], false, false, false, problems)[0];
 	};
 
 	it("drops a word that ends before it starts when no problems are shown", () => {
@@ -552,7 +531,7 @@ describe("Spicy untimed lines", () => {
 		words: [{ ...newLyricWord(), id: `${id}-w`, word: id, startTime, endTime }],
 	});
 	const build = (lines: ReturnType<typeof line>[]) =>
-		buildSpicyLines(lines, false, false, false, false, undefined, true);
+		buildSpicyLines(lines, false, false, false, undefined, true);
 
 	it("drops untimed lines unless asked to show them", () => {
 		const lines = [line("a", 1_000, 2_000), line("b", 0, 0)];
@@ -632,7 +611,6 @@ describe("Spicy line being synced", () => {
 		expect(buildSpicyLines([syncing], false, false)).toEqual([]);
 		const [line] = buildSpicyLines(
 			[syncing],
-			false,
 			false,
 			false,
 			false,

@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import {
 	type FC,
@@ -40,6 +41,7 @@ const LyricWordSegmentImpl: FC<LyricWordSegmentProps> = ({
 	const store = useStore();
 	const showPerWordRomanization = useAtomValue(displayRomanizationInSyncAtom);
 	const editingTimeField = useAtomValue(editingTimeFieldAtom);
+	const lineTimed = useAtomValue(lineSyncActiveAtom);
 
 	const { startTime, endTime, word, romanWord } = segment;
 
@@ -123,7 +125,9 @@ const LyricWordSegmentImpl: FC<LyricWordSegmentProps> = ({
 
 	return (
 		<div
-			className={styles.wordSegment}
+			className={classNames(styles.wordSegment, lineTimed && styles.lineBlock)}
+			// Zoomed out, a line block shows only its start; hover for the rest.
+			title={lineTimed ? word : undefined}
 			style={dynamicStyles}
 			onClick={handleClick}
 			onMouseDown={handlePanStart}
@@ -137,6 +141,8 @@ const LyricWordSegmentImpl: FC<LyricWordSegmentProps> = ({
 					<span className={styles.romanText}>{romanWord}</span>
 					<span className={styles.originText}>{word}</span>
 				</>
+			) : lineTimed ? (
+				<span className={styles.originText}>{word}</span>
 			) : (
 				word
 			)}
