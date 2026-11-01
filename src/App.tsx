@@ -622,7 +622,26 @@ function App() {
 			}
 		};
 
+		// Only files may be dropped on the window. Accepting every drag made
+		// stray ones look droppable everywhere (Windows' dotted-box cursor).
 		const handleDragOver = (e: DragEvent) => {
+			if (e.dataTransfer?.types.includes("Files")) e.preventDefault();
+		};
+
+		// The browser's own drag of selected text, images and links takes the
+		// pointer away from the app, so lines, words and the spectrogram stop
+		// dragging. Keep native drags to what the app made draggable, and to
+		// text fields.
+		const handleDragStart = (e: DragEvent) => {
+			const target = e.target as Node | null;
+			const element =
+				target instanceof Element ? target : (target?.parentElement ?? null);
+			if (
+				element?.closest(
+					'[draggable="true"], input, textarea, [contenteditable="true"]',
+				)
+			)
+				return;
 			e.preventDefault();
 		};
 
@@ -644,12 +663,14 @@ function App() {
 				);
 		};
 
+		window.addEventListener("dragstart", handleDragStart, true);
 		window.addEventListener("dragenter", handleDragEnter);
 		window.addEventListener("dragover", handleDragOver);
 		window.addEventListener("dragleave", handleDragLeave);
 		window.addEventListener("drop", handleDrop);
 
 		return () => {
+			window.removeEventListener("dragstart", handleDragStart, true);
 			window.removeEventListener("dragenter", handleDragEnter);
 			window.removeEventListener("dragover", handleDragOver);
 			window.removeEventListener("dragleave", handleDragLeave);
