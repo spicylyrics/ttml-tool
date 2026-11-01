@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useLyricLinesWhileOpen } from "$/hooks/useLyricLinesWhileOpen.ts";
 import { replaceRomanizationDialogAtom } from "$/states/dialogs";
 import { lyricLinesAtom } from "$/states/main";
+import { replaceRomanizationMatchCaseAtom } from "./combine-words-options";
 import { replaceRomanization } from "./replace-romanization";
 
 export const ReplaceRomanizationDialog = memo(() => {
@@ -22,7 +23,9 @@ export const ReplaceRomanizationDialog = memo(() => {
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const [replacementText, setReplacementText] = useState("");
 	const [applyToAll, setApplyToAll] = useState(false);
-	const [caseSensitive, setCaseSensitive] = useState(true);
+	const [caseSensitive, setCaseSensitive] = useAtom(
+		replaceRomanizationMatchCaseAtom,
+	);
 
 	const targetWord =
 		lyricState.lyricLines[dialogState.lineIndex]?.words[dialogState.wordIndex];
