@@ -25,6 +25,10 @@ import {
 	toolModeAtom,
 } from "$/states/main.ts";
 import type { LyricSection } from "$/types/ttml.ts";
+import {
+	applyTimingsSectionIdAtom,
+	editingSectionIdAtom,
+} from "../../states/sections.ts";
 import { shiftSectionToTime } from "../../utils/genius-sections.ts";
 import {
 	relabelForCategory,
@@ -36,9 +40,7 @@ import {
 	mergeSectionWithAdjacent,
 	removeSectionMetadata,
 } from "../../utils/section-system.ts";
-import { applyTimingsSectionIdAtom } from "../ApplySectionTimingsDialog.tsx";
 import { lastLineDragEndAtom } from "../lyric-line-view-states.ts";
-import { editingSectionIdAtom } from "../SectionActions.tsx";
 import styles from "./section-divider.module.css";
 
 const displayLabel = (label: string) => label.replace(/^\[|\]$/g, "");

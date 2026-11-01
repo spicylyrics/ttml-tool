@@ -1,9 +1,11 @@
 import { MENU_ACTIONS, type MenuAction } from "./actions";
 import { RIBBON_ACTIONS } from "./ribbon-actions";
+import { SECTION_ACTIONS } from "./section-actions";
 
-/** Every menu and ribbon action, in Shortcuts page order. */
+/** Every menu, ribbon and section action, in Shortcuts page order. */
 export const ACTION_LIST: readonly MenuAction[] = [
 	...Object.values(MENU_ACTIONS),
+	...Object.values(SECTION_ACTIONS),
 	...Object.values(RIBBON_ACTIONS),
 ];
 

@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Synchronisation - Effacer les horodatages du mot/de la syllabe",
+      "sectionRename": "Section - Renommer",
+      "sectionStartHere": "Section - Commencer la section ici",
+      "sectionApplyTimings": "Section - Appliquer le minutage de...",
+      "sectionSnapToPlayhead": "Section - Aligner sur la tête de lecture",
+      "sectionMergePrevious": "Section - Fusionner avec la précédente",
+      "sectionRemove": "Section - Supprimer l'en-tête (conserver les paroles)",
       "newFile": "Nouveau fichier",
       "openFile": "Ouvrir un fichier",
       "saveFile": "Enregistrer le fichier",

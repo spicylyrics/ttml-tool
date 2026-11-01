@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Zamanlama - Sözcük/hece zaman damgalarını temizle",
+      "sectionRename": "Bölüm - Yeniden adlandır",
+      "sectionStartHere": "Bölüm - Bölümü buradan başlat",
+      "sectionApplyTimings": "Bölüm - Zamanlamaları şuradan uygula...",
+      "sectionSnapToPlayhead": "Bölüm - Oynatma konumuna hizala",
+      "sectionMergePrevious": "Bölüm - Öncekiyle birleştir",
+      "sectionRemove": "Bölüm - Başlığı kaldır (şarkı sözlerini sakla)",
       "newFile": "Yeni dosya",
       "openFile": "Dosya aç",
       "saveFile": "Dosyayı kaydet",

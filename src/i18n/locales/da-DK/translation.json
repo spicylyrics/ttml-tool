@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Timing - Ryd tidsstempler for ord/stavelse",
+      "sectionRename": "Sektion - Omdøb",
+      "sectionStartHere": "Sektion - Start sektion her",
+      "sectionApplyTimings": "Sektion - Anvend timing fra...",
+      "sectionSnapToPlayhead": "Sektion - Flyt til afspilningsmarkør",
+      "sectionMergePrevious": "Sektion - Kombiner med forrige",
+      "sectionRemove": "Sektion - Fjern overskrift (behold sangtekster)",
       "newFile": "Ny fil",
       "openFile": "Åbn fil",
       "saveFile": "Gem fil",

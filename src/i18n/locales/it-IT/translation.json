@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Sincronizzazione - Cancella i timestamp di parola/sillaba",
+      "sectionRename": "Sezione - Rinomina",
+      "sectionStartHere": "Sezione - Inizia la sezione qui",
+      "sectionApplyTimings": "Sezione - Applica i tempi da...",
+      "sectionSnapToPlayhead": "Sezione - Allinea al cursore di riproduzione",
+      "sectionMergePrevious": "Sezione - Unisci alla precedente",
+      "sectionRemove": "Sezione - Rimuovi l'intestazione (mantieni il testo)",
       "newFile": "Nuovo file",
       "openFile": "Apri file",
       "saveFile": "Salva file",

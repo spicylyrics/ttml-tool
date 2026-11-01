@@ -1,13 +1,11 @@
 import { ContextMenu } from "@radix-ui/themes";
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { useTranslation } from "react-i18next";
 import { lyricLinesAtom } from "$/states/main";
+import { editingSectionIdAtom } from "../states/sections";
 import { startSectionAt } from "../utils/section-editing";
 import { getSectionBoundsById } from "../utils/section-system";
-
-/** The section whose divider label is being renamed in place, if any. */
-export const editingSectionIdAtom = atom<string | null>(null);
 
 /**
  * Starts a section at this line, then opens its label for renaming. Inside a

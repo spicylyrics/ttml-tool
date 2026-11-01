@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Synchronizacja - Wyczyść znaczniki czasu słowa/sylaby",
+      "sectionRename": "Sekcja - Zmień nazwę",
+      "sectionStartHere": "Sekcja - Zacznij sekcję tutaj",
+      "sectionApplyTimings": "Sekcja - Zastosuj czasy z...",
+      "sectionSnapToPlayhead": "Sekcja - Przyciągnij do pozycji odtwarzania",
+      "sectionMergePrevious": "Sekcja - Połącz z poprzednią",
+      "sectionRemove": "Sekcja - Usuń nagłówek (zachowaj tekst)",
       "newFile": "Nowy plik",
       "openFile": "Otwórz plik",
       "saveFile": "Zapisz plik",

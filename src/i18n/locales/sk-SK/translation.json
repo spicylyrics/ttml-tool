@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Časovanie - Vymazať časové značky slova/slabiky",
+      "sectionRename": "Sekcia - Premenovať",
+      "sectionStartHere": "Sekcia - Začať sekciu tu",
+      "sectionApplyTimings": "Sekcia - Použiť časovanie z...",
+      "sectionSnapToPlayhead": "Sekcia - Zarovnať na pozíciu prehrávania",
+      "sectionMergePrevious": "Sekcia - Zlúčiť s predchádzajúcou",
+      "sectionRemove": "Sekcia - Odstrániť hlavičku (ponechať text)",
       "newFile": "Nový súbor",
       "openFile": "Otvoriť súbor",
       "saveFile": "Uložiť súbor",

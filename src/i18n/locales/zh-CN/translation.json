@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "打轴 - 清除单词/音节时间戳",
+      "sectionRename": "分段 - 重命名",
+      "sectionStartHere": "分段 - 从此处开始分段",
+      "sectionApplyTimings": "分段 - 应用来自以下分段的时间...",
+      "sectionSnapToPlayhead": "分段 - 吸附到播放指针",
+      "sectionMergePrevious": "分段 - 与上一分段合并",
+      "sectionRemove": "分段 - 删除标题（保留歌词）",
       "newFile": "新建文件",
       "openFile": "打开文件",
       "saveFile": "保存文件",

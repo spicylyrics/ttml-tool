@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Синхронизация - Очистить временные метки слова/слога",
+      "sectionRename": "Раздел - Переименовать",
+      "sectionStartHere": "Раздел - Начать раздел здесь",
+      "sectionApplyTimings": "Раздел - Применить тайминги из...",
+      "sectionSnapToPlayhead": "Раздел - Привязать к позиции воспроизведения",
+      "sectionMergePrevious": "Раздел - Объединить с предыдущим",
+      "sectionRemove": "Раздел - Удалить заголовок (сохранить текст)",
       "newFile": "Новый файл",
       "openFile": "Открыть файл",
       "saveFile": "Сохранить файл",

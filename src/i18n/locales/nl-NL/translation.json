@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Timing - Tijdstempels van woord/lettergreep wissen",
+      "sectionRename": "Sectie - Hernoemen",
+      "sectionStartHere": "Sectie - Sectie hier beginnen",
+      "sectionApplyTimings": "Sectie - Timing toepassen van...",
+      "sectionSnapToPlayhead": "Sectie - Uitlijnen op afspeelkop",
+      "sectionMergePrevious": "Sectie - Samenvoegen met vorige",
+      "sectionRemove": "Sectie - Kop verwijderen (songtekst behouden)",
       "newFile": "Nieuw bestand",
       "openFile": "Bestand openen",
       "saveFile": "Bestand opslaan",

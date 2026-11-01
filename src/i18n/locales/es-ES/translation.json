@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Sincronización - Borrar marcas de tiempo de palabra/sílaba",
+      "sectionRename": "Sección - Cambiar nombre",
+      "sectionStartHere": "Sección - Iniciar sección aquí",
+      "sectionApplyTimings": "Sección - Aplicar tiempos de...",
+      "sectionSnapToPlayhead": "Sección - Ajustar al cabezal de reproducción",
+      "sectionMergePrevious": "Sección - Fusionar con la anterior",
+      "sectionRemove": "Sección - Eliminar encabezado (conservar la letra)",
       "newFile": "Nuevo archivo",
       "openFile": "Abrir archivo",
       "saveFile": "Guardar archivo",

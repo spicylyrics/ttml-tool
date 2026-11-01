@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Ajoitus - Tyhjennä sanan/tavun aikaleimat",
+      "sectionRename": "Osio - Nimeä uudelleen",
+      "sectionStartHere": "Osio - Aloita osio tästä",
+      "sectionApplyTimings": "Osio - Käytä ajoituksia osiosta...",
+      "sectionSnapToPlayhead": "Osio - Kohdista toistokohdistimeen",
+      "sectionMergePrevious": "Osio - Yhdistä edelliseen",
+      "sectionRemove": "Osio - Poista otsikko (säilytä sanoitukset)",
       "newFile": "Uusi tiedosto",
       "openFile": "Avaa tiedosto",
       "saveFile": "Tallenna tiedosto",

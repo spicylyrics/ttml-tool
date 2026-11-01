@@ -15,6 +15,8 @@ let dialogs: typeof import("$/states/dialogs");
 let ttml: typeof import("$/types/ttml");
 let sync: typeof import("$/modules/settings/states/sync");
 let editAsText: typeof import("$/modules/edit-as-text/states");
+let sectionActions: typeof import("./section-actions");
+let sectionStates: typeof import("$/modules/lyric-editor/states/sections");
 
 beforeAll(async () => {
 	const storage = new Map<string, string>();
@@ -37,6 +39,8 @@ beforeAll(async () => {
 	ttml = await import("$/types/ttml");
 	sync = await import("$/modules/settings/states/sync");
 	editAsText = await import("$/modules/edit-as-text/states");
+	sectionActions = await import("./section-actions");
+	sectionStates = await import("$/modules/lyric-editor/states/sections");
 });
 
 function hasKey(key: string): boolean {
@@ -332,5 +336,55 @@ describe("ribbon actions", () => {
 			context(store, loadAudio),
 		);
 		expect(loadAudio).toHaveBeenCalledOnce();
+	});
+});
+
+describe("section actions", () => {
+	function storeWithSections() {
+		const lines = [lineWithWords(1), lineWithWords(1), lineWithWords(1)];
+		lines[0].sectionId = "verse";
+		lines[0].geniusHeader = "[Verse 1]";
+		lines[1].sectionId = "verse";
+		lines[2].sectionId = "chorus";
+		lines[2].geniusHeader = "[Chorus]";
+		const store = storeWithLines(lines);
+		store.set(main.lyricLinesAtom, {
+			...store.get(main.lyricLinesAtom),
+			sections: [
+				{ id: "verse", label: "[Verse 1]", category: "verse" },
+				{ id: "chorus", label: "[Chorus]", category: "chorus" },
+			],
+		});
+		return { store, lines };
+	}
+
+	it("acts on the section the selection starts in", () => {
+		const { store, lines } = storeWithSections();
+		const { sectionRename, sectionMergePrevious, sectionStartHere } =
+			sectionActions.SECTION_ACTIONS;
+		expect(isEnabled(sectionRename, store)).toBe(false);
+		store.set(main.selectedLinesAtom, new Set([lines[2].id, lines[1].id]));
+		actions.runMenuAction(sectionRename, context(store));
+		expect(store.get(sectionStates.editingSectionIdAtom)).toBe("verse");
+		// The verse is first, so there's nothing before it to merge into.
+		expect(isEnabled(sectionMergePrevious, store)).toBe(false);
+		expect(isEnabled(sectionStartHere, store)).toBe(true);
+		store.set(main.selectedLinesAtom, new Set([lines[2].id]));
+		expect(isEnabled(sectionStartHere, store)).toBe(false);
+		actions.runMenuAction(sectionMergePrevious, context(store));
+		expect(
+			store.get(main.lyricLinesAtom).lyricLines.map((line) => line.sectionId),
+		).toEqual(["verse", "verse", "verse"]);
+	});
+
+	it("keeps the timing tools to Time mode", () => {
+		const { store, lines } = storeWithSections();
+		const { sectionApplyTimings } = sectionActions.SECTION_ACTIONS;
+		store.set(main.selectedLinesAtom, new Set([lines[2].id]));
+		actions.runMenuAction(sectionApplyTimings, context(store));
+		expect(store.get(sectionStates.applyTimingsSectionIdAtom)).toBeNull();
+		store.set(main.toolModeAtom, main.ToolMode.Sync);
+		actions.runMenuAction(sectionApplyTimings, context(store));
+		expect(store.get(sectionStates.applyTimingsSectionIdAtom)).toBe("chorus");
 	});
 });

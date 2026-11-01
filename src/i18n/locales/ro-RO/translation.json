@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Sincronizare - Șterge marcajele de timp ale cuvântului/silabei",
+      "sectionRename": "Secțiune - Redenumește",
+      "sectionStartHere": "Secțiune - Începe secțiunea aici",
+      "sectionApplyTimings": "Secțiune - Aplică sincronizările din...",
+      "sectionSnapToPlayhead": "Secțiune - Aliniază la cursorul de redare",
+      "sectionMergePrevious": "Secțiune - Unește cu secțiunea anterioară",
+      "sectionRemove": "Secțiune - Elimină antetul (păstrează versurile)",
       "newFile": "Fișier nou",
       "openFile": "Deschide fișier",
       "saveFile": "Salvează fișierul",

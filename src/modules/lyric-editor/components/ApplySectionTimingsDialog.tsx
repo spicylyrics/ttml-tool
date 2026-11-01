@@ -6,7 +6,7 @@ import {
 	RadioGroup,
 	Text,
 } from "@radix-ui/themes";
-import { atom, useAtom, useStore } from "jotai";
+import { useAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,15 +16,13 @@ import { currentTimeAtom } from "$/modules/audio/states/index.ts";
 import { sectionTimingsAnchorAtom } from "$/modules/settings/states/index.ts";
 import { lyricLinesAtom } from "$/states/main.ts";
 import { msToTimestamp } from "$/utils/timestamp.ts";
+import { applyTimingsSectionIdAtom } from "../states/sections.ts";
 import {
 	type ApplyTimingsResult,
 	applySectionTimings,
 	findTimingSources,
 	sectionTimingAnchor,
 } from "../utils/section-editing.ts";
-
-/** The section Apply timings from... was opened on, or null when closed. */
-export const applyTimingsSectionIdAtom = atom<string | null>(null);
 
 type Anchor = "section" | "playhead";
 

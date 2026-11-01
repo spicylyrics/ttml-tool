@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Pengaturan waktu - Hapus stempel waktu kata/suku kata",
+      "sectionRename": "Bagian - Ganti nama",
+      "sectionStartHere": "Bagian - Mulai bagian di sini",
+      "sectionApplyTimings": "Bagian - Terapkan pewaktuan dari...",
+      "sectionSnapToPlayhead": "Bagian - Paskan ke penunjuk putar",
+      "sectionMergePrevious": "Bagian - Gabungkan dengan sebelumnya",
+      "sectionRemove": "Bagian - Hapus judul (pertahankan lirik)",
       "newFile": "File baru",
       "openFile": "Buka file",
       "saveFile": "Simpan file",

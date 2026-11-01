@@ -1076,6 +1076,12 @@
     },
     "keybindings": {
       "clearWordTiming": "Timing - Clear word/syllable timestamps",
+      "sectionRename": "Section - Rename",
+      "sectionStartHere": "Section - Start section here",
+      "sectionApplyTimings": "Section - Apply timings from...",
+      "sectionSnapToPlayhead": "Section - Snap to playhead",
+      "sectionMergePrevious": "Section - Merge with previous",
+      "sectionRemove": "Section - Remove header (keep lyrics)",
       "newFile": "New file",
       "openFile": "Open file",
       "saveFile": "Save file",
