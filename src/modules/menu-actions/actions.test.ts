@@ -162,6 +162,15 @@ describe("menu actions as keyboard commands", () => {
 			true,
 		);
 	});
+
+	it("lists the Time-mode word actions only in Time mode", () => {
+		const { splitSelectedWord, replaceSelectedWord } = actions.MENU_ACTIONS;
+		for (const action of [splitSelectedWord, replaceSelectedWord]) {
+			expect(palette.paletteListsCommand(action.command, "sync")).toBe(true);
+			for (const mode of ["edit", "preview"])
+				expect(palette.paletteListsCommand(action.command, mode)).toBe(false);
+		}
+	});
 });
 
 describe("enabled rules", () => {
@@ -270,6 +279,39 @@ describe("runMenuAction", () => {
 			open: true,
 			lineIndex: 1,
 		});
+	});
+
+	it("splits and replaces the selected word in Time mode", () => {
+		const line = ttml.newLyricLine();
+		line.words = [
+			["beau", 1000, 1200],
+			["ti", 0, 0],
+			["ful", 1400, 1800],
+		].map(([word, startTime, endTime]) => ({
+			...ttml.newLyricWord(),
+			word: word as string,
+			startTime: startTime as number,
+			endTime: endTime as number,
+		}));
+		const store = storeWithLines([lineWithWords(1), line]);
+		store.set(main.toolModeAtom, main.ToolMode.Sync);
+		const { splitSelectedWord, replaceSelectedWord } = actions.MENU_ACTIONS;
+
+		for (const action of [splitSelectedWord, replaceSelectedWord])
+			expect(isEnabled(action, store)).toBe(false);
+		store.set(main.selectedWordsAtom, new Set([line.words[0].id]));
+
+		actions.runMenuAction(splitSelectedWord, context(store));
+		expect(store.get(dialogs.splitWordDialogAtom)).toBe(true);
+		expect(store.get(main.editingWordStateAtom)).toEqual({
+			lineIndex: 1,
+			wordIndex: 0,
+			word: "beau",
+		});
+		store.set(main.selectedWordsAtom, new Set([line.words[2].id]));
+		actions.runMenuAction(replaceSelectedWord, context(store));
+		expect(store.get(dialogs.replaceWordDialogAtom)).toBe(true);
+		expect(store.get(main.editingWordStateAtom).wordIndex).toBe(2);
 	});
 
 	it("opens dialogs and flips toggles", () => {
