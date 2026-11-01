@@ -19,7 +19,7 @@ import type {
 import { loadHyphenator } from "$/modules/segmentation/utils/hyphen-loader";
 import { segmentWord } from "$/modules/segmentation/utils/segmentation";
 import { newLyricWord } from "$/types/ttml";
-import { CURATED } from "./wordlist";
+import { CURATED, EDGE_CASES } from "./wordlist";
 
 interface Row {
 	file: string;
@@ -29,8 +29,11 @@ interface Row {
 
 const wordsPath = process.env.AUTOSPLIT_WORDS;
 const outPath = process.env.AUTOSPLIT_VOTE_OUT;
-const TARGET = 2500;
-const CORPUS_COUNT = 900;
+// Dictionary words only fill up to this, so most of the list is edge cases
+// and lyric words rather than splits the dictionary already has.
+const TARGET = 2000;
+const CORPUS_COUNT = 500;
+const ODD_COUNT = 400;
 const MAX_CANDIDATES = 3;
 
 const isLetter = (c: string) => /[\p{L}\p{M}]/u.test(c);
@@ -210,6 +213,9 @@ it.skipIf(!wordsPath || !outPath)(
 		const addWord = (word: string, group: string) => {
 			const key = word.toLowerCase();
 			if (seen.has(key)) return false;
+			// Stretched spellings (`sooo`) aren't allowed in TTMLs, and processing
+			// already splits at dashes. A `/` is the split mark here.
+			if (/[-/]/.test(word) || /(\p{L})\1\1/iu.test(word)) return false;
 			const sources = new Map<string, string[]>();
 			const push = (split: string, source: string) => {
 				const cased = recase(split, word);
@@ -275,8 +281,10 @@ it.skipIf(!wordsPath || !outPath)(
 
 		for (const [category, words] of Object.entries(CURATED))
 			for (const word of words) addWord(word, `curated: ${category}`);
+		for (const [category, words] of Object.entries(EDGE_CASES))
+			for (const word of words) addWord(word, `edge: ${category}`);
 
-		const frequent = [...corpus]
+		const ranked = [...corpus]
 			.filter(([key, variants]) => {
 				if ([...key].filter(isLetter).length < 3 || seen.has(key)) return false;
 				const anySplit = [...variants.keys()].some((s) => s.includes("/"));
@@ -289,9 +297,13 @@ it.skipIf(!wordsPath || !outPath)(
 			// A spelling from one song is often a one-off (`ainoo`) or a name;
 			// keep it only when it's a known word.
 			.filter(({ key, songs }) => songs >= 2 || dictionary.has(key))
-			.sort((a, b) => b.songs - a.songs || a.key.localeCompare(b.key))
-			.slice(0, CORPUS_COUNT);
-		for (const { key } of frequent) addWord(displayCase(key), "corpus");
+			.sort((a, b) => b.songs - a.songs || a.key.localeCompare(b.key));
+		// Lyric words the dictionary doesn't know (slang, `-in'`, ad-libs) are
+		// where it's weakest, so they come first.
+		for (const { key } of ranked.filter((r) => !dictionary.has(r.key)).slice(0, ODD_COUNT))
+			addWord(displayCase(key), "corpus: not in dictionary");
+		for (const { key } of ranked.filter((r) => dictionary.has(r.key)).slice(0, CORPUS_COUNT))
+			addWord(displayCase(key), "corpus");
 
 		// Fill with dictionary words, round-robin across spelling patterns in
 		// frequency order, so rare patterns get as many words as common ones.

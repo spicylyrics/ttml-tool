@@ -635,3 +635,66 @@ export const CURATED: Record<string, string[]> = {
 		"McDonald's",
 	],
 };
+
+/**
+ * Edge cases for the community vote, where auto-split goes wrong most: words
+ * sung with fewer syllables than written, slang, contractions, numbers,
+ * brands, loanwords. Only words that turn up in lyrics: no stretched
+ * spellings (not allowed in TTMLs) and nothing with a dash (processing already
+ * splits there). Space-separated per category.
+ */
+export const EDGE_CASES: Record<string, string[]> = Object.fromEntries(
+	Object.entries({
+		"Sung with fewer syllables": `fire fires hour hours power powers flower flowers tower shower
+			desire empire liar choir tired wire higher lawyer prayer layer mayor real really ideal trial
+			denial loyal royal violent violet violin diamond science quiet riot poet poem lion iron
+			every everything everyone evening family different chocolate camera favorite favourite
+			separate several general generally natural memory history mystery victory battery factory
+			jewelry vegetable comfortable interesting temperature restaurant business actually usually
+			literally basically especially probably definitely finally totally being seeing doing
+			knowing showing throwing flowing growing lower slower fewer viewer jewel cruel fuel duel
+			usual ruin ruined fluid area idea ocean create react reality creative client diet giant
+			video radio rodeo stereo patio audio piano Romeo Mario neon Ryan Diana Maria Sophia Julia
+			Olivia Gloria Leah`,
+		"Slang and informal spellings": `gonna wanna gotta tryna finna lemme gimme kinda sorta outta
+			lotta shoulda woulda coulda musta oughta dunno y'all ya bruh bro bae lowkey highkey sus lit
+			drip flex vibe vibin' skrrt brr ayy ayo aight nah yup yep nope okay alright alrighty whatcha
+			gotcha betcha dontcha wassup innit tho cuz shawty homie hella dawg gangsta finesse opps
+			bankroll lil mama daddy`,
+		"Lyric shortenings": `'round 'fore 'nough 'kay 'sup 'bout 'em 'til 'cause c'mon y'know
+			d'you s'pose 'specially ridin' trippin' poppin' ballin' gettin' nothin' somethin'
+			everythin' darlin' mornin' tellin' thinkin' talkin' walkin' runnin' cryin' dyin' lyin'`,
+		Contractions: `could've should've would've must've might've they'd we'd you'd she'd he'd
+			it'd that'd there'd who'd what'd I'd've y'all'd you'll we'll they'll she'll it'll that'll
+			there'll who'll what're where're who're they've we've you've isn't wasn't aren't weren't
+			hasn't haven't hadn't doesn't didn't won't wouldn't shouldn't couldn't mustn't needn't
+			let's here's where's what's who's how's that's there's it's she's he's ma'am o'clock
+			'twas o'er`,
+		"Numbers and symbols": `911 2Pac '90s 1st 100 Ke$ha R&B`,
+		"Acronyms and initials": `ASAP FBI CIA USA UK NYC VIP CEO OMG LOL ID DNA ATM BMW RIP AKA
+			ABC MTV NBA NFL EDM KO AM PM OG MVP GPS SOS`,
+		"Brands and stylized names": `iPhone YouTube TikTok Instagram Gucci Prada Versace Lamborghini
+			Ferrari Chanel PlayStation Nintendo Netflix Snapchat FaceTime Pepsi Adidas Nike Balenciaga
+			Givenchy Hennessy Patrón Moët Cartier Hublot Maybach Bentley Porsche Tesla Uber Xanax
+			Percocet`,
+		"Names people sing": `Beyoncé Rihanna Kanye Eminem Ariana Shakira Pharrell Lizzo Rosalía
+			Tupac Biggie Jesus Mary Juliet Cinderella Pinocchio Picasso Mozart Beethoven Hallelujah
+			Halloween Christmas Valentine`,
+		"More loanwords": `mamacita papi mami chica bonita corazón amor querida samurai sushi
+			ciao bella amore bravo fiesta tequila margarita rendezvous entrepreneur bouquet mañana`,
+		Compounds: `heartbreak heartbroken motherfucker nevermind whatsoever everybody's somebody's
+			nobody's wherever whenever forevermore`,
+		"Syllabic consonants": `little bottle battle middle puzzle people purple circle double trouble
+			single jungle simple temple apple able table cable candle handle castle whistle hustle
+			muscle level travel model novel channel tunnel funnel rhythm sarcasm racism heaven seven
+			eleven listen often soften kitten button cotton mountain fountain certain curtain captain
+			bargain garden Britain`,
+		"More -ed and -es endings": `needed started ended hated waited faded jaded prayed stayed
+			moved lived kissed missed passed raised praised cursed aged naked wicked crooked beloved
+			ragged rugged horses places faces chases kisses wishes watches matches judges bridges
+			oranges`,
+		"-tion, -sion, -cial": `nation station emotion devotion motion special social official
+			essential potential patient ancient conscience sufficient vision decision television
+			confusion illusion question suggestion`,
+	}).map(([category, words]) => [category, words.trim().split(/\s+/)]),
+);
