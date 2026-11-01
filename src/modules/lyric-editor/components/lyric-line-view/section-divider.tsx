@@ -187,9 +187,20 @@ function UnsectionedRow({ lineIndex }: { lineIndex: number }) {
 		});
 		if (createdId) setEditingId(createdId);
 	};
+	const store = useStore();
+	// Like a section's row: a click on the row (not its controls) selects the stretch.
+	const selectStretch = (event: React.MouseEvent) => {
+		if ((event.target as Element).closest("button")) return;
+		const lines = store.get(lyricLinesAtom).lyricLines;
+		const ids = new Set<string>();
+		for (let i = lineIndex; i < lines.length && !lines[i].sectionId; i++)
+			ids.add(lines[i].id);
+		store.set(selectedLinesAtom, ids);
+	};
 	return (
 		<div
 			className={styles.divider}
+			onClick={selectStretch}
 			onContextMenu={(event) => event.preventDefault()}
 		>
 			{lineId ? (
