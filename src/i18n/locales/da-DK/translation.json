@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Del indtastede linjer i ord",
-    "splitTypedLinesDesc": "Tekst skrevet i en tom linje deles i ord på samme måde, som en import deler linjer.",
+    "splitTypedLinesDesc": "Tekst skrevet i en linje deles i ord ved mellemrum og bindestreger og efter dine lærte opdelinger.",
     "scrollMemoryTitle": "Husk position i redigeringstilstand",
     "scrollMemoryDesc": "Åbn hvert projekt ved den linje, du var på i redigeringstilstand.",
     "swapDuetAll": "Byt om på hoved- og duetlinjer",

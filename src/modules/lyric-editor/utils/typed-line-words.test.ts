@@ -38,6 +38,23 @@ describe("typedLineToWords", () => {
 		]);
 	});
 
+	it("still splits at hyphens when a learned split matches", () => {
+		const rules = new Map([["beautiful", [4, 6]]]);
+		expect(typedLineToWords("beautiful-beautiful", rules)).toEqual([
+			"beau",
+			"ti",
+			"ful-",
+			"beau",
+			"ti",
+			"ful",
+		]);
+		expect(typedLineToWords("mm-hmm", new Map([["mm", [1]]]))).toEqual([
+			"m",
+			"m-",
+			"hmm",
+		]);
+	});
+
 	it("lets split marks win over a learned split", () => {
 		const rules = new Map([["beautiful", [4, 6]]]);
 		expect(typedLineToWords("beauti\\ful", rules)).toEqual(["beauti", "ful"]);

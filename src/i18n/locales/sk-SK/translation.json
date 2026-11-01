@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Rozdeliť napísané riadky na slová",
-    "splitTypedLinesDesc": "Text napísaný do prázdneho riadka sa rozdelí na slová rovnako, ako import rozdeľuje riadky.",
+    "splitTypedLinesDesc": "Text napísaný do riadka sa rozdelí na slová pri medzerách a spojovníkoch a podľa naučených delení.",
     "scrollMemoryTitle": "Pamätať si pozíciu v režime úprav",
     "scrollMemoryDesc": "Otvorí každý projekt na riadku, kde ste boli v režime úprav.",
     "swapDuetAll": "Vymeniť hlavné a duetové riadky",

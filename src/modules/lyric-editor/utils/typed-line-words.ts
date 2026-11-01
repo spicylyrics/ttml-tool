@@ -21,12 +21,24 @@ export function typedLineToWords(
 			words.push(chunk);
 			continue;
 		}
-		const marked = chunk.includes("\\");
-		const learned = marked
-			? null
-			: applyLearnedRule(chunk, learnedRules as Map<string, number[]>);
-		const parts = learned ?? splitTextImportWords(chunk, "\\", true);
-		words.push(...parts.filter((part) => part.length > 0));
+		if (chunk.includes("\\")) {
+			words.push(
+				...splitTextImportWords(chunk, "\\", true).filter(
+					(part) => part.length > 0,
+				),
+			);
+			continue;
+		}
+		// Hyphens always split; a learned split then applies to each piece, so
+		// a word you taught the splitter still breaks at its dashes.
+		for (const piece of splitTextImportWords(chunk, "", true)) {
+			if (!piece) continue;
+			words.push(
+				...(applyLearnedRule(piece, learnedRules as Map<string, number[]>) ?? [
+					piece,
+				]),
+			);
+		}
 	}
 	return words.length > 0 ? words : [text];
 }

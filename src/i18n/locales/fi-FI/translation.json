@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Jaa kirjoitetut rivit sanoiksi",
-    "splitTypedLinesDesc": "Tyhjälle riville kirjoitettu teksti jaetaan sanoiksi samalla tavalla kuin tuonti jakaa rivit.",
+    "splitTypedLinesDesc": "Riville kirjoitettu teksti jaetaan sanoiksi välilyöntien ja yhdysmerkkien kohdalta sekä opettamiesi jakojen mukaan.",
     "scrollMemoryTitle": "Muista muokkaustilan kohta",
     "scrollMemoryDesc": "Avaa jokainen projekti riviltä, jolla olit muokkaustilassa.",
     "swapDuetAll": "Vaihda pää- ja duettorivit",

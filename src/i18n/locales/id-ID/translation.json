@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Pecah baris yang diketik menjadi kata",
-    "splitTypedLinesDesc": "Teks yang diketik di baris kosong dipecah menjadi kata, sama seperti impor memecah baris.",
+    "splitTypedLinesDesc": "Teks yang diketik di baris dipecah menjadi kata di spasi dan tanda hubung, serta sesuai pemisahan yang telah dipelajari.",
     "scrollMemoryTitle": "Ingat posisi mode Edit",
     "scrollMemoryDesc": "Buka setiap proyek di baris terakhir Anda dalam mode Edit.",
     "swapDuetAll": "Tukar baris utama dan duet",

@@ -1354,7 +1354,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Împarte versurile tastate în cuvinte",
-    "splitTypedLinesDesc": "Textul tastat într-un vers gol este împărțit în cuvinte la fel cum un import împarte versurile.",
+    "splitTypedLinesDesc": "Textul tastat într-un vers este împărțit în cuvinte la spații și cratime, și după despărțirile învățate.",
     "scrollMemoryTitle": "Reține poziția din modul Editare",
     "scrollMemoryDesc": "Redeschide fiecare proiect la versul la care erai în modul Editare.",
     "swapDuetAll": "Inversează versurile principale și de duet",
