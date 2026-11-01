@@ -39,6 +39,14 @@
 .divider:focus {
 	outline: none;
 }
+
+/* Line timing: a line's only handles are its edges, which its border already
+   draws. Show the bar only while the handle is hovered or focused, so edges
+   and seams don't get a second and third line next to the border. */
+.divider.lineTimed:not(:hover):not(:focus) .dividerLine {
+	opacity: 0;
+}
+
 /* Bars on a line's outer edge stop where its rounded corners start, so they
    don't poke out past the curve. */
 .divider.lineStart .dividerLine,

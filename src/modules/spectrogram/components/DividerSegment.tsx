@@ -40,9 +40,6 @@ const lineEndRoleClass: Record<LineEndRole, string | undefined> = {
 
 const DIVIDER_WIDTH_PX = 15;
 const HALF_DIVIDER_WIDTH_PX = DIVIDER_WIDTH_PX / 2;
-/** The line's border and the bar's resting width, as in the CSS modules. */
-const BORDER_PX = 1;
-const BAR_WIDTH_PX = 2;
 const NUDGE_MS = 10;
 const SHIFT_NUDGE_MS = 50;
 
@@ -191,22 +188,6 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 		barStyle = { transform: `translateX(${barShiftPx}px)` };
 	}
 
-	// Line timing: a line's only handles are its edges, so draw their bars on
-	// the line's border. Positions here start inside that 1px border, so the
-	// start bar begins 1px left of 0 and the end bar ends 1px left of the end.
-	// Where two lines touch, both bars meet on the seam as one centered line.
-	const edgeBarLeftPx = isLineStartHandle
-		? timePx - BORDER_PX
-		: isLineEndHandle
-			? timePx - BORDER_PX - BAR_WIDTH_PX
-			: null;
-	if (lineTimed && edgeBarLeftPx !== null) {
-		const barCenterLeftPx = left + width / 2 - BAR_WIDTH_PX / 2;
-		barStyle = {
-			transform: `translateX(${edgeBarLeftPx - barCenterLeftPx}px)`,
-		};
-	}
-
 	const dynamicStyles = {
 		left: `${left}px`,
 		width: `${width}px`,
@@ -218,6 +199,7 @@ const DividerSegmentImpl: FC<DividerSegmentProps> = ({
 				styles.divider,
 				isTouching && styles.touching,
 				isLineStartHandle && styles.lineStart,
+				lineTimed && styles.lineTimed,
 				lineEndRole && lineEndRoleClass[lineEndRole],
 			)}
 			aria-label={ariaLabel}
