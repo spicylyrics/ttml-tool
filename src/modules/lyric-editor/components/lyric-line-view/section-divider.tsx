@@ -127,9 +127,56 @@ export function SectionDivider({
 	return <SectionRow section={section} headerColor={headerColor} />;
 }
 
+/** Folds a section, or a stretch of lines outside any section, down to its divider. */
+function CollapseToggle({ collapseKey }: { collapseKey: string }) {
+	const { t } = useTranslation();
+	const [collapsed, setCollapsed] = useAtom(collapsedSectionIdsAtom);
+	const isCollapsed = collapsed.has(collapseKey);
+	const toggle = () =>
+		setCollapsed((current) => {
+			const next = new Set(current);
+			if (next.has(collapseKey)) next.delete(collapseKey);
+			else next.add(collapseKey);
+			return next;
+		});
+	return (
+		<IconButton
+			size="1"
+			variant="ghost"
+			color="gray"
+			className={styles.chevron}
+			aria-expanded={!isCollapsed}
+			aria-label={
+				isCollapsed
+					? t("sectionActions.expand", "Expand section")
+					: t("sectionActions.collapse", "Collapse section")
+			}
+			onClick={toggle}
+		>
+			{isCollapsed ? <ChevronRight16Regular /> : <ChevronDown16Regular />}
+		</IconButton>
+	);
+}
+
 /** Marks where lines outside any section begin. In Edit mode, click to start one there. */
 function UnsectionedRow({ lineIndex }: { lineIndex: number }) {
 	const { t } = useTranslation();
+	const lineIdAtom = useMemo(
+		() => atom((get) => get(lyricLinesAtom).lyricLines[lineIndex]?.id),
+		[lineIndex],
+	);
+	const lineId = useAtomValue(lineIdAtom);
+	const lineCountAtom = useMemo(
+		() =>
+			atom((get) => {
+				const lines = get(lyricLinesAtom).lyricLines;
+				let end = lineIndex;
+				while (end < lines.length && !lines[end].sectionId) end++;
+				return end - lineIndex;
+			}),
+		[lineIndex],
+	);
+	const lineCount = useAtomValue(lineCountAtom);
 	const toolMode = useAtomValue(toolModeAtom);
 	const editLyrics = useSetImmerAtom(lyricLinesAtom);
 	const setEditingId = useSetAtom(editingSectionIdAtom);
@@ -145,7 +192,11 @@ function UnsectionedRow({ lineIndex }: { lineIndex: number }) {
 			className={styles.divider}
 			onContextMenu={(event) => event.preventDefault()}
 		>
-			<span className={styles.chevronSpace} />
+			{lineId ? (
+				<CollapseToggle collapseKey={`unsectioned:${lineId}`} />
+			) : (
+				<span className={styles.chevronSpace} />
+			)}
 			<SectionPill
 				size="1"
 				category={undefined}
@@ -159,6 +210,13 @@ function UnsectionedRow({ lineIndex }: { lineIndex: number }) {
 			>
 				{t("sectionEditing.noSection", "No section")}
 			</SectionPill>
+			<span className={styles.meta}>
+				{t(
+					"sectionImportReview.lineCount",
+					"{count, plural, one {# lyric line} other {# lyric lines}}",
+					{ count: lineCount },
+				)}
+			</span>
 			<span className={styles.rule} aria-hidden />
 		</div>
 	);
@@ -174,10 +232,8 @@ function SectionRow({
 	const { t } = useTranslation();
 	const store = useStore();
 	const toolMode = useAtomValue(toolModeAtom);
-	const [collapsed, setCollapsed] = useAtom(collapsedSectionIdsAtom);
 	const [editingId, setEditingId] = useAtom(editingSectionIdAtom);
 	const editing = editingId === section.id;
-	const isCollapsed = collapsed.has(section.id);
 	const lineCountAtom = useMemo(
 		() =>
 			atom((get) => {
@@ -191,14 +247,6 @@ function SectionRow({
 	);
 	const lineCount = useAtomValue(lineCountAtom);
 	const actions = useSectionActions(section.id);
-
-	const toggleCollapsed = () =>
-		setCollapsed((current) => {
-			const next = new Set(current);
-			if (next.has(section.id)) next.delete(section.id);
-			else next.add(section.id);
-			return next;
-		});
 
 	// A click on the row itself (not its controls) selects the section's lines.
 	const selectSection = (event: React.MouseEvent) => {
@@ -225,21 +273,7 @@ function SectionRow({
 					data-draggable={toolMode === ToolMode.Edit || undefined}
 					onClick={selectSection}
 				>
-					<IconButton
-						size="1"
-						variant="ghost"
-						color="gray"
-						className={styles.chevron}
-						aria-expanded={!isCollapsed}
-						aria-label={
-							isCollapsed
-								? t("sectionActions.expand", "Expand section")
-								: t("sectionActions.collapse", "Collapse section")
-						}
-						onClick={toggleCollapsed}
-					>
-						{isCollapsed ? <ChevronRight16Regular /> : <ChevronDown16Regular />}
-					</IconButton>
+					<CollapseToggle collapseKey={section.id} />
 					{editing ? (
 						<SectionLabelEditor
 							section={section}

@@ -176,6 +176,22 @@ export function migrateLegacySections(lyrics: TTMLLyric): TTMLLyric {
 	return lyrics;
 }
 
+/**
+ * What collapses together with this line: its section, or for lines outside
+ * any section, the stretch of them it belongs to (named by its first line).
+ */
+export function collapseKey(
+	lines: readonly Pick<LyricLine, "id" | "sectionId">[],
+	index: number,
+): string | undefined {
+	const line = lines[index];
+	if (!line) return undefined;
+	if (line.sectionId) return line.sectionId;
+	let start = index;
+	while (start > 0 && !lines[start - 1].sectionId) start--;
+	return `unsectioned:${lines[start].id}`;
+}
+
 export function getSectionBoundsById(lines: LyricLine[], sectionId: string) {
 	const start = lines.findIndex((line) => line.sectionId === sectionId);
 	if (start === -1) return undefined;

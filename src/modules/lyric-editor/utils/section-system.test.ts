@@ -3,6 +3,7 @@ import { newLyricLine, newLyricWord, type TTMLLyric } from "$/types/ttml";
 import {
 	applyReviewedSections,
 	assignHighConfidenceRepeatGroups,
+	collapseKey,
 	createSectionsFromSelectedLines,
 	duplicateLinesWithSections,
 	getOrderedSections,
@@ -307,5 +308,25 @@ describe("editing lines inside a section", () => {
 		);
 		expect(lyrics.lyricLines[3].sectionId).toBeUndefined();
 		expect(lyrics.sections).toHaveLength(2);
+	});
+});
+
+describe("collapseKey", () => {
+	it("keys a line by its section, or by the first line of its unsectioned stretch", () => {
+		const lines = [
+			{ id: "a", sectionId: "verse" },
+			{ id: "b" },
+			{ id: "c" },
+			{ id: "d", sectionId: "chorus" },
+			{ id: "e" },
+		];
+		expect(lines.map((_, index) => collapseKey(lines, index))).toEqual([
+			"verse",
+			"unsectioned:b",
+			"unsectioned:b",
+			"chorus",
+			"unsectioned:e",
+		]);
+		expect(collapseKey(lines, 9)).toBeUndefined();
 	});
 });

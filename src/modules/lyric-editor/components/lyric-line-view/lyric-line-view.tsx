@@ -87,13 +87,12 @@ export const LyricLineView: FC<{
 		setSelectedLines,
 		setSelectedWords,
 	});
-	const sectionId = line.sectionId;
+	// A stretch outside any section is keyed by its first line, and when it's
+	// collapsed only that line is in the list, so its own id is enough here.
+	const collapseKey = line.sectionId ?? `unsectioned:${line.id}`;
 	const collapsedAtom = useMemo(
-		() =>
-			atom((get) =>
-				sectionId ? get(collapsedSectionIdsAtom).has(sectionId) : false,
-			),
-		[sectionId],
+		() => atom((get) => get(collapsedSectionIdsAtom).has(collapseKey)),
+		[collapseKey],
 	);
 	const collapsed = useAtomValue(collapsedAtom);
 
