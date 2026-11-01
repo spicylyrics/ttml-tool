@@ -22,6 +22,7 @@ import {
 } from "../../../utils/apostrophe-normalization.ts";
 import { log } from "../../../utils/logging.ts";
 import { msToTimestamp } from "../../../utils/timestamp.ts";
+import { getTimingMode } from "../../line-sync/timing-mode.ts";
 
 export function shouldExportAsLineSynced(line: LyricLine): boolean {
 	if (!line.isLineSynced) return false;
@@ -138,24 +139,18 @@ export default function exportTTMLText(
 		"http://music.apple.com/lyric-ttml-internal",
 	);
 
-	// Determine itunes:timing mode for Spicylyrics compatibility
-	// Word = at least one line has 2+ non-blank words (dynamic/per-word timing)
-	// Line = has lyric lines but every line has 0 or 1 non-blank word
-	// None = no timed words at all
-	const nonBlankWordCountsPerLine = lyric.map(
-		(l) => l.words.filter((w) => w.word.trim().length > 0).length,
+	// itunes:timing follows the song's timing mode, so Spicy Lyrics reads it the
+	// way it was timed. None only when nothing is timed at all.
+	const hasAnyTiming = lyric.some(
+		(l) =>
+			l.endTime > l.startTime ||
+			l.words.some((w) => w.word.trim().length > 0 && w.endTime > w.startTime),
 	);
-	const totalNonBlankWords = nonBlankWordCountsPerLine.reduce(
-		(sum, v) => sum + v,
-		0,
-	);
-	const hasAnyTiming = lyric.some((l) =>
-		l.words.some((w) => w.word.trim().length > 0 && w.endTime > w.startTime),
-	);
-	let timingMode: "Word" | "Line" | "None";
-	if (totalNonBlankWords === 0 || !hasAnyTiming) timingMode = "None";
-	else if (nonBlankWordCountsPerLine.some((c) => c > 1)) timingMode = "Word";
-	else timingMode = "Line";
+	const timingMode = !hasAnyTiming
+		? "None"
+		: getTimingMode(ttmlLyric) === "line"
+			? "Line"
+			: "Word";
 	ttRoot.setAttribute("itunes:timing", timingMode);
 
 	doc.appendChild(ttRoot);

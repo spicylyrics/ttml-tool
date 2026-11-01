@@ -148,6 +148,32 @@ describe("line-timed files from elsewhere", () => {
 	});
 });
 
+describe("itunes:timing follows the timing mode", () => {
+	it("writes Word for a Word-mode song whose lines are one word each", () => {
+		const oneWordLines: TTMLLyric = {
+			metadata: [],
+			lyricLines: [
+				line([word("Hey", 1000, 1500)], 1000, 1500),
+				line([word("You", 2000, 2500)], 2000, 2500),
+			],
+		};
+		const xml = exportTTMLText(oneWordLines);
+		expect(xml).toContain('itunes:timing="Word"');
+		expect(parseLyric(xml).timingMode).toBeUndefined();
+	});
+
+	it("writes None when nothing is timed", () => {
+		const untimed: TTMLLyric = {
+			metadata: [],
+			lyricLines: [line([word("Hey")], 0, 0)],
+		};
+		expect(exportTTMLText(untimed)).toContain('itunes:timing="None"');
+		expect(exportTTMLText(switchToLineMode(untimed))).toContain(
+			'itunes:timing="None"',
+		);
+	});
+});
+
 describe("projects without a timing mode", () => {
 	it("load as Word mode and export exactly as before", () => {
 		const xml = exportTTMLText(wordTimed);
