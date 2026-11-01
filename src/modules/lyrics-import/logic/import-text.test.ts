@@ -74,6 +74,11 @@ describe("unified import parsing", () => {
 		).toBe(false);
 	});
 
+	it("keeps hyphenated words whole unless Process lyrics marked the split", () => {
+		expect(words("Mm-hmm, la-la")).toEqual([["Mm-hmm, la-la"]]);
+		expect(words("Mm-\\hmm")).toEqual([["Mm-", "hmm"]]);
+	});
+
 	it("reads Genius text after Process lyrics the way the old online import did", () => {
 		expect(words(prepareTextImport("Hello world (oh)", true))).toEqual([
 			["Hello", " ", "world"],
