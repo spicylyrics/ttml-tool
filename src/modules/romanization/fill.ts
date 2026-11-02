@@ -42,11 +42,20 @@ export function mergeLineRomanization(
 	line: LyricLine,
 	romanWords: Record<string, string>,
 	mode: ExistingMode,
+	/** The line as a pasted page writes it, used when every word is new. */
+	pageLine?: string,
 ): LineRomanization | undefined {
+	let keptOld = false;
 	const merged = line.words.map((word) => {
 		const next = romanWords[word.id];
-		if (next === undefined || !next.trim()) return word;
-		if (mode === "fillEmpty" && hasRomanization(word.romanWord)) return word;
+		if (next === undefined || !next.trim()) {
+			if (hasRomanization(word.romanWord)) keptOld = true;
+			return word;
+		}
+		if (mode === "fillEmpty" && hasRomanization(word.romanWord)) {
+			keptOld = true;
+			return word;
+		}
 		return { ...word, romanWord: next };
 	});
 	if (merged.every((word, index) => word === line.words[index])) return;
@@ -55,7 +64,8 @@ export function mergeLineRomanization(
 		romanWords: Object.fromEntries(
 			merged.map((word) => [word.id, word.romanWord]),
 		),
-		romanLyric: lineRomanizationFromWords(merged),
+		romanLyric:
+			pageLine && !keptOld ? pageLine : lineRomanizationFromWords(merged),
 	};
 }
 

@@ -1,4 +1,10 @@
-import { ErrorCircle16Regular } from "@fluentui/react-icons";
+import {
+	ChevronRight16Regular,
+	DocumentText20Regular,
+	ErrorCircle16Regular,
+	LocalLanguage16Regular,
+	Sparkle20Regular,
+} from "@fluentui/react-icons";
 import {
 	Button,
 	Dialog,
@@ -12,7 +18,7 @@ import { useSetImmerAtom } from "jotai-immer";
 import { memo, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { ChoiceList } from "$/components/ChoiceList";
+import { ChoiceTiles } from "$/components/ChoiceTiles";
 import { OptionPicker } from "$/components/OptionPicker";
 import {
 	lyricLinesAtom,
@@ -83,6 +89,7 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 	const [pasted, setPasted] = useState("");
 	const [problem, setProblem] = useState("");
 	const [busy, setBusy] = useState(false);
+	const [optionsOpen, setOptionsOpen] = useState(false);
 
 	const selectedLineIds = useMemo(() => {
 		const ids = new Set(selectedLines);
@@ -192,7 +199,13 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 		const updates = result.lines.flatMap((aligned) => {
 			const line = byId.get(aligned.lineId);
 			const update =
-				line && mergeLineRomanization(line, aligned.romanWords, mode);
+				line &&
+				mergeLineRomanization(
+					line,
+					aligned.romanWords,
+					mode,
+					aligned.romanLine,
+				);
 			return update ? [update] : [];
 		});
 		apply(updates);
@@ -223,6 +236,14 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 		"{count, plural, one {# word already has romanization} other {# words already have romanization}}",
 		{ count: existingInTargets },
 	);
+	const scopeName =
+		scope === "selection" && selectedLineIds.size > 0
+			? t(
+					"romanizationPanel.scopeSelection",
+					"{count, plural, one {# selected line} other {# selected lines}}",
+					{ count: selectedLineIds.size },
+				)
+			: t("romanizationPanel.scopeSong", "Whole song");
 	const nothingToRomanize = romanizable.length === 0;
 	const canRun =
 		!busy &&
@@ -232,158 +253,178 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 
 	return (
 		<>
-			<Dialog.Title>
-				{t("romanizationPanel.title", "Romanization")}
-			</Dialog.Title>
-			<Dialog.Description size="2" color="gray" mb="4">
-				{t(
-					"romanizationPanel.description",
-					"Spicy Lyrics shows romanization under each word. Fill it automatically or from a romanized lyric page, then fix anything odd by hand.",
+			<Flex justify="between" align="center" gap="4">
+				<Dialog.Title mb="0" trim="normal">
+					{t("romanizationPanel.title", "Romanization")}
+				</Dialog.Title>
+				{!nothingToRomanize && (
+					<Text size="2" color="gray" className={styles.count}>
+						{t(
+							"romanizationPanel.coverage",
+							"{romanized} of {total} lines romanized",
+							{ romanized: romanizedCount, total: romanizable.length },
+						)}
+					</Text>
 				)}
+			</Flex>
+			{!nothingToRomanize && (
+				<div
+					className={styles.track}
+					role="meter"
+					aria-valuemin={0}
+					aria-valuemax={romanizable.length}
+					aria-valuenow={romanizedCount}
+					aria-label={t("romanizationPanel.coverageLabel", "Lines romanized")}
+				>
+					<div
+						className={styles.fill}
+						style={{
+							transform: `scaleX(${romanizedCount / romanizable.length})`,
+						}}
+					/>
+				</div>
+			)}
+			<Dialog.Description size="2" color="gray" mt="3" mb="4">
+				{nothingToRomanize
+					? t(
+							"romanizationPanel.empty",
+							"Nothing to romanize. Romanization works for Japanese, Chinese, Cantonese, Korean, Cyrillic and Greek lyrics.",
+						)
+					: t(
+							"romanizationPanel.description",
+							"Fills the romanization Spicy Lyrics shows under each word.",
+						)}
 			</Dialog.Description>
 
 			<Flex direction="column" gap="4">
-				{nothingToRomanize ? (
-					<div className={styles.coverage}>
-						<Text size="2">
-							{t(
-								"romanizationPanel.empty",
-								"Nothing to romanize. Romanization works for Japanese, Chinese, Cantonese, Korean, Cyrillic and Greek lyrics.",
-							)}
-						</Text>
-					</div>
-				) : (
-					<div className={styles.coverage}>
-						<Flex justify="between" align="baseline" gap="3">
-							<Text size="3" weight="medium" className={styles.count}>
-								{t(
-									"romanizationPanel.coverage",
-									"{romanized} of {total} lines romanized",
-									{ romanized: romanizedCount, total: romanizable.length },
-								)}
-							</Text>
-							{songLanguage && (
-								<Text size="2" color="gray">
-									{languageName(songLanguage)}
-								</Text>
-							)}
-						</Flex>
-						<div
-							className={styles.track}
-							role="meter"
-							aria-valuemin={0}
-							aria-valuemax={romanizable.length}
-							aria-valuenow={romanizedCount}
-							aria-label={t(
-								"romanizationPanel.coverageLabel",
-								"Lines romanized",
-							)}
-						>
-							<div
-								className={styles.fill}
-								style={{
-									transform: `scaleX(${romanizedCount / romanizable.length})`,
-								}}
-							/>
-						</div>
-					</div>
-				)}
-
-				<div className={styles.field}>
-					<Text size="2" as="div">
-						{sourceLabel}
-					</Text>
-					<OptionPicker<Source>
-						variant="segmented"
-						fullWidth
-						size="2"
-						label={sourceLabel}
-						value={source}
-						onValueChange={(value) => {
-							setSource(value);
-							setProblem("");
-						}}
-						options={[
-							{
-								value: "auto",
-								label: t("romanizationPanel.sourceAuto", "Automatic"),
-							},
-							{
-								value: "paste",
-								label: t("romanizationPanel.sourcePaste", "From a lyric page"),
-							},
-						]}
-					/>
-				</div>
+				<ChoiceTiles<Source>
+					label={sourceLabel}
+					value={source}
+					onValueChange={(value) => {
+						setSource(value);
+						setProblem("");
+					}}
+					choices={[
+						{
+							value: "auto",
+							icon: <Sparkle20Regular />,
+							title: t("romanizationPanel.sourceAuto", "Automatic"),
+							detail: t("romanizationPanel.sourceAutoDetail", "On this device"),
+						},
+						{
+							value: "paste",
+							icon: <DocumentText20Regular />,
+							title: t("romanizationPanel.sourcePaste", "From a lyric page"),
+							detail: t(
+								"romanizationPanel.sourcePasteDetail",
+								"Genius or any romanized page",
+							),
+						},
+					]}
+				/>
 
 				{source === "auto" ? (
-					<>
-						<div className={styles.field}>
-							<Text size="2" as="div">
-								{languageLabel}
+					<Flex direction="column" gap="3">
+						<button
+							type="button"
+							className={styles.disclosure}
+							aria-expanded={optionsOpen}
+							onClick={() => setOptionsOpen(!optionsOpen)}
+						>
+							<ChevronRight16Regular className={styles.chevron} />
+							<Text size="2" weight="medium">
+								{t("romanizationPanel.options", "Options")}
 							</Text>
-							<div className={styles.start}>
-								<OptionPicker<RomanizationLanguage>
-									size="2"
-									label={languageLabel}
-									value={language}
-									onValueChange={setLanguage}
-									options={[
+							{!optionsOpen && songLanguage && (
+								<Text size="2" color="gray" truncate>
+									{t(
+										"romanizationPanel.optionsSummary",
+										"{language}, {lines}",
 										{
-											value: "auto",
-											label: t("common.autoDetect", "Auto-detect"),
-											description: detected
-												? t(
-														"romanizationPanel.detected",
-														"Detected: {language}. Lines in another script still use their own.",
-														{ language: languageName(detected) },
-													)
-												: undefined,
+											language: languageName(songLanguage),
+											lines: scopeName,
 										},
-										...(
-											["ja", "zh", "yue", "ko", "cyrillic", "greek"] as const
-										).map((value) => ({
-											value,
-											label: languageName(value),
-										})),
-									]}
-								/>
-							</div>
-						</div>
-						<div className={styles.field}>
-							<Text size="2" as="div">
-								{scopeLabel}
-							</Text>
-							<OptionPicker<Scope>
-								variant="segmented"
-								fullWidth
-								size="2"
-								label={scopeLabel}
-								value={scope}
-								onValueChange={setScope}
-								options={[
-									{
-										value: "song",
-										label: t("romanizationPanel.scopeSong", "Whole song"),
-									},
-									...(selectedLineIds.size > 0
-										? [
+									)}
+								</Text>
+							)}
+						</button>
+						{optionsOpen && (
+							<div className={styles.options}>
+								<div className={styles.field}>
+									<Text size="2" as="div" color="gray">
+										{languageLabel}
+									</Text>
+									<div className={styles.start}>
+										<OptionPicker<RomanizationLanguage>
+											size="2"
+											label={languageLabel}
+											value={language}
+											onValueChange={setLanguage}
+											options={[
 												{
-													value: "selection" as const,
-													label: t(
-														"romanizationPanel.scopeSelection",
-														"{count, plural, one {# selected line} other {# selected lines}}",
-														{ count: selectedLineIds.size },
-													),
+													value: "auto",
+													label: t("common.autoDetect", "Auto-detect"),
+													description: detected
+														? t(
+																"romanizationPanel.detected",
+																"Detected: {language}. Lines in another script still use their own.",
+																{ language: languageName(detected) },
+															)
+														: undefined,
 												},
-											]
-										: []),
-								]}
-							/>
-						</div>
-					</>
+												...(
+													[
+														"ja",
+														"zh",
+														"yue",
+														"ko",
+														"cyrillic",
+														"greek",
+													] as const
+												).map((value) => ({
+													value,
+													label: languageName(value),
+												})),
+											]}
+										/>
+									</div>
+								</div>
+								<div className={styles.field}>
+									<Text size="2" as="div" color="gray">
+										{scopeLabel}
+									</Text>
+									<OptionPicker<Scope>
+										variant="segmented"
+										fullWidth
+										size="2"
+										label={scopeLabel}
+										value={scope}
+										onValueChange={setScope}
+										options={[
+											{
+												value: "song",
+												label: t("romanizationPanel.scopeSong", "Whole song"),
+											},
+											...(selectedLineIds.size > 0
+												? [
+														{
+															value: "selection" as const,
+															label: t(
+																"romanizationPanel.scopeSelection",
+																"{count, plural, one {# selected line} other {# selected lines}}",
+																{ count: selectedLineIds.size },
+															),
+														},
+													]
+												: []),
+										]}
+									/>
+								</div>
+							</div>
+						)}
+					</Flex>
 				) : (
-					<Flex direction="column" gap="2">
+					<Flex direction="column" gap="3">
 						<GeniusRomanizedFinder
 							onLyrics={(lyrics) => {
 								setPasted(lyrics);
@@ -404,43 +445,34 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 								"romanizationPanel.pasteLabel",
 								"Romanized lyric page",
 							)}
-							rows={10}
+							rows={6}
 						/>
 					</Flex>
 				)}
 
 				{existingInTargets > 0 && (
-					<Flex direction="column" gap="2">
-						<Text size="2" weight="medium">
+					<div className={styles.existing}>
+						<Text size="2" color="gray">
 							{existingLabel}
 						</Text>
-						<ChoiceList<ExistingMode>
+						<OptionPicker<ExistingMode>
+							variant="segmented"
+							size="1"
 							label={existingLabel}
 							value={mode}
 							onValueChange={setMode}
-							choices={[
+							options={[
 								{
 									value: "fillEmpty",
-									title: t(
-										"romanizationPanel.fillEmpty",
-										"Fill empty words only",
-									),
-									detail: t(
-										"romanizationPanel.fillEmptyDesc",
-										"Words you already romanized stay as they are",
-									),
+									label: t("romanizationPanel.keepExisting", "Keep them"),
 								},
 								{
 									value: "replace",
-									title: t("romanizationPanel.replace", "Replace all"),
-									detail: t(
-										"romanizationPanel.replaceDesc",
-										"Every word gets new romanization",
-									),
+									label: t("romanizationPanel.replace", "Replace all"),
 								},
 							]}
 						/>
-					</Flex>
+					</div>
 				)}
 
 				{busy && targets.some((line) => lineIsJapanese(line, songLanguage)) && (
@@ -475,7 +507,7 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 						source === "paste" ? romanizeFromPage : romanizeAutomatically
 					}
 				>
-					{busy && <Spinner size="1" />}
+					{busy ? <Spinner size="1" /> : <LocalLanguage16Regular aria-hidden />}
 					{source === "paste"
 						? t("romanizationPanel.runPaste", "Romanize from page")
 						: t(

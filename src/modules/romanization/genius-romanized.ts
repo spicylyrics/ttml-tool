@@ -5,7 +5,9 @@ import type { GeniusSearchHit } from "$/modules/genius/types";
 export const GENIUS_ROMANIZATIONS_ARTIST = "Genius Romanizations";
 
 const ROMANIZED_MARKER = /\b(romani[sz]ed|romaji|rōmaji)\b/i;
-const MAX_CANDIDATES = 8;
+const MAX_CANDIDATES = 5;
+/** How well a page's title must match one of the song's titles to show. */
+const MIN_TITLE_MATCH = 0.75;
 
 type HitResult = Pick<
 	GeniusSearchHit["result"],
@@ -31,11 +33,17 @@ export interface RomanizedCandidate {
 	score: number;
 }
 
-/** Lowercase, width-folded text with only letters, digits and single spaces. */
+/**
+ * Lowercase, width-folded text with only letters, digits and single spaces.
+ * Hiragana reads as katakana, since pages mix them (やラララ, ヤラララ).
+ */
 export function normalizeForMatch(text: string): string {
 	return text
 		.normalize("NFKC")
 		.toLowerCase()
+		.replace(/[\u3041-\u3096]/g, (char) =>
+			String.fromCharCode(char.charCodeAt(0) + 0x60),
+		)
 		.replace(/[^\p{L}\p{N}]+/gu, " ")
 		.trim();
 }
@@ -54,18 +62,40 @@ function tokenOverlap(wanted: string, text: string): number {
 	);
 }
 
+/**
+ * The ways a title may be written: as given, and its parts in and out of
+ * parentheses, since a project's "ヤラララ(YARARARA)" may be "やラララ" or
+ * "YARARARA" on Genius.
+ */
+export function titleVariants(title: string): string[] {
+	const whole = title.trim();
+	const outside = whole.replace(/[(（[【][^)）\]】]*[)）\]】]/g, " ").trim();
+	const inside = [...whole.matchAll(/[(（[【]([^)）\]】]*)[)）\]】]/g)]
+		.map((match) => match[1].trim())
+		.filter((part) => !/^(feat|ft)\b/i.test(part));
+	return [...new Set([whole, outside, ...inside])].filter(
+		(variant) => normalizeForMatch(variant).length > 0,
+	);
+}
+
+/** How well a page's title matches the song's: 1 when one title is in it. */
+function titleMatch(hit: HitResult, song: RomanizedSong): number {
+	const haystack = normalizeForMatch(hit.full_title);
+	return Math.max(
+		0,
+		...titleVariants(song.title).map((variant) =>
+			haystack.includes(normalizeForMatch(variant))
+				? 1
+				: tokenOverlap(variant, haystack),
+		),
+	);
+}
+
 function scoreHit(hit: HitResult, song: RomanizedSong): number {
 	const official = hit.primary_artist?.name === GENIUS_ROMANIZATIONS_ARTIST;
 	const haystack = normalizeForMatch(`${hit.full_title} ${hit.artist_names}`);
-	const title = normalizeForMatch(song.title);
 	const artist = normalizeForMatch(song.artist);
-
-	let score = official ? 2 : 0;
-	if (title) {
-		score += haystack.includes(title)
-			? 4
-			: 3 * tokenOverlap(song.title, haystack);
-	}
+	let score = (official ? 2 : 0) + 4 * titleMatch(hit, song);
 	if (artist) {
 		score += haystack.includes(artist)
 			? 2
@@ -76,19 +106,18 @@ function scoreHit(hit: HitResult, song: RomanizedSong): number {
 
 /** Search queries for a song's romanized page, most specific first. */
 export function buildRomanizedQueries(song: RomanizedSong): string[] {
-	const title = song.title.trim();
 	const artist = song.artist.trim();
-	const queries = [
+	const queries = titleVariants(song.title).flatMap((title) => [
 		[artist, title, "romanized"].filter(Boolean).join(" "),
-		[title, "romanized"].filter(Boolean).join(" "),
-	];
-	return [...new Set(queries)].filter((query) => query !== "romanized");
+		[title, "romanized"].join(" "),
+	]);
+	return [...new Set(queries)];
 }
 
 /**
  * Keeps only romanized pages (a "Romanized" marker in the title, or the
- * Genius Romanizations account) and orders them by how well the title and
- * artist match the song. Search order breaks ties.
+ * Genius Romanizations account) whose title matches the song, and orders
+ * them by how well the title and artist match. Search order breaks ties.
  */
 export function rankRomanizedCandidates(
 	hits: readonly HitResult[],
@@ -101,6 +130,7 @@ export function rankRomanizedCandidates(
 		seen.add(hit.id);
 		const official = hit.primary_artist?.name === GENIUS_ROMANIZATIONS_ARTIST;
 		if (!official && !ROMANIZED_MARKER.test(hit.full_title)) continue;
+		if (titleMatch(hit, song) < MIN_TITLE_MATCH) continue;
 		ranked.push({
 			id: hit.id,
 			title: hit.title,

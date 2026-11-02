@@ -62,9 +62,9 @@ describe("romanized page alignment", () => {
 		});
 	});
 
-	it("keeps capitals, macrons and apostrophes from the page", () => {
+	it("keeps capitals, macrons, apostrophes and punctuation from the page", () => {
 		expect(align("Kon'ya, Tōkyō de", "今夜", "東京", "で")).toEqual({
-			romanWords: ["Kon'ya ", "Tōkyō ", "de"],
+			romanWords: ["Kon'ya, ", "Tōkyō ", "de"],
 			uncertain: false,
 		});
 	});
@@ -75,9 +75,9 @@ describe("romanized page alignment", () => {
 		expect(result.uncertain).toBe(true);
 	});
 
-	it("keeps Latin words and skips spaces and punctuation", () => {
+	it("keeps Latin words and skips spaces", () => {
 		expect(align("Oh yeah, hashiru", "Oh ", "yeah, ", "走", "る")).toEqual({
-			romanWords: ["Oh ", "yeah ", "hashi", "ru"],
+			romanWords: ["Oh ", "yeah, ", "hashi", "ru"],
 			uncertain: false,
 		});
 		expect(align("a i", "あ", " ", "い").romanWords).toEqual(["a ", "", "i"]);
@@ -93,11 +93,11 @@ describe("romanized page alignment", () => {
 			align("nande sonna koto", "なんで", "ｿﾝﾅ", "こと").romanWords,
 		).toEqual(["nande ", "sonna ", "koto"]);
 		expect(align("Hee, taishita", "へー、", "大した")).toEqual({
-			romanWords: ["Hee ", "taishita"],
+			romanWords: ["Hee, ", "taishita"],
 			uncertain: false,
 		});
 		expect(align("Se, no", "せ", "ー、", "の").romanWords).toEqual([
-			"Se ",
+			"Se, ",
 			"",
 			"no",
 		]);
@@ -140,8 +140,23 @@ describe("romanized page alignment", () => {
 
 	it("turns look-alike Cyrillic letters into Latin", () => {
 		const result = align("Ima, koе ga", "今、", "声", "が");
-		expect(result.romanWords).toEqual(["Ima ", "koe ", "ga"]);
+		expect(result.romanWords).toEqual(["Ima, ", "koe ", "ga"]);
 		expect(result.romanWords.join("")).toMatch(/^[\x20-\x7e]*$/);
+	});
+
+	it("keeps the page's quotes, commas and question marks on the words", () => {
+		expect(
+			align(
+				'"Oi, nande sonna koto yatte n no?"',
+				"「おい、",
+				"なんで",
+				"ｿﾝﾅ",
+				"こと",
+				"やっ",
+				"てん",
+				"の？」",
+			).romanWords,
+		).toEqual(['"Oi, ', "nande ", "sonna ", "koto ", "yat", "ten ", 'no?"']);
 	});
 });
 
@@ -195,6 +210,18 @@ describe("romanized page lines", () => {
 		).toEqual([["Kimi ", "no ", "namae ", "wo ", "yonde ", "ita"]]);
 	});
 
+	it("gives each line the page's own text for it", () => {
+		const result = alignRomanizedPage(
+			[line("「無駄", "な", "こと"), line("抜かしてん", "だ", "か？")],
+			'"Mudana koto\nnukashite nda ka?"',
+		);
+		if (!result.ok) throw new Error("expected a match");
+		expect(result.lines.map((aligned) => aligned.romanLine)).toEqual([
+			'"Mudana koto',
+			'nukashite nda ka?"',
+		]);
+	});
+
 	it("skips a line only the page has", () => {
 		const lines = [line("君", "の"), line("僕", "は")];
 		expect(
@@ -233,8 +260,10 @@ describe("romanized page lines", () => {
 		).toEqual({ ok: false, reason: "mismatch" });
 		// A kanji-heavy page split by sound is mostly guesses, but still fills.
 		expect(
-			alignRomanizedPage([line("千", "里", "眼", "を", "持", "つ")], "Senrigan wo motsu")
-				.ok,
+			alignRomanizedPage(
+				[line("千", "里", "眼", "を", "持", "つ")],
+				"Senrigan wo motsu",
+			).ok,
 		).toBe(true);
 	});
 

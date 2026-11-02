@@ -1,4 +1,8 @@
-import { ErrorCircle16Regular, Search16Regular } from "@fluentui/react-icons";
+import {
+	DocumentText16Regular,
+	ErrorCircle16Regular,
+	Search16Regular,
+} from "@fluentui/react-icons";
 import { Button, Flex, Spinner, Text, TextField } from "@radix-ui/themes";
 import { useAtom, useStore } from "jotai";
 import { useState } from "react";
@@ -6,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
 import { lyricLinesAtom } from "$/states/main";
 import { getGeniusKeyGuideUrl } from "$/utils/genius-guide";
+import styles from "./GeniusRomanizedFinder.module.css";
 import {
 	fetchRomanizedLyrics,
 	findRomanizedCandidates,
@@ -142,17 +147,13 @@ export function GeniusRomanizedFinder({
 					onKeyDown={(event) => event.key === "Enter" && search()}
 					placeholder={titleLabel}
 					aria-label={titleLabel}
-				>
-					<TextField.Slot>
-						<Search16Regular />
-					</TextField.Slot>
-				</TextField.Root>
+				></TextField.Root>
 				<Button
 					variant="soft"
 					onClick={search}
 					disabled={searching || !title.trim()}
 				>
-					{searching && <Spinner size="1" />}
+					{searching ? <Spinner size="1" /> : <Search16Regular aria-hidden />}
 					{t("romanizationPanel.geniusFind", "Find on Genius")}
 				</Button>
 			</Flex>
@@ -165,28 +166,24 @@ export function GeniusRomanizedFinder({
 				</Text>
 			)}
 			{candidates && candidates.length > 0 && (
-				<Flex direction="column" gap="1">
+				<div className={styles.results}>
 					{candidates.map((candidate) => (
-						<Button
+						<button
+							type="button"
 							key={candidate.id}
-							variant="ghost"
-							color="gray"
-							style={{ justifyContent: "flex-start", height: "auto" }}
+							className={styles.result}
 							onClick={() => pick(candidate)}
 							disabled={loadingId !== null}
 						>
-							<Flex direction="column" align="start" minWidth="0" py="1">
-								<Text size="2" weight="medium" truncate>
-									{candidate.title}
-								</Text>
-								<Text size="1" color="gray" truncate>
-									{candidate.artist}
-								</Text>
-							</Flex>
+							<DocumentText16Regular aria-hidden />
+							<span className={styles.text}>
+								<span className={styles.title}>{candidate.title}</span>
+								<span className={styles.detail}>{candidate.artist}</span>
+							</span>
 							{loadingId === candidate.id && <Spinner size="1" />}
-						</Button>
+						</button>
 					))}
-				</Flex>
+				</div>
 			)}
 			{problem && (
 				<Flex gap="2" align="start" role="alert">

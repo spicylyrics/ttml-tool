@@ -20,6 +20,8 @@ export interface AlignedLine {
 	romanWords: Record<string, string>;
 	/** True when some word's share was guessed (kanji runs, or no match). */
 	uncertain: boolean;
+	/** The line as the page writes it, spacing and punctuation included. */
+	romanLine: string;
 }
 
 export type RomanizedAlignment =
@@ -277,29 +279,63 @@ function shareKanjiRun(run: string, chunks: number[], count: number) {
 }
 
 /**
- * Cuts the original text at the normalized ranges, so capitals, macrons and
- * apostrophes survive. A word runs from its first letter up to the next
- * letter after its range; punctuation at its edges is dropped, and a space
- * after it becomes a trailing space, which is how a word gap is stored.
+ * Cuts the original text at the normalized ranges, so capitals, macrons,
+ * apostrophes and punctuation survive the way the page writes them: a word
+ * takes the punctuation right before it ("Oi,) and right after it (no?"), and
+ * a space after it becomes a trailing space, which is how a word gap is
+ * stored. A lone "n" the page sets apart (yatte n no) stays in its word.
  */
 function sliceOriginal(
 	original: string,
 	sources: number[],
 	ranges: Array<[number, number] | undefined>,
-): string[] {
-	const filled = ranges.map((range) => !!range && range[1] > range[0]);
-	return ranges.map((range, index) => {
-		if (!range || !filled[index]) return "";
-		const [start, end] = range;
-		const span = original.slice(
-			sources[start],
-			end < sources.length ? sources[end] : original.length,
+): {
+	romanWords: string[];
+	spans: Array<[number, number] | undefined>;
+} {
+	const filled = ranges.flatMap((range, index) =>
+		range && range[1] > range[0] ? [index] : [],
+	);
+	/** Where a word's last letter ends in the original text. */
+	const letterEnd = (index: number) => {
+		const last = sources[(ranges[index] as [number, number])[1] - 1];
+		return last + ((original.codePointAt(last) ?? 0) > 0xffff ? 2 : 1);
+	};
+	const firstLetter = (index: number) =>
+		sources[(ranges[index] as [number, number])[0]];
+	const romanWords = ranges.map(() => "");
+	/** Where each word's text sits in the original, punctuation included. */
+	const spans: Array<[number, number] | undefined> = ranges.map(
+		() => undefined,
+	);
+	filled.forEach((index, order) => {
+		const previous = filled[order - 1];
+		const next = filled[order + 1];
+		const before = original.slice(
+			previous === undefined ? 0 : letterEnd(previous),
+			firstLetter(index),
 		);
-		const match = span.match(/^(.*?[\p{L}\p{M}])([^\p{L}\p{M}]*)$/su);
-		if (!match) return "";
-		const more = filled.slice(index + 1).some(Boolean);
-		return more && /\s/u.test(match[2]) ? `${match[1]} ` : match[1];
+		const after = original.slice(
+			letterEnd(index),
+			next === undefined ? original.length : firstLetter(next),
+		);
+		// Punctuation between two words with no space goes to the first.
+		const lead =
+			previous === undefined || /\s/u.test(before)
+				? (before.match(/[^\s\p{L}\p{M}]*$/u)?.[0] ?? "")
+				: "";
+		const trail = after.match(/^[^\s\p{L}\p{M}]*/u)?.[0] ?? "";
+		const core = original
+			.slice(firstLetter(index), letterEnd(index))
+			.replace(/\s+(?=n(?![\p{L}\p{M}]))/giu, "");
+		const gap = next !== undefined && /\s/u.test(after);
+		romanWords[index] = `${lead}${core}${trail}${gap ? " " : ""}`;
+		spans[index] = [
+			firstLetter(index) - lead.length,
+			letterEnd(index) + trail.length,
+		];
 	});
+	return { romanWords, spans };
 }
 
 /** Kana at the start and end of a kanji word, which its romaji must show. */
@@ -639,9 +675,22 @@ function fitWords(
 		for (const index of last.kind === "word" ? [last.index] : last.indices)
 			guessed[index] = true;
 
+	const { romanWords, spans } = sliceOriginal(line, sources, ranges);
 	return {
-		romanWords: sliceOriginal(line, sources, ranges),
+		romanWords,
 		guessed,
+		/**
+		 * The page's own text from the first to the last of these words, as it
+		 * writes it ("nukashite nda ka?"), however the words split it.
+		 */
+		pageText: (from: number, to: number) => {
+			const covered = spans.slice(from, to).filter((span) => !!span);
+			if (covered.length === 0) return "";
+			return line
+				.slice(covered[0][0], covered[covered.length - 1][1])
+				.replace(/\s+/g, " ")
+				.trim();
+		},
 		/** Words that can be read (kana, Hangul, Latin), and how many matched exactly. */
 		readable: tokens.filter((token) => token.kind === "word").length,
 		matched,
@@ -781,6 +830,7 @@ export function alignRomanizedPage(
 					line.words.map((word, index) => [word.id, romanWords[index]]),
 				),
 				uncertain: own.some((index) => fitted.guessed[index]),
+				romanLine: fitted.pageText(own[0] ?? 0, offset),
 			};
 		});
 	};

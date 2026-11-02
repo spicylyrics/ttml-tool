@@ -77,7 +77,35 @@ describe("rankRomanizedCandidates", () => {
 		expect(ranked[0].official).toBe(false);
 	});
 
-	it("ranks the matching song above other romanized songs", () => {
+	it("finds a title written in parts or in the other kana", () => {
+		const song = { title: "ヤラララ(YARARARA)", artist: "AnythingBecomeMoe" };
+		expect(buildRomanizedQueries(song)).toEqual([
+			"AnythingBecomeMoe ヤラララ(YARARARA) romanized",
+			"ヤラララ(YARARARA) romanized",
+			"AnythingBecomeMoe ヤラララ romanized",
+			"ヤラララ romanized",
+			"AnythingBecomeMoe YARARARA romanized",
+			"YARARARA romanized",
+		]);
+		const ranked = rankRomanizedCandidates(
+			[
+				hit(
+					20,
+					"sumika - ふっかつのじゅもん (Romanized)",
+					GENIUS_ROMANIZATIONS_ARTIST,
+				),
+				hit(
+					21,
+					"AnythingBecomeMoe - やラララ (YARARARA) ft. 重音テト (Kasane Teto) (Romanized)",
+					GENIUS_ROMANIZATIONS_ARTIST,
+				),
+			],
+			song,
+		);
+		expect(ranked.map((candidate) => candidate.id)).toEqual([21]);
+	});
+
+	it("shows only songs whose title matches, best first", () => {
 		const ranked = rankRomanizedCandidates(
 			[
 				hit(
@@ -94,7 +122,7 @@ describe("rankRomanizedCandidates", () => {
 			],
 			idol,
 		);
-		expect(ranked.map((candidate) => candidate.id)).toEqual([7, 6, 5]);
+		expect(ranked.map((candidate) => candidate.id)).toEqual([7, 6]);
 	});
 
 	it("prefers the official account on an equal match", () => {
