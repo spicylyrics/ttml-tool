@@ -3,6 +3,7 @@ import {
 	isGeniusPageTitle,
 	trimInvisible,
 } from "$/modules/lyric-editor/utils/section-system";
+import { loadedJapaneseWordFinder } from "$/modules/romanization/engines/japanese";
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
 import { type LyricPrepOptions, prepareLyricLine } from "$/utils/lyric-prep";
 import { splitTextImportWords } from "./text-import-words";
@@ -29,6 +30,8 @@ export function prepareTextImport(
 	keepSectionHeaders: boolean,
 	steps: Partial<LyricPrepOptions> = {},
 ): string {
+	// Kanji-only lines of a Japanese song split into words too.
+	const japaneseWords = loadedJapaneseWordFinder(text);
 	return text
 		.split(/\r\n|\r|\n/)
 		.flatMap((line) => {
@@ -38,7 +41,7 @@ export function prepareTextImport(
 					? [trimmed]
 					: [];
 			}
-			return prepareLyricLine(line, steps).split("\n");
+			return prepareLyricLine(line, steps, japaneseWords).split("\n");
 		})
 		.filter((line) => line.trim().length > 0)
 		.join("\n");

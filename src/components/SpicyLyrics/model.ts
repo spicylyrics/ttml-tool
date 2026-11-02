@@ -22,7 +22,6 @@ export interface SpicyToken {
 	letters?: string[];
 	isBackground: boolean;
 	spaceAfter?: boolean;
-	breakAfter?: boolean;
 	allowInternalWrap?: boolean;
 	/** Set only while the preview marks timing problems. */
 	problems?: readonly WordTimingProblem[];
@@ -172,11 +171,7 @@ export function groupSpicyTokens(tokens: SpicyToken[]): SpicyWordGroup[] {
 		const token = tokens[wordIndex];
 		items.push({ token, wordIndex });
 
-		if (
-			token.spaceAfter ||
-			token.breakAfter ||
-			wordIndex === tokens.length - 1
-		) {
+		if (token.spaceAfter || wordIndex === tokens.length - 1) {
 			groups.push({
 				items,
 				hasTrailingSpace: !!token.spaceAfter && wordIndex < tokens.length - 1,
@@ -219,7 +214,6 @@ function makeToken(
 			letterCapable && emphasisEnd > emphasisStart ? emphasisEnd : word.endTime,
 		letters: letterCapable ? letters : undefined,
 		isBackground: background,
-		breakAfter: allowInternalWrap,
 		allowInternalWrap,
 	};
 }

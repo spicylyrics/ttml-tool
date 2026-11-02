@@ -3,7 +3,10 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { OptionPicker } from "$/components/OptionPicker";
 import { useLyricLinesWhileOpen } from "$/hooks/useLyricLinesWhileOpen.ts";
+import { loadedJapaneseWordFinder } from "$/modules/romanization/engines/japanese";
+import { useJapaneseDictionary } from "$/modules/romanization/useJapaneseDictionary";
 import {
 	segmentationEngineAtom,
 	segmentationSplitEnglishAtom,
@@ -15,6 +18,8 @@ import { SYLLABIFICATION_ENGINES } from "$/modules/segmentation/utils/syllabific
 import { autoSegmentDialogAtom } from "$/states/dialogs";
 import { lyricLinesAtom } from "$/states/main";
 import { useSegmentationConfig } from "../utils/useSegmentationConfig";
+
+type JapaneseSplit = "sound" | "words";
 
 export const AutoSegmentDialog = () => {
 	const { t } = useTranslation();
@@ -43,18 +48,43 @@ export const AutoSegmentDialog = () => {
 		[selectedEngine],
 	);
 
+	// Japanese splits by sound under any engine; with the Japanese engine
+	// picked, a song imported without Process lyrics can be split into words
+	// instead.
+	const lyricsText = useMemo(
+		() =>
+			lyrics.lyricLines
+				.map((line) => line.words.map((word) => word.word).join(""))
+				.join("\n"),
+		[lyrics.lyricLines],
+	);
+	const japanese = selectedEngine === "japanese";
+	const [japaneseSplit, setJapaneseSplit] = useState<JapaneseSplit>("sound");
+	useEffect(() => {
+		if (open) setJapaneseSplit("sound");
+	}, [open]);
+	const dictionary = useJapaneseDictionary(
+		japanese && japaneseSplit === "words" ? lyricsText : "",
+	);
+
 	const apply = () => {
 		setEngine(selectedEngine);
 		setSplitEnglish(selectedEngine !== "none");
+		const japaneseWords =
+			japanese && japaneseSplit === "words"
+				? loadedJapaneseWordFinder(lyricsText)
+				: undefined;
 		editLyricLines((draft) => {
 			draft.lyricLines = segmentLyricLines(draft.lyricLines, {
 				...config,
 				engine: selectedEngine,
 				splitEnglish: selectedEngine !== "none",
+				japaneseWords,
 			});
 		});
 		setOpen(false);
 	};
+	const japaneseLabel = t("autoSegmentDialog.japanese", "Japanese");
 
 	return (
 		<Dialog.Root open={open} onOpenChange={setOpen}>
@@ -96,6 +126,41 @@ export const AutoSegmentDialog = () => {
 							}
 						</Text>
 					)}
+					{japanese && (
+						<Flex direction="column" gap="2" mt="2">
+							<Text size="2" weight="medium">
+								{japaneseLabel}
+							</Text>
+							<OptionPicker<JapaneseSplit>
+								variant="segmented"
+								fullWidth
+								label={japaneseLabel}
+								value={japaneseSplit}
+								onValueChange={setJapaneseSplit}
+								options={[
+									{
+										value: "sound",
+										label: t("autoSegmentDialog.japaneseSound", "By sound"),
+									},
+									{
+										value: "words",
+										label: t("autoSegmentDialog.japaneseWords", "Into words"),
+									},
+								]}
+							/>
+							<Text size="2" color="gray">
+								{japaneseSplit === "sound"
+									? t(
+											"autoSegmentDialog.japaneseSoundDesc",
+											"One part per sound as it's sung: koo|hii, is|sho.",
+										)
+									: t(
+											"autoSegmentDialog.japaneseWordsDesc",
+											"Whole words, like Process lyrics: 君|の|名前|を. Split them by sound later.",
+										)}
+							</Text>
+						</Flex>
+					)}
 				</Flex>
 				<Flex justify="end" gap="3" mt="5">
 					<Dialog.Close>
@@ -103,7 +168,7 @@ export const AutoSegmentDialog = () => {
 							{t("common.cancel", "Cancel")}
 						</Button>
 					</Dialog.Close>
-					<Button onClick={apply} disabled={isLoading}>
+					<Button onClick={apply} disabled={isLoading || dictionary.loading}>
 						{t("autoSegmentDialog.applyAll", "Apply to all lines")}
 					</Button>
 				</Flex>

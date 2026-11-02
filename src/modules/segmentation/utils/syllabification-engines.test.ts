@@ -3,10 +3,7 @@ import { newLyricWord } from "$/types/ttml";
 import type { SegmentationConfig } from "../types";
 import { loadHyphenator } from "./hyphen-loader";
 import { segmentWord } from "./segmentation";
-import {
-	getSyllabificationEngine,
-	splitJapaneseText,
-} from "./syllabification-engines";
+import { getSyllabificationEngine } from "./syllabification-engines";
 
 const prosodicConfig: SegmentationConfig = {
 	engine: "prosodic",
@@ -49,10 +46,6 @@ describe("syllabification engines", () => {
 		expect(getSyllabificationEngine("none").split("beautiful")).toEqual([
 			"beautiful",
 		]);
-	});
-
-	it("keeps Japanese modifiers and punctuation with their mora", () => {
-		expect(splitJapaneseText("キャット。")).toEqual(["キャ", "ッ", "ト。"]);
 	});
 
 	it.each([

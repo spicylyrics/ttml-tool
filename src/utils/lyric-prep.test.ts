@@ -81,4 +81,13 @@ describe("prepareLyricLine", () => {
 			prepareLyricLine("a   b", { collapseSpaces: false, splitWords: false }),
 		).toBe("a   b");
 	});
+
+	it("splits Japanese into words when the dictionary says where they start", () => {
+		const words = () => new Set([1, 2, 4, 5, 8]);
+		expect(prepareLyricLine("君の名前を呼んでいた", {}, words)).toBe(
+			"君\\の\\名前\\を\\呼んで\\いた",
+		);
+		// Without it, one character at a time as before.
+		expect(prepareLyricLine("名前", {})).toBe("名\\前");
+	});
 });

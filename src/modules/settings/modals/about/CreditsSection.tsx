@@ -1,4 +1,5 @@
 import {
+	BookRegular,
 	BoxRegular,
 	MusicNote1Regular,
 	SettingsRegular,
@@ -93,6 +94,44 @@ export const CreditsSection = ({ t }: Pick<AboutSettings, "t">) => (
 								amll-dev/amll-ttml-tool
 							</Link>
 							, licensed under GPL-3.0-or-later.
+						</Text>
+					</Flex>
+				</Card>
+				<Card variant="classic" style={{ padding: "var(--space-3)" }}>
+					<Flex direction="column" gap="2">
+						<Flex align="center" gap="2">
+							<Box style={{ color: "var(--grass-11)" }}>
+								<BookRegular />
+							</Box>
+							<Heading size="3">Romanization</Heading>
+						</Flex>
+						<Text size="2" color="gray">
+							Japanese read with{" "}
+							<Link
+								href="https://github.com/takuyaa/kuromoji.js"
+								target="_blank"
+								rel="noreferrer"
+							>
+								kuromoji
+							</Link>{" "}
+							(Apache-2.0) and the mecab-ipadic dictionary, Copyright 2000-2003
+							Nara Institute of Science and Technology, and written with{" "}
+							<Link
+								href="https://github.com/hexenq/kuroshiro"
+								target="_blank"
+								rel="noreferrer"
+							>
+								kuroshiro
+							</Link>
+							&apos;s rules (MIT). Cantonese from{" "}
+							<Link
+								href="https://github.com/CanCLID/to-jyutping"
+								target="_blank"
+								rel="noreferrer"
+							>
+								ToJyutping
+							</Link>{" "}
+							(BSD-2-Clause).
 						</Text>
 					</Flex>
 				</Card>

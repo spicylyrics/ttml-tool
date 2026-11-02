@@ -45,7 +45,18 @@ export const DEFAULT_LYRIC_PREP_OPTIONS: LyricPrepOptions = {
 	splitWords: true,
 };
 
-const normalize = (value: string, options: LyricPrepOptions) => {
+/**
+ * Finds where Japanese words start in a text (UTF-16 offsets), when the
+ * dictionary is loaded. Process lyrics then splits Japanese into words, not
+ * characters.
+ */
+export type JapaneseWordFinder = (text: string) => Set<number>;
+
+const normalize = (
+	value: string,
+	options: LyricPrepOptions,
+	japaneseWords?: JapaneseWordFinder,
+) => {
 	const chars = Array.from(value);
 	let processed = "";
 	for (let index = 0; index < chars.length; index++) {
@@ -80,14 +91,20 @@ const normalize = (value: string, options: LyricPrepOptions) => {
 
 	if (options.splitCjk) {
 		const processedChars = Array.from(processed);
+		// Japanese splits into words when the dictionary can say where they
+		// are; Chinese, and Japanese without it, one character at a time.
+		const wordStarts = japaneseWords?.(processed);
 		let cjkProcessed = "";
+		let offset = 0;
 		for (let index = 0; index < processedChars.length; index++) {
 			const char = processedChars[index];
 			const nextChar = processedChars[index + 1] ?? "";
 			cjkProcessed += char;
+			offset += char.length;
+			const insideCjk = isCJKChar(char) && isCJKChar(nextChar);
 			if (
-				(isCJKChar(char) &&
-					(isCJKChar(nextChar) || isLatinAlphaNum(nextChar))) ||
+				(insideCjk && (!wordStarts || wordStarts.has(offset))) ||
+				(isCJKChar(char) && isLatinAlphaNum(nextChar)) ||
 				(isLatinAlphaNum(char) && isCJKChar(nextChar)) ||
 				(isComma(char) && (isCJKChar(nextChar) || isLatinAlphaNum(nextChar)))
 			) {
@@ -128,6 +145,7 @@ const capitalize = (text: string, options: LyricPrepOptions) =>
 export const prepareLyricLine = (
 	line: string,
 	steps: Partial<LyricPrepOptions> = {},
+	japaneseWords?: JapaneseWordFinder,
 ) => {
 	const options = { ...DEFAULT_LYRIC_PREP_OPTIONS, ...steps };
 	const backgroundVocals: string[] = [];
@@ -156,9 +174,9 @@ export const prepareLyricLine = (
 		}
 	}
 
-	const main = normalize(mainLine, options);
+	const main = normalize(mainLine, options, japaneseWords);
 	const background = backgroundVocals
-		.map((vocal) => normalize(vocal, options))
+		.map((vocal) => normalize(vocal, options, japaneseWords))
 		.filter(Boolean)
 		.join(", ");
 	const output = background
