@@ -1022,8 +1022,7 @@
     "splitWord": "Podziel słowo…",
     "autoSegmentWords": "{count, plural, one {Automatycznie podziel słowo} few {Automatycznie podziel # słowa} many {Automatycznie podziel # słów} other {Automatycznie podziel # słowa}}",
     "autoSegmentWordsNothing": "W zaznaczonych słowach nie ma czego dzielić.",
-    "noSyllablesFound": "Nie znaleziono sylab do podziału.",
-    "splitIntoSyllables": "Podziel na sylaby (transkrypcja łacińska)",
+    "replace": "Zamień",
     "replaceWord": "Zamień słowo…",
     "replaceRomanization": "Zamień transkrypcję łacińską…",
     "combineWords": "Połącz słowa",
@@ -1678,7 +1677,12 @@
     "title": "Automatyczny podział",
     "description": "Wybierz mechanizm podziału na sylaby dla wszystkich wersów tekstu.",
     "suggested": "Sugerowane na podstawie tekstu:",
-    "applyAll": "Zastosuj do wszystkich wersów"
+    "applyAll": "Zastosuj do wszystkich wersów",
+    "japanese": "Japoński",
+    "japaneseSound": "Według brzmienia",
+    "japaneseWords": "Na słowa",
+    "japaneseSoundDesc": "Jedna część na dźwięk, jak się śpiewa: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Całe słowa, jak Przetwórz tekst: 君|の|名前|を. Podziel je później według brzmienia."
   },
   "suggestedSplits": {
     "title": "Sugerowane podziały",

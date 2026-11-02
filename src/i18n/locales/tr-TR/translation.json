@@ -1022,8 +1022,7 @@
     "splitWord": "Kelimeyi böl…",
     "autoSegmentWords": "{count, plural, one {Kelimeyi otomatik böl} other {# kelimeyi otomatik böl}}",
     "autoSegmentWordsNothing": "Seçili kelimelerde bölünecek bir şey yok.",
-    "noSyllablesFound": "Bölünecek hece bulunamadı.",
-    "splitIntoSyllables": "Hecelere böl (Latin harflerine çeviri)",
+    "replace": "Değiştir",
     "replaceWord": "Kelimeyi değiştir…",
     "replaceRomanization": "Latin harflerine çeviriyi değiştir…",
     "combineWords": "Kelimeleri birleştir",
@@ -1678,7 +1677,12 @@
     "title": "Otomatik bölme",
     "description": "Tüm şarkı sözü satırları için bir heceleme motoru seçin.",
     "suggested": "Şarkı sözlerine göre önerilen:",
-    "applyAll": "Tüm satırlara uygula"
+    "applyAll": "Tüm satırlara uygula",
+    "japanese": "Japonca",
+    "japaneseSound": "Sese göre",
+    "japaneseWords": "Kelimelere",
+    "japaneseSoundDesc": "Söylendiği gibi ses başına bir parça: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Şarkı sözlerini işle gibi tam kelimeler: 君|の|名前|を. Sonra sese göre bölün."
   },
   "suggestedSplits": {
     "title": "Önerilen bölmeler",

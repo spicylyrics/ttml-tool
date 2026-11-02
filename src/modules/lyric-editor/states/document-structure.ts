@@ -8,6 +8,7 @@ import { type Atom, atom } from "jotai";
 import { selectAtom } from "jotai/utils";
 import { lyricLinesAtom } from "$/states/main.ts";
 import type { LyricLine } from "$/types/ttml.ts";
+import { getLineDisplayNumbers } from "../utils/line-numbers.ts";
 
 const lyricLineArrayAtom = atom((get) => get(lyricLinesAtom).lyricLines);
 const lyricLinesByIdAtom = atom(
@@ -68,15 +69,6 @@ export const lyricLineStructureAtom = selectAtom(
 				line.isBG === next[index].isBG,
 		),
 );
-
-/** The line numbers the editor shows: a background line shares its main line's. */
-export const getLineDisplayNumbers = (lines: readonly { isBG: boolean }[]) => {
-	let currentNumber = 0;
-	return lines.map((line, index) => {
-		if (index === 0 || !line.isBG) currentNumber++;
-		return currentNumber;
-	});
-};
 
 export const lineDisplayNumbersAtom = atom((get) =>
 	getLineDisplayNumbers(get(lyricLineStructureAtom)),

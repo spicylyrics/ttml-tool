@@ -10,6 +10,10 @@ const BASE_URL = "https://api.genius.com";
  * The Genius page itself is not CORS-enabled. Its public embed endpoint is,
  * and returns the lyrics as an escaped HTML string inside `document.write`.
  */
+/** A first line naming the page: "[... Lyrics]" in any of Genius's languages. */
+const GENIUS_TITLE =
+	/^\s*\[[^\]\n]*(?:Lyrics|歌詞|歌词|가사|Paroles|Letra|Songtext|Testo|Tekst|Текст песни|Şarkı Sözleri|Lirik)\]\s*\n?/iu;
+
 export const extractLyricsFromEmbed = (embedScript: string): string => {
 	const match = embedScript.match(
 		/document\.write\(JSON\.parse\('((?:\\.|[^'])*)'\)\)/s,
@@ -71,7 +75,9 @@ export const extractLyricsFromEmbed = (embedScript: string): string => {
 		// The embed markup commonly puts a source newline after every <br>.
 		// `textContent` retains both, which otherwise creates a blank line after
 		// each lyric line.
-		return lyrics.replace(/\n[\t ]*\n/g, "\n");
+		// The embed can open with the page title in brackets ("[Artist「Song」
+		// 歌詞]", "[Song Lyrics]"), which would read as a section header.
+		return lyrics.replace(/\n[\t ]*\n/g, "\n").replace(GENIUS_TITLE, "");
 	} catch (error) {
 		if (error instanceof Error) throw error;
 		throw new Error("Could not parse the Genius embed response.");

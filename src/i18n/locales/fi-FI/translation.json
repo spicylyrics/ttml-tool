@@ -1022,8 +1022,7 @@
     "splitWord": "Jaa sana…",
     "autoSegmentWords": "{count, plural, one {Tavuta sana automaattisesti} other {Tavuta # sanaa automaattisesti}}",
     "autoSegmentWordsNothing": "Valituissa sanoissa ei ole jaettavaa.",
-    "noSyllablesFound": "Jaettavia tavuja ei löytynyt.",
-    "splitIntoSyllables": "Jaa tavuiksi (latinalaistettu)",
+    "replace": "Korvaa",
     "replaceWord": "Korvaa sana…",
     "replaceRomanization": "Korvaa latinalaistus…",
     "combineWords": "Yhdistä sanat",
@@ -1678,7 +1677,12 @@
     "title": "Automaattinen jako",
     "description": "Valitse tavutusmoottori kaikille sanoitusriveille.",
     "suggested": "Ehdotettu sanoituksesta:",
-    "applyAll": "Käytä kaikkiin riveihin"
+    "applyAll": "Käytä kaikkiin riveihin",
+    "japanese": "Japani",
+    "japaneseSound": "Äänteen mukaan",
+    "japaneseWords": "Sanoiksi",
+    "japaneseSoundDesc": "Yksi osa per äänne, kuten lauletaan: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Kokonaiset sanat, kuten Käsittele sanoitukset: 君|の|名前|を. Jaa ne äänteen mukaan myöhemmin."
   },
   "suggestedSplits": {
     "title": "Ehdotetut jaot",

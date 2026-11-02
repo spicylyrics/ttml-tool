@@ -1022,8 +1022,7 @@
     "splitWord": "拆分字…",
     "autoSegmentWords": "{count, plural, other {自动拆分 # 个字}}",
     "autoSegmentWordsNothing": "所选单词中没有可拆分的内容。",
-    "noSyllablesFound": "未找到可拆分的音节。",
-    "splitIntoSyllables": "按音节拆分（罗马音）",
+    "replace": "替换",
     "replaceWord": "替换字…",
     "replaceRomanization": "替换罗马音…",
     "combineWords": "合并字",
@@ -1678,7 +1677,12 @@
     "title": "自动分词",
     "description": "为所有歌词行选择分音节引擎。",
     "suggested": "根据歌词建议：",
-    "applyAll": "应用到所有行"
+    "applyAll": "应用到所有行",
+    "japanese": "日语",
+    "japaneseSound": "按读音",
+    "japaneseWords": "按词",
+    "japaneseSoundDesc": "按唱出的读音每音一段：koo|hii、is|sho。",
+    "japaneseWordsDesc": "按整词拆分，与处理歌词相同：君|の|名前|を。之后再按读音拆分。"
   },
   "suggestedSplits": {
     "title": "拆分建议",

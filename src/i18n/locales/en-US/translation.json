@@ -1022,8 +1022,7 @@
     "splitWord": "Split word…",
     "autoSegmentWords": "{count, plural, one {Auto-segment word} other {Auto-segment # words}}",
     "autoSegmentWordsNothing": "Nothing to split in the selected words.",
-    "noSyllablesFound": "No syllables found to split.",
-    "splitIntoSyllables": "Split into syllables (romanized)",
+    "replace": "Replace",
     "replaceWord": "Replace word…",
     "replaceRomanization": "Replace romanization…",
     "combineWords": "Combine words",
@@ -1678,7 +1677,12 @@
     "title": "Auto segment",
     "description": "Choose a syllabification engine for all lyric lines.",
     "suggested": "Suggested from lyrics:",
-    "applyAll": "Apply to all lines"
+    "applyAll": "Apply to all lines",
+    "japanese": "Japanese",
+    "japaneseSound": "By sound",
+    "japaneseWords": "Into words",
+    "japaneseSoundDesc": "One part per sound as it's sung: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Whole words, like Process lyrics: 君|の|名前|を. Split them by sound later."
   },
   "suggestedSplits": {
     "title": "Suggested splits",

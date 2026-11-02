@@ -1022,8 +1022,7 @@
     "splitWord": "Scinder le mot…",
     "autoSegmentWords": "{count, plural, one {Découper automatiquement le mot} many {Découper automatiquement # mots} other {Découper automatiquement # mots}}",
     "autoSegmentWordsNothing": "Rien à découper dans les mots sélectionnés.",
-    "noSyllablesFound": "Aucune syllabe à séparer n’a été trouvée.",
-    "splitIntoSyllables": "Diviser en syllabes (romanisation)",
+    "replace": "Remplacer",
     "replaceWord": "Remplacer le mot…",
     "replaceRomanization": "Remplacer la romanisation…",
     "combineWords": "Combiner les mots",
@@ -1678,7 +1677,12 @@
     "title": "Segmentation automatique",
     "description": "Choisissez un moteur de syllabification pour toutes les lignes de paroles.",
     "suggested": "Suggéré à partir des paroles :",
-    "applyAll": "Appliquer à toutes les lignes"
+    "applyAll": "Appliquer à toutes les lignes",
+    "japanese": "Japonais",
+    "japaneseSound": "Au son",
+    "japaneseWords": "En mots",
+    "japaneseSoundDesc": "Une partie par son, comme c'est chanté : koo|hii, is|sho.",
+    "japaneseWordsDesc": "Mots entiers, comme Préparer les paroles : 君|の|名前|を. Découpez-les au son ensuite."
   },
   "suggestedSplits": {
     "title": "Divisions suggérées",

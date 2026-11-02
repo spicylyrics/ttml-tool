@@ -1022,8 +1022,7 @@
     "splitWord": "Opdel ord…",
     "autoSegmentWords": "{count, plural, one {Auto-opdel ord} other {Auto-opdel # ord}}",
     "autoSegmentWordsNothing": "Der er intet at opdele i de valgte ord.",
-    "noSyllablesFound": "Ingen stavelser fundet til opdeling.",
-    "splitIntoSyllables": "Opdel i stavelser (romaniseret)",
+    "replace": "Erstat",
     "replaceWord": "Erstat ord…",
     "replaceRomanization": "Erstat romanisering...",
     "combineWords": "Kombiner ord",
@@ -1678,7 +1677,12 @@
     "title": "Automatisk opdeling",
     "description": "Vælg en stavelsesopdeler til alle sangtekstlinjer.",
     "suggested": "Foreslået fra sangtekster:",
-    "applyAll": "Anvend på alle linjer"
+    "applyAll": "Anvend på alle linjer",
+    "japanese": "Japansk",
+    "japaneseSound": "Efter lyd",
+    "japaneseWords": "I ord",
+    "japaneseSoundDesc": "Én del pr. lyd, som det synges: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Hele ord, som Behandl sangtekster: 君|の|名前|を. Del dem efter lyd senere."
   },
   "suggestedSplits": {
     "title": "Foreslåede opdelinger",

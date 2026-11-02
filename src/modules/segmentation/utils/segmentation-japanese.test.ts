@@ -36,6 +36,24 @@ describe("Japanese splitting by script", () => {
 		expect(split("ｶﾞｯｺｰ")).toEqual(["ｶﾞｯ", "ｺｰ"]);
 	});
 
+	it("keeps the word's romanization across its parts", () => {
+		const parts = (word: string, romanWord: string) =>
+			segmentWord(
+				{ ...newLyricWord(), word, romanWord, startTime: 0, endTime: 1000 },
+				base,
+			).map((part) => [part.word, part.romanWord]);
+		expect(parts("いっしょに", "issho ni ")).toEqual([
+			["いっ", "is"],
+			// The gap inside the romanization stays where it was.
+			["しょ", "sho "],
+			["に", "ni "],
+		]);
+		expect(parts("コーヒー", "Kōhī")).toEqual([
+			["コー", "Kō"],
+			["ヒー", "hī"],
+		]);
+	});
+
 	it("leaves English splitting alone", () => {
 		// The prosodic dictionary splits "every" as e|very.
 		expect(split("every")).toEqual(["e", "very"]);

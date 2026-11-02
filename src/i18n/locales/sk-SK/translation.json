@@ -1022,8 +1022,7 @@
     "splitWord": "Rozdeliť slovo…",
     "autoSegmentWords": "{count, plural, one {Automaticky rozdeliť slovo} few {Automaticky rozdeliť # slová} many {Automaticky rozdeliť # slova} other {Automaticky rozdeliť # slov}}",
     "autoSegmentWordsNothing": "Vo vybraných slovách nie je čo rozdeliť.",
-    "noSyllablesFound": "Nenašli sa slabiky na rozdelenie.",
-    "splitIntoSyllables": "Rozdeliť na slabiky (prepis do latinky)",
+    "replace": "Nahradiť",
     "replaceWord": "Nahradiť slovo…",
     "replaceRomanization": "Nahradiť prepis do latinky…",
     "combineWords": "Zlúčiť slová",
@@ -1678,7 +1677,12 @@
     "title": "Automatické delenie",
     "description": "Vyberte nástroj na delenie na slabiky pre všetky riadky textu.",
     "suggested": "Odporúčané podľa textu:",
-    "applyAll": "Použiť na všetky riadky"
+    "applyAll": "Použiť na všetky riadky",
+    "japanese": "Japončina",
+    "japaneseSound": "Podľa zvuku",
+    "japaneseWords": "Na slová",
+    "japaneseSoundDesc": "Jedna časť na zvuk, ako sa spieva: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Celé slová, ako Spracovať text: 君|の|名前|を. Podľa zvuku ich rozdeľte neskôr."
   },
   "suggestedSplits": {
     "title": "Navrhované delenia",

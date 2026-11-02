@@ -1022,8 +1022,7 @@
     "splitWord": "Pisahkan kata…",
     "autoSegmentWords": "{count, plural, other {Segmentasi otomatis # kata}}",
     "autoSegmentWordsNothing": "Tidak ada yang bisa dipisahkan pada kata terpilih.",
-    "noSyllablesFound": "Tidak ada suku kata untuk dipisahkan.",
-    "splitIntoSyllables": "Pisahkan menjadi suku kata (romanisasi)",
+    "replace": "Ganti",
     "replaceWord": "Ganti kata…",
     "replaceRomanization": "Ganti romanisasi…",
     "combineWords": "Gabungkan kata",
@@ -1678,7 +1677,12 @@
     "title": "Segmentasi otomatis",
     "description": "Pilih mesin pemisah suku kata untuk semua baris lirik.",
     "suggested": "Disarankan dari lirik:",
-    "applyAll": "Terapkan ke semua baris"
+    "applyAll": "Terapkan ke semua baris",
+    "japanese": "Jepang",
+    "japaneseSound": "Per bunyi",
+    "japaneseWords": "Per kata",
+    "japaneseSoundDesc": "Satu bagian per bunyi, seperti dinyanyikan: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Kata utuh, seperti Proses lirik: 君|の|名前|を. Pisahkan per bunyi nanti."
   },
   "suggestedSplits": {
     "title": "Pemisahan yang disarankan",

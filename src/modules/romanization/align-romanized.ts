@@ -1,5 +1,5 @@
 import * as wanakana from "wanakana";
-import { getLineDisplayNumbers } from "$/modules/lyric-editor/states/document-structure";
+import { getLineDisplayNumbers } from "$/modules/lyric-editor/utils/line-numbers";
 import type { LyricLine, LyricWord } from "$/types/ttml";
 
 /**

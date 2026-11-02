@@ -1022,8 +1022,7 @@
     "splitWord": "Împarte cuvântul…",
     "autoSegmentWords": "{count, plural, one {Segmentează automat cuvântul} few {Segmentează automat # cuvinte} other {Segmentează automat # de cuvinte}}",
     "autoSegmentWordsNothing": "Nu e nimic de separat în cuvintele selectate.",
-    "noSyllablesFound": "Nu s-au găsit silabe de separat.",
-    "splitIntoSyllables": "Împarte în silabe (romanizare)",
+    "replace": "Înlocuiește",
     "replaceWord": "Înlocuiește cuvântul…",
     "replaceRomanization": "Înlocuiește romanizarea...",
     "combineWords": "Unește cuvintele",
@@ -1678,7 +1677,12 @@
     "title": "Segmentare automată",
     "description": "Alege un motor de silabisire pentru toate versurile.",
     "suggested": "Sugerat din versuri:",
-    "applyAll": "Aplică tuturor versurilor"
+    "applyAll": "Aplică tuturor versurilor",
+    "japanese": "Japoneză",
+    "japaneseSound": "După sunet",
+    "japaneseWords": "În cuvinte",
+    "japaneseSoundDesc": "O parte pe sunet, cum se cântă: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Cuvinte întregi, ca Procesează versurile: 君|の|名前|を. Împarte-le după sunet mai târziu."
   },
   "suggestedSplits": {
     "title": "Divizări sugerate",

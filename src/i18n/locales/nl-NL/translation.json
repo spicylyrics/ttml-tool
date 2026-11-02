@@ -1022,8 +1022,7 @@
     "splitWord": "Woord splitsen...",
     "autoSegmentWords": "{count, plural, one {Woord automatisch segmenteren} other {# woorden automatisch segmenteren}}",
     "autoSegmentWordsNothing": "Niets te splitsen in de geselecteerde woorden.",
-    "noSyllablesFound": "Geen lettergrepen gevonden om te splitsen.",
-    "splitIntoSyllables": "In lettergrepen splitsen (geromaniseerd)",
+    "replace": "Vervangen",
     "replaceWord": "Woord vervangen…",
     "replaceRomanization": "Romanisatie vervangen…",
     "combineWords": "Woorden samenvoegen",
@@ -1678,7 +1677,12 @@
     "title": "Automatisch splitsen",
     "description": "Kies een lettergreepengine voor alle songtekstregels.",
     "suggested": "Suggestie uit de tekst:",
-    "applyAll": "Toepassen op alle regels"
+    "applyAll": "Toepassen op alle regels",
+    "japanese": "Japans",
+    "japaneseSound": "Op klank",
+    "japaneseWords": "In woorden",
+    "japaneseSoundDesc": "Eén deel per klank, zoals het gezongen wordt: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Hele woorden, zoals Songteksten verwerken: 君|の|名前|を. Splits ze later op klank."
   },
   "suggestedSplits": {
     "title": "Voorgestelde splitsingen",

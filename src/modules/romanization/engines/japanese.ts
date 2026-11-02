@@ -154,7 +154,25 @@ const INFLECTING = new Set(["動詞", "形容詞", "助動詞"]);
 const attaches = (token: Token, previous: Token | undefined) =>
 	(token.pos === "助動詞" && !!previous && INFLECTING.has(previous.pos)) ||
 	(token.pos === "助詞" && token.posDetail === "接続助詞") ||
-	token.posDetail === "接尾";
+	token.posDetail === "接尾" ||
+	// Casual ん (やってんの, 抜かしてんだ) is said as part of the word before.
+	(!!previous && /^[んン]$/.test(token.surface)) ||
+	stretches(token, previous);
+
+const VOWEL_KANA: Record<string, string> = {
+	ア: "a",
+	イ: "i",
+	ウ: "u",
+	エ: "e",
+	オ: "o",
+};
+
+/** A lone vowel that holds the sound before it (うるせ|え → urusee). */
+const stretches = (token: Token, previous: Token | undefined) => {
+	const vowel = VOWEL_KANA[toKatakana(token.surface)];
+	if (!vowel || !previous || !hasJapanese(previous.surface)) return false;
+	return kanaToRomaji(previous.reading).slice(-1) === vowel;
+};
 
 const morae = (reading: string) => {
 	const result: string[] = [];

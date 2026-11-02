@@ -1022,8 +1022,7 @@
     "splitWord": "Dividi parola…",
     "autoSegmentWords": "{count, plural, one {Segmenta automaticamente la parola} many {Segmenta automaticamente # parole} other {Segmenta automaticamente # parole}}",
     "autoSegmentWordsNothing": "Niente da dividere nelle parole selezionate.",
-    "noSyllablesFound": "Nessuna sillaba da dividere trovata.",
-    "splitIntoSyllables": "Dividi in sillabe (romanizzazione)",
+    "replace": "Sostituisci",
     "replaceWord": "Sostituisci parola…",
     "replaceRomanization": "Sostituisci la romanizzazione…",
     "combineWords": "Unisci parole",
@@ -1678,7 +1677,12 @@
     "title": "Segmentazione automatica",
     "description": "Scegli un motore di sillabazione per tutti i versi.",
     "suggested": "Suggerito dal testo:",
-    "applyAll": "Applica a tutti i versi"
+    "applyAll": "Applica a tutti i versi",
+    "japanese": "Giapponese",
+    "japaneseSound": "Per suono",
+    "japaneseWords": "In parole",
+    "japaneseSoundDesc": "Una parte per suono, come si canta: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Parole intere, come Elabora testo: 君|の|名前|を. Dividile per suono dopo."
   },
   "suggestedSplits": {
     "title": "Divisioni suggerite",

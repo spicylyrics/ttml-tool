@@ -118,7 +118,7 @@ describe("Japanese romanization", () => {
 			"ko",
 			"to ",
 			"ya",
-			"tte ",
+			"tte",
 			'n no?"',
 		]);
 	});
@@ -150,6 +150,14 @@ describe("Japanese romanization", () => {
 			"こと",
 			"を",
 		]);
+	});
+
+	it("keeps casual ん and a stretched vowel on the word before", () => {
+		expect(romanize("抜かしてんだか")).toEqual(["nukashiten da ka"]);
+		expect(romanize("うるせえな")).toEqual(["urusee na"]);
+		expect(romanize("やってんの")).toEqual(["yatten no"]);
+		// Not every vowel after a word stretches it.
+		expect(romanize("呼んでいた")).toEqual(["yonde ita"]);
 	});
 
 	it("repeats the kanji before 々", () => {
