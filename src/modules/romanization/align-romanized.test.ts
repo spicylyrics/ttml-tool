@@ -87,13 +87,88 @@ describe("romanized page alignment", () => {
 		expect(align("totemo nagai", "あ").uncertain).toBe(true);
 		expect(align("a extra", "あ").uncertain).toBe(true);
 	});
+
+	it("reads half-width katakana and long vowel marks", () => {
+		expect(
+			align("nande sonna koto", "なんで", "ｿﾝﾅ", "こと").romanWords,
+		).toEqual(["nande ", "sonna ", "koto"]);
+		expect(align("Hee, taishita", "へー、", "大した")).toEqual({
+			romanWords: ["Hee ", "taishita"],
+			uncertain: false,
+		});
+		expect(align("Se, no", "せ", "ー、", "の").romanWords).toEqual([
+			"Se ",
+			"",
+			"no",
+		]);
+	});
+
+	it("fits the whole line, not the first match", () => {
+		expect(align("Kokoro wo shihai shite", "心", "を", "支配", "して")).toEqual(
+			{ romanWords: ["Kokoro ", "wo ", "shihai ", "shite"], uncertain: false },
+		);
+	});
+
+	it("gives a lone っ its doubled consonant", () => {
+		expect(align("warui tte", "悪", "い", "っ", "て").romanWords).toEqual([
+			"waru",
+			"i ",
+			"t",
+			"te",
+		]);
+		expect(align("Kocchi ga", "こっ", "ち", "が").romanWords).toEqual([
+			"Koc",
+			"chi ",
+			"ga",
+		]);
+	});
+
+	it("splits kanji by sound without crossing a space", () => {
+		expect(align("shihai", "支", "配")).toEqual({
+			romanWords: ["shi", "hai"],
+			uncertain: false,
+		});
+		expect(align("Senrigan", "千", "里", "眼")).toEqual({
+			romanWords: ["Sen", "ri", "gan"],
+			uncertain: false,
+		});
+		expect(align("ippo saki", "一", "歩", "先")).toEqual({
+			romanWords: ["ip", "po ", "saki"],
+			uncertain: false,
+		});
+	});
+
+	it("turns look-alike Cyrillic letters into Latin", () => {
+		const result = align("Ima, koе ga", "今、", "声", "が");
+		expect(result.romanWords).toEqual(["Ima ", "koe ", "ga"]);
+		expect(result.romanWords.join("")).toMatch(/^[\x20-\x7e]*$/);
+	});
 });
 
 describe("romanized page lines", () => {
-	it("drops blank lines and section headers", () => {
-		expect(parseRomanizedPage("[Verse 1]\nkimi no\n\n  boku wa  \n")).toEqual([
-			"kimi no",
-			"boku wa",
+	it("groups lines under their headers and drops blank lines", () => {
+		expect(
+			parseRomanizedPage("intro\n[Verse 1]\nkimi no\n\n  boku wa  \n"),
+		).toEqual([
+			{ lines: [{ main: "intro", background: "" }] },
+			{
+				header: "Verse 1",
+				lines: [
+					{ main: "kimi no", background: "" },
+					{ main: "boku wa", background: "" },
+				],
+			},
+		]);
+	});
+
+	it("moves (parentheses) to the line's background", () => {
+		expect(parseRomanizedPage("kimi no (ah) koe\n(ooh)\nboku")).toEqual([
+			{
+				lines: [
+					{ main: "kimi no koe", background: "ah, ooh" },
+					{ main: "boku", background: "" },
+				],
+			},
 		]);
 	});
 
@@ -106,17 +181,65 @@ describe("romanized page lines", () => {
 		});
 	});
 
-	it("aligns main lines and skips background lines", () => {
+	it("aligns main lines and gives (parentheses) to background lines", () => {
 		const lines = [line("君", "の"), { ...line("あ"), isBG: true }, line("僕")];
-		const result = alignRomanizedPage(lines, "[Chorus]\nkimi no\nboku");
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
+		const result = alignRomanizedPage(lines, "[Chorus]\nkimi no (a)\nboku");
+		if (!result.ok) throw new Error("expected a match");
 		expect(result.lines.map((aligned) => aligned.lineId)).toEqual([
 			lines[0].id,
+			lines[1].id,
 			lines[2].id,
 		]);
 		expect(Object.values(result.lines[0].romanWords)).toEqual(["kimi ", "no"]);
-		expect(Object.values(result.lines[1].romanWords)).toEqual(["boku"]);
+		expect(Object.values(result.lines[1].romanWords)).toEqual(["a"]);
+		expect(Object.values(result.lines[2].romanWords)).toEqual(["boku"]);
+	});
+
+	describe("with sections", () => {
+		const sections = [
+			{ id: "v", label: "[Verse 1]", category: "verse" as const },
+			{ id: "c", label: "[Chorus]", category: "chorus" as const },
+		];
+		const lines = [
+			{ ...line("君"), sectionId: "v" },
+			{ ...line("僕"), sectionId: "v" },
+			{ ...line("空"), sectionId: "c" },
+		];
+
+		it("matches each section on its own and skips one that differs", () => {
+			const result = alignRomanizedPage(
+				lines,
+				"[Verse 1]\nkimi\nboku\nextra\n[Chorus]\nsora",
+				sections,
+			);
+			if (!result.ok) throw new Error("expected a match");
+			expect(result.lines.map((aligned) => aligned.lineId)).toEqual([
+				lines[2].id,
+			]);
+			expect(result.skipped).toEqual([
+				{ label: "Verse 1", lineNumber: 1, expected: 2, received: 3 },
+			]);
+		});
+
+		it("says where the page stops lining up when sections don't pair", () => {
+			expect(alignRomanizedPage(lines, "kimi\nsora", sections)).toEqual({
+				ok: false,
+				reason: "line-count",
+				expected: 3,
+				received: 2,
+				firstDifference: undefined,
+			});
+			expect(
+				alignRomanizedPage(
+					lines,
+					"[Verse 1]\nkimi\n[Bridge]\nboku\n[Chorus]\nsora\numi",
+					sections,
+				),
+			).toMatchObject({
+				ok: false,
+				firstDifference: { label: "Verse 1", lineNumber: 1 },
+			});
+		});
 	});
 
 	it("numbers lines the way the editor does", () => {
