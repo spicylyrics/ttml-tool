@@ -7,12 +7,14 @@ fn main() {
     amll_ttml_tool_lib::run();
 }
 
-/// WebKitGTK hangs or crashes the session on NVIDIA's driver when explicit
-/// sync is on, so turn it off unless the user already chose a value.
+/// WebKitGTK lags, hangs or crashes the session on NVIDIA's driver when
+/// explicit sync is on, so turn it off unless the user already chose a value.
+/// Set on every system: only NVIDIA's driver reads it, and `/proc/driver/nvidia`
+/// isn't there on every NVIDIA setup.
 #[cfg(target_os = "linux")]
 fn disable_nvidia_explicit_sync() {
     const VAR: &str = "__NV_DISABLE_EXPLICIT_SYNC";
-    if std::env::var_os(VAR).is_none() && std::path::Path::new("/proc/driver/nvidia").exists() {
+    if std::env::var_os(VAR).is_none() {
         // SAFETY: runs first in main, before any other thread exists.
         unsafe { std::env::set_var(VAR, "1") };
     }
