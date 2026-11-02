@@ -475,6 +475,11 @@ export default function exportTTMLText(
 						const nextWord = bg[originalIndex + 1];
 						if (nextWord && nextWord.word.trim().length === 0) {
 							bgSpan.appendChild(doc.createTextNode(nextWord.word));
+						} else if (
+							/\s$/.test(word.romanWord) &&
+							wordIndex < romanBgWords.length - 1
+						) {
+							bgSpan.appendChild(doc.createTextNode(" "));
 						}
 					}
 				}

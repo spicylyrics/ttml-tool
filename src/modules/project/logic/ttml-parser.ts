@@ -295,6 +295,13 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 								.replace(/^[（(]/, "")
 								.replace(/[)）]$/, "")
 								.trim();
+							// Same word gaps as the main line.
+							const after = span.nextSibling;
+							if (
+								after?.nodeType === Node.TEXT_NODE &&
+								/^[^\S\r\n]+$/.test(after.textContent ?? "")
+							)
+								bgWordText += " ";
 
 							bgWords.push({
 								startTime: parseTimespan(span.getAttribute("begin") ?? ""),

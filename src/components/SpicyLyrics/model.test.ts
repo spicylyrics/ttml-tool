@@ -262,6 +262,43 @@ describe("buildSpicyLines", () => {
 		expect(romanized).toMatchObject({ text: "Zheng hang" });
 	});
 
+	it("ends words at romanization gaps in the romanized view only", () => {
+		const line = newLyricLine();
+		line.startTime = 0;
+		line.endTime = 1_500;
+		line.words = [
+			{
+				...newLyricWord(),
+				startTime: 0,
+				endTime: 500,
+				word: "君",
+				romanWord: "kimi ",
+			},
+			{
+				...newLyricWord(),
+				startTime: 500,
+				endTime: 1_000,
+				word: "の",
+				romanWord: "no ",
+			},
+			{
+				...newLyricWord(),
+				startTime: 1_000,
+				endTime: 1_500,
+				word: "名",
+				romanWord: "na",
+			},
+		];
+
+		const gaps = (romanized: boolean) =>
+			buildSpicyLines([line], false, romanized)[0].words.map(
+				(word) => !!word.spaceAfter,
+			);
+
+		expect(gaps(false)).toEqual([false, false, false]);
+		expect(gaps(true)).toEqual([true, true, false]);
+	});
+
 	it("keeps multi-word karaoke lines on the word-synced path", () => {
 		const line = newLyricLine();
 		line.startTime = 0;
