@@ -925,7 +925,15 @@
       "showFpsDesc": "Mostra un contatore dei fotogrammi al secondo sull'anteprima.",
       "previewModeDesc": "Scegli quale anteprima mostra la scheda Anteprima.",
       "spicyBackgroundDesc": "Cosa viene mostrato dietro l'anteprima Spicy.",
-      "fadeWidthDesc": "Quanto è morbido il bordo dell'evidenziazione mentre una parola si riempie nelle anteprime Standard e Toxi."
+      "fadeWidthDesc": "Quanto è morbido il bordo dell'evidenziazione mentre una parola si riempie nelle anteprime Standard e Toxi.",
+      "japaneseSplit": "Divisione automatica del giapponese",
+      "japaneseSplitDesc": "Come la divisione automatica taglia i testi giapponesi in parti.",
+      "japaneseSplitSyllable": "Sillaba",
+      "japaneseSplitSyllableDesc": "Per suono, come si canta: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Una parte per battito, come ko|o|hi|i",
+      "japaneseSplitWord": "Parola",
+      "japaneseSplitWordDesc": "Parole intere. Può variare un po' tra l'app e il sito"
     }
   },
   "timingOverview": {
@@ -1436,29 +1444,6 @@
     "caseSensitive": "Distingui maiuscole e minuscole"
   },
   "romanizationTools": {
-    "group": "Romanizzazione e divisione",
-    "flag": "Strumenti di romanizzazione sperimentali",
-    "flagDesc": "Divisione dell'inglese a regole, dimensione di divisione del giapponese, incolla di una pagina romanizzata ed esportazione delle traduzioni nell'intestazione.",
-    "japaneseGranularity": "Dimensione di divisione del giapponese",
-    "japaneseGranularityDesc": "Come la divisione automatica taglia i testi giapponesi. I kana piccoli, ー e っ restano con il loro suono.",
-    "granularity": {
-      "syllable": "Sillaba",
-      "syllableDesc": "Un suono per parte, ん si unisce al suono precedente",
-      "mora": "Mora",
-      "moraDesc": "Un battito per parte, ん è una parte a sé",
-      "word": "Parola",
-      "wordDesc": "Parole intere"
-    },
-    "translationFormat": "Esportazione delle traduzioni",
-    "translationFormatDesc": "Dove vanno le traduzioni nel TTML esportato. Spicy Lyrics legge solo le traduzioni nella riga.",
-    "format": {
-      "inline": "Nella riga",
-      "inlineDesc": "In ogni riga, come prima. Spicy Lyrics legge questo.",
-      "head": "Intestazione",
-      "headDesc": "Stile Apple, nell'intestazione del file. Spicy Lyrics potrebbe mostrarle come romanizzazione."
-    },
-    "translationLanguage": "Lingua della traduzione",
-    "translationLanguageDesc": "Codice lingua delle traduzioni nell'intestazione, come en o es.",
     "paste": {
       "button": "Incolla romanizzazione...",
       "tooltip": "Compila la romanizzazione di ogni parola da una pagina di testo romanizzato, come quella di Genius.",
@@ -1467,8 +1452,13 @@
       "placeholder": "Kimi no na wo...",
       "apply": "Compila romanizzazione",
       "lineCountMismatch": "La pagina ha {received} righe e il testo ne ha {expected}. Aggiungi o rimuovi righe perché corrispondano.",
-      "applied": "Romanizzazione compilata: {count} righe.",
-      "check": "Alcune parole sono state stimate. Controlla le righe {lines}."
+      "applied": "{count, plural, one {Romanizzazione inserita per # riga.} many {Romanizzazione inserita per # righe.} other {Romanizzazione inserita per # righe.}}",
+      "check": "Alcune parole sono state stimate. Controlla le righe {lines}.",
+      "existing": "{count, plural, one {# parola ha già la romanizzazione} many {# parole hanno già la romanizzazione} other {# parole hanno già la romanizzazione}}",
+      "fillEmpty": "Riempi solo le parole vuote",
+      "fillEmptyDesc": "Le parole già romanizzate restano come sono",
+      "replace": "Sostituisci tutto",
+      "replaceDesc": "Ogni parola prende la romanizzazione dalla pagina"
     }
   },
   "timeShiftDialog": {

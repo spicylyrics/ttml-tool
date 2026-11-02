@@ -925,7 +925,15 @@
       "showFpsDesc": "Pokaż licznik klatek na sekundę w podglądzie.",
       "previewModeDesc": "Wybierz, który podgląd pokazuje karta Podgląd.",
       "spicyBackgroundDesc": "Co jest wyświetlane za podglądem Spicy.",
-      "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi."
+      "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi.",
+      "japaneseSplit": "Automatyczny podział japońskiego",
+      "japaneseSplitDesc": "Jak automatyczny podział tnie japoński tekst na części.",
+      "japaneseSplitSyllable": "Sylaba",
+      "japaneseSplitSyllableDesc": "Według brzmienia, jak się śpiewa: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Jedna część na takt, np. ko|o|hi|i",
+      "japaneseSplitWord": "Słowo",
+      "japaneseSplitWordDesc": "Całe słowa. Może się nieco różnić między aplikacją a stroną"
     }
   },
   "timingOverview": {
@@ -1436,29 +1444,6 @@
     "caseSensitive": "Uwzględniaj wielkość liter"
   },
   "romanizationTools": {
-    "group": "Latynizacja i dzielenie",
-    "flag": "Eksperymentalne narzędzia latynizacji",
-    "flagDesc": "Dzielenie angielskiego według reguł, wielkość podziału japońskiego, wklejanie zlatynizowanej strony i eksport tłumaczeń do nagłówka.",
-    "japaneseGranularity": "Wielkość podziału japońskiego",
-    "japaneseGranularityDesc": "Jak automatyczne dzielenie tnie japoński tekst. Małe kana, ー i っ zostają przy swoim dźwięku.",
-    "granularity": {
-      "syllable": "Sylaba",
-      "syllableDesc": "Jeden dźwięk na część, ん dołącza do poprzedniego",
-      "mora": "Mora",
-      "moraDesc": "Jedno uderzenie na część, ん jest osobną częścią",
-      "word": "Słowo",
-      "wordDesc": "Całe słowa"
-    },
-    "translationFormat": "Eksport tłumaczeń",
-    "translationFormatDesc": "Gdzie trafiają tłumaczenia w eksportowanym TTML. Spicy Lyrics czyta tylko tłumaczenia w wierszu.",
-    "format": {
-      "inline": "W wierszu",
-      "inlineDesc": "W każdym wierszu, jak dotąd. Spicy Lyrics czyta ten format.",
-      "head": "Nagłówek",
-      "headDesc": "W stylu Apple, w nagłówku pliku. Spicy Lyrics może pokazać je jako latynizację."
-    },
-    "translationLanguage": "Język tłumaczenia",
-    "translationLanguageDesc": "Kod języka tłumaczeń w nagłówku, na przykład en lub es.",
     "paste": {
       "button": "Wklej latynizację...",
       "tooltip": "Uzupełnij latynizację słów ze strony ze zlatynizowanym tekstem, np. z Genius.",
@@ -1467,8 +1452,13 @@
       "placeholder": "Kimi no na wo...",
       "apply": "Uzupełnij latynizację",
       "lineCountMismatch": "Strona ma {received} wierszy, a tekst ma {expected}. Dodaj lub usuń wiersze, aby się zgadzały.",
-      "applied": "Uzupełniono latynizację, liczba wierszy: {count}.",
-      "check": "Niektóre słowa zostały odgadnięte. Sprawdź wiersze {lines}."
+      "applied": "{count, plural, one {Romanizacja uzupełniona w # wersie.} few {Romanizacja uzupełniona w # wersach.} many {Romanizacja uzupełniona w # wersach.} other {Romanizacja uzupełniona w # wersu.}}",
+      "check": "Niektóre słowa zostały odgadnięte. Sprawdź wiersze {lines}.",
+      "existing": "{count, plural, one {# słowo ma już romanizację} few {# słowa mają już romanizację} many {# słów ma już romanizację} other {# słowa ma już romanizację}}",
+      "fillEmpty": "Uzupełnij tylko puste słowa",
+      "fillEmptyDesc": "Słowa z romanizacją pozostaną bez zmian",
+      "replace": "Zastąp wszystko",
+      "replaceDesc": "Każde słowo dostanie romanizację ze strony"
     }
   },
   "timeShiftDialog": {

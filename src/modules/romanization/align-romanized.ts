@@ -1,4 +1,5 @@
 import * as wanakana from "wanakana";
+import { getLineDisplayNumbers } from "$/modules/lyric-editor/states/document-structure";
 import type { LyricLine, LyricWord } from "$/types/ttml";
 
 /**
@@ -10,7 +11,7 @@ import type { LyricLine, LyricWord } from "$/types/ttml";
 
 export interface AlignedLine {
 	lineId: string;
-	/** 1-based position among the lines that were aligned. */
+	/** The line's number as the editor shows it. */
 	lineNumber: number;
 	romanWords: Record<string, string>;
 	/** True when some word's share was guessed (kanji runs, or no match). */
@@ -34,14 +35,35 @@ const MACRONS: Record<string, string> = {
 	ô: "ou",
 };
 
-/** Lowercase letters only, macrons spelled out ("kyō" → "kyou"). */
-export const normalizeRomaji = (text: string) =>
-	text
-		.toLowerCase()
-		.replace(/[āīūēōâîûêô]/g, (char) => MACRONS[char] ?? char)
+const normalizeChar = (char: string) => {
+	const lower = char.toLowerCase();
+	return (MACRONS[lower] ?? lower)
 		.normalize("NFD")
 		.replace(/\p{M}/gu, "")
 		.replace(/[^a-z]/g, "");
+};
+
+/**
+ * Lowercase letters only, macrons spelled out ("Kyō" → "kyou"), plus where
+ * each normalized letter came from in the original text.
+ */
+function normalizeWithSources(text: string) {
+	let normalized = "";
+	const sources: number[] = [];
+	let offset = 0;
+	for (const char of text) {
+		for (const letter of normalizeChar(char)) {
+			normalized += letter;
+			sources.push(offset);
+		}
+		offset += char.length;
+	}
+	return { normalized, sources };
+}
+
+/** Lowercase letters only, macrons spelled out ("kyō" → "kyou"). */
+export const normalizeRomaji = (text: string) =>
+	normalizeWithSources(text).normalized;
 
 /** Splits romaji into morae: "kitto" → ki|t|to, "san" → sa|n. */
 export const splitRomajiMorae = (romaji: string) =>
@@ -86,14 +108,39 @@ function expectedReadings(word: string): string[] | undefined {
 	return readings.filter(Boolean);
 }
 
-/** Shares a romaji run between words by mora, front-loaded. */
-function distribute(run: string, count: number): string[] {
-	if (count === 1) return [run];
+/** Shares a romaji run between words by mora, front-loaded, as lengths. */
+function distribute(run: string, count: number): number[] {
+	if (count === 1) return [run.length];
 	const morae = splitRomajiMorae(run);
 	return Array.from({ length: count }, (_, index) => {
 		const start = Math.round((morae.length * index) / count);
 		const end = Math.round((morae.length * (index + 1)) / count);
-		return morae.slice(start, end).join("");
+		return morae.slice(start, end).join("").length;
+	});
+}
+
+/**
+ * Cuts the original line at the normalized ranges, so capitals, macrons and
+ * apostrophes survive. Each word runs to the start of the next one; the
+ * punctuation at its edges is dropped, and a space after it becomes a
+ * trailing space, which is how a word gap is stored.
+ */
+function sliceOriginal(
+	original: string,
+	sources: number[],
+	ranges: Array<[number, number] | undefined>,
+): string[] {
+	const starts = ranges.map((range) =>
+		range && range[1] > range[0] ? sources[range[0]] : undefined,
+	);
+	return starts.map((start, index) => {
+		if (start === undefined) return "";
+		const next = starts.slice(index + 1).find((value) => value !== undefined);
+		const span = original.slice(start, next ?? original.length);
+		const match = span.match(/^(.*?[\p{L}\p{M}])([^\p{L}\p{M}]*)$/su);
+		if (!match) return "";
+		const gap = next !== undefined && /\s/u.test(match[2]);
+		return gap ? `${match[1]} ` : match[1];
 	});
 }
 
@@ -102,19 +149,39 @@ export function alignLineWords(
 	words: LyricWord[],
 	romanizedLine: string,
 ): { romanWords: string[]; uncertain: boolean } {
-	const stream = normalizeRomaji(romanizedLine);
-	const result = words.map(() => "");
+	const { normalized: stream, sources } = normalizeWithSources(romanizedLine);
+	const ranges: Array<[number, number] | undefined> = words.map(
+		() => undefined,
+	);
 	let uncertain = false;
 	let position = 0;
 	let pending: number[] = [];
 
+	/** Lengths of the run's space-separated chunks on the page. */
+	const spacedChunks = (start: number, end: number) => {
+		const cuts = [start];
+		for (let at = start + 1; at < end; at++) {
+			const between = romanizedLine.slice(sources[at - 1] + 1, sources[at]);
+			if (/\s/u.test(between)) cuts.push(at);
+		}
+		cuts.push(end);
+		return cuts.slice(1).map((cut, index) => cut - cuts[index]);
+	};
+
 	const flush = (end: number) => {
 		if (pending.length === 0) return;
-		const shares = distribute(stream.slice(position, end), pending.length);
+		const chunks = spacedChunks(position, end);
+		const shares =
+			chunks.length === pending.length
+				? chunks
+				: distribute(stream.slice(position, end), pending.length);
+		let start = position;
 		pending.forEach((wordIndex, shareIndex) => {
-			result[wordIndex] = shares[shareIndex];
+			ranges[wordIndex] = [start, start + shares[shareIndex]];
+			start += shares[shareIndex];
 		});
-		if (pending.length > 1 || shares.some((share) => !share)) uncertain = true;
+		const guessed = pending.length > 1 && chunks.length !== pending.length;
+		if (guessed || shares.some((share) => !share)) uncertain = true;
 		pending = [];
 		position = end;
 	};
@@ -150,13 +217,16 @@ export function alignLineWords(
 		) {
 			end++;
 		}
-		result[wordIndex] = stream.slice(found.at, end);
+		ranges[wordIndex] = [found.at, end];
 		position = end;
 	});
 
 	if (pending.length > 0) flush(stream.length);
 	else if (position < stream.length) uncertain = true;
-	return { romanWords: result, uncertain };
+	return {
+		romanWords: sliceOriginal(romanizedLine, sources, ranges),
+		uncertain,
+	};
 }
 
 /** Lines of a pasted page, without blank lines and [Section] headers. */
@@ -186,6 +256,10 @@ export function alignRomanizedPage(
 			received: romanized.length,
 		};
 	}
+	const displayNumbers = getLineDisplayNumbers(lines);
+	const numberById = new Map(
+		lines.map((line, index) => [line.id, displayNumbers[index]]),
+	);
 	return {
 		ok: true,
 		lines: targets.map((line, index) => {
@@ -195,7 +269,7 @@ export function alignRomanizedPage(
 			);
 			return {
 				lineId: line.id,
-				lineNumber: index + 1,
+				lineNumber: numberById.get(line.id) ?? index + 1,
 				romanWords: Object.fromEntries(
 					line.words.map((word, wordIndex) => [word.id, romanWords[wordIndex]]),
 				),

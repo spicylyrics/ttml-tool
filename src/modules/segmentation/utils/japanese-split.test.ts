@@ -4,20 +4,29 @@ import { splitJapaneseByGranularity } from "./japanese-split";
 const split = splitJapaneseByGranularity;
 
 describe("Japanese granularity splitting", () => {
-	it("keeps small kana and long-vowel marks with their mora", () => {
+	it("splits by sound at syllable granularity", () => {
 		expect(split("コーヒー", "syllable")).toEqual(["コー", "ヒー"]);
-		expect(split("ファイト", "syllable")).toEqual(["ファ", "イ", "ト"]);
-		expect(split("きょうは", "syllable")).toEqual(["きょ", "う", "は"]);
-		expect(split("ヴァイオリン", "syllable")).toEqual([
-			"ヴァ",
-			"イ",
-			"オ",
-			"リン",
-		]);
 		expect(split("いっしょに", "syllable")).toEqual(["いっ", "しょ", "に"]);
+		expect(split("さんぽ", "syllable")).toEqual(["さん", "ぽ"]);
+		expect(split("きょうは", "syllable")).toEqual(["きょう", "は"]);
 	});
 
-	it("gives ん its own beat at mora granularity", () => {
+	it("joins vowel pairs and long vowels, one per part", () => {
+		expect(split("ファイト", "syllable")).toEqual(["ファイ", "ト"]);
+		expect(split("かい", "syllable")).toEqual(["かい"]);
+		expect(split("そう", "syllable")).toEqual(["そう"]);
+		expect(split("ヴァイオリン", "syllable")).toEqual(["ヴァイ", "オ", "リン"]);
+		expect(split("かわいい", "syllable")).toEqual(["か", "わい", "い"]);
+		expect(split("あおい", "syllable")).toEqual(["あ", "おい"]);
+		expect(split("コーイ", "syllable")).toEqual(["コー", "イ"]);
+	});
+
+	it("never joins a vowel to kanji, whose reading is unknown", () => {
+		expect(split("思い", "syllable")).toEqual(["思", "い"]);
+	});
+
+	it("gives every beat its own part at mora granularity", () => {
+		expect(split("コーヒー", "mora")).toEqual(["コ", "ー", "ヒ", "ー"]);
 		expect(split("ヴァイオリン", "mora")).toEqual([
 			"ヴァ",
 			"イ",
@@ -26,7 +35,7 @@ describe("Japanese granularity splitting", () => {
 			"ン",
 		]);
 		expect(split("さんぽ", "mora")).toEqual(["さ", "ん", "ぽ"]);
-		expect(split("いっしょに", "mora")).toEqual(["いっ", "しょ", "に"]);
+		expect(split("いっしょに", "mora")).toEqual(["い", "っ", "しょ", "に"]);
 	});
 
 	it("keeps punctuation, spaces and Latin text as today", () => {

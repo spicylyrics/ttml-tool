@@ -925,7 +925,15 @@
       "showFpsDesc": "Zobrazit v náhledu počítadlo snímků za sekundu.",
       "previewModeDesc": "Vyberte, který náhled se zobrazí na kartě Náhled.",
       "spicyBackgroundDesc": "Co se zobrazuje za náhledem Spicy.",
-      "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi."
+      "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi.",
+      "japaneseSplit": "Automatické dělení japonštiny",
+      "japaneseSplitDesc": "Jak automatické dělení rozdělí japonský text na části.",
+      "japaneseSplitSyllable": "Slabika",
+      "japaneseSplitSyllableDesc": "Podle zvuku, jak se zpívá: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Jedna část na dobu, např. ko|o|hi|i",
+      "japaneseSplitWord": "Slovo",
+      "japaneseSplitWordDesc": "Celá slova. V aplikaci a na webu se může mírně lišit"
     }
   },
   "timingOverview": {
@@ -1436,29 +1444,6 @@
     "caseSensitive": "Rozlišovat velká a malá písmena"
   },
   "romanizationTools": {
-    "group": "Přepis do latinky a dělení",
-    "flag": "Experimentální nástroje pro přepis",
-    "flagDesc": "Dělení angličtiny podle pravidel, velikost dělení japonštiny, vložení přepsané stránky a export překladů do hlavičky.",
-    "japaneseGranularity": "Velikost dělení japonštiny",
-    "japaneseGranularityDesc": "Jak automatické dělení rozdělí japonský text. Malá kana, ー a っ zůstanou u své hlásky.",
-    "granularity": {
-      "syllable": "Slabika",
-      "syllableDesc": "Jeden zvuk na část, ん se připojí k předchozímu",
-      "mora": "Móra",
-      "moraDesc": "Jedna doba na část, ん je samostatná část",
-      "word": "Slovo",
-      "wordDesc": "Celá slova"
-    },
-    "translationFormat": "Export překladů",
-    "translationFormatDesc": "Kam se v exportovaném TTML ukládají překlady. Spicy Lyrics čte jen překlady v řádku.",
-    "format": {
-      "inline": "V řádku",
-      "inlineDesc": "V každém řádku, jako dosud. Spicy Lyrics čte tento formát.",
-      "head": "Hlavička",
-      "headDesc": "Ve stylu Apple, v hlavičce souboru. Spicy Lyrics je může zobrazit jako přepis."
-    },
-    "translationLanguage": "Jazyk překladu",
-    "translationLanguageDesc": "Jazykový kód překladů v hlavičce, například en nebo es.",
     "paste": {
       "button": "Vložit přepis...",
       "tooltip": "Doplní přepis ke slovům ze stránky s přepsaným textem, třeba z Genius.",
@@ -1467,8 +1452,13 @@
       "placeholder": "Kimi no na wo...",
       "apply": "Doplnit přepis",
       "lineCountMismatch": "Stránka má {received} řádků a text má {expected}. Přidejte nebo odeberte řádky, aby se shodovaly.",
-      "applied": "Přepis doplněn, počet řádků: {count}.",
-      "check": "Některá slova byla odhadnuta. Zkontrolujte řádky {lines}."
+      "applied": "{count, plural, one {Romanizace vyplněna pro # řádek.} few {Romanizace vyplněna pro # řádky.} many {Romanizace vyplněna pro # řádku.} other {Romanizace vyplněna pro # řádků.}}",
+      "check": "Některá slova byla odhadnuta. Zkontrolujte řádky {lines}.",
+      "existing": "{count, plural, one {# slovo už má romanizaci} few {# slova už mají romanizaci} many {# slova už má romanizaci} other {# slov už má romanizaci}}",
+      "fillEmpty": "Vyplnit jen prázdná slova",
+      "fillEmptyDesc": "Slova, která už romanizaci mají, zůstanou beze změny",
+      "replace": "Nahradit vše",
+      "replaceDesc": "Každé slovo převezme romanizaci ze stránky"
     }
   },
   "timeShiftDialog": {

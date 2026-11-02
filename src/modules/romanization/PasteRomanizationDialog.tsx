@@ -1,25 +1,45 @@
 import { ErrorCircle16Regular } from "@fluentui/react-icons";
 import { Button, Dialog, Flex, Text, TextArea } from "@radix-ui/themes";
-import { useAtom, useStore } from "jotai";
+import { useAtom, useAtomValue, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { ChoiceList } from "$/components/ChoiceList";
 import { lyricLinesAtom } from "$/states/main";
-import { alignRomanizedPage } from "./align-romanized";
+import { alignableLines, alignRomanizedPage } from "./align-romanized";
 import { pasteRomanizationDialogAtom } from "./states";
+
+type ExistingMode = "fillEmpty" | "replace";
 
 /** Fills per-word romanization from a pasted romanized lyric page. */
 export const PasteRomanizationDialog = memo(() => {
 	const { t } = useTranslation();
 	const [open, setOpen] = useAtom(pasteRomanizationDialogAtom);
 	const store = useStore();
+	const lyricLines = useAtomValue(lyricLinesAtom).lyricLines;
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const [text, setText] = useState("");
 	const [problem, setProblem] = useState("");
+	const [mode, setMode] = useState<ExistingMode>("fillEmpty");
+
+	const existingCount = useMemo(
+		() =>
+			open
+				? alignableLines(lyricLines).reduce(
+						(count, line) =>
+							count + line.words.filter((word) => word.romanWord.trim()).length,
+						0,
+					)
+				: 0,
+		[open, lyricLines],
+	);
 
 	useEffect(() => {
-		if (open) setProblem("");
+		if (open) {
+			setProblem("");
+			setMode("fillEmpty");
+		}
 	}, [open]);
 
 	const apply = () => {
@@ -37,12 +57,14 @@ export const PasteRomanizationDialog = memo(() => {
 			);
 			return;
 		}
+		const replace = existingCount === 0 || mode === "replace";
 		const byLine = new Map(result.lines.map((line) => [line.lineId, line]));
 		editLyricLines((draft) => {
 			for (const line of draft.lyricLines) {
 				const aligned = byLine.get(line.id);
 				if (!aligned) continue;
 				for (const word of line.words) {
+					if (!replace && word.romanWord.trim()) continue;
 					word.romanWord = aligned.romanWords[word.id] ?? word.romanWord;
 				}
 			}
@@ -53,10 +75,8 @@ export const PasteRomanizationDialog = memo(() => {
 		toast.success(
 			t(
 				"romanizationTools.paste.applied",
-				"Romanization filled: {count} lines.",
-				{
-					count: result.lines.length,
-				},
+				"{count, plural, one {Romanization filled for # line.} other {Romanization filled for # lines.}}",
+				{ count: result.lines.length },
 			),
 		);
 		if (uncertain.length > 0) {
@@ -71,6 +91,12 @@ export const PasteRomanizationDialog = memo(() => {
 		setText("");
 		setOpen(false);
 	};
+
+	const existingLabel = t(
+		"romanizationTools.paste.existing",
+		"{count, plural, one {# word already has romanization} other {# words already have romanization}}",
+		{ count: existingCount },
+	);
 
 	return (
 		<Dialog.Root open={open} onOpenChange={setOpen}>
@@ -102,6 +128,39 @@ export const PasteRomanizationDialog = memo(() => {
 						rows={12}
 						autoFocus
 					/>
+					{existingCount > 0 && (
+						<Flex direction="column" gap="2">
+							<Text size="2" weight="medium">
+								{existingLabel}
+							</Text>
+							<ChoiceList<ExistingMode>
+								label={existingLabel}
+								value={mode}
+								onValueChange={setMode}
+								choices={[
+									{
+										value: "fillEmpty",
+										title: t(
+											"romanizationTools.paste.fillEmpty",
+											"Fill empty words only",
+										),
+										detail: t(
+											"romanizationTools.paste.fillEmptyDesc",
+											"Words you already romanized stay as they are",
+										),
+									},
+									{
+										value: "replace",
+										title: t("romanizationTools.paste.replace", "Replace all"),
+										detail: t(
+											"romanizationTools.paste.replaceDesc",
+											"Every word takes its romanization from the page",
+										),
+									},
+								]}
+							/>
+						</Flex>
+					)}
 					{problem && (
 						<Flex gap="2" align="start" role="alert">
 							<Text color="red" asChild>

@@ -925,7 +925,15 @@
       "showFpsDesc": "Vis en billedfrekvenstæller på forhåndsvisningen.",
       "previewModeDesc": "Vælg, hvilken forhåndsvisning fanen Forhåndsvisning viser.",
       "spicyBackgroundDesc": "Hvad der vises bag Spicy-forhåndsvisningen.",
-      "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne."
+      "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne.",
+      "japaneseSplit": "Automatisk opdeling af japansk",
+      "japaneseSplitDesc": "Hvordan automatisk opdeling deler japanske tekster i dele.",
+      "japaneseSplitSyllable": "Stavelse",
+      "japaneseSplitSyllableDesc": "Efter lyd, som det synges: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Én del pr. slag, f.eks. ko|o|hi|i",
+      "japaneseSplitWord": "Ord",
+      "japaneseSplitWordDesc": "Hele ord. Kan variere lidt mellem appen og hjemmesiden"
     }
   },
   "timingOverview": {
@@ -1436,29 +1444,6 @@
     "caseSensitive": "Skeln mellem store og små bogstaver"
   },
   "romanizationTools": {
-    "group": "Romanisering og opdeling",
-    "flag": "Eksperimentelle romaniseringsværktøjer",
-    "flagDesc": "Regelbaseret opdeling af engelsk, opdelingsstørrelse for japansk, indsætning af en romaniseret side og eksport af oversættelser i hovedet.",
-    "japaneseGranularity": "Opdelingsstørrelse for japansk",
-    "japaneseGranularityDesc": "Hvordan automatisk opdeling deler japansk tekst. Små kana, ー og っ bliver ved deres lyd.",
-    "granularity": {
-      "syllable": "Stavelse",
-      "syllableDesc": "Én lyd pr. del, ん hører til lyden før",
-      "mora": "Mora",
-      "moraDesc": "Ét slag pr. del, ん er sin egen del",
-      "word": "Ord",
-      "wordDesc": "Hele ord"
-    },
-    "translationFormat": "Eksport af oversættelser",
-    "translationFormatDesc": "Hvor oversættelser placeres i eksporteret TTML. Spicy Lyrics læser kun oversættelser i linjen.",
-    "format": {
-      "inline": "I linjen",
-      "inlineDesc": "I hver linje, som hidtil. Spicy Lyrics læser dette.",
-      "head": "Hoved",
-      "headDesc": "Apple-stil, i filens hoved. Spicy Lyrics kan vise det som romanisering."
-    },
-    "translationLanguage": "Oversættelsessprog",
-    "translationLanguageDesc": "Sprogkode for oversættelser i hovedet, fx en eller es.",
     "paste": {
       "button": "Indsæt romaniseret...",
       "tooltip": "Udfyld romanisering pr. ord fra en romaniseret tekstside, fx fra Genius.",
@@ -1467,8 +1452,13 @@
       "placeholder": "Kimi no na wo...",
       "apply": "Udfyld romanisering",
       "lineCountMismatch": "Siden har {received} linjer, og teksten har {expected}. Tilføj eller fjern linjer, så de passer.",
-      "applied": "Romanisering udfyldt: {count} linjer.",
-      "check": "Nogle ord blev gættet. Tjek linje {lines}."
+      "applied": "{count, plural, one {Romanisering udfyldt for # linje.} other {Romanisering udfyldt for # linjer.}}",
+      "check": "Nogle ord blev gættet. Tjek linje {lines}.",
+      "existing": "{count, plural, one {# ord har allerede romanisering} other {# ord har allerede romanisering}}",
+      "fillEmpty": "Udfyld kun tomme ord",
+      "fillEmptyDesc": "Ord, du allerede har romaniseret, forbliver som de er",
+      "replace": "Erstat alle",
+      "replaceDesc": "Hvert ord får sin romanisering fra siden"
     }
   },
   "timeShiftDialog": {

@@ -83,8 +83,6 @@ export interface SegmentationConfig {
 	 * 如果未提供，则不执行西文音节的自动分词
 	 */
 	hyphenator?: HyphenatorFunc;
-	/** Experimental: the prosodic engine tries the rule-based splitter first. */
-	englishRules?: boolean;
-	/** Experimental: Japanese split granularity; unset keeps the existing splitter. */
+	/** Japanese split granularity; unset means syllable. */
 	japaneseGranularity?: "syllable" | "mora" | "word";
 }

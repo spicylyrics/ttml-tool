@@ -17,8 +17,6 @@ import { applyLearnedRule } from "./learned-rules";
 import {
 	getHyphenationLanguage,
 	getSyllabificationEngine,
-	splitEnglishWithRules,
-	splitJapaneseText,
 } from "./syllabification-engines";
 
 export interface SegmentationContext {
@@ -61,9 +59,10 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 	}
 	if (config.engine === "none") return [text];
 	if (config.engine === "japanese") {
-		return config.japaneseGranularity
-			? splitJapaneseByGranularity(text, config.japaneseGranularity)
-			: splitJapaneseText(text);
+		return splitJapaneseByGranularity(
+			text,
+			config.japaneseGranularity ?? "syllable",
+		);
 	}
 	const tokens: string[] = [];
 	let currentToken = "";
@@ -80,9 +79,7 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 			const syllables =
 				getHyphenationLanguage(config.engine) && config.hyphenator
 					? config.hyphenator(currentToken).split("\u00AD")
-					: config.englishRules && config.engine === "prosodic"
-						? splitEnglishWithRules(currentToken)
-						: getSyllabificationEngine(config.engine).split(currentToken);
+					: getSyllabificationEngine(config.engine).split(currentToken);
 			tokens.push(...syllables);
 		} else {
 			tokens.push(currentToken);

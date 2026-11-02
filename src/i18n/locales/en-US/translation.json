@@ -925,7 +925,15 @@
       "showFpsDesc": "Show a frame rate counter on the preview.",
       "previewModeDesc": "Choose which preview the Preview tab shows.",
       "spicyBackgroundDesc": "What shows behind the Spicy preview.",
-      "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews."
+      "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews.",
+      "japaneseSplit": "Japanese auto split",
+      "japaneseSplitDesc": "How Auto split cuts Japanese lyrics into parts.",
+      "japaneseSplitSyllable": "Syllable",
+      "japaneseSplitSyllableDesc": "By sound, as it's sung: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "One part per beat, like ko|o|hi|i",
+      "japaneseSplitWord": "Word",
+      "japaneseSplitWordDesc": "Whole words. Can differ a little between the app and the website"
     }
   },
   "timingOverview": {
@@ -1436,29 +1444,6 @@
     "caseSensitive": "Match case"
   },
   "romanizationTools": {
-    "group": "Romanization and splitting",
-    "flag": "Experimental romanization tools",
-    "flagDesc": "Rule-based English splitting, Japanese split size, pasting a romanized page and a head-level translation export.",
-    "japaneseGranularity": "Japanese split size",
-    "japaneseGranularityDesc": "How Auto split cuts Japanese lyrics. Small kana, ー and っ stay with their sound.",
-    "granularity": {
-      "syllable": "Syllable",
-      "syllableDesc": "One sound per part, ん joins the sound before it",
-      "mora": "Mora",
-      "moraDesc": "One beat per part, ん is its own part",
-      "word": "Word",
-      "wordDesc": "Whole words"
-    },
-    "translationFormat": "Translation export",
-    "translationFormatDesc": "Where translations go in exported TTML. Spicy Lyrics reads inline translations only.",
-    "format": {
-      "inline": "Inline",
-      "inlineDesc": "In each line, as before. Spicy Lyrics reads this.",
-      "head": "Head",
-      "headDesc": "Apple-style, in the file head. Spicy Lyrics may show it as romanization."
-    },
-    "translationLanguage": "Translation language",
-    "translationLanguageDesc": "Language tag for head-level translations, like en or es.",
     "paste": {
       "button": "Paste romanized...",
       "tooltip": "Fill per-word romanization from a romanized lyric page, such as Genius's.",
@@ -1467,8 +1452,13 @@
       "placeholder": "Kimi no na wo...",
       "apply": "Fill romanization",
       "lineCountMismatch": "The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
-      "applied": "Romanization filled: {count} lines.",
-      "check": "Some words were guessed. Check lines {lines}."
+      "applied": "{count, plural, one {Romanization filled for # line.} other {Romanization filled for # lines.}}",
+      "check": "Some words were guessed. Check lines {lines}.",
+      "existing": "{count, plural, one {# word already has romanization} other {# words already have romanization}}",
+      "fillEmpty": "Fill empty words only",
+      "fillEmptyDesc": "Words you already romanized stay as they are",
+      "replace": "Replace all",
+      "replaceDesc": "Every word takes its romanization from the page"
     }
   },
   "timeShiftDialog": {

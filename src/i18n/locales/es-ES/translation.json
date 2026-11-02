@@ -925,7 +925,15 @@
       "showFpsDesc": "Muestra un contador de fotogramas por segundo en la vista previa.",
       "previewModeDesc": "Elige qué vista previa muestra la pestaña Vista previa.",
       "spicyBackgroundDesc": "Lo que se muestra detrás de la vista previa de Spicy.",
-      "fadeWidthDesc": "Qué tan suave es el borde del resaltado mientras se llena una palabra en las vistas previas Standard y Toxi."
+      "fadeWidthDesc": "Qué tan suave es el borde del resaltado mientras se llena una palabra en las vistas previas Standard y Toxi.",
+      "japaneseSplit": "División automática del japonés",
+      "japaneseSplitDesc": "Cómo la división automática corta la letra japonesa en partes.",
+      "japaneseSplitSyllable": "Sílaba",
+      "japaneseSplitSyllableDesc": "Por sonido, como se canta: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Una parte por pulso, como ko|o|hi|i",
+      "japaneseSplitWord": "Palabra",
+      "japaneseSplitWordDesc": "Palabras completas. Puede variar un poco entre la app y la web"
     }
   },
   "timingOverview": {
@@ -1436,29 +1444,6 @@
     "caseSensitive": "Distinguir mayúsculas y minúsculas"
   },
   "romanizationTools": {
-    "group": "Romanización y división",
-    "flag": "Herramientas de romanización experimentales",
-    "flagDesc": "División del inglés por reglas, tamaño de división del japonés, pegar una página romanizada y exportar traducciones en la cabecera.",
-    "japaneseGranularity": "Tamaño de división del japonés",
-    "japaneseGranularityDesc": "Cómo divide la división automática la letra en japonés. Los kana pequeños, ー y っ se quedan con su sonido.",
-    "granularity": {
-      "syllable": "Sílaba",
-      "syllableDesc": "Un sonido por parte, ん se une al sonido anterior",
-      "mora": "Mora",
-      "moraDesc": "Un pulso por parte, ん es una parte propia",
-      "word": "Palabra",
-      "wordDesc": "Palabras completas"
-    },
-    "translationFormat": "Exportación de traducciones",
-    "translationFormatDesc": "Dónde van las traducciones en el TTML exportado. Spicy Lyrics solo lee traducciones en línea.",
-    "format": {
-      "inline": "En línea",
-      "inlineDesc": "En cada línea, como hasta ahora. Spicy Lyrics lee esto.",
-      "head": "Cabecera",
-      "headDesc": "Estilo Apple, en la cabecera del archivo. Spicy Lyrics puede mostrarlas como romanización."
-    },
-    "translationLanguage": "Idioma de la traducción",
-    "translationLanguageDesc": "Código de idioma de las traducciones en la cabecera, como en o es.",
     "paste": {
       "button": "Pegar romanización...",
       "tooltip": "Rellena la romanización de cada palabra desde una página de letra romanizada, como la de Genius.",
@@ -1467,8 +1452,13 @@
       "placeholder": "Kimi no na wo...",
       "apply": "Rellenar romanización",
       "lineCountMismatch": "La página tiene {received} líneas y la letra tiene {expected}. Añade o quita líneas para que coincidan.",
-      "applied": "Romanización rellenada: {count} líneas.",
-      "check": "Algunas palabras se han estimado. Revisa las líneas {lines}."
+      "applied": "{count, plural, one {Romanización rellenada en # línea.} many {Romanización rellenada en # líneas.} other {Romanización rellenada en # líneas.}}",
+      "check": "Algunas palabras se han estimado. Revisa las líneas {lines}.",
+      "existing": "{count, plural, one {# palabra ya tiene romanización} many {# palabras ya tienen romanización} other {# palabras ya tienen romanización}}",
+      "fillEmpty": "Rellenar solo palabras vacías",
+      "fillEmptyDesc": "Las palabras que ya romanizaste se quedan como están",
+      "replace": "Reemplazar todo",
+      "replaceDesc": "Cada palabra toma su romanización de la página"
     }
   },
   "timeShiftDialog": {

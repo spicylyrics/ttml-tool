@@ -28,15 +28,15 @@ describe("romanized page alignment", () => {
 
 	it("matches kana words by their reading", () => {
 		expect(align("Arigatou", "あ", "り", "が", "と", "う")).toEqual({
-			romanWords: ["a", "ri", "ga", "to", "u"],
+			romanWords: ["A", "ri", "ga", "to", "u"],
 			uncertain: false,
 		});
 		expect(align("issho ni", "いっ", "しょ", "に")).toEqual({
-			romanWords: ["is", "sho", "ni"],
+			romanWords: ["is", "sho ", "ni"],
 			uncertain: false,
 		});
 		expect(align("kōhī", "コー", "ヒー")).toEqual({
-			romanWords: ["kou", "hii"],
+			romanWords: ["kō", "hī"],
 			uncertain: false,
 		});
 		expect(align("koohii", "コー", "ヒー").romanWords).toEqual(["koo", "hii"]);
@@ -49,31 +49,38 @@ describe("romanized page alignment", () => {
 
 	it("reads particles the way pages spell them", () => {
 		expect(align("Boku wa kimi wo", "僕", "は", "君", "を")).toEqual({
-			romanWords: ["boku", "wa", "kimi", "wo"],
+			romanWords: ["Boku ", "wa ", "kimi ", "wo"],
 			uncertain: false,
 		});
-		expect(align("kimi o", "君", "を").romanWords).toEqual(["kimi", "o"]);
+		expect(align("kimi o", "君", "を").romanWords).toEqual(["kimi ", "o"]);
 	});
 
 	it("gives a kanji word everything between its neighbours", () => {
 		expect(align("Kimi no namae wo", "君", "の", "名前", "を")).toEqual({
-			romanWords: ["kimi", "no", "namae", "wo"],
+			romanWords: ["Kimi ", "no ", "namae ", "wo"],
+			uncertain: false,
+		});
+	});
+
+	it("keeps capitals, macrons and apostrophes from the page", () => {
+		expect(align("Kon'ya, Tōkyō de", "今夜", "東京", "で")).toEqual({
+			romanWords: ["Kon'ya ", "Tōkyō ", "de"],
 			uncertain: false,
 		});
 	});
 
 	it("splits a kanji run by mora and flags it", () => {
 		const result = align("namae wo", "名", "前", "を");
-		expect(result.romanWords.join("")).toBe("namaewo");
+		expect(result.romanWords.join("")).toBe("namae wo");
 		expect(result.uncertain).toBe(true);
 	});
 
 	it("keeps Latin words and skips spaces and punctuation", () => {
 		expect(align("Oh yeah, hashiru", "Oh ", "yeah, ", "走", "る")).toEqual({
-			romanWords: ["oh", "yeah", "hashi", "ru"],
+			romanWords: ["Oh ", "yeah ", "hashi", "ru"],
 			uncertain: false,
 		});
-		expect(align("a i", "あ", " ", "い").romanWords).toEqual(["a", "", "i"]);
+		expect(align("a i", "あ", " ", "い").romanWords).toEqual(["a ", "", "i"]);
 	});
 
 	it("flags a line whose romaji doesn't fit", () => {
@@ -108,7 +115,19 @@ describe("romanized page lines", () => {
 			lines[0].id,
 			lines[2].id,
 		]);
-		expect(Object.values(result.lines[0].romanWords)).toEqual(["kimi", "no"]);
+		expect(Object.values(result.lines[0].romanWords)).toEqual(["kimi ", "no"]);
 		expect(Object.values(result.lines[1].romanWords)).toEqual(["boku"]);
+	});
+
+	it("numbers lines the way the editor does", () => {
+		const lines = [
+			line("君"),
+			{ ...line("あ"), isBG: true },
+			line(""),
+			line("僕"),
+		];
+		const result = alignRomanizedPage(lines, "kimi\nboku");
+		if (!result.ok) throw new Error("expected a match");
+		expect(result.lines.map((aligned) => aligned.lineNumber)).toEqual([1, 3]);
 	});
 });

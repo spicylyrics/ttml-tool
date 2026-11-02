@@ -925,7 +925,15 @@
       "showFpsDesc": "Toon een framerateteller op het voorbeeld.",
       "previewModeDesc": "Kies welk voorbeeld het tabblad Voorbeeld toont.",
       "spicyBackgroundDesc": "Wat er achter het Spicy-voorbeeld te zien is.",
-      "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden."
+      "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden.",
+      "japaneseSplit": "Automatisch splitsen van Japans",
+      "japaneseSplitDesc": "Hoe automatisch splitsen Japanse teksten in delen knipt.",
+      "japaneseSplitSyllable": "Lettergreep",
+      "japaneseSplitSyllableDesc": "Op klank, zoals het gezongen wordt: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Eén deel per tel, zoals ko|o|hi|i",
+      "japaneseSplitWord": "Woord",
+      "japaneseSplitWordDesc": "Hele woorden. Kan iets verschillen tussen de app en de website"
     }
   },
   "timingOverview": {
@@ -1436,29 +1444,6 @@
     "caseSensitive": "Hoofdlettergevoelig"
   },
   "romanizationTools": {
-    "group": "Romanisering en splitsen",
-    "flag": "Experimentele romaniseringshulpmiddelen",
-    "flagDesc": "Regelgebaseerd splitsen van Engels, splitsgrootte voor Japans, een geromaniseerde pagina plakken en vertalingen in de head exporteren.",
-    "japaneseGranularity": "Splitsgrootte voor Japans",
-    "japaneseGranularityDesc": "Hoe automatisch splitsen Japanse teksten knipt. Kleine kana, ー en っ blijven bij hun klank.",
-    "granularity": {
-      "syllable": "Lettergreep",
-      "syllableDesc": "Eén klank per deel, ん hoort bij de klank ervoor",
-      "mora": "Mora",
-      "moraDesc": "Eén tel per deel, ん is een eigen deel",
-      "word": "Woord",
-      "wordDesc": "Hele woorden"
-    },
-    "translationFormat": "Vertalingen exporteren",
-    "translationFormatDesc": "Waar vertalingen in de geëxporteerde TTML komen. Spicy Lyrics leest alleen vertalingen in de regel.",
-    "format": {
-      "inline": "In de regel",
-      "inlineDesc": "In elke regel, zoals voorheen. Spicy Lyrics leest dit.",
-      "head": "Head",
-      "headDesc": "Apple-stijl, in de head van het bestand. Spicy Lyrics kan ze als romanisering tonen."
-    },
-    "translationLanguage": "Taal van de vertaling",
-    "translationLanguageDesc": "Taalcode voor vertalingen in de head, zoals en of es.",
     "paste": {
       "button": "Romanisering plakken...",
       "tooltip": "Vul de romanisering per woord in vanaf een geromaniseerde songtekstpagina, zoals die van Genius.",
@@ -1467,8 +1452,13 @@
       "placeholder": "Kimi no na wo...",
       "apply": "Romanisering invullen",
       "lineCountMismatch": "De pagina heeft {received} regels en de tekst heeft er {expected}. Voeg regels toe of verwijder ze zodat ze overeenkomen.",
-      "applied": "Romanisering ingevuld: {count} regels.",
-      "check": "Sommige woorden zijn geschat. Controleer regel {lines}."
+      "applied": "{count, plural, one {Romanisatie ingevuld voor # regel.} other {Romanisatie ingevuld voor # regels.}}",
+      "check": "Sommige woorden zijn geschat. Controleer regel {lines}.",
+      "existing": "{count, plural, one {# woord heeft al romanisatie} other {# woorden hebben al romanisatie}}",
+      "fillEmpty": "Alleen lege woorden invullen",
+      "fillEmptyDesc": "Woorden die je al romaniseerde blijven zoals ze zijn",
+      "replace": "Alles vervangen",
+      "replaceDesc": "Elk woord neemt zijn romanisatie van de pagina"
     }
   },
   "timeShiftDialog": {

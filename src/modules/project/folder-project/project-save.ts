@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 import { uid } from "uid";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { getSuggestedTtmlFileName } from "$/modules/project/logic/metadata-filename";
-import { readTranslationExportOptions } from "$/modules/romanization/states";
 import {
 	allowConsecutiveBackgroundLinesAtom,
 	lyricTextNormalizationOptionsAtom,
@@ -80,7 +79,6 @@ export function generateLyricTextFromStore(
 				allowConsecutiveBackgroundLines: store.get(
 					allowConsecutiveBackgroundLinesAtom,
 				),
-				...readTranslationExportOptions(store),
 			},
 		);
 	} catch (e) {

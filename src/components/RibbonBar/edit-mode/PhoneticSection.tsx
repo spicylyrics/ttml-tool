@@ -21,13 +21,9 @@ import {
 	Switch,
 	Text,
 } from "@radix-ui/themes";
-import { useAtomValue } from "jotai";
 import { ActionTooltip } from "$/components/ActionTooltip";
-import {
-	pasteRomanizationDialogAtom,
-	romanizationToolsFlagAtom,
-} from "$/modules/romanization/states";
 import { SlIcon } from "$/components/SlIcon";
+import { pasteRomanizationDialogAtom } from "$/modules/romanization/states";
 import { displayRomanizationInSyncAtom } from "$/modules/settings/states/index.ts";
 import { RibbonSection } from "../common";
 
@@ -42,7 +38,6 @@ export const PhoneticSection = () => {
 		displayRomanization,
 		store,
 	} = usePhoneticSection();
-	const romanizationTools = useAtomValue(romanizationToolsFlagAtom);
 	const aboutLabel = t(
 		"ribbonBar.editMode.romanization.info.title",
 		"About romanization",
@@ -168,24 +163,22 @@ export const PhoneticSection = () => {
 						)}
 					</Button>
 				</ActionTooltip>
-				{romanizationTools && (
-					<ActionTooltip
-						label={t("romanizationTools.paste.button", "Paste romanized...")}
-						description={t(
-							"romanizationTools.paste.tooltip",
-							"Fill per-word romanization from a romanized lyric page, such as Genius's.",
-						)}
+				<ActionTooltip
+					label={t("romanizationTools.paste.button", "Paste romanized...")}
+					description={t(
+						"romanizationTools.paste.tooltip",
+						"Fill per-word romanization from a romanized lyric page, such as Genius's.",
+					)}
+				>
+					<Button
+						size="1"
+						variant="soft"
+						style={{ gridColumn: "span 2" }}
+						onClick={() => store.set(pasteRomanizationDialogAtom, true)}
 					>
-						<Button
-							size="1"
-							variant="soft"
-							style={{ gridColumn: "span 2" }}
-							onClick={() => store.set(pasteRomanizationDialogAtom, true)}
-						>
-							{t("romanizationTools.paste.button", "Paste romanized...")}
-						</Button>
-					</ActionTooltip>
-				)}
+						{t("romanizationTools.paste.button", "Paste romanized...")}
+					</Button>
+				</ActionTooltip>
 				<Flex style={{ gridColumn: "span 2", justifyContent: "center" }}>
 					<ActionTooltip
 						label={showRomanizationLabel}

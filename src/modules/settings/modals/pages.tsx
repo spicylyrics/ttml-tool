@@ -14,7 +14,6 @@ import {
 import type { TFunction } from "i18next";
 import type { ComponentType, ReactNode } from "react";
 import { ChangelogScreen } from "$/modules/changelog/ChangelogScreen.tsx";
-import { RomanizationToolsSettings } from "$/modules/romanization/RomanizationToolsSettings";
 import { SettingsAboutTab } from "./about";
 import { SettingsAppearanceTab } from "./appearance";
 import { AudioSettingsTab } from "./audio";
@@ -108,12 +107,7 @@ const BackupPage = () => {
 	);
 };
 
-const EditingPage = () => (
-	<>
-		<WorkflowSettings groups={["editMode"]} />
-		<RomanizationToolsSettings />
-	</>
-);
+const EditingPage = () => <WorkflowSettings groups={["editMode"]} />;
 
 const PreviewPage = () => (
 	<WorkflowSettings groups={["preview", "previewPerformance"]} />

@@ -69,13 +69,18 @@ export const lyricLineStructureAtom = selectAtom(
 		),
 );
 
-export const lineDisplayNumbersAtom = atom((get) => {
+/** The line numbers the editor shows: a background line shares its main line's. */
+export const getLineDisplayNumbers = (lines: readonly { isBG: boolean }[]) => {
 	let currentNumber = 0;
-	return get(lyricLineStructureAtom).map((line, index) => {
+	return lines.map((line, index) => {
 		if (index === 0 || !line.isBG) currentNumber++;
 		return currentNumber;
 	});
-});
+};
+
+export const lineDisplayNumbersAtom = atom((get) =>
+	getLineDisplayNumbers(get(lyricLineStructureAtom)),
+);
 
 const GENIUS_HEADER_PATTERN =
 	/^\[(Chorus|Verse|Bridge|Intro|Outro|Pre-Chorus|Hook|Strofa|Refren|Skit|Interlude|Instrumental|Pre-Refren|Partea|Slofa|Section|Part|S\d+|V\d+|C\d+|Strophe|Refrain|Pont|Couplet|Refrain|Break).*?\]$/i;
