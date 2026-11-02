@@ -68,6 +68,19 @@ describe("filling romanization", () => {
 		expect(capitalizeLine(["", "hashi"], ["Oh ", "走"])).toEqual(["", "hashi"]);
 	});
 
+	it("keeps Latin words of a mixed line in its romanization", async () => {
+		const [result] = await romanizeLines(
+			[line("Oh ", "yeah ", "사랑")],
+			"ko",
+			"fillEmpty",
+		);
+		expect(Object.values(result.romanWords)).toEqual([
+			"Oh ",
+			"yeah ",
+			"ko:사랑",
+		]);
+	});
+
 	it("romanizes each line in its own language and skips Latin lines", async () => {
 		const results = await romanizeLines(
 			[line("今日"), line("사랑 ", "해"), line("La la")],

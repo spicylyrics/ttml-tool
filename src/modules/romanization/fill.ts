@@ -80,8 +80,14 @@ export async function romanizeLines(
 		const syllables = line.words.map((word) => word.word);
 		const language = lineLanguage(syllables.join(""), songLanguage);
 		if (!language) continue;
+		// Words already in Latin letters ("Oh yeah") count as their own
+		// romanization, so the romanized line reads in full in Spicy Lyrics.
 		const romanized = capitalizeLine(
-			await romanizeSyllables(syllables, language),
+			(await romanizeSyllables(syllables, language)).map(
+				(text, index) =>
+					text ||
+					(/\p{Script=Latin}/u.test(syllables[index]) ? syllables[index] : ""),
+			),
 			syllables,
 		);
 		const update = mergeLineRomanization(
