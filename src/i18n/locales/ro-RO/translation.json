@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "Romanizare",
-    "description": "Completează romanizarea pe care Spicy Lyrics o arată sub fiecare cuvânt.",
+    "description": "Cu romanizarea activată, Spicy Lyrics afișează romanizarea fiecărui cuvânt în locul versurilor.",
     "open": "Romanizare...",
     "ribbonButton": "Romanizează...",
     "tooltip": "Completează romanizarea pentru toată piesa sau pentru versurile selectate, automat sau dintr-o pagină cu versuri romanizate.",

@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "Romanización",
-    "description": "Rellena la romanización que Spicy Lyrics muestra bajo cada palabra.",
+    "description": "Con la romanización activada, Spicy Lyrics muestra la romanización de cada palabra en lugar de la letra.",
     "open": "Romanización...",
     "ribbonButton": "Romanizar...",
     "tooltip": "Rellena la romanización de toda la canción o de las líneas seleccionadas, automáticamente o desde una página de letra romanizada.",

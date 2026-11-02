@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "罗马音",
-    "description": "填写 Spicy Lyrics 在每个词下方显示的罗马音。",
+    "description": "开启罗马音后，Spicy Lyrics 会用每个词的罗马音代替歌词显示。",
     "open": "罗马音...",
     "ribbonButton": "罗马音...",
     "tooltip": "为整首歌或所选行填写罗马音，可自动填写，也可从罗马音歌词页面填写。",

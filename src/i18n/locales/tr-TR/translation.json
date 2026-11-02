@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "Romanizasyon",
-    "description": "Spicy Lyrics'in her kelimenin altında gösterdiği romanizasyonu doldurur.",
+    "description": "Romanizasyon açıkken Spicy Lyrics, sözlerin yerine her kelimenin romanizasyonunu gösterir.",
     "open": "Romanizasyon...",
     "ribbonButton": "Romanize et...",
     "tooltip": "Tüm şarkı ya da seçili satırlar için romanizasyonu otomatik olarak veya romanize edilmiş bir şarkı sözü sayfasından doldurur.",

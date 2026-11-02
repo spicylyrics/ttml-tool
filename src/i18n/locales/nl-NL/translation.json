@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "Romanisatie",
-    "description": "Vult de romanisering die Spicy Lyrics onder elk woord toont.",
+    "description": "Met romanisering aan toont Spicy Lyrics de romanisering van elk woord in plaats van de tekst.",
     "open": "Romanisatie...",
     "ribbonButton": "Romaniseren...",
     "tooltip": "Vul romanisatie in voor het hele nummer of de geselecteerde regels, automatisch of vanaf een geromaniseerde songtekstpagina.",

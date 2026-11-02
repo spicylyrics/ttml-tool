@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "Latinisointi",
-    "description": "Täyttää latinisoinnin, jonka Spicy Lyrics näyttää jokaisen sanan alla.",
+    "description": "Kun latinisointi on päällä, Spicy Lyrics näyttää sanoituksen sijaan kunkin sanan latinisoinnin.",
     "open": "Latinisointi...",
     "ribbonButton": "Latinisoi...",
     "tooltip": "Täytä latinisointi koko kappaleelle tai valituille riveille, automaattisesti tai latinisoidulta sanoitussivulta.",

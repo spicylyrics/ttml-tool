@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "Romanizácia",
-    "description": "Vyplní romanizáciu, ktorú Spicy Lyrics zobrazuje pod každým slovom.",
+    "description": "So zapnutou romanizáciou Spicy Lyrics zobrazuje namiesto textu romanizáciu každého slova.",
     "open": "Romanizácia...",
     "ribbonButton": "Romanizovať...",
     "tooltip": "Vyplní romanizáciu pre celú pieseň alebo vybrané riadky, automaticky alebo z romanizovanej stránky s textom.",

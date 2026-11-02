@@ -292,7 +292,7 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 						)
 					: t(
 							"romanizationPanel.description",
-							"Fills the romanization Spicy Lyrics shows under each word.",
+							"With romanization on, Spicy Lyrics shows each word's romanization in place of the lyrics.",
 						)}
 			</Dialog.Description>
 

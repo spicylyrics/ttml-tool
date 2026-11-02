@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "Romanisering",
-    "description": "Udfylder den romanisering, Spicy Lyrics viser under hvert ord.",
+    "description": "Med romanisering slået til viser Spicy Lyrics hvert ords romanisering i stedet for teksten.",
     "open": "Romanisering...",
     "ribbonButton": "Romanisér...",
     "tooltip": "Udfyld romanisering for hele sangen eller de valgte linjer, automatisk eller fra en romaniseret tekstside.",

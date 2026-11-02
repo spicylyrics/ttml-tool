@@ -1422,7 +1422,7 @@
   },
   "romanizationPanel": {
     "title": "Romanisasi",
-    "description": "Mengisi romanisasi yang ditampilkan Spicy Lyrics di bawah setiap kata.",
+    "description": "Saat romanisasi aktif, Spicy Lyrics menampilkan romanisasi setiap kata sebagai ganti liriknya.",
     "open": "Romanisasi...",
     "ribbonButton": "Romanisasi...",
     "tooltip": "Isi romanisasi untuk seluruh lagu atau baris yang dipilih, secara otomatis atau dari halaman lirik yang diromanisasi.",
