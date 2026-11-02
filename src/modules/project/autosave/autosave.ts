@@ -7,16 +7,6 @@ const DB_NAME = "amll-autosave-db";
 const DB_VERSION = 2;
 
 /**
- * @description 旧版快照结构，仅用于数据迁移
- * @internal
- */
-interface LegacySnapshot {
-	id?: number;
-	timestamp: number;
-	lyrics: TTMLLyric;
-}
-
-/**
  * @description 项目基本信息，用于快速恢复最新版本
  */
 export interface ProjectInfo {
@@ -104,7 +94,7 @@ let dbPromise: Promise<IDBPDatabase<AutosaveDBSchema>> | null = null;
 function getDB() {
 	if (!dbPromise) {
 		dbPromise = openDB<AutosaveDBSchema>(DB_NAME, DB_VERSION, {
-			async upgrade(db, oldVersion, _newVersion, transaction) {
+			upgrade(db, oldVersion) {
 				if (!db.objectStoreNames.contains("projects")) {
 					const projectStore = db.createObjectStore("projects", {
 						keyPath: "id",
@@ -124,37 +114,14 @@ function getDB() {
 					]);
 				}
 
+				// Version 1 (before 2025-12) kept flat snapshots. They are no
+				// longer imported; drop the store.
 				if (
 					oldVersion < 2 &&
-					// biome-ignore lint/suspicious/noExplicitAny: 旧版本的快照
+					// biome-ignore lint/suspicious/noExplicitAny: not in the current schema
 					db.objectStoreNames.contains("snapshots" as any)
 				) {
-					const legacyProjectId = "legacy_autosave_archive";
-					// biome-ignore lint/suspicious/noExplicitAny: 旧版本的快照，应该存在
-					const oldStore = transaction.objectStore("snapshots" as any);
-					const oldSnapshots = (await oldStore.getAll()) as LegacySnapshot[];
-
-					if (oldSnapshots && oldSnapshots.length > 0) {
-						oldSnapshots.sort((a, b) => a.timestamp - b.timestamp);
-						const latestSnapshot = oldSnapshots[oldSnapshots.length - 1];
-						const projectStore = transaction.objectStore("projects");
-						await projectStore.put({
-							id: legacyProjectId,
-							name: "Legacy Snapshots Archive",
-							lastModified: latestSnapshot.timestamp,
-							latestState: latestSnapshot.lyrics,
-							preview: "(来自旧版自动保存的历史数据)",
-						});
-						const versionStore = transaction.objectStore("versions");
-						for (const snap of oldSnapshots) {
-							await versionStore.add({
-								projectId: legacyProjectId,
-								timestamp: snap.timestamp,
-								data: snap.lyrics,
-							});
-						}
-					}
-					// biome-ignore lint/suspicious/noExplicitAny: 旧版本的快照，应该存在
+					// biome-ignore lint/suspicious/noExplicitAny: not in the current schema
 					db.deleteObjectStore("snapshots" as any);
 				}
 			},
