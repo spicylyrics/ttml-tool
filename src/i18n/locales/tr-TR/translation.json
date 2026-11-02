@@ -925,7 +925,15 @@
       "showFpsDesc": "Önizlemede kare hızı sayacı gösterir.",
       "previewModeDesc": "Önizleme sekmesinin hangi önizlemeyi göstereceğini seçin.",
       "spicyBackgroundDesc": "Spicy önizlemesinin arkasında ne görüneceği.",
-      "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı."
+      "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı.",
+      "japaneseSplit": "Japonca otomatik bölme",
+      "japaneseSplitDesc": "Otomatik bölmenin Japonca sözleri nasıl parçalara ayırdığı.",
+      "japaneseSplitSyllable": "Hece",
+      "japaneseSplitSyllableDesc": "Sese göre, söylendiği gibi: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Vuruş başına bir parça, ko|o|hi|i gibi",
+      "japaneseSplitWord": "Kelime",
+      "japaneseSplitWordDesc": "Tam kelimeler. Uygulama ile web sitesi arasında biraz farklı olabilir"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Yeni Latin harflerine çeviri",
     "applyToAll": "Tüm özdeş kelimelere uygula",
     "caseSensitive": "Büyük/küçük harfe duyarlı"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Romanizasyon yapıştır...",
+      "tooltip": "Kelime başına romanizasyonu Genius gibi romanize edilmiş bir söz sayfasından doldurur.",
+      "title": "Romanize sözleri yapıştır",
+      "description": "Romanize edilmiş bir söz sayfası yapıştırın, her söz satırı için bir satır. Bölüm başlıkları ve boş satırlar atlanır, arka plan satırlarına dokunulmaz.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Romanizasyonu doldur",
+      "lineCountMismatch": "Sayfada {received} satır, sözlerde {expected} satır var. Eşleşmeleri için satır ekleyin veya silin.",
+      "applied": "{count, plural, one {# satır için romanizasyon dolduruldu.} other {# satır için romanizasyon dolduruldu.}}",
+      "check": "Bazı kelimeler tahmin edildi. {lines} numaralı satırları kontrol edin.",
+      "existing": "{count, plural, one {# kelimenin zaten romanizasyonu var} other {# kelimenin zaten romanizasyonu var}}",
+      "fillEmpty": "Yalnızca boş kelimeleri doldur",
+      "fillEmptyDesc": "Zaten romanize ettiğin kelimeler olduğu gibi kalır",
+      "replace": "Tümünü değiştir",
+      "replaceDesc": "Her kelime romanizasyonunu sayfadan alır"
+    }
   },
   "timeShiftDialog": {
     "title": "Zaman kaydırma",

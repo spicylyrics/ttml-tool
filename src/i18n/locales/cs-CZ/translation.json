@@ -925,7 +925,15 @@
       "showFpsDesc": "Zobrazit v náhledu počítadlo snímků za sekundu.",
       "previewModeDesc": "Vyberte, který náhled se zobrazí na kartě Náhled.",
       "spicyBackgroundDesc": "Co se zobrazuje za náhledem Spicy.",
-      "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi."
+      "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi.",
+      "japaneseSplit": "Automatické dělení japonštiny",
+      "japaneseSplitDesc": "Jak automatické dělení rozdělí japonský text na části.",
+      "japaneseSplitSyllable": "Slabika",
+      "japaneseSplitSyllableDesc": "Podle zvuku, jak se zpívá: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Jedna část na dobu, např. ko|o|hi|i",
+      "japaneseSplitWord": "Slovo",
+      "japaneseSplitWordDesc": "Celá slova. V aplikaci a na webu se může mírně lišit"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Nový přepis do latinky",
     "applyToAll": "Použít na všechna stejná slova",
     "caseSensitive": "Rozlišovat velká a malá písmena"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Vložit přepis...",
+      "tooltip": "Doplní přepis ke slovům ze stránky s přepsaným textem, třeba z Genius.",
+      "title": "Vložit přepsaný text",
+      "description": "Vložte stránku s přepsaným textem, jeden řádek na řádek textu. Záhlaví sekcí a prázdné řádky se přeskočí a řádky v pozadí zůstanou beze změny.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Doplnit přepis",
+      "lineCountMismatch": "Stránka má {received} řádků a text má {expected}. Přidejte nebo odeberte řádky, aby se shodovaly.",
+      "applied": "{count, plural, one {Romanizace vyplněna pro # řádek.} few {Romanizace vyplněna pro # řádky.} many {Romanizace vyplněna pro # řádku.} other {Romanizace vyplněna pro # řádků.}}",
+      "check": "Některá slova byla odhadnuta. Zkontrolujte řádky {lines}.",
+      "existing": "{count, plural, one {# slovo už má romanizaci} few {# slova už mají romanizaci} many {# slova už má romanizaci} other {# slov už má romanizaci}}",
+      "fillEmpty": "Vyplnit jen prázdná slova",
+      "fillEmptyDesc": "Slova, která už romanizaci mají, zůstanou beze změny",
+      "replace": "Nahradit vše",
+      "replaceDesc": "Každé slovo převezme romanizaci ze stránky"
+    }
   },
   "timeShiftDialog": {
     "title": "Časový posun",

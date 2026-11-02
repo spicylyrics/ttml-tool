@@ -925,7 +925,15 @@
       "showFpsDesc": "Mostra un contatore dei fotogrammi al secondo sull'anteprima.",
       "previewModeDesc": "Scegli quale anteprima mostra la scheda Anteprima.",
       "spicyBackgroundDesc": "Cosa viene mostrato dietro l'anteprima Spicy.",
-      "fadeWidthDesc": "Quanto è morbido il bordo dell'evidenziazione mentre una parola si riempie nelle anteprime Standard e Toxi."
+      "fadeWidthDesc": "Quanto è morbido il bordo dell'evidenziazione mentre una parola si riempie nelle anteprime Standard e Toxi.",
+      "japaneseSplit": "Divisione automatica del giapponese",
+      "japaneseSplitDesc": "Come la divisione automatica taglia i testi giapponesi in parti.",
+      "japaneseSplitSyllable": "Sillaba",
+      "japaneseSplitSyllableDesc": "Per suono, come si canta: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Una parte per battito, come ko|o|hi|i",
+      "japaneseSplitWord": "Parola",
+      "japaneseSplitWordDesc": "Parole intere. Può variare un po' tra l'app e il sito"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Nuova romanizzazione",
     "applyToAll": "Applica a tutte le parole identiche",
     "caseSensitive": "Distingui maiuscole e minuscole"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Incolla romanizzazione...",
+      "tooltip": "Compila la romanizzazione di ogni parola da una pagina di testo romanizzato, come quella di Genius.",
+      "title": "Incolla testo romanizzato",
+      "description": "Incolla una pagina di testo romanizzato, una riga per ogni riga del testo. Le intestazioni di sezione e le righe vuote vengono saltate e le righe di sottofondo restano invariate.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Compila romanizzazione",
+      "lineCountMismatch": "La pagina ha {received} righe e il testo ne ha {expected}. Aggiungi o rimuovi righe perché corrispondano.",
+      "applied": "{count, plural, one {Romanizzazione inserita per # riga.} many {Romanizzazione inserita per # righe.} other {Romanizzazione inserita per # righe.}}",
+      "check": "Alcune parole sono state stimate. Controlla le righe {lines}.",
+      "existing": "{count, plural, one {# parola ha già la romanizzazione} many {# parole hanno già la romanizzazione} other {# parole hanno già la romanizzazione}}",
+      "fillEmpty": "Riempi solo le parole vuote",
+      "fillEmptyDesc": "Le parole già romanizzate restano come sono",
+      "replace": "Sostituisci tutto",
+      "replaceDesc": "Ogni parola prende la romanizzazione dalla pagina"
+    }
   },
   "timeShiftDialog": {
     "title": "Sposta tempi",

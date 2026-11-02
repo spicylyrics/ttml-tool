@@ -925,7 +925,15 @@
       "showFpsDesc": "Show a frame rate counter on the preview.",
       "previewModeDesc": "Choose which preview the Preview tab shows.",
       "spicyBackgroundDesc": "What shows behind the Spicy preview.",
-      "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews."
+      "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews.",
+      "japaneseSplit": "Japanese auto split",
+      "japaneseSplitDesc": "How Auto split cuts Japanese lyrics into parts.",
+      "japaneseSplitSyllable": "Syllable",
+      "japaneseSplitSyllableDesc": "By sound, as it's sung: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "One part per beat, like ko|o|hi|i",
+      "japaneseSplitWord": "Word",
+      "japaneseSplitWordDesc": "Whole words. Can differ a little between the app and the website"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "New romanization",
     "applyToAll": "Apply to all identical words",
     "caseSensitive": "Match case"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Paste romanized...",
+      "tooltip": "Fill per-word romanization from a romanized lyric page, such as Genius's.",
+      "title": "Paste romanized lyrics",
+      "description": "Paste a romanized lyric page, one line per lyric line. Section headers and blank lines are skipped, and background lines are left alone.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Fill romanization",
+      "lineCountMismatch": "The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
+      "applied": "{count, plural, one {Romanization filled for # line.} other {Romanization filled for # lines.}}",
+      "check": "Some words were guessed. Check lines {lines}.",
+      "existing": "{count, plural, one {# word already has romanization} other {# words already have romanization}}",
+      "fillEmpty": "Fill empty words only",
+      "fillEmptyDesc": "Words you already romanized stay as they are",
+      "replace": "Replace all",
+      "replaceDesc": "Every word takes its romanization from the page"
+    }
   },
   "timeShiftDialog": {
     "title": "Time Shift",

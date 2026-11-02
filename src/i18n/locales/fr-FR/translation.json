@@ -925,7 +925,15 @@
       "showFpsDesc": "Affiche un compteur d'images par seconde sur l'aperçu.",
       "previewModeDesc": "Choisissez l'aperçu affiché dans l'onglet Aperçu.",
       "spicyBackgroundDesc": "Ce qui s'affiche derrière l'aperçu Spicy.",
-      "fadeWidthDesc": "Douceur du bord du surlignage lorsqu'un mot se remplit dans les aperçus Standard et Toxi."
+      "fadeWidthDesc": "Douceur du bord du surlignage lorsqu'un mot se remplit dans les aperçus Standard et Toxi.",
+      "japaneseSplit": "Découpage automatique du japonais",
+      "japaneseSplitDesc": "Comment le découpage automatique coupe les paroles japonaises.",
+      "japaneseSplitSyllable": "Syllabe",
+      "japaneseSplitSyllableDesc": "Au son, comme c'est chanté : koo|hii, is|sho, kai",
+      "japaneseSplitMora": "More",
+      "japaneseSplitMoraDesc": "Une partie par temps, comme ko|o|hi|i",
+      "japaneseSplitWord": "Mot",
+      "japaneseSplitWordDesc": "Mots entiers. Peut varier un peu entre l'app et le site"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Nouvelle romanisation",
     "applyToAll": "Appliquer à tous les mots identiques",
     "caseSensitive": "Respecter la casse"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Coller la romanisation...",
+      "tooltip": "Remplit la romanisation de chaque mot depuis une page de paroles romanisées, comme celle de Genius.",
+      "title": "Coller des paroles romanisées",
+      "description": "Collez une page de paroles romanisées, une ligne par ligne de paroles. Les en-têtes de section et les lignes vides sont ignorés, et les lignes d'arrière-plan ne sont pas modifiées.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Remplir la romanisation",
+      "lineCountMismatch": "La page a {received} lignes et les paroles en ont {expected}. Ajoutez ou supprimez des lignes pour qu'elles correspondent.",
+      "applied": "{count, plural, one {Romanisation remplie pour # ligne.} many {Romanisation remplie pour # lignes.} other {Romanisation remplie pour # lignes.}}",
+      "check": "Certains mots ont été devinés. Vérifiez les lignes {lines}.",
+      "existing": "{count, plural, one {# mot a déjà une romanisation} many {# mots ont déjà une romanisation} other {# mots ont déjà une romanisation}}",
+      "fillEmpty": "Remplir seulement les mots vides",
+      "fillEmptyDesc": "Les mots déjà romanisés restent tels quels",
+      "replace": "Tout remplacer",
+      "replaceDesc": "Chaque mot prend sa romanisation depuis la page"
+    }
   },
   "timeShiftDialog": {
     "title": "Décalage temporel",

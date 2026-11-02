@@ -925,7 +925,15 @@
       "showFpsDesc": "Mostra um contador de quadros por segundo na prévia.",
       "previewModeDesc": "Escolha qual prévia a aba Prévia mostra.",
       "spicyBackgroundDesc": "O que aparece atrás da prévia do Spicy.",
-      "fadeWidthDesc": "Quão suave é a borda do destaque enquanto uma palavra é preenchida nas prévias Standard e Toxi."
+      "fadeWidthDesc": "Quão suave é a borda do destaque enquanto uma palavra é preenchida nas prévias Standard e Toxi.",
+      "japaneseSplit": "Divisão automática do japonês",
+      "japaneseSplitDesc": "Como a divisão automática corta letras em japonês em partes.",
+      "japaneseSplitSyllable": "Sílaba",
+      "japaneseSplitSyllableDesc": "Pelo som, como é cantado: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Uma parte por batida, como ko|o|hi|i",
+      "japaneseSplitWord": "Palavra",
+      "japaneseSplitWordDesc": "Palavras inteiras. Pode variar um pouco entre o app e o site"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Nova romanização",
     "applyToAll": "Aplicar a todas as palavras idênticas",
     "caseSensitive": "Diferenciar maiúsculas e minúsculas"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Colar romanização...",
+      "tooltip": "Preencha a romanização de cada palavra a partir de uma página de letra romanizada, como a do Genius.",
+      "title": "Colar letra romanizada",
+      "description": "Cole uma página de letra romanizada, uma linha para cada linha da letra. Cabeçalhos de seção e linhas vazias são ignorados, e as linhas de fundo não mudam.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Preencher romanização",
+      "lineCountMismatch": "A página tem {received} linhas e a letra tem {expected}. Adicione ou remova linhas para que batam.",
+      "applied": "{count, plural, one {Romanização preenchida em # linha.} many {Romanização preenchida em # linhas.} other {Romanização preenchida em # linhas.}}",
+      "check": "Algumas palavras foram estimadas. Confira as linhas {lines}.",
+      "existing": "{count, plural, one {# palavra já tem romanização} many {# palavras já têm romanização} other {# palavras já têm romanização}}",
+      "fillEmpty": "Preencher só palavras vazias",
+      "fillEmptyDesc": "Palavras que você já romanizou ficam como estão",
+      "replace": "Substituir tudo",
+      "replaceDesc": "Cada palavra recebe a romanização da página"
+    }
   },
   "timeShiftDialog": {
     "title": "Deslocamento de tempo",

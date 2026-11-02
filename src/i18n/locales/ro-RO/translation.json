@@ -925,7 +925,15 @@
       "showFpsDesc": "Afișează un contor de cadre pe secundă pe previzualizare.",
       "previewModeDesc": "Alege ce previzualizare afișează fila Previzualizare.",
       "spicyBackgroundDesc": "Ce se afișează în spatele previzualizării Spicy.",
-      "fadeWidthDesc": "Cât de moale este marginea evidențierii când un cuvânt se umple în previzualizările Standard și Toxi."
+      "fadeWidthDesc": "Cât de moale este marginea evidențierii când un cuvânt se umple în previzualizările Standard și Toxi.",
+      "japaneseSplit": "Împărțirea automată a japonezei",
+      "japaneseSplitDesc": "Cum taie împărțirea automată versurile japoneze în părți.",
+      "japaneseSplitSyllable": "Silabă",
+      "japaneseSplitSyllableDesc": "După sunet, cum se cântă: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "O parte pe bătaie, ca ko|o|hi|i",
+      "japaneseSplitWord": "Cuvânt",
+      "japaneseSplitWordDesc": "Cuvinte întregi. Poate diferi puțin între aplicație și site"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Noua romanizare",
     "applyToAll": "Aplică tuturor cuvintelor identice",
     "caseSensitive": "Distinge majusculele de minuscule"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Lipește romanizarea...",
+      "tooltip": "Completează romanizarea fiecărui cuvânt dintr-o pagină cu versuri romanizate, cum ar fi cea de pe Genius.",
+      "title": "Lipește versuri romanizate",
+      "description": "Lipește o pagină cu versuri romanizate, câte un rând pentru fiecare vers. Titlurile de secțiune și rândurile goale sunt sărite, iar rândurile de fundal rămân neschimbate.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Completează romanizarea",
+      "lineCountMismatch": "Pagina are {received} rânduri, iar versurile au {expected}. Adaugă sau șterge rânduri ca să se potrivească.",
+      "applied": "{count, plural, one {Romanizare completată pentru # vers.} few {Romanizare completată pentru # versuri.} other {Romanizare completată pentru # de versuri.}}",
+      "check": "Unele cuvinte au fost estimate. Verifică rândurile {lines}.",
+      "existing": "{count, plural, one {# cuvânt are deja romanizare} few {# cuvinte au deja romanizare} other {# de cuvinte au deja romanizare}}",
+      "fillEmpty": "Completează doar cuvintele goale",
+      "fillEmptyDesc": "Cuvintele deja romanizate rămân cum sunt",
+      "replace": "Înlocuiește tot",
+      "replaceDesc": "Fiecare cuvânt își ia romanizarea din pagină"
+    }
   },
   "timeShiftDialog": {
     "title": "Deplasează timpii",

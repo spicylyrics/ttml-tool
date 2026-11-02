@@ -12,11 +12,11 @@ import {
 	MergeDirection,
 	PUNCT_AMBIGUOUS_QUOTES,
 } from "./charUtils";
+import { splitJapaneseByGranularity } from "./japanese-split";
 import { applyLearnedRule } from "./learned-rules";
 import {
 	getHyphenationLanguage,
 	getSyllabificationEngine,
-	splitJapaneseText,
 } from "./syllabification-engines";
 
 export interface SegmentationContext {
@@ -58,7 +58,12 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 		return [];
 	}
 	if (config.engine === "none") return [text];
-	if (config.engine === "japanese") return splitJapaneseText(text);
+	if (config.engine === "japanese") {
+		return splitJapaneseByGranularity(
+			text,
+			config.japaneseGranularity ?? "syllable",
+		);
+	}
 	const tokens: string[] = [];
 	let currentToken = "";
 	let lastCharType: CharType | null = null;

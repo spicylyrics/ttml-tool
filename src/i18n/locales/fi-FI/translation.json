@@ -925,7 +925,15 @@
       "showFpsDesc": "Näytä esikatselussa kuvataajuuslaskuri.",
       "previewModeDesc": "Valitse, mikä esikatselu näkyy Esikatselu-välilehdellä.",
       "spicyBackgroundDesc": "Mitä Spicy-esikatselun taustalla näkyy.",
-      "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa."
+      "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa.",
+      "japaneseSplit": "Japanin automaattinen jako",
+      "japaneseSplitDesc": "Miten automaattinen jako pilkkoo japanilaiset sanat osiin.",
+      "japaneseSplitSyllable": "Tavu",
+      "japaneseSplitSyllableDesc": "Äänteen mukaan, kuten lauletaan: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Yksi osa per isku, esim. ko|o|hi|i",
+      "japaneseSplitWord": "Sana",
+      "japaneseSplitWordDesc": "Kokonaiset sanat. Voi erota hieman sovelluksen ja verkkosivun välillä"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Uusi latinalaistus",
     "applyToAll": "Käytä kaikkiin samanlaisiin sanoihin",
     "caseSensitive": "Erota kirjainkoko"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Liitä latinisointi...",
+      "tooltip": "Täytä sanakohtainen latinisointi latinisoidulta sanoitussivulta, kuten Geniuksesta.",
+      "title": "Liitä latinisoidut sanat",
+      "description": "Liitä latinisoitu sanoitussivu, yksi rivi kutakin sanoitusriviä kohden. Osioiden otsikot ja tyhjät rivit ohitetaan, eikä taustarivejä muuteta.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Täytä latinisointi",
+      "lineCountMismatch": "Sivulla on {received} riviä ja sanoituksessa {expected}. Lisää tai poista rivejä, jotta määrät täsmäävät.",
+      "applied": "{count, plural, one {Latinisointi täytetty # riville.} other {Latinisointi täytetty # riville.}}",
+      "check": "Joitakin sanoja arvattiin. Tarkista rivit {lines}.",
+      "existing": "{count, plural, one {# sanalla on jo latinisointi} other {# sanalla on jo latinisointi}}",
+      "fillEmpty": "Täytä vain tyhjät sanat",
+      "fillEmptyDesc": "Jo latinisoidut sanat pysyvät ennallaan",
+      "replace": "Korvaa kaikki",
+      "replaceDesc": "Jokainen sana saa latinisointinsa sivulta"
+    }
   },
   "timeShiftDialog": {
     "title": "Ajoituksen siirto",

@@ -925,7 +925,15 @@
       "showFpsDesc": "Vis en billedfrekvenstæller på forhåndsvisningen.",
       "previewModeDesc": "Vælg, hvilken forhåndsvisning fanen Forhåndsvisning viser.",
       "spicyBackgroundDesc": "Hvad der vises bag Spicy-forhåndsvisningen.",
-      "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne."
+      "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne.",
+      "japaneseSplit": "Automatisk opdeling af japansk",
+      "japaneseSplitDesc": "Hvordan automatisk opdeling deler japanske tekster i dele.",
+      "japaneseSplitSyllable": "Stavelse",
+      "japaneseSplitSyllableDesc": "Efter lyd, som det synges: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Én del pr. slag, f.eks. ko|o|hi|i",
+      "japaneseSplitWord": "Ord",
+      "japaneseSplitWordDesc": "Hele ord. Kan variere lidt mellem appen og hjemmesiden"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Ny romanisering",
     "applyToAll": "Anvend på alle identiske ord",
     "caseSensitive": "Skeln mellem store og små bogstaver"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Indsæt romaniseret...",
+      "tooltip": "Udfyld romanisering pr. ord fra en romaniseret tekstside, fx fra Genius.",
+      "title": "Indsæt romaniseret tekst",
+      "description": "Indsæt en romaniseret tekstside med én linje pr. tekstlinje. Sektionsoverskrifter og tomme linjer springes over, og baggrundslinjer røres ikke.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Udfyld romanisering",
+      "lineCountMismatch": "Siden har {received} linjer, og teksten har {expected}. Tilføj eller fjern linjer, så de passer.",
+      "applied": "{count, plural, one {Romanisering udfyldt for # linje.} other {Romanisering udfyldt for # linjer.}}",
+      "check": "Nogle ord blev gættet. Tjek linje {lines}.",
+      "existing": "{count, plural, one {# ord har allerede romanisering} other {# ord har allerede romanisering}}",
+      "fillEmpty": "Udfyld kun tomme ord",
+      "fillEmptyDesc": "Ord, du allerede har romaniseret, forbliver som de er",
+      "replace": "Erstat alle",
+      "replaceDesc": "Hvert ord får sin romanisering fra siden"
+    }
   },
   "timeShiftDialog": {
     "title": "Tidsforskydning",

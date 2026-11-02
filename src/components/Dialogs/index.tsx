@@ -12,6 +12,7 @@ import { TimeStretchDialog } from "$/modules/lyric-editor/tools/TimeStretch.tsx"
 import { ImportLyricsDialog } from "$/modules/lyrics-import/modals/ImportLyricsDialog.tsx";
 import { HistoryRestoreDialog } from "$/modules/project/modals/HistoryRestore.tsx";
 import { MetadataEditor } from "$/modules/project/modals/MetadataEditor.tsx";
+import { PasteRomanizationDialog } from "$/modules/romanization/PasteRomanizationDialog.tsx";
 import { AdvancedSegmentationDialog } from "$/modules/segmentation/components/AdvancedSegmentation.tsx";
 
 const ProjectsDialog = lazy(() =>
@@ -42,6 +43,7 @@ export const Dialogs = () => {
 			<ReplaceWordDialog />
 			<ReplaceWordCombinationDialog />
 			<ReplaceRomanizationDialog />
+			<PasteRomanizationDialog />
 			<LatencyTestDialog />
 			<TTMLChecklistDialog />
 			<ConfirmationDialog />

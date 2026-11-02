@@ -925,7 +925,15 @@
       "showFpsDesc": "Tampilkan penghitung frame rate di pratinjau.",
       "previewModeDesc": "Pilih pratinjau yang ditampilkan tab Pratinjau.",
       "spicyBackgroundDesc": "Apa yang tampil di belakang pratinjau Spicy.",
-      "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi."
+      "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi.",
+      "japaneseSplit": "Pemisahan otomatis bahasa Jepang",
+      "japaneseSplitDesc": "Cara Pisah otomatis memotong lirik Jepang menjadi bagian.",
+      "japaneseSplitSyllable": "Suku kata",
+      "japaneseSplitSyllableDesc": "Berdasarkan bunyi, seperti dinyanyikan: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Satu bagian per ketukan, seperti ko|o|hi|i",
+      "japaneseSplitWord": "Kata",
+      "japaneseSplitWordDesc": "Kata utuh. Bisa sedikit berbeda antara aplikasi dan situs web"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Romanisasi baru",
     "applyToAll": "Terapkan ke semua kata yang sama",
     "caseSensitive": "Cocokkan huruf besar/kecil"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Tempel romanisasi...",
+      "tooltip": "Isi romanisasi per kata dari halaman lirik yang sudah diromanisasi, seperti di Genius.",
+      "title": "Tempel lirik romanisasi",
+      "description": "Tempel halaman lirik romanisasi, satu baris per baris lirik. Judul bagian dan baris kosong dilewati, dan baris latar tidak diubah.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Isi romanisasi",
+      "lineCountMismatch": "Halaman punya {received} baris, liriknya punya {expected}. Tambah atau hapus baris agar jumlahnya sama.",
+      "applied": "{count, plural, other {Romanisasi diisi untuk # baris.}}",
+      "check": "Beberapa kata hanya perkiraan. Periksa baris {lines}.",
+      "existing": "{count, plural, other {# kata sudah punya romanisasi}}",
+      "fillEmpty": "Isi kata kosong saja",
+      "fillEmptyDesc": "Kata yang sudah diromanisasi tetap seperti semula",
+      "replace": "Ganti semua",
+      "replaceDesc": "Setiap kata mengambil romanisasi dari halaman"
+    }
   },
   "timeShiftDialog": {
     "title": "Geser waktu",

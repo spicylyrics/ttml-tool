@@ -107,45 +107,6 @@ const prosodicSplit = (word: string) => {
 	return mergeContractionSuffix(compromiseSplit(word));
 };
 
-const isJapaneseCharacter = (char: string | undefined) =>
-	!!char &&
-	/[々\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(char);
-const isJapanesePunctuation = (char: string | undefined) =>
-	!!char && /[\p{P}\p{S}]/u.test(char);
-const isJapaneseModifier = (char: string | undefined) =>
-	!!char && "ャュョゃゅょンッっ".includes(char);
-
-/** Adapted from amll-dev/amll-editor's Japanese basic engine. */
-export const splitJapaneseText = (text: string) => {
-	if (!text.trim()) return [text];
-	const chars = Array.from(text);
-	const tokens: string[] = [];
-	while (chars.length > 0) {
-		const token: string[] = [];
-		if (isJapaneseCharacter(chars[0])) {
-			token.push(chars.shift() ?? "");
-			if (isJapaneseModifier(chars[0])) token.push(chars.shift() ?? "");
-			while (isJapanesePunctuation(chars[0])) token.push(chars.shift() ?? "");
-			tokens.push(token.join(""));
-			continue;
-		}
-		while (
-			chars.length > 0 &&
-			!isJapaneseCharacter(chars[0]) &&
-			!isJapanesePunctuation(chars[0]) &&
-			!/^\s$/u.test(chars[0] ?? "")
-		) {
-			token.push(chars.shift() ?? "");
-		}
-		while (isJapanesePunctuation(chars[0])) token.push(chars.shift() ?? "");
-		if (token.length > 0) tokens.push(token.join(""));
-		if (chars.length > 0 && /^\s$/u.test(chars[0] ?? "")) {
-			tokens.push(chars.shift() ?? "");
-		}
-	}
-	return tokens;
-};
-
 export const SYLLABIFICATION_ENGINES: SyllabificationEngine[] = [
 	{
 		id: "prosodic",

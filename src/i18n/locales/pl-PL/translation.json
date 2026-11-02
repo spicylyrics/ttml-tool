@@ -925,7 +925,15 @@
       "showFpsDesc": "Pokaż licznik klatek na sekundę w podglądzie.",
       "previewModeDesc": "Wybierz, który podgląd pokazuje karta Podgląd.",
       "spicyBackgroundDesc": "Co jest wyświetlane za podglądem Spicy.",
-      "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi."
+      "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi.",
+      "japaneseSplit": "Automatyczny podział japońskiego",
+      "japaneseSplitDesc": "Jak automatyczny podział tnie japoński tekst na części.",
+      "japaneseSplitSyllable": "Sylaba",
+      "japaneseSplitSyllableDesc": "Według brzmienia, jak się śpiewa: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Jedna część na takt, np. ko|o|hi|i",
+      "japaneseSplitWord": "Słowo",
+      "japaneseSplitWordDesc": "Całe słowa. Może się nieco różnić między aplikacją a stroną"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Nowa transkrypcja łacińska",
     "applyToAll": "Zastosuj do wszystkich identycznych słów",
     "caseSensitive": "Uwzględniaj wielkość liter"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Wklej latynizację...",
+      "tooltip": "Uzupełnij latynizację słów ze strony ze zlatynizowanym tekstem, np. z Genius.",
+      "title": "Wklej zlatynizowany tekst",
+      "description": "Wklej stronę ze zlatynizowanym tekstem, jeden wiersz na każdy wiersz tekstu. Nagłówki sekcji i puste wiersze są pomijane, a wiersze w tle zostają bez zmian.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Uzupełnij latynizację",
+      "lineCountMismatch": "Strona ma {received} wierszy, a tekst ma {expected}. Dodaj lub usuń wiersze, aby się zgadzały.",
+      "applied": "{count, plural, one {Romanizacja uzupełniona w # wersie.} few {Romanizacja uzupełniona w # wersach.} many {Romanizacja uzupełniona w # wersach.} other {Romanizacja uzupełniona w # wersu.}}",
+      "check": "Niektóre słowa zostały odgadnięte. Sprawdź wiersze {lines}.",
+      "existing": "{count, plural, one {# słowo ma już romanizację} few {# słowa mają już romanizację} many {# słów ma już romanizację} other {# słowa ma już romanizację}}",
+      "fillEmpty": "Uzupełnij tylko puste słowa",
+      "fillEmptyDesc": "Słowa z romanizacją pozostaną bez zmian",
+      "replace": "Zastąp wszystko",
+      "replaceDesc": "Każde słowo dostanie romanizację ze strony"
+    }
   },
   "timeShiftDialog": {
     "title": "Przesunięcie czasowe",

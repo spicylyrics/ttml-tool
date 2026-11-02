@@ -925,7 +925,15 @@
       "showFpsDesc": "Toon een framerateteller op het voorbeeld.",
       "previewModeDesc": "Kies welk voorbeeld het tabblad Voorbeeld toont.",
       "spicyBackgroundDesc": "Wat er achter het Spicy-voorbeeld te zien is.",
-      "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden."
+      "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden.",
+      "japaneseSplit": "Automatisch splitsen van Japans",
+      "japaneseSplitDesc": "Hoe automatisch splitsen Japanse teksten in delen knipt.",
+      "japaneseSplitSyllable": "Lettergreep",
+      "japaneseSplitSyllableDesc": "Op klank, zoals het gezongen wordt: koo|hii, is|sho, kai",
+      "japaneseSplitMora": "Mora",
+      "japaneseSplitMoraDesc": "Eén deel per tel, zoals ko|o|hi|i",
+      "japaneseSplitWord": "Woord",
+      "japaneseSplitWordDesc": "Hele woorden. Kan iets verschillen tussen de app en de website"
     }
   },
   "timingOverview": {
@@ -1467,6 +1475,24 @@
     "placeholder": "Nieuwe romanisatie",
     "applyToAll": "Toepassen op alle identieke woorden",
     "caseSensitive": "Hoofdlettergevoelig"
+  },
+  "romanizationTools": {
+    "paste": {
+      "button": "Romanisering plakken...",
+      "tooltip": "Vul de romanisering per woord in vanaf een geromaniseerde songtekstpagina, zoals die van Genius.",
+      "title": "Geromaniseerde tekst plakken",
+      "description": "Plak een geromaniseerde songtekstpagina, één regel per tekstregel. Sectiekoppen en lege regels worden overgeslagen en achtergrondregels blijven ongewijzigd.",
+      "placeholder": "Kimi no na wo...",
+      "apply": "Romanisering invullen",
+      "lineCountMismatch": "De pagina heeft {received} regels en de tekst heeft er {expected}. Voeg regels toe of verwijder ze zodat ze overeenkomen.",
+      "applied": "{count, plural, one {Romanisatie ingevuld voor # regel.} other {Romanisatie ingevuld voor # regels.}}",
+      "check": "Sommige woorden zijn geschat. Controleer regel {lines}.",
+      "existing": "{count, plural, one {# woord heeft al romanisatie} other {# woorden hebben al romanisatie}}",
+      "fillEmpty": "Alleen lege woorden invullen",
+      "fillEmptyDesc": "Woorden die je al romaniseerde blijven zoals ze zijn",
+      "replace": "Alles vervangen",
+      "replaceDesc": "Elk woord neemt zijn romanisatie van de pagina"
+    }
   },
   "timeShiftDialog": {
     "title": "Tijd verschuiven",
