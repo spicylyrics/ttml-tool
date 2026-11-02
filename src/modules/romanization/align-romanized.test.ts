@@ -227,10 +227,15 @@ describe("romanized page lines", () => {
 	it("refuses a page for another song", () => {
 		expect(
 			alignRomanizedPage(
-				[line("あ", "い"), line("う", "え")],
-				"totemo nagai\nbetsu no uta desu",
+				[line("ありがとう", "ございます"), line("さようなら", "また", "ね")],
+				"Kimi no namae wo\nyonde ita",
 			),
 		).toEqual({ ok: false, reason: "mismatch" });
+		// A kanji-heavy page split by sound is mostly guesses, but still fills.
+		expect(
+			alignRomanizedPage([line("千", "里", "眼", "を", "持", "つ")], "Senrigan wo motsu")
+				.ok,
+		).toBe(true);
 	});
 
 	it("aligns main lines and gives (parentheses) to background lines", () => {

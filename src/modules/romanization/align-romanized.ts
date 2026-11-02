@@ -596,6 +596,7 @@ function fitWords(
 
 	let position = 0;
 	let tokenIndex = 0;
+	let matched = 0;
 	while (tokenIndex < tokens.length) {
 		const { step } = best(tokenIndex, position);
 		if (!step) break;
@@ -614,6 +615,7 @@ function fitWords(
 					Math.max(2, token.size / 2);
 			if (step.kind === "match" ? step.skipped > 0 : !ownChunk)
 				guessed[token.index] = true;
+			if (step.kind === "match" && !step.skipped) matched++;
 			continue;
 		}
 		const run = shareKanjiRun(
@@ -636,7 +638,13 @@ function fitWords(
 		for (const index of last.kind === "word" ? [last.index] : last.indices)
 			guessed[index] = true;
 
-	return { romanWords: sliceOriginal(line, sources, ranges), guessed };
+	return {
+		romanWords: sliceOriginal(line, sources, ranges),
+		guessed,
+		/** Words that can be read (kana, Hangul, Latin), and how many matched exactly. */
+		readable: tokens.filter((token) => token.kind === "word").length,
+		matched,
+	};
 }
 
 /** Splits one line's romaji across its words. */
@@ -735,6 +743,8 @@ export function alignRomanizedPage(
 		if (!line.isBG && next?.isBG) backgroundOf.set(line.id, next);
 	});
 
+	let readable = 0;
+	let matched = 0;
 	/**
 	 * Fits lines to the page as one stream, so it doesn't matter where the page
 	 * breaks its lines: Genius's romanized pages often break them differently.
@@ -750,6 +760,8 @@ export function alignRomanizedPage(
 			romaji,
 			anchors,
 		);
+		readable += fitted.readable;
+		matched += fitted.matched;
 		let offset = 0;
 		return targets.map((line) => {
 			const own = line.words.map((_, index) => offset + index);
@@ -817,9 +829,10 @@ export function alignRomanizedPage(
 			: []),
 	];
 
-	// A page for another song leaves most lines guessed.
-	const guessedLines = aligned.filter((line) => line.uncertain).length;
-	if (aligned.length === 0 || guessedLines > aligned.length / 2)
+	// On the right page nearly every kana, Hangul and Latin word is spelled out
+	// (79% or more across the songs tried); on another song's page few are (42%
+	// at most). Kanji don't count: they are guesses even on the right page.
+	if (aligned.length === 0 || matched < readable * 0.6)
 		return { ok: false, reason: "mismatch" };
 	return { ok: true, lines: aligned };
 }
