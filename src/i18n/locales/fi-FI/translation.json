@@ -470,10 +470,7 @@
       "newLyricLine": "Lisää tyhjän rivin sanoitusten loppuun.",
       "bgLyric": "Merkitsee valitut rivit taustalauluksi.",
       "duetLyric": "Merkitsee valitut rivit toisen laulajan laulamiksi.",
-      "ignoreSync": "Ajoitusnäppäimet hyppäävät valittujen rivien yli, joten niitä ei ajoiteta.",
-      "romanizationLanguage": "Latinalaistuksen kieli",
-      "romanizationLanguageDesc": "Valittujen sanoitusten kieli. Automaattinen tunnistus toimii useimmissa kappaleissa.",
-      "romanize": "Täyttää latinalaistuksen valituille riveille tai sanoille."
+      "ignoreSync": "Ajoitusnäppäimet hyppäävät valittujen rivien yli, joten niitä ei ajoiteta."
     },
     "editMode": {
       "multipleValues": "Useita arvoja...",
@@ -481,23 +478,12 @@
       "showTranslation": "Näytä käännösrivi",
       "showRomanization": "Näytä latinalaistusrivi",
       "showWordRomanizationInput": "Näytä sanakohtainen latinalaistus",
-      "phonetic": {
-        "noSelection": "Valitse ensin rivit tai sanat",
-        "success": "Ääntämistiedot haettu",
-        "error": "Ääntämistietojen haku epäonnistui"
-      },
       "romanization": {
         "section": "Latinalaistus",
-        "info": {
-          "title": "Tietoja latinalaistuksesta",
-          "canDo": "✓ Tukee japanin romajia, mandariinikiinan pinyiniä, kantoninkiinan jyutpingia ja korean latinalaistusta, myös kanjien osalta.",
-          "cannotDo": "✗ Harvinaisten kanjien ja nimien oikeellisuutta ei voida taata. Vain kiina, japani ja korea; pieniä virheitä voi esiintyä."
-        },
         "ja": "Japani (romaji)",
         "zh": "Kiina (pinyin)",
         "yue": "Kantoninkiina (jyutping)",
-        "ko": "Korea (uudistettu latinalaistus)",
-        "autoFetch": "Latinalaista"
+        "ko": "Korea (uudistettu latinalaistus)"
       },
       "new": "Uusi",
       "lyricLine": "Sanoitusrivi",
@@ -1476,23 +1462,39 @@
     "applyToAll": "Käytä kaikkiin samanlaisiin sanoihin",
     "caseSensitive": "Erota kirjainkoko"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Liitä latinisointi...",
-      "tooltip": "Täytä sanakohtainen latinisointi latinisoidulta sanoitussivulta, kuten Geniuksesta.",
-      "title": "Liitä latinisoidut sanat",
-      "description": "Liitä latinisoitu sanoitussivu, yksi rivi kutakin sanoitusriviä kohden. Osioiden otsikot ja tyhjät rivit ohitetaan, eikä taustarivejä muuteta.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Täytä latinisointi",
-      "lineCountMismatch": "Sivulla on {received} riviä ja sanoituksessa {expected}. Lisää tai poista rivejä, jotta määrät täsmäävät.",
-      "applied": "{count, plural, one {Latinisointi täytetty # riville.} other {Latinisointi täytetty # riville.}}",
-      "check": "Joitakin sanoja arvattiin. Tarkista rivit {lines}.",
-      "existing": "{count, plural, one {# sanalla on jo latinisointi} other {# sanalla on jo latinisointi}}",
-      "fillEmpty": "Täytä vain tyhjät sanat",
-      "fillEmptyDesc": "Jo latinisoidut sanat pysyvät ennallaan",
-      "replace": "Korvaa kaikki",
-      "replaceDesc": "Jokainen sana saa latinisointinsa sivulta"
-    }
+  "romanizationPanel": {
+    "title": "Latinisointi",
+    "description": "Spicy Lyrics näyttää latinisoinnin jokaisen sanan alla. Täytä se automaattisesti tai latinisoidulta sanoitussivulta ja korjaa oudot kohdat käsin.",
+    "open": "Latinisointi...",
+    "tooltip": "Täytä latinisointi koko kappaleelle tai valituille riveille, automaattisesti tai latinisoidulta sanoitussivulta.",
+    "coverage": "{romanized}/{total} riviä latinisoitu",
+    "coverageLabel": "Latinisoidut rivit",
+    "empty": "Ei latinisoitavaa. Latinisointi toimii japanin-, kiinan-, kantoninkiinan-, korean-, kyrillisille ja kreikankielisille sanoituksille.",
+    "source": "Lähde",
+    "sourceAuto": "Automaattinen",
+    "sourcePaste": "Sanoitussivulta",
+    "language": "Kieli",
+    "languageCyrillic": "Kyrillinen (venäjä, ukraina ym.)",
+    "languageGreek": "Kreikka",
+    "detected": "Tunnistettu: {language}. Toisella kirjoitusjärjestelmällä kirjoitetut rivit käyttävät omaansa.",
+    "scope": "Rivit",
+    "scopeSong": "Koko kappale",
+    "scopeSelection": "{count, plural, one {# valittu rivi} other {# valittua riviä}}",
+    "pastePlaceholder": "Liitä latinisoitu sanoitussivu, kuten Geniuksen, yksi rivi kutakin sanoitusriviä kohden. Osioiden otsikot ja taustarivit ohitetaan.",
+    "pasteLabel": "Latinisoitu sanoitussivu",
+    "existing": "{count, plural, one {# sanalla on jo latinisointi} other {# sanalla on jo latinisointi}}",
+    "fillEmpty": "Täytä vain tyhjät sanat",
+    "fillEmptyDesc": "Jo latinisoidut sanat pysyvät ennallaan",
+    "replace": "Korvaa kaikki",
+    "replaceDesc": "Jokainen sana saa uuden latinisoinnin",
+    "lineCountMismatch": "Sivulla on {received} riviä ja sanoituksessa {expected}. Lisää tai poista rivejä, jotta määrät täsmäävät.",
+    "check": "Joitakin sanoja arvattiin. Tarkista rivit {lines}.",
+    "run": "{count, plural, one {Latinisoi # rivi} other {Latinisoi # riviä}}",
+    "runPaste": "Latinisoi sivulta",
+    "loadingDictionary": "Ladataan japanin sanakirjaa. Ensimmäisellä kerralla se kestää hetken.",
+    "done": "{count, plural, one {Latinisoitiin # rivi.} other {Latinisoitiin # riviä.}}",
+    "nothingChanged": "Mikään ei muuttunut: noilla riveillä on jo latinisointi.",
+    "failed": "Latinisointia ei voitu ladata. Tarkista yhteys ja yritä uudelleen."
   },
   "timeShiftDialog": {
     "title": "Ajoituksen siirto",

@@ -470,10 +470,7 @@
       "newLyricLine": "Dodaje pusty wers na końcu tekstu.",
       "bgLyric": "Oznacza zaznaczone wersy jako wokal w tle.",
       "duetLyric": "Oznacza zaznaczone wersy jako śpiewane przez drugiego wokalistę.",
-      "ignoreSync": "Klawisze synchronizacji pomijają zaznaczone wersy, więc nie nadajesz im czasu.",
-      "romanizationLanguage": "Język transkrypcji",
-      "romanizationLanguageDesc": "Język zaznaczonego tekstu. Automatyczne wykrywanie działa w większości utworów.",
-      "romanize": "Uzupełnia transkrypcję łacińską dla zaznaczonych wersów lub słów."
+      "ignoreSync": "Klawisze synchronizacji pomijają zaznaczone wersy, więc nie nadajesz im czasu."
     },
     "editMode": {
       "multipleValues": "Wiele wartości…",
@@ -481,23 +478,12 @@
       "showTranslation": "Pokaż wers tłumaczenia",
       "showRomanization": "Pokaż wers transkrypcji łacińskiej",
       "showWordRomanizationInput": "Pokaż transkrypcję łacińską słów",
-      "phonetic": {
-        "noSelection": "Najpierw zaznacz wersy lub słowa",
-        "success": "Pobrano zapis fonetyczny",
-        "error": "Nie udało się pobrać zapisu fonetycznego"
-      },
       "romanization": {
         "section": "Transkrypcja łacińska",
-        "info": {
-          "title": "O transkrypcji łacińskiej",
-          "canDo": "✓ Obsługuje: japońskie romaji, mandaryńskie pinyin, kantońskie jyutping i transkrypcję koreańską, w tym kanji.",
-          "cannotDo": "✗ Nie gwarantuje poprawności rzadkich kanji ani nazw własnych. Tylko CJK; możliwe drobne błędy."
-        },
         "ja": "Japoński (romaji)",
         "zh": "Chiński (pinyin)",
         "yue": "Kantoński (jyutping)",
-        "ko": "Koreański (transkrypcja poprawiona)",
-        "autoFetch": "Transkrybuj łacinką"
+        "ko": "Koreański (transkrypcja poprawiona)"
       },
       "new": "Nowy",
       "lyricLine": "Wers tekstu",
@@ -1476,23 +1462,39 @@
     "applyToAll": "Zastosuj do wszystkich identycznych słów",
     "caseSensitive": "Uwzględniaj wielkość liter"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Wklej latynizację...",
-      "tooltip": "Uzupełnij latynizację słów ze strony ze zlatynizowanym tekstem, np. z Genius.",
-      "title": "Wklej zlatynizowany tekst",
-      "description": "Wklej stronę ze zlatynizowanym tekstem, jeden wiersz na każdy wiersz tekstu. Nagłówki sekcji i puste wiersze są pomijane, a wiersze w tle zostają bez zmian.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Uzupełnij latynizację",
-      "lineCountMismatch": "Strona ma {received} wierszy, a tekst ma {expected}. Dodaj lub usuń wiersze, aby się zgadzały.",
-      "applied": "{count, plural, one {Romanizacja uzupełniona w # wersie.} few {Romanizacja uzupełniona w # wersach.} many {Romanizacja uzupełniona w # wersach.} other {Romanizacja uzupełniona w # wersu.}}",
-      "check": "Niektóre słowa zostały odgadnięte. Sprawdź wiersze {lines}.",
-      "existing": "{count, plural, one {# słowo ma już romanizację} few {# słowa mają już romanizację} many {# słów ma już romanizację} other {# słowa ma już romanizację}}",
-      "fillEmpty": "Uzupełnij tylko puste słowa",
-      "fillEmptyDesc": "Słowa z romanizacją pozostaną bez zmian",
-      "replace": "Zastąp wszystko",
-      "replaceDesc": "Każde słowo dostanie romanizację ze strony"
-    }
+  "romanizationPanel": {
+    "title": "Romanizacja",
+    "description": "Spicy Lyrics pokazuje romanizację pod każdym słowem. Uzupełnij ją automatycznie albo ze strony z romanizowanym tekstem, a potem popraw ręcznie, co nie pasuje.",
+    "open": "Romanizacja...",
+    "tooltip": "Uzupełnia romanizację całej piosenki lub zaznaczonych wersów, automatycznie albo ze strony z romanizowanym tekstem.",
+    "coverage": "Zromanizowano {romanized} z {total} wersów",
+    "coverageLabel": "Zromanizowane wersy",
+    "empty": "Nie ma czego romanizować. Romanizacja działa dla tekstów japońskich, chińskich, kantońskich, koreańskich, cyrylicy i greckich.",
+    "source": "Źródło",
+    "sourceAuto": "Automatycznie",
+    "sourcePaste": "Ze strony z tekstem",
+    "language": "Język",
+    "languageCyrillic": "Cyrylica (rosyjski, ukraiński i inne)",
+    "languageGreek": "Grecki",
+    "detected": "Wykryto: {language}. Wersy w innym piśmie używają własnego.",
+    "scope": "Wersy",
+    "scopeSong": "Cała piosenka",
+    "scopeSelection": "{count, plural, one {# zaznaczony wers} few {# zaznaczone wersy} many {# zaznaczonych wersów} other {# zaznaczonego wersu}}",
+    "pastePlaceholder": "Wklej stronę z romanizowanym tekstem, np. z Genius, jedna linia na wers. Nagłówki sekcji i wersy w tle są pomijane.",
+    "pasteLabel": "Strona z romanizowanym tekstem",
+    "existing": "{count, plural, one {# słowo ma już romanizację} few {# słowa mają już romanizację} many {# słów ma już romanizację} other {# słowa ma już romanizację}}",
+    "fillEmpty": "Uzupełnij tylko puste słowa",
+    "fillEmptyDesc": "Słowa z romanizacją pozostaną bez zmian",
+    "replace": "Zastąp wszystko",
+    "replaceDesc": "Każde słowo dostanie nową romanizację",
+    "lineCountMismatch": "Strona ma {received} wierszy, a tekst ma {expected}. Dodaj lub usuń wiersze, aby się zgadzały.",
+    "check": "Niektóre słowa zostały odgadnięte. Sprawdź wiersze {lines}.",
+    "run": "{count, plural, one {Romanizuj # wers} few {Romanizuj # wersy} many {Romanizuj # wersów} other {Romanizuj # wersu}}",
+    "runPaste": "Romanizuj ze strony",
+    "loadingDictionary": "Wczytywanie słownika japońskiego. Za pierwszym razem chwilę to trwa.",
+    "done": "{count, plural, one {Zromanizowano # wers.} few {Zromanizowano # wersy.} many {Zromanizowano # wersów.} other {Zromanizowano # wersu.}}",
+    "nothingChanged": "Nic się nie zmieniło: te wersy mają już romanizację.",
+    "failed": "Nie udało się wczytać romanizacji. Sprawdź połączenie i spróbuj ponownie."
   },
   "timeShiftDialog": {
     "title": "Przesunięcie czasowe",

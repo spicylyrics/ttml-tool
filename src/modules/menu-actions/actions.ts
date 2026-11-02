@@ -23,6 +23,7 @@ import { clearWordTiming } from "$/modules/lyric-editor/utils/clear-word-timing"
 import { swapDuetLinesAtom } from "$/modules/lyric-editor/utils/swap-duet";
 import { guideWelcomeOpenAtom } from "$/modules/onboarding/states";
 import type { LyricExportFormat } from "$/modules/project/export-lyric";
+import { romanizationPanelAtom } from "$/modules/romanization/states";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
 import {
@@ -388,6 +389,15 @@ export const MENU_ACTIONS = {
 		"Tools",
 		[key("topBar.menu.learnedSplits"), "Learned splits..."],
 		{ run: ({ menu }) => menu.onOpenLearnedSplits() },
+	),
+	romanization: defineAction(
+		"romanization",
+		"Tools",
+		[key("romanizationPanel.open"), "Romanization..."],
+		{
+			enabledAtom: hasLyricLinesAtom,
+			run: ({ store }) => store.set(romanizationPanelAtom, true),
+		},
 	),
 	syncLineTimestamps: defineAction(
 		"syncLineTimestamps",

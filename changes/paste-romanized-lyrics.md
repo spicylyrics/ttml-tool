@@ -3,6 +3,6 @@ type: feature
 impact: 3
 highlight: true
 ---
-Paste a romanized lyric page
+Romanize from a lyric page
 
-**Paste romanized...** fills each word's romanization from a page like Genius's, keeping its capitals and macrons
+Paste a romanized page like Genius's into **Romanization...** to fill every word, keeping its capitals and macrons

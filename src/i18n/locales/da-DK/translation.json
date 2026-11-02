@@ -470,10 +470,7 @@
       "newLyricLine": "Tilføjer en tom linje sidst i sangteksten.",
       "bgLyric": "Markerer de valgte linjer som baggrundsvokal.",
       "duetLyric": "Markerer de valgte linjer som sunget af den anden sanger.",
-      "ignoreSync": "Synkroniseringstasterne springer de valgte linjer over, så du ikke timer dem.",
-      "romanizationLanguage": "Romaniseringssprog",
-      "romanizationLanguageDesc": "Sproget i de valgte linjer. Automatisk registrering virker til de fleste sange.",
-      "romanize": "Udfylder romanisering for de valgte linjer eller ord."
+      "ignoreSync": "Synkroniseringstasterne springer de valgte linjer over, så du ikke timer dem."
     },
     "editMode": {
       "multipleValues": "Flere værdier…",
@@ -481,23 +478,12 @@
       "showTranslation": "Vis oversættelseslinje",
       "showRomanization": "Vis romaniseringslinje",
       "showWordRomanizationInput": "Vis romanisering pr. ord",
-      "phonetic": {
-        "noSelection": "Vælg først linjer eller ord",
-        "success": "Udtale hentet",
-        "error": "Kunne ikke hente udtale"
-      },
       "romanization": {
         "section": "Romanisering",
-        "info": {
-          "title": "Om romanisering",
-          "canDo": "✓ Understøtter japansk romaji, mandarin-pinyin, kantonesisk jyutping og koreansk romanisering, også kanji.",
-          "cannotDo": "✗ Kan ikke garantere korrekt udtale af sjældne kanji eller navne. Kun kinesisk, japansk og koreansk; små fejl kan forekomme."
-        },
         "ja": "Japansk (romaji)",
         "zh": "Kinesisk (pinyin)",
         "yue": "Kantonesisk (jyutping)",
-        "ko": "Koreansk (revideret romanisering)",
-        "autoFetch": "Romanisér"
+        "ko": "Koreansk (revideret romanisering)"
       },
       "new": "Ny",
       "lyricLine": "Sangtekstlinje",
@@ -1476,23 +1462,39 @@
     "applyToAll": "Anvend på alle identiske ord",
     "caseSensitive": "Skeln mellem store og små bogstaver"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Indsæt romaniseret...",
-      "tooltip": "Udfyld romanisering pr. ord fra en romaniseret tekstside, fx fra Genius.",
-      "title": "Indsæt romaniseret tekst",
-      "description": "Indsæt en romaniseret tekstside med én linje pr. tekstlinje. Sektionsoverskrifter og tomme linjer springes over, og baggrundslinjer røres ikke.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Udfyld romanisering",
-      "lineCountMismatch": "Siden har {received} linjer, og teksten har {expected}. Tilføj eller fjern linjer, så de passer.",
-      "applied": "{count, plural, one {Romanisering udfyldt for # linje.} other {Romanisering udfyldt for # linjer.}}",
-      "check": "Nogle ord blev gættet. Tjek linje {lines}.",
-      "existing": "{count, plural, one {# ord har allerede romanisering} other {# ord har allerede romanisering}}",
-      "fillEmpty": "Udfyld kun tomme ord",
-      "fillEmptyDesc": "Ord, du allerede har romaniseret, forbliver som de er",
-      "replace": "Erstat alle",
-      "replaceDesc": "Hvert ord får sin romanisering fra siden"
-    }
+  "romanizationPanel": {
+    "title": "Romanisering",
+    "description": "Spicy Lyrics viser romanisering under hvert ord. Udfyld den automatisk eller fra en romaniseret tekstside, og ret så det skæve i hånden.",
+    "open": "Romanisering...",
+    "tooltip": "Udfyld romanisering for hele sangen eller de valgte linjer, automatisk eller fra en romaniseret tekstside.",
+    "coverage": "{romanized} af {total} linjer romaniseret",
+    "coverageLabel": "Romaniserede linjer",
+    "empty": "Intet at romanisere. Romanisering virker for japanske, kinesiske, kantonesiske, koreanske, kyrilliske og græske tekster.",
+    "source": "Kilde",
+    "sourceAuto": "Automatisk",
+    "sourcePaste": "Fra en tekstside",
+    "language": "Sprog",
+    "languageCyrillic": "Kyrillisk (russisk, ukrainsk m.fl.)",
+    "languageGreek": "Græsk",
+    "detected": "Fundet: {language}. Linjer med en anden skrift bruger deres egen.",
+    "scope": "Linjer",
+    "scopeSong": "Hele sangen",
+    "scopeSelection": "{count, plural, one {# valgt linje} other {# valgte linjer}}",
+    "pastePlaceholder": "Indsæt en romaniseret tekstside, som Genius', én linje pr. tekstlinje. Afsnitsoverskrifter og baggrundslinjer springes over.",
+    "pasteLabel": "Romaniseret tekstside",
+    "existing": "{count, plural, one {# ord har allerede romanisering} other {# ord har allerede romanisering}}",
+    "fillEmpty": "Udfyld kun tomme ord",
+    "fillEmptyDesc": "Ord, du allerede har romaniseret, forbliver som de er",
+    "replace": "Erstat alle",
+    "replaceDesc": "Hvert ord får ny romanisering",
+    "lineCountMismatch": "Siden har {received} linjer, og teksten har {expected}. Tilføj eller fjern linjer, så de passer.",
+    "check": "Nogle ord blev gættet. Tjek linje {lines}.",
+    "run": "{count, plural, one {Romanisér # linje} other {Romanisér # linjer}}",
+    "runPaste": "Romanisér fra siden",
+    "loadingDictionary": "Indlæser den japanske ordbog. Første gang tager det et øjeblik.",
+    "done": "{count, plural, one {Romaniserede # linje.} other {Romaniserede # linjer.}}",
+    "nothingChanged": "Intet ændret: de linjer har allerede romanisering.",
+    "failed": "Romaniseringen kunne ikke hentes. Tjek din forbindelse, og prøv igen."
   },
   "timeShiftDialog": {
     "title": "Tidsforskydning",

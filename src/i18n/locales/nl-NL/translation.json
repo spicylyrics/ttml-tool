@@ -470,10 +470,7 @@
       "newLyricLine": "Voegt een lege regel toe aan het einde van de songtekst.",
       "bgLyric": "Markeert de geselecteerde regels als achtergrondzang.",
       "duetLyric": "Markeert de geselecteerde regels als gezongen door de tweede zanger.",
-      "ignoreSync": "De synchronisatietoetsen slaan de geselecteerde regels over, zodat je ze niet timet.",
-      "romanizationLanguage": "Romanisatietaal",
-      "romanizationLanguageDesc": "De taal van de geselecteerde songtekst. Automatische detectie werkt voor de meeste nummers.",
-      "romanize": "Vult de romanisatie in voor de geselecteerde regels of woorden."
+      "ignoreSync": "De synchronisatietoetsen slaan de geselecteerde regels over, zodat je ze niet timet."
     },
     "editMode": {
       "multipleValues": "Meerdere waarden…",
@@ -481,23 +478,12 @@
       "showTranslation": "Vertaalregel tonen",
       "showRomanization": "Romanisatieregel tonen",
       "showWordRomanizationInput": "Romanisatie per woord tonen",
-      "phonetic": {
-        "noSelection": "Selecteer eerst regels of woorden",
-        "success": "Uitspraak opgehaald",
-        "error": "Uitspraak ophalen mislukt"
-      },
       "romanization": {
         "section": "Romanisatie",
-        "info": {
-          "title": "Over romanisatie",
-          "canDo": "✓ Ondersteunt Japanse romaji, Mandarijnse pinyin, Kantonese jyutping en Koreaanse romanisatie, inclusief kanji.",
-          "cannotDo": "✗ Geen garantie op correcte zeldzame kanji of namen. Alleen Chinees, Japans en Koreaans; kleine fouten zijn mogelijk."
-        },
         "ja": "Japans (romaji)",
         "zh": "Chinees (pinyin)",
         "yue": "Kantonees (jyutping)",
-        "ko": "Koreaans (herziene romanisatie)",
-        "autoFetch": "Romaniseren"
+        "ko": "Koreaans (herziene romanisatie)"
       },
       "new": "Nieuw",
       "lyricLine": "Songtekstregel",
@@ -1476,23 +1462,39 @@
     "applyToAll": "Toepassen op alle identieke woorden",
     "caseSensitive": "Hoofdlettergevoelig"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Romanisering plakken...",
-      "tooltip": "Vul de romanisering per woord in vanaf een geromaniseerde songtekstpagina, zoals die van Genius.",
-      "title": "Geromaniseerde tekst plakken",
-      "description": "Plak een geromaniseerde songtekstpagina, één regel per tekstregel. Sectiekoppen en lege regels worden overgeslagen en achtergrondregels blijven ongewijzigd.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Romanisering invullen",
-      "lineCountMismatch": "De pagina heeft {received} regels en de tekst heeft er {expected}. Voeg regels toe of verwijder ze zodat ze overeenkomen.",
-      "applied": "{count, plural, one {Romanisatie ingevuld voor # regel.} other {Romanisatie ingevuld voor # regels.}}",
-      "check": "Sommige woorden zijn geschat. Controleer regel {lines}.",
-      "existing": "{count, plural, one {# woord heeft al romanisatie} other {# woorden hebben al romanisatie}}",
-      "fillEmpty": "Alleen lege woorden invullen",
-      "fillEmptyDesc": "Woorden die je al romaniseerde blijven zoals ze zijn",
-      "replace": "Alles vervangen",
-      "replaceDesc": "Elk woord neemt zijn romanisatie van de pagina"
-    }
+  "romanizationPanel": {
+    "title": "Romanisatie",
+    "description": "Spicy Lyrics toont romanisatie onder elk woord. Vul die automatisch in of vanaf een geromaniseerde songtekstpagina en verbeter daarna met de hand wat niet klopt.",
+    "open": "Romanisatie...",
+    "tooltip": "Vul romanisatie in voor het hele nummer of de geselecteerde regels, automatisch of vanaf een geromaniseerde songtekstpagina.",
+    "coverage": "{romanized} van {total} regels geromaniseerd",
+    "coverageLabel": "Geromaniseerde regels",
+    "empty": "Niets te romaniseren. Romanisatie werkt voor Japanse, Chinese, Kantonese, Koreaanse, Cyrillische en Griekse teksten.",
+    "source": "Bron",
+    "sourceAuto": "Automatisch",
+    "sourcePaste": "Vanaf een songtekstpagina",
+    "language": "Taal",
+    "languageCyrillic": "Cyrillisch (Russisch, Oekraïens en meer)",
+    "languageGreek": "Grieks",
+    "detected": "Herkend: {language}. Regels in een ander schrift gebruiken hun eigen.",
+    "scope": "Regels",
+    "scopeSong": "Hele nummer",
+    "scopeSelection": "{count, plural, one {# geselecteerde regel} other {# geselecteerde regels}}",
+    "pastePlaceholder": "Plak een geromaniseerde songtekstpagina, zoals die van Genius, één regel per tekstregel. Sectiekoppen en achtergrondregels worden overgeslagen.",
+    "pasteLabel": "Geromaniseerde songtekstpagina",
+    "existing": "{count, plural, one {# woord heeft al romanisatie} other {# woorden hebben al romanisatie}}",
+    "fillEmpty": "Alleen lege woorden invullen",
+    "fillEmptyDesc": "Woorden die je al romaniseerde blijven zoals ze zijn",
+    "replace": "Alles vervangen",
+    "replaceDesc": "Elk woord krijgt nieuwe romanisatie",
+    "lineCountMismatch": "De pagina heeft {received} regels en de tekst heeft er {expected}. Voeg regels toe of verwijder ze zodat ze overeenkomen.",
+    "check": "Sommige woorden zijn geschat. Controleer regel {lines}.",
+    "run": "{count, plural, one {# regel romaniseren} other {# regels romaniseren}}",
+    "runPaste": "Romaniseren vanaf pagina",
+    "loadingDictionary": "Het Japanse woordenboek wordt geladen. De eerste keer duurt het even.",
+    "done": "{count, plural, one {# regel geromaniseerd.} other {# regels geromaniseerd.}}",
+    "nothingChanged": "Niets veranderd: die regels hebben al romanisatie.",
+    "failed": "Romanisatie kon niet worden geladen. Controleer je verbinding en probeer het opnieuw."
   },
   "timeShiftDialog": {
     "title": "Tijd verschuiven",

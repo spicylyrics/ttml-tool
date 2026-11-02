@@ -470,10 +470,7 @@
       "newLyricLine": "Přidá prázdný řádek na konec textu.",
       "bgLyric": "Označí vybrané řádky jako doprovodný vokál.",
       "duetLyric": "Označí vybrané řádky jako zpívané druhým zpěvákem.",
-      "ignoreSync": "Klávesy synchronizace vybrané řádky přeskočí, takže je nečasujete.",
-      "romanizationLanguage": "Jazyk přepisu",
-      "romanizationLanguageDesc": "Jazyk vybraného textu. Automatická detekce funguje u většiny skladeb.",
-      "romanize": "Doplní přepis do latinky pro vybrané řádky nebo slova."
+      "ignoreSync": "Klávesy synchronizace vybrané řádky přeskočí, takže je nečasujete."
     },
     "editMode": {
       "multipleValues": "Více hodnot…",
@@ -481,23 +478,12 @@
       "showTranslation": "Zobrazit řádek překladu",
       "showRomanization": "Zobrazit řádek přepisu do latinky",
       "showWordRomanizationInput": "Zobrazit přepis slov do latinky",
-      "phonetic": {
-        "noSelection": "Nejprve vyberte řádky nebo slova",
-        "success": "Fonetický přepis načten",
-        "error": "Nepodařilo se načíst fonetický přepis"
-      },
       "romanization": {
         "section": "Přepis do latinky",
-        "info": {
-          "title": "O přepisu do latinky",
-          "canDo": "✓ Umí: japonské rómadži, mandarínský pchin-jin, kantonský jyutping a korejský přepis, včetně kandži.",
-          "cannotDo": "✗ Nezaručuje správný přepis vzácných kandži a jmen. Pouze CJK, proto počítejte s drobnými chybami."
-        },
         "ja": "Japonština (rómadži)",
         "zh": "Čínština (pchin-jin)",
         "yue": "Kantonština (jyutping)",
-        "ko": "Korejština (revidovaný přepis)",
-        "autoFetch": "Přepsat do latinky"
+        "ko": "Korejština (revidovaný přepis)"
       },
       "new": "Nový",
       "lyricLine": "Řádek textu",
@@ -1476,23 +1462,39 @@
     "applyToAll": "Použít na všechna stejná slova",
     "caseSensitive": "Rozlišovat velká a malá písmena"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Vložit přepis...",
-      "tooltip": "Doplní přepis ke slovům ze stránky s přepsaným textem, třeba z Genius.",
-      "title": "Vložit přepsaný text",
-      "description": "Vložte stránku s přepsaným textem, jeden řádek na řádek textu. Záhlaví sekcí a prázdné řádky se přeskočí a řádky v pozadí zůstanou beze změny.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Doplnit přepis",
-      "lineCountMismatch": "Stránka má {received} řádků a text má {expected}. Přidejte nebo odeberte řádky, aby se shodovaly.",
-      "applied": "{count, plural, one {Romanizace vyplněna pro # řádek.} few {Romanizace vyplněna pro # řádky.} many {Romanizace vyplněna pro # řádku.} other {Romanizace vyplněna pro # řádků.}}",
-      "check": "Některá slova byla odhadnuta. Zkontrolujte řádky {lines}.",
-      "existing": "{count, plural, one {# slovo už má romanizaci} few {# slova už mají romanizaci} many {# slova už má romanizaci} other {# slov už má romanizaci}}",
-      "fillEmpty": "Vyplnit jen prázdná slova",
-      "fillEmptyDesc": "Slova, která už romanizaci mají, zůstanou beze změny",
-      "replace": "Nahradit vše",
-      "replaceDesc": "Každé slovo převezme romanizaci ze stránky"
-    }
+  "romanizationPanel": {
+    "title": "Romanizace",
+    "description": "Spicy Lyrics zobrazuje romanizaci pod každým slovem. Vyplňte ji automaticky nebo z romanizované stránky s textem a pak ručně opravte, co nesedí.",
+    "open": "Romanizace...",
+    "tooltip": "Vyplní romanizaci pro celou píseň nebo vybrané řádky, automaticky nebo z romanizované stránky s textem.",
+    "coverage": "Romanizováno {romanized} z {total} řádků",
+    "coverageLabel": "Romanizované řádky",
+    "empty": "Není co romanizovat. Romanizace funguje pro japonské, čínské, kantonské, korejské, cyrilské a řecké texty.",
+    "source": "Zdroj",
+    "sourceAuto": "Automaticky",
+    "sourcePaste": "Ze stránky s textem",
+    "language": "Jazyk",
+    "languageCyrillic": "Cyrilice (ruština, ukrajinština a další)",
+    "languageGreek": "Řečtina",
+    "detected": "Rozpoznáno: {language}. Řádky v jiném písmu používají to své.",
+    "scope": "Řádky",
+    "scopeSong": "Celá píseň",
+    "scopeSelection": "{count, plural, one {# vybraný řádek} few {# vybrané řádky} many {# vybraného řádku} other {# vybraných řádků}}",
+    "pastePlaceholder": "Vložte romanizovanou stránku s textem, třeba z Genius, jeden řádek na řádek textu. Nadpisy sekcí a řádky v pozadí se přeskočí.",
+    "pasteLabel": "Romanizovaná stránka s textem",
+    "existing": "{count, plural, one {# slovo už má romanizaci} few {# slova už mají romanizaci} many {# slova už má romanizaci} other {# slov už má romanizaci}}",
+    "fillEmpty": "Vyplnit jen prázdná slova",
+    "fillEmptyDesc": "Slova, která už romanizaci mají, zůstanou beze změny",
+    "replace": "Nahradit vše",
+    "replaceDesc": "Každé slovo dostane novou romanizaci",
+    "lineCountMismatch": "Stránka má {received} řádků a text má {expected}. Přidejte nebo odeberte řádky, aby se shodovaly.",
+    "check": "Některá slova byla odhadnuta. Zkontrolujte řádky {lines}.",
+    "run": "{count, plural, one {Romanizovat # řádek} few {Romanizovat # řádky} many {Romanizovat # řádku} other {Romanizovat # řádků}}",
+    "runPaste": "Romanizovat ze stránky",
+    "loadingDictionary": "Načítá se japonský slovník. Poprvé to chvíli trvá.",
+    "done": "{count, plural, one {Romanizován # řádek.} few {Romanizovány # řádky.} many {Romanizováno # řádku.} other {Romanizováno # řádků.}}",
+    "nothingChanged": "Nic se nezměnilo: tyto řádky už romanizaci mají.",
+    "failed": "Romanizaci se nepodařilo načíst. Zkontrolujte připojení a zkuste to znovu."
   },
   "timeShiftDialog": {
     "title": "Časový posun",

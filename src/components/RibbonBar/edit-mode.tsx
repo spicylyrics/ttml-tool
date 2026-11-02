@@ -168,9 +168,7 @@ export const EditModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 					</Grid>
 				</RibbonSection>
 			)}
-			{showAdvanced && (selectedLines.size > 0 || selectedWords.size > 0) && (
-				<PhoneticSection />
-			)}
+			<PhoneticSection />
 			{selectedWords.size > 0 && (
 				<RibbonSection
 					label={t("ribbonBar.editMode.wordTiming", "Word timing")}

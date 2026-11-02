@@ -71,7 +71,7 @@ flatpak override --user --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 io.github.spicyl
 - **Cinematic Backgrounds** — Hardware-accelerated Mesh Gradient backgrounds running at 60 FPS.
 - **Snap to Playhead** — One-click synchronization that snaps lyric start times directly to the audio playhead position.
 - **Auto-Lyric Sanitizer** — Automatically strips Genius tags and cleans empty lines on import.
-- **Automatic Multilingual Phonetics** — Generate contextual Japanese, Mandarin, and Korean romanization with per-word readings, tone-aware Mandarin mapping, and mixed-language line support.
+- **On-Device Romanization** — One Romanization panel fills per-word romanization for Japanese, Mandarin, Cantonese, Korean, Cyrillic and Greek lyrics without sending anything online, reading kanji in context and writing Genius-style romaji, or lines it up from a pasted romanized lyric page.
 - **Pre-Export Validator** — Checks for untimed or overlapping lyrics before saving.
 - **Integrated Audio Bridge** — Built-in FFmpeg.wasm MP3-to-FLAC conversion to reduce decoding drift.
 - **Appearance Editor** — More than 40 visual parameters and theme presets for customizing the editor.

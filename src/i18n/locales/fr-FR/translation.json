@@ -470,10 +470,7 @@
       "newLyricLine": "Ajoute une ligne vide à la fin des paroles.",
       "bgLyric": "Marque les lignes sélectionnées comme chœurs.",
       "duetLyric": "Marque les lignes sélectionnées comme chantées par le second chanteur.",
-      "ignoreSync": "Les touches de synchronisation sautent les lignes sélectionnées, qui ne sont donc pas synchronisées.",
-      "romanizationLanguage": "Langue de romanisation",
-      "romanizationLanguageDesc": "La langue des paroles sélectionnées. La détection automatique convient à la plupart des chansons.",
-      "romanize": "Remplit la romanisation des lignes ou des mots sélectionnés."
+      "ignoreSync": "Les touches de synchronisation sautent les lignes sélectionnées, qui ne sont donc pas synchronisées."
     },
     "editMode": {
       "multipleValues": "Valeurs multiples…",
@@ -481,23 +478,12 @@
       "showTranslation": "Afficher la ligne de traduction",
       "showRomanization": "Afficher la ligne de romanisation",
       "showWordRomanizationInput": "Afficher la romanisation par mot",
-      "phonetic": {
-        "noSelection": "Veuillez d'abord sélectionner des lignes ou des mots",
-        "success": "Phonétique récupérée avec succès",
-        "error": "Échec de la récupération de la phonétique"
-      },
       "romanization": {
         "section": "Romanisation",
-        "info": {
-          "title": "À propos de la romanisation",
-          "canDo": "✓ Prend en charge le romaji japonais, le pinyin mandarin, le jyutping cantonais et la romanisation coréenne, y compris les kanji.",
-          "cannotDo": "✗ Ne garantit pas l’exactitude des kanji rares ou des noms propres. CJK uniquement ; de petites erreurs sont possibles."
-        },
         "ja": "Japonais (Romaji)",
         "zh": "Chinois (Pinyin)",
         "yue": "Cantonais (Jyutping)",
-        "ko": "Coréen (romanisation révisée)",
-        "autoFetch": "Romaniser"
+        "ko": "Coréen (romanisation révisée)"
       },
       "new": "Nouveau",
       "lyricLine": "Ligne de paroles",
@@ -1476,23 +1462,39 @@
     "applyToAll": "Appliquer à tous les mots identiques",
     "caseSensitive": "Respecter la casse"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Coller la romanisation...",
-      "tooltip": "Remplit la romanisation de chaque mot depuis une page de paroles romanisées, comme celle de Genius.",
-      "title": "Coller des paroles romanisées",
-      "description": "Collez une page de paroles romanisées, une ligne par ligne de paroles. Les en-têtes de section et les lignes vides sont ignorés, et les lignes d'arrière-plan ne sont pas modifiées.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Remplir la romanisation",
-      "lineCountMismatch": "La page a {received} lignes et les paroles en ont {expected}. Ajoutez ou supprimez des lignes pour qu'elles correspondent.",
-      "applied": "{count, plural, one {Romanisation remplie pour # ligne.} many {Romanisation remplie pour # lignes.} other {Romanisation remplie pour # lignes.}}",
-      "check": "Certains mots ont été devinés. Vérifiez les lignes {lines}.",
-      "existing": "{count, plural, one {# mot a déjà une romanisation} many {# mots ont déjà une romanisation} other {# mots ont déjà une romanisation}}",
-      "fillEmpty": "Remplir seulement les mots vides",
-      "fillEmptyDesc": "Les mots déjà romanisés restent tels quels",
-      "replace": "Tout remplacer",
-      "replaceDesc": "Chaque mot prend sa romanisation depuis la page"
-    }
+  "romanizationPanel": {
+    "title": "Romanisation",
+    "description": "Spicy Lyrics affiche la romanisation sous chaque mot. Remplissez-la automatiquement ou depuis une page de paroles romanisées, puis corrigez à la main ce qui cloche.",
+    "open": "Romanisation...",
+    "tooltip": "Remplit la romanisation de toute la chanson ou des lignes sélectionnées, automatiquement ou depuis une page de paroles romanisées.",
+    "coverage": "{romanized} lignes romanisées sur {total}",
+    "coverageLabel": "Lignes romanisées",
+    "empty": "Rien à romaniser. La romanisation fonctionne pour les paroles en japonais, chinois, cantonais, coréen, cyrillique et grec.",
+    "source": "Source",
+    "sourceAuto": "Automatique",
+    "sourcePaste": "Depuis une page de paroles",
+    "language": "Langue",
+    "languageCyrillic": "Cyrillique (russe, ukrainien et autres)",
+    "languageGreek": "Grec",
+    "detected": "Détectée : {language}. Les lignes dans une autre écriture gardent la leur.",
+    "scope": "Lignes",
+    "scopeSong": "Toute la chanson",
+    "scopeSelection": "{count, plural, one {# ligne sélectionnée} many {# lignes sélectionnées} other {# lignes sélectionnées}}",
+    "pastePlaceholder": "Collez une page de paroles romanisées, comme celle de Genius, une ligne par ligne de paroles. Les titres de section et les lignes de fond sont ignorés.",
+    "pasteLabel": "Page de paroles romanisées",
+    "existing": "{count, plural, one {# mot a déjà une romanisation} many {# mots ont déjà une romanisation} other {# mots ont déjà une romanisation}}",
+    "fillEmpty": "Remplir seulement les mots vides",
+    "fillEmptyDesc": "Les mots déjà romanisés restent tels quels",
+    "replace": "Tout remplacer",
+    "replaceDesc": "Chaque mot reçoit une nouvelle romanisation",
+    "lineCountMismatch": "La page a {received} lignes et les paroles en ont {expected}. Ajoutez ou supprimez des lignes pour qu'elles correspondent.",
+    "check": "Certains mots ont été devinés. Vérifiez les lignes {lines}.",
+    "run": "{count, plural, one {Romaniser # ligne} many {Romaniser # lignes} other {Romaniser # lignes}}",
+    "runPaste": "Romaniser depuis la page",
+    "loadingDictionary": "Chargement du dictionnaire japonais. La première fois prend un moment.",
+    "done": "{count, plural, one {# ligne romanisée.} many {# lignes romanisées.} other {# lignes romanisées.}}",
+    "nothingChanged": "Rien n'a changé : ces lignes ont déjà une romanisation.",
+    "failed": "La romanisation n'a pas pu se charger. Vérifiez votre connexion et réessayez."
   },
   "timeShiftDialog": {
     "title": "Décalage temporel",

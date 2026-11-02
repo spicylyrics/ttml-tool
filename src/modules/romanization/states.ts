@@ -8,4 +8,4 @@ export const japaneseGranularitySettingAtom =
 		"syllable",
 	);
 
-export const pasteRomanizationDialogAtom = atom(false);
+export const romanizationPanelAtom = atom(false);

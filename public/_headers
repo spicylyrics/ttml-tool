@@ -2,6 +2,12 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
 
+# The Japanese romanization dictionary unzips itself, so it must arrive as the
+# raw .gz bytes, not marked gzip-encoded. It only changes with kuromoji.
+/kuromoji-dict/*
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=2592000
+
 # Domain migration pages talk across origins through window.opener, which
 # same-origin COOP would cut. They don't need cross-origin isolation.
 /migration-*

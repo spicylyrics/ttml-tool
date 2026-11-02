@@ -33,6 +33,7 @@ const ToolMenuItems = () => {
 					{item(MENU_ACTIONS.learnedSplits)}
 				</DropdownMenu.SubContent>
 			</DropdownMenu.Sub>
+			{item(MENU_ACTIONS.romanization)}
 			{item(MENU_ACTIONS.syncLineTimestamps)}
 			{item(MENU_ACTIONS.swapDuetAll)}
 			<DropdownMenu.Separator />
