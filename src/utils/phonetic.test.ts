@@ -91,6 +91,26 @@ describe("phonetic conversion requests", () => {
 		expect(fetchMock).not.toHaveBeenCalled();
 	});
 
+	it("keeps word gaps in a capsule that holds several words", async () => {
+		const readings: Record<string, string> = {
+			君の名前を呼ぶ: "Kimi no Namae wo Yobu",
+			君の名前を呼ぶあ: "Kimi no Namae wo Yobu a",
+			あ: "a",
+		};
+		vi.stubGlobal(
+			"fetch",
+			vi.fn(async (input: string | URL | Request) =>
+				googleResponse(
+					readings[new URL(String(input)).searchParams.get("q") ?? ""],
+				),
+			),
+		);
+
+		await expect(
+			getPhoneticSyllables(["君の名前を呼ぶ", "あ"], "ja"),
+		).resolves.toEqual(["kimi no namae wo yobu", "a"]);
+	});
+
 	it("preserves source spacing and Latin text in line romanization", () => {
 		expect(
 			buildLineRomanization(

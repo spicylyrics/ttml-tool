@@ -470,10 +470,7 @@
       "newLyricLine": "Şarkı sözlerinin sonuna boş bir satır ekler.",
       "bgLyric": "Seçili satırları arka vokal olarak işaretler.",
       "duetLyric": "Seçili satırları ikinci şarkıcının söylediği satırlar olarak işaretler.",
-      "ignoreSync": "Senkronizasyon tuşları seçili satırları atlar, böylece onları zamanlamazsınız.",
-      "romanizationLanguage": "Latin harflerine çeviri dili",
-      "romanizationLanguageDesc": "Seçili sözlerin dili. Otomatik algılama çoğu şarkıda işe yarar.",
-      "romanize": "Seçili satırlar veya kelimeler için Latin harfli yazımı doldurur."
+      "ignoreSync": "Senkronizasyon tuşları seçili satırları atlar, böylece onları zamanlamazsınız."
     },
     "editMode": {
       "multipleValues": "Birden çok değer…",
@@ -481,23 +478,12 @@
       "showTranslation": "Çeviri satırını göster",
       "showRomanization": "Latin harflerine çeviri satırını göster",
       "showWordRomanizationInput": "Kelimelerin Latin harflerine çevirisini göster",
-      "phonetic": {
-        "noSelection": "Önce satır veya kelime seçin",
-        "success": "Fonetik yazım alındı",
-        "error": "Fonetik yazım alınamadı"
-      },
       "romanization": {
         "section": "Latin harflerine çeviri",
-        "info": {
-          "title": "Latin harflerine çeviri hakkında",
-          "canDo": "✓ Destekler: Japonca romaji, Mandarin pinyin, Kantonca jyutping ve Korece Latin harflerine çeviri; kanji dahil.",
-          "cannotDo": "✗ Nadir kanji ve özel adların doğruluğunu garanti etmez. Yalnızca CJK; küçük hatalar olabilir."
-        },
         "ja": "Japonca (romaji)",
         "zh": "Çince (pinyin)",
         "yue": "Kantonca (jyutping)",
-        "ko": "Korece (gözden geçirilmiş Latin harflerine çeviri)",
-        "autoFetch": "Latin harflerine çevir"
+        "ko": "Korece (gözden geçirilmiş Latin harflerine çeviri)"
       },
       "new": "Yeni",
       "lyricLine": "Şarkı sözü satırı",
@@ -1443,23 +1429,36 @@
     "applyToAll": "Tüm özdeş kelimelere uygula",
     "caseSensitive": "Büyük/küçük harfe duyarlı"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Romanizasyon yapıştır...",
-      "tooltip": "Kelime başına romanizasyonu Genius gibi romanize edilmiş bir söz sayfasından doldurur.",
-      "title": "Romanize sözleri yapıştır",
-      "description": "Romanize edilmiş bir söz sayfası yapıştırın, her söz satırı için bir satır. Bölüm başlıkları ve boş satırlar atlanır, arka plan satırlarına dokunulmaz.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Romanizasyonu doldur",
-      "lineCountMismatch": "Sayfada {received} satır, sözlerde {expected} satır var. Eşleşmeleri için satır ekleyin veya silin.",
-      "applied": "{count, plural, one {# satır için romanizasyon dolduruldu.} other {# satır için romanizasyon dolduruldu.}}",
-      "check": "Bazı kelimeler tahmin edildi. {lines} numaralı satırları kontrol edin.",
-      "existing": "{count, plural, one {# kelimenin zaten romanizasyonu var} other {# kelimenin zaten romanizasyonu var}}",
-      "fillEmpty": "Yalnızca boş kelimeleri doldur",
-      "fillEmptyDesc": "Zaten romanize ettiğin kelimeler olduğu gibi kalır",
-      "replace": "Tümünü değiştir",
-      "replaceDesc": "Her kelime romanizasyonunu sayfadan alır"
-    }
+  "romanizationPanel": {
+    "title": "Romanizasyon",
+    "description": "Spicy Lyrics romanizasyonu her kelimenin altında gösterir. Otomatik olarak ya da romanize edilmiş bir şarkı sözü sayfasından doldur, sonra tuhaf duranları elle düzelt.",
+    "open": "Romanizasyon...",
+    "tooltip": "Tüm şarkı ya da seçili satırlar için romanizasyonu otomatik olarak veya romanize edilmiş bir şarkı sözü sayfasından doldurur.",
+    "coverage": "{total} satırın {romanized} tanesi romanize edildi",
+    "coverageLabel": "Romanize edilen satırlar",
+    "empty": "Romanize edilecek bir şey yok. Romanizasyon Japonca, Çince, Kantonca ve Korece sözlerde çalışır.",
+    "source": "Kaynak",
+    "sourceAuto": "Otomatik",
+    "sourcePaste": "Bir şarkı sözü sayfasından",
+    "language": "Dil",
+    "detected": "Algılanan: {language}. Başka bir yazıdaki satırlar kendi yazısını kullanır.",
+    "scope": "Satırlar",
+    "scopeSong": "Tüm şarkı",
+    "scopeSelection": "{count, plural, one {# seçili satır} other {# seçili satır}}",
+    "pastePlaceholder": "Genius'takine benzer romanize edilmiş bir şarkı sözü sayfası yapıştır, her söz satırı için bir satır. Bölüm başlıkları ve arka plan satırları atlanır.",
+    "pasteLabel": "Romanize edilmiş şarkı sözü sayfası",
+    "existing": "{count, plural, one {# kelimenin zaten romanizasyonu var} other {# kelimenin zaten romanizasyonu var}}",
+    "fillEmpty": "Yalnızca boş kelimeleri doldur",
+    "fillEmptyDesc": "Zaten romanize ettiğin kelimeler olduğu gibi kalır",
+    "replace": "Tümünü değiştir",
+    "replaceDesc": "Her kelime yeni romanizasyon alır",
+    "lineCountMismatch": "Sayfada {received} satır, sözlerde {expected} satır var. Eşleşmeleri için satır ekleyin veya silin.",
+    "check": "Bazı kelimeler tahmin edildi. {lines} numaralı satırları kontrol edin.",
+    "run": "{count, plural, one {# satırı romanize et} other {# satırı romanize et}}",
+    "runPaste": "Sayfadan romanize et",
+    "done": "{count, plural, one {# satır romanize edildi.} other {# satır romanize edildi.}}",
+    "nothingChanged": "Hiçbir şey değişmedi: bu satırların zaten romanizasyonu var.",
+    "failed": "Romanizasyon yüklenemedi. Bağlantını kontrol edip tekrar dene."
   },
   "timeShiftDialog": {
     "title": "Zaman kaydırma",

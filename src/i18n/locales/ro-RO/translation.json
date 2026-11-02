@@ -470,10 +470,7 @@
       "newLyricLine": "Adaugă un vers gol la finalul versurilor.",
       "bgLyric": "Marchează versurile selectate ca voce de fundal.",
       "duetLyric": "Marchează versurile selectate ca fiind cântate de al doilea cântăreț.",
-      "ignoreSync": "Tastele de sincronizare sar peste versurile selectate, așa că nu le sincronizezi.",
-      "romanizationLanguage": "Limba romanizării",
-      "romanizationLanguageDesc": "Limba versurilor selectate. Detectarea automată merge pentru majoritatea melodiilor.",
-      "romanize": "Completează romanizarea pentru versurile sau cuvintele selectate."
+      "ignoreSync": "Tastele de sincronizare sar peste versurile selectate, așa că nu le sincronizezi."
     },
     "editMode": {
       "multipleValues": "Valori multiple",
@@ -481,23 +478,12 @@
       "showTranslation": "Arată linia de traducere",
       "showRomanization": "Arată linia de romanizare",
       "showWordRomanizationInput": "Arată romanizarea fiecărui cuvânt",
-      "phonetic": {
-        "noSelection": "Selectează mai întâi versuri sau cuvinte",
-        "success": "Transcrieri fonetice preluate",
-        "error": "Nu s-au putut prelua transcrierile fonetice"
-      },
       "romanization": {
         "section": "Romanizare",
-        "info": {
-          "title": "Despre romanizare",
-          "canDo": "✓ Acceptă romaji japonez, pinyin mandarin, jyutping cantonez și romanizare coreeană, inclusiv kanji.",
-          "cannotDo": "✗ Nu garantează corectitudinea kanji rari sau a numelor proprii. Doar CJK; pot apărea mici greșeli."
-        },
         "ja": "Japoneză (Romaji)",
         "zh": "Chineză (Pinyin)",
         "yue": "Cantoneză (Jyutping)",
-        "ko": "Coreeană (romanizare revizuită)",
-        "autoFetch": "Romanizează"
+        "ko": "Coreeană (romanizare revizuită)"
       },
       "new": "Nou",
       "lyricLine": "Vers",
@@ -1443,23 +1429,36 @@
     "applyToAll": "Aplică tuturor cuvintelor identice",
     "caseSensitive": "Distinge majusculele de minuscule"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Lipește romanizarea...",
-      "tooltip": "Completează romanizarea fiecărui cuvânt dintr-o pagină cu versuri romanizate, cum ar fi cea de pe Genius.",
-      "title": "Lipește versuri romanizate",
-      "description": "Lipește o pagină cu versuri romanizate, câte un rând pentru fiecare vers. Titlurile de secțiune și rândurile goale sunt sărite, iar rândurile de fundal rămân neschimbate.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Completează romanizarea",
-      "lineCountMismatch": "Pagina are {received} rânduri, iar versurile au {expected}. Adaugă sau șterge rânduri ca să se potrivească.",
-      "applied": "{count, plural, one {Romanizare completată pentru # vers.} few {Romanizare completată pentru # versuri.} other {Romanizare completată pentru # de versuri.}}",
-      "check": "Unele cuvinte au fost estimate. Verifică rândurile {lines}.",
-      "existing": "{count, plural, one {# cuvânt are deja romanizare} few {# cuvinte au deja romanizare} other {# de cuvinte au deja romanizare}}",
-      "fillEmpty": "Completează doar cuvintele goale",
-      "fillEmptyDesc": "Cuvintele deja romanizate rămân cum sunt",
-      "replace": "Înlocuiește tot",
-      "replaceDesc": "Fiecare cuvânt își ia romanizarea din pagină"
-    }
+  "romanizationPanel": {
+    "title": "Romanizare",
+    "description": "Spicy Lyrics afișează romanizarea sub fiecare cuvânt. Complet-o automat sau dintr-o pagină cu versuri romanizate, apoi corectează manual ce nu se potrivește.",
+    "open": "Romanizare...",
+    "tooltip": "Completează romanizarea pentru toată piesa sau pentru versurile selectate, automat sau dintr-o pagină cu versuri romanizate.",
+    "coverage": "{romanized} din {total} versuri romanizate",
+    "coverageLabel": "Versuri romanizate",
+    "empty": "Nimic de romanizat. Romanizarea funcționează pentru versuri în japoneză, chineză, cantoneză și coreeană.",
+    "source": "Sursă",
+    "sourceAuto": "Automat",
+    "sourcePaste": "Dintr-o pagină cu versuri",
+    "language": "Limbă",
+    "detected": "Detectată: {language}. Versurile scrise în alt alfabet îl folosesc pe al lor.",
+    "scope": "Versuri",
+    "scopeSong": "Toată piesa",
+    "scopeSelection": "{count, plural, one {# vers selectat} few {# versuri selectate} other {# de versuri selectate}}",
+    "pastePlaceholder": "Lipește o pagină cu versuri romanizate, ca cea de pe Genius, câte un rând pentru fiecare vers. Titlurile de secțiune și versurile de fundal sunt omise.",
+    "pasteLabel": "Pagină cu versuri romanizate",
+    "existing": "{count, plural, one {# cuvânt are deja romanizare} few {# cuvinte au deja romanizare} other {# de cuvinte au deja romanizare}}",
+    "fillEmpty": "Completează doar cuvintele goale",
+    "fillEmptyDesc": "Cuvintele deja romanizate rămân cum sunt",
+    "replace": "Înlocuiește tot",
+    "replaceDesc": "Fiecare cuvânt primește o romanizare nouă",
+    "lineCountMismatch": "Pagina are {received} rânduri, iar versurile au {expected}. Adaugă sau șterge rânduri ca să se potrivească.",
+    "check": "Unele cuvinte au fost estimate. Verifică rândurile {lines}.",
+    "run": "{count, plural, one {Romanizează # vers} few {Romanizează # versuri} other {Romanizează # de versuri}}",
+    "runPaste": "Romanizează din pagină",
+    "done": "{count, plural, one {# vers romanizat.} few {# versuri romanizate.} other {# de versuri romanizate.}}",
+    "nothingChanged": "Nu s-a schimbat nimic: acele versuri au deja romanizare.",
+    "failed": "Romanizarea nu s-a putut încărca. Verifică conexiunea și încearcă din nou."
   },
   "timeShiftDialog": {
     "title": "Deplasează timpii",

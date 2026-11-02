@@ -56,8 +56,7 @@
 	},
 	"ribbonBar": {
 		"tooltips": {
-			"newLyricLine": "Agrega una línea vacía al final de la letra.",
-			"romanize": "Completa la romanización de las líneas o palabras seleccionadas."
+			"newLyricLine": "Agrega una línea vacía al final de la letra."
 		},
 		"syncMode": {
 			"spectrogramHoverSync": "Sincronizar en la posición del mouse"

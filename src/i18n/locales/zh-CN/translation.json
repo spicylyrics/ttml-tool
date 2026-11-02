@@ -470,10 +470,7 @@
       "newLyricLine": "在歌词末尾添加一个空行。",
       "bgLyric": "将所选行标记为背景人声。",
       "duetLyric": "将所选行标记为第二位歌手演唱。",
-      "ignoreSync": "打轴按键会跳过所选行，这些行不会被打轴。",
-      "romanizationLanguage": "罗马音语言",
-      "romanizationLanguageDesc": "所选歌词的语言。大多数歌曲用自动检测即可。",
-      "romanize": "为所选行或单词填写罗马音。"
+      "ignoreSync": "打轴按键会跳过所选行，这些行不会被打轴。"
     },
     "editMode": {
       "multipleValues": "多值…",
@@ -481,23 +478,12 @@
       "showTranslation": "显示译文行",
       "showRomanization": "显示罗马音行",
       "showWordRomanizationInput": "显示逐字罗马音输入框",
-      "phonetic": {
-        "noSelection": "请先选择行或字",
-        "success": "注音获取成功",
-        "error": "注音获取失败"
-      },
       "romanization": {
         "section": "罗马音",
-        "info": {
-          "title": "关于罗马音",
-          "canDo": "✓ 支持日语罗马音、普通话拼音、粤语粤拼和韩语罗马音，包括日语汉字。",
-          "cannotDo": "✗ 无法保证罕见汉字或姓名准确无误。仅支持中日韩语言，可能出现少量错误。"
-        },
         "ja": "日语（罗马音）",
         "zh": "普通话（拼音）",
         "yue": "粤语（粤拼）",
-        "ko": "韩语（修订罗马字）",
-        "autoFetch": "生成罗马音"
+        "ko": "韩语（修订罗马字）"
       },
       "new": "新建",
       "lyricLine": "歌词行",
@@ -1443,23 +1429,36 @@
     "applyToAll": "应用到所有相同的字",
     "caseSensitive": "区分大小写"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "粘贴罗马音...",
-      "tooltip": "从罗马音歌词页（例如 Genius）填写每个词的罗马音。",
-      "title": "粘贴罗马音歌词",
-      "description": "粘贴罗马音歌词页，每行对应一行歌词。会跳过段落标题和空行，背景行保持不变。",
-      "placeholder": "Kimi no na wo...",
-      "apply": "填写罗马音",
-      "lineCountMismatch": "该页面有 {received} 行，歌词有 {expected} 行。请添加或删除行，使两者一致。",
-      "applied": "{count, plural, other {已为 # 行填写罗马音。}}",
-      "check": "部分词是推测的。请检查第 {lines} 行。",
-      "existing": "{count, plural, other {# 个词已有罗马音}}",
-      "fillEmpty": "只填空白的词",
-      "fillEmptyDesc": "已有罗马音的词保持不变",
-      "replace": "全部替换",
-      "replaceDesc": "每个词都使用页面上的罗马音"
-    }
+  "romanizationPanel": {
+    "title": "罗马音",
+    "description": "Spicy Lyrics 会在每个词下方显示罗马音。可以自动填写，或从罗马音歌词页面填写，然后手动修正不对的地方。",
+    "open": "罗马音...",
+    "tooltip": "为整首歌或所选行填写罗马音，可自动填写，也可从罗马音歌词页面填写。",
+    "coverage": "已为 {total} 行中的 {romanized} 行填写罗马音",
+    "coverageLabel": "已填写罗马音的行",
+    "empty": "没有需要罗马音的内容。罗马音适用于日语、中文、粤语和韩语歌词。",
+    "source": "来源",
+    "sourceAuto": "自动",
+    "sourcePaste": "从歌词页面",
+    "language": "语言",
+    "detected": "检测结果：{language}。其他文字的行仍按自己的文字处理。",
+    "scope": "行",
+    "scopeSong": "整首歌",
+    "scopeSelection": "{count, plural, other {所选的 # 行}}",
+    "pastePlaceholder": "粘贴罗马音歌词页面（例如 Genius 的），每行对应一行歌词。段落标题和背景行会被跳过。",
+    "pasteLabel": "罗马音歌词页面",
+    "existing": "{count, plural, other {# 个词已有罗马音}}",
+    "fillEmpty": "只填空白的词",
+    "fillEmptyDesc": "已有罗马音的词保持不变",
+    "replace": "全部替换",
+    "replaceDesc": "每个词都填写新的罗马音",
+    "lineCountMismatch": "该页面有 {received} 行，歌词有 {expected} 行。请添加或删除行，使两者一致。",
+    "check": "部分词是推测的。请检查第 {lines} 行。",
+    "run": "{count, plural, other {为 # 行填写罗马音}}",
+    "runPaste": "从页面填写罗马音",
+    "done": "{count, plural, other {已为 # 行填写罗马音。}}",
+    "nothingChanged": "没有变化：这些行已有罗马音。",
+    "failed": "罗马音加载失败。请检查网络连接后重试。"
   },
   "timeShiftDialog": {
     "title": "时间平移",

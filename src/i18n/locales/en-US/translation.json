@@ -470,10 +470,7 @@
       "newLyricLine": "Add an empty line at the end of the lyrics.",
       "bgLyric": "Mark the selected lines as background vocals.",
       "duetLyric": "Mark the selected lines as sung by the second singer.",
-      "ignoreSync": "Sync keys jump past the selected lines, so you don't time them.",
-      "romanizationLanguage": "Romanization language",
-      "romanizationLanguageDesc": "The language the selected lyrics are in. Auto-detect works for most songs.",
-      "romanize": "Fill in romanization for the selected lines or words."
+      "ignoreSync": "Sync keys jump past the selected lines, so you don't time them."
     },
     "editMode": {
       "multipleValues": "Multiple values…",
@@ -481,23 +478,12 @@
       "showTranslation": "Show translation line",
       "showRomanization": "Show romanization line",
       "showWordRomanizationInput": "Show per-word romanization",
-      "phonetic": {
-        "noSelection": "Select lines or words first",
-        "success": "Phonetics fetched successfully",
-        "error": "Failed to fetch phonetics"
-      },
       "romanization": {
         "section": "Romanization",
-        "info": {
-          "title": "About romanization",
-          "canDo": "✓ Can do: Japanese romaji, Mandarin pinyin, Cantonese jyutping and Korean romanization, including kanji.",
-          "cannotDo": "✗ Can't do: guarantee rare kanji or names are right. CJK only, so expect small mistakes."
-        },
         "ja": "Japanese (Romaji)",
         "zh": "Chinese (Pinyin)",
         "yue": "Cantonese (Jyutping)",
-        "ko": "Korean (Revised Romanization)",
-        "autoFetch": "Romanize"
+        "ko": "Korean (Revised Romanization)"
       },
       "new": "New",
       "lyricLine": "Lyric line",
@@ -1443,23 +1429,36 @@
     "applyToAll": "Apply to all identical words",
     "caseSensitive": "Match case"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Paste romanized...",
-      "tooltip": "Fill per-word romanization from a romanized lyric page, such as Genius's.",
-      "title": "Paste romanized lyrics",
-      "description": "Paste a romanized lyric page, one line per lyric line. Section headers and blank lines are skipped, and background lines are left alone.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Fill romanization",
-      "lineCountMismatch": "The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
-      "applied": "{count, plural, one {Romanization filled for # line.} other {Romanization filled for # lines.}}",
-      "check": "Some words were guessed. Check lines {lines}.",
-      "existing": "{count, plural, one {# word already has romanization} other {# words already have romanization}}",
-      "fillEmpty": "Fill empty words only",
-      "fillEmptyDesc": "Words you already romanized stay as they are",
-      "replace": "Replace all",
-      "replaceDesc": "Every word takes its romanization from the page"
-    }
+  "romanizationPanel": {
+    "title": "Romanization",
+    "description": "Spicy Lyrics shows romanization under each word. Fill it automatically or from a romanized lyric page, then fix anything odd by hand.",
+    "open": "Romanization...",
+    "tooltip": "Fill romanization for the whole song or the selected lines, automatically or from a romanized lyric page.",
+    "coverage": "{romanized} of {total} lines romanized",
+    "coverageLabel": "Lines romanized",
+    "empty": "Nothing to romanize. Romanization works for Japanese, Chinese, Cantonese and Korean lyrics.",
+    "source": "Source",
+    "sourceAuto": "Automatic",
+    "sourcePaste": "From a lyric page",
+    "language": "Language",
+    "detected": "Detected: {language}. Lines in another script still use their own.",
+    "scope": "Lines",
+    "scopeSong": "Whole song",
+    "scopeSelection": "{count, plural, one {# selected line} other {# selected lines}}",
+    "pastePlaceholder": "Paste a romanized lyric page, like Genius's, one line per lyric line. Section headers and background lines are skipped.",
+    "pasteLabel": "Romanized lyric page",
+    "existing": "{count, plural, one {# word already has romanization} other {# words already have romanization}}",
+    "fillEmpty": "Fill empty words only",
+    "fillEmptyDesc": "Words you already romanized stay as they are",
+    "replace": "Replace all",
+    "replaceDesc": "Every word gets new romanization",
+    "lineCountMismatch": "The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
+    "check": "Some words were guessed. Check lines {lines}.",
+    "run": "{count, plural, one {Romanize # line} other {Romanize # lines}}",
+    "runPaste": "Romanize from page",
+    "done": "{count, plural, one {Romanized # line.} other {Romanized # lines.}}",
+    "nothingChanged": "Nothing changed: those lines already have romanization.",
+    "failed": "Romanization didn't load. Check your connection and try again."
   },
   "timeShiftDialog": {
     "title": "Time Shift",

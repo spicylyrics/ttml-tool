@@ -470,10 +470,7 @@
       "newLyricLine": "Añade una línea vacía al final de la letra.",
       "bgLyric": "Marca las líneas seleccionadas como voces de fondo.",
       "duetLyric": "Marca las líneas seleccionadas como cantadas por el segundo cantante.",
-      "ignoreSync": "Las teclas de sincronización saltan las líneas seleccionadas, así que no las sincronizas.",
-      "romanizationLanguage": "Idioma de romanización",
-      "romanizationLanguageDesc": "El idioma de la letra seleccionada. La detección automática funciona con la mayoría de canciones.",
-      "romanize": "Rellena la romanización de las líneas o palabras seleccionadas."
+      "ignoreSync": "Las teclas de sincronización saltan las líneas seleccionadas, así que no las sincronizas."
     },
     "editMode": {
       "multipleValues": "Múltiples valores…",
@@ -481,23 +478,12 @@
       "showTranslation": "Mostrar línea de traducción",
       "showRomanization": "Mostrar línea de romanización",
       "showWordRomanizationInput": "Mostrar romanización por palabra",
-      "phonetic": {
-        "noSelection": "Selecciona primero líneas o palabras",
-        "success": "Fonética obtenida con éxito",
-        "error": "No se pudo recuperar la fonética"
-      },
       "romanization": {
         "section": "Romanización",
-        "info": {
-          "title": "Acerca de la romanización",
-          "canDo": "✓ Permite generar romaji japonés, pinyin mandarín, jyutping cantonés y romanización coreana, incluidos los kanji.",
-          "cannotDo": "✗ No garantiza la precisión de kanji raros o nombres propios. Solo CJK; puede haber pequeños errores."
-        },
         "ja": "Japonés (Romaji)",
         "zh": "Chino (Pinyin)",
         "yue": "Cantonés (Jyutping)",
-        "ko": "Coreano (romanización revisada)",
-        "autoFetch": "Romanizar"
+        "ko": "Coreano (romanización revisada)"
       },
       "new": "Nuevo",
       "lyricLine": "Línea de letra",
@@ -1443,23 +1429,36 @@
     "applyToAll": "Aplicar a todas las palabras idénticas",
     "caseSensitive": "Distinguir mayúsculas y minúsculas"
   },
-  "romanizationTools": {
-    "paste": {
-      "button": "Pegar romanización...",
-      "tooltip": "Rellena la romanización de cada palabra desde una página de letra romanizada, como la de Genius.",
-      "title": "Pegar letra romanizada",
-      "description": "Pega una página de letra romanizada, una línea por cada línea de la letra. Se omiten los encabezados de sección y las líneas vacías, y las líneas de fondo no se tocan.",
-      "placeholder": "Kimi no na wo...",
-      "apply": "Rellenar romanización",
-      "lineCountMismatch": "La página tiene {received} líneas y la letra tiene {expected}. Añade o quita líneas para que coincidan.",
-      "applied": "{count, plural, one {Romanización rellenada en # línea.} many {Romanización rellenada en # líneas.} other {Romanización rellenada en # líneas.}}",
-      "check": "Algunas palabras se han estimado. Revisa las líneas {lines}.",
-      "existing": "{count, plural, one {# palabra ya tiene romanización} many {# palabras ya tienen romanización} other {# palabras ya tienen romanización}}",
-      "fillEmpty": "Rellenar solo palabras vacías",
-      "fillEmptyDesc": "Las palabras que ya romanizaste se quedan como están",
-      "replace": "Reemplazar todo",
-      "replaceDesc": "Cada palabra toma su romanización de la página"
-    }
+  "romanizationPanel": {
+    "title": "Romanización",
+    "description": "Spicy Lyrics muestra la romanización bajo cada palabra. Rellénala automáticamente o desde una página de letra romanizada y luego corrige a mano lo que no cuadre.",
+    "open": "Romanización...",
+    "tooltip": "Rellena la romanización de toda la canción o de las líneas seleccionadas, automáticamente o desde una página de letra romanizada.",
+    "coverage": "{romanized} de {total} líneas romanizadas",
+    "coverageLabel": "Líneas romanizadas",
+    "empty": "No hay nada que romanizar. La romanización funciona con letras en japonés, chino, cantonés y coreano.",
+    "source": "Origen",
+    "sourceAuto": "Automático",
+    "sourcePaste": "Desde una página de letra",
+    "language": "Idioma",
+    "detected": "Detectado: {language}. Las líneas en otra escritura usan la suya.",
+    "scope": "Líneas",
+    "scopeSong": "Toda la canción",
+    "scopeSelection": "{count, plural, one {# línea seleccionada} many {# líneas seleccionadas} other {# líneas seleccionadas}}",
+    "pastePlaceholder": "Pega una página de letra romanizada, como la de Genius, una línea por cada línea de la letra. Se omiten los encabezados de sección y las líneas de fondo.",
+    "pasteLabel": "Página de letra romanizada",
+    "existing": "{count, plural, one {# palabra ya tiene romanización} many {# palabras ya tienen romanización} other {# palabras ya tienen romanización}}",
+    "fillEmpty": "Rellenar solo palabras vacías",
+    "fillEmptyDesc": "Las palabras que ya romanizaste se quedan como están",
+    "replace": "Reemplazar todo",
+    "replaceDesc": "Cada palabra recibe una romanización nueva",
+    "lineCountMismatch": "La página tiene {received} líneas y la letra tiene {expected}. Añade o quita líneas para que coincidan.",
+    "check": "Algunas palabras se han estimado. Revisa las líneas {lines}.",
+    "run": "{count, plural, one {Romanizar # línea} many {Romanizar # líneas} other {Romanizar # líneas}}",
+    "runPaste": "Romanizar desde la página",
+    "done": "{count, plural, one {# línea romanizada.} many {# líneas romanizadas.} other {# líneas romanizadas.}}",
+    "nothingChanged": "No ha cambiado nada: esas líneas ya tienen romanización.",
+    "failed": "No se pudo cargar la romanización. Revisa tu conexión e inténtalo de nuevo."
   },
   "timeShiftDialog": {
     "title": "Desplazar tiempos",

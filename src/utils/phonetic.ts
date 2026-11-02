@@ -72,9 +72,14 @@ const hasSourceScript = (text: string, language: PhoneticLanguage) => {
 
 const normalizeCapsulePhonetic = (text: string, language: PhoneticLanguage) => {
 	const normalized = text.trim().replace(/\s+/g, " ");
-	return language === "zh" || language === "yue"
-		? formatPhoneticForDisplay(normalized)
-		: normalizePhoneticForMatching(normalized);
+	if (language === "zh" || language === "yue")
+		return formatPhoneticForDisplay(normalized);
+	// A capsule holding several words (an unsplit line) keeps its word gaps.
+	return normalized
+		.split(" ")
+		.map(normalizePhoneticForMatching)
+		.filter(Boolean)
+		.join(" ");
 };
 
 const mapContextualChinesePhonetic = (
@@ -256,10 +261,10 @@ export async function getPhoneticSyllables(
 	// character mapping, use capsule requests while retaining the line fallback.
 	const capResultsPromise = Promise.all(
 		originalCapsules.map(async (cap) => {
-			const capText = cap.trim().replace(/\s+/g, "");
+			const capText = cap.trim().replace(/\s+/g, " ");
 			if (capText.length === 0) return { phonetic: "", weight: 0 };
 
-			const rawCapPhonetic = await getPhonetic(capText, detectedLang);
+			const rawCapPhonetic = await getPhonetic(capText, detectedLang, true);
 			if (!rawCapPhonetic) return { phonetic: "", weight: 0 };
 			const capPhonetic = normalizeCapsulePhonetic(
 				rawCapPhonetic,

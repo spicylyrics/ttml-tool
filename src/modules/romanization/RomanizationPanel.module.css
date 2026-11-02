@@ -1,0 +1,57 @@
+.coverage {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	padding: var(--space-3);
+	border-radius: var(--radius-4);
+	background: var(--gray-a2);
+	border: 1px solid var(--gray-a4);
+}
+
+.count {
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.014em;
+}
+
+.track {
+	height: 6px;
+	border-radius: var(--sl-radius-pill, 999px);
+	background: var(--gray-a4);
+	overflow: hidden;
+}
+
+.fill {
+	height: 100%;
+	border-radius: inherit;
+	background: var(--accent-9);
+	transform-origin: left center;
+	transition: transform 240ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.field {
+	display: grid;
+	grid-template-columns: 7rem 1fr;
+	align-items: center;
+	gap: var(--space-3);
+}
+
+/* A menu trigger sizes to its label instead of stretching across the row. */
+.start {
+	justify-self: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fill {
+		transition: none;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.coverage {
+		border-color: var(--gray-a8);
+	}
+
+	.track {
+		background: var(--gray-a6);
+	}
+}
