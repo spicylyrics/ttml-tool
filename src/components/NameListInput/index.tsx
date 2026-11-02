@@ -185,6 +185,9 @@ export const NameListInput: FC<NameListInputProps> = ({
 								aria-label={t("nameList.removeName", "Remove {name}", {
 									name,
 								})}
+								// Keep focus in the box, so a half-typed name isn't
+								// committed and then overwritten by this removal.
+								onMouseDown={(event) => event.preventDefault()}
 								onClick={() => remove(index)}
 							>
 								<Dismiss12Regular />

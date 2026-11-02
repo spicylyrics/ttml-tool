@@ -64,6 +64,9 @@ const Cover: FC<{ match: SongMatch }> = ({ match }) => {
 			src={match.coverUrl}
 			alt=""
 			referrerPolicy="no-referrer"
+			// The app is cross-origin isolated; Cover Art Archive images load
+			// only as CORS requests.
+			crossOrigin={match.source === "musicbrainz" ? "anonymous" : undefined}
 			onError={() => setFailed(match.coverUrl)}
 		/>
 	) : (
@@ -234,6 +237,9 @@ export const SongwriterFinderDialog = () => {
 				const found = await searchSongs(songTitle, songArtist, geniusApiKey);
 				if (id !== runId.current) return;
 				setSearch(found);
+				// Before the auto-pick: picking starts a new run, so the finally
+				// below would skip this and leave the list spinning.
+				setSearching(false);
 				const first = found.candidates[0];
 				if (
 					autoPick &&
@@ -377,10 +383,22 @@ export const SongwriterFinderDialog = () => {
 						}
 						description={
 							search
-								? t(
-										"songwriterFinder.noSongsHint",
-										"Check the spelling, or search with just the title.",
-									)
+								? Object.keys(search.errors).length > 0
+									? (Object.keys(search.errors) as SongwriterSource[])
+											.map((source) =>
+												t(
+													"songwriterFinder.sourceFailed",
+													"{source} didn't answer.",
+													{
+														source: SOURCE_LABEL[source],
+													},
+												),
+											)
+											.join(" ")
+									: t(
+											"songwriterFinder.noSongsHint",
+											"Check the spelling, or search with just the title.",
+										)
 								: t(
 										"songwriterFinder.startHint",
 										"Enter the title and artist to look up who wrote it.",
