@@ -9,6 +9,7 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
+import { LocalLanguage16Regular } from "@fluentui/react-icons";
 import { Button, Flex } from "@radix-ui/themes";
 import { useSetAtom } from "jotai";
 import { useTranslation } from "react-i18next";
@@ -22,6 +23,7 @@ export const PhoneticSection = () => {
 	const { t } = useTranslation();
 	const openPanel = useSetAtom(romanizationPanelAtom);
 	const label = t("romanizationPanel.open", "Romanization...");
+	const buttonLabel = t("romanizationPanel.ribbonButton", "Romanize...");
 
 	return (
 		<RibbonSection
@@ -40,7 +42,8 @@ export const PhoneticSection = () => {
 				)}
 			>
 				<Button size="1" variant="soft" onClick={() => openPanel(true)}>
-					{label}
+					<LocalLanguage16Regular aria-hidden />
+					{buttonLabel}
 				</Button>
 			</ActionTooltip>
 		</RibbonSection>

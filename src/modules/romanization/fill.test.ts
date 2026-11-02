@@ -49,6 +49,29 @@ describe("filling romanization", () => {
 		).toBe("kimino");
 	});
 
+	it("takes a pasted page's line as written, unless old words stay", () => {
+		const target = line("抜かしてん", "だ", "か？");
+		const romanWords = Object.fromEntries(
+			target.words.map((word, index) => [
+				word.id,
+				["nukashiten", "da ", "ka?"][index],
+			]),
+		);
+		expect(
+			mergeLineRomanization(target, romanWords, "replace", "nukashite nda ka?")
+				?.romanLyric,
+		).toBe("nukashite nda ka?");
+		const kept = line(["抜かしてん", "Nukashiten"], "だ", "か？");
+		expect(
+			mergeLineRomanization(
+				kept,
+				{ [kept.words[1].id]: "da ", [kept.words[2].id]: "ka?" },
+				"fillEmpty",
+				"nukashite nda ka?",
+			)?.romanLyric,
+		).toBe("Nukashitenda ka?");
+	});
+
 	it("fills over leftover romanization that is still in kana", () => {
 		const target = line(["ソンナ", "ソンナ"]);
 		expect(
