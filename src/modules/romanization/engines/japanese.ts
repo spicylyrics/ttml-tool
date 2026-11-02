@@ -157,6 +157,8 @@ const attaches = (token: Token, previous: Token | undefined) =>
 	token.posDetail === "接尾" ||
 	// Casual ん (やってんの, 抜かしてんだ) is said as part of the word before.
 	(!!previous && /^[んン]$/.test(token.surface)) ||
+	// A ー on its own stretches the sound before it (せー → see).
+	(!!previous && /^[ーｰ〜～]+$/.test(token.surface)) ||
 	stretches(token, previous);
 
 const VOWEL_KANA: Record<string, string> = {

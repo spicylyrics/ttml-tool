@@ -171,6 +171,12 @@ describe("Japanese romanization", () => {
 		]);
 	});
 
+	it("stretches the vowel before a ー with no gap", () => {
+		expect(romanize("せー、")).toEqual(["see,"]);
+		expect(romanize("ｾｰ、")).toEqual(["see,"]);
+		expect(romanize("せ", "ー、")).toEqual(["se", "e,"]);
+	});
+
 	it("repeats the kanji before 々", () => {
 		expect(romanize("燦", "々", "と")).toEqual(["san", "san ", "to"]);
 	});
