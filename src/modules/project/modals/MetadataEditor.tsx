@@ -193,7 +193,7 @@ const OtherFields: FC<{
 				<Text size="1">
 					{t(
 						"metadataDialog.otherFields",
-						"{count, plural, =0 {Custom fields (optional)} other {Custom fields (#, optional)}}",
+						"{count, plural, =0 {Custom fields} other {Custom fields (#)}}",
 						{ count: entries.length },
 					)}
 				</Text>
@@ -279,6 +279,13 @@ export const MetadataEditor = () => {
 	const otherEntries = metadata.filter(
 		(entry) => !isBuiltinMetadataKey(entry.key),
 	);
+	// "Title - Artist" on the folded row, so filled details stay visible.
+	const songSummary = [
+		metadataValues(metadata, "musicName")[0],
+		metadataValues(metadata, "artists").join(", "),
+	]
+		.filter((part) => part?.trim())
+		.join(" - ");
 
 	const textField = (key: string, label: string, description?: string) => (
 		<FieldRow label={label} description={description} stacked>
@@ -337,41 +344,68 @@ export const MetadataEditor = () => {
 						values={metadataValues(metadata, "songwriter")}
 						setValues={setValues}
 					/>
-					{textField(
-						"musicName",
-						t("metadataDialog.builtinOptions.musicName", "Song title"),
-					)}
-					<FieldRow
-						label={t("metadataDialog.builtinOptions.artists", "Artists")}
-						description={t(
-							"metadataDialog.artistsHint",
-							"As credited on streaming services. One name per artist.",
-						)}
-						stacked
-					>
-						{({ controlId, descriptionId }) => (
-							<NameListInput
-								id={controlId}
-								aria-describedby={descriptionId}
-								values={metadataValues(metadata, "artists")}
-								onChange={(next) => setValues("artists", next)}
-								placeholder={t("metadataDialog.addName", "Add a name...")}
+					{/* Everything below is optional, so it starts folded: people
+					    filled every visible box thinking Spicy Lyrics needs it. */}
+					<details className={styles.songDetails}>
+						<summary className={styles.songDetailsSummary}>
+							<ChevronRight16Regular aria-hidden className={styles.chevron} />
+							<Text
+								size="2"
+								weight="medium"
+								className={styles.songDetailsTitle}
+							>
+								{t("metadataDialog.songDetails", "Song details (optional)")}
+							</Text>
+							{songSummary && (
+								<Text size="1" color="gray" truncate>
+									{songSummary}
+								</Text>
+							)}
+						</summary>
+						<Flex direction="column" gap="4" pt="3">
+							<Text size="1" color="gray">
+								{t(
+									"metadataDialog.songDetailsHint",
+									"Used for the file name, your project list and Discord status. Spicy Lyrics doesn't need them.",
+								)}
+							</Text>
+							{textField(
+								"musicName",
+								t("metadataDialog.builtinOptions.musicName", "Song title"),
+							)}
+							<FieldRow
+								label={t("metadataDialog.builtinOptions.artists", "Artists")}
+								description={t(
+									"metadataDialog.artistsHint",
+									"As credited on streaming services. One name per artist.",
+								)}
+								stacked
+							>
+								{({ controlId, descriptionId }) => (
+									<NameListInput
+										id={controlId}
+										aria-describedby={descriptionId}
+										values={metadataValues(metadata, "artists")}
+										onChange={(next) => setValues("artists", next)}
+										placeholder={t("metadataDialog.addName", "Add a name...")}
+									/>
+								)}
+							</FieldRow>
+							{textField(
+								"album",
+								t("metadataDialog.builtinOptions.album", "Album"),
+							)}
+							<CoverField
+								values={metadataValues(metadata, "cover_art")}
+								setValues={setValues}
 							/>
-						)}
-					</FieldRow>
-					{textField(
-						"album",
-						t("metadataDialog.builtinOptions.album", "Album"),
-					)}
-					<CoverField
-						values={metadataValues(metadata, "cover_art")}
-						setValues={setValues}
-					/>
-					<OtherFields
-						entries={otherEntries}
-						setValues={setValues}
-						removeField={removeField}
-					/>
+							<OtherFields
+								entries={otherEntries}
+								setValues={setValues}
+								removeField={removeField}
+							/>
+						</Flex>
+					</details>
 				</div>
 
 				<div className={styles.dialogFooter}>

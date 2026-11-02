@@ -133,8 +133,43 @@
 	transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.other[open] .chevron {
+/* Child combinators: the custom fields fold sits inside the song details one. */
+details[open] > summary > .chevron {
 	transform: rotate(90deg);
+}
+
+.songDetails {
+	border-top: 1px solid var(--gray-a4);
+	padding-top: var(--space-3);
+}
+
+.songDetailsSummary {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	min-width: 0;
+	color: var(--gray-11);
+	cursor: pointer;
+	list-style: none;
+	border-radius: var(--radius-2);
+}
+
+.songDetailsSummary::-webkit-details-marker {
+	display: none;
+}
+
+.songDetailsSummary:hover,
+.songDetailsTitle {
+	color: var(--gray-12);
+}
+
+.songDetailsTitle {
+	flex: none;
+}
+
+.songDetailsSummary:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: 2px;
 }
 
 .otherRow {
