@@ -2,6 +2,7 @@ import { type DBSchema, type IDBPDatabase, openDB } from "idb";
 import { normalizeDocumentWords } from "$/modules/project/logic/normalize-document";
 import { identifyProject } from "$/modules/project/logic/project-info";
 import type { TTMLLyric } from "$/types/ttml";
+import { requestPersistentStorage } from "$/utils/persistent-storage";
 
 const DB_NAME = "amll-autosave-db";
 const DB_VERSION = 2;
@@ -144,6 +145,7 @@ export async function autoSaveProject(
 	saveInterval: number,
 ) {
 	lyrics = normalizeDocumentWords(lyrics);
+	void requestPersistentStorage();
 	const db = await getDB();
 
 	const identity = identifyProject(lyrics);

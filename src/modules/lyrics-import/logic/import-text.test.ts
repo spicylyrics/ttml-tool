@@ -191,6 +191,34 @@ describe("section review", () => {
 		expect(hasSectionHeaders("No [headers] here")).toBe(false);
 	});
 
+	it("drops a Genius page title row led by a zero-width space", () => {
+		const page = `​[米津玄師「Lemon」歌詞]\n\n[Verse 1]\n夢ならばどれほどよかったでしょう\n未だにあなたのことを夢にみる`;
+		for (const sections of [true, false]) {
+			expect(words(page, FORMAT, sections)).toEqual([
+				["夢ならばどれほどよかったでしょう"],
+				["未だにあなたのことを夢にみる"],
+			]);
+		}
+		expect(detectSections(page).map((section) => section.label)).toEqual([
+			"[Verse 1]",
+		]);
+		const [first] = importTextToLines(page, FORMAT, true);
+		expect(first.geniusHeader).toBe("[Verse 1]");
+		expect(hasSectionHeaders("​[米津玄師「Lemon」歌詞]\nLine")).toBe(false);
+		expect(
+			prepareTextImport(page, true, DEFAULT_LYRIC_PREP_OPTIONS).split("\n")[0],
+		).toBe("[Verse 1]");
+	});
+
+	it("leaves lines under a lone page title outside any section", () => {
+		const [line] = importTextToLines(
+			"[米津玄師「Lemon」歌詞]\n夢ならば",
+			FORMAT,
+			true,
+		);
+		expect(line.geniusHeader).toBeUndefined();
+	});
+
 	it("keeps a changed category when the text around it is edited", () => {
 		const [intro, verse] = detectSections(GENIUS);
 		const edited = mergeReviewedSections(
@@ -239,6 +267,14 @@ describe("syllable splitting in the import text", () => {
 		expect(segmentImportText(processed, FORMAT, pairs)).toBe(
 			"He\\ll\\o\\ \\wo\\rl\\d",
 		);
+	});
+
+	it("splits each Japanese word Process lyrics marked, and only once", () => {
+		const bySound = (word: string) =>
+			({ 名前: ["名", "前"], 呼んで: ["呼ん", "で"] })[word] ?? [word];
+		const once = segmentImportText("君\\の\\名前\\を\\呼んで", FORMAT, bySound);
+		expect(once).toBe("君\\の\\名\\前\\を\\呼ん\\で");
+		expect(segmentImportText(once, FORMAT, bySound)).toBe(once);
 	});
 
 	it("leaves translation rows and the same-line translation alone", () => {

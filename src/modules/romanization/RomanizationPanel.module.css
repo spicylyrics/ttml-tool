@@ -1,0 +1,113 @@
+.count {
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.track {
+	height: 4px;
+	margin-top: var(--space-3);
+	border-radius: var(--sl-radius-pill, 999px);
+	background: var(--gray-a4);
+	overflow: hidden;
+}
+
+.fill {
+	height: 100%;
+	border-radius: inherit;
+	background: var(--accent-9);
+	transform-origin: left center;
+	transition: transform 240ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* "Options" with its summary: one quiet row that opens the settings. */
+.disclosure {
+	appearance: none;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	min-width: 0;
+	width: fit-content;
+	max-width: 100%;
+	padding: var(--space-1) 0;
+	border: 0;
+	border-radius: var(--radius-2);
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+.disclosure:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: 2px;
+}
+
+.chevron {
+	flex-shrink: 0;
+	color: var(--gray-11);
+	transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.disclosure[aria-expanded="true"] .chevron {
+	transform: rotate(90deg);
+}
+
+.options {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	padding-left: var(--space-5);
+}
+
+.field {
+	display: grid;
+	grid-template-columns: 6rem 1fr;
+	align-items: center;
+	gap: var(--space-3);
+}
+
+/* A menu trigger sizes to its label instead of stretching across the row. */
+.start {
+	justify-self: start;
+}
+
+/* The pasted page is the main thing in its mode: it takes the height the
+   window has left after the rest of the dialog (about 26rem), so a whole
+   song shows at once, and scrolls inside past that. */
+.page {
+	height: clamp(10rem, calc(100dvh - 26rem), 36rem);
+}
+
+.page :global(.rt-TextAreaInput) {
+	height: 100%;
+	resize: none;
+}
+
+/* Words already romanized: what to do with them, on one line. */
+.existing {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-4);
+	background: var(--gray-a2);
+	border: 1px solid var(--gray-a4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fill,
+	.chevron {
+		transition: none;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.existing {
+		border-color: var(--gray-a8);
+	}
+
+	.track {
+		background: var(--gray-a6);
+	}
+}

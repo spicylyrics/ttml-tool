@@ -1,9 +1,13 @@
 import {
 	createSectionFromHeader,
 	getSectionHeader,
+	isGeniusPageTitle,
+	trimInvisible,
 } from "$/modules/lyric-editor/utils/section-system";
 import { textToLines } from "$/modules/project/logic/text-to-lines";
 import type { LyricLine, LyricSection } from "$/types/ttml";
+
+const JAPANESE = /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u;
 
 export type ImportContentMode =
 	| "lyric"
@@ -70,8 +74,14 @@ export interface ReviewedSection extends LyricSection {
 	firstLine?: string;
 }
 
+/** A header the import turns into a section; Genius page titles aren't. */
+const getImportSectionHeader = (line: string) => {
+	const header = getSectionHeader(line);
+	return header && !isGeniusPageTitle(header) ? header : undefined;
+};
+
 export const hasSectionHeaders = (text: string) =>
-	text.split(/\r\n|\r|\n/).some((line) => !!getSectionHeader(line));
+	text.split(/\r\n|\r|\n/).some((line) => !!getImportSectionHeader(line));
 
 /** The sections the import would create, in order, for the review step. */
 export function detectSections(text: string): ReviewedSection[] {
@@ -80,15 +90,18 @@ export function detectSections(text: string): ReviewedSection[] {
 	let occurrence = 0;
 	for (const rawLine of text.split(/\r\n|\r|\n/)) {
 		const header = getSectionHeader(rawLine);
+		const row = trimInvisible(rawLine);
 		if (header) {
-			const section = createSectionFromHeader(header);
+			const section = getImportSectionHeader(header)
+				? createSectionFromHeader(header)
+				: undefined;
 			if (section) {
 				current = { ...section, occurrence: occurrence++, lineCount: 0 };
 				result.push(current);
 			}
-		} else if (rawLine.trim() && current) {
+		} else if (row && current) {
 			current.lineCount++;
-			current.firstLine ??= rawLine.trim();
+			current.firstLine ??= row;
 		}
 	}
 	return result;
@@ -160,12 +173,19 @@ export function segmentImportText(
 	};
 	// A word already marked inside (other than right after a hyphen) was split
 	// by hand or by an earlier run, so it's left alone. That keeps this idempotent.
+	// Japanese is written without spaces, so its marks are word boundaries from
+	// Process lyrics: each marked piece splits by sound on its own, which leaves
+	// a piece that already is one sound as it is.
 	const splitWordTokens = (tokens: string[]) =>
-		tokens.some(
-			(token, index) => index < tokens.length - 1 && !token.endsWith("-"),
-		)
-			? tokens
-			: tokens.flatMap(splitChunk);
+		tokens.some((token) => JAPANESE.test(token))
+			? tokens.flatMap((token) =>
+					JAPANESE.test(token) ? splitChunk(token) : [token],
+				)
+			: tokens.some(
+						(token, index) => index < tokens.length - 1 && !token.endsWith("-"),
+					)
+				? tokens
+				: tokens.flatMap(splitChunk);
 	const splitBody = (body: string) => {
 		const tokens = body
 			.split(separator)

@@ -23,6 +23,7 @@ import { clearWordTiming } from "$/modules/lyric-editor/utils/clear-word-timing"
 import { swapDuetLinesAtom } from "$/modules/lyric-editor/utils/swap-duet";
 import { guideWelcomeOpenAtom } from "$/modules/onboarding/states";
 import type { LyricExportFormat } from "$/modules/project/export-lyric";
+import { romanizationPanelAtom } from "$/modules/romanization/states";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
 import {
@@ -33,10 +34,10 @@ import {
 import {
 	changelogDialogAtom,
 	combineWordsDialogAtom,
-	geniusSearchDialogAtom,
 	importLyricsDialogAtom,
 	settingsDialogAtom,
 	settingsTabAtom,
+	songwriterFinderDialogAtom,
 } from "$/states/dialogs.ts";
 import {
 	lyricLinesAtom,
@@ -389,6 +390,15 @@ export const MENU_ACTIONS = {
 		[key("topBar.menu.learnedSplits"), "Learned splits..."],
 		{ run: ({ menu }) => menu.onOpenLearnedSplits() },
 	),
+	romanization: defineAction(
+		"romanization",
+		"Tools",
+		[key("romanizationPanel.open"), "Romanization..."],
+		{
+			enabledAtom: hasLyricLinesAtom,
+			run: ({ store }) => store.set(romanizationPanelAtom, true),
+		},
+	),
 	syncLineTimestamps: defineAction(
 		"syncLineTimestamps",
 		"Tools",
@@ -429,15 +439,13 @@ export const MENU_ACTIONS = {
 		[key("topBar.menu.ttmlChecklist"), "TTML checklist"],
 		{ run: ({ menu }) => menu.onOpenTTMLChecklist() },
 	),
-	// The metadata editor's Genius button.
+	// The metadata editor's songwriter finder. The id predates the MusicBrainz
+	// source and stays, so saved shortcuts keep working.
 	geniusSearch: defineAction(
 		"geniusSearch",
 		"Tools",
-		[
-			key("metadataDialog.fetchSongwriters.button"),
-			"Fetch songwriters from Genius",
-		],
-		{ run: ({ store }) => store.set(geniusSearchDialogAtom, true) },
+		[key("songwriterFinder.open"), "Find songwriters"],
+		{ run: ({ store }) => store.set(songwriterFinderDialogAtom, true) },
 	),
 
 	// Help

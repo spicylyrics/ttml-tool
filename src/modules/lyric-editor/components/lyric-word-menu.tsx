@@ -1,9 +1,12 @@
+import { TextTRegular } from "@fluentui/react-icons";
 import { ContextMenu } from "@radix-ui/themes";
 import { type Atom, atom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { MenuIconRow } from "$/components/MenuIconRow";
+import { SlIcon } from "$/components/SlIcon";
 import { segmentationEngineAtom } from "$/modules/segmentation/states";
 import { segmentSelectedWords } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
@@ -20,13 +23,7 @@ import {
 	selectedLinesAtom,
 	selectedWordsAtom,
 } from "$/states/main";
-import {
-	type LyricLine,
-	type LyricWord,
-	newLyricLine,
-	newLyricWord,
-} from "$/types/ttml";
-import { getPhoneticSyllables } from "$/utils/phonetic";
+import { type LyricLine, type LyricWord, newLyricLine } from "$/types/ttml";
 import {
 	combineWordsApplyToAllAtom,
 	combineWordsIgnoreCaseAtom,
@@ -134,121 +131,52 @@ export const LyricWordMenu = ({
 					defaultValue: "Auto-segment selected words",
 				})}
 			</ContextMenu.Item>
-			{/[\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u4E00-\u9FA5]/.test(
-				word.word,
-			) && (
-				<ContextMenu.Item
-					disabled={selectedWordsSize !== 1 || word.word.length <= 1}
-					onSelect={async () => {
-						try {
-							// Detect project-level language priority for context
-							const allLines = store.get(lyricLinesAtom).lyricLines;
-							const fullProjectText = allLines
-								.map((l) => l.words.map((w) => w.word).join(""))
-								.join("");
-							let projectLangPriority: "ja" | "zh" | "ko" | "auto" = "auto";
-
-							if (/[\u3040-\u309F\u30A0-\u30FF]/.test(fullProjectText))
-								projectLangPriority = "ja";
-							else if (/[\uAC00-\uD7AF]/.test(fullProjectText))
-								projectLangPriority = "ko";
-							else if (/[\u4E00-\u9FA5]/.test(fullProjectText))
-								projectLangPriority = "zh";
-
-							const syllables = await getPhoneticSyllables(
-								word.word,
-								projectLangPriority,
-							);
-							if (syllables.length <= 1) {
-								toast.info(
-									t(
-										"contextMenu.noSyllablesFound",
-										"No syllables found to split.",
-									),
-								);
-								return;
-							}
-
-							editLyricLines((state) => {
-								const line = state.lyricLines[lineIndex];
-								if (!line) return;
-
-								const targetWordIndex = line.words.findIndex(
-									(w) => w.id === word.id,
-								);
-								if (targetWordIndex === -1) return;
-
-								const originalWord = line.words[targetWordIndex];
-								const duration = originalWord.endTime - originalWord.startTime;
-								const syllDuration = Math.floor(duration / syllables.length);
-
-								const newWords: LyricWord[] = syllables.map((syll, i) => {
-									const nw = newLyricWord();
-									nw.word = word.word[i];
-									nw.romanWord = syll;
-									nw.startTime = originalWord.startTime + i * syllDuration;
-									nw.endTime =
-										i === syllables.length - 1
-											? originalWord.endTime
-											: originalWord.startTime + (i + 1) * syllDuration;
-									return nw;
-								});
-
-								line.words.splice(targetWordIndex, 1, ...newWords);
+			{/* One row for both replaces, like Line role: the word (or the
+			    selected words together) and its romanization. */}
+			<MenuIconRow label={t("contextMenu.replace", "Replace")}>
+				{selectedWordsSize > 1 ? (
+					<MenuIconRow.Action
+						icon={<TextTRegular />}
+						label={t(
+							"replaceWordCombinationDialog.title",
+							"Replace word combination",
+						)}
+						disabled={!wordCombination}
+						onSelect={() => {
+							setReplaceWordCombinationDialog({
+								open: true,
+								selection: wordCombination,
 							});
-						} catch (e) {
-							console.error("Failed to split syllables", e);
-							toast.error(
-								t("common.error", "The data is corrupted or missing"),
-							);
-						}
-					}}
-				>
-					{t(
-						"contextMenu.splitIntoSyllables",
-						"Split into syllables (romanized)",
-					)}
-				</ContextMenu.Item>
-			)}
-			{selectedWordsSize > 1 ? (
-				<ContextMenu.Item
-					disabled={!wordCombination}
-					onSelect={() => {
-						setReplaceWordCombinationDialog({
-							open: true,
-							selection: wordCombination,
-						});
-					}}
-				>
-					{t("replaceWordCombinationDialog.title", "Replace word combination")}
-				</ContextMenu.Item>
-			) : (
-				<ContextMenu.Item
+						}}
+					/>
+				) : (
+					<MenuIconRow.Action
+						icon={<TextTRegular />}
+						label={t("contextMenu.replaceWord", "替换单词…")}
+						disabled={selectedWordsSize !== 1}
+						onSelect={() => {
+							setEditingWordState({
+								wordIndex,
+								lineIndex,
+								word: word.word,
+							});
+							setOpenReplaceWordDialog(true);
+						}}
+					/>
+				)}
+				<MenuIconRow.Action
+					icon={<SlIcon name="romanization" />}
+					label={t("contextMenu.replaceRomanization", "Replace Romanization…")}
 					disabled={selectedWordsSize !== 1}
 					onSelect={() => {
-						setEditingWordState({
-							wordIndex,
+						setReplaceRomanizationDialog({
+							open: true,
 							lineIndex,
-							word: word.word,
+							wordIndex,
 						});
-						setOpenReplaceWordDialog(true);
 					}}
-				>
-					{t("contextMenu.replaceWord", "替换单词…")}
-				</ContextMenu.Item>
-			)}
-			<ContextMenu.Item
-				disabled={selectedWordsSize !== 1}
-				onSelect={() => {
-					setReplaceRomanizationDialog({
-						open: true,
-						lineIndex,
-						wordIndex,
-					});
-				}}
-			>
-				{t("contextMenu.replaceRomanization", "Replace Romanization…")}
-			</ContextMenu.Item>
+				/>
+			</MenuIconRow>
 			<ContextMenu.Item
 				disabled={!(selectedWordsSize > 1 && selectedLinesSize === 1)}
 				onPointerDown={(event) => {

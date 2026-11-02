@@ -1,8 +1,10 @@
 import { distributeTime as distributeUnitTimes } from "$/modules/lyric-editor/utils/distribute-time";
+
 /**
  * @description 分词引擎
  */
 
+import { alignLineWords } from "$/modules/romanization/align-romanized";
 import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml";
 import { escapeRegExp } from "$/utils/text";
 import { CharType, type SegmentationConfig } from "../types";
@@ -12,11 +14,11 @@ import {
 	MergeDirection,
 	PUNCT_AMBIGUOUS_QUOTES,
 } from "./charUtils";
+import { hasKana, splitJapaneseSyllables } from "./japanese-split";
 import { applyLearnedRule } from "./learned-rules";
 import {
 	getHyphenationLanguage,
 	getSyllabificationEngine,
-	splitJapaneseText,
 } from "./syllabification-engines";
 
 export interface SegmentationContext {
@@ -50,6 +52,15 @@ function isMergeablePair(
 	}
 }
 
+/** Cuts a text at the given UTF-16 offsets. */
+const splitAt = (text: string, starts: Set<number>) => {
+	const cuts = [...starts].filter((at) => at > 0 && at < text.length);
+	cuts.sort((a, b) => a - b);
+	return [0, ...cuts].map((start, index) =>
+		text.slice(start, cuts[index] ?? text.length),
+	);
+};
+
 /**
  * @description 自动将一个字符串拆分为 token
  */
@@ -58,7 +69,14 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 		return [];
 	}
 	if (config.engine === "none") return [text];
-	if (config.engine === "japanese") return splitJapaneseText(text);
+	// Japanese splits by sound whatever engine splits the English words, or
+	// into words when asked to.
+	if (
+		config.japaneseWords &&
+		/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(text)
+	)
+		return splitAt(text, config.japaneseWords(text));
+	if (hasKana(text)) return splitJapaneseSyllables(text);
 	const tokens: string[] = [];
 	let currentToken = "";
 	let lastCharType: CharType | null = null;
@@ -285,11 +303,32 @@ function distributeTime(
 	}
 
 	return distributeUnitTimes(
-		tokens.map((token) => ({ ...newLyricWord(), word: token })),
+		shareRomanization(
+			originalWord.romanWord,
+			tokens.map((token) => ({ ...newLyricWord(), word: token })),
+		),
 		originalWord.startTime,
 		originalWord.endTime,
 		{ weight: weights },
 	);
+}
+
+/**
+ * A split word keeps its romanization: each part takes its share
+ * ("kimi" over 君|の → kimi|no, "namae" over 名|前 → na|mae), and a word gap
+ * after the whole word stays after its last part.
+ */
+function shareRomanization(romanWord: string, parts: LyricWord[]) {
+	if (!romanWord.trim()) return parts;
+	const shares = alignLineWords(parts, romanWord.trim()).romanWords;
+	if (/\s$/.test(romanWord)) {
+		for (let last = shares.length - 1; last >= 0; last--) {
+			if (!shares[last].trim()) continue;
+			shares[last] = `${shares[last].trimEnd()} `;
+			break;
+		}
+	}
+	return parts.map((part, index) => ({ ...part, romanWord: shares[index] }));
 }
 
 /**

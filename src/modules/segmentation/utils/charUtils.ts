@@ -22,6 +22,7 @@ export function getCharType(c: string): CharType {
 		(code >= 0x4e00 && code <= 0x9fff) || // CJK
 		(code >= 0x3040 && code <= 0x309f) || // 日语平假名
 		(code >= 0x30a0 && code <= 0x30ff) || // 日语片假名
+		(code >= 0xff66 && code <= 0xff9f) || // Half-width katakana (ｿﾝﾅ)
 		(code >= 0xac00 && code <= 0xd7af) // 韩语
 	) {
 		return CharType.Cjk;

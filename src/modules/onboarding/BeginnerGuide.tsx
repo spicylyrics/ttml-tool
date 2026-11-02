@@ -82,7 +82,7 @@ const GUIDE_COPY = {
 	},
 	songwriters: {
 		title: "Add songwriters",
-		text: "Open metadata and use Fetch Songwriters from Genius, or add one Songwriter value per real name. The guide detects when at least one is saved.",
+		text: "Open metadata and use Find songwriters, or type each songwriter's real name. The guide detects when at least one is saved.",
 	},
 	export: {
 		title: "Export the TTML",
@@ -273,7 +273,7 @@ export const BeginnerGuide = () => {
 						: currentId === "sync"
 							? "Open Time mode and keep timing; this completes when every applicable word has a valid start and end."
 							: currentId === "songwriters"
-								? "Open metadata and add at least one non-empty Songwriter value."
+								? "Open metadata and add at least one songwriter."
 								: currentId === "export"
 									? "Choose Save TTML and complete the file picker."
 									: "Open the local testing instructions, verify the file in Spicy Lyrics, then finish the guide.";

@@ -85,10 +85,25 @@ export interface NormalizedSectionHeader {
 	normalizedKey: string;
 }
 
+// `trim()` keeps zero-width spaces, joiners, direction marks and BOMs, and
+// pasted pages (Genius among them) sometimes lead a row with one.
+const edgeInvisibles = /^[\s​-‏⁠﻿]+|[\s​-‏⁠﻿]+$/g;
+
+/** `trim()` that also drops invisible characters at both ends. */
+export const trimInvisible = (value: string) =>
+	value.replace(edgeInvisibles, "");
+
 export function getSectionHeader(value: string): string | undefined {
-	const trimmed = value.trim();
+	const trimmed = trimInvisible(value);
 	return /^\[[^[\]\r\n]+\]$/.test(trimmed) ? trimmed : undefined;
 }
+
+/**
+ * The page title row Genius puts above non-English lyrics, like
+ * `[米津玄師「Lemon」歌詞]`. It names the page, not a section.
+ */
+export const isGeniusPageTitle = (header: string) =>
+	/(?:歌詞|歌词|가사)\]$/.test(header);
 
 export function normalizeSectionHeader(
 	value: string,

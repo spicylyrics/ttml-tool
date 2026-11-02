@@ -15,7 +15,6 @@ const token = (
 	id: string,
 	spaceAfter = false,
 	letters?: string[],
-	breakAfter = false,
 ): SpicyToken => ({
 	id,
 	text: id,
@@ -24,7 +23,6 @@ const token = (
 	letters,
 	isBackground: false,
 	spaceAfter: spaceAfter || undefined,
-	breakAfter: breakAfter || undefined,
 });
 
 const flatten = (groups: SpicyWordGroup[]) =>
@@ -189,18 +187,13 @@ describe("groupSpicyTokens", () => {
 		expect(flattened[0].token.letters).toEqual(["h", "e", "l", "d"]);
 	});
 
-	it("creates wrap boundaries for adjacent CJK or romanized tokens without spaces", () => {
-		const tokens = [
-			token("世", false, undefined, true),
-			token("界", false, undefined, true),
-			token("romanization", false, undefined, true),
-		];
+	it("groups adjacent CJK syllables into one word, as Spicy Lyrics does", () => {
+		const tokens = [token("世"), token("界", true), token("hi")];
 		const groups = groupSpicyTokens(tokens);
 
 		expect(
 			groups.map((group) => group.items.map(({ token }) => token.id)),
-		).toEqual([["世"], ["界"], ["romanization"]]);
-		expect(groups.every((group) => !group.hasTrailingSpace)).toBe(true);
+		).toEqual([["世", "界"], ["hi"]]);
 	});
 
 	it("returns no groups for an empty line", () => {
@@ -267,6 +260,43 @@ describe("buildSpicyLines", () => {
 
 		expect(normal).toMatchObject({ isLineSynced: true, text: "Whole line" });
 		expect(romanized).toMatchObject({ text: "Zheng hang" });
+	});
+
+	it("ends words at romanization gaps in the romanized view only", () => {
+		const line = newLyricLine();
+		line.startTime = 0;
+		line.endTime = 1_500;
+		line.words = [
+			{
+				...newLyricWord(),
+				startTime: 0,
+				endTime: 500,
+				word: "君",
+				romanWord: "kimi ",
+			},
+			{
+				...newLyricWord(),
+				startTime: 500,
+				endTime: 1_000,
+				word: "の",
+				romanWord: "no ",
+			},
+			{
+				...newLyricWord(),
+				startTime: 1_000,
+				endTime: 1_500,
+				word: "名",
+				romanWord: "na",
+			},
+		];
+
+		const gaps = (romanized: boolean) =>
+			buildSpicyLines([line], false, romanized)[0].words.map(
+				(word) => !!word.spaceAfter,
+			);
+
+		expect(gaps(false)).toEqual([false, false, false]);
+		expect(gaps(true)).toEqual([true, true, false]);
 	});
 
 	it("keeps multi-word karaoke lines on the word-synced path", () => {

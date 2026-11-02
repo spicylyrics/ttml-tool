@@ -7,7 +7,9 @@ import {
 	createSectionsFromSelectedLines,
 	duplicateLinesWithSections,
 	getOrderedSections,
+	getSectionHeader,
 	insertLinesInSection,
+	isGeniusPageTitle,
 	mergeSectionWithAdjacent,
 	mergeUnassignedBlock,
 	migrateLegacySections,
@@ -45,6 +47,23 @@ describe("section header normalization", () => {
 			category: "other",
 			confidence: 0.35,
 		});
+	});
+
+	it.each([
+		0x200b, 0x200c, 0x200d, 0x200e, 0x2060, 0xfeff,
+	])("reads a header wrapped in invisible code point %d", (codePoint) => {
+		const invisible = String.fromCodePoint(codePoint);
+		expect(getSectionHeader(`${invisible}[Chorus]${invisible} `)).toBe(
+			"[Chorus]",
+		);
+	});
+
+	it("recognizes Genius page title rows", () => {
+		expect(isGeniusPageTitle("[米津玄師「Lemon」歌詞]")).toBe(true);
+		expect(isGeniusPageTitle("[周杰倫「晴天」歌词]")).toBe(true);
+		expect(isGeniusPageTitle("[아이유「밤편지」가사]")).toBe(true);
+		expect(isGeniusPageTitle("[Chorus]")).toBe(false);
+		expect(isGeniusPageTitle("[歌詞 Verse]")).toBe(false);
 	});
 });
 

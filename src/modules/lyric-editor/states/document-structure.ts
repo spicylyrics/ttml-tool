@@ -8,6 +8,7 @@ import { type Atom, atom } from "jotai";
 import { selectAtom } from "jotai/utils";
 import { lyricLinesAtom } from "$/states/main.ts";
 import type { LyricLine } from "$/types/ttml.ts";
+import { getLineDisplayNumbers } from "../utils/line-numbers.ts";
 
 const lyricLineArrayAtom = atom((get) => get(lyricLinesAtom).lyricLines);
 const lyricLinesByIdAtom = atom(
@@ -69,13 +70,9 @@ export const lyricLineStructureAtom = selectAtom(
 		),
 );
 
-export const lineDisplayNumbersAtom = atom((get) => {
-	let currentNumber = 0;
-	return get(lyricLineStructureAtom).map((line, index) => {
-		if (index === 0 || !line.isBG) currentNumber++;
-		return currentNumber;
-	});
-});
+export const lineDisplayNumbersAtom = atom((get) =>
+	getLineDisplayNumbers(get(lyricLineStructureAtom)),
+);
 
 const GENIUS_HEADER_PATTERN =
 	/^\[(Chorus|Verse|Bridge|Intro|Outro|Pre-Chorus|Hook|Strofa|Refren|Skit|Interlude|Instrumental|Pre-Refren|Partea|Slofa|Section|Part|S\d+|V\d+|C\d+|Strophe|Refrain|Pont|Couplet|Refrain|Break).*?\]$/i;
