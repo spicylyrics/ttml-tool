@@ -48,6 +48,10 @@ describe("Japanese splitting by script", () => {
 			["しょ", "sho "],
 			["に", "ni "],
 		]);
+		expect(parts("ｿﾝﾅ", "sonna ")).toEqual([
+			["ｿﾝ", "son"],
+			["ﾅ", "na "],
+		]);
 		expect(parts("コーヒー", "Kōhī")).toEqual([
 			["コー", "Kō"],
 			["ヒー", "hī"],

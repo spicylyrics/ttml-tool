@@ -13,7 +13,10 @@ const lyrics = (text: string) =>
 	] as LyricLine[];
 
 describe("detectSyllabificationEngine", () => {
-	it("uses script detection for Cyrillic and Han lyrics", () => {
+	it("uses script detection for Japanese, Cyrillic, and Han lyrics", () => {
+		expect(detectSyllabificationEngine(lyrics("これは日本語の歌詞です"))).toBe(
+			"japanese",
+		);
 		expect(detectSyllabificationEngine(lyrics("это русские слова песни"))).toBe(
 			"syllabify",
 		);
@@ -43,35 +46,15 @@ describe("detectSyllabificationEngine", () => {
 		expect(detectSyllabificationEngine([])).toBeUndefined();
 	});
 
-	it("judges a Japanese song by its English words only", () => {
-		expect(
-			detectSyllabificationEngine(
-				lyrics(
-					"君の名前を呼んでいた this is a simple English lyric with enough text to detect its language",
-				),
-			),
-		).toBe("prosodic");
-		expect(
-			detectSyllabificationEngine(lyrics("これは日本語の歌詞です")),
-		).toBeUndefined();
-	});
-
 	it("only auto-applies when the suggestion matches the saved engine", () => {
-		const russianLyrics = lyrics("это русские слова песни");
+		const japaneseLyrics = lyrics("これは日本語の歌詞です");
 
-		expect(matchesSavedSyllabificationEngine(russianLyrics, "syllabify")).toBe(
+		expect(matchesSavedSyllabificationEngine(japaneseLyrics, "japanese")).toBe(
 			true,
 		);
-		expect(matchesSavedSyllabificationEngine(russianLyrics, "prosodic")).toBe(
+		expect(matchesSavedSyllabificationEngine(japaneseLyrics, "prosodic")).toBe(
 			false,
 		);
 		expect(matchesSavedSyllabificationEngine([], "prosodic")).toBe(false);
-		// Japanese splits on its own; with no English to judge, any engine is fine.
-		expect(
-			matchesSavedSyllabificationEngine(
-				lyrics("これは日本語の歌詞です"),
-				"prosodic",
-			),
-		).toBe(true);
 	});
 });

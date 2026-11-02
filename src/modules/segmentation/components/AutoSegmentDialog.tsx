@@ -13,7 +13,6 @@ import {
 } from "$/modules/segmentation/states";
 import type { SegmentationEngineId } from "$/modules/segmentation/types";
 import { detectSyllabificationEngine } from "$/modules/segmentation/utils/detect-syllabification-engine";
-import { hasKana } from "$/modules/segmentation/utils/japanese-split";
 import { segmentLyricLines } from "$/modules/segmentation/utils/segmentation";
 import { SYLLABIFICATION_ENGINES } from "$/modules/segmentation/utils/syllabification-engines";
 import { autoSegmentDialogAtom } from "$/states/dialogs";
@@ -49,8 +48,9 @@ export const AutoSegmentDialog = () => {
 		[selectedEngine],
 	);
 
-	// Japanese splits by sound on its own; a song imported without Process
-	// lyrics can be split into words here instead.
+	// Japanese splits by sound under any engine; with the Japanese engine
+	// picked, a song imported without Process lyrics can be split into words
+	// instead.
 	const lyricsText = useMemo(
 		() =>
 			lyrics.lyricLines
@@ -58,7 +58,7 @@ export const AutoSegmentDialog = () => {
 				.join("\n"),
 		[lyrics.lyricLines],
 	);
-	const japanese = hasKana(lyricsText);
+	const japanese = selectedEngine === "japanese";
 	const [japaneseSplit, setJapaneseSplit] = useState<JapaneseSplit>("sound");
 	useEffect(() => {
 		if (open) setJapaneseSplit("sound");

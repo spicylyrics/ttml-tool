@@ -157,6 +157,8 @@ const attaches = (token: Token, previous: Token | undefined) =>
 	token.posDetail === "接尾" ||
 	// Casual ん (やってんの, 抜かしてんだ) is said as part of the word before.
 	(!!previous && /^[んン]$/.test(token.surface)) ||
+	// A ー on its own stretches the sound before it (せー → see).
+	(!!previous && /^[ーｰ〜～]+$/.test(token.surface)) ||
 	stretches(token, previous);
 
 const VOWEL_KANA: Record<string, string> = {
@@ -174,10 +176,15 @@ const stretches = (token: Token, previous: Token | undefined) => {
 	return kanaToRomaji(previous.reading).slice(-1) === vowel;
 };
 
+/**
+ * A reading in sounds, the units shared out between kanji: small kana, ー,
+ * ン and ッ stay with the kana before them, so a kanji never starts with
+ * one (千里眼 → セン|リ|ガン, 一歩 → イッ|ポ).
+ */
 const morae = (reading: string) => {
 	const result: string[] = [];
 	for (const char of reading) {
-		if (result.length === 0 || !"ャュョァィゥェォヮー".includes(char))
+		if (result.length === 0 || !"ャュョァィゥェォヮーンッ".includes(char))
 			result.push(char);
 		else result[result.length - 1] += char;
 	}

@@ -17,6 +17,7 @@ export type HyphenatorFunc = (text: string) => string;
 export type SegmentationEngineId =
 	| "prosodic"
 	| "basic"
+	| "japanese"
 	| "silabas"
 	| "syllabify-fr"
 	| "syllabify"

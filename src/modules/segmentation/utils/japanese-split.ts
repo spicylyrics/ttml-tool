@@ -91,17 +91,26 @@ export function splitJapaneseSyllables(text: string): string[] {
 	// Whether the last token may take a following small kana, ー or っ.
 	let lastIsKana = false;
 	let latinRun = false;
+	// A っ with nothing before it to join (a word like って from Process
+	// lyrics) joins the sound after it instead: って is one part, "tte".
+	let sokuonWaits = false;
 	for (const char of Array.from(text)) {
 		if (isSpace(char)) {
 			tokens.push(char);
 			lastIsKana = false;
 			latinRun = false;
+			sokuonWaits = false;
 		} else if (isJapaneseCharacter(char)) {
 			const previous = tokens[tokens.length - 1] ?? "";
-			if (lastIsKana && (joinsPrevious(char) || joinsAsVowel(previous, char))) {
+			if (
+				sokuonWaits ||
+				(lastIsKana && (joinsPrevious(char) || joinsAsVowel(previous, char)))
+			) {
 				tokens[tokens.length - 1] += char;
+				sokuonWaits = sokuonWaits && SOKUON.has(char);
 			} else {
 				tokens.push(char);
+				sokuonWaits = SOKUON.has(char);
 			}
 			lastIsKana = true;
 			latinRun = false;
@@ -111,11 +120,13 @@ export function splitJapaneseSyllables(text: string): string[] {
 			else tokens.push(char);
 			lastIsKana = false;
 			latinRun = false;
+			sokuonWaits = false;
 		} else {
 			if (latinRun) tokens[tokens.length - 1] += char;
 			else tokens.push(char);
 			lastIsKana = false;
 			latinRun = true;
+			sokuonWaits = false;
 		}
 	}
 	return tokens;

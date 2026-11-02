@@ -19,6 +19,15 @@ describe("Japanese split by sound", () => {
 		expect(split("コーイ")).toEqual(["コー", "イ"]);
 	});
 
+	it("joins a っ that starts a word to the sound after it", () => {
+		expect(split("って")).toEqual(["って"]);
+		expect(split("ｯﾃ")).toEqual(["ｯﾃ"]);
+		expect(split("ってね")).toEqual(["って", "ね"]);
+		// After a word it still ends the sound before.
+		expect(split("言って")).toEqual(["言っ", "て"]);
+		expect(split("おもってん")).toEqual(["お", "もっ", "てん"]);
+	});
+
 	it("never joins a vowel to kanji, whose reading is unknown", () => {
 		expect(split("思い")).toEqual(["思", "い"]);
 	});
