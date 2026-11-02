@@ -190,15 +190,21 @@ const OtherFields: FC<{
 		<details className={styles.other}>
 			<summary className={styles.otherSummary}>
 				<ChevronRight16Regular aria-hidden className={styles.chevron} />
-				<Text size="2">
+				<Text size="1">
 					{t(
 						"metadataDialog.otherFields",
-						"{count, plural, =0 {Other fields} other {Other fields (#)}}",
+						"{count, plural, =0 {Custom fields (optional)} other {Custom fields (#, optional)}}",
 						{ count: entries.length },
 					)}
 				</Text>
 			</summary>
 			<Flex direction="column" gap="4" pt="3">
+				<Text size="1" color="gray">
+					{t(
+						"metadataDialog.otherFieldsHint",
+						"Extra values saved in the file. Spicy Lyrics doesn't use them, so most songs need none.",
+					)}
+				</Text>
 				{entries.map((entry) => (
 					<FieldRow key={entry.key} label={entry.key} stacked>
 						{({ controlId }) => (

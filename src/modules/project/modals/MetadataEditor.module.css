@@ -101,9 +101,9 @@
 	background-color: var(--gray-a3);
 }
 
+/* Tucked away: no divider, small muted summary. Most songs never open it. */
 .other {
-	border-top: 1px solid var(--gray-a4);
-	padding-top: var(--space-3);
+	padding-top: var(--space-1);
 }
 
 .otherSummary {
