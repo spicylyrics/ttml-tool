@@ -1,6 +1,8 @@
 import {
 	createSectionFromHeader,
 	getSectionHeader,
+	isGeniusPageTitle,
+	trimInvisible,
 } from "$/modules/lyric-editor/utils/section-system";
 import { textToLines } from "$/modules/project/logic/text-to-lines";
 import type { LyricLine, LyricSection } from "$/types/ttml";
@@ -70,8 +72,14 @@ export interface ReviewedSection extends LyricSection {
 	firstLine?: string;
 }
 
+/** A header the import turns into a section; Genius page titles aren't. */
+const getImportSectionHeader = (line: string) => {
+	const header = getSectionHeader(line);
+	return header && !isGeniusPageTitle(header) ? header : undefined;
+};
+
 export const hasSectionHeaders = (text: string) =>
-	text.split(/\r\n|\r|\n/).some((line) => !!getSectionHeader(line));
+	text.split(/\r\n|\r|\n/).some((line) => !!getImportSectionHeader(line));
 
 /** The sections the import would create, in order, for the review step. */
 export function detectSections(text: string): ReviewedSection[] {
@@ -80,15 +88,18 @@ export function detectSections(text: string): ReviewedSection[] {
 	let occurrence = 0;
 	for (const rawLine of text.split(/\r\n|\r|\n/)) {
 		const header = getSectionHeader(rawLine);
+		const row = trimInvisible(rawLine);
 		if (header) {
-			const section = createSectionFromHeader(header);
+			const section = getImportSectionHeader(header)
+				? createSectionFromHeader(header)
+				: undefined;
 			if (section) {
 				current = { ...section, occurrence: occurrence++, lineCount: 0 };
 				result.push(current);
 			}
-		} else if (rawLine.trim() && current) {
+		} else if (row && current) {
 			current.lineCount++;
-			current.firstLine ??= rawLine.trim();
+			current.firstLine ??= row;
 		}
 	}
 	return result;

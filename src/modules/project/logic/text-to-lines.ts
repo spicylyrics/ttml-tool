@@ -1,4 +1,8 @@
 import { getGeniusHeader } from "$/modules/lyric-editor/utils/genius-sections";
+import {
+	isGeniusPageTitle,
+	trimInvisible,
+} from "$/modules/lyric-editor/utils/section-system";
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
 import { type LyricPrepOptions, prepareLyricLine } from "$/utils/lyric-prep";
 import { splitTextImportWords } from "./text-import-words";
@@ -28,8 +32,11 @@ export function prepareTextImport(
 	return text
 		.split(/\r\n|\r|\n/)
 		.flatMap((line) => {
-			if (/^\[.*\]$/.test(line.trim())) {
-				return keepSectionHeaders ? [line.trim()] : [];
+			const trimmed = trimInvisible(line);
+			if (/^\[.*\]$/.test(trimmed)) {
+				return keepSectionHeaders && !isGeniusPageTitle(trimmed)
+					? [trimmed]
+					: [];
 			}
 			return prepareLyricLine(line, steps).split("\n");
 		})
@@ -76,11 +83,11 @@ export function textToLines(
 			subKeys.length && lineSeparatorMode === "same-line-separator"
 				? rows[index++].split(lineSeparator)
 				: [rows[index++]];
-		let original = parts[0].trim();
+		let original = trimInvisible(parts[0]);
 		if (sectionHeaders === "categorize") {
 			const header = getGeniusHeader(original);
 			if (header) {
-				geniusHeader = header;
+				if (!isGeniusPageTitle(header)) geniusHeader = header;
 				continue;
 			}
 		} else if (sectionHeaders === "discard" && /^\[.*\]$/.test(original)) {
