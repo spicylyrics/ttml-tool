@@ -30,6 +30,7 @@ import {
 	romanizableLines,
 	romanizeLines,
 } from "./fill";
+import { GeniusRomanizedFinder } from "./GeniusRomanizedFinder";
 import {
 	detectSongLanguage,
 	lineLanguage,
@@ -176,14 +177,33 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 	};
 
 	const romanizeFromPage = () => {
-		const current = store.get(lyricLinesAtom).lyricLines;
-		const result = alignRomanizedPage(current, pasted);
+		const { lyricLines: current, sections } = store.get(lyricLinesAtom);
+		const result = alignRomanizedPage(current, pasted, sections);
 		if (!result.ok) {
 			setProblem(
+				result.firstDifference
+					? t(
+							"romanizationPanel.lineCountMismatchFrom",
+							"The page has {received} lines and the lyrics have {expected}. They stop lining up in the section at line {line}.",
+							{
+								received: result.received,
+								expected: result.expected,
+								line: result.firstDifference.lineNumber,
+							},
+						)
+					: t(
+							"romanizationPanel.lineCountMismatch",
+							"The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
+							{ received: result.received, expected: result.expected },
+						),
+			);
+			return;
+		}
+		if (result.lines.length === 0 && result.skipped.length > 0) {
+			setProblem(
 				t(
-					"romanizationPanel.lineCountMismatch",
-					"The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
-					{ received: result.received, expected: result.expected },
+					"romanizationPanel.noSectionMatches",
+					"No section has the same number of lines on the page and in the lyrics.",
 				),
 			);
 			return;
@@ -196,9 +216,26 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 			return update ? [update] : [];
 		});
 		apply(updates);
-		const uncertain = result.lines
-			.filter((line) => line.uncertain)
-			.map((line) => line.lineNumber);
+		if (result.skipped.length > 0) {
+			toast.warn(
+				t(
+					"romanizationPanel.skippedSections",
+					"Left out the sections at lines {lines}: the page has a different number of lines there.",
+					{
+						lines: result.skipped
+							.map((section) => section.lineNumber)
+							.join(", "),
+					},
+				),
+			);
+		}
+		const uncertain = [
+			...new Set(
+				result.lines
+					.filter((line) => line.uncertain)
+					.map((line) => line.lineNumber),
+			),
+		];
 		if (uncertain.length > 0) {
 			toast.warn(
 				t(
@@ -379,23 +416,30 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 						</div>
 					</>
 				) : (
-					<TextArea
-						value={pasted}
-						onChange={(event) => {
-							setPasted(event.currentTarget.value);
-							setProblem("");
-						}}
-						placeholder={t(
-							"romanizationPanel.pastePlaceholder",
-							"Paste a romanized lyric page, like Genius's, one line per lyric line. Section headers and background lines are skipped.",
-						)}
-						aria-label={t(
-							"romanizationPanel.pasteLabel",
-							"Romanized lyric page",
-						)}
-						rows={10}
-						autoFocus
-					/>
+					<Flex direction="column" gap="2">
+						<GeniusRomanizedFinder
+							onLyrics={(lyrics) => {
+								setPasted(lyrics);
+								setProblem("");
+							}}
+						/>
+						<TextArea
+							value={pasted}
+							onChange={(event) => {
+								setPasted(event.currentTarget.value);
+								setProblem("");
+							}}
+							placeholder={t(
+								"romanizationPanel.pastePlaceholder",
+								"Or paste a romanized lyric page, one line per lyric line. [Section] headers line it up with your sections, and (parentheses) go to background lines.",
+							)}
+							aria-label={t(
+								"romanizationPanel.pasteLabel",
+								"Romanized lyric page",
+							)}
+							rows={10}
+						/>
+					</Flex>
 				)}
 
 				{existingInTargets > 0 && (
