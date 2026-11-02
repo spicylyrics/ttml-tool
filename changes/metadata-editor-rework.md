@@ -5,4 +5,4 @@ highlight: true
 ---
 Simpler Edit metadata dialog
 
-Songwriters come first, names are tags you add with `Enter`, and every standard field is always there
+Songwriters come first, names are tags you add with `Enter`, and the optional song details are folded away
