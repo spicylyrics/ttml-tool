@@ -197,8 +197,8 @@
       "emDashesHint": "Transforma hifens duplos e soltos em travessões.",
       "splitHyphens": "Dividir palavras com hífen",
       "splitHyphensHint": "Divide palavras como mm-hmm depois do hífen.",
-      "splitCjk": "Dividir caracteres CJK",
-      "splitCjkHint": "Divide texto em chinês, japonês e coreano em caracteres e nas trocas de escrita.",
+      "splitCjk": "Dividir texto CJK",
+      "splitCjkHint": "Divide o japonês em palavras, o chinês e o coreano em caracteres, e o texto onde a escrita muda.",
       "punctuationSpacing": "Ajustar pontuação",
       "punctuationSpacingHint": "Um espaço depois de vírgulas, nenhum antes da pontuação, e aspas ficam junto da palavra.",
       "collapseSpaces": "Juntar espaços",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Mostra um contador de quadros por segundo na prévia.",
       "previewModeDesc": "Escolha qual prévia a aba Prévia mostra.",
       "spicyBackgroundDesc": "O que aparece atrás da prévia do Spicy.",
-      "fadeWidthDesc": "Quão suave é a borda do destaque enquanto uma palavra é preenchida nas prévias Standard e Toxi.",
-      "japaneseSplit": "Divisão automática do japonês",
-      "japaneseSplitDesc": "Como a divisão automática corta letras em japonês em partes.",
-      "japaneseSplitSyllable": "Sílaba",
-      "japaneseSplitSyllableDesc": "Pelo som, como é cantado: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Uma parte por batida, como ko|o|hi|i",
-      "japaneseSplitWord": "Palavra",
-      "japaneseSplitWordDesc": "Palavras inteiras. Pode variar um pouco entre o app e o site"
+      "fadeWidthDesc": "Quão suave é a borda do destaque enquanto uma palavra é preenchida nas prévias Standard e Toxi."
     }
   },
   "timingOverview": {
@@ -1030,8 +1022,7 @@
     "splitWord": "Dividir palavra…",
     "autoSegmentWords": "{count, plural, one {Segmentar palavra automaticamente} many {Segmentar # palavras automaticamente} other {Segmentar # palavras automaticamente}}",
     "autoSegmentWordsNothing": "Nada para dividir nas palavras selecionadas.",
-    "noSyllablesFound": "Nenhuma sílaba encontrada para dividir.",
-    "splitIntoSyllables": "Dividir em sílabas (romanização)",
+    "replace": "Substituir",
     "replaceWord": "Substituir palavra…",
     "replaceRomanization": "Substituir romanização…",
     "combineWords": "Combinar palavras",
@@ -1719,7 +1710,12 @@
     "title": "Segmentação automática",
     "description": "Escolha um mecanismo de silabificação para todas as linhas da letra.",
     "suggested": "Sugerido a partir da letra:",
-    "applyAll": "Aplicar a todas as linhas"
+    "applyAll": "Aplicar a todas as linhas",
+    "japanese": "Japonês",
+    "japaneseSound": "Pelo som",
+    "japaneseWords": "Em palavras",
+    "japaneseSoundDesc": "Uma parte por som, como é cantado: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Palavras inteiras, como Processar letra: 君|の|名前|を. Divida pelo som depois."
   },
   "suggestedSplits": {
     "title": "Divisões sugeridas",

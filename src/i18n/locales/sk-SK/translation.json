@@ -197,8 +197,8 @@
       "emDashesHint": "Prevedie dvojité a osamotené spojovníky na dlhé pomlčky.",
       "splitHyphens": "Deliť slová so spojovníkom",
       "splitHyphensHint": "Rozdelí slová ako mm-hmm za spojovníkom.",
-      "splitCjk": "Deliť znaky CJK",
-      "splitCjkHint": "Rozdelí čínsky, japonský a kórejský text na znaky a pri zmene písma.",
+      "splitCjk": "Deliť text CJK",
+      "splitCjkHint": "Rozdelí japončinu na slová, čínštinu a kórejčinu na znaky a text pri zmene písma.",
       "punctuationSpacing": "Upraviť interpunkciu",
       "punctuationSpacingHint": "Jedna medzera za čiarkou, žiadna pred interpunkciou a úvodzovky zostanú pri slove.",
       "collapseSpaces": "Zlúčiť medzery",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Zobraziť v náhľade počítadlo snímok za sekundu.",
       "previewModeDesc": "Vyberte, ktorý náhľad sa zobrazí na karte Náhľad.",
       "spicyBackgroundDesc": "Čo sa zobrazuje za náhľadom Spicy.",
-      "fadeWidthDesc": "Aký mäkký je okraj zvýraznenia pri vypĺňaní slova v náhľadoch Standard a Toxi.",
-      "japaneseSplit": "Automatické delenie japončiny",
-      "japaneseSplitDesc": "Ako automatické delenie rozdelí japonský text na časti.",
-      "japaneseSplitSyllable": "Slabika",
-      "japaneseSplitSyllableDesc": "Podľa zvuku, ako sa spieva: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Móra",
-      "japaneseSplitMoraDesc": "Jedna časť na dobu, napr. ko|o|hi|i",
-      "japaneseSplitWord": "Slovo",
-      "japaneseSplitWordDesc": "Celé slová. V aplikácii a na webe sa môže mierne líšiť"
+      "fadeWidthDesc": "Aký mäkký je okraj zvýraznenia pri vypĺňaní slova v náhľadoch Standard a Toxi."
     }
   },
   "timingOverview": {
@@ -1030,8 +1022,7 @@
     "splitWord": "Rozdeliť slovo…",
     "autoSegmentWords": "{count, plural, one {Automaticky rozdeliť slovo} few {Automaticky rozdeliť # slová} many {Automaticky rozdeliť # slova} other {Automaticky rozdeliť # slov}}",
     "autoSegmentWordsNothing": "Vo vybraných slovách nie je čo rozdeliť.",
-    "noSyllablesFound": "Nenašli sa slabiky na rozdelenie.",
-    "splitIntoSyllables": "Rozdeliť na slabiky (prepis do latinky)",
+    "replace": "Nahradiť",
     "replaceWord": "Nahradiť slovo…",
     "replaceRomanization": "Nahradiť prepis do latinky…",
     "combineWords": "Zlúčiť slová",
@@ -1719,7 +1710,12 @@
     "title": "Automatické delenie",
     "description": "Vyberte nástroj na delenie na slabiky pre všetky riadky textu.",
     "suggested": "Odporúčané podľa textu:",
-    "applyAll": "Použiť na všetky riadky"
+    "applyAll": "Použiť na všetky riadky",
+    "japanese": "Japončina",
+    "japaneseSound": "Podľa zvuku",
+    "japaneseWords": "Na slová",
+    "japaneseSoundDesc": "Jedna časť na zvuk, ako sa spieva: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Celé slová, ako Spracovať text: 君|の|名前|を. Podľa zvuku ich rozdeľte neskôr."
   },
   "suggestedSplits": {
     "title": "Navrhované delenia",

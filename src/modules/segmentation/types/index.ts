@@ -83,6 +83,9 @@ export interface SegmentationConfig {
 	 * 如果未提供，则不执行西文音节的自动分词
 	 */
 	hyphenator?: HyphenatorFunc;
-	/** Japanese split granularity; unset means syllable. */
-	japaneseGranularity?: "syllable" | "mora" | "word";
+	/**
+	 * Splits Japanese into words instead of by sound: where each word after
+	 * the first starts (UTF-16 offsets), from the dictionary.
+	 */
+	japaneseWords?: (text: string) => Set<number>;
 }

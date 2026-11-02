@@ -124,9 +124,9 @@ export const SYLLABIFICATION_ENGINES: SyllabificationEngine[] = [
 	},
 	{
 		id: "japanese",
-		name: "Japanese (Basic)",
+		name: "Japanese",
 		description:
-			"Use the existing CJK character splitting rules for Japanese text.",
+			"Split Japanese by sound or into words, and keep English words whole.",
 		split: (word) => [word],
 	},
 	{

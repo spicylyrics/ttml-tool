@@ -197,8 +197,8 @@
       "emDashesHint": "Mengubah tanda hubung ganda dan yang berdiri sendiri menjadi tanda pisah panjang.",
       "splitHyphens": "Pisahkan kata bertanda hubung",
       "splitHyphensHint": "Memisahkan kata seperti mm-hmm setelah tanda hubung.",
-      "splitCjk": "Pisahkan karakter CJK",
-      "splitCjkHint": "Memisahkan teks Tionghoa, Jepang, dan Korea menjadi karakter dan di pergantian aksara.",
+      "splitCjk": "Pisahkan teks CJK",
+      "splitCjkHint": "Memisahkan bahasa Jepang per kata, Tionghoa dan Korea per karakter, dan teks saat aksaranya berganti.",
       "punctuationSpacing": "Rapikan tanda baca",
       "punctuationSpacingHint": "Satu spasi setelah koma, tanpa spasi sebelum tanda baca, dan tanda kutip tetap menempel pada katanya.",
       "collapseSpaces": "Gabungkan spasi",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Tampilkan penghitung frame rate di pratinjau.",
       "previewModeDesc": "Pilih pratinjau yang ditampilkan tab Pratinjau.",
       "spicyBackgroundDesc": "Apa yang tampil di belakang pratinjau Spicy.",
-      "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi.",
-      "japaneseSplit": "Pemisahan otomatis bahasa Jepang",
-      "japaneseSplitDesc": "Cara Pisah otomatis memotong lirik Jepang menjadi bagian.",
-      "japaneseSplitSyllable": "Suku kata",
-      "japaneseSplitSyllableDesc": "Berdasarkan bunyi, seperti dinyanyikan: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Satu bagian per ketukan, seperti ko|o|hi|i",
-      "japaneseSplitWord": "Kata",
-      "japaneseSplitWordDesc": "Kata utuh. Bisa sedikit berbeda antara aplikasi dan situs web"
+      "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi."
     }
   },
   "timingOverview": {
@@ -1030,8 +1022,7 @@
     "splitWord": "Pisahkan kata…",
     "autoSegmentWords": "{count, plural, other {Segmentasi otomatis # kata}}",
     "autoSegmentWordsNothing": "Tidak ada yang bisa dipisahkan pada kata terpilih.",
-    "noSyllablesFound": "Tidak ada suku kata untuk dipisahkan.",
-    "splitIntoSyllables": "Pisahkan menjadi suku kata (romanisasi)",
+    "replace": "Ganti",
     "replaceWord": "Ganti kata…",
     "replaceRomanization": "Ganti romanisasi…",
     "combineWords": "Gabungkan kata",
@@ -1719,7 +1710,12 @@
     "title": "Segmentasi otomatis",
     "description": "Pilih mesin pemisah suku kata untuk semua baris lirik.",
     "suggested": "Disarankan dari lirik:",
-    "applyAll": "Terapkan ke semua baris"
+    "applyAll": "Terapkan ke semua baris",
+    "japanese": "Jepang",
+    "japaneseSound": "Per bunyi",
+    "japaneseWords": "Per kata",
+    "japaneseSoundDesc": "Satu bagian per bunyi, seperti dinyanyikan: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Kata utuh, seperti Proses lirik: 君|の|名前|を. Pisahkan per bunyi nanti."
   },
   "suggestedSplits": {
     "title": "Pemisahan yang disarankan",

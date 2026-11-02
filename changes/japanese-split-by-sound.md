@@ -5,4 +5,4 @@ highlight: true
 ---
 Japanese auto split follows the sound
 
-Parts now match what's sung, like koo|hii and is|sho; pick Syllable, Mora or Word in **Preferences › Editing**
+Parts now match what's sung, like koo|hii and is|sho, with sounds like kai kept in one part

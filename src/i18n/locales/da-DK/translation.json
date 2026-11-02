@@ -197,8 +197,8 @@
       "emDashesHint": "Laver dobbelte og løse bindestreger om til lange tankestreger.",
       "splitHyphens": "Opdel ord med bindestreg",
       "splitHyphensHint": "Opdeler ord som mm-hmm efter bindestregen.",
-      "splitCjk": "Opdel CJK-tegn",
-      "splitCjkHint": "Opdeler kinesisk, japansk og koreansk tekst i tegn og ved skriftskift.",
+      "splitCjk": "Opdel CJK-tekst",
+      "splitCjkHint": "Deler japansk i ord, kinesisk og koreansk i tegn, og tekst hvor skriften skifter.",
       "punctuationSpacing": "Ryd op i tegnsætning",
       "punctuationSpacingHint": "Ét mellemrum efter kommaer, intet før tegnsætning, og anførselstegn bliver ved deres ord.",
       "collapseSpaces": "Saml mellemrum",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Vis en billedfrekvenstæller på forhåndsvisningen.",
       "previewModeDesc": "Vælg, hvilken forhåndsvisning fanen Forhåndsvisning viser.",
       "spicyBackgroundDesc": "Hvad der vises bag Spicy-forhåndsvisningen.",
-      "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne.",
-      "japaneseSplit": "Automatisk opdeling af japansk",
-      "japaneseSplitDesc": "Hvordan automatisk opdeling deler japanske tekster i dele.",
-      "japaneseSplitSyllable": "Stavelse",
-      "japaneseSplitSyllableDesc": "Efter lyd, som det synges: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Én del pr. slag, f.eks. ko|o|hi|i",
-      "japaneseSplitWord": "Ord",
-      "japaneseSplitWordDesc": "Hele ord. Kan variere lidt mellem appen og hjemmesiden"
+      "fadeWidthDesc": "Hvor blød kanten af fremhævningen er, når et ord fyldes i Standard- og Toxi-forhåndsvisningerne."
     }
   },
   "timingOverview": {
@@ -1030,8 +1022,7 @@
     "splitWord": "Opdel ord…",
     "autoSegmentWords": "{count, plural, one {Auto-opdel ord} other {Auto-opdel # ord}}",
     "autoSegmentWordsNothing": "Der er intet at opdele i de valgte ord.",
-    "noSyllablesFound": "Ingen stavelser fundet til opdeling.",
-    "splitIntoSyllables": "Opdel i stavelser (romaniseret)",
+    "replace": "Erstat",
     "replaceWord": "Erstat ord…",
     "replaceRomanization": "Erstat romanisering...",
     "combineWords": "Kombiner ord",
@@ -1719,7 +1710,12 @@
     "title": "Automatisk opdeling",
     "description": "Vælg en stavelsesopdeler til alle sangtekstlinjer.",
     "suggested": "Foreslået fra sangtekster:",
-    "applyAll": "Anvend på alle linjer"
+    "applyAll": "Anvend på alle linjer",
+    "japanese": "Japansk",
+    "japaneseSound": "Efter lyd",
+    "japaneseWords": "I ord",
+    "japaneseSoundDesc": "Én del pr. lyd, som det synges: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Hele ord, som Behandl sangtekster: 君|の|名前|を. Del dem efter lyd senere."
   },
   "suggestedSplits": {
     "title": "Foreslåede opdelinger",

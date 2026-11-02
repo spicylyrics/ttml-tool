@@ -15,6 +15,24 @@ import { kanaToRomaji as toRomaji } from "kuroshiro/lib/util";
 const DICT_PATH = `${import.meta.env.BASE_URL}kuromoji-dict/`;
 
 let tokenizer: Promise<Tokenizer<IpadicFeatures>> | undefined;
+/** The tokenizer once loaded, for code that can't wait for it. */
+let loadedTokenizer: Tokenizer<IpadicFeatures> | undefined;
+
+export const getLoadedJapaneseTokenizer = () => loadedTokenizer;
+
+const KANA = /[\p{Script=Hiragana}\p{Script=Katakana}]/u;
+/** Whether a text needs the Japanese dictionary: any kana in it. */
+export const needsJapaneseDictionary = (text: string) => KANA.test(text);
+
+/**
+ * Process lyrics' Japanese word finder for a text, when it has kana and the
+ * dictionary is loaded; otherwise it keeps splitting by character.
+ */
+export const loadedJapaneseWordFinder = (text: string) => {
+	const tk = loadedTokenizer;
+	if (!tk || !needsJapaneseDictionary(text)) return undefined;
+	return (value: string) => japaneseWordStarts(tk, value);
+};
 
 export function loadJapaneseTokenizer() {
 	// The browser build: the package's main entry needs Node's path module.
@@ -28,6 +46,10 @@ export function loadJapaneseTokenizer() {
 					});
 				}),
 		)
+		.then((built) => {
+			loadedTokenizer = built;
+			return built;
+		})
 		.catch((error) => {
 			// Let the next attempt try again, after a dropped connection say.
 			tokenizer = undefined;
@@ -132,12 +154,37 @@ const INFLECTING = new Set(["動詞", "形容詞", "助動詞"]);
 const attaches = (token: Token, previous: Token | undefined) =>
 	(token.pos === "助動詞" && !!previous && INFLECTING.has(previous.pos)) ||
 	(token.pos === "助詞" && token.posDetail === "接続助詞") ||
-	token.posDetail === "接尾";
+	token.posDetail === "接尾" ||
+	// Casual ん (やってんの, 抜かしてんだ) is said as part of the word before.
+	(!!previous && /^[んン]$/.test(token.surface)) ||
+	// A ー on its own stretches the sound before it (せー → see).
+	(!!previous && /^[ーｰ〜～]+$/.test(token.surface)) ||
+	stretches(token, previous);
 
+const VOWEL_KANA: Record<string, string> = {
+	ア: "a",
+	イ: "i",
+	ウ: "u",
+	エ: "e",
+	オ: "o",
+};
+
+/** A lone vowel that holds the sound before it (うるせ|え → urusee). */
+const stretches = (token: Token, previous: Token | undefined) => {
+	const vowel = VOWEL_KANA[toKatakana(token.surface)];
+	if (!vowel || !previous || !hasJapanese(previous.surface)) return false;
+	return kanaToRomaji(previous.reading).slice(-1) === vowel;
+};
+
+/**
+ * A reading in sounds, the units shared out between kanji: small kana, ー,
+ * ン and ッ stay with the kana before them, so a kanji never starts with
+ * one (千里眼 → セン|リ|ガン, 一歩 → イッ|ポ).
+ */
 const morae = (reading: string) => {
 	const result: string[] = [];
 	for (const char of reading) {
-		if (result.length === 0 || !"ャュョァィゥェォヮー".includes(char))
+		if (result.length === 0 || !"ャュョァィゥェォヮーンッ".includes(char))
 			result.push(char);
 		else result[result.length - 1] += char;
 	}
@@ -323,4 +370,32 @@ export function romanizeJapaneseLine(
 				!kept[kept.length - 1]?.opens);
 		return gap ? `${joined} ` : joined;
 	});
+}
+
+/**
+ * Where each Japanese word after the first starts in a text, as UTF-16
+ * offsets: the same words the romanization puts gaps between (君|の|名前|を|
+ * 呼んで|いた), punctuation staying with the word before it.
+ */
+export function japaneseWordStarts(
+	tk: Tokenizer<IpadicFeatures>,
+	text: string,
+): Set<number> {
+	const tokens = tokenize(tk, widenKatakana(text));
+	const starts = new Set<number>();
+	const opens = (token: Token | undefined) =>
+		!!token && /^[「『（(“‘〈《【]$/.test(token.surface);
+	tokens.forEach((token, index) => {
+		const previous = tokens[index - 1];
+		if (!previous) return;
+		// An opening quote starts the word after it.
+		if (opens(token)) starts.add(token.position);
+		else if (
+			/[\p{L}\p{N}]/u.test(token.surface) &&
+			!opens(previous) &&
+			!attaches(token, previous)
+		)
+			starts.add(token.position);
+	});
+	return starts;
 }

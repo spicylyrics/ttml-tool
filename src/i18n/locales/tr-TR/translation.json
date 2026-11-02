@@ -197,8 +197,8 @@
       "emDashesHint": "Çift ve tek başına kalan kısa çizgileri uzun tireye çevirir.",
       "splitHyphens": "Tireli kelimeleri böl",
       "splitHyphensHint": "mm-hmm gibi kelimeleri tireden sonra böler.",
-      "splitCjk": "CJK karakterlerini böl",
-      "splitCjkHint": "Çince, Japonca ve Korece metni karakterlere ve yazı değişimlerinde böler.",
+      "splitCjk": "CJK metnini böl",
+      "splitCjkHint": "Japoncayı kelimelere, Çince ve Koreceyi karakterlere, metni de yazı değiştiği yerlerde böler.",
       "punctuationSpacing": "Noktalamayı düzenle",
       "punctuationSpacingHint": "Virgülden sonra bir boşluk, noktalamadan önce boşluk yok ve tırnaklar kelimesinde kalır.",
       "collapseSpaces": "Boşlukları birleştir",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Önizlemede kare hızı sayacı gösterir.",
       "previewModeDesc": "Önizleme sekmesinin hangi önizlemeyi göstereceğini seçin.",
       "spicyBackgroundDesc": "Spicy önizlemesinin arkasında ne görüneceği.",
-      "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı.",
-      "japaneseSplit": "Japonca otomatik bölme",
-      "japaneseSplitDesc": "Otomatik bölmenin Japonca sözleri nasıl parçalara ayırdığı.",
-      "japaneseSplitSyllable": "Hece",
-      "japaneseSplitSyllableDesc": "Sese göre, söylendiği gibi: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Vuruş başına bir parça, ko|o|hi|i gibi",
-      "japaneseSplitWord": "Kelime",
-      "japaneseSplitWordDesc": "Tam kelimeler. Uygulama ile web sitesi arasında biraz farklı olabilir"
+      "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı."
     }
   },
   "timingOverview": {
@@ -1030,8 +1022,7 @@
     "splitWord": "Kelimeyi böl…",
     "autoSegmentWords": "{count, plural, one {Kelimeyi otomatik böl} other {# kelimeyi otomatik böl}}",
     "autoSegmentWordsNothing": "Seçili kelimelerde bölünecek bir şey yok.",
-    "noSyllablesFound": "Bölünecek hece bulunamadı.",
-    "splitIntoSyllables": "Hecelere böl (Latin harflerine çeviri)",
+    "replace": "Değiştir",
     "replaceWord": "Kelimeyi değiştir…",
     "replaceRomanization": "Latin harflerine çeviriyi değiştir…",
     "combineWords": "Kelimeleri birleştir",
@@ -1719,7 +1710,12 @@
     "title": "Otomatik bölme",
     "description": "Tüm şarkı sözü satırları için bir heceleme motoru seçin.",
     "suggested": "Şarkı sözlerine göre önerilen:",
-    "applyAll": "Tüm satırlara uygula"
+    "applyAll": "Tüm satırlara uygula",
+    "japanese": "Japonca",
+    "japaneseSound": "Sese göre",
+    "japaneseWords": "Kelimelere",
+    "japaneseSoundDesc": "Söylendiği gibi ses başına bir parça: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Şarkı sözlerini işle gibi tam kelimeler: 君|の|名前|を. Sonra sese göre bölün."
   },
   "suggestedSplits": {
     "title": "Önerilen bölmeler",

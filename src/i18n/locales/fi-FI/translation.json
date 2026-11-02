@@ -197,8 +197,8 @@
       "emDashesHint": "Muuttaa kaksoistavuviivat ja irralliset tavuviivat ajatusviivoiksi.",
       "splitHyphens": "Jaa yhdysmerkilliset sanat",
       "splitHyphensHint": "Jakaa sanat kuten mm-hmm yhdysmerkin jälkeen.",
-      "splitCjk": "Jaa CJK-merkit",
-      "splitCjkHint": "Jakaa kiinan, japanin ja korean tekstin merkeiksi ja kirjoitusjärjestelmän vaihtuessa.",
+      "splitCjk": "Jaa CJK-teksti",
+      "splitCjkHint": "Jakaa japanin sanoiksi, kiinan ja korean merkeiksi sekä tekstin kirjoitusjärjestelmän vaihtuessa.",
       "punctuationSpacing": "Siisti välimerkit",
       "punctuationSpacingHint": "Yksi välilyönti pilkun jälkeen, ei välilyöntiä ennen välimerkkiä, ja lainausmerkit pysyvät sanassaan.",
       "collapseSpaces": "Yhdistä välilyönnit",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Näytä esikatselussa kuvataajuuslaskuri.",
       "previewModeDesc": "Valitse, mikä esikatselu näkyy Esikatselu-välilehdellä.",
       "spicyBackgroundDesc": "Mitä Spicy-esikatselun taustalla näkyy.",
-      "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa.",
-      "japaneseSplit": "Japanin automaattinen jako",
-      "japaneseSplitDesc": "Miten automaattinen jako pilkkoo japanilaiset sanat osiin.",
-      "japaneseSplitSyllable": "Tavu",
-      "japaneseSplitSyllableDesc": "Äänteen mukaan, kuten lauletaan: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Yksi osa per isku, esim. ko|o|hi|i",
-      "japaneseSplitWord": "Sana",
-      "japaneseSplitWordDesc": "Kokonaiset sanat. Voi erota hieman sovelluksen ja verkkosivun välillä"
+      "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa."
     }
   },
   "timingOverview": {
@@ -1030,8 +1022,7 @@
     "splitWord": "Jaa sana…",
     "autoSegmentWords": "{count, plural, one {Tavuta sana automaattisesti} other {Tavuta # sanaa automaattisesti}}",
     "autoSegmentWordsNothing": "Valituissa sanoissa ei ole jaettavaa.",
-    "noSyllablesFound": "Jaettavia tavuja ei löytynyt.",
-    "splitIntoSyllables": "Jaa tavuiksi (latinalaistettu)",
+    "replace": "Korvaa",
     "replaceWord": "Korvaa sana…",
     "replaceRomanization": "Korvaa latinalaistus…",
     "combineWords": "Yhdistä sanat",
@@ -1719,7 +1710,12 @@
     "title": "Automaattinen jako",
     "description": "Valitse tavutusmoottori kaikille sanoitusriveille.",
     "suggested": "Ehdotettu sanoituksesta:",
-    "applyAll": "Käytä kaikkiin riveihin"
+    "applyAll": "Käytä kaikkiin riveihin",
+    "japanese": "Japani",
+    "japaneseSound": "Äänteen mukaan",
+    "japaneseWords": "Sanoiksi",
+    "japaneseSoundDesc": "Yksi osa per äänne, kuten lauletaan: koo|hii, is|sho.",
+    "japaneseWordsDesc": "Kokonaiset sanat, kuten Käsittele sanoitukset: 君|の|名前|を. Jaa ne äänteen mukaan myöhemmin."
   },
   "suggestedSplits": {
     "title": "Ehdotetut jaot",

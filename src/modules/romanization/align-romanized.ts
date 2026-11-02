@@ -1,5 +1,5 @@
 import * as wanakana from "wanakana";
-import { getLineDisplayNumbers } from "$/modules/lyric-editor/states/document-structure";
+import { getLineDisplayNumbers } from "$/modules/lyric-editor/utils/line-numbers";
 import type { LyricLine, LyricWord } from "$/types/ttml";
 
 /**
@@ -83,7 +83,8 @@ const KANA_FIXES: Array<[RegExp, string]> = [
 
 /** Accepted romaji spellings for a word, or undefined if it can't be read. */
 function expectedReadings(word: string): string[] | undefined {
-	const text = word.replace(/[\p{P}\p{S}\s]/gu, "");
+	// Half-width katakana (ｿﾝ) reads like its full-width form.
+	const text = word.normalize("NFKC").replace(/[\p{P}\p{S}\s]/gu, "");
 	if (!text) return [];
 	if (hasKanji(text)) return undefined;
 	if (!hasKana(text)) {

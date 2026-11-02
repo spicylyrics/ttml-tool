@@ -123,9 +123,6 @@
 			"confirmDescription": "El TTML original guardado antes de la primera sobrescritura reemplazará el archivo de canción actual y se eliminará el respaldo. Se perderán los cambios sin guardar del editor."
 		}
 	},
-	"contextMenu": {
-		"noSyllablesFound": "No se encontraron sílabas para dividir."
-	},
 	"settingsDialog": {
 		"search": "Buscar en la configuración",
 		"keybindings": {

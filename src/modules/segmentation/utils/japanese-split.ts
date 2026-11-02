@@ -1,44 +1,34 @@
 import { toRomaji } from "wanakana";
 
 /**
- * Japanese auto-splitting at a chosen granularity.
- *
- * - `syllable`: one part per sound as it's heard. Small kana, ー, っ and ん
- *   join the part before them ("きょ", "コー", "いっ", "リン"), and so does a
- *   vowel that makes a long sound or a pair with the kana before it ("かい",
- *   "そう"). Kanji stay one per part, since their reading is unknown.
- * - `mora`: one part per beat: only small kana join ("きょ", "ファ").
- * - `word`: word boundaries from the platform's Japanese word segmenter, with
- *   the syllable joining rules for っ, ん, ー and small kana. Falls back to
- *   `syllable` where it's missing.
+ * Japanese split by sound, one part per syllable as it's heard: small kana,
+ * ー, っ and ん join the part before them ("きょ", "コー", "いっ", "リン"),
+ * and so does a vowel that makes a long sound or a pair with the kana before
+ * it ("かい", "そう"). Kanji stay one per part, since their reading is
+ * unknown here. Splitting into words is Process lyrics' job.
  */
-export type JapaneseGranularity = "syllable" | "mora" | "word";
 
-export const JAPANESE_GRANULARITIES: readonly JapaneseGranularity[] = [
-	"syllable",
-	"mora",
-	"word",
-];
-
+// Each with its half-width katakana form (ｧ, ｯ, ﾝ, ｰ, ﾞ) too.
 const SMALL_KANA = new Set(
 	Array.from(
-		"ぁぃぅぇぉゃゅょゎゕゖァィゥェォャュョヮヵヶㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ",
+		"ぁぃぅぇぉゃゅょゎゕゖァィゥェォャュョヮヵヶㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿｧｨｩｪｫｬｭｮ",
 	),
 );
-const SOKUON = new Set(["っ", "ッ"]);
-const MORAIC_N = new Set(["ん", "ン"]);
-const LENGTH_MARKS = new Set(["ー", "〜", "～", "゛", "゜"]);
+const SOKUON = new Set(["っ", "ッ", "ｯ"]);
+const MORAIC_N = new Set(["ん", "ン", "ﾝ"]);
+const LENGTH_MARKS = new Set(["ー", "〜", "～", "゛", "゜", "ｰ", "ﾞ", "ﾟ"]);
 
 const isJapaneseCharacter = (char: string) =>
-	/[々〆ー\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(char);
+	/[々〆ーｰﾞﾟ\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(char);
 const isPunctuation = (char: string) =>
 	!LENGTH_MARKS.has(char) && /[\p{P}\p{S}]/u.test(char);
 const isSpace = (char: string) => /^\s$/u.test(char);
 
-const joinsPrevious = (char: string, granularity: JapaneseGranularity) =>
+const joinsPrevious = (char: string) =>
 	SMALL_KANA.has(char) ||
-	(granularity !== "mora" &&
-		(SOKUON.has(char) || LENGTH_MARKS.has(char) || MORAIC_N.has(char)));
+	SOKUON.has(char) ||
+	LENGTH_MARKS.has(char) ||
+	MORAIC_N.has(char);
 
 const VOWEL_KANA: Record<string, string> = {
 	あ: "a",
@@ -51,6 +41,11 @@ const VOWEL_KANA: Record<string, string> = {
 	ウ: "u",
 	エ: "e",
 	オ: "o",
+	ｱ: "a",
+	ｲ: "i",
+	ｳ: "u",
+	ｴ: "e",
+	ｵ: "o",
 };
 /** Vowel pairs heard as one sound: diphthongs and long vowels. */
 const VOWEL_PAIRS = new Set([
@@ -86,29 +81,36 @@ const joinsAsVowel = (part: string, char: string) => {
 const lastChar = (token: string | undefined) =>
 	token ? Array.from(token).pop() : undefined;
 
-function splitByCharacter(
-	text: string,
-	granularity: JapaneseGranularity,
-): string[] {
+/** Whether a text is Japanese to split: any kana in it. */
+export const hasKana = (text: string) =>
+	/[\p{Script=Hiragana}\p{Script=Katakana}]/u.test(text);
+
+export function splitJapaneseSyllables(text: string): string[] {
+	if (!text.trim()) return [text];
 	const tokens: string[] = [];
 	// Whether the last token may take a following small kana, ー or っ.
 	let lastIsKana = false;
 	let latinRun = false;
+	// A っ with nothing before it to join (a word like って from Process
+	// lyrics) joins the sound after it instead: って is one part, "tte".
+	let sokuonWaits = false;
 	for (const char of Array.from(text)) {
 		if (isSpace(char)) {
 			tokens.push(char);
 			lastIsKana = false;
 			latinRun = false;
+			sokuonWaits = false;
 		} else if (isJapaneseCharacter(char)) {
 			const previous = tokens[tokens.length - 1] ?? "";
 			if (
-				lastIsKana &&
-				(joinsPrevious(char, granularity) ||
-					(granularity === "syllable" && joinsAsVowel(previous, char)))
+				sokuonWaits ||
+				(lastIsKana && (joinsPrevious(char) || joinsAsVowel(previous, char)))
 			) {
 				tokens[tokens.length - 1] += char;
+				sokuonWaits = sokuonWaits && SOKUON.has(char);
 			} else {
 				tokens.push(char);
+				sokuonWaits = SOKUON.has(char);
 			}
 			lastIsKana = true;
 			latinRun = false;
@@ -118,63 +120,14 @@ function splitByCharacter(
 			else tokens.push(char);
 			lastIsKana = false;
 			latinRun = false;
+			sokuonWaits = false;
 		} else {
 			if (latinRun) tokens[tokens.length - 1] += char;
 			else tokens.push(char);
 			lastIsKana = false;
 			latinRun = true;
+			sokuonWaits = false;
 		}
 	}
 	return tokens;
-}
-
-type WordSegmenter = {
-	segment: (text: string) => Iterable<{ segment: string }>;
-};
-
-const createWordSegmenter = (): WordSegmenter | undefined => {
-	const Segmenter = (
-		Intl as { Segmenter?: new (...args: unknown[]) => WordSegmenter }
-	).Segmenter;
-	if (typeof Segmenter !== "function") return undefined;
-	try {
-		return new Segmenter("ja", { granularity: "word" });
-	} catch {
-		return undefined;
-	}
-};
-
-let wordSegmenter: WordSegmenter | null | undefined;
-
-function splitByWord(text: string): string[] {
-	if (wordSegmenter === undefined)
-		wordSegmenter = createWordSegmenter() ?? null;
-	if (!wordSegmenter) return splitByCharacter(text, "syllable");
-
-	const tokens: string[] = [];
-	for (const { segment } of wordSegmenter.segment(text)) {
-		const first = Array.from(segment)[0] ?? "";
-		const previous = lastChar(tokens[tokens.length - 1]);
-		const previousIsText = !!previous && !isSpace(previous);
-		if (
-			previousIsText &&
-			(Array.from(segment).every(isPunctuation) ||
-				(isJapaneseCharacter(previous) && joinsPrevious(first, "word")))
-		) {
-			tokens[tokens.length - 1] += segment;
-		} else {
-			tokens.push(segment);
-		}
-	}
-	return tokens;
-}
-
-export function splitJapaneseByGranularity(
-	text: string,
-	granularity: JapaneseGranularity,
-): string[] {
-	if (!text.trim()) return [text];
-	return granularity === "word"
-		? splitByWord(text)
-		: splitByCharacter(text, granularity);
 }

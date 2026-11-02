@@ -118,7 +118,7 @@ export function ImportOptionsPanel({
 	headerCount,
 	makeSections,
 	onMakeSectionsChange,
-	hasText,
+	canProcess,
 	canRestore,
 	canSplit,
 	showSongwriters,
@@ -129,7 +129,8 @@ export function ImportOptionsPanel({
 	headerCount: number;
 	makeSections: boolean;
 	onMakeSectionsChange: (makeSections: boolean) => void;
-	hasText: boolean;
+	/** Off with no text, or while the Japanese dictionary loads. */
+	canProcess: boolean;
 	canRestore: boolean;
 	canSplit: boolean;
 	showSongwriters: boolean;
@@ -164,7 +165,7 @@ export function ImportOptionsPanel({
 							"importLyrics.processHint",
 							"Splits words, tidies punctuation and spacing, and moves parenthesized vocals to background lines.",
 						)}
-						disabled={!hasText}
+						disabled={!canProcess}
 						onClick={onProcess}
 					/>
 					<ProcessSteps />
@@ -298,8 +299,8 @@ const PROCESS_STEPS: [keyof LyricPrepOptions, string, string][] = [
 	],
 	[
 		"splitCjk",
-		"Split CJK characters",
-		"Splits Chinese, Japanese and Korean text into characters and at script changes.",
+		"Split CJK text",
+		"Splits Japanese into words, Chinese and Korean into characters, and text at script changes.",
 	],
 	[
 		"punctuationSpacing",
