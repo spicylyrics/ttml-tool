@@ -1,5 +1,127 @@
 [
 	{
+		"version": "0.22.0",
+		"summary": "Romanization and metadata",
+		"color": "cyan",
+		"date": "2026-11-02",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Romanization runs on your device",
+				"body": "Kanji are read in context like Spicy Lyrics Mobile, nothing is sent online, and Cyrillic and Greek lyrics work too",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Find songwriters on MusicBrainz and Genius",
+				"body": "Shows each source's credits with real names, works without a Genius token, and adds names instead of replacing them",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Romanize from a lyric page",
+				"body": "Paste a romanized page like Genius's into **Romanization...** to fill every word, keeping its spacing and punctuation",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Find a song's romanized page on Genius",
+				"body": "**Find on Genius** in **Romanization...** fills the page box with the song's romanized lyrics, ready to check and apply",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "One place for romanization",
+				"body": "**Romanization...** romanizes the whole song or chosen lines, shows how much is done and asks before replacing anything",
+				"highlight": true
+			},
+			{
+				"type": "change",
+				"title": "Japanese splits into words, then syllables",
+				"body": "**Process lyrics** splits Japanese into words and **Split syllables** by sound; **Auto segment** offers both",
+				"highlight": true
+			},
+			{
+				"type": "change",
+				"title": "Japanese auto split follows the sound",
+				"body": "Parts now match what's sung, like koo|hii and is|sho, with sounds like kai kept in one part",
+				"highlight": true
+			},
+			{
+				"type": "change",
+				"title": "Simpler Edit metadata dialog",
+				"body": "Songwriters come first, names are tags you add with `Enter`, and the optional song details are folded away",
+				"highlight": true
+			},
+			{
+				"type": "change",
+				"title": "Japanese romaji is written like Genius",
+				"body": "Lines read like Kimi no namae wo yonde ita, with gaps between words and long vowels spelled out",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Importing lyrics adds songwriters from MusicBrainz too",
+				"body": "Works for LRCLIB and Genius picks, uses real names, and adds to your songwriters instead of replacing them",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "One Replace row in the word menu",
+				"body": "Replace word and Replace romanization share a row of icon buttons, and Split into syllables (romanized) is gone",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Smooth syncing on Linux with NVIDIA",
+				"body": "The app now turns off NVIDIA's explicit sync on every NVIDIA setup, fixing the lag and dropped Space presses on Wayland",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Website asks the browser to keep your projects",
+				"body": "The website asks for persistent storage when it first saves a project, so browsers are less likely to clear your history",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Kanji-only lines romanize as Japanese",
+				"body": "The language is picked for the whole song, so a Japanese line without kana no longer comes out in pinyin",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Romanized Spicy preview keeps word gaps",
+				"body": "Romaji under Japanese splits into words in the Spicy preview like Spicy Lyrics, including background vocals",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Splitting a word keeps its romanization",
+				"body": "Each part takes its share, like issho ni over いっ|しょ|に, instead of the romanization being dropped",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Combining words keeps their romanization",
+				"body": "**Combine words** joins the parts' romanization instead of dropping it, keeping the space between words",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Genius imports drop the page title line",
+				"body": "Lyrics from Genius no longer start with a line or section made from the page title, like [Artist「Song」歌詞]",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Spicy preview grows split Japanese words like Spicy Lyrics",
+				"body": "Syllables of an unspaced line now grow toward each other from the word's edges, as in Spicy Lyrics, and still wrap",
+				"highlight": false
+			}
+		]
+	},
+	{
 		"version": "0.21.0",
 		"summary": "Sections and file opening",
 		"color": "iris",
