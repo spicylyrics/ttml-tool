@@ -71,6 +71,18 @@
 	justify-self: start;
 }
 
+/* The pasted page is the main thing in its mode: it takes the height the
+   window has left after the rest of the dialog (about 26rem), so a whole
+   song shows at once, and scrolls inside past that. */
+.page {
+	height: clamp(10rem, calc(100dvh - 26rem), 36rem);
+}
+
+.page :global(.rt-TextAreaInput) {
+	height: 100%;
+	resize: none;
+}
+
 /* Words already romanized: what to do with them, on one line. */
 .existing {
 	display: flex;

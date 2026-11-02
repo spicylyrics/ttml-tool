@@ -445,7 +445,7 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 								"romanizationPanel.pasteLabel",
 								"Romanized lyric page",
 							)}
-							rows={6}
+							className={styles.page}
 						/>
 					</Flex>
 				)}
