@@ -10,6 +10,7 @@
  */
 
 import { ContextMenu } from "@radix-ui/themes";
+import { TimeModeWordMenuItems } from "$/modules/time-mode-editing/TimeModeWordMenuItems.tsx";
 import { ToolMode } from "$/states/main.ts";
 import { LineTimingMenuItems } from "../line-timing-menu.tsx";
 import { LineRoleMenuRow, LyricLineMenu } from "../lyric-line-menu.tsx";
@@ -24,6 +25,9 @@ export function LineContextMenu({
 }: Pick<LyricLineViewState, "lineIndex" | "toolMode">) {
 	return (
 		<ContextMenu.Content>
+			{toolMode === ToolMode.Sync && (
+				<TimeModeWordMenuItems lineIndex={lineIndex} />
+			)}
 			<LineTimingMenuItems />
 			<ContextMenu.Separator />
 			{toolMode === ToolMode.Edit && (

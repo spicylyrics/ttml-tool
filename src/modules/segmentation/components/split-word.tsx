@@ -8,7 +8,7 @@ import {
 	Flex,
 	Text,
 } from "@radix-ui/themes";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -42,6 +42,7 @@ import {
 	segmentWord,
 } from "$/modules/segmentation/utils/segmentation.ts";
 import { getHyphenationLanguage } from "$/modules/segmentation/utils/syllabification-engines";
+import { createTimeModeSplit } from "$/modules/time-mode-editing/time-mode-split";
 import { splitWordDialogAtom } from "$/states/dialogs.ts";
 import { editingWordStateAtom, lyricLinesAtom } from "$/states/main";
 import type { LyricWord } from "$/types/ttml";
@@ -52,6 +53,7 @@ export const SplitWordDialog = memo(() => {
 	const editingState = useAtomValue(editingWordStateAtom);
 	const lyricLines = useLyricLinesWhileOpen(splitWordDialog);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
+	const store = useStore();
 	const { t } = useTranslation();
 
 	const [splitIndices, setSplitIndices] = useState(new Set<number>());
@@ -204,12 +206,19 @@ export const SplitWordDialog = memo(() => {
 			? new Map([[splitRule.key, splitRule.boundaries]])
 			: null;
 		const targetCore = getLearnedWordParts(targetWordText);
+		// Null outside Time mode: plain proportional split.
+		const timeModeSplit = createTimeModeSplit(store, editingState);
 
 		const createNewWords = (
 			targetWord: LyricWord,
 			segments: string[],
 		): LyricWord[] => {
-			return recalculateWordTime(targetWord, segments, segmentationConfig);
+			const words = recalculateWordTime(
+				targetWord,
+				segments,
+				segmentationConfig,
+			);
+			return timeModeSplit ? timeModeSplit.adjust(targetWord, words) : words;
 		};
 
 		editLyricLines((state) => {
@@ -249,6 +258,8 @@ export const SplitWordDialog = memo(() => {
 			}
 		});
 
+		timeModeSplit?.reselect();
+
 		if (learnedRule) {
 			const nextRules = new Map(learnedRules);
 			nextRules.set(learnedRule.key, learnedRule.boundaries);
@@ -266,6 +277,8 @@ export const SplitWordDialog = memo(() => {
 		editingState.lineIndex,
 		editingState.wordIndex,
 		segmentationConfig,
+		store,
+		editingState,
 	]);
 
 	return (
