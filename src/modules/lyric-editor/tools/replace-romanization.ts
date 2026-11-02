@@ -1,3 +1,5 @@
+import { getLearnedWordParts } from "$/modules/segmentation/utils/learned-rules";
+
 interface RomanizableWord {
 	word: string;
 	romanWord: string;
@@ -35,13 +37,18 @@ export const replaceRomanization = (
 		return;
 	}
 
-	const normalizedTarget = targetWord.toLocaleLowerCase();
+	// Like Combine: unless case matters, compare words without their edge
+	// punctuation, so "you," gets the same romanization as "You".
+	const targetKey = cleanWordKey(targetWord);
 	for (const line of lines) {
 		for (const word of line.words) {
 			const matches = caseSensitive
 				? word.word === targetWord
-				: word.word.toLocaleLowerCase() === normalizedTarget;
+				: cleanWordKey(word.word) === targetKey;
 			if (matches) word.romanWord = replacement;
 		}
 	}
 };
+
+const cleanWordKey = (word: string) =>
+	getLearnedWordParts(word)?.key ?? word.toLocaleLowerCase();

@@ -1,9 +1,8 @@
 # UI playback clock
 
 `playbackClock.getSnapshot()` returns audible position in **seconds**.
-`subscribe((seconds, frameTimestamp, seeked) => ...)` drives imperative renderers;
-`usePlaybackTime()` exposes the same value to React. The existing
-`currentTimeAtom` receives the same sample in milliseconds for editor highlights,
+`subscribe((seconds, frameTimestamp, seeked) => ...)` drives imperative renderers.
+The existing `currentTimeAtom` receives the same sample in milliseconds for editor highlights,
 the timing overview, playback label and spectrogram. No component estimates time
 from wall time or playback rate.
 

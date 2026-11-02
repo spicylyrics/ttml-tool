@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Wijzigingslogboek en updates",
     "viewCommits": "Commits bekijken op GitHub"
   },
   "updatedToast": {
@@ -172,12 +171,12 @@
     "sectionsTitle": "Sectiekoppen",
     "sectionsFound": "{count, plural, one {# kop gevonden} other {# koppen gevonden}}",
     "makeSections": "Secties maken",
-    "makeSectionsHint": "Elke kop begint een sectie. Zet Genius-secties aan.",
+    "makeSectionsHint": "Elke kop begint een sectie.",
     "removeHeaders": "Verwijderen",
     "removeHeadersHint": "Haalt de koprijen uit de songtekst.",
     "textFormat": "Tekstopmaak",
     "reviewSections": "Secties controleren",
-    "reviewHint": "Corrigeer verkeerd geraden categorieën. Kleuren, zangers en opmerkingen stel je later in via het sectiemenu.",
+    "reviewHint": "Corrigeer verkeerd geraden types. Je kunt secties later hernoemen door in de editor op hun naam te klikken.",
     "sectionLabel": "Sectienaam",
     "sectionCategory": "Sectiecategorie",
     "lowConfidence": "Categorie geraden. Controleer hem.",
@@ -337,20 +336,6 @@
       "description": "Je hebt niet-opgeslagen wijzigingen. Als je doorgaat, gaan ze verloren. Weet je zeker dat je een nieuw project wilt maken?"
     }
   },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius-sectiekoppen gevonden",
-      "dialogDesc": "Je songtekst heeft sectiekoppen zoals [Verse] en [Chorus]. Wil je de experimentele functie Genius-secties inschakelen om ze te gebruiken?",
-      "usageInfo": "Sectiekoppen krijgen dan een eigen stijl in de editor. Klik erop voor functies als Vorige timing kopiëren en Uitlijnen op afspeelkop.",
-      "maybeLater": "Misschien later",
-      "enableNow": "Nu inschakelen",
-      "title": "Genius-secties",
-      "snapToPlayhead": "Uitlijnen op afspeelkop",
-      "noPreviousFound": "Geen eerdere overeenkomende sectie met timing gevonden.",
-      "noMatchingLines": "Geen regels in deze sectie komen overeen met de eerdere, dus er is niets gekopieerd.",
-      "copyPrevious": "Vorige timing kopiëren"
-    }
-  },
   "logoColor": {
     "title": "Logokleur",
     "description": "Kies een kleur voor het logo in de titelbalk en op het welkomstscherm van de gids.",
@@ -385,7 +370,6 @@
     "search": "Zoeken",
     "success": "Herstellen gelukt",
     "error": "Gegevens beschadigd of verloren",
-    "edit": "Bewerken",
     "apply": "Toepassen",
     "confirm": "Bevestigen",
     "back": "Terug",
@@ -433,7 +417,6 @@
     "title": "Opdrachtpalet",
     "placeholder": "Opdrachten en instellingen zoeken",
     "noResults": "Geen overeenkomende opdrachten of instellingen",
-    "commandTag": "Opdracht",
     "settingTag": "Voorkeuren",
     "hint": "Pijltjestoetsen om te bewegen, Enter om uit te voeren, Esc om te sluiten",
     "notRunnable": "Kan deze opdracht niet uitvoeren. Geef hem een sneltoets in Voorkeuren en probeer het opnieuw.",
@@ -544,7 +527,6 @@
       "timing": "Timing",
       "spicy": "Spicy Lyrics",
       "simpleLyrics": "Eenvoudige songtekstmodus",
-      "forceLineRendering": "Als regelsynchronisatie tonen",
       "background": "Achtergrond",
       "backgroundAnimated": "Geanimeerd",
       "backgroundColor": "Kleur",
@@ -561,19 +543,13 @@
       "syncAdjustment": "Verschuivingen",
       "timeOffset": "Synchronisatieverschuiving",
       "commitOffset": "Verschuiving voor Volgende",
-      "syncLevel": "Synchroniseren per",
-      "syncLevelWord": "Woord",
-      "syncLevelLine": "Regel",
       "assistSettings": "Synchronisatiehulp",
-      "showTimestampUpdate": "Tijdstempelupdates tonen",
       "touchSyncPanel": "Synchronisatiepaneel voor aanraking",
       "bgLyricSync": "Achtergrondregels",
       "bgSyncInline": "Met de hoofdregel",
       "bgSyncInlineDesc": "Synchroniseer elke achtergrondregel direct na de hoofdregel.",
       "bgSyncSeparate": "Overslaan bij synchroniseren",
       "bgSyncSeparateDesc": "G en H blijven op de hoofdregels. Klik op een achtergrondregel om ze apart te synchroniseren.",
-      "quickFixes": "Snelle correcties",
-      "manualTimestampEdit": "Tijdstempels handmatig bewerken",
       "doubleClickEdit": "Woorden bewerken met dubbelklik",
       "displayOptions": "Weergaveopties",
       "showTimestamps": "Tijdstempels weergeven",
@@ -584,11 +560,6 @@
       "startSync": "Start",
       "continuousSync": "Volgende",
       "endSync": "Einde",
-      "manageQuickFixExclusions": {
-        "title": "Uitzonderingen voor snelle correcties beheren",
-        "description": "Voeg woorden toe die snelle correcties moeten overslaan.",
-        "placeholder": "Voer een woord in om over te slaan"
-      },
       "playbackTracking": "Volgen",
       "autoScroll": "Automatisch scrollen",
       "highlightActiveLine": "Regel markeren",
@@ -884,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# opgeslagen waarde} other {# opgeslagen waarden}}",
         "keybindings": "{count, plural, one {# sneltoets} other {# sneltoetsen}}",
-        "assetsSet": "Aangepaste achtergrondafbeelding ingesteld",
         "assetsNone": "Geen aangepaste bestanden",
         "presetsCount": "{count, plural, one {# voorinstelling} other {# voorinstellingen}}",
         "backgroundSet": "Aangepaste achtergrond",
@@ -901,9 +871,7 @@
       "exportTitle": "Exporteren",
       "exportDesc": "Sla je instellingen en gegevens op in een bestand om ze later te herstellen of naar een ander apparaat te verplaatsen.",
       "exportButton": "Back-up exporteren",
-      "previewToggle": "Inhoud bekijken",
       "previewLoading": "Voorbeeld laden…",
-      "previewEmpty": "Niets geselecteerd voor voorbeeld",
       "previewCategoryEmpty": "Er is niets om te exporteren in deze categorie",
       "previewMore": "+{count} meer",
       "previewTotal": "Geschatte totale grootte",
@@ -951,12 +919,10 @@
       "previewShowTranslationDesc": "Toon vertaalregels in het voorbeeld.",
       "previewShowRomanDesc": "Toon romanisatie in het voorbeeld.",
       "simpleLyricsDesc": "Volg de Simple Lyrics-modus van Spicy Lyrics, met rustigere woordanimaties.",
-      "forceLineRenderingDesc": "Toon elke regel in het Spicy-voorbeeld als regelgesynchroniseerd, zonder woordtiming.",
       "instantFadeDesc": "Haal de markering van een woord weg zodra het eindigt in plaats van het langzaam te laten vervagen.",
       "timingOverviewAutoScrollDesc": "Houd het timingoverzicht gescrold naar de afspeelpositie.",
       "vsyncDesc": "Werk de Standard- en Toxi-voorbeelden elk frame bij in plaats van ongeveer 30 keer per seconde. Vloeiender, maar gebruikt meer CPU.",
       "showFpsDesc": "Toon een framerateteller op het voorbeeld.",
-      "syncLevelDesc": "Woord: synchroniseer elk woord. Regel: synchroniseer hele regels en verdeel de woorden gelijkmatig. Ook Regel slaat timing per woord op, geen per regel gesynchroniseerde songtekst, dus verfijn de woorden in het spectrogram.",
       "previewModeDesc": "Kies welk voorbeeld het tabblad Voorbeeld toont.",
       "spicyBackgroundDesc": "Wat er achter het Spicy-voorbeeld te zien is.",
       "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden."
@@ -1089,6 +1055,13 @@
       "latencyTest": "Audio-/invoerlatentietest"
     },
     "keybindings": {
+      "clearWordTiming": "Timing - Tijdstempels van woord/lettergreep wissen",
+      "sectionRename": "Sectie - Hernoemen",
+      "sectionStartHere": "Sectie - Sectie hier beginnen",
+      "sectionApplyTimings": "Sectie - Timing toepassen van...",
+      "sectionSnapToPlayhead": "Sectie - Uitlijnen op afspeelkop",
+      "sectionMergePrevious": "Sectie - Samenvoegen met vorige",
+      "sectionRemove": "Sectie - Kop verwijderen (songtekst behouden)",
       "newFile": "Nieuw bestand",
       "openFile": "Bestand openen",
       "saveFile": "Bestand opslaan",
@@ -1209,7 +1182,7 @@
     "otherLayers": "Ook op deze toets",
     "closePanel": "Sluiten"
   },
-  "autoSegmentApplied":"Automatisch gesegmenteerd met {engine}",
+  "autoSegmentApplied": "Automatisch gesegmenteerd met {engine}",
   "error": {
     "unsupportedFileFormat": "Niet-ondersteunde bestandsindeling: {ext}",
     "openFileFailed": "Kan bestand niet openen",
@@ -1367,7 +1340,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Getypte regels in woorden splitsen",
-    "splitTypedLinesDesc": "Tekst die je in een lege regel typt, wordt in woorden gesplitst zoals een import regels splitst.",
+    "splitTypedLinesDesc": "Tekst die je in een regel typt, wordt bij spaties en koppeltekens in woorden gesplitst, en volgens je geleerde splitsingen.",
     "scrollMemoryTitle": "Positie in bewerkmodus onthouden",
     "scrollMemoryDesc": "Opent elk project bij de regel waar je in de bewerkmodus was.",
     "swapDuetAll": "Hoofd- en duetregels omwisselen",
@@ -1375,37 +1348,57 @@
   },
   "lyricWordView": {
     "empty": "Leeg",
-    "spaceCount": "Spatie ×{count}",
-    "removeWord": "Dubbel woord verwijderen",
-    "editingWordTitle": "Woord bewerken",
-    "editingWordDesc": "Bewerk het woord of pas voorgestelde snelle correcties toe.",
-    "correctedWordPlaceholder": "Typ het gecorrigeerde woord",
-    "noSuggestions": "Geen suggesties"
+    "spaceCount": "Spatie ×{count}"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {# geselecteerde regel categoriseren} other {# geselecteerde regels categoriseren}}",
-    "categorizeTitle": "Geselecteerde regels categoriseren",
-    "categorize": "Categoriseren",
     "expand": "Sectie uitvouwen",
     "collapse": "Sectie samenvouwen",
-    "editTitle": "Sectie bewerken",
-    "vocalist": "Zanger / rol",
-    "notes": "Opmerkingen",
-    "manage": "Secties beheren",
-    "goPrevious": "Naar vorige sectie",
-    "goNext": "Naar volgende sectie",
-    "editMetadata": "Metagegevens bewerken",
-    "split": "Splitsen bij geselecteerde regel",
     "mergePrevious": "Samenvoegen met vorige",
-    "mergeNext": "Samenvoegen met volgende",
-    "moveUp": "Omhoog verplaatsen",
-    "moveDown": "Omlaag verplaatsen",
-    "linkPrevious": "Koppelen aan vorige {category}",
-    "unlinkRepeat": "Herhaling ontkoppelen",
-    "removeHeader": "Kop verwijderen (songtekst behouden)",
-    "addToPrevious": "Voeg niet-toegewezen regels toe aan de vorige sectie",
-    "addToNext": "Voeg niet-toegewezen regels toe aan de volgende sectie",
-    "section": "Sectie"
+    "removeHeader": "Kop verwijderen (songtekst behouden)"
+  },
+  "sectionEditing": {
+    "menu": "Sectieacties",
+    "startHere": "Sectie hier beginnen",
+    "noSection": "Geen sectie",
+    "rename": "Hernoemen",
+    "renameHint": "Hernoemen of type wijzigen",
+    "label": "Sectienaam",
+    "type": "Sectietype",
+    "snapToPlayhead": "Uitlijnen op afspeelkop",
+    "applyTimings": "Timing toepassen van...",
+    "applyTitle": "Timing toepassen op {name}",
+    "applyDesc": "Woorden die overeenkomen krijgen hun timing van de sectie die je kiest. De rest houdt die van zichzelf.",
+    "source": "Kopiëren van",
+    "similarity": "{percent}% overeenkomst",
+    "showMore": "{count, plural, one {Nog # sectie tonen} other {Nog # secties tonen}}",
+    "noSources": "Geen enkele andere sectie heeft al timing. Synchroniseer er eerst een.",
+    "anchor": "Beginnen bij",
+    "anchorSection": "Begin van sectie ({time})",
+    "anchorPlayhead": "Afspeelkop ({time})",
+    "anchorPlayheadOnly": "Begint bij de afspeelkop ({time}). Deze sectie heeft nog geen timing.",
+    "refineNote": "Gekopieerde timing is een startpunt. Speel de sectie af en corrigeer wat niet klopt.",
+    "apply": "Toepassen",
+    "applied": "Timing gekopieerd naar {copied} van {total} regels. {untimed, plural, =0 {Alle woorden hebben timing.} one {# woord is zonder timing gebleven.} other {# woorden zijn zonder timing gebleven.}}",
+    "nothingMatched": "Geen enkele regel in deze sectie komt overeen met die andere sectie, dus er is niets gekopieerd."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Couplet",
+    "pre-chorus": "Pre-refrein",
+    "chorus": "Refrein",
+    "post-chorus": "Post-refrein",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Brug",
+    "break": "Break",
+    "interlude": "Tussenspel",
+    "instrumental": "Instrumentaal",
+    "solo": "Solo",
+    "spoken": "Gesproken",
+    "skit": "Sketch",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Overig"
   },
   "touchSyncPanel": {
     "prevWord": "Vorig woord",
@@ -1733,12 +1726,6 @@
     "settings": "Spectrogram-instellingen",
     "fftSize": "FFT-grootte",
     "resolution": "FFT-resolutie",
-    "fftSizeOption": {
-      "512": "512 (snelst)",
-      "1024": "1024 (gebalanceerd)",
-      "2048": "2048 (meer frequentiedetail)",
-      "4096": "4096 (meeste detail)"
-    },
     "height": "Weergavehoogte"
   },
   "spectrogramFollow": {

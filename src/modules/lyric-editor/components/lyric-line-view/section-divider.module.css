@@ -1,0 +1,102 @@
+/* The row above a section's first line. It sits on the sync surface, so
+   nothing here animates, and its height never changes between showing the
+   name, hovering, and renaming. */
+.divider {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	height: 32px;
+	/* Equal above and below (the lines' own 4px margins collapse into these),
+	   so the name sits the same distance from the line above and below. */
+	margin: var(--space-2) var(--space-1);
+	padding-inline: var(--space-1);
+	user-select: none;
+}
+
+.divider[data-draggable] {
+	cursor: grab;
+}
+
+.chevron,
+.chevronSpace {
+	flex: none;
+	width: 20px;
+}
+
+/* Lines outside any section: an outline instead of a fill, in muted ink. */
+.divider .unsectioned {
+	--pill-hue-a: transparent;
+	--pill-hue-border: var(--gray-a7);
+	--pill-hue-text: var(--gray-11);
+	border-style: dashed;
+}
+
+/* The name is a SectionPill; this only keeps a long one to one line. */
+.label {
+	flex: none;
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 50%;
+}
+
+.rule {
+	flex: 1;
+	min-width: var(--space-4);
+	height: 1px;
+	background: var(--gray-a5);
+}
+
+.meta {
+	flex: none;
+	font-size: var(--font-size-1);
+	color: var(--gray-11);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+/* The tools take the line count's place while the row is hovered or focused,
+   so the row stays quiet while syncing. */
+.actions {
+	display: none;
+	flex: none;
+	align-items: center;
+	gap: var(--space-1);
+}
+
+.divider:hover .actions,
+.divider:focus-within .actions,
+.divider:has([data-state="open"]) .actions,
+.divider[data-editing] .actions {
+	display: flex;
+}
+
+/* The count makes room for a section's tools. The No section row has only a
+   small menu and plenty of room, so it keeps its count. */
+.divider:not([data-unsectioned]):has(.actions):hover .meta,
+.divider:not([data-unsectioned]):has(.actions):focus-within .meta,
+.divider:not([data-unsectioned]):has([data-state="open"]) .meta {
+	display: none;
+}
+
+.editor {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	min-width: 0;
+}
+
+.labelInput {
+	width: 180px;
+}
+
+@media (prefers-contrast: more) {
+	.rule {
+		background: var(--gray-a8);
+	}
+
+	.meta {
+		color: var(--gray-12);
+	}
+}

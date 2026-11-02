@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Lista zmian i aktualizacje",
     "viewCommits": "Zobacz commity na GitHubie"
   },
   "updatedToast": {
@@ -172,12 +171,12 @@
     "sectionsTitle": "Nagłówki sekcji",
     "sectionsFound": "{count, plural, one {Znaleziono # nagłówek} few {Znaleziono # nagłówki} many {Znaleziono # nagłówków} other {Znaleziono # nagłówka}}",
     "makeSections": "Utwórz sekcje",
-    "makeSectionsHint": "Każdy nagłówek zaczyna sekcję. Włącza Sekcje Genius.",
+    "makeSectionsHint": "Każdy nagłówek zaczyna sekcję.",
     "removeHeaders": "Usuń",
     "removeHeadersHint": "Usuwa wiersze nagłówków z tekstu.",
     "textFormat": "Format tekstu",
     "reviewSections": "Sprawdź sekcje",
-    "reviewHint": "Popraw źle odgadnięte kategorie. Kolory, wokalistów i notatki ustawisz później w menu sekcji.",
+    "reviewHint": "Popraw źle odgadnięte typy. Nazwy sekcji zmienisz później, klikając ich nazwę w edytorze.",
     "sectionLabel": "Nazwa sekcji",
     "sectionCategory": "Kategoria sekcji",
     "lowConfidence": "Kategoria odgadnięta. Sprawdź ją.",
@@ -337,20 +336,6 @@
       "description": "Masz niezapisane zmiany. Jeśli kontynuujesz, zostaną utracone. Czy na pewno chcesz utworzyć nowy projekt?"
     }
   },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Znaleziono nagłówki sekcji Genius",
-      "dialogDesc": "Tekst zawiera nagłówki sekcji, takie jak [Verse] i [Chorus]. Włączyć eksperymentalną funkcję Sekcje Genius, aby z nich korzystać?",
-      "usageInfo": "Nagłówki sekcji otrzymają własny styl. Kliknij nagłówek, aby użyć narzędzi „Kopiuj poprzednie czasy” i „Przyciągnij do pozycji odtwarzania”.",
-      "maybeLater": "Może później",
-      "enableNow": "Włącz teraz",
-      "title": "Sekcje Genius",
-      "snapToPlayhead": "Przyciągnij do pozycji odtwarzania",
-      "noPreviousFound": "Nie znaleziono wcześniejszej pasującej sekcji z synchronizacją.",
-      "noMatchingLines": "Żaden wiersz w tej sekcji nie pasuje do wcześniejszej, więc nic nie skopiowano.",
-      "copyPrevious": "Kopiuj poprzednie czasy"
-    }
-  },
   "logoColor": {
     "title": "Kolor logo",
     "description": "Wybierz kolor logo na pasku tytułu i na ekranie powitalnym przewodnika.",
@@ -385,7 +370,6 @@
     "search": "Szukaj",
     "success": "Przywracanie powiodło się",
     "error": "Dane uszkodzone lub utracone",
-    "edit": "Edytuj",
     "apply": "Zastosuj",
     "confirm": "Potwierdź",
     "back": "Powrót",
@@ -433,7 +417,6 @@
     "title": "Paleta poleceń",
     "placeholder": "Szukaj poleceń i ustawień",
     "noResults": "Brak pasujących poleceń i ustawień",
-    "commandTag": "Polecenie",
     "settingTag": "Preferencje",
     "hint": "Strzałki przesuwają, Enter uruchamia, Esc zamyka",
     "notRunnable": "Nie udało się uruchomić polecenia. Przypisz mu skrót w Preferencjach i spróbuj ponownie.",
@@ -544,7 +527,6 @@
       "timing": "Synchronizacja",
       "spicy": "Spicy Lyrics",
       "simpleLyrics": "Proste teksty",
-      "forceLineRendering": "Pokaż synchronizację wersami",
       "background": "Tło",
       "backgroundAnimated": "Animowane",
       "backgroundColor": "Kolor",
@@ -561,19 +543,13 @@
       "syncAdjustment": "Przesunięcia",
       "timeOffset": "Przesunięcie synchronizacji",
       "commitOffset": "Przesunięcie klawisza Dalej",
-      "syncLevel": "Synchronizuj",
-      "syncLevelWord": "Słowa",
-      "syncLevelLine": "Wersy",
       "assistSettings": "Pomoc w synchronizacji",
-      "showTimestampUpdate": "Pokaż aktualizacje znaczników czasu",
       "touchSyncPanel": "Panel synchronizacji dotykowej",
       "bgLyricSync": "Wersy wokalu w tle",
       "bgSyncInline": "Z głównym wersem",
       "bgSyncInlineDesc": "Synchronizuj każdy wers wokalu w tle zaraz po jego głównym wersie.",
       "bgSyncSeparate": "Pomijaj przy synchronizacji",
       "bgSyncSeparateDesc": "G i H zostają na głównych wersach. Kliknij wers wokalu w tle, aby zsynchronizować je osobno.",
-      "quickFixes": "Szybkie poprawki",
-      "manualTimestampEdit": "Ręczna edycja znaczników czasu",
       "doubleClickEdit": "Edytuj słowa dwuklikiem",
       "displayOptions": "Opcje wyświetlania",
       "showTimestamps": "Pokaż znaczniki czasu",
@@ -584,11 +560,6 @@
       "startSync": "Początek",
       "continuousSync": "Dalej",
       "endSync": "Koniec",
-      "manageQuickFixExclusions": {
-        "title": "Zarządzaj wykluczeniami szybkich poprawek",
-        "description": "Dodaj słowa, które chcesz zignorować w szybkich poprawkach.",
-        "placeholder": "Wpisz słowo, które chcesz zignorować"
-      },
       "playbackTracking": "Śledzenie",
       "autoScroll": "Automatyczne przewijanie",
       "highlightActiveLine": "Podświetl wers",
@@ -884,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# zapisana wartość} few {# zapisane wartości} many {# zapisanych wartości} other {# zapisanej wartości}}",
         "keybindings": "{count, plural, one {# skrót klawiszowy} few {# skróty klawiszowe} many {# skrótów klawiszowych} other {# skrótu klawiszowego}}",
-        "assetsSet": "Ustawiono własny obraz tła",
         "assetsNone": "Brak własnych zasobów",
         "presetsCount": "{count, plural, one {# zestaw ustawień} few {# zestawy ustawień} many {# zestawów ustawień} other {# zestawu ustawień}}",
         "backgroundSet": "Niestandardowe tło",
@@ -901,9 +871,7 @@
       "exportTitle": "Eksport",
       "exportDesc": "Zapisz swoje ustawienia i dane w pliku, który możesz później przywrócić lub przenieść na inne urządzenie.",
       "exportButton": "Eksportuj kopię zapasową",
-      "previewToggle": "Podgląd zawartości",
       "previewLoading": "Ładowanie podglądu…",
-      "previewEmpty": "Nie wybrano nic do podglądu",
       "previewCategoryEmpty": "W tej kategorii nie ma nic do eksportu",
       "previewMore": "+{count} więcej",
       "previewTotal": "Szacunkowy rozmiar całkowity",
@@ -951,12 +919,10 @@
       "previewShowTranslationDesc": "Pokaż wersy tłumaczenia w podglądzie.",
       "previewShowRomanDesc": "Pokaż transkrypcję łacińską w podglądzie.",
       "simpleLyricsDesc": "Odwzoruj tryb Simple Lyrics ze Spicy Lyrics ze spokojniejszymi animacjami słów.",
-      "forceLineRenderingDesc": "Pokaż każdy wers w podglądzie Spicy z synchronizacją całych wersów, bez czasów słów.",
       "instantFadeDesc": "Usuń wyróżnienie słowa od razu po jego zakończeniu zamiast powoli je wygaszać.",
       "timingOverviewAutoScrollDesc": "Utrzymuj przegląd czasów przewinięty do pozycji odtwarzania.",
       "vsyncDesc": "Aktualizuj podglądy Standard i Toxi w każdej klatce zamiast około 30 razy na sekundę. Płynniej, ale większe użycie CPU.",
       "showFpsDesc": "Pokaż licznik klatek na sekundę w podglądzie.",
-      "syncLevelDesc": "Słowa: ustawiaj czas każdego słowa. Wersy: ustawiaj czas całych wersów i rozkładaj słowa równomiernie. Tryb Wersy nadal zapisuje czasy słów, a nie tekst synchronizowany wersami, więc słowa dopracujesz w spektrogramie.",
       "previewModeDesc": "Wybierz, który podgląd pokazuje karta Podgląd.",
       "spicyBackgroundDesc": "Co jest wyświetlane za podglądem Spicy.",
       "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi."
@@ -1089,6 +1055,13 @@
       "latencyTest": "Test opóźnienia audio/wejścia"
     },
     "keybindings": {
+      "clearWordTiming": "Synchronizacja - Wyczyść znaczniki czasu słowa/sylaby",
+      "sectionRename": "Sekcja - Zmień nazwę",
+      "sectionStartHere": "Sekcja - Zacznij sekcję tutaj",
+      "sectionApplyTimings": "Sekcja - Zastosuj czasy z...",
+      "sectionSnapToPlayhead": "Sekcja - Przyciągnij do pozycji odtwarzania",
+      "sectionMergePrevious": "Sekcja - Połącz z poprzednią",
+      "sectionRemove": "Sekcja - Usuń nagłówek (zachowaj tekst)",
       "newFile": "Nowy plik",
       "openFile": "Otwórz plik",
       "saveFile": "Zapisz plik",
@@ -1209,7 +1182,7 @@
     "otherLayers": "Również na tym klawiszu",
     "closePanel": "Zamknij"
   },
-  "autoSegmentApplied":"Automatycznie podzielono za pomocą {engine}",
+  "autoSegmentApplied": "Automatycznie podzielono za pomocą {engine}",
   "error": {
     "unsupportedFileFormat": "Nieobsługiwany format pliku: {ext}",
     "openFileFailed": "Nie udało się otworzyć pliku",
@@ -1367,7 +1340,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Dziel wpisane wersy na słowa",
-    "splitTypedLinesDesc": "Tekst wpisany w pusty wers jest dzielony na słowa tak samo, jak import dzieli wersy.",
+    "splitTypedLinesDesc": "Tekst wpisany w wers jest dzielony na słowa przy spacjach i łącznikach oraz według nauczonych podziałów.",
     "scrollMemoryTitle": "Zapamiętuj pozycję w trybie edycji",
     "scrollMemoryDesc": "Otwiera każdy projekt na wersie, na którym byłeś w trybie edycji.",
     "swapDuetAll": "Zamień wersy główne i duetu",
@@ -1375,37 +1348,57 @@
   },
   "lyricWordView": {
     "empty": "Pusty",
-    "spaceCount": "Spacja ×{count}",
-    "removeWord": "Usuń zduplikowane słowo",
-    "editingWordTitle": "Edytowanie słowa",
-    "editingWordDesc": "Edytuj słowo lub zastosuj sugerowane szybkie poprawki.",
-    "correctedWordPlaceholder": "Wpisz poprawione słowo",
-    "noSuggestions": "Żadnych sugestii"
+    "spaceCount": "Spacja ×{count}"
   },
   "sectionActions": {
-    "categorizeSelected": "Przypisz kategorię do {count, plural, one {# zaznaczonego wersu} few {# zaznaczonych wersów} many {# zaznaczonych wersów} other {# zaznaczonego wersu}}",
-    "categorizeTitle": "Przypisz kategorię zaznaczonym wersom",
-    "categorize": "Przypisz kategorię",
     "expand": "Rozwiń sekcję",
     "collapse": "Zwiń sekcję",
-    "editTitle": "Edytuj sekcję",
-    "vocalist": "Wokalista / rola",
-    "notes": "Notatki",
-    "manage": "Zarządzaj sekcjami",
-    "goPrevious": "Przejdź do poprzedniej sekcji",
-    "goNext": "Przejdź do następnej sekcji",
-    "editMetadata": "Edytuj metadane",
-    "split": "Podziel przy zaznaczonym wersie",
     "mergePrevious": "Połącz z poprzednią",
-    "mergeNext": "Połącz z następną",
-    "moveUp": "Przesuń w górę",
-    "moveDown": "Przesuń w dół",
-    "linkPrevious": "Połącz z poprzednią sekcją: {category}",
-    "unlinkRepeat": "Odłącz powtórzenie",
-    "removeHeader": "Usuń nagłówek (zachowaj tekst)",
-    "addToPrevious": "Dodaj nieprzypisane wersy do poprzedniej sekcji",
-    "addToNext": "Dodaj nieprzypisane wersy do następnej sekcji",
-    "section": "Sekcja"
+    "removeHeader": "Usuń nagłówek (zachowaj tekst)"
+  },
+  "sectionEditing": {
+    "menu": "Akcje sekcji",
+    "startHere": "Zacznij sekcję tutaj",
+    "noSection": "Bez sekcji",
+    "rename": "Zmień nazwę",
+    "renameHint": "Zmień nazwę lub typ",
+    "label": "Nazwa sekcji",
+    "type": "Typ sekcji",
+    "snapToPlayhead": "Przyciągnij do pozycji odtwarzania",
+    "applyTimings": "Zastosuj czasy z...",
+    "applyTitle": "Zastosuj czasy do {name}",
+    "applyDesc": "Pasujące słowa dostają czasy z wybranej sekcji. Reszta zachowuje swoje.",
+    "source": "Kopiuj z",
+    "similarity": "Zgodność {percent}%",
+    "showMore": "{count, plural, one {Pokaż jeszcze # sekcję} few {Pokaż jeszcze # sekcje} many {Pokaż jeszcze # sekcji} other {Pokaż jeszcze # sekcji}}",
+    "noSources": "Żadna inna sekcja nie ma jeszcze czasów. Najpierw zsynchronizuj jedną.",
+    "anchor": "Zacznij od",
+    "anchorSection": "Początek sekcji ({time})",
+    "anchorPlayhead": "Pozycja odtwarzania ({time})",
+    "anchorPlayheadOnly": "Zaczyna od pozycji odtwarzania ({time}). Ta sekcja nie ma jeszcze czasów.",
+    "refineNote": "Skopiowane czasy to tylko punkt wyjścia. Odtwórz sekcję i popraw to, co nie pasuje.",
+    "apply": "Zastosuj",
+    "applied": "Skopiowano czasy do {copied} z {total} wersów. {untimed, plural, =0 {Wszystkie słowa mają czasy.} one {# słowo zostało bez czasu.} few {# słowa zostały bez czasu.} many {# słów zostało bez czasu.} other {# słowa zostało bez czasu.}}",
+    "nothingMatched": "Żaden wers w tej sekcji nie pasuje do tamtej, więc nic nie skopiowano."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Zwrotka",
+    "pre-chorus": "Przedrefren",
+    "chorus": "Refren",
+    "post-chorus": "Po refrenie",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Most",
+    "break": "Przerwa",
+    "interlude": "Interludium",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Mówione",
+    "skit": "Skit",
+    "sample": "Sampel",
+    "outro": "Outro",
+    "other": "Inne"
   },
   "touchSyncPanel": {
     "prevWord": "Poprzednie słowo",
@@ -1733,12 +1726,6 @@
     "settings": "Ustawienia spektrogramu",
     "fftSize": "Rozmiar FFT",
     "resolution": "Rozdzielczość FFT",
-    "fftSizeOption": {
-      "512": "512 (najszybciej)",
-      "1024": "1024 (zrównoważone)",
-      "2048": "2048 (więcej szczegółów częstotliwości)",
-      "4096": "4096 (najwięcej szczegółów)"
-    },
     "height": "Wysokość widoku"
   },
   "spectrogramFollow": {

@@ -38,8 +38,48 @@ export const calculateScrollDuration = (
 	);
 };
 
-export const easeInOutSine = (t: number): number =>
-	-(Math.cos(Math.PI * t) - 1) / 2;
+/**
+ * A scroll glide from `distance` away that starts at `startVelocity` (px/ms)
+ * and comes to rest on the target. From rest it is a plain ease-in-out; a
+ * glide retargeted mid-flight keeps its speed instead of stalling and
+ * ramping up again.
+ */
+export interface ScrollGlide {
+	distance: number;
+	startVelocity: number;
+	duration: number;
+}
+
+export const createScrollGlide = (
+	distance: number,
+	startVelocity: number,
+	duration: number,
+): ScrollGlide => {
+	// Only carry speed that heads towards the target, and no more than the
+	// curve can absorb without overshooting it (v * duration <= 3 * distance).
+	const limit = (3 * Math.abs(distance)) / duration;
+	const carried =
+		Math.sign(startVelocity) === Math.sign(distance)
+			? Math.sign(distance) * Math.min(Math.abs(startVelocity), limit)
+			: 0;
+	return { distance, startVelocity: carried, duration };
+};
+
+/** Offset from the glide's start at progress `t` (0 to 1). */
+export const scrollGlideOffset = (glide: ScrollGlide, t: number): number => {
+	const settle = t * t * (3 - 2 * t);
+	const carry = t * (1 - t) * (1 - t);
+	return glide.distance * settle + glide.startVelocity * glide.duration * carry;
+};
+
+/** Speed of the glide at progress `t`, in px/ms. */
+export const scrollGlideVelocity = (glide: ScrollGlide, t: number): number => {
+	const settle = 6 * t * (1 - t);
+	const carry = (1 - t) * (1 - 3 * t);
+	return (
+		(glide.distance * settle) / glide.duration + glide.startVelocity * carry
+	);
+};
 
 export interface ResolveAnchorParams {
 	syncTabPosition: boolean;

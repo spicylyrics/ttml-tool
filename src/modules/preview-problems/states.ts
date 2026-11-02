@@ -1,8 +1,7 @@
 import { atom } from "jotai";
 import { timedPreviewLyricsAtom } from "$/components/PreviewModeSwitcher/states";
+import { expandToLineAtom } from "$/modules/lyric-editor/states/sections";
 import {
-	collapsedSectionIdsAtom,
-	lyricLinesAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
 	ToolMode,
@@ -19,14 +18,7 @@ export const previewTimingProblemsAtom = atom((get) =>
 export const jumpToFirstTimingProblemAtom = atom(null, (get, set) => {
 	const issue = get(previewTimingProblemsAtom)[0];
 	if (!issue) return;
-	const line = get(lyricLinesAtom).lyricLines.find(
-		(item) => item.id === issue.lineId,
-	);
-	if (line?.sectionId) {
-		const expanded = new Set(get(collapsedSectionIdsAtom));
-		expanded.delete(line.sectionId);
-		set(collapsedSectionIdsAtom, expanded);
-	}
+	set(expandToLineAtom, issue.lineId);
 	set(selectedLinesAtom, new Set([issue.lineId]));
 	set(selectedWordsAtom, new Set([issue.wordId]));
 	set(toolModeAtom, ToolMode.Sync);

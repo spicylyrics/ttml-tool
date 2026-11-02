@@ -161,10 +161,6 @@ describe("literal pipes in former shortcut entry points", () => {
 					}
 					showTimestamps={false}
 					store={store}
-					activeGeniusHeader=""
-					customHeaderColor=""
-					isSectionStart={false}
-					categoryColor="blue"
 					wordsContainerRef={{ current: null }}
 					showWordRomanizationInput={false}
 					wordTexts={[]}

@@ -63,68 +63,9 @@ export const PUNCT_LEFT = new Set([
 ]);
 
 /**
- * 右标点：通常不与后面的词粘连
- */
-export const PUNCT_RIGHT = new Set([
-	")",
-	"]",
-	"}",
-	">",
-	"」",
-	"』",
-	"）",
-	"】",
-	"》",
-	"〉",
-	"〕",
-	"｣",
-	"”",
-	"’",
-	"»",
-	"›",
-]);
-
-/**
  * 容易引起歧义的引号 (分词时需特殊处理)
  */
 export const PUNCT_AMBIGUOUS_QUOTES = new Set(['"']);
-
-/**
- * 其他标点 (句号、逗号、连字符等)
- */
-export const PUNCT_EXTRA = new Set([
-	",",
-	"，",
-	"。",
-	"．",
-	".",
-	"?",
-	"!",
-	"！",
-	"？",
-	"、",
-	"；",
-	";",
-	":",
-	"：",
-	"'",
-	"’",
-	"〜",
-	"～",
-	"-",
-	"—",
-	"…",
-	"⋯",
-	"·",
-	"♪",
-]);
-
-export const ALL_PUNCTUATION = new Set([
-	...PUNCT_LEFT,
-	...PUNCT_RIGHT,
-	...PUNCT_AMBIGUOUS_QUOTES,
-	...PUNCT_EXTRA,
-]);
 
 /**
  * 判断标点符号应该向哪个方向合并
@@ -138,12 +79,4 @@ export function getMergeDirection(text: string): MergeDirection {
 
 	// 句号、逗号、右括号等其他所有标点向左合并
 	return MergeDirection.Left;
-}
-
-/**
- * 转义正则特殊字符
- * 防止字符串里的特殊符号搞崩正则
- */
-export function escapeRegExp(string: string): string {
-	return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

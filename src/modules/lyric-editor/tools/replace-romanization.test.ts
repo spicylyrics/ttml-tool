@@ -59,4 +59,44 @@ describe("replaceRomanization", () => {
 			lyricLines.flatMap((line) => line.words.map((word) => word.romanWord)),
 		).toEqual(["new", "new", "new"]);
 	});
+
+	it("ignores edge punctuation the way Combine does, unless case matters", () => {
+		const lyricLines = [
+			{
+				words: [
+					{ word: "You", romanWord: "a" },
+					{ word: "you,", romanWord: "b" },
+					{ word: "(you)", romanWord: "c" },
+					{ word: "your", romanWord: "d" },
+				],
+			},
+		];
+		const options = {
+			lineIndex: 0,
+			wordIndex: 0,
+			targetWord: "You",
+			replacement: "new",
+			applyToAll: true,
+		};
+		replaceRomanization(lyricLines, { ...options, caseSensitive: false });
+		expect(lyricLines[0].words.map((word) => word.romanWord)).toEqual([
+			"new",
+			"new",
+			"new",
+			"d",
+		]);
+
+		lyricLines[0].words[1].romanWord = "b";
+		replaceRomanization(lyricLines, {
+			...options,
+			replacement: "exact",
+			caseSensitive: true,
+		});
+		expect(lyricLines[0].words.map((word) => word.romanWord)).toEqual([
+			"exact",
+			"b",
+			"new",
+			"d",
+		]);
+	});
 });

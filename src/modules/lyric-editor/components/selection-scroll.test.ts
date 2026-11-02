@@ -3,9 +3,11 @@ import { ToolMode } from "$/states/main.ts";
 import {
 	AUTO_SCROLL_PAUSE_MS,
 	calculateScrollDuration,
-	easeInOutSine,
+	createScrollGlide,
 	findClosestLineToViewportCenter,
 	resolveAnchorLineIndex,
+	scrollGlideOffset,
+	scrollGlideVelocity,
 	shouldAutoCenterSelection,
 } from "./selection-scroll";
 
@@ -67,15 +69,37 @@ describe("calculateScrollDuration", () => {
 	});
 });
 
-describe("easeInOutSine", () => {
-	it("starts at 0 and ends at 1", () => {
-		expect(easeInOutSine(0)).toBeCloseTo(0, 5);
-		expect(easeInOutSine(1)).toBeCloseTo(1, 5);
+describe("scroll glide", () => {
+	it("eases in and out from rest, symmetric around the midpoint", () => {
+		const glide = createScrollGlide(400, 0, 300);
+		expect(scrollGlideOffset(glide, 0)).toBeCloseTo(0, 5);
+		expect(scrollGlideOffset(glide, 0.5)).toBeCloseTo(200, 5);
+		expect(scrollGlideOffset(glide, 1)).toBeCloseTo(400, 5);
+		expect(
+			scrollGlideOffset(glide, 0.25) + scrollGlideOffset(glide, 0.75),
+		).toBeCloseTo(400, 5);
+		expect(scrollGlideVelocity(glide, 0)).toBeCloseTo(0, 5);
+		expect(scrollGlideVelocity(glide, 1)).toBeCloseTo(0, 5);
 	});
 
-	it("evaluates midpoint at 0.5 with symmetric progression", () => {
-		expect(easeInOutSine(0.5)).toBeCloseTo(0.5, 5);
-		expect(easeInOutSine(0.25) + easeInOutSine(0.75)).toBeCloseTo(1, 5);
+	it("keeps the speed of a glide it retargets", () => {
+		const first = createScrollGlide(400, 0, 300);
+		const speed = scrollGlideVelocity(first, 0.5);
+		const next = createScrollGlide(500, speed, 320);
+		expect(scrollGlideVelocity(next, 0)).toBeCloseTo(speed, 5);
+		expect(scrollGlideOffset(next, 1)).toBeCloseTo(500, 5);
+		expect(scrollGlideVelocity(next, 1)).toBeCloseTo(0, 5);
+	});
+
+	it("never overshoots the target", () => {
+		const glide = createScrollGlide(20, 5, 300);
+		for (let t = 0; t <= 1; t += 0.01) {
+			expect(scrollGlideOffset(glide, t)).toBeLessThanOrEqual(20 + 1e-9);
+		}
+	});
+
+	it("drops speed that heads away from the target", () => {
+		expect(createScrollGlide(-200, 2, 300).startVelocity).toBe(0);
 	});
 });
 

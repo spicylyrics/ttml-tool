@@ -17,7 +17,7 @@ const render = async (problems?: SpicyWordProblems) => {
 	];
 	line.words[0].endTime = 1_400;
 	line.words[1].endTime = 1_500;
-	const lines = buildSpicyLines([line], false, false, false, false, problems);
+	const lines = buildSpicyLines([line], false, false, false, problems);
 	const container = document.createElement("div");
 	const root = createRoot(container);
 	await act(async () =>

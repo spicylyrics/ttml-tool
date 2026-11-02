@@ -701,6 +701,11 @@
 }
 
 .lyricWord.selected {
+	/* Joined syllables overlap and the romanization field sits right below,
+	   so lift the selected chip or they paint over its outline. */
+	position: relative;
+	z-index: 1;
+
 	.startTime,
 	.endTime {
 		color: var(--white-a10);

@@ -1,7 +1,6 @@
 import {
 	BackgroundSyncControl,
 	SettingToggle,
-	SyncLevelControl,
 	SyncOffsetControl,
 } from "$/modules/settings/components/WorkflowControls";
 /*
@@ -38,7 +37,6 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 	const showWordRomanizationInput = useAtomValue(showWordRomanizationInputAtom);
 	const { t } = useTranslation();
 	const showAdvanced = useAtomValue(advancedRibbonControlsAtom);
-	const syncLevelLabel = t("ribbonBar.syncMode.syncLevel", "Sync by");
 	const bgSyncLabel = t("ribbonBar.syncMode.bgLyricSync", "Background lines");
 	const previewPanelLabel = t(
 		"ribbonBar.editMode.previewPanel",
@@ -72,26 +70,6 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 					/>
 					<SyncOffsetControl commit compact />
 				</Grid>
-			</RibbonSection>
-			<RibbonSection label={syncLevelLabel}>
-				<Flex
-					direction="column"
-					gap="2"
-					align="center"
-					justify="center"
-					px="2"
-					style={{ height: "100%" }}
-				>
-					<ActionTooltip
-						label={syncLevelLabel}
-						description={t(
-							"settings.workflow.syncLevelDesc",
-							"Word: time each word as you go. Line: time whole lines and spread their words out evenly, for a rough sync you fine-tune in the spectrogram.",
-						)}
-					>
-						<SyncLevelControl />
-					</ActionTooltip>
-				</Flex>
 			</RibbonSection>
 			<RibbonSection
 				label={t("ribbonBar.syncMode.playbackTracking", "Tracking")}

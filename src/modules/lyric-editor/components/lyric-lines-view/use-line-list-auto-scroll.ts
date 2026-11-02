@@ -127,15 +127,14 @@ export function useLineListAutoScroll({
 		}
 		if (scrollToIndex === lastSelectionScrolledIndexRef.current) return;
 		lastSelectionScrolledIndexRef.current = scrollToIndex;
-		cancelScrollAnimation();
 		cancelResumeTimer();
 		userScrolledAtRef.current = Date.now();
+		// Retargets any glide in flight, keeping its speed.
 		scrollToLineIndex(scrollToIndex, true);
 	}, [
 		scrollToIndex,
 		scrollToLineIndex,
 		cancelResumeTimer,
-		cancelScrollAnimation,
 		lastSelectionScrolledIndexRef,
 	]);
 

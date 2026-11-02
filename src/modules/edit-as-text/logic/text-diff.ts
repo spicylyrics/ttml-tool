@@ -44,9 +44,7 @@ export function parseEditedText(
 	let chunk: string[] = [];
 	const flush = () => {
 		if (!chunk.length) return;
-		for (const line of importTextToLines(chunk.join("\n"), format, true, {
-			splitHyphens: false,
-		}))
+		for (const line of importTextToLines(chunk.join("\n"), format, true))
 			tokens.push({ type: "line", line });
 		chunk = [];
 	};
@@ -90,7 +88,6 @@ function canonicalLine(line: LyricLine, format: LyricMarkupFormat) {
 		serializeLine(line, format).join("\n"),
 		format,
 		true,
-		{ splitHyphens: false },
 	)[0];
 	canonicalCache.set(line, { format, line: canonical });
 	return canonical;
@@ -457,7 +454,6 @@ export function applyEditedText(
 							label: fresh.label,
 							category: fresh.category,
 							ordinal: fresh.ordinal,
-							vocalist: fresh.vocalist,
 							confidence: fresh.confidence,
 						});
 				}

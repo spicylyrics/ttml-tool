@@ -78,12 +78,7 @@ export function useAppUpdate() {
 			});
 
 			setStatus("ready");
-
-			try {
-				await relaunch();
-			} catch (e) {
-				console.error("Auto relaunch failed", e);
-			}
+			await restartApp();
 		} catch (e) {
 			console.error("Failed to install update", e);
 			setStatus("error");
@@ -98,5 +93,16 @@ export function useAppUpdate() {
 		errorMsg,
 		checkUpdate,
 		installUpdate,
+		restartApp,
 	};
+}
+
+// Starts the installed binary again. Reloading the page would keep the old
+// version running until the user quits the app themselves.
+async function restartApp() {
+	try {
+		await relaunch();
+	} catch (e) {
+		console.error("Relaunch failed", e);
+	}
 }

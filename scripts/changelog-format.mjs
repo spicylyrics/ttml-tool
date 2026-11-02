@@ -16,6 +16,8 @@ export function entryProblems({ title, body }) {
 	if (FINAL_PUNCTUATION.test(title))
 		problems.push("title ends with punctuation");
 	if (/^[a-z]/.test(title)) problems.push("title starts lowercase");
+	// Renderers bold the title themselves, so markup here doubles up.
+	if (/[*`]/.test(title)) problems.push("title has markdown");
 	if (!body?.trim()) problems.push("a one-sentence body is required");
 	else {
 		if (body.length > BODY_MAX)

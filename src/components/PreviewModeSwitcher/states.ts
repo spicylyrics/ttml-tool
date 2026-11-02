@@ -1,7 +1,7 @@
 import { atom } from "jotai";
+import { expandToLineAtom } from "$/modules/lyric-editor/states/sections";
 import { hasNoTiming } from "$/modules/lyric-editor/utils/timing-status";
 import {
-	collapsedSectionIdsAtom,
 	lyricLinesAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
@@ -25,11 +25,7 @@ export const timedPreviewLyricsAtom = atom((get) => {
 export const jumpToFirstUntimedLineAtom = atom(null, (get, set) => {
 	const line = get(untimedPreviewLinesAtom)[0];
 	if (!line) return;
-	if (line.sectionId) {
-		const expanded = new Set(get(collapsedSectionIdsAtom));
-		expanded.delete(line.sectionId);
-		set(collapsedSectionIdsAtom, expanded);
-	}
+	set(expandToLineAtom, line.id);
 	set(selectedLinesAtom, new Set([line.id]));
 	const word = line.words.find((item) => item.word.trim());
 	set(selectedWordsAtom, new Set(word ? [word.id] : []));

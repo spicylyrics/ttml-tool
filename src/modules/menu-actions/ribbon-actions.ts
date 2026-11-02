@@ -18,7 +18,6 @@ import {
 import {
 	showRomanLinesAtom,
 	showTranslationLinesAtom,
-	spicyForceLineSyncedAtom,
 	spicyJoinSplitWordsAtom,
 	spicySimpleLyricsModeAtom,
 } from "$/modules/settings/states/preview";
@@ -36,7 +35,7 @@ import {
 	showPreviewPanelAtom,
 } from "$/states/main.ts";
 import { type LyricLine, newLyricLine } from "$/types/ttml";
-import { defineAction, type MenuAction } from "./actions";
+import { defineAction, type MenuAction, SELECTION_MODES } from "./actions";
 
 type BooleanSetting = WritableAtom<boolean, [boolean], unknown>;
 
@@ -72,7 +71,7 @@ function lineFlagAction(
 	field: LineFlag,
 ): MenuAction {
 	return defineAction(id, "Edit", label, {
-		modes: ["edit"],
+		modes: SELECTION_MODES,
 		enabledAtom: hasSelectedLinesAtom,
 		run: ({ store }) => {
 			const selected = store.get(selectedLinesAtom);
@@ -230,13 +229,6 @@ export const RIBBON_ACTIONS = {
 		"Preview",
 		[key("ribbonBar.previewMode.simpleLyrics"), "Simple Lyrics mode"],
 		spicySimpleLyricsModeAtom,
-		PREVIEW,
-	),
-	forceLineSynced: defineToggle(
-		"toggleForceLineSynced",
-		"Preview",
-		[key("ribbonBar.previewMode.forceLineRendering"), "Show as line-synced"],
-		spicyForceLineSyncedAtom,
 		PREVIEW,
 	),
 	timingAutoScroll: defineToggle(

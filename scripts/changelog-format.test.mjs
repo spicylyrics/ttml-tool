@@ -26,6 +26,9 @@ describe("entryProblems", () => {
 			"title is over 60 characters",
 			"title starts lowercase",
 		]);
+		expect(entryProblems({ title: "**Bold lead**", body: "Yes" })).toEqual([
+			"title has markdown",
+		]);
 		expect(entryProblems({ title: "Lead" })).toEqual([
 			"a one-sentence body is required",
 		]);

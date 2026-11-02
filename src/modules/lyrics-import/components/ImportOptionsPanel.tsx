@@ -208,7 +208,7 @@ export function ImportOptionsPanel({
 								label: t("importLyrics.makeSections", "Make sections"),
 								description: t(
 									"importLyrics.makeSectionsHint",
-									"Each header starts a section. Turns on Genius sections.",
+									"Each header starts a section.",
 								),
 							},
 							{
@@ -225,7 +225,7 @@ export function ImportOptionsPanel({
 						{makeSections
 							? t(
 									"importLyrics.makeSectionsHint",
-									"Each header starts a section. Turns on Genius sections.",
+									"Each header starts a section.",
 								)
 							: t(
 									"importLyrics.removeHeadersHint",

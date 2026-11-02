@@ -8,7 +8,6 @@ import { smartLastWordAtom } from "$/modules/settings/states";
 import { backgroundSyncLaneAtom } from "$/modules/settings/states/background-sync";
 import {
 	syncCommitOffsetAtom,
-	syncLevelModeAtom,
 	syncTimeOffsetAtom,
 } from "$/modules/settings/states/sync";
 import {
@@ -71,7 +70,6 @@ function mount(mode: KeyBindingTriggerMode) {
 	store.set(lyricLinesAtom, { metadata: [], lyricLines: [first, second] });
 	store.set(selectedLinesAtom, new Set([first.id]));
 	store.set(selectedWordsAtom, new Set([first.words[0].id]));
-	store.set(syncLevelModeAtom, "word");
 	store.set(syncTimeOffsetAtom, 0);
 	store.set(syncCommitOffsetAtom, 0);
 	store.set(smartLastWordAtom, false);

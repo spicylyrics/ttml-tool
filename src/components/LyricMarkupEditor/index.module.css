@@ -201,89 +201,16 @@
 	background-color: var(--amber-a3);
 }
 
-/* Section header pill, coloured by category; the margin also names it. */
+/* Section header pill (look and colours from SectionPill); the margin also
+   names it. Inline so a long header wraps with the line; each row keeps the
+   pill shape. */
 .editor :global(.lm-pill) {
-	--lm-hue-a: var(--gray-a4);
-	--lm-hue-border: var(--gray-a7);
-	--lm-hue-text: var(--gray-12);
-	/* Inline so a long header wraps with the line; each row keeps the pill shape. */
 	display: inline;
-	padding: 0 var(--space-2);
 	-webkit-box-decoration-break: clone;
 	box-decoration-break: clone;
-	border: 1px solid var(--lm-hue-border);
-	border-radius: var(--sl-radius-pill, 9999px);
-	background-color: var(--lm-hue-a);
-	color: var(--lm-hue-text);
-	font: inherit;
-	font-size: var(--font-size-2);
-	font-weight: 500;
-	line-height: 1.7;
 	overflow-wrap: anywhere;
 	text-align: inherit;
 	white-space: normal;
-	cursor: pointer;
-}
-
-.editor :global(.lm-pill:focus-visible) {
-	outline: 2px solid var(--focus-8);
-	outline-offset: 1px;
-}
-
-.editor :global(.lm-pill[data-category="intro"]),
-.editor :global(.lm-pill[data-category="outro"]) {
-	--lm-hue-a: var(--cyan-a4);
-	--lm-hue-border: var(--cyan-a7);
-	--lm-hue-text: var(--cyan-11);
-}
-
-.editor :global(.lm-pill[data-category="verse"]) {
-	--lm-hue-a: var(--blue-a4);
-	--lm-hue-border: var(--blue-a7);
-	--lm-hue-text: var(--blue-11);
-}
-
-.editor :global(.lm-pill[data-category="pre-chorus"]),
-.editor :global(.lm-pill[data-category="post-chorus"]) {
-	--lm-hue-a: var(--iris-a4);
-	--lm-hue-border: var(--iris-a7);
-	--lm-hue-text: var(--iris-11);
-}
-
-.editor :global(.lm-pill[data-category="chorus"]),
-.editor :global(.lm-pill[data-category="refrain"]) {
-	--lm-hue-a: var(--purple-a4);
-	--lm-hue-border: var(--purple-a7);
-	--lm-hue-text: var(--purple-11);
-}
-
-.editor :global(.lm-pill[data-category="hook"]) {
-	--lm-hue-a: var(--pink-a4);
-	--lm-hue-border: var(--pink-a7);
-	--lm-hue-text: var(--pink-11);
-}
-
-.editor :global(.lm-pill[data-category="bridge"]) {
-	--lm-hue-a: var(--orange-a4);
-	--lm-hue-border: var(--orange-a7);
-	--lm-hue-text: var(--orange-11);
-}
-
-.editor :global(.lm-pill[data-category="break"]),
-.editor :global(.lm-pill[data-category="interlude"]),
-.editor :global(.lm-pill[data-category="instrumental"]),
-.editor :global(.lm-pill[data-category="solo"]) {
-	--lm-hue-a: var(--teal-a4);
-	--lm-hue-border: var(--teal-a7);
-	--lm-hue-text: var(--teal-11);
-}
-
-.editor :global(.lm-pill[data-category="spoken"]),
-.editor :global(.lm-pill[data-category="skit"]),
-.editor :global(.lm-pill[data-category="sample"]) {
-	--lm-hue-a: var(--brown-a4);
-	--lm-hue-border: var(--brown-a7);
-	--lm-hue-text: var(--brown-11);
 }
 
 /* Syllable split shown as a dot; click it to join the syllables. */

@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Log perubahan & pembaruan",
     "viewCommits": "Lihat commit di GitHub"
   },
   "updatedToast": {
@@ -172,12 +171,12 @@
     "sectionsTitle": "Judul bagian",
     "sectionsFound": "{count, plural, other {# judul ditemukan}}",
     "makeSections": "Buat bagian",
-    "makeSectionsHint": "Setiap judul memulai bagian. Mengaktifkan Bagian Genius.",
+    "makeSectionsHint": "Setiap judul memulai bagian.",
     "removeHeaders": "Hapus",
     "removeHeadersHint": "Membuang baris judul dari lirik.",
     "textFormat": "Format teks",
     "reviewSections": "Tinjau bagian",
-    "reviewHint": "Perbaiki kategori yang salah tebak. Warna, vokalis, dan catatan bisa diatur nanti dari menu bagian.",
+    "reviewHint": "Perbaiki jenis yang salah tebak. Anda bisa mengganti nama bagian nanti dengan mengklik namanya di editor.",
     "sectionLabel": "Label bagian",
     "sectionCategory": "Kategori bagian",
     "lowConfidence": "Kategori ditebak. Periksa kembali.",
@@ -337,20 +336,6 @@
       "description": "Ada perubahan yang belum disimpan. Jika Anda melanjutkan, perubahan ini akan hilang. Yakin ingin membuat proyek baru?"
     }
   },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Judul bagian Genius ditemukan",
-      "dialogDesc": "Lirik Anda memiliki judul bagian seperti [Verse] dan [Chorus]. Aktifkan fitur eksperimental Bagian Genius untuk menggunakannya?",
-      "usageInfo": "Judul bagian akan tampil dengan gaya tersendiri di editor. Klik judul untuk memakai alat seperti Salin waktu sebelumnya dan Paskan ke penunjuk putar.",
-      "maybeLater": "Mungkin nanti",
-      "enableNow": "Aktifkan sekarang",
-      "title": "Bagian Genius",
-      "snapToPlayhead": "Paskan ke penunjuk putar",
-      "noPreviousFound": "Tidak ditemukan bagian sebelumnya yang cocok dan sudah diberi waktu.",
-      "noMatchingLines": "Tidak ada baris di bagian ini yang cocok dengan bagian sebelumnya, jadi tidak ada yang disalin.",
-      "copyPrevious": "Salin waktu sebelumnya"
-    }
-  },
   "logoColor": {
     "title": "Warna logo",
     "description": "Pilih warna logo di bilah judul dan di layar sambutan panduan.",
@@ -385,7 +370,6 @@
     "search": "Cari",
     "success": "Berhasil dipulihkan",
     "error": "Data rusak atau hilang",
-    "edit": "Edit",
     "apply": "Terapkan",
     "confirm": "Konfirmasi",
     "back": "Kembali",
@@ -433,7 +417,6 @@
     "title": "Palet perintah",
     "placeholder": "Cari perintah dan pengaturan",
     "noResults": "Tidak ada perintah atau pengaturan yang cocok",
-    "commandTag": "Perintah",
     "settingTag": "Preferensi",
     "hint": "Tombol panah untuk berpindah, Enter untuk menjalankan, Esc untuk menutup",
     "notRunnable": "Perintah tidak dapat dijalankan. Beri pintasan di Preferensi, lalu coba lagi.",
@@ -544,7 +527,6 @@
       "timing": "Sinkronisasi",
       "spicy": "Spicy Lyrics",
       "simpleLyrics": "Mode lirik sederhana",
-      "forceLineRendering": "Tampilkan sinkronisasi per baris",
       "background": "Latar belakang",
       "backgroundAnimated": "Animasi",
       "backgroundColor": "Warna",
@@ -561,19 +543,13 @@
       "syncAdjustment": "Offset",
       "timeOffset": "Offset sinkronisasi",
       "commitOffset": "Offset tombol Berikutnya",
-      "syncLevel": "Sinkronkan per",
-      "syncLevelWord": "Kata",
-      "syncLevelLine": "Baris",
       "assistSettings": "Bantuan sinkronisasi",
-      "showTimestampUpdate": "Tampilkan perubahan penanda waktu",
       "touchSyncPanel": "Panel sinkronisasi sentuh",
       "bgLyricSync": "Baris vokal latar",
       "bgSyncInline": "Bersama baris utama",
       "bgSyncInlineDesc": "Sinkronkan setiap baris vokal latar tepat setelah baris utamanya.",
       "bgSyncSeparate": "Lewati saat sinkronisasi",
       "bgSyncSeparateDesc": "G dan H tetap di baris utama. Klik baris vokal latar untuk menyinkronkannya secara terpisah.",
-      "quickFixes": "Perbaikan cepat",
-      "manualTimestampEdit": "Edit penanda waktu manual",
       "doubleClickEdit": "Edit kata dengan klik dua kali",
       "displayOptions": "Opsi tampilan",
       "showTimestamps": "Tampilkan penanda waktu",
@@ -584,11 +560,6 @@
       "startSync": "Mulai",
       "continuousSync": "Berikutnya",
       "endSync": "Akhiri",
-      "manageQuickFixExclusions": {
-        "title": "Kelola pengecualian perbaikan cepat",
-        "description": "Tambahkan kata-kata untuk diabaikan dalam perbaikan cepat.",
-        "placeholder": "Masukkan kata untuk diabaikan"
-      },
       "playbackTracking": "Pelacakan",
       "autoScroll": "Gulir otomatis",
       "highlightActiveLine": "Sorot baris",
@@ -884,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, other {# nilai tersimpan}}",
         "keybindings": "{count, plural, other {# pintasan}}",
-        "assetsSet": "Gambar latar kustom diatur",
         "assetsNone": "Tidak ada aset kustom",
         "presetsCount": "{count, plural, other {# preset}}",
         "backgroundSet": "Latar belakang kustom",
@@ -901,9 +871,7 @@
       "exportTitle": "Ekspor",
       "exportDesc": "Simpan pengaturan dan data Anda ke file yang dapat Anda pulihkan nanti atau pindahkan ke perangkat lain.",
       "exportButton": "Ekspor cadangan",
-      "previewToggle": "Pratinjau konten",
       "previewLoading": "Memuat pratinjau…",
-      "previewEmpty": "Tidak ada yang dipilih untuk dipratinjau",
       "previewCategoryEmpty": "Tidak ada yang bisa diekspor dalam kategori ini",
       "previewMore": "+{count} lagi",
       "previewTotal": "Perkiraan ukuran keseluruhan",
@@ -951,12 +919,10 @@
       "previewShowTranslationDesc": "Tampilkan baris terjemahan di pratinjau.",
       "previewShowRomanDesc": "Tampilkan romanisasi di pratinjau.",
       "simpleLyricsDesc": "Tiru mode Simple Lyrics di Spicy Lyrics, dengan animasi kata yang lebih tenang.",
-      "forceLineRenderingDesc": "Tampilkan setiap baris di pratinjau Spicy sebagai sinkron per baris, tanpa waktu per kata.",
       "instantFadeDesc": "Hapus sorotan kata segera setelah selesai, bukan memudarkannya perlahan.",
       "timingOverviewAutoScrollDesc": "Jaga ikhtisar waktu tetap tergulir ke posisi pemutaran.",
       "vsyncDesc": "Perbarui pratinjau Standard dan Toxi setiap frame, bukan sekitar 30 kali per detik. Lebih mulus, tetapi memakai lebih banyak CPU.",
       "showFpsDesc": "Tampilkan penghitung frame rate di pratinjau.",
-      "syncLevelDesc": "Kata: beri waktu setiap kata. Baris: beri waktu seluruh baris dan sebarkan kata secara merata. Mode Baris tetap menyimpan waktu per kata, bukan lirik yang disinkronkan per baris, jadi sempurnakan kata-katanya di spektrogram.",
       "previewModeDesc": "Pilih pratinjau yang ditampilkan tab Pratinjau.",
       "spicyBackgroundDesc": "Apa yang tampil di belakang pratinjau Spicy.",
       "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi."
@@ -1089,6 +1055,13 @@
       "latencyTest": "Tes latensi audio/input"
     },
     "keybindings": {
+      "clearWordTiming": "Pengaturan waktu - Hapus stempel waktu kata/suku kata",
+      "sectionRename": "Bagian - Ganti nama",
+      "sectionStartHere": "Bagian - Mulai bagian di sini",
+      "sectionApplyTimings": "Bagian - Terapkan pewaktuan dari...",
+      "sectionSnapToPlayhead": "Bagian - Paskan ke penunjuk putar",
+      "sectionMergePrevious": "Bagian - Gabungkan dengan sebelumnya",
+      "sectionRemove": "Bagian - Hapus judul (pertahankan lirik)",
       "newFile": "File baru",
       "openFile": "Buka file",
       "saveFile": "Simpan file",
@@ -1209,7 +1182,7 @@
     "otherLayers": "Juga di tombol ini",
     "closePanel": "Tutup"
   },
-  "autoSegmentApplied":"Disegmentasi otomatis dengan {engine}",
+  "autoSegmentApplied": "Disegmentasi otomatis dengan {engine}",
   "error": {
     "unsupportedFileFormat": "Format file tidak didukung: {ext}",
     "openFileFailed": "Gagal membuka file",
@@ -1367,7 +1340,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Pecah baris yang diketik menjadi kata",
-    "splitTypedLinesDesc": "Teks yang diketik di baris kosong dipecah menjadi kata, sama seperti impor memecah baris.",
+    "splitTypedLinesDesc": "Teks yang diketik di baris dipecah menjadi kata di spasi dan tanda hubung, serta sesuai pemisahan yang telah dipelajari.",
     "scrollMemoryTitle": "Ingat posisi mode Edit",
     "scrollMemoryDesc": "Buka setiap proyek di baris terakhir Anda dalam mode Edit.",
     "swapDuetAll": "Tukar baris utama dan duet",
@@ -1375,37 +1348,57 @@
   },
   "lyricWordView": {
     "empty": "Kosong",
-    "spaceCount": "Spasi ×{count}",
-    "removeWord": "Hapus kata duplikat",
-    "editingWordTitle": "Pengeditan kata",
-    "editingWordDesc": "Edit kata atau terapkan perbaikan cepat yang disarankan.",
-    "correctedWordPlaceholder": "Ketikkan kata yang dikoreksi",
-    "noSuggestions": "Tidak ada saran"
+    "spaceCount": "Spasi ×{count}"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, other {Kategorikan # baris terpilih}}",
-    "categorizeTitle": "Kategorikan baris yang dipilih",
-    "categorize": "Kategorikan",
     "expand": "Perluas bagian",
     "collapse": "Ciutkan bagian",
-    "editTitle": "Edit bagian",
-    "vocalist": "Vokalis / peran",
-    "notes": "Catatan",
-    "manage": "Kelola bagian",
-    "goPrevious": "Buka bagian sebelumnya",
-    "goNext": "Lanjutkan ke bagian berikutnya",
-    "editMetadata": "Edit metadata",
-    "split": "Pisahkan pada baris yang dipilih",
     "mergePrevious": "Gabungkan dengan sebelumnya",
-    "mergeNext": "Gabungkan dengan berikutnya",
-    "moveUp": "Pindahkan ke atas",
-    "moveDown": "Pindah ke bawah",
-    "linkPrevious": "Tautkan ke {category} sebelumnya",
-    "unlinkRepeat": "Lepas tautan pengulangan",
-    "removeHeader": "Hapus judul (pertahankan lirik)",
-    "addToPrevious": "Tambahkan baris yang belum ditetapkan ke bagian sebelumnya",
-    "addToNext": "Tambahkan baris yang belum ditetapkan ke bagian berikutnya",
-    "section": "Bagian"
+    "removeHeader": "Hapus judul (pertahankan lirik)"
+  },
+  "sectionEditing": {
+    "menu": "Aksi bagian",
+    "startHere": "Mulai bagian di sini",
+    "noSection": "Tanpa bagian",
+    "rename": "Ganti nama",
+    "renameHint": "Ganti nama atau ubah jenis",
+    "label": "Nama bagian",
+    "type": "Jenis bagian",
+    "snapToPlayhead": "Paskan ke penunjuk putar",
+    "applyTimings": "Terapkan pewaktuan dari...",
+    "applyTitle": "Terapkan pewaktuan ke {name}",
+    "applyDesc": "Kata yang cocok mendapat pewaktuan dari bagian yang Anda pilih. Sisanya tetap seperti semula.",
+    "source": "Salin dari",
+    "similarity": "{percent}% cocok",
+    "showMore": "{count, plural, other {Tampilkan # bagian lagi}}",
+    "noSources": "Belum ada bagian lain yang punya pewaktuan. Sinkronkan satu bagian dahulu.",
+    "anchor": "Mulai dari",
+    "anchorSection": "Awal bagian ({time})",
+    "anchorPlayhead": "Penunjuk putar ({time})",
+    "anchorPlayheadOnly": "Dimulai dari penunjuk putar ({time}). Bagian ini belum punya pewaktuan.",
+    "refineNote": "Pewaktuan yang disalin hanyalah titik awal. Putar bagian ini dan perbaiki yang kurang pas.",
+    "apply": "Terapkan",
+    "applied": "Pewaktuan disalin ke {copied} dari {total} baris. {untimed, plural, =0 {Semua kata sudah punya pewaktuan.} other {# kata dibiarkan tanpa pewaktuan.}}",
+    "nothingMatched": "Tidak ada baris di bagian ini yang cocok dengan bagian itu, jadi tidak ada yang disalin."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Bait",
+    "pre-chorus": "Pra-reff",
+    "chorus": "Reff",
+    "post-chorus": "Pasca-reff",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Bridge",
+    "break": "Jeda",
+    "interlude": "Interlude",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Ucapan",
+    "skit": "Skit",
+    "sample": "Sampel",
+    "outro": "Outro",
+    "other": "Lainnya"
   },
   "touchSyncPanel": {
     "prevWord": "Kata sebelumnya",
@@ -1733,12 +1726,6 @@
     "settings": "Pengaturan spektrogram",
     "fftSize": "Ukuran FFT",
     "resolution": "Resolusi FFT",
-    "fftSizeOption": {
-      "512": "512 (tercepat)",
-      "1024": "1024 (seimbang)",
-      "2048": "2048 (detail frekuensi lebih tinggi)",
-      "4096": "4096 (detail terbanyak)"
-    },
     "height": "Tinggi tampilan"
   },
   "spectrogramFollow": {

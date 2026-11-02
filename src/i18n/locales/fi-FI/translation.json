@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Muutosloki ja päivitykset",
     "viewCommits": "Näytä muutokset GitHubissa"
   },
   "updatedToast": {
@@ -172,12 +171,12 @@
     "sectionsTitle": "Osioiden otsikot",
     "sectionsFound": "{count, plural, one {# otsikko löytyi} other {# otsikkoa löytyi}}",
     "makeSections": "Luo osiot",
-    "makeSectionsHint": "Jokainen otsikko aloittaa osion. Ottaa Genius-osiot käyttöön.",
+    "makeSectionsHint": "Jokainen otsikko aloittaa osion.",
     "removeHeaders": "Poista",
     "removeHeadersHint": "Poistaa otsikkorivit sanoituksista.",
     "textFormat": "Tekstin muoto",
     "reviewSections": "Tarkista osiot",
-    "reviewHint": "Korjaa väärin arvatut luokat. Värit, laulajat ja huomautukset voi asettaa myöhemmin osion valikosta.",
+    "reviewHint": "Korjaa väärin arvatut tyypit. Voit nimetä osiot myöhemmin uudelleen napsauttamalla niiden nimeä editorissa.",
     "sectionLabel": "Osion nimi",
     "sectionCategory": "Osion luokka",
     "lowConfidence": "Luokka on arvattu. Tarkista se.",
@@ -337,20 +336,6 @@
       "description": "Sinulla on tallentamattomia muutoksia. Jos jatkat, ne menetetään. Haluatko varmasti luoda uuden projektin?"
     }
   },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius-osioiden otsikoita löytyi",
-      "dialogDesc": "Sanoituksissa on osioiden otsikoita, kuten [Verse] ja [Chorus]. Otetaanko kokeellinen Genius-osiot käyttöön niiden hyödyntämiseksi?",
-      "usageInfo": "Osioiden otsikot saavat oman tyylinsä editorissa. Napsauta otsikkoa käyttääksesi toimintoja, kuten Kopioi edellinen ajoitus ja Kohdista toistokohdistimeen.",
-      "maybeLater": "Ehkä myöhemmin",
-      "enableNow": "Ota nyt käyttöön",
-      "title": "Genius-osiot",
-      "snapToPlayhead": "Kohdista toistokohdistimeen",
-      "noPreviousFound": "Aiempaa vastaavaa ajoitettua osiota ei löytynyt.",
-      "noMatchingLines": "Mikään tämän osion rivi ei vastaa aiempaa, joten mitään ei kopioitu.",
-      "copyPrevious": "Kopioi edellinen ajoitus"
-    }
-  },
   "logoColor": {
     "title": "Logon väri",
     "description": "Valitse logon väri otsikkopalkkiin ja oppaan aloitusnäyttöön.",
@@ -385,7 +370,6 @@
     "search": "Etsi",
     "success": "Palautus onnistui",
     "error": "Tiedot vioittuneet tai kadonneet",
-    "edit": "Muokkaa",
     "apply": "Käytä",
     "confirm": "Vahvista",
     "back": "Takaisin",
@@ -433,7 +417,6 @@
     "title": "Komentopaletti",
     "placeholder": "Etsi komentoja ja asetuksia",
     "noResults": "Ei vastaavia komentoja tai asetuksia",
-    "commandTag": "Komento",
     "settingTag": "Asetukset",
     "hint": "Nuolinäppäimet siirtävät, Enter suorittaa, Esc sulkee",
     "notRunnable": "Komentoa ei voitu suorittaa. Anna sille pikanäppäin asetuksissa ja yritä uudelleen.",
@@ -544,7 +527,6 @@
       "timing": "Ajoitus",
       "spicy": "Spicy Lyrics",
       "simpleLyrics": "Yksinkertainen sanoitustila",
-      "forceLineRendering": "Näytä rivikohtaisesti ajoitettuna",
       "background": "Tausta",
       "backgroundAnimated": "Animoitu",
       "backgroundColor": "Väri",
@@ -561,19 +543,13 @@
       "syncAdjustment": "Siirtymät",
       "timeOffset": "Ajoituksen siirtymä",
       "commitOffset": "Seuraava-näppäimen siirtymä",
-      "syncLevel": "Ajoita",
-      "syncLevelWord": "Sana",
-      "syncLevelLine": "Rivi",
       "assistSettings": "Ajoitusavut",
-      "showTimestampUpdate": "Näytä aikaleimapäivitykset",
       "touchSyncPanel": "Kosketusajoituspaneeli",
       "bgLyricSync": "Taustalaulurivit",
       "bgSyncInline": "Päärivin kanssa",
       "bgSyncInlineDesc": "Ajoita jokainen taustalaulurivi heti päärivinsä jälkeen.",
       "bgSyncSeparate": "Ohita ajoitettaessa",
       "bgSyncSeparateDesc": "G ja H pysyvät pääriveillä. Napsauta taustalauluriviä ajoittaaksesi ne erikseen.",
-      "quickFixes": "Pikakorjaukset",
-      "manualTimestampEdit": "Aikaleimojen manuaalinen muokkaus",
       "doubleClickEdit": "Muokkaa sanaa kaksoisnapsauttamalla",
       "displayOptions": "Näyttöasetukset",
       "showTimestamps": "Näytä aikaleimat",
@@ -584,11 +560,6 @@
       "startSync": "Aloita",
       "continuousSync": "Seuraava",
       "endSync": "Lopeta",
-      "manageQuickFixExclusions": {
-        "title": "Hallitse pikakorjausten ohitettavia sanoja",
-        "description": "Lisää sanat, jotka ohitetaan pikakorjauksissa.",
-        "placeholder": "Kirjoita ohitettava sana"
-      },
       "playbackTracking": "Seuranta",
       "autoScroll": "Automaattinen vieritys",
       "highlightActiveLine": "Korosta rivi",
@@ -884,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# tallennettu arvo} other {# tallennettua arvoa}}",
         "keybindings": "{count, plural, one {# pikanäppäin} other {# pikanäppäintä}}",
-        "assetsSet": "Mukautettu taustakuva asetettu",
         "assetsNone": "Ei mukautettuja tiedostoja",
         "presetsCount": "{count, plural, one {# esiasetus} other {# esiasetusta}}",
         "backgroundSet": "Mukautettu tausta",
@@ -901,9 +871,7 @@
       "exportTitle": "Vienti",
       "exportDesc": "Tallenna asetuksesi ja tietosi tiedostoon, jonka voit palauttaa myöhemmin tai siirtää toiseen laitteeseen.",
       "exportButton": "Vie varmuuskopio",
-      "previewToggle": "Esikatsele sisältöä",
       "previewLoading": "Ladataan esikatselua…",
-      "previewEmpty": "Mitään ei ole valittu esikatseluun",
       "previewCategoryEmpty": "Ei mitään vietävää tässä luokassa",
       "previewMore": "+{count} lisää",
       "previewTotal": "Arvioitu kokonaiskoko",
@@ -951,12 +919,10 @@
       "previewShowTranslationDesc": "Näytä käännösrivit esikatselussa.",
       "previewShowRomanDesc": "Näytä latinalaistus esikatselussa.",
       "simpleLyricsDesc": "Jäljittele Spicy Lyricsin Simple Lyrics -tilaa rauhallisemmilla sana-animaatioilla.",
-      "forceLineRenderingDesc": "Näytä kaikki Spicy-esikatselun rivit rivitason synkronointina ilman sanojen ajoitusta.",
       "instantFadeDesc": "Poista sanan korostus heti sen päätyttyä hitaan häivytyksen sijaan.",
       "timingOverviewAutoScrollDesc": "Pidä ajoituskatsaus vieritettynä toistokohtaan.",
       "vsyncDesc": "Päivitä Standard- ja Toxi-esikatselut joka ruudulla noin 30 kertaa sekunnissa tapahtuvan päivityksen sijaan. Sulavampi, mutta kuormittaa suoritinta enemmän.",
       "showFpsDesc": "Näytä esikatselussa kuvataajuuslaskuri.",
-      "syncLevelDesc": "Sana: ajoita jokainen sana erikseen. Rivi: ajoita kokonaiset rivit ja jaa sanat tasaisesti. Rivi-tilakin tallentaa sanakohtaiset ajat, ei rivikohtaisesti synkronoituja sanoituksia, joten tarkenna sanat spektrogrammissa.",
       "previewModeDesc": "Valitse, mikä esikatselu näkyy Esikatselu-välilehdellä.",
       "spicyBackgroundDesc": "Mitä Spicy-esikatselun taustalla näkyy.",
       "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa."
@@ -1089,6 +1055,13 @@
       "latencyTest": "Äänen ja syötteen viivetesti"
     },
     "keybindings": {
+      "clearWordTiming": "Ajoitus - Tyhjennä sanan/tavun aikaleimat",
+      "sectionRename": "Osio - Nimeä uudelleen",
+      "sectionStartHere": "Osio - Aloita osio tästä",
+      "sectionApplyTimings": "Osio - Käytä ajoituksia osiosta...",
+      "sectionSnapToPlayhead": "Osio - Kohdista toistokohdistimeen",
+      "sectionMergePrevious": "Osio - Yhdistä edelliseen",
+      "sectionRemove": "Osio - Poista otsikko (säilytä sanoitukset)",
       "newFile": "Uusi tiedosto",
       "openFile": "Avaa tiedosto",
       "saveFile": "Tallenna tiedosto",
@@ -1209,7 +1182,7 @@
     "otherLayers": "Myös tässä näppäimessä",
     "closePanel": "Sulje"
   },
-  "autoSegmentApplied":"Automaattinen jako tehty moottorilla {engine}",
+  "autoSegmentApplied": "Automaattinen jako tehty moottorilla {engine}",
   "error": {
     "unsupportedFileFormat": "Ei tuettu tiedostomuoto: {ext}",
     "openFileFailed": "Tiedoston avaaminen epäonnistui",
@@ -1367,7 +1340,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Jaa kirjoitetut rivit sanoiksi",
-    "splitTypedLinesDesc": "Tyhjälle riville kirjoitettu teksti jaetaan sanoiksi samalla tavalla kuin tuonti jakaa rivit.",
+    "splitTypedLinesDesc": "Riville kirjoitettu teksti jaetaan sanoiksi välilyöntien ja yhdysmerkkien kohdalta sekä opettamiesi jakojen mukaan.",
     "scrollMemoryTitle": "Muista muokkaustilan kohta",
     "scrollMemoryDesc": "Avaa jokainen projekti riviltä, jolla olit muokkaustilassa.",
     "swapDuetAll": "Vaihda pää- ja duettorivit",
@@ -1375,37 +1348,57 @@
   },
   "lyricWordView": {
     "empty": "Tyhjä",
-    "spaceCount": "Välilyönti ×{count}",
-    "removeWord": "Poista päällekkäinen sana",
-    "editingWordTitle": "Sanan muokkaus",
-    "editingWordDesc": "Muokkaa sanaa tai käytä ehdotettuja pikakorjauksia.",
-    "correctedWordPlaceholder": "Kirjoita korjattu sana",
-    "noSuggestions": "Ei ehdotuksia"
+    "spaceCount": "Välilyönti ×{count}"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {Luokittele # valittu rivi} other {Luokittele # valittua riviä}}",
-    "categorizeTitle": "Luokittele valitut rivit",
-    "categorize": "Luokittele",
     "expand": "Laajenna osio",
     "collapse": "Tiivistä osio",
-    "editTitle": "Muokkaa osiota",
-    "vocalist": "Laulaja / rooli",
-    "notes": "Huomautuksia",
-    "manage": "Hallinnoi osioita",
-    "goPrevious": "Siirry edelliseen osioon",
-    "goNext": "Siirry seuraavaan osioon",
-    "editMetadata": "Muokkaa metatietoja",
-    "split": "Jaa valitulla rivillä",
     "mergePrevious": "Yhdistä edelliseen",
-    "mergeNext": "Yhdistä seuraavaan",
-    "moveUp": "Siirrä ylös",
-    "moveDown": "Siirrä alas",
-    "linkPrevious": "Linkitä edelliseen osioon: {category}",
-    "unlinkRepeat": "Poista toiston linkitys",
-    "removeHeader": "Poista otsikko (säilytä sanoitukset)",
-    "addToPrevious": "Lisää luokittelemattomat rivit edelliseen osioon",
-    "addToNext": "Lisää luokittelemattomat rivit seuraavaan osioon",
-    "section": "Osio"
+    "removeHeader": "Poista otsikko (säilytä sanoitukset)"
+  },
+  "sectionEditing": {
+    "menu": "Osion toiminnot",
+    "startHere": "Aloita osio tästä",
+    "noSection": "Ei osiota",
+    "rename": "Nimeä uudelleen",
+    "renameHint": "Nimeä uudelleen tai vaihda tyyppi",
+    "label": "Osion nimi",
+    "type": "Osion tyyppi",
+    "snapToPlayhead": "Kohdista toistokohdistimeen",
+    "applyTimings": "Käytä ajoituksia osiosta...",
+    "applyTitle": "Käytä ajoituksia osioon {name}",
+    "applyDesc": "Täsmäävät sanat saavat ajoituksensa valitsemastasi osiosta. Muut säilyttävät omansa.",
+    "source": "Kopioi osiosta",
+    "similarity": "{percent} % vastaavuus",
+    "showMore": "{count, plural, one {Näytä # osio lisää} other {Näytä # osiota lisää}}",
+    "noSources": "Millään muulla osiolla ei ole vielä ajoituksia. Synkronoi ensin jokin osio.",
+    "anchor": "Aloituskohta",
+    "anchorSection": "Osion alku ({time})",
+    "anchorPlayhead": "Toistokohdistin ({time})",
+    "anchorPlayheadOnly": "Alkaa toistokohdistimesta ({time}). Tällä osiolla ei ole vielä ajoitusta.",
+    "refineNote": "Kopioidut ajoitukset ovat vasta lähtökohta. Toista osio ja korjaa kohdat, jotka eivät täsmää.",
+    "apply": "Käytä",
+    "applied": "Ajoitukset kopioitu {copied}/{total} riville. {untimed, plural, =0 {Kaikilla sanoilla on ajoitus.} one {# sana jäi ilman ajoitusta.} other {# sanaa jäi ilman ajoitusta.}}",
+    "nothingMatched": "Tämän osion rivit eivät vastaa toista osiota, joten mitään ei kopioitu."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Säkeistö",
+    "pre-chorus": "Esikertosäe",
+    "chorus": "Kertosäe",
+    "post-chorus": "Jälkikertosäe",
+    "refrain": "Refrääni",
+    "hook": "Koukku",
+    "bridge": "Silta",
+    "break": "Tauko",
+    "interlude": "Välisoitto",
+    "instrumental": "Instrumentaali",
+    "solo": "Soolo",
+    "spoken": "Puhuttu",
+    "skit": "Sketsi",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Muu"
   },
   "touchSyncPanel": {
     "prevWord": "Edellinen sana",
@@ -1733,12 +1726,6 @@
     "settings": "Spektrogrammin asetukset",
     "fftSize": "FFT-koko",
     "resolution": "FFT-resoluutio",
-    "fftSizeOption": {
-      "512": "512 (nopein)",
-      "1024": "1024 (tasapainoinen)",
-      "2048": "2048 (tarkemmat taajuudet)",
-      "4096": "4096 (tarkin)"
-    },
     "height": "Näyttökorkeus"
   },
   "spectrogramFollow": {

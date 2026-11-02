@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Değişiklik günlüğü ve güncellemeler",
     "viewCommits": "GitHub'daki commit'leri görüntüle"
   },
   "updatedToast": {
@@ -172,12 +171,12 @@
     "sectionsTitle": "Bölüm başlıkları",
     "sectionsFound": "{count, plural, one {# başlık bulundu} other {# başlık bulundu}}",
     "makeSections": "Bölüm oluştur",
-    "makeSectionsHint": "Her başlık bir bölüm başlatır. Genius bölümlerini açar.",
+    "makeSectionsHint": "Her başlık bir bölüm başlatır.",
     "removeHeaders": "Kaldır",
     "removeHeadersHint": "Başlık satırlarını şarkı sözlerinden siler.",
     "textFormat": "Metin biçimi",
     "reviewSections": "Bölümleri incele",
-    "reviewHint": "Yanlış tahmin edilen kategorileri düzeltin. Renkler, vokalistler ve notlar daha sonra bölüm menüsünden ayarlanabilir.",
+    "reviewHint": "Yanlış tahmin edilen türleri düzeltin. Bölümleri daha sonra düzenleyicide adlarına tıklayarak yeniden adlandırabilirsiniz.",
     "sectionLabel": "Bölüm adı",
     "sectionCategory": "Bölüm kategorisi",
     "lowConfidence": "Kategori tahmin edildi. Kontrol edin.",
@@ -337,20 +336,6 @@
       "description": "Kaydedilmemiş değişiklikleriniz var. Devam ederseniz bu değişiklikler kaybolacak. Yeni bir proje oluşturmak istediğinizden emin misiniz?"
     }
   },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius bölüm başlıkları bulundu",
-      "dialogDesc": "Şarkı sözlerinde [Verse] ve [Chorus] gibi bölüm başlıkları var. Bunları kullanmak için deneysel Genius bölümleri özelliği açılsın mı?",
-      "usageInfo": "Bölüm başlıkları düzenleyicide farklı bir stille gösterilir. “Önceki zamanlamayı kopyala” ve “Oynatma konumuna hizala” gibi araçları açmak için başlığa tıklayın.",
-      "maybeLater": "Belki daha sonra",
-      "enableNow": "Şimdi etkinleştir",
-      "title": "Genius bölümleri",
-      "snapToPlayhead": "Oynatma konumuna hizala",
-      "noPreviousFound": "Zamanlaması olan önceki bir eşleşen bölüm bulunamadı.",
-      "noMatchingLines": "Bu bölümdeki hiçbir satır öncekiyle eşleşmiyor, bu yüzden hiçbir şey kopyalanmadı.",
-      "copyPrevious": "Önceki zamanlamayı kopyala"
-    }
-  },
   "logoColor": {
     "title": "Logo rengi",
     "description": "Başlık çubuğundaki ve rehberin karşılama ekranındaki logo için bir renk seçin.",
@@ -385,7 +370,6 @@
     "search": "Ara",
     "success": "Geri yükleme başarılı",
     "error": "Veri bozuk veya kayıp",
-    "edit": "Düzenle",
     "apply": "Uygula",
     "confirm": "Onayla",
     "back": "Geri",
@@ -433,7 +417,6 @@
     "title": "Komut paleti",
     "placeholder": "Komutlarda ve ayarlarda ara",
     "noResults": "Eşleşen komut veya ayar yok",
-    "commandTag": "Komut",
     "settingTag": "Tercihler",
     "hint": "Ok tuşlarıyla gezinin, Enter ile çalıştırın, Esc ile kapatın",
     "notRunnable": "Komut çalıştırılamadı. Tercihler'den ona bir kısayol atayın ve tekrar deneyin.",
@@ -544,7 +527,6 @@
       "timing": "Zamanlama",
       "spicy": "Spicy Lyrics",
       "simpleLyrics": "Basit şarkı sözleri",
-      "forceLineRendering": "Satır senkronizasyonuyla göster",
       "background": "Arka plan",
       "backgroundAnimated": "Animasyonlu",
       "backgroundColor": "Renk",
@@ -561,19 +543,13 @@
       "syncAdjustment": "Kaymalar",
       "timeOffset": "Senkronizasyon kayması",
       "commitOffset": "Sonraki tuşu kayması",
-      "syncLevel": "Senkronizasyon birimi",
-      "syncLevelWord": "Kelime",
-      "syncLevelLine": "Satır",
       "assistSettings": "Senkronizasyon yardımcıları",
-      "showTimestampUpdate": "Zaman damgası güncellemelerini göster",
       "touchSyncPanel": "Dokunmatik senkronizasyon paneli",
       "bgLyricSync": "Arka vokal satırları",
       "bgSyncInline": "Ana satırla birlikte",
       "bgSyncInlineDesc": "Her arka vokal satırını ana satırından hemen sonra senkronize edin.",
       "bgSyncSeparate": "Senkronizasyonda atla",
       "bgSyncSeparateDesc": "G ve H ana satırlarda kalır. Arka vokalleri ayrıca senkronize etmek için bir arka vokal satırına tıklayın.",
-      "quickFixes": "Hızlı düzeltmeler",
-      "manualTimestampEdit": "Zaman damgalarını elle düzenleme",
       "doubleClickEdit": "Çift tıklamayla kelime düzenleme",
       "displayOptions": "Görünüm seçenekleri",
       "showTimestamps": "Zaman damgalarını göster",
@@ -584,11 +560,6 @@
       "startSync": "Başlat",
       "continuousSync": "Sonraki",
       "endSync": "Bitir",
-      "manageQuickFixExclusions": {
-        "title": "Hızlı düzeltme istisnalarını yönet",
-        "description": "Hızlı düzeltmelerde görmezden gelinecek kelimeler ekleyin.",
-        "placeholder": "Görmezden gelinecek kelime yazın"
-      },
       "playbackTracking": "Takip",
       "autoScroll": "Otomatik kaydırma",
       "highlightActiveLine": "Satırı vurgula",
@@ -884,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# kayıtlı değer} other {# kayıtlı değer}}",
         "keybindings": "{count, plural, one {# kısayol} other {# kısayol}}",
-        "assetsSet": "Özel arka plan resmi ayarlandı",
         "assetsNone": "Özel görünüm dosyası yok",
         "presetsCount": "{count, plural, one {# ön ayar} other {# ön ayar}}",
         "backgroundSet": "Özel arka plan",
@@ -901,9 +871,7 @@
       "exportTitle": "Dışa aktarma",
       "exportDesc": "Ayarlarınızı ve verilerinizi daha sonra geri yükleyebileceğiniz veya başka bir cihaza taşıyabileceğiniz bir dosyaya kaydedin.",
       "exportButton": "Yedeği dışa aktar",
-      "previewToggle": "İçeriği önizle",
       "previewLoading": "Önizleme yükleniyor…",
-      "previewEmpty": "Önizlemek için hiçbir şey seçilmedi",
       "previewCategoryEmpty": "Bu kategoride dışa aktarılacak bir şey yok",
       "previewMore": "+{count} daha",
       "previewTotal": "Tahmini toplam boyut",
@@ -951,12 +919,10 @@
       "previewShowTranslationDesc": "Önizlemede çeviri satırlarını gösterir.",
       "previewShowRomanDesc": "Önizlemede Latin harflerine çeviriyi gösterir.",
       "simpleLyricsDesc": "Spicy Lyrics'in Simple Lyrics modunu daha sakin kelime animasyonlarıyla taklit eder.",
-      "forceLineRenderingDesc": "Spicy önizlemesindeki her satırı kelime zamanlaması olmadan satır senkronizasyonuyla gösterir.",
       "instantFadeDesc": "Kelimenin vurgusunu yavaşça soldurmak yerine biter bitmez kaldırır.",
       "timingOverviewAutoScrollDesc": "Zamanlama görünümünü oynatma konumuna göre kaydırır.",
       "vsyncDesc": "Standard ve Toxi önizlemelerini saniyede yaklaşık 30 kez yerine her karede günceller. Daha akıcıdır, ancak daha fazla CPU kullanır.",
       "showFpsDesc": "Önizlemede kare hızı sayacı gösterir.",
-      "syncLevelDesc": "Kelime: her kelimeyi ayrı zamanlayın. Satır: tüm satırı zamanlayıp kelimeleri eşit dağıtın. Satır modu da her kelimenin zamanını kaydeder, satır senkronlu söz oluşturmaz; kelimeleri spektrogramda ince ayarlayın.",
       "previewModeDesc": "Önizleme sekmesinin hangi önizlemeyi göstereceğini seçin.",
       "spicyBackgroundDesc": "Spicy önizlemesinin arkasında ne görüneceği.",
       "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı."
@@ -1089,6 +1055,13 @@
       "latencyTest": "Ses/giriş gecikme testi"
     },
     "keybindings": {
+      "clearWordTiming": "Zamanlama - Sözcük/hece zaman damgalarını temizle",
+      "sectionRename": "Bölüm - Yeniden adlandır",
+      "sectionStartHere": "Bölüm - Bölümü buradan başlat",
+      "sectionApplyTimings": "Bölüm - Zamanlamaları şuradan uygula...",
+      "sectionSnapToPlayhead": "Bölüm - Oynatma konumuna hizala",
+      "sectionMergePrevious": "Bölüm - Öncekiyle birleştir",
+      "sectionRemove": "Bölüm - Başlığı kaldır (şarkı sözlerini sakla)",
       "newFile": "Yeni dosya",
       "openFile": "Dosya aç",
       "saveFile": "Dosyayı kaydet",
@@ -1209,7 +1182,7 @@
     "otherLayers": "Bu tuşta ayrıca",
     "closePanel": "Kapat"
   },
-  "autoSegmentApplied":"{engine} ile otomatik bölündü",
+  "autoSegmentApplied": "{engine} ile otomatik bölündü",
   "error": {
     "unsupportedFileFormat": "Desteklenmeyen dosya biçimi: {ext}",
     "openFileFailed": "Dosya açılamadı",
@@ -1367,7 +1340,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Yazılan satırları kelimelere böl",
-    "splitTypedLinesDesc": "Boş bir satıra yazılan metin, içe aktarmanın satırları böldüğü gibi kelimelere bölünür.",
+    "splitTypedLinesDesc": "Bir satıra yazılan metin, boşluklarda ve kısa çizgilerde ve öğrenilmiş bölmelere göre kelimelere bölünür.",
     "scrollMemoryTitle": "Düzenleme modu konumunu hatırla",
     "scrollMemoryDesc": "Her projeyi Düzenleme modunda kaldığınız satırda açar.",
     "swapDuetAll": "Ana ve düet satırlarını değiştir",
@@ -1375,37 +1348,57 @@
   },
   "lyricWordView": {
     "empty": "Boş",
-    "spaceCount": "Boşluk ×{count}",
-    "removeWord": "Yinelenen kelimeyi kaldır",
-    "editingWordTitle": "Kelime düzenleme",
-    "editingWordDesc": "Kelimeyi düzenleyin veya önerilen hızlı düzeltmeleri uygulayın.",
-    "correctedWordPlaceholder": "Düzeltilen kelimeyi yazın",
-    "noSuggestions": "Öneri yok"
+    "spaceCount": "Boşluk ×{count}"
   },
   "sectionActions": {
-    "categorizeSelected": "Seçili {count, plural, one {# satırı} other {# satırı}} kategorilere ayır",
-    "categorizeTitle": "Seçili satırları kategorilere ayır",
-    "categorize": "Kategorilere ayır",
     "expand": "Bölümü genişlet",
     "collapse": "Bölümü daralt",
-    "editTitle": "Bölümü düzenle",
-    "vocalist": "Vokalist / rol",
-    "notes": "Notlar",
-    "manage": "Bölümleri yönet",
-    "goPrevious": "Önceki bölüme git",
-    "goNext": "Sonraki bölüme git",
-    "editMetadata": "Meta verileri düzenle",
-    "split": "Seçilen satırda böl",
     "mergePrevious": "Öncekiyle birleştir",
-    "mergeNext": "Sonrakiyle birleştir",
-    "moveUp": "Yukarı taşı",
-    "moveDown": "Aşağı taşı",
-    "linkPrevious": "Önceki {category} bölümüne bağla",
-    "unlinkRepeat": "Tekrarın bağlantısını kaldır",
-    "removeHeader": "Başlığı kaldır (şarkı sözlerini sakla)",
-    "addToPrevious": "Atanmamış satırları önceki bölüme ekle",
-    "addToNext": "Atanmamış satırları sonraki bölüme ekle",
-    "section": "Bölüm"
+    "removeHeader": "Başlığı kaldır (şarkı sözlerini sakla)"
+  },
+  "sectionEditing": {
+    "menu": "Bölüm eylemleri",
+    "startHere": "Bölümü buradan başlat",
+    "noSection": "Bölüm yok",
+    "rename": "Yeniden adlandır",
+    "renameHint": "Yeniden adlandır veya türünü değiştir",
+    "label": "Bölüm adı",
+    "type": "Bölüm türü",
+    "snapToPlayhead": "Oynatma konumuna hizala",
+    "applyTimings": "Zamanlamaları şuradan uygula...",
+    "applyTitle": "Zamanlamaları {name} bölümüne uygula",
+    "applyDesc": "Eşleşen sözcükler zamanlamayı seçtiğiniz bölümden alır. Diğerleri kendi zamanlamasını korur.",
+    "source": "Kopyalanacak bölüm",
+    "similarity": "%{percent} eşleşme",
+    "showMore": "{count, plural, one {# bölüm daha göster} other {# bölüm daha göster}}",
+    "noSources": "Henüz zamanlaması olan başka bölüm yok. Önce birini senkronize edin.",
+    "anchor": "Başlangıç noktası",
+    "anchorSection": "Bölüm başlangıcı ({time})",
+    "anchorPlayhead": "Oynatma konumu ({time})",
+    "anchorPlayheadOnly": "Oynatma konumundan başlar ({time}). Bu bölümün henüz zamanlaması yok.",
+    "refineNote": "Kopyalanan zamanlamalar yalnızca bir başlangıç noktasıdır. Bölümü oynatın ve uymayanları düzeltin.",
+    "apply": "Uygula",
+    "applied": "Zamanlamalar {total} satırdan {copied} tanesine kopyalandı. {untimed, plural, =0 {Tüm kelimelerin zamanlaması var.} one {# kelime zamanlamasız kaldı.} other {# kelime zamanlamasız kaldı.}}",
+    "nothingMatched": "Bu bölümdeki hiçbir satır diğer bölümle eşleşmiyor, bu yüzden hiçbir şey kopyalanmadı."
+  },
+  "sectionCategories": {
+    "intro": "Giriş",
+    "verse": "Kıta",
+    "pre-chorus": "Nakarat öncesi",
+    "chorus": "Nakarat",
+    "post-chorus": "Nakarat sonrası",
+    "refrain": "Tekrarlanan dize",
+    "hook": "Kanca",
+    "bridge": "Köprü",
+    "break": "Ara",
+    "interlude": "Ara bölüm",
+    "instrumental": "Enstrümantal",
+    "solo": "Solo",
+    "spoken": "Konuşma",
+    "skit": "Skeç",
+    "sample": "Örnek",
+    "outro": "Kapanış",
+    "other": "Diğer"
   },
   "touchSyncPanel": {
     "prevWord": "Önceki kelime",
@@ -1733,12 +1726,6 @@
     "settings": "Spektrogram ayarları",
     "fftSize": "FFT boyutu",
     "resolution": "FFT çözünürlüğü",
-    "fftSizeOption": {
-      "512": "512 (en hızlı)",
-      "1024": "1024 (dengeli)",
-      "2048": "2048 (daha fazla frekans ayrıntısı)",
-      "4096": "4096 (en fazla ayrıntı)"
-    },
     "height": "Görünüm yüksekliği"
   },
   "spectrogramFollow": {

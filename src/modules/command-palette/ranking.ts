@@ -1,14 +1,11 @@
+import { foldSearchText as foldPaletteText } from "$/utils/text";
+
 export interface RankableItem {
 	id: string;
 	/** What the row shows. Matched first and weighted highest. */
 	label: string;
 	/** Extra words that find the item but don't show, e.g. a settings page's keywords. */
 	keywords?: string;
-}
-
-/** Lowercases and drops accents, so "edicion" finds "Edición". */
-export function foldPaletteText(text: string): string {
-	return text.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase();
 }
 
 const WORD_BOUNDARY = /[\s\-_/:.(),&]/;

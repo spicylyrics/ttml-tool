@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Seznam změn a aktualizace",
     "viewCommits": "Zobrazit commity na GitHubu"
   },
   "updatedToast": {
@@ -172,12 +171,12 @@
     "sectionsTitle": "Záhlaví sekcí",
     "sectionsFound": "{count, plural, one {Nalezeno # záhlaví} few {Nalezena # záhlaví} many {Nalezeno # záhlaví} other {Nalezeno # záhlaví}}",
     "makeSections": "Vytvořit sekce",
-    "makeSectionsHint": "Každé záhlaví začne sekci. Zapne Sekce Genius.",
+    "makeSectionsHint": "Každé záhlaví začne sekci.",
     "removeHeaders": "Odebrat",
     "removeHeadersHint": "Odstraní řádky se záhlavím z textu.",
     "textFormat": "Formát textu",
     "reviewSections": "Zkontrolovat sekce",
-    "reviewHint": "Opravte kategorie, které byly odhadnuty špatně. Barvy, zpěváky a poznámky můžete nastavit později v nabídce sekce.",
+    "reviewHint": "Opravte typy, které byly odhadnuty špatně. Sekce můžete později přejmenovat kliknutím na jejich název v editoru.",
     "sectionLabel": "Název sekce",
     "sectionCategory": "Kategorie sekce",
     "lowConfidence": "Kategorie je odhad. Zkontrolujte ji.",
@@ -337,20 +336,6 @@
       "description": "Máte neuložené změny. Pokud budete pokračovat, budou ztraceny. Opravdu chcete vytvořit nový projekt?"
     }
   },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Nalezena záhlaví sekcí Genius",
-      "dialogDesc": "Text obsahuje záhlaví sekcí jako [Verse] a [Chorus]. Zapnout experimentální funkci Sekce Genius pro jejich zpracování?",
-      "usageInfo": "Záhlaví sekcí pak budou mít vlastní styl. Kliknutím na záhlaví otevřete nástroje jako „Kopírovat předchozí časování“ a „Zarovnat na pozici přehrávání“.",
-      "maybeLater": "Možná později",
-      "enableNow": "Povolit nyní",
-      "title": "Sekce Genius",
-      "snapToPlayhead": "Zarovnat na pozici přehrávání",
-      "noPreviousFound": "Nenalezena dřívější odpovídající sekce s časováním.",
-      "noMatchingLines": "Žádné řádky v této sekci neodpovídají té dřívější, nic se nezkopírovalo.",
-      "copyPrevious": "Kopírovat předchozí časování"
-    }
-  },
   "logoColor": {
     "title": "Barva loga",
     "description": "Vyberte barvu loga v záhlaví okna a na úvodní obrazovce průvodce.",
@@ -385,7 +370,6 @@
     "search": "Hledat",
     "success": "Obnovení úspěšné",
     "error": "Data poškozena nebo ztracena",
-    "edit": "Upravit",
     "apply": "Použít",
     "confirm": "Potvrdit",
     "back": "Zpět",
@@ -433,7 +417,6 @@
     "title": "Paleta příkazů",
     "placeholder": "Hledat příkazy a nastavení",
     "noResults": "Žádné odpovídající příkazy ani nastavení",
-    "commandTag": "Příkaz",
     "settingTag": "Předvolby",
     "hint": "Šipkami se posunete, Enter spustí, Esc zavře",
     "notRunnable": "Příkaz se nepodařilo spustit. Přiřaďte mu zkratku v Předvolbách a zkuste to znovu.",
@@ -544,7 +527,6 @@
       "timing": "Časování",
       "spicy": "Spicy Lyrics",
       "simpleLyrics": "Jednoduché texty",
-      "forceLineRendering": "Zobrazit časování po řádcích",
       "background": "Pozadí",
       "backgroundAnimated": "Animované",
       "backgroundColor": "Barva",
@@ -561,19 +543,13 @@
       "syncAdjustment": "Posuny",
       "timeOffset": "Posun synchronizace",
       "commitOffset": "Posun klávesy Další",
-      "syncLevel": "Synchronizovat po",
-      "syncLevelWord": "Slovech",
-      "syncLevelLine": "Řádcích",
       "assistSettings": "Pomůcky synchronizace",
-      "showTimestampUpdate": "Zobrazit aktualizace časových značek",
       "touchSyncPanel": "Dotykový panel synchronizace",
       "bgLyricSync": "Doprovodné řádky",
       "bgSyncInline": "S hlavním řádkem",
       "bgSyncInlineDesc": "Každý doprovodný řádek synchronizujte hned po jeho hlavním řádku.",
       "bgSyncSeparate": "Přeskočit při synchronizaci",
       "bgSyncSeparateDesc": "G a H zůstávají na hlavních řádcích. Kliknutím na doprovodný řádek je synchronizujete samostatně.",
-      "quickFixes": "Rychlé opravy",
-      "manualTimestampEdit": "Ruční úprava časových značek",
       "doubleClickEdit": "Úprava slov dvojklikem",
       "displayOptions": "Možnosti zobrazení",
       "showTimestamps": "Zobrazit časové značky",
@@ -584,11 +560,6 @@
       "startSync": "Začátek",
       "continuousSync": "Další",
       "endSync": "Konec",
-      "manageQuickFixExclusions": {
-        "title": "Správa výjimek rychlých oprav",
-        "description": "Přidejte slova k ignorování v rychlých opravách.",
-        "placeholder": "Zadejte slovo, které chcete ignorovat"
-      },
       "playbackTracking": "Sledování",
       "autoScroll": "Automatické posouvání",
       "highlightActiveLine": "Zvýraznit řádek",
@@ -884,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# uložená hodnota} few {# uložené hodnoty} many {# uložené hodnoty} other {# uložených hodnot}}",
         "keybindings": "{count, plural, one {# klávesová zkratka} few {# klávesové zkratky} many {# klávesové zkratky} other {# klávesových zkratek}}",
-        "assetsSet": "Vlastní obrázek pozadí nastaven",
         "assetsNone": "Žádné vlastní soubory vzhledu",
         "presetsCount": "{count, plural, one {# předvolba} few {# předvolby} many {# předvolby} other {# předvoleb}}",
         "backgroundSet": "Vlastní pozadí",
@@ -901,9 +871,7 @@
       "exportTitle": "Export",
       "exportDesc": "Uložte svá nastavení a data do souboru, který můžete později obnovit nebo přesunout na jiné zařízení.",
       "exportButton": "Exportovat zálohu",
-      "previewToggle": "Náhled obsahu",
       "previewLoading": "Načítání náhledu…",
-      "previewEmpty": "Nebylo vybráno nic k náhledu",
       "previewCategoryEmpty": "V této kategorii není nic k exportu",
       "previewMore": "+{count} další",
       "previewTotal": "Odhadovaná celková velikost",
@@ -951,12 +919,10 @@
       "previewShowTranslationDesc": "Zobrazit v náhledu řádky překladu.",
       "previewShowRomanDesc": "Zobrazit v náhledu přepis do latinky.",
       "simpleLyricsDesc": "Napodobit režim Simple Lyrics ve Spicy Lyrics s klidnějšími animacemi slov.",
-      "forceLineRenderingDesc": "Zobrazit v náhledu Spicy všechny řádky jako synchronizované po řádcích, bez časování slov.",
       "instantFadeDesc": "Zrušit zvýraznění slova hned po jeho skončení místo pomalého vyblednutí.",
       "timingOverviewAutoScrollDesc": "Udržovat přehled časování posunutý na pozici přehrávání.",
       "vsyncDesc": "Aktualizovat náhledy Standard a Toxi v každém snímku místo zhruba 30krát za sekundu. Plynulejší, ale náročnější na CPU.",
       "showFpsDesc": "Zobrazit v náhledu počítadlo snímků za sekundu.",
-      "syncLevelDesc": "Slova: časovat každé slovo zvlášť. Řádky: časovat celé řádky a rovnoměrně rozložit jejich slova. I režim Řádky ukládá časování slov, ne časování po řádcích. Slova pak doladíte ve spektrogramu.",
       "previewModeDesc": "Vyberte, který náhled se zobrazí na kartě Náhled.",
       "spicyBackgroundDesc": "Co se zobrazuje za náhledem Spicy.",
       "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi."
@@ -1089,6 +1055,13 @@
       "latencyTest": "Test latence zvuku/vstupu"
     },
     "keybindings": {
+      "clearWordTiming": "Časování - Vymazat časové značky slova/slabiky",
+      "sectionRename": "Sekce - Přejmenovat",
+      "sectionStartHere": "Sekce - Začít sekci zde",
+      "sectionApplyTimings": "Sekce - Použít časování z...",
+      "sectionSnapToPlayhead": "Sekce - Zarovnat na pozici přehrávání",
+      "sectionMergePrevious": "Sekce - Sloučit s předchozí",
+      "sectionRemove": "Sekce - Odebrat záhlaví (zachovat texty)",
       "newFile": "Nový soubor",
       "openFile": "Otevřít soubor",
       "saveFile": "Uložit soubor",
@@ -1209,7 +1182,7 @@
     "otherLayers": "Také na této klávese",
     "closePanel": "Zavřít"
   },
-  "autoSegmentApplied":"Automaticky rozděleno pomocí {engine}",
+  "autoSegmentApplied": "Automaticky rozděleno pomocí {engine}",
   "error": {
     "unsupportedFileFormat": "Nepodporovaný formát souboru: {ext}",
     "openFileFailed": "Nepodařilo se otevřít soubor",
@@ -1367,7 +1340,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Rozdělit napsané řádky na slova",
-    "splitTypedLinesDesc": "Text napsaný do prázdného řádku se rozdělí na slova stejně, jako import rozděluje řádky.",
+    "splitTypedLinesDesc": "Text napsaný do řádku se rozdělí na slova u mezer a spojovníků a podle naučených dělení.",
     "scrollMemoryTitle": "Pamatovat si pozici v režimu úprav",
     "scrollMemoryDesc": "Otevře každý projekt na řádku, kde jste byli v režimu úprav.",
     "swapDuetAll": "Prohodit hlavní a duetové řádky",
@@ -1375,37 +1348,57 @@
   },
   "lyricWordView": {
     "empty": "Prázdné",
-    "spaceCount": "Mezera ×{count}",
-    "removeWord": "Odebrat duplicitní slovo",
-    "editingWordTitle": "Úprava slova",
-    "editingWordDesc": "Upravte slovo nebo použijte navržené rychlé opravy.",
-    "correctedWordPlaceholder": "Zadejte opravené slovo",
-    "noSuggestions": "Žádné návrhy"
+    "spaceCount": "Mezera ×{count}"
   },
   "sectionActions": {
-    "categorizeSelected": "Zařadit {count, plural, one {# vybraný řádek} few {# vybrané řádky} many {# vybraného řádku} other {# vybraných řádků}}",
-    "categorizeTitle": "Zařadit vybrané řádky",
-    "categorize": "Zařadit",
     "expand": "Rozbalit sekci",
     "collapse": "Sbalit sekci",
-    "editTitle": "Upravit sekci",
-    "vocalist": "Zpěvák / role",
-    "notes": "Poznámky",
-    "manage": "Spravovat sekce",
-    "goPrevious": "Přejít na předchozí sekci",
-    "goNext": "Přejít na další sekci",
-    "editMetadata": "Upravit metadata",
-    "split": "Rozdělit na vybraném řádku",
     "mergePrevious": "Sloučit s předchozí",
-    "mergeNext": "Sloučit s další",
-    "moveUp": "Posunout nahoru",
-    "moveDown": "Posunout dolů",
-    "linkPrevious": "Propojit s předchozí sekcí: {category}",
-    "unlinkRepeat": "Odpojit opakování",
-    "removeHeader": "Odebrat záhlaví (zachovat texty)",
-    "addToPrevious": "Přidat nezařazené řádky do předchozí sekce",
-    "addToNext": "Přidat nezařazené řádky do další sekce",
-    "section": "Sekce"
+    "removeHeader": "Odebrat záhlaví (zachovat texty)"
+  },
+  "sectionEditing": {
+    "menu": "Akce sekce",
+    "startHere": "Začít sekci zde",
+    "noSection": "Bez sekce",
+    "rename": "Přejmenovat",
+    "renameHint": "Přejmenovat nebo změnit typ",
+    "label": "Název sekce",
+    "type": "Typ sekce",
+    "snapToPlayhead": "Zarovnat na pozici přehrávání",
+    "applyTimings": "Použít časování z...",
+    "applyTitle": "Použít časování na {name}",
+    "applyDesc": "Shodná slova převezmou časování ze sekce, kterou vyberete. Ostatní si ponechají své.",
+    "source": "Kopírovat z",
+    "similarity": "Shoda {percent} %",
+    "showMore": "{count, plural, one {Zobrazit # další sekci} few {Zobrazit # další sekce} many {Zobrazit # dalších sekcí} other {Zobrazit # dalších sekcí}}",
+    "noSources": "Zatím žádná jiná sekce nemá časování. Nejdřív nějakou synchronizujte.",
+    "anchor": "Začít u",
+    "anchorSection": "Začátek sekce ({time})",
+    "anchorPlayhead": "Pozice přehrávání ({time})",
+    "anchorPlayheadOnly": "Začne na pozici přehrávání ({time}). Tato sekce zatím nemá časování.",
+    "refineNote": "Zkopírované časování je jen výchozí bod. Sekci přehrajte a opravte, co nesedí.",
+    "apply": "Použít",
+    "applied": "Časování zkopírováno u {copied} z {total} řádků. {untimed, plural, =0 {Všechna slova mají časování.} one {# slovo zůstalo bez časování.} few {# slova zůstala bez časování.} many {# slova zůstalo bez časování.} other {# slov zůstalo bez časování.}}",
+    "nothingMatched": "Žádný řádek v této sekci neodpovídá té druhé, takže se nic nezkopírovalo."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Sloka",
+    "pre-chorus": "Předrefrén",
+    "chorus": "Refrén",
+    "post-chorus": "Dohra refrénu",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Most",
+    "break": "Přestávka",
+    "interlude": "Mezihra",
+    "instrumental": "Instrumentální část",
+    "solo": "Sólo",
+    "spoken": "Mluvené slovo",
+    "skit": "Scénka",
+    "sample": "Sampl",
+    "outro": "Outro",
+    "other": "Jiné"
   },
   "touchSyncPanel": {
     "prevWord": "Předchozí slovo",
@@ -1733,12 +1726,6 @@
     "settings": "Nastavení spektrogramu",
     "fftSize": "Velikost FFT",
     "resolution": "Rozlišení FFT",
-    "fftSizeOption": {
-      "512": "512 (nejrychlejší)",
-      "1024": "1024 (vyvážené)",
-      "2048": "2048 (více detailů frekvencí)",
-      "4096": "4096 (nejvíce detailů)"
-    },
     "height": "Výška zobrazení"
   },
   "spectrogramFollow": {

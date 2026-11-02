@@ -11,12 +11,12 @@
 
 import { useSetAtom } from "jotai";
 import { type FC, useEffect } from "react";
-import { autoDarkModeAtom } from "$/states/main.ts";
+import { isDarkThemeAtom } from "$/states/main.ts";
 
 const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 export const DarkThemeDetector: FC = () => {
-	const setDarkMode = useSetAtom(autoDarkModeAtom);
+	const setDarkMode = useSetAtom(isDarkThemeAtom);
 	useEffect(() => {
 		const onDarkModeChange = (e: MediaQueryListEvent) => {
 			setDarkMode(e.matches);

@@ -14,6 +14,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { foldSearchText as fold } from "$/utils/text";
 import styles from "./index.module.css";
 
 export interface SearchSelectOption {
@@ -23,11 +24,6 @@ export interface SearchSelectOption {
 	group?: string;
 	/** Short text on the right, like the action's current shortcut. */
 	hint?: ReactNode;
-}
-
-/** Lowercase without accents, so "edicion" finds "Edición". */
-function fold(text: string): string {
-	return text.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase();
 }
 
 /** Options whose label or group contains every word of the query. */

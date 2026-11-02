@@ -371,7 +371,6 @@ export function groupVocals(
 	source: LyricLine[],
 	simple: boolean,
 	romanized: boolean,
-	forceLineSynced = false,
 	allowConsecutiveBackgrounds = false,
 	problems?: SpicyWordProblems,
 	showUntimed = false,
@@ -414,7 +413,7 @@ export function groupVocals(
 		const cached = !problems ? cache?.get(original)?.get(key) : undefined;
 		const converted = cached ?? {
 			id: line.id,
-			isLineSynced: forceLineSynced || isLineSynced(line),
+			isLineSynced: isLineSynced(line),
 			isRtl: isRtl(lineText(line, false)),
 			text: lineText(line, romanized),
 			isBackground: background,
@@ -518,7 +517,6 @@ export function buildSpicyLines(
 	source: LyricLine[],
 	simple: boolean,
 	romanized: boolean,
-	forceLineSynced = false,
 	allowConsecutiveBackgrounds = false,
 	problems?: SpicyWordProblems,
 	showUntimed = false,
@@ -528,7 +526,6 @@ export function buildSpicyLines(
 		source,
 		simple,
 		romanized,
-		forceLineSynced,
 		allowConsecutiveBackgrounds,
 		problems,
 		showUntimed,
@@ -576,12 +573,11 @@ export function createSpicyLineBuilder() {
 		source: LyricLine[],
 		simple: boolean,
 		romanized: boolean,
-		forceLineSynced = false,
 		allowConsecutiveBackgrounds = false,
 		problems?: SpicyWordProblems,
 		showUntimed = false,
 	): SpicyLine[] => {
-		const nextSettings = `${simple}:${romanized}:${forceLineSynced}:${allowConsecutiveBackgrounds}:${showUntimed}`;
+		const nextSettings = `${simple}:${romanized}:${allowConsecutiveBackgrounds}:${showUntimed}`;
 		if (settings !== nextSettings) {
 			cache = new WeakMap();
 			settings = nextSettings;
@@ -590,7 +586,6 @@ export function createSpicyLineBuilder() {
 			source,
 			simple,
 			romanized,
-			forceLineSynced,
 			allowConsecutiveBackgrounds,
 			problems,
 			showUntimed,

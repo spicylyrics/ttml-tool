@@ -19,11 +19,17 @@ import type {
 	KeyBindingCommand,
 	KeyBindingMode,
 } from "$/modules/keyboard/types";
+import { clearWordTiming } from "$/modules/lyric-editor/utils/clear-word-timing";
 import { swapDuetLinesAtom } from "$/modules/lyric-editor/utils/swap-duet";
 import { guideWelcomeOpenAtom } from "$/modules/onboarding/states";
 import type { LyricExportFormat } from "$/modules/project/export-lyric";
 import { folderProjectsEnabledAtom } from "$/modules/settings/states";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync";
+import {
+	hasSelectedWordAtom,
+	openReplaceSelectedWord,
+	openSplitSelectedWord,
+} from "$/modules/time-mode-editing/word-actions";
 import {
 	changelogDialogAtom,
 	combineWordsDialogAtom,
@@ -99,6 +105,9 @@ export function defineAction(
 	};
 }
 
+/** Edit and Time mode, where lines and words can be selected. */
+export const SELECTION_MODES: readonly KeyBindingMode[] = ["edit", "sync"];
+
 const hasLyricLinesAtom = atom(
 	(get) => get(lyricLinesAtom).lyricLines.length > 0,
 );
@@ -106,6 +115,9 @@ const hasSelectedLinesAtom = atom((get) => get(selectedLinesAtom).size > 0);
 /** Combine words works on two or more words in one line, like its right-click item. */
 const canCombineWordsAtom = atom(
 	(get) => get(selectedWordsAtom).size > 1 && get(selectedLinesAtom).size === 1,
+);
+const hasSelectionAtom = atom(
+	(get) => get(selectedWordsAtom).size > 0 || get(selectedLinesAtom).size > 0,
 );
 
 const exportAction = (
@@ -284,16 +296,38 @@ export const MENU_ACTIONS = {
 		[key("settingsDialog.title"), "Preferences"],
 		{ run: ({ menu }) => menu.onOpenSettings() },
 	),
-	// Right-click selection actions; no menu item of their own up top.
+	// Right-click selection actions; no menu item of their own up top. They
+	// work on whatever is selected, so Time mode gets them too.
 	swapDuetSelected: defineAction(
 		"swapDuetSelected",
 		"Edit",
 		[key("editModeTools.swapDuetSelected"), "Swap main and duet"],
 		{
-			modes: ["edit"],
+			modes: SELECTION_MODES,
 			enabledAtom: hasSelectedLinesAtom,
 			run: ({ store }) =>
 				store.set(swapDuetLinesAtom, store.get(selectedLinesAtom)),
+		},
+	),
+	// An action rather than a timing key, so the palette lists it in Time mode.
+	clearWordTiming: defineAction(
+		"clearWordTiming",
+		"Sync",
+		[
+			key("settingsDialog.keybindings.clearWordTiming"),
+			"Timing - Clear word/syllable timestamps",
+		],
+		{
+			modes: ["edit", "sync"],
+			enabledAtom: hasSelectionAtom,
+			run: ({ store }) =>
+				store.set(lyricLinesAtom, (document) =>
+					clearWordTiming(
+						document,
+						store.get(selectedWordsAtom),
+						store.get(selectedLinesAtom),
+					),
+				),
 		},
 	),
 	combineWords: defineAction(
@@ -301,7 +335,7 @@ export const MENU_ACTIONS = {
 		"Edit",
 		[key("contextMenu.combineWords"), "Combine words"],
 		{
-			modes: ["edit"],
+			modes: SELECTION_MODES,
 			enabledAtom: canCombineWordsAtom,
 			run: ({ store }) => {
 				const selectedLines = store.get(selectedLinesAtom);
@@ -311,6 +345,28 @@ export const MENU_ACTIONS = {
 				if (lineIndex !== -1)
 					store.set(combineWordsDialogAtom, { open: true, lineIndex });
 			},
+		},
+	),
+	// Time mode's right-click word items, on the word the sync cursor is on.
+	// Edit rather than Sync: the palette leaves the Sync timing keys out.
+	splitSelectedWord: defineAction(
+		"splitSelectedWord",
+		"Edit",
+		[key("contextMenu.splitWord"), "Split word..."],
+		{
+			modes: ["sync"],
+			enabledAtom: hasSelectedWordAtom,
+			run: ({ store }) => openSplitSelectedWord(store),
+		},
+	),
+	replaceSelectedWord: defineAction(
+		"replaceSelectedWord",
+		"Edit",
+		[key("contextMenu.replaceWord"), "Replace word..."],
+		{
+			modes: ["sync"],
+			enabledAtom: hasSelectedWordAtom,
+			run: ({ store }) => openReplaceSelectedWord(store),
 		},
 	),
 

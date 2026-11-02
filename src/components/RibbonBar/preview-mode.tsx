@@ -69,13 +69,6 @@ export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
 									"Match Spicy Lyrics' Simple Lyrics mode, with calmer word animations.",
 								)}
 							/>
-							<RibbonActionToggle
-								action={RIBBON_ACTIONS.forceLineSynced}
-								description={t(
-									"settings.workflow.forceLineRenderingDesc",
-									"Show every line in the Spicy preview as line-synced, without word timing.",
-								)}
-							/>
 							<RibbonLabel
 								label={backgroundLabel}
 								description={backgroundDescription}

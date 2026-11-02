@@ -37,10 +37,6 @@ export function LineWordRow({
 	editLyricLines,
 	showTimestamps,
 	store,
-	activeGeniusHeader,
-	customHeaderColor,
-	isSectionStart,
-	categoryColor,
 	wordsContainerRef,
 	showWordRomanizationInput,
 	wordTexts,
@@ -58,10 +54,6 @@ export function LineWordRow({
 	| "editLyricLines"
 	| "showTimestamps"
 	| "store"
-	| "activeGeniusHeader"
-	| "customHeaderColor"
-	| "isSectionStart"
-	| "categoryColor"
 	| "wordsContainerRef"
 	| "showWordRomanizationInput"
 	| "wordTexts"
@@ -84,18 +76,6 @@ export function LineWordRow({
 				!showTimestamps && styles.hideTimestamps,
 			)}
 			ref={wordsContainerRef}
-			style={{
-				backgroundColor: activeGeniusHeader
-					? customHeaderColor
-						? `${customHeaderColor}15` // 15 is roughly 8% opacity
-						: `var(--${categoryColor}-2)`
-					: undefined,
-				borderLeft: activeGeniusHeader
-					? `2px solid ${customHeaderColor || `var(--${categoryColor}-9)`}`
-					: undefined,
-				borderRadius: isSectionStart ? "var(--radius-2)" : "0",
-				padding: activeGeniusHeader ? "4px 8px" : undefined,
-			}}
 		>
 			{words.map((wordAtom, wi) => {
 				const word = store.get(wordAtom);
@@ -192,13 +172,9 @@ export function LineWordRow({
 							evt.stopPropagation();
 							const word = evt.currentTarget.value;
 							editLyricLines((state) => {
-								// Only a whole line typed into an empty line is split;
-								// adding to a line that has words inserts one word.
-								const typed =
-									splitTypedLine &&
-									state.lyricLines[lineIndex].words.length === 0
-										? typedLineToWords(word, learnedRules)
-										: [word];
+								const typed = splitTypedLine
+									? typedLineToWords(word, learnedRules)
+									: [word];
 								state.lyricLines[lineIndex].words.push(
 									...typed.map((text) => ({ ...newLyricWord(), word: text })),
 								);

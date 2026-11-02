@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Journal des modifications et mises à jour",
     "viewCommits": "Voir les commits sur GitHub"
   },
   "updatedToast": {
@@ -172,12 +171,12 @@
     "sectionsTitle": "En-têtes de section",
     "sectionsFound": "{count, plural, one {# en-tête trouvé} many {# en-têtes trouvés} other {# en-têtes trouvés}}",
     "makeSections": "Créer des sections",
-    "makeSectionsHint": "Chaque en-tête commence une section. Active Sections Genius.",
+    "makeSectionsHint": "Chaque en-tête commence une section.",
     "removeHeaders": "Retirer",
     "removeHeadersHint": "Supprime les lignes d'en-tête des paroles.",
     "textFormat": "Format du texte",
     "reviewSections": "Vérifier les sections",
-    "reviewHint": "Corrigez les catégories mal devinées. Les couleurs, chanteurs et remarques se règlent plus tard depuis le menu de la section.",
+    "reviewHint": "Corrigez les types mal devinés. Vous pourrez renommer les sections plus tard en cliquant sur leur nom dans l'éditeur.",
     "sectionLabel": "Nom de la section",
     "sectionCategory": "Catégorie de la section",
     "lowConfidence": "Catégorie devinée. À vérifier.",
@@ -337,20 +336,6 @@
       "description": "Vous avez des modifications non enregistrées. Si vous continuez, elles seront perdues. Voulez-vous vraiment créer un nouveau projet ?"
     }
   },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "En-têtes de sections Genius détectés",
-      "dialogDesc": "Les paroles contiennent des en-têtes comme [Verse] et [Chorus]. Activer la fonction expérimentale Sections Genius pour les utiliser ?",
-      "usageInfo": "Les en-têtes ont alors leur propre style dans l’éditeur. Cliquez sur l’un d’eux pour Copier les temps précédents ou Aligner sur la tête de lecture.",
-      "maybeLater": "Peut-être plus tard",
-      "enableNow": "Activer maintenant",
-      "title": "Sections Genius",
-      "snapToPlayhead": "Aligner sur la tête de lecture",
-      "noPreviousFound": "Aucune section précédente correspondante avec des temps n’a été trouvée.",
-      "noMatchingLines": "Aucune ligne de cette section ne correspond à la précédente, rien n'a été copié.",
-      "copyPrevious": "Copier les temps précédents"
-    }
-  },
   "logoColor": {
     "title": "Couleur du logo",
     "description": "Choisissez une couleur pour le logo de la barre de titre et de l'écran d'accueil du guide.",
@@ -385,7 +370,6 @@
     "search": "Rechercher",
     "success": "Restauration réussie",
     "error": "Données corrompues ou perdues",
-    "edit": "Éditer",
     "apply": "Appliquer",
     "confirm": "Confirmer",
     "back": "Retour",
@@ -433,7 +417,6 @@
     "title": "Palette de commandes",
     "placeholder": "Rechercher des commandes et des paramètres",
     "noResults": "Aucune commande ni aucun paramètre correspondant",
-    "commandTag": "Commande",
     "settingTag": "Préférences",
     "hint": "Flèches pour se déplacer, Entrée pour exécuter, Échap pour fermer",
     "notRunnable": "Impossible d'exécuter cette commande. Attribuez-lui un raccourci dans les Préférences, puis réessayez.",
@@ -544,7 +527,6 @@
       "timing": "Temps",
       "spicy": "Spicy Lyrics",
       "simpleLyrics": "Paroles simples",
-      "forceLineRendering": "Afficher la synchronisation par ligne",
       "background": "Arrière-plan",
       "backgroundAnimated": "Animé",
       "backgroundColor": "Couleur",
@@ -561,19 +543,13 @@
       "syncAdjustment": "Décalages",
       "timeOffset": "Décalage de synchronisation",
       "commitOffset": "Décalage de la touche Suivant",
-      "syncLevel": "Synchroniser par",
-      "syncLevelWord": "Mot",
-      "syncLevelLine": "Ligne",
       "assistSettings": "Aides à la synchronisation",
-      "showTimestampUpdate": "Afficher les mises à jour d'horodatage",
       "touchSyncPanel": "Panneau de synchronisation tactile",
       "bgLyricSync": "Lignes de chœurs",
       "bgSyncInline": "Avec la principale",
       "bgSyncInlineDesc": "Synchronisez chaque ligne de chœurs juste après sa ligne principale.",
       "bgSyncSeparate": "Ignorer pendant la synchro",
       "bgSyncSeparateDesc": "G et H restent sur les lignes principales. Cliquez sur une ligne de chœurs pour les synchroniser à part.",
-      "quickFixes": "Corrections rapides",
-      "manualTimestampEdit": "Modification manuelle de l'horodatage",
       "doubleClickEdit": "Modification des mots par double-clic",
       "displayOptions": "Options d'affichage",
       "showTimestamps": "Afficher les horodatages",
@@ -584,11 +560,6 @@
       "startSync": "Démarrer",
       "continuousSync": "Suivant",
       "endSync": "Terminer",
-      "manageQuickFixExclusions": {
-        "title": "Gérer les exclusions des corrections rapides",
-        "description": "Ajoutez des mots à ignorer dans les correctifs rapides.",
-        "placeholder": "Entrez le mot à ignorer"
-      },
       "playbackTracking": "Suivi",
       "autoScroll": "Défilement automatique",
       "highlightActiveLine": "Surligner la ligne",
@@ -884,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# valeur enregistrée} many {# valeurs enregistrées} other {# valeurs enregistrées}}",
         "keybindings": "{count, plural, one {# raccourci} many {# raccourcis} other {# raccourcis}}",
-        "assetsSet": "Image d’arrière-plan personnalisée définie",
         "assetsNone": "Aucune ressource personnalisée",
         "presetsCount": "{count, plural, one {# préréglage} many {# préréglages} other {# préréglages}}",
         "backgroundSet": "Arrière-plan personnalisé",
@@ -901,9 +871,7 @@
       "exportTitle": "Exporter",
       "exportDesc": "Enregistrez vos paramètres et vos données dans un fichier que vous pourrez restaurer ultérieurement ou déplacer vers un autre appareil.",
       "exportButton": "Exporter la sauvegarde",
-      "previewToggle": "Aperçu du contenu",
       "previewLoading": "Chargement de l'aperçu…",
-      "previewEmpty": "Rien de sélectionné pour prévisualiser",
       "previewCategoryEmpty": "Rien à exporter dans cette catégorie",
       "previewMore": "+{count} de plus",
       "previewTotal": "Taille totale estimée",
@@ -951,12 +919,10 @@
       "previewShowTranslationDesc": "Affiche les lignes de traduction dans l'aperçu.",
       "previewShowRomanDesc": "Affiche la romanisation dans l'aperçu.",
       "simpleLyricsDesc": "Reproduit le mode Simple Lyrics de Spicy Lyrics, avec des animations de mots plus calmes.",
-      "forceLineRenderingDesc": "Affiche toutes les lignes de l'aperçu Spicy comme synchronisées par ligne, sans minutage des mots.",
       "instantFadeDesc": "Retire le surlignage d'un mot dès qu'il se termine au lieu de l'estomper lentement.",
       "timingOverviewAutoScrollDesc": "La vue d’ensemble des temps suit la tête de lecture.",
       "vsyncDesc": "Met à jour les aperçus Standard et Toxi à chaque image au lieu d'environ 30 fois par seconde. Plus fluide, mais consomme plus de CPU.",
       "showFpsDesc": "Affiche un compteur d'images par seconde sur l'aperçu.",
-      "syncLevelDesc": "Mot : synchronisez chaque mot à mesure. Ligne : synchronisez des lignes entières et répartissez leurs mots uniformément. Le mode Ligne enregistre toujours le minutage de chaque mot, pas des paroles synchronisées ligne par ligne : affinez donc les mots dans le spectrogramme.",
       "previewModeDesc": "Choisissez l'aperçu affiché dans l'onglet Aperçu.",
       "spicyBackgroundDesc": "Ce qui s'affiche derrière l'aperçu Spicy.",
       "fadeWidthDesc": "Douceur du bord du surlignage lorsqu'un mot se remplit dans les aperçus Standard et Toxi."
@@ -1089,6 +1055,13 @@
       "latencyTest": "Test de latence audio/entrée"
     },
     "keybindings": {
+      "clearWordTiming": "Synchronisation - Effacer les horodatages du mot/de la syllabe",
+      "sectionRename": "Section - Renommer",
+      "sectionStartHere": "Section - Commencer la section ici",
+      "sectionApplyTimings": "Section - Appliquer le minutage de...",
+      "sectionSnapToPlayhead": "Section - Aligner sur la tête de lecture",
+      "sectionMergePrevious": "Section - Fusionner avec la précédente",
+      "sectionRemove": "Section - Supprimer l'en-tête (conserver les paroles)",
       "newFile": "Nouveau fichier",
       "openFile": "Ouvrir un fichier",
       "saveFile": "Enregistrer le fichier",
@@ -1209,7 +1182,7 @@
     "otherLayers": "Aussi sur cette touche",
     "closePanel": "Fermer"
   },
-  "autoSegmentApplied":"Segmentation automatique avec {engine}",
+  "autoSegmentApplied": "Segmentation automatique avec {engine}",
   "error": {
     "unsupportedFileFormat": "Format de fichier non pris en charge : {ext}",
     "openFileFailed": "Échec de l'ouverture du fichier",
@@ -1367,7 +1340,7 @@
   },
   "editModeTools": {
     "splitTypedLinesTitle": "Découper les lignes saisies en mots",
-    "splitTypedLinesDesc": "Le texte saisi dans une ligne vide est découpé en mots, comme une importation découpe les lignes.",
+    "splitTypedLinesDesc": "Le texte saisi dans une ligne est découpé en mots aux espaces et aux traits d'union, et selon vos découpages appris.",
     "scrollMemoryTitle": "Mémoriser la position du mode Édition",
     "scrollMemoryDesc": "Rouvre chaque projet à la ligne où vous étiez en mode Édition.",
     "swapDuetAll": "Inverser les lignes principales et de duo",
@@ -1375,37 +1348,57 @@
   },
   "lyricWordView": {
     "empty": "Vide",
-    "spaceCount": "Espace ×{count}",
-    "removeWord": "Supprimer le mot en double",
-    "editingWordTitle": "Modification d'un mot",
-    "editingWordDesc": "Modifiez le mot ou appliquez les corrections rapides proposées.",
-    "correctedWordPlaceholder": "Tapez le mot corrigé",
-    "noSuggestions": "Aucune suggestion"
+    "spaceCount": "Espace ×{count}"
   },
   "sectionActions": {
-    "categorizeSelected": "{count, plural, one {Catégoriser # ligne sélectionnée} many {Catégoriser # lignes sélectionnées} other {Catégoriser # lignes sélectionnées}}",
-    "categorizeTitle": "Catégoriser les lignes sélectionnées",
-    "categorize": "Catégoriser",
     "expand": "Déplier la section",
     "collapse": "Replier la section",
-    "editTitle": "Modifier la section",
-    "vocalist": "Chanteur / rôle",
-    "notes": "Remarques",
-    "manage": "Gérer les sections",
-    "goPrevious": "Aller à la section précédente",
-    "goNext": "Aller à la section suivante",
-    "editMetadata": "Modifier les métadonnées",
-    "split": "Scinder à la ligne sélectionnée",
     "mergePrevious": "Fusionner avec la précédente",
-    "mergeNext": "Fusionner avec la suivante",
-    "moveUp": "Monter",
-    "moveDown": "Descendre",
-    "linkPrevious": "Lier à la section précédente : {category}",
-    "unlinkRepeat": "Dissocier la répétition",
-    "removeHeader": "Supprimer l'en-tête (conserver les paroles)",
-    "addToPrevious": "Ajouter des lignes non attribuées à la section précédente",
-    "addToNext": "Ajouter des lignes non attribuées à la section suivante",
-    "section": "Section"
+    "removeHeader": "Supprimer l'en-tête (conserver les paroles)"
+  },
+  "sectionEditing": {
+    "menu": "Actions de la section",
+    "startHere": "Commencer la section ici",
+    "noSection": "Aucune section",
+    "rename": "Renommer",
+    "renameHint": "Renommer ou changer le type",
+    "label": "Nom de la section",
+    "type": "Type de section",
+    "snapToPlayhead": "Aligner sur la tête de lecture",
+    "applyTimings": "Appliquer le minutage de...",
+    "applyTitle": "Appliquer le minutage à {name}",
+    "applyDesc": "Les mots qui correspondent prennent le minutage de la section choisie. Les autres gardent le leur.",
+    "source": "Copier depuis",
+    "similarity": "{percent} % de correspondance",
+    "showMore": "{count, plural, many {Afficher # sections de plus} one {Afficher # section de plus} other {Afficher # sections de plus}}",
+    "noSources": "Aucune autre section n'a encore de minutage. Synchronisez-en une d'abord.",
+    "anchor": "Commencer à",
+    "anchorSection": "Début de la section ({time})",
+    "anchorPlayhead": "Tête de lecture ({time})",
+    "anchorPlayheadOnly": "Commence à la tête de lecture ({time}). Cette section n'a pas encore de minutage.",
+    "refineNote": "Le minutage copié n'est qu'un point de départ. Écoutez la section et corrigez ce qui cloche.",
+    "apply": "Appliquer",
+    "applied": "Minutage copié sur {copied} lignes sur {total}. {untimed, plural, =0 {Tous les mots ont un minutage.} one {# mot est resté sans minutage.} many {# mots sont restés sans minutage.} other {# mots sont restés sans minutage.}}",
+    "nothingMatched": "Aucune ligne de cette section ne correspond à l'autre, donc rien n'a été copié."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Couplet",
+    "pre-chorus": "Pré-refrain",
+    "chorus": "Refrain",
+    "post-chorus": "Post-refrain",
+    "refrain": "Ritournelle",
+    "hook": "Hook",
+    "bridge": "Pont",
+    "break": "Break",
+    "interlude": "Interlude",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Parlé",
+    "skit": "Sketch",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Autre"
   },
   "touchSyncPanel": {
     "prevWord": "Mot précédent",
@@ -1733,12 +1726,6 @@
     "settings": "Paramètres du spectrogramme",
     "fftSize": "Taille FFT",
     "resolution": "Résolution FFT",
-    "fftSizeOption": {
-      "512": "512 (le plus rapide)",
-      "1024": "1024 (équilibré)",
-      "2048": "2048 (plus de détails fréquentiels)",
-      "4096": "4096 (maximum de détails)"
-    },
     "height": "Hauteur d'affichage"
   },
   "spectrogramFollow": {

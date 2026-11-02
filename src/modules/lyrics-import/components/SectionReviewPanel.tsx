@@ -1,10 +1,7 @@
 import { WarningRegular } from "@fluentui/react-icons";
-import { Flex, Select, Text, TextField } from "@radix-ui/themes";
+import { Flex, Text, TextField } from "@radix-ui/themes";
 import { useTranslation } from "react-i18next";
-import {
-	LYRIC_SECTION_CATEGORIES,
-	type LyricSectionCategory,
-} from "$/types/ttml";
+import { SectionCategorySelect } from "$/components/SectionCategorySelect";
 import type { ReviewedSection } from "../logic/import-text";
 import styles from "./SectionReviewPanel.module.css";
 
@@ -29,7 +26,7 @@ export function SectionReviewPanel({
 				<Text size="1" className={styles.hint}>
 					{t(
 						"importLyrics.reviewHint",
-						"Fix any category that was guessed wrong. Colors, vocalists and notes can be set later from the section menu.",
+						"Fix any type that was guessed wrong. You can rename sections later by clicking their name in the editor.",
 					)}
 				</Text>
 			</Flex>
@@ -45,7 +42,7 @@ export function SectionReviewPanel({
 					>
 						<Flex gap="2" align="center">
 							<TextField.Root
-								size="1"
+								size="2"
 								className={styles.label}
 								aria-label={t("importLyrics.sectionLabel", "Section label")}
 								value={section.label}
@@ -53,33 +50,19 @@ export function SectionReviewPanel({
 									onChange(section.occurrence, { label: event.target.value })
 								}
 							/>
-							<Select.Root
-								size="1"
+							<SectionCategorySelect
 								value={section.category}
 								onValueChange={(category) =>
-									onChange(section.occurrence, {
-										category: category as LyricSectionCategory,
-										confidence: 1,
-									})
+									onChange(section.occurrence, { category, confidence: 1 })
 								}
-							>
-								<Select.Trigger
-									aria-label={t(
-										"importLyrics.sectionCategory",
-										"Section category",
-									)}
-								/>
-								<Select.Content>
-									{LYRIC_SECTION_CATEGORIES.map((category) => (
-										<Select.Item key={category} value={category}>
-											{category}
-										</Select.Item>
-									))}
-								</Select.Content>
-							</Select.Root>
+								aria-label={t(
+									"importLyrics.sectionCategory",
+									"Section category",
+								)}
+							/>
 						</Flex>
 						<Flex gap="2" align="center" justify="between">
-							<Text size="1" color="gray" truncate>
+							<Text size="1" color="gray" truncate className={styles.firstLine}>
 								{wordSeparator
 									? section.firstLine?.split(wordSeparator).join("")
 									: section.firstLine}

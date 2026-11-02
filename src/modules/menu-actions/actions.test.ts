@@ -15,6 +15,8 @@ let dialogs: typeof import("$/states/dialogs");
 let ttml: typeof import("$/types/ttml");
 let sync: typeof import("$/modules/settings/states/sync");
 let editAsText: typeof import("$/modules/edit-as-text/states");
+let sectionActions: typeof import("./section-actions");
+let sectionStates: typeof import("$/modules/lyric-editor/states/sections");
 
 beforeAll(async () => {
 	const storage = new Map<string, string>();
@@ -37,6 +39,8 @@ beforeAll(async () => {
 	ttml = await import("$/types/ttml");
 	sync = await import("$/modules/settings/states/sync");
 	editAsText = await import("$/modules/edit-as-text/states");
+	sectionActions = await import("./section-actions");
+	sectionStates = await import("$/modules/lyric-editor/states/sections");
 });
 
 function hasKey(key: string): boolean {
@@ -138,21 +142,34 @@ describe("menu actions as keyboard commands", () => {
 		expect(en.settingsDialog.keybindings.exportLrc).toBe("Export lyrics: LRC");
 	});
 
-	it("keeps the selection actions to Edit mode", () => {
+	it("lists the selection actions in Edit and Time mode, not Preview", () => {
 		const { swapDuetSelected, combineWords, swapDuetAll } =
 			actions.MENU_ACTIONS;
-		for (const mode of ["sync", "preview"]) {
-			expect(palette.paletteListsCommand(swapDuetSelected.command, mode)).toBe(
+		const { lineBackground, lineDuet } = ribbon.RIBBON_ACTIONS;
+		for (const action of [
+			swapDuetSelected,
+			combineWords,
+			lineBackground,
+			lineDuet,
+		]) {
+			for (const mode of ["edit", "sync"])
+				expect(palette.paletteListsCommand(action.command, mode)).toBe(true);
+			expect(palette.paletteListsCommand(action.command, "preview")).toBe(
 				false,
 			);
-			expect(palette.paletteListsCommand(combineWords.command, mode)).toBe(
-				false,
-			);
-			expect(palette.paletteListsCommand(swapDuetAll.command, mode)).toBe(true);
 		}
-		expect(palette.paletteListsCommand(combineWords.command, "edit")).toBe(
+		expect(palette.paletteListsCommand(swapDuetAll.command, "preview")).toBe(
 			true,
 		);
+	});
+
+	it("lists the Time-mode word actions only in Time mode", () => {
+		const { splitSelectedWord, replaceSelectedWord } = actions.MENU_ACTIONS;
+		for (const action of [splitSelectedWord, replaceSelectedWord]) {
+			expect(palette.paletteListsCommand(action.command, "sync")).toBe(true);
+			for (const mode of ["edit", "preview"])
+				expect(palette.paletteListsCommand(action.command, mode)).toBe(false);
+		}
 	});
 });
 
@@ -206,14 +223,14 @@ describe("runMenuAction", () => {
 		const line = lineWithWords(2);
 		const store = storeWithLines([line]);
 		store.set(main.selectedLinesAtom, new Set([line.id]));
-		store.set(main.toolModeAtom, main.ToolMode.Sync);
+		store.set(main.toolModeAtom, main.ToolMode.Preview);
 		const run = vi.fn();
 		actions.runMenuAction(
 			{ ...actions.MENU_ACTIONS.swapDuetSelected, run },
 			context(store),
 		);
 		expect(run).not.toHaveBeenCalled();
-		store.set(main.toolModeAtom, main.ToolMode.Edit);
+		store.set(main.toolModeAtom, main.ToolMode.Sync);
 		actions.runMenuAction(
 			{ ...actions.MENU_ACTIONS.swapDuetSelected, run },
 			context(store),
@@ -262,6 +279,39 @@ describe("runMenuAction", () => {
 			open: true,
 			lineIndex: 1,
 		});
+	});
+
+	it("splits and replaces the selected word in Time mode", () => {
+		const line = ttml.newLyricLine();
+		line.words = [
+			["beau", 1000, 1200],
+			["ti", 0, 0],
+			["ful", 1400, 1800],
+		].map(([word, startTime, endTime]) => ({
+			...ttml.newLyricWord(),
+			word: word as string,
+			startTime: startTime as number,
+			endTime: endTime as number,
+		}));
+		const store = storeWithLines([lineWithWords(1), line]);
+		store.set(main.toolModeAtom, main.ToolMode.Sync);
+		const { splitSelectedWord, replaceSelectedWord } = actions.MENU_ACTIONS;
+
+		for (const action of [splitSelectedWord, replaceSelectedWord])
+			expect(isEnabled(action, store)).toBe(false);
+		store.set(main.selectedWordsAtom, new Set([line.words[0].id]));
+
+		actions.runMenuAction(splitSelectedWord, context(store));
+		expect(store.get(dialogs.splitWordDialogAtom)).toBe(true);
+		expect(store.get(main.editingWordStateAtom)).toEqual({
+			lineIndex: 1,
+			wordIndex: 0,
+			word: "beau",
+		});
+		store.set(main.selectedWordsAtom, new Set([line.words[2].id]));
+		actions.runMenuAction(replaceSelectedWord, context(store));
+		expect(store.get(dialogs.replaceWordDialogAtom)).toBe(true);
+		expect(store.get(main.editingWordStateAtom).wordIndex).toBe(2);
 	});
 
 	it("opens dialogs and flips toggles", () => {
@@ -328,5 +378,55 @@ describe("ribbon actions", () => {
 			context(store, loadAudio),
 		);
 		expect(loadAudio).toHaveBeenCalledOnce();
+	});
+});
+
+describe("section actions", () => {
+	function storeWithSections() {
+		const lines = [lineWithWords(1), lineWithWords(1), lineWithWords(1)];
+		lines[0].sectionId = "verse";
+		lines[0].geniusHeader = "[Verse 1]";
+		lines[1].sectionId = "verse";
+		lines[2].sectionId = "chorus";
+		lines[2].geniusHeader = "[Chorus]";
+		const store = storeWithLines(lines);
+		store.set(main.lyricLinesAtom, {
+			...store.get(main.lyricLinesAtom),
+			sections: [
+				{ id: "verse", label: "[Verse 1]", category: "verse" },
+				{ id: "chorus", label: "[Chorus]", category: "chorus" },
+			],
+		});
+		return { store, lines };
+	}
+
+	it("acts on the section the selection starts in", () => {
+		const { store, lines } = storeWithSections();
+		const { sectionRename, sectionMergePrevious, sectionStartHere } =
+			sectionActions.SECTION_ACTIONS;
+		expect(isEnabled(sectionRename, store)).toBe(false);
+		store.set(main.selectedLinesAtom, new Set([lines[2].id, lines[1].id]));
+		actions.runMenuAction(sectionRename, context(store));
+		expect(store.get(sectionStates.editingSectionIdAtom)).toBe("verse");
+		// The verse is first, so there's nothing before it to merge into.
+		expect(isEnabled(sectionMergePrevious, store)).toBe(false);
+		expect(isEnabled(sectionStartHere, store)).toBe(true);
+		store.set(main.selectedLinesAtom, new Set([lines[2].id]));
+		expect(isEnabled(sectionStartHere, store)).toBe(false);
+		actions.runMenuAction(sectionMergePrevious, context(store));
+		expect(
+			store.get(main.lyricLinesAtom).lyricLines.map((line) => line.sectionId),
+		).toEqual(["verse", "verse", "verse"]);
+	});
+
+	it("keeps the timing tools to Time mode", () => {
+		const { store, lines } = storeWithSections();
+		const { sectionApplyTimings } = sectionActions.SECTION_ACTIONS;
+		store.set(main.selectedLinesAtom, new Set([lines[2].id]));
+		actions.runMenuAction(sectionApplyTimings, context(store));
+		expect(store.get(sectionStates.applyTimingsSectionIdAtom)).toBeNull();
+		store.set(main.toolModeAtom, main.ToolMode.Sync);
+		actions.runMenuAction(sectionApplyTimings, context(store));
+		expect(store.get(sectionStates.applyTimingsSectionIdAtom)).toBe("chorus");
 	});
 });
