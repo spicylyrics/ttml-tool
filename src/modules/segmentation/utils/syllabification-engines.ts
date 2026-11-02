@@ -96,16 +96,106 @@ const mergeContractionSuffix = (parts: string[]) => {
 	return result;
 };
 
-const prosodicSplit = (word: string) => {
-	const key = word.toLowerCase();
-	const entry =
-		dictionary.get(key) ??
-		(key.endsWith("in") ? dictionary.get(`${key}g`) : undefined);
-	if (entry !== undefined) {
-		return splitAtLengths(word, typeof entry === "number" ? [entry] : entry);
-	}
-	return mergeContractionSuffix(compromiseSplit(word));
+/** Splits `word` at the same cut offsets as `parts`, which spell a word of similar length. */
+const splitLike = (word: string, parts: string[]) => {
+	const lengths = parts.slice(0, -1).map((part) => part.length);
+	return lengths.reduce((sum, length) => sum + length, 0) < word.length
+		? splitAtLengths(word, lengths)
+		: [word];
 };
+
+const VOWEL = /[aeiouy]/i;
+/** Also counts accented vowels: `ché` and `jà` have one. */
+const hasVowel = (text: string) => VOWEL.test(text.normalize("NFD"));
+
+// Common first and second halves of lyric compounds. The dictionary splits
+// these by sound alone (`ups/tate`, `mains/tream`); singers split at the seam.
+const COMPOUND_HEADS = new Set(
+	"some any no what how when where who with through out in up down back main week birth sun moon star heart life day night rain fire home side high low under over after mid good bad for".split(
+		" ",
+	),
+);
+const COMPOUND_TAILS = new Set(
+	"body bodies one thing things where time times day days way ways self selves side out in ever how more stream state seat end light lights night nights shine beat break ground town place line land house man men world bound ward wards while dream bye made".split(
+		" ",
+	),
+);
+
+const splitCompound = (word: string) => {
+	const lower = word.toLowerCase();
+	for (let seam = lower.length - 2; seam >= 2; seam--) {
+		if (
+			COMPOUND_HEADS.has(lower.slice(0, seam)) &&
+			COMPOUND_TAILS.has(lower.slice(seam))
+		) {
+			return [
+				...prosodicSplit(word.slice(0, seam)),
+				...prosodicSplit(word.slice(seam)),
+			];
+		}
+	}
+	return undefined;
+};
+
+/** A piece with no vowel is not a sung syllable: join it to its neighbor. */
+const mergeVowelless = (parts: string[]) => {
+	const result: string[] = [];
+	for (const part of parts) {
+		if (result.length > 0 && !hasVowel(part)) result[result.length - 1] += part;
+		else if (result.length > 0 && !hasVowel(result[result.length - 1]))
+			result[result.length - 1] += part;
+		else result.push(part);
+	}
+	return result;
+};
+
+const lookupDictionary = (word: string) => {
+	const entry = dictionary.get(word.toLowerCase());
+	if (entry === undefined) return undefined;
+	return splitAtLengths(word, typeof entry === "number" ? [entry] : entry);
+};
+
+function prosodicSplit(word: string): string[] {
+	// Letter-by-letter acronyms: `DJ`, `TV`. Doubled letters are interjections (`HMM`, `SHH`).
+	if (/^[A-Z]{2,4}$/.test(word) && !VOWEL.test(word) && !/(.)\1/.test(word)) {
+		return Array.from(word);
+	}
+
+	// `didn't`, `couldn't`: `n't` after a consonant is its own syllable.
+	// After a vowel (`don't`, `can't`, `aren't`) it stays in one.
+	const negation = /^(.*[b-df-hj-np-tv-xz])(n['’]t)$/i.exec(word);
+	if (negation && hasVowel(negation[1])) {
+		return [...prosodicSplit(negation[1]), negation[2]];
+	}
+	if (/[aeiou]n['’]t$/i.test(word)) return [word];
+
+	// Dropped-g spellings split like the `-ing` form. With an apostrophe
+	// (`singin'`) always; without one (`singin`) only when the dictionary
+	// knows the `-ing` word, so `begin` and `cabin` are left alone.
+	const droppedG = /^(.*[a-z]in)(['’]?)$/i.exec(word);
+	if (
+		droppedG &&
+		!dictionary.has(word.toLowerCase()) &&
+		(droppedG[2] || dictionary.has(`${droppedG[1].toLowerCase()}g`))
+	) {
+		const full = prosodicSplit(`${droppedG[1]}g`);
+		if (full.length > 1) return splitLike(word, full);
+	}
+
+	// `un-` keeps its own syllable: `un/stop/pa/ble`, not `uns/top/pa/ble`.
+	const parts =
+		splitCompound(word) ??
+		lookupDictionary(word) ??
+		mergeVowelless(mergeContractionSuffix(compromiseSplit(word)));
+	if (
+		/^un[b-df-hj-np-tv-z]{2}/i.test(word) &&
+		parts.length > 1 &&
+		parts[0].length === 3
+	) {
+		return [word.slice(0, 2), parts[0].slice(2) + parts[1], ...parts.slice(2)];
+	}
+	return parts;
+}
 
 const isJapaneseCharacter = (char: string | undefined) =>
 	!!char &&

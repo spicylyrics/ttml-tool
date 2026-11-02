@@ -33,6 +33,46 @@ describe("syllabification engines", () => {
 		expect(parts.length).toBeGreaterThan(1);
 	});
 
+	it.each([
+		// dropped g, with and without an apostrophe
+		["goin'", "go/in'"],
+		["singin’", "sing/in’"],
+		["rockin'", "ro/ckin'"],
+		["fightin'", "figh/tin'"],
+		["begin", "be/gin"],
+		// n't is a syllable only after a consonant
+		["didn't", "did/n't"],
+		["couldn't", "could/n't"],
+		["isn't", "is/n't"],
+		["don't", "don't"],
+		["can't", "can't"],
+		["weren't", "weren't"],
+		// compounds split at the seam
+		["upstate", "up/state"],
+		["mainstream", "main/stream"],
+		["backseat", "back/seat"],
+		["weekend", "week/end"],
+		["without", "with/out"],
+		["somebody", "some/bo/dy"],
+		["however", "how/e/ver"],
+		["father", "fa/ther"],
+		["legend", "le/gend"],
+		// un- keeps its own syllable
+		["unstoppable", "un/stop/pa/ble"],
+		["until", "un/til"],
+		// letter-by-letter acronyms, but not interjections
+		["DJ", "D/J"],
+		["HMM", "HMM"],
+		["LOVE", "LOVE"],
+		// accented vowels count as vowels
+		["cliché", "cli/ché"],
+		["déjà", "dé/jà"],
+	])("splits %s as %s", (word, expected) => {
+		expect(getSyllabificationEngine("prosodic").split(word).join("/")).toBe(
+			expected,
+		);
+	});
+
 	it("keeps contractions with typographic apostrophes together", () => {
 		for (const contraction of ["we’re", "you’ve", "they’re"]) {
 			const word = { ...newLyricWord(), word: contraction };
