@@ -49,6 +49,17 @@ describe("filling romanization", () => {
 		).toBe("kimino");
 	});
 
+	it("fills over leftover romanization that is still in kana", () => {
+		const target = line(["ソンナ", "ソンナ"]);
+		expect(
+			mergeLineRomanization(
+				target,
+				{ [target.words[0].id]: "sonna" },
+				"fillEmpty",
+			)?.romanLyric,
+		).toBe("sonna");
+	});
+
 	it("reports nothing when no word changes", () => {
 		const target = line(["君", "kimi"]);
 		expect(

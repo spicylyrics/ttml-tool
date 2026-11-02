@@ -59,6 +59,16 @@ const toKatakana = (text: string) =>
 		String.fromCharCode(char.charCodeAt(0) + 0x60),
 	);
 
+/**
+ * Half-width katakana (ｿﾝﾅ) as the dictionary knows it (ソンナ), one
+ * character for one, so every syllable keeps its length.
+ */
+const widenKatakana = (text: string) =>
+	text.replace(/[｡-ﾟ]/g, (char) => {
+		const wide = char.normalize("NFKC");
+		return wide.length === 1 ? wide : char;
+	});
+
 interface Token {
 	surface: string;
 	/** Katakana as written, with particles as said. */
@@ -192,7 +202,7 @@ export function romanizeJapaneseLine(
 	tk: Tokenizer<IpadicFeatures>,
 	syllables: readonly string[],
 ): string[] {
-	const text = syllables.join("");
+	const text = widenKatakana(syllables.join(""));
 	const owner = syllables.flatMap((syllable, index) =>
 		Array.from({ length: syllable.length }, () => index),
 	);
@@ -247,8 +257,10 @@ export function romanizeJapaneseLine(
 	const pieces = kana.flatMap((list, syllable) =>
 		list.map((entry) => ({ syllable, ...entry })),
 	);
-	const romaji: Array<Array<{ text: string; newWord: boolean }>> =
-		syllables.map(() => []);
+	const romaji: Array<
+		Array<{ text: string; newWord: boolean; opens: boolean }>
+	> = syllables.map(() => []);
+	let lastVowel = "";
 	pieces.forEach(({ syllable, piece, newWord }, index) => {
 		let text: string;
 		if (piece === "ヲ") text = "wo";
@@ -267,15 +279,30 @@ export function romanizeJapaneseLine(
 					: "";
 			text = kanaToRomaji(piece.slice(0, -1)) + doubled;
 		}
-		romaji[syllable].push({ text, newWord });
+		// A ー split off into its own syllable holds the vowel before it
+		// (セ|ー → se|e).
+		text = text
+			.replace(/^ー+/, (marks) => lastVowel.repeat(marks.length))
+			.replace(/[『』]/g, '"')
+			.replace(/〜/g, "~");
+		const vowel = text.match(/[aeiou](?=[^a-z]*$)/i)?.[0];
+		if (vowel) lastVowel = vowel.toLowerCase();
+		romaji[syllable].push({
+			text,
+			newWord,
+			// Opening brackets and quotes lean on the word after them.
+			opens: /^[「『（(“‘〈《【]$/.test(piece.trim()),
+		});
 	});
 
 	return romaji.map((list, index) => {
 		// Inside one syllable (a line that isn't split yet), words still get gaps.
-		const joined = list
-			.filter((entry) => entry.text)
+		const kept = list.filter((entry) => entry.text);
+		const joined = kept
 			.map((entry, position) =>
-				position > 0 && entry.newWord ? ` ${entry.text}` : entry.text,
+				position > 0 && entry.newWord && !kept[position - 1].opens
+					? ` ${entry.text}`
+					: entry.text,
 			)
 			.join("")
 			.trim();
@@ -291,7 +318,9 @@ export function romanizeJapaneseLine(
 			next++;
 		const gap =
 			/\s$/.test(syllables[index]) ||
-			(next < syllables.length && startsWord[next]);
+			(next < syllables.length &&
+				startsWord[next] &&
+				!kept[kept.length - 1]?.opens);
 		return gap ? `${joined} ` : joined;
 	});
 }

@@ -25,6 +25,16 @@ export const lineRomanizationFromWords = (
 		.trim();
 
 /**
+ * Whether a word has romanization worth keeping. Text still in kana, kanji,
+ * Hangul, Cyrillic or Greek (left over from an import, say) isn't romanized.
+ */
+export const hasRomanization = (romanWord: string) =>
+	!!romanWord.trim() &&
+	!/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\p{Script=Hangul}\p{Script=Cyrillic}\p{Script=Greek}]/u.test(
+		romanWord,
+	);
+
+/**
  * Applies new per-word romanization to a line, keeping or replacing what is
  * there, and rebuilds the line romanization. Undefined when nothing changes.
  */
@@ -36,7 +46,7 @@ export function mergeLineRomanization(
 	const merged = line.words.map((word) => {
 		const next = romanWords[word.id];
 		if (next === undefined || !next.trim()) return word;
-		if (mode === "fillEmpty" && word.romanWord.trim()) return word;
+		if (mode === "fillEmpty" && hasRomanization(word.romanWord)) return word;
 		return { ...word, romanWord: next };
 	});
 	if (merged.every((word, index) => word === line.words[index])) return;
@@ -113,4 +123,4 @@ export const romanizableLines = (
 
 /** Whether a line has any romanization yet. */
 export const isLineRomanized = (line: LyricLine) =>
-	line.words.some((word) => word.romanWord.trim()) || !!line.romanLyric?.trim();
+	line.words.some((word) => hasRomanization(word.romanWord));

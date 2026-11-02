@@ -85,6 +85,49 @@ describe("Japanese romanization", () => {
 		]);
 	});
 
+	it("gives a ー split into its own syllable the vowel it holds", () => {
+		expect(romanize("セ", "ー", "、")).toEqual(["se", "e", ","]);
+		expect(romanize("マ", "ー", "ナ")).toEqual(["ma", "a", "na"]);
+	});
+
+	it("leans an opening quote on the word after it", () => {
+		expect(romanize("「", "今", "ま")).toEqual(['"', "ima ", "ma"]);
+		expect(romanize("「今", "ま")).toEqual(['"ima ', "ma"]);
+	});
+
+	it("reads half-width katakana", () => {
+		expect(
+			romanize(
+				"「おい、",
+				"なん",
+				"で",
+				"ｿﾝ",
+				"ﾅ",
+				"こ",
+				"と",
+				"や",
+				"って",
+				"んの？」",
+			),
+		).toEqual([
+			'"oi, ',
+			"nan",
+			"de ",
+			"son",
+			"na ",
+			"ko",
+			"to ",
+			"ya",
+			"tte ",
+			'n no?"',
+		]);
+	});
+
+	it("reads katakana words in any context", () => {
+		expect(romanize("で", "ソンナ", "こ")).toEqual(["de ", "sonna ", "ko"]);
+		expect(romanize("でソンナこと")).toEqual(["de sonna koto"]);
+	});
+
 	it("repeats the kanji before 々", () => {
 		expect(romanize("燦", "々", "と")).toEqual(["san", "san ", "to"]);
 	});

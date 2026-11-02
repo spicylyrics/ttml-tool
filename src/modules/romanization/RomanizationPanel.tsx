@@ -23,6 +23,7 @@ import type { LyricLine } from "$/types/ttml";
 import { alignRomanizedPage } from "./align-romanized";
 import {
 	type ExistingMode,
+	hasRomanization,
 	isLineRomanized,
 	type LineRomanization,
 	mergeLineRomanization,
@@ -105,7 +106,8 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 			: romanizable;
 	const existingInTargets = targets.reduce(
 		(count, line) =>
-			count + line.words.filter((word) => word.romanWord.trim()).length,
+			count +
+			line.words.filter((word) => hasRomanization(word.romanWord)).length,
 		0,
 	);
 
