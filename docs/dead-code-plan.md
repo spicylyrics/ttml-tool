@@ -8,11 +8,11 @@ How it was found: `pnpm dlx knip@5` (no config, nothing committed), then every h
 
 | Batch | What | State |
 |---|---|---|
-| 1 | Dead files, dependencies, symbols | PR #268 |
-| 2 | Chinese comments and `t()` fallbacks | to do, one PR per module |
-| 3 | 21 unused locale keys | in PR #268 |
-| 4 | Product questions | answered; expired upgrades in PR #269 |
-| 5 | Duplicate helpers | in PR #268 (Mac check dropped, see below) |
+| 1 | Dead files, dependencies, symbols | merged (#268) |
+| 2 | Chinese comments and `t()` fallbacks | to do, one PR per module, cut from latest `dev` |
+| 3 | 21 unused locale keys | merged (#268) |
+| 4 | Product questions | answered; expired upgrades merged (#269) |
+| 5 | Duplicate helpers | merged (#268; Mac check dropped, see below) |
 
 ## Decisions (TX24, 2026-11-01)
 
@@ -24,10 +24,10 @@ How it was found: `pnpm dlx knip@5` (no config, nothing committed), then every h
 No visible change.
 
 - **Files:** `src/modules/audio/worklet/text-decoder.ts` (orphaned when SoundTouch moved to `pcm-render.worker.ts` in `25c6bf2c`), `src/modules/project/folder-project/index.ts` (barrel nobody imports).
-- **Dependencies:** `@applemusic-like-lyrics/react`, `@radix-ui/react-dialog`, `@tauri-apps/plugin-log` (JS only; the Rust `tauri-plugin-log` stays), `pako`, `@types/pako`, `jotai-optics`, `@types/emscripten`, `babel-plugin-react-compiler`, and AMLL core's own dependencies we listed twice (`bezier-easing`, `deep-freeze`, `gl-matrix`, `@ungap/structured-clone` + types). The upstream local-AMLL alias block in `vite.config.ts` goes with them.
+- **Dependencies:** `@applemusic-like-lyrics/react`, `@radix-ui/react-dialog`, `@tauri-apps/plugin-log` (JS only; the Rust `tauri-plugin-log` stays), `pako`, `@types/pako`, `jotai-optics`, `babel-plugin-react-compiler`, and AMLL core's own dependencies we listed twice (`bezier-easing`, `deep-freeze`, `gl-matrix`, `@ungap/structured-clone` + types). The upstream local-AMLL alias block in `vite.config.ts` goes with them.
 - **Symbols with no caller:** `generateNameFromMetadataAtom` (UI removed in `cb5d4b57`), `previewExportBackup`, `usePlaybackTime`, `useCurrentLocation`, `allLyricsWordsAtom`, `isInteracting`, `DISCORD_LOGO_URL`, `REPOSITORY_URL`, `ALL_PUNCTUATION` with `PUNCT_RIGHT` and `PUNCT_EXTRA`, `EFFECTS_MODES`, `LINE_END_BASE_HIT_PX`. `autoDarkModeAtom` / `isDarkThemeAtom` merged; wrong `@deprecated` on `useKeyBindingAtom` removed.
 
-Not dead, even though knip lists them: `src/utils/url-shim.ts` (vite `url` alias), the ambient `.d.ts` files (`vite-env`, `syllabification`, `soundtouch`, `wasm_spectrogram*`), `scripts/verify-pcm-playback.mjs` (manual audio check), `public/sw.js` (see below).
+Not dead, even though knip lists them: `src/utils/url-shim.ts` (vite `url` alias), the ambient `.d.ts` files (`vite-env`, `syllabification`, `soundtouch`, `wasm_spectrogram*`), `scripts/verify-pcm-playback.mjs` (manual audio check), `public/sw.js` (see below), and `@types/emscripten`: `src/modules/audio/workers/types.ts` uses its ambient `EmscriptenModule`, `FS` and `Emscripten` globals with no import, so knip can't see it. #268 removed it, CI caught it, and `28dad388` put it back. Keep it.
 
 Left out on purpose: about 45 exports and 63 exported types only used inside their own file, and 16 components exported both by name and as `default`. Dropping `export` is churn unless knip runs in CI.
 
