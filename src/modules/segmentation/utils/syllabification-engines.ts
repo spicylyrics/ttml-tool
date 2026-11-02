@@ -123,6 +123,13 @@ export const SYLLABIFICATION_ENGINES: SyllabificationEngine[] = [
 		split: (word) => [word],
 	},
 	{
+		id: "japanese",
+		name: "Japanese",
+		description:
+			"Split Japanese by sound or into words, and keep English words whole.",
+		split: (word) => [word],
+	},
+	{
 		id: "silabas",
 		name: "Spanish (Silabas)",
 		description: "Spanish orthographic syllable splitting.",
