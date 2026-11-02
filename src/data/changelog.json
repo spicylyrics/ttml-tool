@@ -1,5 +1,121 @@
 [
 	{
+		"version": "0.21.0",
+		"summary": "Sections and file opening",
+		"color": "iris",
+		"date": "2026-11-02",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Clear the timing of selected words or lines",
+				"body": "Clear word/syllable timestamps runs from Ctrl+K in Edit or Time mode or from a key, and undo brings the times back",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Open .ttml files from your file manager",
+				"body": "The desktop app registers .ttml files, so double-clicking one opens it, in the window you already have open",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Sections are simpler to edit and move",
+				"body": "Click a section's name to rename it, drag its header to move it, and copy a chorus's timing with **Apply timings**",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Split and replace words in Time mode",
+				"body": "Right-click a word while syncing to split it at the playhead or replace it, without going back to Edit mode",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Line role actions work in Time mode",
+				"body": "Mark background or duet, swap and combine words in Time mode from Ctrl+K, a shortcut or the right-click menu",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Sync by is gone from the Time ribbon and settings",
+				"body": "Its Line setting spread words across each line and still saved word timing, so it didn't make line-synced lyrics",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Show as line-synced is gone from the preview",
+				"body": "It only changed how the preview drew lines, not what the file saves",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Restarting after an update opens the new version",
+				"body": "The app now restarts on its own after installing an update, and Restart Application no longer reopens the old version",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Import keeps hyphenated words whole",
+				"body": "Hyphenated words are only split when Process lyrics splits them, not on every import",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Word-synced songs of one-word lines save as Word timing",
+				"body": "They were saved as line-synced, so Spicy Lyrics ignored their word timing; line-synced files still save as Line",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Saving keeps romaji word gaps and translation language",
+				"body": "Spaces between romanized syllables stay when you save, and translations are tagged English instead of Chinese by default",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Dragging no longer gets stuck on selected text",
+				"body": "Selected text can't start a stray drag that stops lines, words and the spectrogram from dragging anymore",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Replace romanization matches words like Combine",
+				"body": "Applying to all now ignores case and edge punctuation by default, so \"you,\" gets the same romanization as \"You\"",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Smooth scrolling while you sync",
+				"body": "Syncing while the line list is still scrolling no longer makes it stop and jerk forward",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Typed lines always split at hyphens",
+				"body": "With \"Split typed lines\" on, typing into any line splits at hyphens, even words with a learned split",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Unsynced lines no longer all look active",
+				"body": "Before playback, lines with no timing were highlighted as playing, so every line in a fresh import looked selected",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Full outline on selected syllables",
+				"body": "A selected syllable's outline is no longer hidden by the syllable next to it or by its romanization field",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Line edge handles sit evenly on the spectrogram",
+				"body": "Where two lines meet the bars sit the same distance from the seam, and a line's end bar stays inside its corner",
+				"highlight": false
+			}
+		]
+	},
+	{
 		"version": "0.20.1",
 		"summary": "Flatpak and latency fixes",
 		"color": "blue",
