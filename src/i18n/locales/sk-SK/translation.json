@@ -196,8 +196,8 @@
       "emDashesHint": "Prevedie dvojité a osamotené spojovníky na dlhé pomlčky.",
       "splitHyphens": "Deliť slová so spojovníkom",
       "splitHyphensHint": "Rozdelí slová ako mm-hmm za spojovníkom.",
-      "splitCjk": "Deliť znaky CJK",
-      "splitCjkHint": "Rozdelí čínsky, japonský a kórejský text na znaky a pri zmene písma.",
+      "splitCjk": "Deliť text CJK",
+      "splitCjkHint": "Rozdelí japončinu na slová, čínštinu a kórejčinu na znaky a text pri zmene písma.",
       "punctuationSpacing": "Upraviť interpunkciu",
       "punctuationSpacingHint": "Jedna medzera za čiarkou, žiadna pred interpunkciou a úvodzovky zostanú pri slove.",
       "collapseSpaces": "Zlúčiť medzery",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Zobraziť v náhľade počítadlo snímok za sekundu.",
       "previewModeDesc": "Vyberte, ktorý náhľad sa zobrazí na karte Náhľad.",
       "spicyBackgroundDesc": "Čo sa zobrazuje za náhľadom Spicy.",
-      "fadeWidthDesc": "Aký mäkký je okraj zvýraznenia pri vypĺňaní slova v náhľadoch Standard a Toxi.",
-      "japaneseSplit": "Automatické delenie japončiny",
-      "japaneseSplitDesc": "Ako automatické delenie rozdelí japonský text na časti.",
-      "japaneseSplitSyllable": "Slabika",
-      "japaneseSplitSyllableDesc": "Podľa zvuku, ako sa spieva: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Móra",
-      "japaneseSplitMoraDesc": "Jedna časť na dobu, napr. ko|o|hi|i",
-      "japaneseSplitWord": "Slovo",
-      "japaneseSplitWordDesc": "Celé slová. V aplikácii a na webe sa môže mierne líšiť"
+      "fadeWidthDesc": "Aký mäkký je okraj zvýraznenia pri vypĺňaní slova v náhľadoch Standard a Toxi."
     }
   },
   "timingOverview": {

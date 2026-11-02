@@ -196,8 +196,8 @@
       "emDashesHint": "Превращает двойные и одиночные дефисы в длинные тире.",
       "splitHyphens": "Делить слова с дефисом",
       "splitHyphensHint": "Делит слова вроде mm-hmm после дефиса.",
-      "splitCjk": "Делить символы CJK",
-      "splitCjkHint": "Делит китайский, японский и корейский текст на символы и на сменах письма.",
+      "splitCjk": "Делить текст CJK",
+      "splitCjkHint": "Делит японский на слова, китайский и корейский на символы, а текст при смене письменности.",
       "punctuationSpacing": "Порядок в пунктуации",
       "punctuationSpacingHint": "Один пробел после запятой, ни одного перед знаками, кавычки остаются при слове.",
       "collapseSpaces": "Сжимать пробелы",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Показывать счётчик кадров в секунду в предпросмотре.",
       "previewModeDesc": "Выберите, какой предпросмотр показывает вкладка «Предпросмотр».",
       "spicyBackgroundDesc": "Что отображается за предпросмотром Spicy.",
-      "fadeWidthDesc": "Насколько мягкий край подсветки при заполнении слова в предпросмотрах Standard и Toxi.",
-      "japaneseSplit": "Автоделение японского",
-      "japaneseSplitDesc": "Как автоделение разбивает японский текст на части.",
-      "japaneseSplitSyllable": "Слог",
-      "japaneseSplitSyllableDesc": "По звучанию, как поётся: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Мора",
-      "japaneseSplitMoraDesc": "Одна часть на долю, например ko|o|hi|i",
-      "japaneseSplitWord": "Слово",
-      "japaneseSplitWordDesc": "Целые слова. В приложении и на сайте может немного отличаться"
+      "fadeWidthDesc": "Насколько мягкий край подсветки при заполнении слова в предпросмотрах Standard и Toxi."
     }
   },
   "timingOverview": {

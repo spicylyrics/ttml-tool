@@ -26,10 +26,8 @@ import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { OptionPicker } from "$/components/OptionPicker";
 import { SlIcon } from "$/components/SlIcon";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
-import { japaneseGranularitySettingAtom } from "$/modules/romanization/states";
 import { showPreviewPanelAtom } from "$/states/main";
 // Relative on purpose: keeps this import apart from other settings rows' imports.
 import {
@@ -336,13 +334,6 @@ export const WorkflowSettings = ({
 }) => {
 	const { t } = useTranslation();
 	const [fadeWidth, setFadeWidth] = useAtom(lyricWordFadeWidthAtom);
-	const [japaneseGranularity, setJapaneseGranularity] = useAtom(
-		japaneseGranularitySettingAtom,
-	);
-	const japaneseSplitLabel = t(
-		"settings.workflow.japaneseSplit",
-		"Japanese auto split",
-	);
 	const toggles = (rows: readonly ToggleRow[]) =>
 		rows.map(([titleKey, title, descKey, desc, icon, setting]) => (
 			<SettingRow
@@ -363,49 +354,6 @@ export const WorkflowSettings = ({
 						{t("settings.group.editModeDisplay", "Edit mode")}
 					</Heading>
 					{toggles(editModeToggles)}
-					<SettingRow
-						icon={<TextWordCount24Regular />}
-						title={japaneseSplitLabel}
-						description={t(
-							"settings.workflow.japaneseSplitDesc",
-							"How Auto split cuts Japanese lyrics into parts.",
-						)}
-					>
-						<OptionPicker
-							label={japaneseSplitLabel}
-							value={japaneseGranularity}
-							onValueChange={setJapaneseGranularity}
-							options={[
-								{
-									value: "syllable",
-									label: t(
-										"settings.workflow.japaneseSplitSyllable",
-										"Syllable",
-									),
-									description: t(
-										"settings.workflow.japaneseSplitSyllableDesc",
-										"By sound, as it's sung: koo|hii, is|sho, kai",
-									),
-								},
-								{
-									value: "mora",
-									label: t("settings.workflow.japaneseSplitMora", "Mora"),
-									description: t(
-										"settings.workflow.japaneseSplitMoraDesc",
-										"One part per beat, like ko|o|hi|i",
-									),
-								},
-								{
-									value: "word",
-									label: t("settings.workflow.japaneseSplitWord", "Word"),
-									description: t(
-										"settings.workflow.japaneseSplitWordDesc",
-										"Whole words. Can differ a little between the app and the website",
-									),
-								},
-							]}
-						/>
-					</SettingRow>
 				</Flex>
 			)}
 			{groups.includes("timeModeDisplay") && (

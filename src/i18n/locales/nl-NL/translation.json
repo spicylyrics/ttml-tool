@@ -196,8 +196,8 @@
       "emDashesHint": "Maakt van dubbele en losse streepjes een lang gedachtestreepje.",
       "splitHyphens": "Woorden met koppelteken splitsen",
       "splitHyphensHint": "Splitst woorden als mm-hmm na het koppelteken.",
-      "splitCjk": "CJK-tekens splitsen",
-      "splitCjkHint": "Splitst Chinese, Japanse en Koreaanse tekst in tekens en bij schriftwisselingen.",
+      "splitCjk": "CJK-tekst splitsen",
+      "splitCjkHint": "Splitst Japans in woorden, Chinees en Koreaans in tekens, en tekst waar het schrift wisselt.",
       "punctuationSpacing": "Leestekens opschonen",
       "punctuationSpacingHint": "Eén spatie na komma's, geen voor leestekens, en aanhalingstekens blijven bij hun woord.",
       "collapseSpaces": "Spaties samenvoegen",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Toon een framerateteller op het voorbeeld.",
       "previewModeDesc": "Kies welk voorbeeld het tabblad Voorbeeld toont.",
       "spicyBackgroundDesc": "Wat er achter het Spicy-voorbeeld te zien is.",
-      "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden.",
-      "japaneseSplit": "Automatisch splitsen van Japans",
-      "japaneseSplitDesc": "Hoe automatisch splitsen Japanse teksten in delen knipt.",
-      "japaneseSplitSyllable": "Lettergreep",
-      "japaneseSplitSyllableDesc": "Op klank, zoals het gezongen wordt: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Eén deel per tel, zoals ko|o|hi|i",
-      "japaneseSplitWord": "Woord",
-      "japaneseSplitWordDesc": "Hele woorden. Kan iets verschillen tussen de app en de website"
+      "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden."
     }
   },
   "timingOverview": {

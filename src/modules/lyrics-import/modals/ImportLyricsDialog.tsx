@@ -29,6 +29,7 @@ import {
 	applyConfirmedImportMetadataAtom,
 	loadedAudioSongAtom,
 } from "$/modules/project/song-metadata-state";
+import { useJapaneseDictionary } from "$/modules/romanization/useJapaneseDictionary";
 import { segmentWord } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
@@ -104,6 +105,8 @@ export const ImportLyricsDialog = () => {
 	const setConfirmDialog = useSetAtom(confirmDialogAtom);
 	const { config: segmentationConfig, isLoading: segmentationLoading } =
 		useSegmentationConfig();
+	// Process lyrics splits Japanese into words with the dictionary.
+	const japaneseDictionary = useJapaneseDictionary(text);
 
 	const [step, setStep] = useState<"edit" | "review">("edit");
 	const [reviewed, setReviewed] = useState<ReviewedSection[]>([]);
@@ -533,7 +536,7 @@ export const ImportLyricsDialog = () => {
 									headerCount={detectedSections.length}
 									makeSections={makeSections}
 									onMakeSectionsChange={setMakeSections}
-									hasText={!!text.trim()}
+									canProcess={!!text.trim() && !japaneseDictionary.loading}
 									canRestore={originalText !== null}
 									canSplit={
 										!!text.trim() &&

@@ -15,6 +15,24 @@ import { kanaToRomaji as toRomaji } from "kuroshiro/lib/util";
 const DICT_PATH = `${import.meta.env.BASE_URL}kuromoji-dict/`;
 
 let tokenizer: Promise<Tokenizer<IpadicFeatures>> | undefined;
+/** The tokenizer once loaded, for code that can't wait for it. */
+let loadedTokenizer: Tokenizer<IpadicFeatures> | undefined;
+
+export const getLoadedJapaneseTokenizer = () => loadedTokenizer;
+
+const KANA = /[\p{Script=Hiragana}\p{Script=Katakana}]/u;
+/** Whether a text needs the Japanese dictionary: any kana in it. */
+export const needsJapaneseDictionary = (text: string) => KANA.test(text);
+
+/**
+ * Process lyrics' Japanese word finder for a text, when it has kana and the
+ * dictionary is loaded; otherwise it keeps splitting by character.
+ */
+export const loadedJapaneseWordFinder = (text: string) => {
+	const tk = loadedTokenizer;
+	if (!tk || !needsJapaneseDictionary(text)) return undefined;
+	return (value: string) => japaneseWordStarts(tk, value);
+};
 
 export function loadJapaneseTokenizer() {
 	// The browser build: the package's main entry needs Node's path module.
@@ -28,6 +46,10 @@ export function loadJapaneseTokenizer() {
 					});
 				}),
 		)
+		.then((built) => {
+			loadedTokenizer = built;
+			return built;
+		})
 		.catch((error) => {
 			// Let the next attempt try again, after a dropped connection say.
 			tokenizer = undefined;
@@ -323,4 +345,32 @@ export function romanizeJapaneseLine(
 				!kept[kept.length - 1]?.opens);
 		return gap ? `${joined} ` : joined;
 	});
+}
+
+/**
+ * Where each Japanese word after the first starts in a text, as UTF-16
+ * offsets: the same words the romanization puts gaps between (君|の|名前|を|
+ * 呼んで|いた), punctuation staying with the word before it.
+ */
+export function japaneseWordStarts(
+	tk: Tokenizer<IpadicFeatures>,
+	text: string,
+): Set<number> {
+	const tokens = tokenize(tk, widenKatakana(text));
+	const starts = new Set<number>();
+	const opens = (token: Token | undefined) =>
+		!!token && /^[「『（(“‘〈《【]$/.test(token.surface);
+	tokens.forEach((token, index) => {
+		const previous = tokens[index - 1];
+		if (!previous) return;
+		// An opening quote starts the word after it.
+		if (opens(token)) starts.add(token.position);
+		else if (
+			/[\p{L}\p{N}]/u.test(token.surface) &&
+			!opens(previous) &&
+			!attaches(token, previous)
+		)
+			starts.add(token.position);
+	});
+	return starts;
 }

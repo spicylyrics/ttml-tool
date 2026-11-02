@@ -36,6 +36,7 @@ import {
 	importTextFormatAtom,
 	processStepsAtom,
 } from "$/modules/lyrics-import/states";
+import { useJapaneseDictionary } from "$/modules/romanization/useJapaneseDictionary";
 import { segmentWord } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import { confirmDialogAtom } from "$/states/dialogs.ts";
@@ -174,12 +175,15 @@ function EditAsTextBody({
 
 	const { config: segmentationConfig, isLoading: segmentationLoading } =
 		useSegmentationConfig();
+	// Process lyrics splits Japanese into words with the dictionary.
+	const japaneseDictionary = useJapaneseDictionary(deferredText);
 	// Both run on the selected lines, or everything with no selection.
 	const tools: LyricMarkupTool[] = [
 		{
 			key: "process",
 			icon: <SparkleRegular />,
 			label: t("textImportDialog.processLyrics", "Process lyrics"),
+			disabled: japaneseDictionary.loading,
 			run: (value, lines) => {
 				const next = processTextRows(
 					value,

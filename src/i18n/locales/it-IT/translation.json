@@ -196,8 +196,8 @@
       "emDashesHint": "Trasforma i trattini doppi e isolati in lineette.",
       "splitHyphens": "Dividi le parole con trattino",
       "splitHyphensHint": "Divide parole come mm-hmm dopo il trattino.",
-      "splitCjk": "Dividi i caratteri CJK",
-      "splitCjkHint": "Divide il testo cinese, giapponese e coreano in caratteri e ai cambi di scrittura.",
+      "splitCjk": "Dividi il testo CJK",
+      "splitCjkHint": "Divide il giapponese in parole, il cinese e il coreano in caratteri, e il testo dove cambia la scrittura.",
       "punctuationSpacing": "Sistema la punteggiatura",
       "punctuationSpacingHint": "Uno spazio dopo le virgole, nessuno prima della punteggiatura e le virgolette restano sulla loro parola.",
       "collapseSpaces": "Unisci gli spazi",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Mostra un contatore dei fotogrammi al secondo sull'anteprima.",
       "previewModeDesc": "Scegli quale anteprima mostra la scheda Anteprima.",
       "spicyBackgroundDesc": "Cosa viene mostrato dietro l'anteprima Spicy.",
-      "fadeWidthDesc": "Quanto è morbido il bordo dell'evidenziazione mentre una parola si riempie nelle anteprime Standard e Toxi.",
-      "japaneseSplit": "Divisione automatica del giapponese",
-      "japaneseSplitDesc": "Come la divisione automatica taglia i testi giapponesi in parti.",
-      "japaneseSplitSyllable": "Sillaba",
-      "japaneseSplitSyllableDesc": "Per suono, come si canta: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Una parte per battito, come ko|o|hi|i",
-      "japaneseSplitWord": "Parola",
-      "japaneseSplitWordDesc": "Parole intere. Può variare un po' tra l'app e il sito"
+      "fadeWidthDesc": "Quanto è morbido il bordo dell'evidenziazione mentre una parola si riempie nelle anteprime Standard e Toxi."
     }
   },
   "timingOverview": {

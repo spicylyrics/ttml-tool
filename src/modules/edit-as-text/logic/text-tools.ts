@@ -1,6 +1,7 @@
 import type { LyricMarkupFormat } from "$/components/LyricMarkupEditor";
 import { getSectionHeader } from "$/modules/lyric-editor/utils/section-system";
 import { segmentImportText } from "$/modules/lyrics-import/logic/import-text";
+import { loadedJapaneseWordFinder } from "$/modules/romanization/engines/japanese";
 import { type LyricPrepOptions, prepareLyricLine } from "$/utils/lyric-prep";
 import { subKeysOf } from "./serialize";
 
@@ -61,6 +62,8 @@ export function processTextRows(
 	const subRowCount = subKeysOf(format).length;
 	const rows = splitRows(text);
 	const picked = pickedLyricRows(rows, subRowCount, range);
+	// Kanji-only lines of a Japanese song split into words too.
+	const japaneseWords = loadedJapaneseWordFinder(text);
 	const output: string[] = [];
 	rows.forEach((row, index) => {
 		if (!picked.has(index)) {
@@ -113,6 +116,7 @@ export function processTextRows(
 				backgroundVocals:
 					steps.backgroundVocals && subRowCount === 0 && !isBackground,
 			},
+			japaneseWords,
 		)
 			.split("\n")
 			.filter((line) => line.length > 0);

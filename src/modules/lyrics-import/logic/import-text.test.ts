@@ -241,6 +241,14 @@ describe("syllable splitting in the import text", () => {
 		);
 	});
 
+	it("splits each Japanese word Process lyrics marked, and only once", () => {
+		const bySound = (word: string) =>
+			({ 名前: ["名", "前"], 呼んで: ["呼ん", "で"] })[word] ?? [word];
+		const once = segmentImportText("君\\の\\名前\\を\\呼んで", FORMAT, bySound);
+		expect(once).toBe("君\\の\\名\\前\\を\\呼ん\\で");
+		expect(segmentImportText(once, FORMAT, bySound)).toBe(once);
+	});
+
 	it("leaves translation rows and the same-line translation alone", () => {
 		expect(
 			segmentImportText(

@@ -196,8 +196,8 @@
       "emDashesHint": "Převede dvojité a osamocené spojovníky na dlouhé pomlčky.",
       "splitHyphens": "Dělit slova se spojovníkem",
       "splitHyphensHint": "Rozdělí slova jako mm-hmm za spojovníkem.",
-      "splitCjk": "Dělit znaky CJK",
-      "splitCjkHint": "Rozdělí čínský, japonský a korejský text na znaky a na změnách písma.",
+      "splitCjk": "Dělit text CJK",
+      "splitCjkHint": "Rozdělí japonštinu na slova, čínštinu a korejštinu na znaky a text při změně písma.",
       "punctuationSpacing": "Upravit interpunkci",
       "punctuationSpacingHint": "Jedna mezera za čárkou, žádná před interpunkcí a uvozovky zůstanou u slova.",
       "collapseSpaces": "Sloučit mezery",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Zobrazit v náhledu počítadlo snímků za sekundu.",
       "previewModeDesc": "Vyberte, který náhled se zobrazí na kartě Náhled.",
       "spicyBackgroundDesc": "Co se zobrazuje za náhledem Spicy.",
-      "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi.",
-      "japaneseSplit": "Automatické dělení japonštiny",
-      "japaneseSplitDesc": "Jak automatické dělení rozdělí japonský text na části.",
-      "japaneseSplitSyllable": "Slabika",
-      "japaneseSplitSyllableDesc": "Podle zvuku, jak se zpívá: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Jedna část na dobu, např. ko|o|hi|i",
-      "japaneseSplitWord": "Slovo",
-      "japaneseSplitWordDesc": "Celá slova. V aplikaci a na webu se může mírně lišit"
+      "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi."
     }
   },
   "timingOverview": {

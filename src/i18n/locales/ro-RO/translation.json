@@ -196,8 +196,8 @@
       "emDashesHint": "Transformă cratimele duble și izolate în linii de pauză.",
       "splitHyphens": "Desparte cuvintele cu cratimă",
       "splitHyphensHint": "Desparte cuvinte ca mm-hmm după cratimă.",
-      "splitCjk": "Desparte caracterele CJK",
-      "splitCjkHint": "Desparte textul chinezesc, japonez și coreean în caractere și la schimbarea scrierii.",
+      "splitCjk": "Împarte textul CJK",
+      "splitCjkHint": "Împarte japoneza în cuvinte, chineza și coreeana în caractere, iar textul unde se schimbă scrierea.",
       "punctuationSpacing": "Aranjează punctuația",
       "punctuationSpacingHint": "Un spațiu după virgule, niciunul înainte de punctuație, iar ghilimelele rămân lângă cuvânt.",
       "collapseSpaces": "Unește spațiile",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Afișează un contor de cadre pe secundă pe previzualizare.",
       "previewModeDesc": "Alege ce previzualizare afișează fila Previzualizare.",
       "spicyBackgroundDesc": "Ce se afișează în spatele previzualizării Spicy.",
-      "fadeWidthDesc": "Cât de moale este marginea evidențierii când un cuvânt se umple în previzualizările Standard și Toxi.",
-      "japaneseSplit": "Împărțirea automată a japonezei",
-      "japaneseSplitDesc": "Cum taie împărțirea automată versurile japoneze în părți.",
-      "japaneseSplitSyllable": "Silabă",
-      "japaneseSplitSyllableDesc": "După sunet, cum se cântă: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "O parte pe bătaie, ca ko|o|hi|i",
-      "japaneseSplitWord": "Cuvânt",
-      "japaneseSplitWordDesc": "Cuvinte întregi. Poate diferi puțin între aplicație și site"
+      "fadeWidthDesc": "Cât de moale este marginea evidențierii când un cuvânt se umple în previzualizările Standard și Toxi."
     }
   },
   "timingOverview": {

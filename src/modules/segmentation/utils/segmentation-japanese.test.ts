@@ -4,7 +4,7 @@ import type { SegmentationConfig } from "../types";
 import { segmentWord } from "./segmentation";
 
 const base: SegmentationConfig = {
-	engine: "japanese",
+	engine: "prosodic",
 	splitCJK: true,
 	splitEnglish: true,
 	punctuationWeight: 0.2,
@@ -21,21 +21,27 @@ const split = (word: string, config: Partial<SegmentationConfig> = {}) =>
 		{ ...base, ...config },
 	).map((part) => part.word);
 
-describe("Japanese engine granularity", () => {
-	it("splits by syllable when no granularity is set", () => {
+describe("Japanese splitting by script", () => {
+	it("splits Japanese by sound whatever engine is picked", () => {
 		expect(split("コーヒー")).toEqual(["コー", "ヒー"]);
+		expect(split("いっしょに", { engine: "basic" })).toEqual([
+			"いっ",
+			"しょ",
+			"に",
+		]);
 	});
 
-	it("uses the chosen granularity", () => {
-		expect(split("さんぽ", { japaneseGranularity: "mora" })).toEqual([
-			"さ",
-			"ん",
-			"ぽ",
-		]);
+	it("splits half-width katakana too", () => {
+		expect(split("ｿﾝﾅ")).toEqual(["ｿﾝ", "ﾅ"]);
+		expect(split("ｶﾞｯｺｰ")).toEqual(["ｶﾞｯ", "ｺｰ"]);
 	});
 
 	it("leaves English splitting alone", () => {
 		// The prosodic dictionary splits "every" as e|very.
-		expect(split("every", { engine: "prosodic" })).toEqual(["e", "very"]);
+		expect(split("every")).toEqual(["e", "very"]);
+	});
+
+	it("does nothing with the none engine", () => {
+		expect(split("コーヒー", { engine: "none" })).toEqual(["コーヒー"]);
 	});
 });

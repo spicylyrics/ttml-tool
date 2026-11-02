@@ -196,8 +196,8 @@
       "emDashesHint": "Convierte guiones dobles y sueltos en rayas.",
       "splitHyphens": "Dividir palabras con guion",
       "splitHyphensHint": "Divide palabras como mm-hmm después del guion.",
-      "splitCjk": "Dividir caracteres CJK",
-      "splitCjkHint": "Divide el texto chino, japonés y coreano en caracteres y en los cambios de escritura.",
+      "splitCjk": "Dividir texto CJK",
+      "splitCjkHint": "Divide el japonés en palabras, el chino y el coreano en caracteres, y el texto donde cambia la escritura.",
       "punctuationSpacing": "Ordenar puntuación",
       "punctuationSpacingHint": "Un espacio tras las comas, ninguno antes de la puntuación y las comillas pegadas a su palabra.",
       "collapseSpaces": "Unir espacios",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Muestra un contador de fotogramas por segundo en la vista previa.",
       "previewModeDesc": "Elige qué vista previa muestra la pestaña Vista previa.",
       "spicyBackgroundDesc": "Lo que se muestra detrás de la vista previa de Spicy.",
-      "fadeWidthDesc": "Qué tan suave es el borde del resaltado mientras se llena una palabra en las vistas previas Standard y Toxi.",
-      "japaneseSplit": "División automática del japonés",
-      "japaneseSplitDesc": "Cómo la división automática corta la letra japonesa en partes.",
-      "japaneseSplitSyllable": "Sílaba",
-      "japaneseSplitSyllableDesc": "Por sonido, como se canta: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Una parte por pulso, como ko|o|hi|i",
-      "japaneseSplitWord": "Palabra",
-      "japaneseSplitWordDesc": "Palabras completas. Puede variar un poco entre la app y la web"
+      "fadeWidthDesc": "Qué tan suave es el borde del resaltado mientras se llena una palabra en las vistas previas Standard y Toxi."
     }
   },
   "timingOverview": {

@@ -196,8 +196,8 @@
       "emDashesHint": "Turns double hyphens and stray hyphens into em dashes.",
       "splitHyphens": "Split hyphenated words",
       "splitHyphensHint": "Splits words like mm-hmm after the hyphen.",
-      "splitCjk": "Split CJK characters",
-      "splitCjkHint": "Splits Chinese, Japanese and Korean text into characters and at script changes.",
+      "splitCjk": "Split CJK text",
+      "splitCjkHint": "Splits Japanese into words, Chinese and Korean into characters, and text at script changes.",
       "punctuationSpacing": "Tidy punctuation",
       "punctuationSpacingHint": "One space after commas, none before punctuation, and quotes kept on their word.",
       "collapseSpaces": "Collapse spaces",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Show a frame rate counter on the preview.",
       "previewModeDesc": "Choose which preview the Preview tab shows.",
       "spicyBackgroundDesc": "What shows behind the Spicy preview.",
-      "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews.",
-      "japaneseSplit": "Japanese auto split",
-      "japaneseSplitDesc": "How Auto split cuts Japanese lyrics into parts.",
-      "japaneseSplitSyllable": "Syllable",
-      "japaneseSplitSyllableDesc": "By sound, as it's sung: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "One part per beat, like ko|o|hi|i",
-      "japaneseSplitWord": "Word",
-      "japaneseSplitWordDesc": "Whole words. Can differ a little between the app and the website"
+      "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews."
     }
   },
   "timingOverview": {

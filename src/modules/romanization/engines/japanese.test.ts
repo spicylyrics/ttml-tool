@@ -1,6 +1,6 @@
 import kuromoji, { type IpadicFeatures, type Tokenizer } from "kuromoji";
 import { beforeAll, describe, expect, it } from "vitest";
-import { romanizeJapaneseLine } from "./japanese";
+import { japaneseWordStarts, romanizeJapaneseLine } from "./japanese";
 
 let tokenizer: Tokenizer<IpadicFeatures>;
 
@@ -126,6 +126,30 @@ describe("Japanese romanization", () => {
 	it("reads katakana words in any context", () => {
 		expect(romanize("で", "ソンナ", "こ")).toEqual(["de ", "sonna ", "ko"]);
 		expect(romanize("でソンナこと")).toEqual(["de sonna koto"]);
+	});
+
+	it("finds where words start, particles apart", () => {
+		const words = (text: string) => {
+			const starts = [...japaneseWordStarts(tokenizer, text)];
+			return [0, ...starts].map((start, index) =>
+				text.slice(start, starts[index] ?? text.length),
+			);
+		};
+		expect(words("君の名前を呼んでいた")).toEqual([
+			"君",
+			"の",
+			"名前",
+			"を",
+			"呼んで",
+			"いた",
+		]);
+		expect(words("「おい、なんでｿﾝﾅことを")).toEqual([
+			"「おい、",
+			"なんで",
+			"ｿﾝﾅ",
+			"こと",
+			"を",
+		]);
 	});
 
 	it("repeats the kanji before 々", () => {

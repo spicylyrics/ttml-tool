@@ -12,7 +12,7 @@ import {
 	MergeDirection,
 	PUNCT_AMBIGUOUS_QUOTES,
 } from "./charUtils";
-import { splitJapaneseByGranularity } from "./japanese-split";
+import { hasKana, splitJapaneseSyllables } from "./japanese-split";
 import { applyLearnedRule } from "./learned-rules";
 import {
 	getHyphenationLanguage,
@@ -58,12 +58,8 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 		return [];
 	}
 	if (config.engine === "none") return [text];
-	if (config.engine === "japanese") {
-		return splitJapaneseByGranularity(
-			text,
-			config.japaneseGranularity ?? "syllable",
-		);
-	}
+	// Japanese splits by sound whatever engine splits the English words.
+	if (hasKana(text)) return splitJapaneseSyllables(text);
 	const tokens: string[] = [];
 	let currentToken = "";
 	let lastCharType: CharType | null = null;

@@ -32,9 +32,23 @@ export const segmentationSplitEnglishAtom = atomWithStorage(
 	"segmentation.splitEnglish",
 	true,
 );
-export const segmentationEngineAtom = atomWithStorage<SegmentationEngineId>(
+const storedSegmentationEngineAtom = atomWithStorage<SegmentationEngineId>(
 	"segmentation.engine",
 	"prosodic",
+);
+/**
+ * The engine for Latin words. A saved "japanese" (from when Japanese was an
+ * engine; it now splits on its own) reads as the default.
+ */
+export const segmentationEngineAtom = atom(
+	(get) => {
+		const engine = get(storedSegmentationEngineAtom) as string;
+		return engine === "japanese"
+			? "prosodic"
+			: (engine as SegmentationEngineId);
+	},
+	(_get, set, engine: SegmentationEngineId) =>
+		set(storedSegmentationEngineAtom, engine),
 );
 export const segmentationPunctuationModeAtom = atomWithStorage<PunctuationMode>(
 	"segmentation.punctuationMode",

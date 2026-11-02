@@ -196,8 +196,8 @@
       "emDashesHint": "Zamienia podwójne i samotne łączniki na pauzy.",
       "splitHyphens": "Dziel słowa z łącznikiem",
       "splitHyphensHint": "Dzieli słowa takie jak mm-hmm po łączniku.",
-      "splitCjk": "Dziel znaki CJK",
-      "splitCjkHint": "Dzieli tekst chiński, japoński i koreański na znaki i przy zmianie pisma.",
+      "splitCjk": "Dziel tekst CJK",
+      "splitCjkHint": "Dzieli japoński na słowa, chiński i koreański na znaki, a tekst przy zmianie pisma.",
       "punctuationSpacing": "Uporządkuj interpunkcję",
       "punctuationSpacingHint": "Jedna spacja po przecinku, żadnej przed interpunkcją, a cudzysłowy zostają przy słowie.",
       "collapseSpaces": "Scal spacje",
@@ -911,15 +911,7 @@
       "showFpsDesc": "Pokaż licznik klatek na sekundę w podglądzie.",
       "previewModeDesc": "Wybierz, który podgląd pokazuje karta Podgląd.",
       "spicyBackgroundDesc": "Co jest wyświetlane za podglądem Spicy.",
-      "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi.",
-      "japaneseSplit": "Automatyczny podział japońskiego",
-      "japaneseSplitDesc": "Jak automatyczny podział tnie japoński tekst na części.",
-      "japaneseSplitSyllable": "Sylaba",
-      "japaneseSplitSyllableDesc": "Według brzmienia, jak się śpiewa: koo|hii, is|sho, kai",
-      "japaneseSplitMora": "Mora",
-      "japaneseSplitMoraDesc": "Jedna część na takt, np. ko|o|hi|i",
-      "japaneseSplitWord": "Słowo",
-      "japaneseSplitWordDesc": "Całe słowa. Może się nieco różnić między aplikacją a stroną"
+      "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi."
     }
   },
   "timingOverview": {

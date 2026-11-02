@@ -17,7 +17,6 @@ export type HyphenatorFunc = (text: string) => string;
 export type SegmentationEngineId =
 	| "prosodic"
 	| "basic"
-	| "japanese"
 	| "silabas"
 	| "syllabify-fr"
 	| "syllabify"
@@ -83,6 +82,4 @@ export interface SegmentationConfig {
 	 * 如果未提供，则不执行西文音节的自动分词
 	 */
 	hyphenator?: HyphenatorFunc;
-	/** Japanese split granularity; unset means syllable. */
-	japaneseGranularity?: "syllable" | "mora" | "word";
 }

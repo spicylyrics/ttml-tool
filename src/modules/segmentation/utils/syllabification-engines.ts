@@ -123,13 +123,6 @@ export const SYLLABIFICATION_ENGINES: SyllabificationEngine[] = [
 		split: (word) => [word],
 	},
 	{
-		id: "japanese",
-		name: "Japanese (Basic)",
-		description:
-			"Use the existing CJK character splitting rules for Japanese text.",
-		split: (word) => [word],
-	},
-	{
 		id: "silabas",
 		name: "Spanish (Silabas)",
 		description: "Spanish orthographic syllable splitting.",

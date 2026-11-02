@@ -25,9 +25,14 @@ export const detectSyllabificationEngine = (lyricLines: LyricLine[]) => {
 	const text = extractLyricsText(lyricLines);
 	if (!text) return undefined;
 
+	// Japanese splits by sound whatever the engine, which then only handles
+	// the song's English words: judge those alone.
 	const kana =
 		text.match(/[\p{Script=Hiragana}\p{Script=Katakana}]/gu)?.length ?? 0;
-	if (kana > 0) return "japanese" as const;
+	if (kana > 0) {
+		const latin = text.replace(/[^\p{Script=Latin}\s']/gu, " ").trim();
+		return engineForLanguage[franc(latin, { minLength: 20 })];
+	}
 
 	const cyrillic = text.match(/\p{Script=Cyrillic}/gu)?.length ?? 0;
 	if (cyrillic > 0) return "syllabify" as const;
@@ -42,4 +47,15 @@ export const detectSyllabificationEngine = (lyricLines: LyricLine[]) => {
 export const matchesSavedSyllabificationEngine = (
 	lyricLines: LyricLine[],
 	savedEngine: SegmentationEngineId,
-) => detectSyllabificationEngine(lyricLines) === savedEngine;
+) => {
+	const detected = detectSyllabificationEngine(lyricLines);
+	// A Japanese song with too little English to judge is fine either way.
+	if (
+		!detected &&
+		/[\p{Script=Hiragana}\p{Script=Katakana}]/u.test(
+			extractLyricsText(lyricLines),
+		)
+	)
+		return true;
+	return detected === savedEngine;
+};

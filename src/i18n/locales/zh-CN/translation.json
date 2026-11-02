@@ -196,8 +196,8 @@
       "emDashesHint": "把双连字符和单独的连字符转为长破折号。",
       "splitHyphens": "拆分带连字符的词",
       "splitHyphensHint": "在连字符后拆分 mm-hmm 这样的词。",
-      "splitCjk": "拆分 CJK 字符",
-      "splitCjkHint": "把中文、日文和韩文按字符以及文字切换处拆分。",
+      "splitCjk": "拆分中日韩文字",
+      "splitCjkHint": "日语按词拆分，中文和韩语按字拆分，并在文字切换处拆分。",
       "punctuationSpacing": "整理标点",
       "punctuationSpacingHint": "逗号后留一个空格，标点前不留空格，引号贴着所属的词。",
       "collapseSpaces": "合并空格",
@@ -911,15 +911,7 @@
       "showFpsDesc": "在预览上显示帧率计数器。",
       "previewModeDesc": "选择预览标签页显示哪种预览。",
       "spicyBackgroundDesc": "Spicy 预览背后显示的内容。",
-      "fadeWidthDesc": "Standard 和 Toxi 预览中字高亮填充边缘的柔和程度。",
-      "japaneseSplit": "日语自动拆分",
-      "japaneseSplitDesc": "自动拆分如何把日语歌词切成音节。",
-      "japaneseSplitSyllable": "音节",
-      "japaneseSplitSyllableDesc": "按读音拆分，和唱的一样：koo|hii、is|sho、kai",
-      "japaneseSplitMora": "音拍",
-      "japaneseSplitMoraDesc": "每拍一段，如 ko|o|hi|i",
-      "japaneseSplitWord": "词",
-      "japaneseSplitWordDesc": "整词拆分。应用和网页版的结果可能略有不同"
+      "fadeWidthDesc": "Standard 和 Toxi 预览中字高亮填充边缘的柔和程度。"
     }
   },
   "timingOverview": {
