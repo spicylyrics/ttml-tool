@@ -1,14 +1,16 @@
+import { Romanize as Hangul } from "hangul-romanize";
 import * as wanakana from "wanakana";
 import { getLineDisplayNumbers } from "$/modules/lyric-editor/utils/line-numbers";
 import { getSectionHeader } from "$/modules/lyric-editor/utils/section-system";
-import type { LyricLine, LyricSection, LyricWord } from "$/types/ttml";
+import type { LyricLine, LyricWord } from "$/types/ttml";
 
 /**
  * Aligns a pasted romanized lyric page (such as Genius's "Romanized" page) to
- * the Japanese lines: sections are matched by their headers, lines one to one
- * inside them, then each word takes its share of the line's romaji. Kana and
- * Latin words are matched by their own reading; kanji in between share what's
- * left, split by mora. A line's (parentheses) go to its background line.
+ * the lyrics: the whole song's words are fitted to the page as one stream, so
+ * the page may break its lines elsewhere, with its [Section] headers pulling
+ * each section into place. Kana, Hangul and Latin words are matched by their
+ * own reading; kanji in between share what's left, split by sound. A line's
+ * (parentheses) go to its background line.
  */
 
 export interface AlignedLine {
@@ -20,24 +22,9 @@ export interface AlignedLine {
 	uncertain: boolean;
 }
 
-/** A section whose line count differs from the page's, so it was left out. */
-export interface SkippedSection {
-	label: string;
-	lineNumber: number;
-	expected: number;
-	received: number;
-}
-
 export type RomanizedAlignment =
-	| { ok: true; lines: AlignedLine[]; skipped: SkippedSection[] }
-	| {
-			ok: false;
-			reason: "line-count";
-			expected: number;
-			received: number;
-			/** The editor line where the page first stops lining up, if known. */
-			firstDifference?: { label?: string; lineNumber: number };
-	  };
+	| { ok: true; lines: AlignedLine[] }
+	| { ok: false; reason: "mismatch" };
 
 const MACRONS: Record<string, string> = {
 	ā: "aa",
@@ -144,17 +131,27 @@ const LATIN = /\p{Script=Latin}/u;
  * removed, and look-alike letters next to Latin ones turned Latin.
  */
 export function cleanPastedLine(text: string) {
-	const chars = [...text.normalize("NFKC").replace(/[​-‍⁠﻿]/g, "")];
+	const chars = [
+		...text.normalize("NFKC").replace(/[\u200B-\u200D\u2060\uFEFF]/g, ""),
+	];
+	const count = (script: RegExp) =>
+		chars.filter((char) => script.test(char)).length;
+	const mostlyLatin =
+		count(LATIN) > 2 * count(/[\p{Script=Cyrillic}\p{Script=Greek}]/u);
 	return chars
 		.map((char, index) => {
 			const latin = LOOKALIKES[char];
 			if (!latin) return char;
+			// On a line of romaji even a lone one goes ("Ashita е to" for へ).
 			const near = [chars[index - 1], chars[index + 1]];
-			return near.some((other) => other && LATIN.test(other)) ? latin : char;
+			return mostlyLatin || near.some((other) => other && LATIN.test(other))
+				? latin
+				: char;
 		})
 		.join("");
 }
 
+const HANGUL = /\p{Script=Hangul}/u;
 const SOKUON = /[っッ]$/u;
 const SOKUON_ONLY = /^[っッ]$/u;
 const hasKanji = (text: string) => /[\p{Script=Han}々〆]/u.test(text);
@@ -171,7 +168,14 @@ function expectedReadings(word: string): string[] | undefined {
 	const text = word.normalize("NFKC").replace(/[\p{P}\p{S}\s]/gu, "");
 	if (!text) return [];
 	if (hasKanji(text)) return undefined;
+	if (HANGUL.test(text)) {
+		const reading = normalizeRomaji(Hangul.from(text));
+		return reading ? [reading] : undefined;
+	}
 	if (!hasKana(text)) {
+		// Other scripts can't be read here; they take what's between.
+		if (/(?=\p{L})[^\p{Script=Latin}\p{Script=Common}]/u.test(text))
+			return undefined;
 		const latin = normalizeRomaji(text);
 		return latin ? [latin] : [];
 	}
@@ -185,10 +189,11 @@ function expectedReadings(word: string): string[] | undefined {
 			reading = reading.replace(pattern, replacement);
 		}
 		// Long o and e are spelled both ways: コー "koo", ō "ou"; えい "ei", ē "ee".
-		// っち is "tchi" or "cchi".
+		// っち is "tchi" or "cchi"; ヴァ is "va" or "ba".
 		return [
 			reading,
 			reading.replace(/tch/g, "cch"),
+			reading.replace(/v/g, "b"),
 			reading.replace(/oo/g, "ou"),
 			reading.replace(/ou/g, "oo"),
 			reading.replace(/ei/g, "ee"),
@@ -255,8 +260,12 @@ function shareKanjiRun(run: string, chunks: number[], count: number) {
 	const given = chunks.map(() => 1);
 	for (let left = count - chunks.length; left > 0; left--) {
 		let pick = 0;
-		given.forEach((kanji, index) => {
-			if (sounds[index] / kanji > sounds[pick] / given[pick]) pick = index;
+		// The most sounds per kanji, then the most letters: 朝目覚 "asa meza"
+		// is asa|me|za.
+		const weight = (index: number) =>
+			sounds[index] / given[index] + chunks[index] / given[index] / 100;
+		given.forEach((_, index) => {
+			if (weight(index) > weight(pick)) pick = index;
 		});
 		given[pick]++;
 	}
@@ -267,94 +276,199 @@ function shareKanjiRun(run: string, chunks: number[], count: number) {
 }
 
 /**
- * Cuts the original line at the normalized ranges, so capitals, macrons and
- * apostrophes survive. Each word runs to the start of the next one; the
- * punctuation at its edges is dropped, and a space after it becomes a
- * trailing space, which is how a word gap is stored.
+ * Cuts the original text at the normalized ranges, so capitals, macrons and
+ * apostrophes survive. A word runs from its first letter up to the next
+ * letter after its range; punctuation at its edges is dropped, and a space
+ * after it becomes a trailing space, which is how a word gap is stored.
  */
 function sliceOriginal(
 	original: string,
 	sources: number[],
 	ranges: Array<[number, number] | undefined>,
 ): string[] {
-	const starts = ranges.map((range) =>
-		range && range[1] > range[0] ? sources[range[0]] : undefined,
-	);
-	return starts.map((start, index) => {
-		if (start === undefined) return "";
-		const next = starts.slice(index + 1).find((value) => value !== undefined);
-		const span = original.slice(start, next ?? original.length);
+	const filled = ranges.map((range) => !!range && range[1] > range[0]);
+	return ranges.map((range, index) => {
+		if (!range || !filled[index]) return "";
+		const [start, end] = range;
+		const span = original.slice(
+			sources[start],
+			end < sources.length ? sources[end] : original.length,
+		);
 		const match = span.match(/^(.*?[\p{L}\p{M}])([^\p{L}\p{M}]*)$/su);
 		if (!match) return "";
-		const gap = next !== undefined && /\s/u.test(match[2]);
-		return gap ? `${match[1]} ` : match[1];
+		const more = filled.slice(index + 1).some(Boolean);
+		return more && /\s/u.test(match[2]) ? `${match[1]} ` : match[1];
 	});
 }
 
+/** Kana at the start and end of a kanji word, which its romaji must show. */
+function kanaEdges(word: string) {
+	const text = word.normalize("NFKC").replace(/[\p{P}\p{S}\s]/gu, "");
+	const kana = "[\\p{Script=Hiragana}\\p{Script=Katakana}ー]+";
+	const head = text.match(new RegExp(`^${kana}`, "u"))?.[0];
+	const tail = text.match(new RegExp(`${kana}$`, "u"))?.[0];
+	const prefix = head ? expectedReadings(head) : undefined;
+	const suffix = tail && tail !== text ? expectedReadings(tail) : undefined;
+	const kanji = [...text].filter((char) => hasKanji(char)).length;
+	const other =
+		[...text].length -
+		kanji -
+		[...(head ?? "")].length -
+		(tail && tail !== text ? [...tail].length : 0);
+	return {
+		prefix: prefix?.length ? prefix : undefined,
+		suffix: suffix?.length ? suffix : undefined,
+		/** About how many letters it should take. */
+		size:
+			KANJI_LETTERS * kanji +
+			2 * Math.max(0, other) +
+			(prefix?.[0]?.length ?? 0) +
+			(suffix?.[0]?.length ?? 0),
+	};
+}
+
 type Token =
-	| { kind: "word"; index: number; readings: string[]; sokuon: boolean }
-	| { kind: "kanji"; indices: number[] };
+	| {
+			kind: "word";
+			index: number;
+			readings: string[];
+			sokuon: boolean;
+			/** How long a guess for it should be: its reading's length. */
+			size: number;
+	  }
+	| {
+			kind: "kanji";
+			indices: number[];
+			size: number;
+			/** Readings its romaji must start or end with, from its kana. */
+			prefix?: string[];
+			suffix?: string[];
+	  };
 
 type Step =
 	| { kind: "match"; start: number; end: number; skipped: number }
-	| { kind: "guess"; start: number; end: number };
+	| { kind: "guess"; start: number; end: number; offEdge: boolean }
+	/** Skips the rest of a page line that has nothing in the lyrics. */
+	| { kind: "jump"; start: number; end: number };
 
-// How a line's words are fitted to its romaji: every way is scored and the
-// best one wins, so one early match can't throw off the rest of the line.
+// How words are fitted to romaji: every way is scored and the best one wins,
+// so one early match can't throw off the rest.
 const SCORE = {
 	match: 4,
 	/** A word that starts or ends where the page has a space or punctuation. */
 	edge: 1,
+	/** A section's first word starting at the same section on the page. */
+	anchor: 3,
 	skippedLetter: -2,
 	unmatched: -3,
+	/** Per letter a guess is longer or shorter than the word's reading. */
+	sizeOff: -0.3,
+	/** The same for kanji, whose readings vary more. */
+	kanjiSizeOff: -0.15,
+	/** A kanji word whose romaji doesn't show its kana. */
+	kanaOff: -4,
 	missing: -6,
+	skippedLine: -3,
+	crossedLine: -4,
 	leftoverLetter: -1,
 };
+/** About how many letters a kanji takes: "ki", "kokoro", "shou". */
+const KANJI_LETTERS = 3.2;
 const MAX_SKIP = 4;
 const CONSONANT = /[bcdfghjkmpqrstvwxz]/;
 
-/** Splits one line's romaji across its words. */
-export function alignLineWords(
+/**
+ * Fits words, in order, to a stretch of romaji that may span many page lines.
+ * `anchors` pair a word that starts a section with where that section starts
+ * in the romaji. Returns each word's romaji and whether it was guessed.
+ */
+function fitWords(
 	words: LyricWord[],
-	romanizedLine: string,
-): { romanWords: string[]; uncertain: boolean } {
-	const line = cleanPastedLine(romanizedLine);
+	romaji: string,
+	anchors: Array<{ word: number; offset: number }> = [],
+) {
+	const line = cleanPastedLine(romaji);
 	const { normalized: stream, sources } = normalizeWithSources(line);
 	const length = stream.length;
 
 	// Words with nothing to read (spaces, punctuation) get no romaji; runs of
-	// kanji words share one stretch of the page between them.
+	// kanji words share one stretch of the page between them, unless their
+	// kana pins where they end.
 	const tokens: Token[] = [];
 	words.forEach((word, index) => {
 		if (SOKUON_ONLY.test(word.word.trim())) {
-			tokens.push({ kind: "word", index, readings: [], sokuon: true });
+			tokens.push({ kind: "word", index, readings: [], sokuon: true, size: 1 });
 			return;
 		}
 		const readings = expectedReadings(word.word);
 		if (readings && readings.length === 0) return;
 		if (readings) {
-			tokens.push({ kind: "word", index, readings, sokuon: false });
+			const size = readings[0].length;
+			tokens.push({ kind: "word", index, readings, sokuon: false, size });
 			return;
 		}
+		const edges = kanaEdges(word.word);
 		const last = tokens[tokens.length - 1];
-		if (last?.kind === "kanji") last.indices.push(index);
-		else tokens.push({ kind: "kanji", indices: [index] });
+		// A comma or space after the previous kanji word ends its run too.
+		const previous =
+			last?.kind === "kanji"
+				? words[last.indices[last.indices.length - 1]].word
+				: "";
+		if (
+			last?.kind === "kanji" &&
+			!last.suffix &&
+			!edges.prefix &&
+			!/[\p{P}\s]$/u.test(previous)
+		) {
+			last.indices.push(index);
+			last.size += edges.size;
+			last.suffix = edges.suffix;
+		} else tokens.push({ kind: "kanji", indices: [index], ...edges });
 	});
 
-	/** True where the page has a space or punctuation, or the line ends. */
+	/** True where the page has a space, punctuation or a line break. */
+	const between = (at: number) => line.slice(sources[at - 1] + 1, sources[at]);
 	const isEdge = (at: number) =>
-		at <= 0 ||
-		at >= length ||
-		/[^\p{L}\p{M}']/u.test(line.slice(sources[at - 1] + 1, sources[at]));
+		at <= 0 || at >= length || /[^\p{L}\p{M}']/u.test(between(at));
 	const edge = (at: number) => (isEdge(at) ? SCORE.edge : 0);
-	const vowels = (start: number, end: number) =>
-		stream.slice(start, end).replace(/[^aeiou]/g, "").length;
+	const lineStarts: number[] = [];
+	/** How many page lines start at or before each letter. */
+	const lineOf = new Int32Array(length + 1);
+	for (let at = 1; at < length; at++) {
+		const starts = between(at).includes("\n");
+		if (starts) lineStarts.push(at);
+		lineOf[at] = lineOf[at - 1] + (starts ? 1 : 0);
+	}
+	const nextLineStart = (at: number) => lineStarts.find((start) => start > at);
+	const vowelsBefore = new Int32Array(length + 1);
+	for (let at = 0; at < length; at++)
+		vowelsBefore[at + 1] =
+			vowelsBefore[at] + (/[aeiou]/.test(stream[at]) ? 1 : 0);
 	/** A doubled consonant starts here: "tte", "kko", or "tch". */
 	const doubled = (at: number) =>
 		CONSONANT.test(stream[at] ?? "") &&
 		(stream[at] === stream[at + 1] || stream.startsWith("tch", at));
 
-	type Best = { score: number; step?: Step; next: number };
+	const anchorOf = new Map<number, number>();
+	for (const anchor of anchors) {
+		const tokenIndex = tokens.findIndex((token) =>
+			token.kind === "word"
+				? token.index >= anchor.word
+				: token.indices[token.indices.length - 1] >= anchor.word,
+		);
+		const at = sources.findIndex((source) => source >= anchor.offset);
+		if (tokenIndex >= 0 && at >= 0) anchorOf.set(tokenIndex, at);
+	}
+	// On a long page, a word only looks near where its share of the page would
+	// put it, which keeps whole songs quick.
+	const expectedAt = new Float64Array(tokens.length + 1);
+	tokens.forEach((token, index) => {
+		expectedAt[index + 1] = expectedAt[index] + token.size;
+	});
+	const scale = length / Math.max(1, expectedAt[tokens.length]);
+	const band = length > 400 ? Math.max(150, length * 0.15) : Infinity;
+
+	type Best = { score: number; step?: Step };
 	const memo = new Map<number, Best>();
 	const best = (tokenIndex: number, position: number): Best => {
 		const key = tokenIndex * (length + 1) + position;
@@ -365,11 +479,21 @@ export function alignLineWords(
 			score: token
 				? Number.NEGATIVE_INFINITY
 				: SCORE.leftoverLetter * (length - position),
-			next: position,
 		};
+		if (token && Math.abs(position - expectedAt[tokenIndex] * scale) > band) {
+			memo.set(key, result);
+			return result;
+		}
+		const anchor = anchorOf.get(tokenIndex);
+		const anchored = (start: number) =>
+			anchor !== undefined && start === anchor ? SCORE.anchor : 0;
 		const consider = (score: number, step: Step) => {
-			const total = score + best(tokenIndex + 1, step.end).score;
-			if (total > result.score) result = { score: total, step, next: step.end };
+			const next =
+				step.kind === "jump"
+					? best(tokenIndex, step.end)
+					: best(tokenIndex + 1, step.end);
+			const total = score + next.score;
+			if (total > result.score) result = { score: total, step };
 		};
 		if (token?.kind === "word") {
 			const word = words[token.index].word.trim();
@@ -388,28 +512,70 @@ export function alignLineWords(
 					});
 				// A lone っ is the doubled consonant itself: "っ" + "te" → "t".
 				if (token.sokuon && doubled(at)) ends.push(at + 1);
-				for (const end of ends)
+				for (const end of new Set(ends))
 					consider(
-						SCORE.match + SCORE.skippedLetter * skip + edge(at) + edge(end),
+						SCORE.match +
+							SCORE.skippedLetter * skip +
+							edge(at) +
+							edge(end) +
+							anchored(at),
 						{ kind: "match", start: at, end, skipped: skip },
 					);
 			}
 		}
 		if (token) {
 			const count = token.kind === "kanji" ? token.indices.length : 1;
-			for (let end = position + 1; end <= length; end++) {
-				if (vowels(position, end) < count) continue;
-				consider((token.kind === "word" ? SCORE.unmatched : 0) + edge(end), {
+			const limit = Math.min(
+				length,
+				position + Math.ceil(token.size * 2.5) + 6,
+			);
+			const startsWith = (readings: string[] | undefined) =>
+				!readings ||
+				readings.some((reading) => stream.startsWith(reading, position));
+			const endsWith = (readings: string[] | undefined, end: number) =>
+				!readings ||
+				readings.some(
+					(reading) =>
+						end - reading.length >= position &&
+						stream.startsWith(reading, end - reading.length),
+				);
+			for (let end = position + 1; end <= limit; end++) {
+				if (vowelsBefore[end] - vowelsBefore[position] < count) continue;
+				let score: number;
+				let offEdge = false;
+				if (token.kind === "word") {
+					score =
+						SCORE.unmatched +
+						SCORE.sizeOff * Math.abs(end - position - token.size);
+				} else {
+					offEdge = !startsWith(token.prefix) || !endsWith(token.suffix, end);
+					score =
+						SCORE.kanjiSizeOff * Math.abs(end - position - token.size) +
+						(offEdge ? SCORE.kanaOff : 0);
+				}
+				// One word rarely runs over a page line break; several can.
+				const crossed = lineOf[end - 1] - lineOf[position];
+				score += SCORE.crossedLine * Math.max(0, crossed - (count - 1));
+				consider(score + edge(end) + anchored(position), {
 					kind: "guess",
 					start: position,
 					end,
+					offEdge,
 				});
 			}
 			consider(SCORE.missing * count, {
 				kind: "guess",
 				start: position,
 				end: position,
+				offEdge: true,
 			});
+			const lineStart = nextLineStart(position);
+			if (lineStart !== undefined)
+				consider(SCORE.skippedLine, {
+					kind: "jump",
+					start: position,
+					end: lineStart,
+				});
 		}
 		memo.set(key, result);
 		return result;
@@ -418,43 +584,68 @@ export function alignLineWords(
 	const ranges: Array<[number, number] | undefined> = words.map(
 		() => undefined,
 	);
-	let uncertain = false;
+	const guessed = words.map(() => false);
 	/** Lengths of a stretch's space-separated chunks on the page. */
 	const spacedChunks = (start: number, end: number) => {
 		const cuts = [start];
-		for (let at = start + 1; at < end; at++) {
-			const between = line.slice(sources[at - 1] + 1, sources[at]);
-			if (/\s/u.test(between)) cuts.push(at);
-		}
+		for (let at = start + 1; at < end; at++)
+			if (/\s/u.test(between(at))) cuts.push(at);
 		cuts.push(end);
 		return cuts.slice(1).map((cut, index) => cut - cuts[index]);
 	};
 
 	let position = 0;
-	tokens.forEach((token, tokenIndex) => {
-		const { step, next } = best(tokenIndex, position);
-		position = next;
-		if (!step) return;
+	let tokenIndex = 0;
+	while (tokenIndex < tokens.length) {
+		const { step } = best(tokenIndex, position);
+		if (!step) break;
+		position = step.end;
+		if (step.kind === "jump") continue;
+		const token = tokens[tokenIndex++];
 		if (token.kind === "word") {
 			ranges[token.index] = [step.start, step.end];
-			if (step.kind === "guess" || step.skipped > 0) uncertain = true;
-			return;
+			// A word spelled its own way ("ireoke" for 이렇게) but sitting alone
+			// between spaces, at about its length, is not much of a guess.
+			const ownChunk =
+				step.kind === "guess" &&
+				isEdge(step.start) &&
+				isEdge(step.end) &&
+				Math.abs(step.end - step.start - token.size) <=
+					Math.max(2, token.size / 2);
+			if (step.kind === "match" ? step.skipped > 0 : !ownChunk)
+				guessed[token.index] = true;
+			continue;
 		}
-		const { shares, guessed } = shareKanjiRun(
+		const run = shareKanjiRun(
 			stream.slice(step.start, step.end),
 			spacedChunks(step.start, step.end),
 			token.indices.length,
 		);
 		let start = step.start;
 		token.indices.forEach((wordIndex, shareIndex) => {
-			ranges[wordIndex] = [start, start + shares[shareIndex]];
-			start += shares[shareIndex];
+			const share = run.shares[shareIndex];
+			ranges[wordIndex] = [start, start + share];
+			start += share;
+			if (run.guessed || !share || (step.kind === "guess" && step.offEdge))
+				guessed[wordIndex] = true;
 		});
-		if (guessed || shares.some((share) => !share)) uncertain = true;
-	});
-	if (position < length) uncertain = true;
+	}
+	// Romaji left over at the end goes unused, so the last word is a guess.
+	const last = tokens[tokens.length - 1];
+	if (last && position < length)
+		for (const index of last.kind === "word" ? [last.index] : last.indices)
+			guessed[index] = true;
 
-	return { romanWords: sliceOriginal(line, sources, ranges), uncertain };
+	return { romanWords: sliceOriginal(line, sources, ranges), guessed };
+}
+
+/** Splits one line's romaji across its words. */
+export function alignLineWords(
+	words: LyricWord[],
+	romanizedLine: string,
+): { romanWords: string[]; uncertain: boolean } {
+	const { romanWords, guessed } = fitWords(words, romanizedLine);
+	return { romanWords, uncertain: guessed.some(Boolean) };
 }
 
 export interface PageLine {
@@ -531,7 +722,6 @@ function editorSections(lines: LyricLine[]): EditorSection[] {
 export function alignRomanizedPage(
 	lines: LyricLine[],
 	pastedText: string,
-	sections: LyricSection[] = [],
 ): RomanizedAlignment {
 	const page = parseRomanizedPage(pastedText);
 	const editor = editorSections(lines);
@@ -544,81 +734,92 @@ export function alignRomanizedPage(
 		const next = lines[index + 1];
 		if (!line.isBG && next?.isBG) backgroundOf.set(line.id, next);
 	});
-	const labelOf = (section: EditorSection) =>
-		(sections.find(({ id }) => id === section.key)?.label ?? section.key)
-			?.replace(/^\[|\]$/g, "")
-			.trim();
-	const numberOf = (line: LyricLine) => numberById.get(line.id) ?? 1;
 
-	const alignPair = (line: LyricLine, pageLine: PageLine): AlignedLine[] => {
-		const background = backgroundOf.get(line.id);
-		const pairs: Array<[LyricLine, string]> = [[line, pageLine.main]];
-		if (background && pageLine.background)
-			pairs.push([background, pageLine.background]);
-		return pairs.map(([target, romaji]) => {
-			const { romanWords, uncertain } = alignLineWords(target.words, romaji);
+	/**
+	 * Fits lines to the page as one stream, so it doesn't matter where the page
+	 * breaks its lines: Genius's romanized pages often break them differently.
+	 */
+	const fitLines = (
+		targets: LyricLine[],
+		romaji: string,
+		anchors: Array<{ word: number; offset: number }>,
+		numberLine: (line: LyricLine) => LyricLine,
+	): AlignedLine[] => {
+		const fitted = fitWords(
+			targets.flatMap((line) => line.words),
+			romaji,
+			anchors,
+		);
+		let offset = 0;
+		return targets.map((line) => {
+			const own = line.words.map((_, index) => offset + index);
+			offset += line.words.length;
+			const romanWords = own.map((index) => fitted.romanWords[index]);
+			// A line's last word has no gap after it.
+			for (let index = romanWords.length - 1; index >= 0; index--) {
+				if (!romanWords[index]) continue;
+				romanWords[index] = romanWords[index].trimEnd();
+				break;
+			}
 			return {
-				lineId: target.id,
-				lineNumber: numberOf(line),
+				lineId: line.id,
+				lineNumber: numberById.get(numberLine(line).id) ?? 1,
 				romanWords: Object.fromEntries(
-					target.words.map((word, index) => [word.id, romanWords[index]]),
+					line.words.map((word, index) => [word.id, romanWords[index]]),
 				),
-				uncertain,
+				uncertain: own.some((index) => fitted.guessed[index]),
 			};
 		});
 	};
 
-	// With headers on the page and sections in the lyrics, each section is
-	// matched on its own, so an extra line only holds back its own section.
-	const hasStructure =
+	// Headers are anchors, not walls: a section of the lyrics is pulled toward
+	// the same section on the page, but pages often put headers elsewhere.
+	const mains = editor.flatMap((section) => section.lines);
+	const pageLines = page.flatMap((section) => section.lines);
+	const mainRomaji = pageLines.map((line) => line.main).join("\n");
+	const anchors: Array<{ word: number; offset: number }> = [];
+	if (
 		page.some((section) => section.header) &&
-		editor.some((section) => section.key);
-	if (hasStructure && page.length === editor.length) {
-		const aligned: AlignedLine[] = [];
-		const skipped: SkippedSection[] = [];
+		editor.some((section) => section.key) &&
+		page.length === editor.length
+	) {
+		let word = 0;
+		let offset = 0;
 		editor.forEach((section, index) => {
-			const pageLines = page[index].lines;
-			if (pageLines.length !== section.lines.length) {
-				skipped.push({
-					label: labelOf(section) ?? page[index].header ?? "",
-					lineNumber: numberOf(section.lines[0]),
-					expected: section.lines.length,
-					received: pageLines.length,
-				});
-				return;
-			}
-			section.lines.forEach((line, lineIndex) => {
-				aligned.push(...alignPair(line, pageLines[lineIndex]));
-			});
+			anchors.push({ word, offset });
+			word += section.lines.reduce((sum, line) => sum + line.words.length, 0);
+			offset += page[index].lines.reduce(
+				(sum, line) => sum + line.main.length + 1,
+				0,
+			);
 		});
-		return { ok: true, lines: aligned, skipped };
 	}
 
-	const editorLines = editor.flatMap((section) => section.lines);
-	const pageLines = page.flatMap((section) => section.lines);
-	if (editorLines.length !== pageLines.length) {
-		const drift = editor.findIndex(
-			(section, index) => section.lines.length !== page[index]?.lines.length,
-		);
-		return {
-			ok: false,
-			reason: "line-count",
-			expected: editorLines.length,
-			received: pageLines.length,
-			firstDifference:
-				hasStructure && drift >= 0
-					? {
-							label: labelOf(editor[drift]),
-							lineNumber: numberOf(editor[drift].lines[0]),
-						}
-					: undefined,
-		};
-	}
-	return {
-		ok: true,
-		lines: editorLines.flatMap((line, index) =>
-			alignPair(line, pageLines[index]),
-		),
-		skipped: [],
-	};
+	const mainOf = new Map<string, LyricLine>();
+	const backgrounds = mains.flatMap((line) => {
+		const background = backgroundOf.get(line.id);
+		if (background) mainOf.set(background.id, line);
+		return background ? [background] : [];
+	});
+	const backgroundRomaji = pageLines
+		.map((line) => line.background)
+		.filter(Boolean)
+		.join("\n");
+	const aligned = [
+		...fitLines(mains, mainRomaji, anchors, (line) => line),
+		...(backgrounds.length > 0 && backgroundRomaji
+			? fitLines(
+					backgrounds,
+					backgroundRomaji,
+					[],
+					(line) => mainOf.get(line.id) ?? line,
+				)
+			: []),
+	];
+
+	// A page for another song leaves most lines guessed.
+	const guessedLines = aligned.filter((line) => line.uncertain).length;
+	if (aligned.length === 0 || guessedLines > aligned.length / 2)
+		return { ok: false, reason: "mismatch" };
+	return { ok: true, lines: aligned };
 }

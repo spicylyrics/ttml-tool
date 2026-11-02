@@ -172,74 +172,93 @@ describe("romanized page lines", () => {
 		]);
 	});
 
-	it("refuses a page with a different line count", () => {
-		expect(alignRomanizedPage([line("君"), line("僕")], "kimi")).toEqual({
-			ok: false,
-			reason: "line-count",
-			expected: 2,
-			received: 1,
+	const romaji = (result: ReturnType<typeof alignRomanizedPage>) => {
+		if (!result.ok) throw new Error("expected a match");
+		return result.lines.map((aligned) => Object.values(aligned.romanWords));
+	};
+
+	it("follows the words when the page breaks lines differently", () => {
+		const lines = [line("どう", "した", "って"), line("消せない", "夢", "も")];
+		expect(
+			romaji(alignRomanizedPage(lines, "Dou shitatte kesenai yume mo")),
+		).toEqual([
+			["Dou ", "shita", "tte"],
+			["kesenai ", "yume ", "mo"],
+		]);
+		expect(
+			romaji(
+				alignRomanizedPage(
+					[line("君", "の", "名前", "を", "呼んで", "いた")],
+					"Kimi no namae wo\nyonde ita",
+				),
+			),
+		).toEqual([["Kimi ", "no ", "namae ", "wo ", "yonde ", "ita"]]);
+	});
+
+	it("skips a line only the page has", () => {
+		const lines = [line("君", "の"), line("僕", "は")];
+		expect(
+			romaji(alignRomanizedPage(lines, "kimi no\nla la la la\nboku wa")),
+		).toEqual([
+			["kimi ", "no"],
+			["boku ", "wa"],
+		]);
+	});
+
+	it("pins kanji words by their kana", () => {
+		expect(
+			align("omoi araizarai hakidashita", "想い", "洗いざらい", "吐き出した")
+				.romanWords,
+		).toEqual(["omoi ", "araizarai ", "hakidashita"]);
+	});
+
+	it("reads Korean words", () => {
+		expect(align("bam pyeonji", "밤", "편지")).toEqual({
+			romanWords: ["bam ", "pyeonji"],
+			uncertain: false,
 		});
+		// Spelled by sound, but alone between spaces: not flagged.
+		expect(align("ireoke malhanikka", "이렇게", "말하니까")).toEqual({
+			romanWords: ["ireoke ", "malhanikka"],
+			uncertain: false,
+		});
+	});
+
+	it("refuses a page for another song", () => {
+		expect(
+			alignRomanizedPage(
+				[line("あ", "い"), line("う", "え")],
+				"totemo nagai\nbetsu no uta desu",
+			),
+		).toEqual({ ok: false, reason: "mismatch" });
 	});
 
 	it("aligns main lines and gives (parentheses) to background lines", () => {
 		const lines = [line("君", "の"), { ...line("あ"), isBG: true }, line("僕")];
 		const result = alignRomanizedPage(lines, "[Chorus]\nkimi no (a)\nboku");
 		if (!result.ok) throw new Error("expected a match");
-		expect(result.lines.map((aligned) => aligned.lineId)).toEqual([
-			lines[0].id,
-			lines[1].id,
-			lines[2].id,
+		const byLine = new Map(
+			result.lines.map((aligned) => [
+				aligned.lineId,
+				Object.values(aligned.romanWords),
+			]),
+		);
+		expect(lines.map((target) => byLine.get(target.id))).toEqual([
+			["kimi ", "no"],
+			["a"],
+			["boku"],
 		]);
-		expect(Object.values(result.lines[0].romanWords)).toEqual(["kimi ", "no"]);
-		expect(Object.values(result.lines[1].romanWords)).toEqual(["a"]);
-		expect(Object.values(result.lines[2].romanWords)).toEqual(["boku"]);
 	});
 
-	describe("with sections", () => {
-		const sections = [
-			{ id: "v", label: "[Verse 1]", category: "verse" as const },
-			{ id: "c", label: "[Chorus]", category: "chorus" as const },
-		];
+	it("pulls a section toward its header on the page", () => {
+		// Without headers, 空 could take "sora umi" and 海 nothing.
 		const lines = [
-			{ ...line("君"), sectionId: "v" },
-			{ ...line("僕"), sectionId: "v" },
-			{ ...line("空"), sectionId: "c" },
+			{ ...line("空", "の"), sectionId: "v" },
+			{ ...line("海"), sectionId: "c" },
 		];
-
-		it("matches each section on its own and skips one that differs", () => {
-			const result = alignRomanizedPage(
-				lines,
-				"[Verse 1]\nkimi\nboku\nextra\n[Chorus]\nsora",
-				sections,
-			);
-			if (!result.ok) throw new Error("expected a match");
-			expect(result.lines.map((aligned) => aligned.lineId)).toEqual([
-				lines[2].id,
-			]);
-			expect(result.skipped).toEqual([
-				{ label: "Verse 1", lineNumber: 1, expected: 2, received: 3 },
-			]);
-		});
-
-		it("says where the page stops lining up when sections don't pair", () => {
-			expect(alignRomanizedPage(lines, "kimi\nsora", sections)).toEqual({
-				ok: false,
-				reason: "line-count",
-				expected: 3,
-				received: 2,
-				firstDifference: undefined,
-			});
-			expect(
-				alignRomanizedPage(
-					lines,
-					"[Verse 1]\nkimi\n[Bridge]\nboku\n[Chorus]\nsora\numi",
-					sections,
-				),
-			).toMatchObject({
-				ok: false,
-				firstDifference: { label: "Verse 1", lineNumber: 1 },
-			});
-		});
+		expect(
+			romaji(alignRomanizedPage(lines, "[Verse]\nsora no\n[Chorus]\numi")),
+		).toEqual([["sora ", "no"], ["umi"]]);
 	});
 
 	it("numbers lines the way the editor does", () => {

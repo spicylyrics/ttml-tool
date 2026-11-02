@@ -177,33 +177,13 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 	};
 
 	const romanizeFromPage = () => {
-		const { lyricLines: current, sections } = store.get(lyricLinesAtom);
-		const result = alignRomanizedPage(current, pasted, sections);
+		const current = store.get(lyricLinesAtom).lyricLines;
+		const result = alignRomanizedPage(current, pasted);
 		if (!result.ok) {
 			setProblem(
-				result.firstDifference
-					? t(
-							"romanizationPanel.lineCountMismatchFrom",
-							"The page has {received} lines and the lyrics have {expected}. They stop lining up in the section at line {line}.",
-							{
-								received: result.received,
-								expected: result.expected,
-								line: result.firstDifference.lineNumber,
-							},
-						)
-					: t(
-							"romanizationPanel.lineCountMismatch",
-							"The page has {received} lines and the lyrics have {expected}. Add or remove lines so they match.",
-							{ received: result.received, expected: result.expected },
-						),
-			);
-			return;
-		}
-		if (result.lines.length === 0 && result.skipped.length > 0) {
-			setProblem(
 				t(
-					"romanizationPanel.noSectionMatches",
-					"No section has the same number of lines on the page and in the lyrics.",
+					"romanizationPanel.pageMismatch",
+					"This page doesn't match the lyrics. Check that it's the same song.",
 				),
 			);
 			return;
@@ -216,19 +196,6 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 			return update ? [update] : [];
 		});
 		apply(updates);
-		if (result.skipped.length > 0) {
-			toast.warn(
-				t(
-					"romanizationPanel.skippedSections",
-					"Left out the sections at lines {lines}: the page has a different number of lines there.",
-					{
-						lines: result.skipped
-							.map((section) => section.lineNumber)
-							.join(", "),
-					},
-				),
-			);
-		}
 		const uncertain = [
 			...new Set(
 				result.lines
@@ -431,7 +398,7 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 							}}
 							placeholder={t(
 								"romanizationPanel.pastePlaceholder",
-								"Or paste a romanized lyric page, one line per lyric line. [Section] headers line it up with your sections, and (parentheses) go to background lines.",
+								"Or paste a romanized lyric page. Its lines don't have to break where yours do, [Section] headers help it line up, and (parentheses) go to background lines.",
 							)}
 							aria-label={t(
 								"romanizationPanel.pasteLabel",
