@@ -5,7 +5,8 @@ import { clearWebsiteCache, forceWebsiteRefresh } from "$/utils/pwa";
 import { useAppUpdate } from "$/utils/useAppUpdate";
 export function useAboutSettings() {
 	const { t } = useTranslation();
-	const { status, update, progress, installUpdate } = useAppUpdate();
+	const { status, update, progress, installUpdate, restartApp } =
+		useAppUpdate();
 	const [cacheConfirmationOpen, setCacheConfirmationOpen] = useState(false);
 	const [recoveryAction, setRecoveryAction] = useState<
 		"refresh" | "clear" | null
@@ -36,6 +37,7 @@ export function useAboutSettings() {
 		update,
 		progress,
 		installUpdate,
+		restartApp,
 		cacheConfirmationOpen,
 		setCacheConfirmationOpen,
 		recoveryAction,
