@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Ændringslog og opdateringer",
     "viewCommits": "Se commits på GitHub"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Søg",
     "success": "Gendannelse vellykket",
     "error": "Data beskadiget eller tabt",
-    "edit": "Rediger",
     "apply": "Anvend",
     "confirm": "Bekræft",
     "back": "Tilbage",
@@ -419,7 +417,6 @@
     "title": "Kommandopalet",
     "placeholder": "Søg i kommandoer og indstillinger",
     "noResults": "Ingen matchende kommandoer eller indstillinger",
-    "commandTag": "Kommando",
     "settingTag": "Indstillinger",
     "hint": "Piletaster flytter, Enter kører, Esc lukker",
     "notRunnable": "Kommandoen kunne ikke køres. Giv den en genvej i Indstillinger, og prøv igen.",
@@ -547,15 +544,12 @@
       "timeOffset": "Synkroniseringsforskydning",
       "commitOffset": "Forskydning for Næste",
       "assistSettings": "Synkroniseringshjælp",
-      "showTimestampUpdate": "Vis tidsstempelopdateringer",
       "touchSyncPanel": "Berøringspanel til synkronisering",
       "bgLyricSync": "Baggrundslinjer",
       "bgSyncInline": "Med hovedlinjen",
       "bgSyncInlineDesc": "Synkroniser hver baggrundslinje lige efter dens hovedlinje.",
       "bgSyncSeparate": "Spring over under synkronisering",
       "bgSyncSeparateDesc": "G og H bliver på hovedlinjerne. Klik på en baggrundslinje for at synkronisere dem for sig.",
-      "quickFixes": "Hurtige rettelser",
-      "manualTimestampEdit": "Manuel redigering af tidsstempler",
       "doubleClickEdit": "Redigér ord med dobbeltklik",
       "displayOptions": "Visningsmuligheder",
       "showTimestamps": "Vis tidsstempler",
@@ -566,11 +560,6 @@
       "startSync": "Start",
       "continuousSync": "Næste",
       "endSync": "Slut",
-      "manageQuickFixExclusions": {
-        "title": "Administrer undtagelser for hurtige rettelser",
-        "description": "Tilføj ord, som hurtige rettelser skal springe over.",
-        "placeholder": "Indtast et ord, der skal springes over"
-      },
       "playbackTracking": "Sporing",
       "autoScroll": "Automatisk rulning",
       "highlightActiveLine": "Fremhæv linje",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# gemt værdi} other {# gemte værdier}}",
         "keybindings": "{count, plural, one {# genvej} other {# genveje}}",
-        "assetsSet": "Brugerdefineret baggrundsbillede indstillet",
         "assetsNone": "Ingen brugerdefinerede filer",
         "presetsCount": "{count, plural, one {# forudindstilling} other {# forudindstillinger}}",
         "backgroundSet": "Brugerdefineret baggrund",
@@ -883,9 +871,7 @@
       "exportTitle": "Eksportér",
       "exportDesc": "Gem dine indstillinger og data i en fil, du kan gendanne senere eller flytte til en anden enhed.",
       "exportButton": "Eksportér sikkerhedskopi",
-      "previewToggle": "Forhåndsvis indhold",
       "previewLoading": "Indlæser forhåndsvisning...",
-      "previewEmpty": "Der er ikke valgt noget til forhåndsvisning",
       "previewCategoryEmpty": "Intet at eksportere i denne kategori",
       "previewMore": "+{count} mere",
       "previewTotal": "Anslået samlet størrelse",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Også på denne tast",
     "closePanel": "Luk"
   },
-  "autoSegmentApplied":"Automatisk opdelt med {engine}",
+  "autoSegmentApplied": "Automatisk opdelt med {engine}",
   "error": {
     "unsupportedFileFormat": "Ikke-understøttet filformat: {ext}",
     "openFileFailed": "Kunne ikke åbne fil",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Tom",
-    "spaceCount": "Mellemrum ×{count}",
-    "removeWord": "Fjern dubletord",
-    "editingWordTitle": "Redigering af ord",
-    "editingWordDesc": "Rediger ordet, eller anvend foreslåede hurtige rettelser.",
-    "correctedWordPlaceholder": "Indtast det rettede ord",
-    "noSuggestions": "Ingen forslag"
+    "spaceCount": "Mellemrum ×{count}"
   },
   "sectionActions": {
     "expand": "Udvid sektion",
@@ -1745,12 +1726,6 @@
     "settings": "Spektrogramindstillinger",
     "fftSize": "FFT-størrelse",
     "resolution": "FFT-opløsning",
-    "fftSizeOption": {
-      "512": "512 (hurtigst)",
-      "1024": "1024 (afbalanceret)",
-      "2048": "2048 (flere frekvensdetaljer)",
-      "4096": "4096 (flest detaljer)"
-    },
     "height": "Visningshøjde"
   },
   "spectrogramFollow": {

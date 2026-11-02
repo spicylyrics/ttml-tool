@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Wijzigingslogboek en updates",
     "viewCommits": "Commits bekijken op GitHub"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Zoeken",
     "success": "Herstellen gelukt",
     "error": "Gegevens beschadigd of verloren",
-    "edit": "Bewerken",
     "apply": "Toepassen",
     "confirm": "Bevestigen",
     "back": "Terug",
@@ -419,7 +417,6 @@
     "title": "Opdrachtpalet",
     "placeholder": "Opdrachten en instellingen zoeken",
     "noResults": "Geen overeenkomende opdrachten of instellingen",
-    "commandTag": "Opdracht",
     "settingTag": "Voorkeuren",
     "hint": "Pijltjestoetsen om te bewegen, Enter om uit te voeren, Esc om te sluiten",
     "notRunnable": "Kan deze opdracht niet uitvoeren. Geef hem een sneltoets in Voorkeuren en probeer het opnieuw.",
@@ -547,15 +544,12 @@
       "timeOffset": "Synchronisatieverschuiving",
       "commitOffset": "Verschuiving voor Volgende",
       "assistSettings": "Synchronisatiehulp",
-      "showTimestampUpdate": "Tijdstempelupdates tonen",
       "touchSyncPanel": "Synchronisatiepaneel voor aanraking",
       "bgLyricSync": "Achtergrondregels",
       "bgSyncInline": "Met de hoofdregel",
       "bgSyncInlineDesc": "Synchroniseer elke achtergrondregel direct na de hoofdregel.",
       "bgSyncSeparate": "Overslaan bij synchroniseren",
       "bgSyncSeparateDesc": "G en H blijven op de hoofdregels. Klik op een achtergrondregel om ze apart te synchroniseren.",
-      "quickFixes": "Snelle correcties",
-      "manualTimestampEdit": "Tijdstempels handmatig bewerken",
       "doubleClickEdit": "Woorden bewerken met dubbelklik",
       "displayOptions": "Weergaveopties",
       "showTimestamps": "Tijdstempels weergeven",
@@ -566,11 +560,6 @@
       "startSync": "Start",
       "continuousSync": "Volgende",
       "endSync": "Einde",
-      "manageQuickFixExclusions": {
-        "title": "Uitzonderingen voor snelle correcties beheren",
-        "description": "Voeg woorden toe die snelle correcties moeten overslaan.",
-        "placeholder": "Voer een woord in om over te slaan"
-      },
       "playbackTracking": "Volgen",
       "autoScroll": "Automatisch scrollen",
       "highlightActiveLine": "Regel markeren",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# opgeslagen waarde} other {# opgeslagen waarden}}",
         "keybindings": "{count, plural, one {# sneltoets} other {# sneltoetsen}}",
-        "assetsSet": "Aangepaste achtergrondafbeelding ingesteld",
         "assetsNone": "Geen aangepaste bestanden",
         "presetsCount": "{count, plural, one {# voorinstelling} other {# voorinstellingen}}",
         "backgroundSet": "Aangepaste achtergrond",
@@ -883,9 +871,7 @@
       "exportTitle": "Exporteren",
       "exportDesc": "Sla je instellingen en gegevens op in een bestand om ze later te herstellen of naar een ander apparaat te verplaatsen.",
       "exportButton": "Back-up exporteren",
-      "previewToggle": "Inhoud bekijken",
       "previewLoading": "Voorbeeld laden…",
-      "previewEmpty": "Niets geselecteerd voor voorbeeld",
       "previewCategoryEmpty": "Er is niets om te exporteren in deze categorie",
       "previewMore": "+{count} meer",
       "previewTotal": "Geschatte totale grootte",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Ook op deze toets",
     "closePanel": "Sluiten"
   },
-  "autoSegmentApplied":"Automatisch gesegmenteerd met {engine}",
+  "autoSegmentApplied": "Automatisch gesegmenteerd met {engine}",
   "error": {
     "unsupportedFileFormat": "Niet-ondersteunde bestandsindeling: {ext}",
     "openFileFailed": "Kan bestand niet openen",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Leeg",
-    "spaceCount": "Spatie ×{count}",
-    "removeWord": "Dubbel woord verwijderen",
-    "editingWordTitle": "Woord bewerken",
-    "editingWordDesc": "Bewerk het woord of pas voorgestelde snelle correcties toe.",
-    "correctedWordPlaceholder": "Typ het gecorrigeerde woord",
-    "noSuggestions": "Geen suggesties"
+    "spaceCount": "Spatie ×{count}"
   },
   "sectionActions": {
     "expand": "Sectie uitvouwen",
@@ -1745,12 +1726,6 @@
     "settings": "Spectrogram-instellingen",
     "fftSize": "FFT-grootte",
     "resolution": "FFT-resolutie",
-    "fftSizeOption": {
-      "512": "512 (snelst)",
-      "1024": "1024 (gebalanceerd)",
-      "2048": "2048 (meer frequentiedetail)",
-      "4096": "4096 (meeste detail)"
-    },
     "height": "Weergavehoogte"
   },
   "spectrogramFollow": {

@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Registro de alterações e atualizações",
     "viewCommits": "Ver commits no GitHub"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Pesquisar",
     "success": "Restauração bem-sucedida",
     "error": "Dados corrompidos ou perdidos",
-    "edit": "Editar",
     "apply": "Aplicar",
     "confirm": "Confirmar",
     "back": "Voltar",
@@ -419,7 +417,6 @@
     "title": "Paleta de comandos",
     "placeholder": "Buscar comandos e configurações",
     "noResults": "Nenhum comando ou configuração correspondente",
-    "commandTag": "Comando",
     "settingTag": "Preferências",
     "hint": "Setas para mover, Enter para executar, Esc para fechar",
     "notRunnable": "Não foi possível executar o comando. Atribua um atalho a ele nas Preferências e tente de novo.",
@@ -547,15 +544,12 @@
       "timeOffset": "Deslocamento de sincronização",
       "commitOffset": "Deslocamento da tecla Próxima",
       "assistSettings": "Auxílios de sincronização",
-      "showTimestampUpdate": "Mostrar atualizações de marca de tempo",
       "touchSyncPanel": "Painel de sincronização por toque",
       "bgLyricSync": "Linhas de vocais de apoio",
       "bgSyncInline": "Junto da principal",
       "bgSyncInlineDesc": "Sincronize cada linha de vocais de apoio logo depois da linha principal.",
       "bgSyncSeparate": "Pular ao sincronizar",
       "bgSyncSeparateDesc": "G e H ficam nas linhas principais. Clique em uma linha de vocais de apoio para sincronizá-las à parte.",
-      "quickFixes": "Correções rápidas",
-      "manualTimestampEdit": "Edição manual de marcas de tempo",
       "doubleClickEdit": "Edição de palavras com duplo clique",
       "displayOptions": "Opções de exibição",
       "showTimestamps": "Mostrar marcas de tempo",
@@ -566,11 +560,6 @@
       "startSync": "Iniciar",
       "continuousSync": "Próxima",
       "endSync": "Encerrar",
-      "manageQuickFixExclusions": {
-        "title": "Gerenciar exclusões de correção rápida",
-        "description": "Adicione palavras a ignorar nas correções rápidas.",
-        "placeholder": "Digite a palavra para ignorar"
-      },
       "playbackTracking": "Acompanhamento",
       "autoScroll": "Rolagem automática",
       "highlightActiveLine": "Destacar linha",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# valor armazenado} many {# valores armazenados} other {# valores armazenados}}",
         "keybindings": "{count, plural, one {# atalho} many {# atalhos} other {# atalhos}}",
-        "assetsSet": "Imagem de fundo personalizada definida",
         "assetsNone": "Nenhum recurso personalizado",
         "presetsCount": "{count, plural, one {# predefinição} many {# predefinições} other {# predefinições}}",
         "backgroundSet": "Plano de fundo personalizado",
@@ -883,9 +871,7 @@
       "exportTitle": "Exportar",
       "exportDesc": "Salve suas configurações e dados em um arquivo que você pode restaurar mais tarde ou mover para outro dispositivo.",
       "exportButton": "Exportar backup",
-      "previewToggle": "Visualizar conteúdo",
       "previewLoading": "Carregando prévia…",
-      "previewEmpty": "Nada selecionado para a prévia",
       "previewCategoryEmpty": "Nada para exportar nesta categoria",
       "previewMore": "+{count} mais",
       "previewTotal": "Tamanho total estimado",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Também nesta tecla",
     "closePanel": "Fechar"
   },
-  "autoSegmentApplied":"Segmentado automaticamente com {engine}",
+  "autoSegmentApplied": "Segmentado automaticamente com {engine}",
   "error": {
     "unsupportedFileFormat": "Formato de arquivo não suportado: {ext}",
     "openFileFailed": "Falha ao abrir arquivo",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Vazio",
-    "spaceCount": "Espaço ×{count}",
-    "removeWord": "Remover palavra duplicada",
-    "editingWordTitle": "Edição da palavra",
-    "editingWordDesc": "Edite a palavra ou aplique as correções rápidas sugeridas.",
-    "correctedWordPlaceholder": "Digite a palavra corrigida",
-    "noSuggestions": "Nenhuma sugestão"
+    "spaceCount": "Espaço ×{count}"
   },
   "sectionActions": {
     "expand": "Expandir seção",
@@ -1745,12 +1726,6 @@
     "settings": "Configurações do espectrograma",
     "fftSize": "Tamanho FFT",
     "resolution": "Resolução FFT",
-    "fftSizeOption": {
-      "512": "512 (mais rápido)",
-      "1024": "1024 (equilibrado)",
-      "2048": "2048 (mais detalhes de frequência)",
-      "4096": "4096 (máximo de detalhes)"
-    },
     "height": "Altura de exibição"
   },
   "spectrogramFollow": {

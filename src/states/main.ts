@@ -9,8 +9,8 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import { type Atom, atom } from "jotai";
-import { atomWithStorage, selectAtom } from "jotai/utils";
+import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { REDO, RESET, UNDO, withHistory } from "jotai-history";
 import { uid } from "uid";
 import {
@@ -33,8 +33,7 @@ export const previousToolModeAtom = atom<ToolMode | null>(null);
 export const showPreviewPanelAtom = atomWithStorage("showPreviewPanel", false);
 export const previewPanelWidthAtom = atomWithStorage("previewPanelWidth", 400);
 
-export const autoDarkModeAtom = atom(true);
-export const isDarkThemeAtom = autoDarkModeAtom;
+export const isDarkThemeAtom = atom(true);
 
 export const lyricLinesAtom = atom({
 	lyricLines: [],
@@ -45,30 +44,6 @@ export const lyricLinesAtom = atom({
 
 /** Keeps its identity through word and line edits, unlike the whole document. */
 export const lyricMetadataAtom = atom((get) => get(lyricLinesAtom).metadata);
-
-const setsEqual = (a: Set<string>, b: Set<string>) => {
-	if (a.size !== b.size) return false;
-	for (const v of a) if (!b.has(v)) return false;
-	return true;
-};
-
-export const allLyricsWordsAtom: Atom<Set<string>> = selectAtom(
-	lyricLinesAtom,
-	(lyrics) => {
-		const words = new Set<string>();
-		for (const line of lyrics.lyricLines) {
-			for (const wordObj of line.words) {
-				const cleaned = wordObj.word
-					.trim()
-					.toLowerCase()
-					.replace(/[^a-z']/g, "");
-				if (cleaned) words.add(cleaned);
-			}
-		}
-		return words;
-	},
-	setsEqual,
-);
 
 /**
  * @description 当前项目的唯一标识符

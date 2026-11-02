@@ -1,5 +1,5 @@
 import { exec } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
@@ -13,14 +13,6 @@ import svgLoader from "vite-svg-loader";
 import { configDefaults } from "vitest/config";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const AMLL_LOCAL_PATH = resolve(
-	__dirname,
-	"./applemusic-like-lyrics-main/applemusic-like-lyrics-main",
-);
-const AMLL_LOCAL_EXISTS = existsSync(AMLL_LOCAL_PATH);
-
-process.env.AMLL_LOCAL_EXISTS = AMLL_LOCAL_EXISTS ? "true" : "false";
 
 const localePaths: string[] = [resolve(__dirname, "./src/i18n/locales")];
 
@@ -114,7 +106,7 @@ export default defineConfig({
 		},
 		strictPort: true,
 	},
-	envPrefix: ["VITE_", "TAURI_", "AMLL_", "SENTRY_"],
+	envPrefix: ["VITE_", "TAURI_", "SENTRY_"],
 	build: {
 		target:
 			process.env.TAURI_ENV_PLATFORM === "windows" ? "chrome105" : "safari15",
@@ -122,32 +114,10 @@ export default defineConfig({
 		sourcemap: true,
 	},
 	resolve: {
-		alias: Object.assign<Record<string, string>, Record<string, string>>(
-			{
-				$: resolve(__dirname, "src"),
-				url: resolve(__dirname, "src/utils/url-shim.ts"),
-			},
-			AMLL_LOCAL_EXISTS
-				? {
-						"@applemusic-like-lyrics/core": resolve(
-							AMLL_LOCAL_PATH,
-							"packages/core/src",
-						),
-						"@applemusic-like-lyrics/react": resolve(
-							AMLL_LOCAL_PATH,
-							"packages/react/src",
-						),
-						"@applemusic-like-lyrics/lyric": resolve(
-							AMLL_LOCAL_PATH,
-							"packages/lyric/src",
-						),
-						"@applemusic-like-lyrics/ttml": resolve(
-							AMLL_LOCAL_PATH,
-							"packages/ttml/src",
-						),
-					}
-				: {},
-		),
+		alias: {
+			$: resolve(__dirname, "src"),
+			url: resolve(__dirname, "src/utils/url-shim.ts"),
+		},
 		dedupe: ["react", "react-dom"],
 	},
 	worker: {

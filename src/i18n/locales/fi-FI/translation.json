@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Muutosloki ja päivitykset",
     "viewCommits": "Näytä muutokset GitHubissa"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Etsi",
     "success": "Palautus onnistui",
     "error": "Tiedot vioittuneet tai kadonneet",
-    "edit": "Muokkaa",
     "apply": "Käytä",
     "confirm": "Vahvista",
     "back": "Takaisin",
@@ -419,7 +417,6 @@
     "title": "Komentopaletti",
     "placeholder": "Etsi komentoja ja asetuksia",
     "noResults": "Ei vastaavia komentoja tai asetuksia",
-    "commandTag": "Komento",
     "settingTag": "Asetukset",
     "hint": "Nuolinäppäimet siirtävät, Enter suorittaa, Esc sulkee",
     "notRunnable": "Komentoa ei voitu suorittaa. Anna sille pikanäppäin asetuksissa ja yritä uudelleen.",
@@ -547,15 +544,12 @@
       "timeOffset": "Ajoituksen siirtymä",
       "commitOffset": "Seuraava-näppäimen siirtymä",
       "assistSettings": "Ajoitusavut",
-      "showTimestampUpdate": "Näytä aikaleimapäivitykset",
       "touchSyncPanel": "Kosketusajoituspaneeli",
       "bgLyricSync": "Taustalaulurivit",
       "bgSyncInline": "Päärivin kanssa",
       "bgSyncInlineDesc": "Ajoita jokainen taustalaulurivi heti päärivinsä jälkeen.",
       "bgSyncSeparate": "Ohita ajoitettaessa",
       "bgSyncSeparateDesc": "G ja H pysyvät pääriveillä. Napsauta taustalauluriviä ajoittaaksesi ne erikseen.",
-      "quickFixes": "Pikakorjaukset",
-      "manualTimestampEdit": "Aikaleimojen manuaalinen muokkaus",
       "doubleClickEdit": "Muokkaa sanaa kaksoisnapsauttamalla",
       "displayOptions": "Näyttöasetukset",
       "showTimestamps": "Näytä aikaleimat",
@@ -566,11 +560,6 @@
       "startSync": "Aloita",
       "continuousSync": "Seuraava",
       "endSync": "Lopeta",
-      "manageQuickFixExclusions": {
-        "title": "Hallitse pikakorjausten ohitettavia sanoja",
-        "description": "Lisää sanat, jotka ohitetaan pikakorjauksissa.",
-        "placeholder": "Kirjoita ohitettava sana"
-      },
       "playbackTracking": "Seuranta",
       "autoScroll": "Automaattinen vieritys",
       "highlightActiveLine": "Korosta rivi",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# tallennettu arvo} other {# tallennettua arvoa}}",
         "keybindings": "{count, plural, one {# pikanäppäin} other {# pikanäppäintä}}",
-        "assetsSet": "Mukautettu taustakuva asetettu",
         "assetsNone": "Ei mukautettuja tiedostoja",
         "presetsCount": "{count, plural, one {# esiasetus} other {# esiasetusta}}",
         "backgroundSet": "Mukautettu tausta",
@@ -883,9 +871,7 @@
       "exportTitle": "Vienti",
       "exportDesc": "Tallenna asetuksesi ja tietosi tiedostoon, jonka voit palauttaa myöhemmin tai siirtää toiseen laitteeseen.",
       "exportButton": "Vie varmuuskopio",
-      "previewToggle": "Esikatsele sisältöä",
       "previewLoading": "Ladataan esikatselua…",
-      "previewEmpty": "Mitään ei ole valittu esikatseluun",
       "previewCategoryEmpty": "Ei mitään vietävää tässä luokassa",
       "previewMore": "+{count} lisää",
       "previewTotal": "Arvioitu kokonaiskoko",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Myös tässä näppäimessä",
     "closePanel": "Sulje"
   },
-  "autoSegmentApplied":"Automaattinen jako tehty moottorilla {engine}",
+  "autoSegmentApplied": "Automaattinen jako tehty moottorilla {engine}",
   "error": {
     "unsupportedFileFormat": "Ei tuettu tiedostomuoto: {ext}",
     "openFileFailed": "Tiedoston avaaminen epäonnistui",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Tyhjä",
-    "spaceCount": "Välilyönti ×{count}",
-    "removeWord": "Poista päällekkäinen sana",
-    "editingWordTitle": "Sanan muokkaus",
-    "editingWordDesc": "Muokkaa sanaa tai käytä ehdotettuja pikakorjauksia.",
-    "correctedWordPlaceholder": "Kirjoita korjattu sana",
-    "noSuggestions": "Ei ehdotuksia"
+    "spaceCount": "Välilyönti ×{count}"
   },
   "sectionActions": {
     "expand": "Laajenna osio",
@@ -1745,12 +1726,6 @@
     "settings": "Spektrogrammin asetukset",
     "fftSize": "FFT-koko",
     "resolution": "FFT-resoluutio",
-    "fftSizeOption": {
-      "512": "512 (nopein)",
-      "1024": "1024 (tasapainoinen)",
-      "2048": "2048 (tarkemmat taajuudet)",
-      "4096": "4096 (tarkin)"
-    },
     "height": "Näyttökorkeus"
   },
   "spectrogramFollow": {

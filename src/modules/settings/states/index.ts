@@ -40,11 +40,6 @@ export const showLineRomanizationAtom = atomWithStorage(
 	true,
 );
 
-export const generateNameFromMetadataAtom = atomWithStorage(
-	"generateNameFromMetadata",
-	true,
-);
-
 export const autosaveEnabledAtom = atomWithStorage("autosaveEnabled", true);
 export const autosaveIntervalAtom = atomWithStorage("autosaveInterval", 10);
 export const autosaveLimitAtom = atomWithStorage("autosaveLimit", 10);

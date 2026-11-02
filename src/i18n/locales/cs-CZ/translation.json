@@ -1,6 +1,5 @@
 {
   "changeNotes": {
-    "changelogTitle": "Seznam změn a aktualizace",
     "viewCommits": "Zobrazit commity na GitHubu"
   },
   "updatedToast": {
@@ -371,7 +370,6 @@
     "search": "Hledat",
     "success": "Obnovení úspěšné",
     "error": "Data poškozena nebo ztracena",
-    "edit": "Upravit",
     "apply": "Použít",
     "confirm": "Potvrdit",
     "back": "Zpět",
@@ -419,7 +417,6 @@
     "title": "Paleta příkazů",
     "placeholder": "Hledat příkazy a nastavení",
     "noResults": "Žádné odpovídající příkazy ani nastavení",
-    "commandTag": "Příkaz",
     "settingTag": "Předvolby",
     "hint": "Šipkami se posunete, Enter spustí, Esc zavře",
     "notRunnable": "Příkaz se nepodařilo spustit. Přiřaďte mu zkratku v Předvolbách a zkuste to znovu.",
@@ -547,15 +544,12 @@
       "timeOffset": "Posun synchronizace",
       "commitOffset": "Posun klávesy Další",
       "assistSettings": "Pomůcky synchronizace",
-      "showTimestampUpdate": "Zobrazit aktualizace časových značek",
       "touchSyncPanel": "Dotykový panel synchronizace",
       "bgLyricSync": "Doprovodné řádky",
       "bgSyncInline": "S hlavním řádkem",
       "bgSyncInlineDesc": "Každý doprovodný řádek synchronizujte hned po jeho hlavním řádku.",
       "bgSyncSeparate": "Přeskočit při synchronizaci",
       "bgSyncSeparateDesc": "G a H zůstávají na hlavních řádcích. Kliknutím na doprovodný řádek je synchronizujete samostatně.",
-      "quickFixes": "Rychlé opravy",
-      "manualTimestampEdit": "Ruční úprava časových značek",
       "doubleClickEdit": "Úprava slov dvojklikem",
       "displayOptions": "Možnosti zobrazení",
       "showTimestamps": "Zobrazit časové značky",
@@ -566,11 +560,6 @@
       "startSync": "Začátek",
       "continuousSync": "Další",
       "endSync": "Konec",
-      "manageQuickFixExclusions": {
-        "title": "Správa výjimek rychlých oprav",
-        "description": "Přidejte slova k ignorování v rychlých opravách.",
-        "placeholder": "Zadejte slovo, které chcete ignorovat"
-      },
       "playbackTracking": "Sledování",
       "autoScroll": "Automatické posouvání",
       "highlightActiveLine": "Zvýraznit řádek",
@@ -866,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# uložená hodnota} few {# uložené hodnoty} many {# uložené hodnoty} other {# uložených hodnot}}",
         "keybindings": "{count, plural, one {# klávesová zkratka} few {# klávesové zkratky} many {# klávesové zkratky} other {# klávesových zkratek}}",
-        "assetsSet": "Vlastní obrázek pozadí nastaven",
         "assetsNone": "Žádné vlastní soubory vzhledu",
         "presetsCount": "{count, plural, one {# předvolba} few {# předvolby} many {# předvolby} other {# předvoleb}}",
         "backgroundSet": "Vlastní pozadí",
@@ -883,9 +871,7 @@
       "exportTitle": "Export",
       "exportDesc": "Uložte svá nastavení a data do souboru, který můžete později obnovit nebo přesunout na jiné zařízení.",
       "exportButton": "Exportovat zálohu",
-      "previewToggle": "Náhled obsahu",
       "previewLoading": "Načítání náhledu…",
-      "previewEmpty": "Nebylo vybráno nic k náhledu",
       "previewCategoryEmpty": "V této kategorii není nic k exportu",
       "previewMore": "+{count} další",
       "previewTotal": "Odhadovaná celková velikost",
@@ -1196,7 +1182,7 @@
     "otherLayers": "Také na této klávese",
     "closePanel": "Zavřít"
   },
-  "autoSegmentApplied":"Automaticky rozděleno pomocí {engine}",
+  "autoSegmentApplied": "Automaticky rozděleno pomocí {engine}",
   "error": {
     "unsupportedFileFormat": "Nepodporovaný formát souboru: {ext}",
     "openFileFailed": "Nepodařilo se otevřít soubor",
@@ -1362,12 +1348,7 @@
   },
   "lyricWordView": {
     "empty": "Prázdné",
-    "spaceCount": "Mezera ×{count}",
-    "removeWord": "Odebrat duplicitní slovo",
-    "editingWordTitle": "Úprava slova",
-    "editingWordDesc": "Upravte slovo nebo použijte navržené rychlé opravy.",
-    "correctedWordPlaceholder": "Zadejte opravené slovo",
-    "noSuggestions": "Žádné návrhy"
+    "spaceCount": "Mezera ×{count}"
   },
   "sectionActions": {
     "expand": "Rozbalit sekci",
@@ -1745,12 +1726,6 @@
     "settings": "Nastavení spektrogramu",
     "fftSize": "Velikost FFT",
     "resolution": "Rozlišení FFT",
-    "fftSizeOption": {
-      "512": "512 (nejrychlejší)",
-      "1024": "1024 (vyvážené)",
-      "2048": "2048 (více detailů frekvencí)",
-      "4096": "4096 (nejvíce detailů)"
-    },
     "height": "Výška zobrazení"
   },
   "spectrogramFollow": {
