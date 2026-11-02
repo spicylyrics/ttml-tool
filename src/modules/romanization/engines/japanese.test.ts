@@ -160,6 +160,17 @@ describe("Japanese romanization", () => {
 		expect(romanize("呼んでいた")).toEqual(["yonde ita"]);
 	});
 
+	it("reads a word-initial っ part with the sound after it", () => {
+		// Process lyrics' words 悪い|って|言わ, split by sound.
+		expect(romanize("悪", "い", "って", "言", "わ")).toEqual([
+			"waru",
+			"i ",
+			"tte ",
+			"i",
+			"wa",
+		]);
+	});
+
 	it("repeats the kanji before 々", () => {
 		expect(romanize("燦", "々", "と")).toEqual(["san", "san ", "to"]);
 	});
