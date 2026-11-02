@@ -19,10 +19,17 @@ export const UpdateSection = ({
 	update,
 	progress,
 	installUpdate,
+	restartApp,
 	showUpdateCard,
 }: Pick<
 	AboutSettings,
-	"t" | "status" | "update" | "progress" | "installUpdate" | "showUpdateCard"
+	| "t"
+	| "status"
+	| "update"
+	| "progress"
+	| "installUpdate"
+	| "restartApp"
+	| "showUpdateCard"
 >) =>
 	showUpdateCard && (
 		<Card>
@@ -89,7 +96,7 @@ export const UpdateSection = ({
 									)}
 								</Text>
 							</Flex>
-							<Button onClick={() => window.location.reload()}>
+							<Button onClick={restartApp}>
 								{t("settings.about.restart", "Restart Application")}
 							</Button>
 						</Flex>

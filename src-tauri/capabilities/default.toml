@@ -45,6 +45,9 @@ identifier = "shell:allow-execute"
 identifier = "updater:default"
 
 [[permissions]]
+identifier = "process:allow-restart"
+
+[[permissions]]
 identifier = "log:default"
 
 [[permissions]]
