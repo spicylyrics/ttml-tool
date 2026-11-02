@@ -219,6 +219,15 @@ function makeToken(
 }
 
 /**
+ * Whether a syllable ends its word. In the romanized view a space after the
+ * romanization also ends it, since romaji under Japanese marks word ends only
+ * with a space between the transliteration spans.
+ */
+const endsWord = (word: LyricWord, romanized: boolean) =>
+	/[\s,]$/u.test(word.word) ||
+	(romanized && !!word.romanWord.trim() && /\s$/u.test(word.romanWord));
+
+/**
  * TTML literal text nodes, including spaces between timed spans, are represented
  * by the editor as zero-timed lyric words. Keep those boundaries; never infer
  * them from the script or from romanization, since a timed lyric word can be a
@@ -261,7 +270,7 @@ function makeTokens(
 			);
 			if (token.text.length === 0) continue;
 			token.isUntimed = true;
-			if (/[\s,]$/u.test(word.word)) token.spaceAfter = true;
+			if (endsWord(word, romanized)) token.spaceAfter = true;
 			tokens.push(token);
 			continue;
 		}
@@ -281,7 +290,7 @@ function makeTokens(
 		);
 		if (token.text.length === 0) continue;
 		if (wordProblems) token.problems = wordProblems;
-		if (/[\s,]$/u.test(word.word)) token.spaceAfter = true;
+		if (endsWord(word, romanized)) token.spaceAfter = true;
 		tokens.push(token);
 	}
 

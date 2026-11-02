@@ -111,6 +111,14 @@ describe("romanized word gaps", () => {
 		expect(out).toContain(">me</span> <span");
 		expect(out).toContain(">yu</span><span");
 	});
+
+	it("keeps gaps in a background vocal's romanization", () => {
+		const bgXml = `${ITUNES_TT}><head><metadata><iTunesMetadata xmlns="http://music.apple.com/lyric-ttml-internal"><transliterations><transliteration><text for="L1"><span begin="00:01.000" end="00:02.000">yu</span><span ttm:role="x-bg"><span begin="00:02.000" end="00:02.500">(ki</span><span begin="00:02.500" end="00:03.000">mi</span> <span begin="00:03.000" end="00:04.000">no)</span></span></text></transliteration></transliterations></iTunesMetadata></metadata></head><body><div><p begin="00:01.000" end="00:04.000" itunes:key="L1"><span begin="00:01.000" end="00:02.000">ゆ</span><span ttm:role="x-bg"><span begin="00:02.000" end="00:02.500">(君</span><span begin="00:02.500" end="00:03.000">み</span><span begin="00:03.000" end="00:04.000">の)</span></span></p></div></body></tt>`;
+		const lines = roundTrip(bgXml);
+		const bg = lines.find((line) => line.isBG);
+		expect(bg?.words.map((w) => w.romanWord)).toEqual(["ki", "mi ", "no"]);
+		expect(exportTTMLText(parseLyric(bgXml))).toContain(">mi</span> <span");
+	});
 });
 
 describe("translation language", () => {
