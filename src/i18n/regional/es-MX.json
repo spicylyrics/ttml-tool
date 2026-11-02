@@ -27,8 +27,8 @@
 			},
 			"songwriters": {
 				"title": "Agrega los compositores",
-				"description": "Abre los metadatos y usa \"Buscar compositores de Genius\", o agrega un valor Compositor por cada nombre real. La guía detecta cuando hay al menos uno guardado.",
-				"waiting": "Abre los metadatos y agrega al menos un valor Compositor que no esté vacío."
+				"description": "Abre los metadatos y usa \"Buscar compositores\", o escribe el nombre real de cada compositor. La guía detecta cuando hay al menos uno guardado.",
+				"waiting": "Abre los metadatos y agrega al menos un compositor."
 			},
 			"test": {
 				"description": "Sube el archivo guardado en Spicy Lyrics y verifica el análisis, el formato y la sincronización."
@@ -37,6 +37,7 @@
 	},
 	"importLyrics": {
 		"splitHint": "Marca las sílabas con el separador de palabras según tu configuración de segmentación y tus divisiones aprendidas. Corrige las marcas en el texto antes de importar.",
+		"findSongwriters": "Agregar compositores de MusicBrainz y Genius",
 		"importSuccess": "{count, plural, one {Se importó # línea.} many {Se importaron # líneas.} other {Se importaron # líneas.}}",
 		"importFailed": "No se pudo leer esta letra. Revisa el texto y las opciones de formato del texto."
 	},
@@ -150,20 +151,18 @@
 	},
 	"metadataDialog": {
 		"fetchSongwriters": {
-			"error": "No se pudieron recuperar los compositores",
-			"noSongwriters": "No hay créditos de composición registrados para esta canción.",
 			"setupDesc": "Para obtener compositores, agrega tu token de acceso de Genius (Client Access Token). Puedes crearlo en el portal de desarrolladores de "
 		},
-		"addValue": "Agregar",
-		"builtinOptions": {
-			"artistsInvalidMsg": "Agrega una entrada por artista en vez de separar los nombres con comas o barras. Ignora este aviso si el nombre contiene esos signos.",
-			"songwriterInvalidMsg": "Agrega una entrada por compositor en vez de separar los nombres con comas o barras."
-		},
-		"addKeyValue": "Agregar campo",
-		"addPresets": "Agregar todos los campos estándar"
+		"addName": "Agregar un nombre...",
+		"addValue": "Agregar un valor...",
+		"addKeyValue": "Agregar campo"
 	},
-	"lrclib": {
-		"notFound": "Sin resultados. Intenta con otras palabras clave."
+	"songwriterFinder": {
+		"addToken": "Agregar un token de Genius",
+		"checkNames": "Revisa los nombres antes de agregarlos.",
+		"alreadyAdded": "Ya agregado",
+		"add": "{count, plural, =0 {Agregar compositores} one {Agregar # compositor} many {Agregar # compositores} other {Agregar # compositores}}",
+		"added": "{count, plural, one {Se agregó # compositor} many {Se agregaron # compositores} other {Se agregaron # compositores}}"
 	},
 	"urbanDictionary": {
 		"noDefinitions": "No se encontraron definiciones para \"{word}\""

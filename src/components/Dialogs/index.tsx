@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import { LatencyTestDialog } from "$/modules/audio/modals/LatencyTest.tsx";
 import { CommandPalette } from "$/modules/command-palette/CommandPalette.tsx";
 import { EditAsTextDialog } from "$/modules/edit-as-text/modals/EditAsTextDialog.tsx";
-import { GeniusSearchDialog } from "$/modules/genius/modals/GeniusSearchDialog.tsx";
 import { UrbanDictionaryDialog } from "$/modules/lyric-editor/modals/UrbanDictionaryDialog.tsx";
 import { CombineWordsDialog } from "$/modules/lyric-editor/tools/CombineWordsDialog.tsx";
 import { ReplaceRomanizationDialog } from "$/modules/lyric-editor/tools/ReplaceRomanizationDialog.tsx";
@@ -27,6 +26,7 @@ import { SuggestedSplitsDialog } from "$/modules/segmentation/components/Suggest
 import { SplitWordDialog } from "$/modules/segmentation/components/split-word.tsx";
 import { FontSelectionDialog } from "$/modules/settings/modals/FontSelectionDialog.tsx";
 import { SettingsDialog } from "$/modules/settings/modals/index.tsx";
+import { SongwriterFinderDialog } from "$/modules/songwriters/modals/SongwriterFinderDialog.tsx";
 import { TTMLChecklistDialog } from "$/modules/ttml-checklist/TTMLChecklistDialog.tsx";
 import { ConfirmationDialog } from "./confirmation.tsx";
 import { CreateProjectPromptDialog } from "./create-project-prompt.tsx";
@@ -56,7 +56,7 @@ export const Dialogs = () => {
 			<TimeShiftDialog />
 			<TimeStretchDialog />
 
-			<GeniusSearchDialog />
+			<SongwriterFinderDialog />
 			<FontSelectionDialog />
 			<UrbanDictionaryDialog />
 			<SuggestedSplitsDialog />

@@ -62,6 +62,7 @@ flatpak override --user --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 io.github.spicyl
 - **Time Stretch** — Scale every TTML timestamp to fit a new song duration, with support for reading durations from audio files.
 - **Unified Lyrics Import** — Choose Plain Text, LRCLIB, or Genius from clear cards in the empty editor, then use one consistent preparation, replacement-confirmation, and formatting workflow.
 - **Genius sections & section tools** — Keep headers such as `[Chorus]` and `[Verse]` as sections you rename in place and drag to move, with Apply timings and Snap to playhead for whole sections.
+- **Songwriter Finder** — Look up a song's writers on MusicBrainz and Genius, compare both sources, and add them by legal or credited name.
 - **Backup & Restore** — Export and restore selected settings, keybindings, appearance assets, projects and history in a portable backup file.
 - **Bouncy Word Indicator** — Long-duration syllables in Sync mode get a subtle bouncing dot, making held words easier to spot while timing.
 - **Toxi Lyrics Engine** — High-fidelity jump-down animations, instant-on bloom with smooth fade-out, and adjustable wipe softness.

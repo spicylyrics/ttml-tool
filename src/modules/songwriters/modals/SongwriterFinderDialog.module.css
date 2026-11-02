@@ -1,0 +1,132 @@
+.dialogContent {
+	max-width: 560px;
+	max-height: 85vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.body {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	/* Room for focus rings inside the scroller. */
+	padding: 2px;
+	margin: -2px;
+}
+
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	margin-top: var(--space-4);
+}
+
+.footer > :first-child {
+	margin: 0;
+}
+
+.grow {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.searchForm {
+	display: flex;
+	gap: var(--space-2);
+}
+
+.list {
+	min-height: 220px;
+}
+
+.candidate {
+	width: 100%;
+	text-align: start;
+}
+
+.cover {
+	display: inline-grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	flex: none;
+	object-fit: cover;
+	border-radius: var(--radius-2);
+	background-color: var(--gray-a3);
+	color: var(--gray-11);
+}
+
+.songText {
+	flex: 1;
+	min-width: 0;
+}
+
+.match {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-2);
+	background-color: var(--gray-a2);
+	box-shadow: inset 0 0 0 1px var(--gray-a4);
+	border-radius: var(--radius-4);
+}
+
+.notThis {
+	flex: none;
+	margin-inline-end: var(--space-1);
+}
+
+.rows {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Selection is a fill, never a stripe or a border change. */
+.row {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-3);
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-2);
+}
+
+.row[data-checked] {
+	background-color: var(--accent-a3);
+}
+
+.row > :first-child {
+	margin-top: 2px;
+}
+
+.rowText {
+	flex: 1;
+	min-width: 0;
+}
+
+.rowName {
+	display: block;
+	color: var(--gray-12);
+	cursor: pointer;
+}
+
+.swap {
+	padding: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	cursor: pointer;
+}
+
+.sources {
+	flex: none;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}

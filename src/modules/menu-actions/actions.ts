@@ -33,10 +33,10 @@ import {
 import {
 	changelogDialogAtom,
 	combineWordsDialogAtom,
-	geniusSearchDialogAtom,
 	importLyricsDialogAtom,
 	settingsDialogAtom,
 	settingsTabAtom,
+	songwriterFinderDialogAtom,
 } from "$/states/dialogs.ts";
 import {
 	lyricLinesAtom,
@@ -429,15 +429,13 @@ export const MENU_ACTIONS = {
 		[key("topBar.menu.ttmlChecklist"), "TTML checklist"],
 		{ run: ({ menu }) => menu.onOpenTTMLChecklist() },
 	),
-	// The metadata editor's Genius button.
+	// The metadata editor's songwriter finder. The id predates the MusicBrainz
+	// source and stays, so saved shortcuts keep working.
 	geniusSearch: defineAction(
 		"geniusSearch",
 		"Tools",
-		[
-			key("metadataDialog.fetchSongwriters.button"),
-			"Fetch songwriters from Genius",
-		],
-		{ run: ({ store }) => store.set(geniusSearchDialogAtom, true) },
+		[key("songwriterFinder.open"), "Find songwriters"],
+		{ run: ({ store }) => store.set(songwriterFinderDialogAtom, true) },
 	),
 
 	// Help
