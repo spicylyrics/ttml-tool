@@ -171,6 +171,12 @@ describe("Japanese romanization", () => {
 		]);
 	});
 
+	it("keeps ん and っ with the kanji before them in a kanji run", () => {
+		expect(romanize("千", "里", "眼")).toEqual(["sen", "ri", "gan"]);
+		expect(romanize("発", "火")).toEqual(["hak", "ka"]);
+		expect(romanize("支", "配")).toEqual(["shi", "hai"]);
+	});
+
 	it("stretches the vowel before a ー with no gap", () => {
 		expect(romanize("せー、")).toEqual(["see,"]);
 		expect(romanize("ｾｰ、")).toEqual(["see,"]);
