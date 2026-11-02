@@ -1,6 +1,5 @@
 import type { LyricLine, LyricWord } from "$/types/ttml";
-import { getPhonetic, getPhoneticSyllables } from "$/utils/phonetic";
-import { normalizeRomaji } from "./align-romanized";
+import { romanizeSyllables } from "./engines";
 import { lineLanguage, type SongLanguage } from "./language";
 
 /** What to do with words that already have romanization. */
@@ -24,12 +23,6 @@ export const lineRomanizationFromWords = (
 		.join("")
 		.replace(/\s+/g, " ")
 		.trim();
-
-/** A space after the word in the lyrics is a word gap in its romanization too. */
-const withGap = (romanization: string, word: string) =>
-	romanization && /\s$/u.test(word)
-		? `${romanization.trimEnd()} `
-		: romanization;
 
 /**
  * Applies new per-word romanization to a line, keeping or replacing what is
@@ -57,77 +50,50 @@ export function mergeLineRomanization(
 }
 
 /**
- * Which syllables end a word, read off the spaced whole-line romaji
- * ("kimi no namae wo"), Genius style. Japanese has no spaces to take gaps
- * from, so they come from the reading. All false when the syllables don't
- * add up to the same letters as the line, since the cuts would be guesses.
+ * Genius style: the line's first letter is a capital, when the line starts
+ * with a romanized word (not "Oh yeah ...").
  */
-export function wordEnds(
+export function capitalizeLine(
+	romanized: readonly string[],
 	syllables: readonly string[],
-	words: readonly string[],
-	spacedLine: string,
-): boolean[] {
-	const none = syllables.map(() => false);
-	const boundaries = new Set<number>();
-	let total = 0;
-	for (const part of spacedLine.split(/\s+/)) {
-		total += normalizeRomaji(part).length;
-		boundaries.add(total);
-	}
-	// English words in the line count with their own letters.
-	const lengths = syllables.map(
-		(syllable, index) => normalizeRomaji(syllable || words[index] || "").length,
+): string[] {
+	const first = syllables.findIndex((text) => /\p{L}/u.test(text));
+	return romanized.map((text, index) =>
+		index === first
+			? text.replace(/\p{L}/u, (char) => char.toUpperCase())
+			: text,
 	);
-	if (lengths.reduce((sum, length) => sum + length, 0) !== total) return none;
-	let position = 0;
-	return lengths.map((length, index) => {
-		position += length;
-		const last = lengths.slice(index + 1).every((rest) => rest === 0);
-		return (
-			!!syllables[index] && length > 0 && !last && boundaries.has(position)
-		);
-	});
 }
 
-/** Romanizes lines automatically; lines with nothing to romanize are skipped. */
+/**
+ * Romanizes lines on the device; lines with nothing to romanize are skipped.
+ * Each line reads as a whole, so words split into syllables keep their
+ * reading and the gaps between words.
+ */
 export async function romanizeLines(
 	lines: readonly LyricLine[],
 	songLanguage: SongLanguage,
 	mode: ExistingMode,
 ): Promise<LineRomanization[]> {
-	const results = await Promise.all(
-		lines.map(async (line) => {
-			const capsules = line.words.map((word) => word.word);
-			const language = lineLanguage(capsules.join(""), songLanguage);
-			if (!language) return;
-			const syllables = await getPhoneticSyllables(capsules, language);
-			const ends =
-				language === "ja" && capsules.length > 1
-					? wordEnds(
-							syllables,
-							capsules,
-							await getPhonetic(
-								capsules.join("").replace(/\s+/g, ""),
-								language,
-								true,
-							),
-						)
-					: syllables.map(() => false);
-			const romanWords = Object.fromEntries(
-				line.words.map((word, index) => {
-					const syllable = syllables[index] ?? "";
-					return [
-						word.id,
-						ends[index]
-							? `${syllable.trimEnd()} `
-							: withGap(syllable, word.word),
-					];
-				}),
-			);
-			return mergeLineRomanization(line, romanWords, mode);
-		}),
-	);
-	return results.filter((result) => result !== undefined);
+	const results: LineRomanization[] = [];
+	for (const line of lines) {
+		const syllables = line.words.map((word) => word.word);
+		const language = lineLanguage(syllables.join(""), songLanguage);
+		if (!language) continue;
+		const romanized = capitalizeLine(
+			await romanizeSyllables(syllables, language),
+			syllables,
+		);
+		const update = mergeLineRomanization(
+			line,
+			Object.fromEntries(
+				line.words.map((word, index) => [word.id, romanized[index] ?? ""]),
+			),
+			mode,
+		);
+		if (update) results.push(update);
+	}
+	return results;
 }
 
 /** Lines in the song that have something to romanize. */

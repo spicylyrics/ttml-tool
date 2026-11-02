@@ -31,11 +31,17 @@ import {
 } from "./fill";
 import {
 	detectSongLanguage,
+	lineLanguage,
 	type RomanizationLanguage,
 	type SongLanguage,
 } from "./language";
 import styles from "./RomanizationPanel.module.css";
 import { romanizationPanelAtom } from "./states";
+
+const lineIsJapanese = (line: LyricLine, songLanguage?: SongLanguage) =>
+	!!songLanguage &&
+	lineLanguage(line.words.map((word) => word.word).join(""), songLanguage) ===
+		"ja";
 
 type Source = "auto" | "paste";
 type Scope = "song" | "selection";
@@ -112,6 +118,11 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 				"ribbonBar.editMode.romanization.ko",
 				"Korean (Revised Romanization)",
 			),
+			cyrillic: t(
+				"romanizationPanel.languageCyrillic",
+				"Cyrillic (Russian, Ukrainian and others)",
+			),
+			greek: t("romanizationPanel.languageGreek", "Greek"),
 		})[value];
 
 	const apply = (updates: LineRomanization[]) => {
@@ -231,7 +242,7 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 						<Text size="2">
 							{t(
 								"romanizationPanel.empty",
-								"Nothing to romanize. Romanization works for Japanese, Chinese, Cantonese and Korean lyrics.",
+								"Nothing to romanize. Romanization works for Japanese, Chinese, Cantonese, Korean, Cyrillic and Greek lyrics.",
 							)}
 						</Text>
 					</div>
@@ -323,7 +334,9 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 													)
 												: undefined,
 										},
-										...(["ja", "zh", "yue", "ko"] as const).map((value) => ({
+										...(
+											["ja", "zh", "yue", "ko", "cyrillic", "greek"] as const
+										).map((value) => ({
 											value,
 											label: languageName(value),
 										})),
@@ -417,6 +430,14 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 					</Flex>
 				)}
 
+				{busy && targets.some((line) => lineIsJapanese(line, songLanguage)) && (
+					<Text size="2" color="gray" role="status">
+						{t(
+							"romanizationPanel.loadingDictionary",
+							"Loading the Japanese dictionary. The first time takes a moment.",
+						)}
+					</Text>
+				)}
 				{problem && (
 					<Flex gap="2" align="start" role="alert">
 						<Text color="red" asChild>

@@ -1,6 +1,6 @@
 import { exec } from "node:child_process";
-import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { readdirSync, readFileSync } from "node:fs";
+import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import jotaiDebugLabel from "jotai/babel/plugin-debug-label";
@@ -15,6 +15,13 @@ import { configDefaults } from "vitest/config";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const localePaths: string[] = [resolve(__dirname, "./src/i18n/locales")];
+
+const kuromojiDir = resolve(__dirname, "node_modules/kuromoji");
+const kuromojiDictDir = resolve(kuromojiDir, "dict");
+const kuromojiDictFiles = () =>
+	readdirSync(kuromojiDictDir).filter((name) => name.endsWith(".dat.gz"));
+/** The dictionary's licence (IPADIC asks for it with every copy) and kuromoji's. */
+const kuromojiNotices = ["NOTICE.md", "LICENSE-2.0.txt"];
 
 const plugins: Plugin[] = [
 	ConditionalCompile(),
@@ -66,6 +73,36 @@ const plugins: Plugin[] = [
 					export const GIT_COMMIT = ${JSON.stringify(gitCommit ?? "unknown")};
 					export const APP_VERSION = ${JSON.stringify(appVersion)};
 				`;
+			}
+		},
+	},
+	{
+		// Kuromoji's Japanese dictionary, served from the package rather than
+		// kept in the repo. The app fetches it the first time it romanizes
+		// Japanese; desktop builds carry it, so that works offline.
+		name: "kuromoji-dict",
+		configureServer(server) {
+			server.middlewares.use("/kuromoji-dict/", (req, res, next) => {
+				const name = basename(req.url ?? "");
+				if (!kuromojiDictFiles().includes(name)) return next();
+				res.setHeader("Content-Type", "application/octet-stream");
+				res.end(readFileSync(resolve(kuromojiDictDir, name)));
+			});
+		},
+		generateBundle() {
+			for (const name of kuromojiDictFiles()) {
+				this.emitFile({
+					type: "asset",
+					fileName: `kuromoji-dict/${name}`,
+					source: readFileSync(resolve(kuromojiDictDir, name)),
+				});
+			}
+			for (const name of kuromojiNotices) {
+				this.emitFile({
+					type: "asset",
+					fileName: `kuromoji-dict/${name}`,
+					source: readFileSync(resolve(kuromojiDir, name)),
+				});
 			}
 		},
 	},

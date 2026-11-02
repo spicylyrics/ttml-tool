@@ -1,32 +1,19 @@
 import { describe, expect, it, vi } from "vitest";
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
 import {
+	capitalizeLine,
 	lineRomanizationFromWords,
 	mergeLineRomanization,
 	romanizeLines,
-	wordEnds,
 } from "./fill";
 
-const READINGS: Record<string, string> = {
-	君: "kimi",
-	の: "no",
-	名: "na",
-	前: "mae",
-	を: "wo",
-};
-
-vi.mock("$/utils/phonetic", () => ({
-	getPhoneticSyllables: vi.fn(async (capsules: string[], language: string) =>
-		capsules.map((capsule) =>
-			READINGS[capsule]
-				? READINGS[capsule]
-				: /\p{Script=Han}|\p{Script=Hangul}|\p{Script=Hiragana}/u.test(capsule)
-					? `${language}:${capsule.trim()}`
-					: "",
+vi.mock("./engines", () => ({
+	romanizeSyllables: vi.fn(async (syllables: string[], language: string) =>
+		syllables.map((syllable) =>
+			/\p{Script=Han}|\p{Script=Hangul}|\p{Script=Hiragana}/u.test(syllable)
+				? `${language}:${syllable.trim()}${/\s$/.test(syllable) ? " " : ""}`
+				: "",
 		),
-	),
-	getPhonetic: vi.fn(async (text: string) =>
-		text === "君の名前を" ? "Kimi no Namae wo" : "",
 	),
 }));
 
@@ -73,44 +60,12 @@ describe("filling romanization", () => {
 		).toBeUndefined();
 	});
 
-	it("finds word ends from the spaced line reading", () => {
-		expect(
-			wordEnds(
-				["kimi", "no", "na", "mae", "wo"],
-				["君", "の", "名", "前", "を"],
-				"Kimi no Namae wo",
-			),
-		).toEqual([true, true, false, true, false]);
-		expect(wordEnds(["ko", "u", "hii"], ["コ", "ー", "ヒー"], "kōhī")).toEqual([
-			false,
-			false,
-			false,
+	it("capitalizes a line that starts with a romanized word", () => {
+		expect(capitalizeLine(["kimi ", "no"], ["君", "の"])).toEqual([
+			"Kimi ",
+			"no",
 		]);
-		// English words count with their own letters.
-		expect(
-			wordEnds(["", "hashi", "ru"], ["Oh ", "走", "る"], "Oh hashiru"),
-		).toEqual([false, false, false]);
-		// Readings that don't add up leave the gaps out.
-		expect(wordEnds(["kon", "nichi"], ["今", "日"], "kyou")).toEqual([
-			false,
-			false,
-		]);
-	});
-
-	it("puts Genius-style gaps between Japanese words", async () => {
-		const [result] = await romanizeLines(
-			[line("君", "の", "名", "前", "を")],
-			"ja",
-			"fillEmpty",
-		);
-		expect(Object.values(result.romanWords)).toEqual([
-			"kimi ",
-			"no ",
-			"na",
-			"mae ",
-			"wo",
-		]);
-		expect(result.romanLyric).toBe("kimi no namae wo");
+		expect(capitalizeLine(["", "hashi"], ["Oh ", "走"])).toEqual(["", "hashi"]);
 	});
 
 	it("romanizes each line in its own language and skips Latin lines", async () => {
@@ -120,8 +75,8 @@ describe("filling romanization", () => {
 			"fillEmpty",
 		);
 		expect(results.map((result) => result.romanLyric)).toEqual([
-			"ja:今日",
-			"ko:사랑 ko:해",
+			"Ja:今日",
+			"Ko:사랑 ko:해",
 		]);
 	});
 });

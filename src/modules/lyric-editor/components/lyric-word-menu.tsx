@@ -4,6 +4,11 @@ import { useSetImmerAtom } from "jotai-immer";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { romanizeSyllables } from "$/modules/romanization/engines";
+import {
+	detectSongLanguage,
+	lineLanguage,
+} from "$/modules/romanization/language";
 import { segmentationEngineAtom } from "$/modules/segmentation/states";
 import { segmentSelectedWords } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
@@ -26,7 +31,6 @@ import {
 	newLyricLine,
 	newLyricWord,
 } from "$/types/ttml";
-import { getPhoneticSyllables } from "$/utils/phonetic";
 import {
 	combineWordsApplyToAllAtom,
 	combineWordsIgnoreCaseAtom,
@@ -141,24 +145,20 @@ export const LyricWordMenu = ({
 					disabled={selectedWordsSize !== 1 || word.word.length <= 1}
 					onSelect={async () => {
 						try {
-							// Detect project-level language priority for context
-							const allLines = store.get(lyricLinesAtom).lyricLines;
-							const fullProjectText = allLines
-								.map((l) => l.words.map((w) => w.word).join(""))
-								.join("");
-							let projectLangPriority: "ja" | "zh" | "ko" | "auto" = "auto";
-
-							if (/[\u3040-\u309F\u30A0-\u30FF]/.test(fullProjectText))
-								projectLangPriority = "ja";
-							else if (/[\uAC00-\uD7AF]/.test(fullProjectText))
-								projectLangPriority = "ko";
-							else if (/[\u4E00-\u9FA5]/.test(fullProjectText))
-								projectLangPriority = "zh";
-
-							const syllables = await getPhoneticSyllables(
-								word.word,
-								projectLangPriority,
+							// The song's language decides how Han characters read.
+							const songLanguage = detectSongLanguage(
+								store.get(lyricLinesAtom).lyricLines,
 							);
+							const language =
+								songLanguage && lineLanguage(word.word, songLanguage);
+							const chars = Array.from(word.word).filter(
+								(char) => !/\s/.test(char),
+							);
+							const syllables = language
+								? (await romanizeSyllables(chars, language)).map((syllable) =>
+										syllable.trim(),
+									)
+								: [];
 							if (syllables.length <= 1) {
 								toast.info(
 									t(
@@ -184,7 +184,7 @@ export const LyricWordMenu = ({
 
 								const newWords: LyricWord[] = syllables.map((syll, i) => {
 									const nw = newLyricWord();
-									nw.word = word.word[i];
+									nw.word = chars[i];
 									nw.romanWord = syll;
 									nw.startTime = originalWord.startTime + i * syllDuration;
 									nw.endTime =

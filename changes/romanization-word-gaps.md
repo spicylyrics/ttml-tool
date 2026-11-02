@@ -1,8 +1,8 @@
 ---
-type: fix
+type: change
 impact: 3
 highlight: false
 ---
-Japanese romanization has gaps between words
+Japanese romaji is written like Genius
 
-Automatic romaji puts spaces between words the way Genius writes it, like kimi no namae wo, split into syllables or not
+Lines read like Kimi no namae wo yonde ita, with gaps between words and long vowels spelled out
