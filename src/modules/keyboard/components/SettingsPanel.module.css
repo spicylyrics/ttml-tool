@@ -1,0 +1,100 @@
+.rows {
+	display: flex;
+	flex-direction: column;
+}
+
+/* One line per action: name, keys, then its buttons. Wraps only when a
+   translation runs long. */
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: var(--space-3);
+	row-gap: var(--space-2);
+	padding-block: var(--space-2);
+}
+
+.row + .row {
+	border-top: 1px solid var(--gray-a4);
+}
+
+.name {
+	flex: 1 1 200px;
+	min-width: 0;
+}
+
+.recorder {
+	flex: none;
+	width: 168px;
+	cursor: pointer;
+}
+
+.recorder input {
+	cursor: pointer;
+}
+
+.recorder[data-listening="true"] {
+	color: var(--accent-11);
+}
+
+.extra {
+	flex: none;
+}
+
+.conflict {
+	flex-basis: 100%;
+}
+
+:global(:root[data-design="spicy-lyrics"]) .row + .row {
+	border-top-color: var(--sl-border);
+}
+
+@media (prefers-contrast: more) {
+	.row + .row {
+		border-top-color: var(--gray-a8);
+	}
+}
+.group {
+	margin-bottom: var(--space-5);
+}
+
+/* The group heading is the toggle: no marker, the chevron shows the state. */
+.summary {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	margin-bottom: var(--space-3);
+	padding-block: var(--space-1);
+	border-radius: var(--radius-2);
+	list-style: none;
+	cursor: pointer;
+	user-select: none;
+}
+
+.summary::-webkit-details-marker {
+	display: none;
+}
+
+.group:not([open]) > .summary {
+	margin-bottom: 0;
+}
+
+/* --focus-8 is the lavender ring in the Spicy Lyrics design. */
+.summary:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: 2px;
+}
+
+/* Toggled by keyboard too, so it turns without motion. */
+.chevron {
+	display: flex;
+	color: var(--gray-11);
+}
+
+.group[open] > .summary .chevron {
+	transform: rotate(90deg);
+}
+
+.count {
+	font-variant-numeric: tabular-nums;
+}

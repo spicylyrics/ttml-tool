@@ -12,13 +12,11 @@
 import type { KeyboardEvent, MouseEvent, PointerEvent, RefObject } from "react";
 import type { LyricLine, LyricWord } from "$/types/ttml.ts";
 import { msToTimestamp } from "$/utils/timestamp.ts";
-import { getSynchronizableUnits } from "../../utils/lyric-states.ts";
 import type { useSyncWordEditing } from "./use-sync-word-editing";
 
 export const useSyncWordEvents = ({
 	line,
 	syncId,
-	syncLevelMode,
 	wordIndex,
 	lineIndex,
 	word,
@@ -36,7 +34,6 @@ export const useSyncWordEvents = ({
 }: {
 	line: LyricLine;
 	syncId: string;
-	syncLevelMode: "word" | "line";
 	wordIndex: number;
 	lineIndex: number;
 	word: LyricWord;
@@ -76,14 +73,7 @@ export const useSyncWordEvents = ({
 		});
 		setSelectedWords((state) => {
 			state.clear();
-			if (syncLevelMode === "line") {
-				const units = getSynchronizableUnits(line);
-				for (const unit of units) {
-					state.add(unit.id);
-				}
-			} else {
-				state.add(syncId);
-			}
+			state.add(syncId);
 		});
 	};
 	const onWordClick = (evt: MouseEvent<HTMLDivElement>) => {

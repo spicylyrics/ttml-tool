@@ -11,9 +11,13 @@
 
 import { ContextMenu, Flex } from "@radix-ui/themes";
 import classNames from "classnames";
-import type { Atom } from "jotai";
-import { type FC, memo } from "react";
-import { selectedLinesAtom, ToolMode } from "$/states/main.ts";
+import { type Atom, atom, useAtomValue } from "jotai";
+import { type FC, memo, useMemo } from "react";
+import {
+	collapsedSectionIdsAtom,
+	selectedLinesAtom,
+	ToolMode,
+} from "$/states/main.ts";
 import type { LyricLine } from "$/types/ttml.ts";
 import styles from "../index.module.css";
 import { InsertLineButton } from "./insert-line-button";
@@ -22,6 +26,7 @@ import { LineContextMenu } from "./line-context-menu.tsx";
 import { LineTimingPlacement } from "./line-timing-placement.tsx";
 import { LineTrailingInsert } from "./line-trailing-insert.tsx";
 import { LyricLineScroller } from "./lyric-line-scroller";
+import { SectionDivider } from "./section-divider.tsx";
 import { useLineInteractions } from "./use-line-interactions";
 import { useLineView } from "./use-line-view";
 
@@ -42,15 +47,7 @@ export const LyricLineView: FC<{
 		editLyricLines,
 		showTimestamps,
 		showEndTimeAsDuration,
-		syncLevelMode,
 		store,
-		activeSection,
-		sectionActionsEnabled,
-		manualCategorizationEnabled,
-		activeGeniusHeader,
-		customHeaderColor,
-		isSectionStart,
-		categoryColor,
 		wordsContainerRef,
 		blockDragRef,
 		isLastLine,
@@ -85,10 +82,29 @@ export const LyricLineView: FC<{
 		toolMode,
 		blockDragRef,
 		store,
-		syncLevelMode,
 		setSelectedLines,
 		setSelectedWords,
 	});
+	// A stretch outside any section is keyed by its first line, and when it's
+	// collapsed only that line is in the list, so its own id is enough here.
+	const collapseKey = line.sectionId ?? `unsectioned:${line.id}`;
+	const collapsedAtom = useMemo(
+		() => atom((get) => get(collapsedSectionIdsAtom).has(collapseKey)),
+		[collapseKey],
+	);
+	const collapsed = useAtomValue(collapsedAtom);
+
+	const sectionDivider = (
+		<SectionDivider
+			lineIndex={lineIndex}
+			sectionId={line.sectionId}
+			geniusHeader={line.geniusHeader}
+		/>
+	);
+
+	// The list keeps a collapsed section's first line only to carry its
+	// divider, so the line itself stays hidden like the rest.
+	if (collapsed) return sectionDivider;
 
 	return (
 		<>
@@ -99,6 +115,7 @@ export const LyricLineView: FC<{
 					editingRomanWordIndex={editingRomanWordIndex}
 				/>
 			)}
+			{sectionDivider}
 			{
 				<LineTimingPlacement
 					lineIndex={lineIndex}
@@ -169,9 +186,6 @@ export const LyricLineView: FC<{
 						}
 						data-lyric-line-id={line.id}
 						data-lyric-line-index={lineIndex}
-						style={{
-							...(isSectionStart ? { marginTop: "16px" } : {}),
-						}}
 						onPointerDown={onPointerDown}
 						onPointerUp={onPointerUp}
 						onClick={onClick}
@@ -190,12 +204,6 @@ export const LyricLineView: FC<{
 								showTimestamps={showTimestamps}
 								showEndTimeAsDuration={showEndTimeAsDuration}
 								store={store}
-								activeSection={activeSection}
-								sectionActionsEnabled={sectionActionsEnabled}
-								activeGeniusHeader={activeGeniusHeader}
-								customHeaderColor={customHeaderColor}
-								isSectionStart={isSectionStart}
-								categoryColor={categoryColor}
 								wordsContainerRef={wordsContainerRef}
 								displayNumber={displayNumber}
 								showWordRomanizationInput={showWordRomanizationInput}
@@ -215,13 +223,7 @@ export const LyricLineView: FC<{
 						</div>
 					</Flex>
 				</ContextMenu.Trigger>
-				<LineContextMenu
-					lineIndex={lineIndex}
-					toolMode={toolMode}
-					activeSection={activeSection}
-					sectionActionsEnabled={sectionActionsEnabled}
-					manualCategorizationEnabled={manualCategorizationEnabled}
-				/>
+				<LineContextMenu lineIndex={lineIndex} toolMode={toolMode} />
 			</ContextMenu.Root>
 			{
 				<LineTrailingInsert

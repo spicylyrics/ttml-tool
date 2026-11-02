@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { audioBufferAtom, currentTimeAtom } from "$/modules/audio/states";
 
@@ -43,6 +43,8 @@ export function useScrubbing(
 		window.removeEventListener("mousemove", handleScrubMove);
 		window.removeEventListener("mouseup", handleScrubEnd);
 	}, [handleScrubMove]);
+
+	useEffect(() => handleScrubEnd, [handleScrubEnd]);
 
 	const handleScrubStart = useCallback(
 		(event: React.MouseEvent) => {

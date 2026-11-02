@@ -1,7 +1,12 @@
 import { produce } from "immer";
 import { createStore } from "jotai";
 import { describe, expect, it, vi } from "vitest";
-import { lyricLinesAtom } from "$/states/main";
+import {
+	canUndoLyricLinesAtom,
+	lyricLinesAtom,
+	redoLyricLinesAtom,
+	undoLyricLinesAtom,
+} from "$/states/main";
 import { newLyricLine, newLyricWord } from "$/types/ttml";
 import {
 	hasGeniusHeaderAtom,
@@ -32,6 +37,60 @@ function songStore() {
 }
 
 describe("lyric document structure subscriptions", () => {
+	it("keeps row identities and timing values correct through undo and redo", () => {
+		const store = songStore();
+		const subscriptions = [
+			store.sub(canUndoLyricLinesAtom, () => {}),
+			store.sub(lyricLinesOnlyAtom, () => {}),
+		];
+		const rows = store.get(lyricLinesOnlyAtom);
+		const before = store.get(rows[25]);
+		subscriptions.push(store.sub(rows[25], () => {}));
+		try {
+			store.set(
+				lyricLinesAtom,
+				produce(store.get(lyricLinesAtom), (draft) => {
+					draft.lyricLines[25].words[0].startTime += 10;
+				}),
+			);
+			const edited = store.get(rows[25]);
+			expect(edited).not.toBe(before);
+			store.set(undoLyricLinesAtom);
+			expect(store.get(rows[25])).toBe(before);
+			expect(store.get(lyricLinesOnlyAtom)).toBe(rows);
+			store.set(redoLyricLinesAtom);
+			expect(store.get(rows[25])).toBe(edited);
+			expect(store.get(lyricLinesOnlyAtom)).toBe(rows);
+		} finally {
+			for (const unsubscribe of subscriptions) unsubscribe();
+		}
+	});
+
+	it("retains a removed row's last value until its subscribers unmount", () => {
+		const store = songStore();
+		const row = store.get(lyricLinesOnlyAtom)[25];
+		const unsubscribe = store.sub(row, () => {});
+		try {
+			store.set(
+				lyricLinesAtom,
+				produce(store.get(lyricLinesAtom), (draft) => {
+					draft.lyricLines[25].words[0].startTime += 10;
+				}),
+			);
+			const last = store.get(row);
+			store.set(
+				lyricLinesAtom,
+				produce(store.get(lyricLinesAtom), (draft) => {
+					draft.lyricLines.splice(25, 1);
+				}),
+			);
+			expect(store.get(row)).toBe(last);
+			expect(store.get(lyricLinesOnlyAtom)).toHaveLength(59);
+		} finally {
+			unsubscribe();
+		}
+	});
+
 	it("notifies only the edited row for a word timestamp edit in a 60-line song", () => {
 		const store = songStore();
 		const fullDocument = vi.fn();

@@ -1,14 +1,11 @@
-import "./text-decoder";
-import { PcmVoice } from "./pcm-voice";
-import type { PlayerCommand, PlayerEvent, VoiceId } from "./protocol";
-import {
-	initSync,
-	SoundTouchProcessor,
-	StretchAlgorithm,
-} from "./vendor/soundtouch";
+import { BufferedPcmVoice } from "./buffered-voice";
+import type {
+	PcmPacket,
+	PlayerCommand,
+	PlayerEvent,
+	RendererEvent,
+} from "./protocol";
 
-// AudioWorklet globals are absent from TypeScript's DOM/WebWorker declarations.
-declare const sampleRate: number;
 declare const currentTime: number;
 declare abstract class AudioWorkletProcessor {
 	readonly port: MessagePort;
@@ -23,88 +20,67 @@ declare function registerProcessor(
 ): void;
 
 class PcmPlayer extends AudioWorkletProcessor {
-	private voices: Partial<Record<VoiceId, PcmVoice>> = {};
-	private auditionOutput: Float32Array[] = [];
+	private rendererPort: MessagePort | null = null;
 	private destroyed = false;
+	private voices = {
+		music: new BufferedPcmVoice((packet) => this.recycle(packet)),
+		audition: new BufferedPcmVoice((packet) => this.recycle(packet)),
+	};
 
 	constructor() {
 		super();
 		this.port.onmessage = (event: MessageEvent<PlayerCommand>) => {
-			try {
-				const command = event.data;
-				if (command.type === "init") {
-					const { memory } = initSync({ module: command.wasm });
-					const channels = command.channels;
-					for (const id of ["music", "audition"] as const) {
-						this.voices[id] = new PcmVoice(
-							channels,
-							sampleRate,
-							memory,
-							() =>
-								new SoundTouchProcessor(
-									channels.length,
-									sampleRate,
-									StretchAlgorithm.Spectral,
-								),
-						);
-					}
-					this.auditionOutput = channels.map(() => new Float32Array(128));
-					this.post({ type: "ready" });
-				} else if (command.type === "voice") {
-					this.voices[command.voice]?.setState(command.state);
-				} else {
-					this.destroy();
-				}
-			} catch (error) {
-				this.fail(error);
+			const command = event.data;
+			if (command.type === "init") {
+				this.rendererPort = command.port;
+				command.port.onmessage = (event: MessageEvent<RendererEvent>) => {
+					const message = event.data;
+					if (message.type === "pcm")
+						this.voices[message.voice].accept(message);
+					else this.post(message);
+				};
+				command.port.start();
+			} else if (command.type === "voice") {
+				this.rendererPort?.postMessage(command);
+				this.voices[command.voice].setState(command.state);
+			} else {
+				this.voices.music.clear();
+				this.voices.audition.clear();
+				this.rendererPort?.close();
+				this.rendererPort = null;
+				this.destroyed = true;
 			}
 		};
 		this.port.start();
 	}
 
+	private recycle(packet: PcmPacket) {
+		this.rendererPort?.postMessage(
+			{
+				type: "recycle",
+				voice: packet.voice,
+				generation: packet.report.generation,
+				channels: packet.channels,
+			},
+			packet.channels.map((channel) => channel.buffer),
+		);
+	}
+
 	private post(event: PlayerEvent) {
 		this.port.postMessage(event);
-	}
-	private destroy() {
-		for (const voice of Object.values(this.voices)) voice.destroy();
-		this.voices = {};
-		this.auditionOutput = [];
-		this.destroyed = true;
-	}
-	private fail(error: unknown) {
-		this.destroy();
-		this.post({
-			type: "error",
-			message: error instanceof Error ? error.message : String(error),
-		});
 	}
 
 	process(_inputs: Float32Array[][], outputs: Float32Array[][]) {
 		if (this.destroyed) return false;
 		const output = outputs[0];
-		if (!output?.[0] || !this.voices.music) return true;
-		try {
-			if (this.auditionOutput[0].length !== output[0].length) {
-				this.auditionOutput = output.map(
-					(channel) => new Float32Array(channel.length),
-				);
-			}
-			for (const id of ["music", "audition"] as const) {
-				const report = this.voices[id]?.render(
-					id === "music" ? output : this.auditionOutput,
-					currentTime,
-				);
-				if (report) this.post({ type: "render", voice: id, report });
-			}
-			for (let c = 0; c < output.length; c++) {
-				for (let i = 0; i < output[c].length; i++)
-					output[c][i] += this.auditionOutput[c][i];
-			}
-		} catch (error) {
-			for (const channel of output) channel.fill(0);
-			this.fail(error);
-		}
-		return !this.destroyed;
+		if (!output?.[0]) return true;
+		for (const channel of output) channel.fill(0);
+		const music = this.voices.music.render(output, currentTime);
+		if (music) this.post({ type: "render", voice: "music", report: music });
+		const audition = this.voices.audition.render(output, currentTime);
+		if (audition)
+			this.post({ type: "render", voice: "audition", report: audition });
+		return true;
 	}
 }
 

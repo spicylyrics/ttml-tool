@@ -7,6 +7,7 @@ import {
 	canUndoLyricLinesAtom,
 	lyricLinesAtom,
 	lyricMetadataAtom,
+	projectIdentityAtom,
 } from "./main";
 
 // App-wide chrome (menu bar, file header) reads these instead of the whole
@@ -22,10 +23,12 @@ describe("document-wide atoms for app chrome", () => {
 			})),
 		});
 		const metadata = vi.fn();
+		const identity = vi.fn();
 		const canUndo = vi.fn();
 		const canRedo = vi.fn();
 		const unsubscribes = [
 			store.sub(lyricMetadataAtom, metadata),
+			store.sub(projectIdentityAtom, identity),
 			store.sub(canUndoLyricLinesAtom, canUndo),
 			store.sub(canRedoLyricLinesAtom, canRedo),
 		];
@@ -40,6 +43,7 @@ describe("document-wide atoms for app chrome", () => {
 		for (let press = 1; press <= 30; press++) pressSyncKey(press);
 
 		expect(metadata).not.toHaveBeenCalled();
+		expect(identity).not.toHaveBeenCalled();
 		// Undo may switch on once; it must not fire for every press.
 		expect(canUndo.mock.calls.length).toBeLessThanOrEqual(1);
 		expect(store.get(canUndoLyricLinesAtom)).toBe(true);

@@ -3,4 +3,9 @@
 	padding-right: 0;
 	text-wrap: nowrap;
 	white-space: nowrap;
+	/* Rapid taps must not pan, zoom, select text or open the long-press callout. */
+	touch-action: none;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
 }

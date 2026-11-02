@@ -7,8 +7,15 @@ import { clampPlaybackRate } from "../utils/playback-rate";
 const activeLineIdsBaseAtom = atom((get) => {
 	const currentTime = get(currentTimeAtom);
 	const lyrics = get(lyricLinesAtom);
+	// An untimed line (0 to 0) isn't playing at 0:00, so it's skipped; otherwise
+	// every unsynced line lights up before playback starts.
 	return lyrics.lyricLines
-		.filter((l) => currentTime >= l.startTime && currentTime <= l.endTime)
+		.filter(
+			(l) =>
+				l.endTime > l.startTime &&
+				currentTime >= l.startTime &&
+				currentTime <= l.endTime,
+		)
 		.map((l) => l.id);
 });
 

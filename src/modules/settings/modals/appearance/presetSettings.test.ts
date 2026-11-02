@@ -60,6 +60,8 @@ const settings: PresetSnapshotInput = {
 	legacyDarkTheme: false,
 	legacySpaceLabels: true,
 	spicyLyricsDesign: false,
+	logoColorPreset: "custom",
+	logoColorCustom: "#12ab9f",
 };
 
 describe("appearance preset snapshots", () => {

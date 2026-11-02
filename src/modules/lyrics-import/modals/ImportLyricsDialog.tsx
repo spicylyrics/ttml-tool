@@ -33,7 +33,6 @@ import { segmentWord } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import {
 	geniusApiKeyAtom,
-	geniusCategorizationEnabledAtom,
 	normalizeApostrophesOnImportAtom,
 	normalizeCyrillicEsOnImportAtom,
 } from "$/modules/settings/states/index.ts";
@@ -97,7 +96,7 @@ export const ImportLyricsDialog = () => {
 	const [pickedTrack, setPickedTrack] = useAtom(pickedTrackAtom);
 	const format = useAtomValue(importTextFormatAtom);
 	// Starts from the Genius sections preference each time the screen opens.
-	const [makeSections, setMakeSections] = useState(false);
+	const [makeSections, setMakeSections] = useState(true);
 	const geniusApiKey = useAtomValue(geniusApiKeyAtom);
 	const setWordSeparator = useSetAtom(wordSeparatorAtom);
 	const setEnableSpecialPrefix = useSetAtom(enableSpecialPrefixAtom);
@@ -136,8 +135,8 @@ export const ImportLyricsDialog = () => {
 		if (!isOpen) return;
 		setStep("edit");
 		setConfirming(false);
-		setMakeSections(store.get(geniusCategorizationEnabledAtom));
-	}, [isOpen, store]);
+		setMakeSections(true);
+	}, [isOpen]);
 
 	// Tags can arrive after the dialog opens; only replace a query we filled in.
 	useEffect(() => {
@@ -311,7 +310,6 @@ export const ImportLyricsDialog = () => {
 			if (willMakeSections)
 				applyReviewedSections(next, toSectionOverrides(sections));
 			store.set(lyricLinesAtom, next);
-			if (willMakeSections) store.set(geniusCategorizationEnabledAtom, true);
 			store.set(selectedLinesAtom, new Set([lines[0].id]));
 			store.set(
 				selectedWordsAtom,

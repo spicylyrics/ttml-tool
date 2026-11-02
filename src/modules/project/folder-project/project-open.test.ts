@@ -59,6 +59,9 @@ vi.mock("./audio-io", () => ({
 	AUDIO_EXTS: new Set(),
 	loadProjectAudioFile: vi.fn(),
 }));
+vi.mock("./linked-projects", () => ({
+	isLinkedProjectDir: vi.fn(async () => true),
+}));
 vi.mock("./lyric-io", () => ({ readProjectLyricFile: vi.fn() }));
 vi.mock("./manifest", () => ({
 	assertSafePath: (dir: string, file: string) => `${dir}/${file}`,
@@ -88,9 +91,12 @@ vi.mock("./types", () => ({
 	PROJECT_MANIFEST_FILENAME: "project.json",
 }));
 
+import { readTextFile } from "@tauri-apps/plugin-fs";
 import { beforeEach } from "vitest";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { loadProjectAudioFile } from "./audio-io";
+import { isLinkedProjectDir } from "./linked-projects";
+import { readProjectLyricFile } from "./lyric-io";
 import { resolveManifestFiles } from "./project-folder-sync";
 import { loadProjectFromDir } from "./project-open";
 
@@ -165,5 +171,30 @@ describe("loadProjectFromDir", () => {
 		expect(ok).toBe(true);
 		expect(audioEngine.loadMusic).toHaveBeenCalledWith(audio);
 		expect(audioEngine.unloadMusic).not.toHaveBeenCalled();
+	});
+
+	it("rejects a linked manifest outside the linked projects folder", async () => {
+		vi.mocked(readTextFile).mockResolvedValueOnce(
+			JSON.stringify({
+				version: 1,
+				name: "x",
+				audioFile: "",
+				lyricFile: "lyrics.ttml",
+				linked: {
+					lyricPath: "C:/Users/me/Music/Other/lyrics.ttml",
+					audioPath: "C:/Users/me/Music/a.mp3",
+				},
+			}),
+		);
+		vi.mocked(isLinkedProjectDir).mockResolvedValueOnce(false);
+		const store = { get: () => false, set: vi.fn() };
+		const ok = await loadProjectFromDir(
+			"C:/Users/me/Downloads/shared",
+			store as never,
+			(key) => key,
+		);
+		expect(ok).toBe(false);
+		expect(readProjectLyricFile).not.toHaveBeenCalled();
+		expect(store.set).not.toHaveBeenCalled();
 	});
 });

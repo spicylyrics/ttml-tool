@@ -9,16 +9,12 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import {
-	AddFilled,
-	TextAlignRightFilled,
-	VideoBackgroundEffectFilled,
-} from "@fluentui/react-icons";
+import { AddFilled } from "@fluentui/react-icons";
 import { Flex, IconButton, Text } from "@radix-ui/themes";
 import classNames from "classnames";
+import { ROLE_COLORS, SlIcon } from "$/components/SlIcon";
 import { ToolMode } from "$/states/main.ts";
 import styles from "../index.module.css";
-import { LineSectionHeader } from "./line-section-header.tsx";
 import { LineTimingControls } from "./line-timing-controls.tsx";
 import { LineWordRow } from "./line-word-row.tsx";
 import { SubLineEdit } from "./sub-line-edit";
@@ -36,12 +32,6 @@ export function LineContent({
 	showTimestamps,
 	showEndTimeAsDuration,
 	store,
-	activeSection,
-	sectionActionsEnabled,
-	activeGeniusHeader,
-	customHeaderColor,
-	isSectionStart,
-	categoryColor,
 	wordsContainerRef,
 	displayNumber,
 	showWordRomanizationInput,
@@ -70,12 +60,6 @@ export function LineContent({
 	| "showTimestamps"
 	| "showEndTimeAsDuration"
 	| "store"
-	| "activeSection"
-	| "sectionActionsEnabled"
-	| "activeGeniusHeader"
-	| "customHeaderColor"
-	| "isSectionStart"
-	| "categoryColor"
 	| "wordsContainerRef"
 	| "displayNumber"
 	| "showWordRomanizationInput"
@@ -111,8 +95,20 @@ export function LineContent({
 				>
 					{displayNumber > 0 && displayNumber}
 				</Text>
-				{line.isBG && <VideoBackgroundEffectFilled color="var(--accent-9)" />}
-				{line.isDuet && <TextAlignRightFilled color="#44AA33" />}
+				{line.isBG && (
+					<SlIcon
+						name="background"
+						className={styles.roleBadge}
+						color={ROLE_COLORS.background}
+					/>
+				)}
+				{line.isDuet && (
+					<SlIcon
+						name="duet"
+						className={styles.roleBadge}
+						color={ROLE_COLORS.duet}
+					/>
+				)}
 			</Flex>
 			<div
 				className={classNames(
@@ -121,21 +117,6 @@ export function LineContent({
 					toolMode === ToolMode.Sync && styles.sync,
 				)}
 			>
-				{
-					<LineSectionHeader
-						lineIndex={lineIndex}
-						t={t}
-						toolMode={toolMode}
-						editLyricLines={editLyricLines}
-						store={store}
-						activeSection={activeSection}
-						sectionActionsEnabled={sectionActionsEnabled}
-						activeGeniusHeader={activeGeniusHeader}
-						customHeaderColor={customHeaderColor}
-						isSectionStart={isSectionStart}
-						categoryColor={categoryColor}
-					/>
-				}
 				<LineWordRow
 					lineIndex={lineIndex}
 					t={t}
@@ -145,10 +126,6 @@ export function LineContent({
 					editLyricLines={editLyricLines}
 					showTimestamps={showTimestamps}
 					store={store}
-					activeGeniusHeader={activeGeniusHeader}
-					customHeaderColor={customHeaderColor}
-					isSectionStart={isSectionStart}
-					categoryColor={categoryColor}
 					wordsContainerRef={wordsContainerRef}
 					showWordRomanizationInput={showWordRomanizationInput}
 					wordTexts={wordTexts}

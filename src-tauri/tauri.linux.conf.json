@@ -4,17 +4,19 @@
 		"linux": {
 			"deb": {
 				"conflicts": ["naenae-amll-ttml-tool-fork"],
-				"replaces": ["naenae-amll-ttml-tool-fork"]
+				"replaces": ["naenae-amll-ttml-tool-fork"],
+				"recommends": ["xdg-desktop-portal", "zenity"]
 			},
 			"rpm": {
-				"obsoletes": ["naenae-amll-ttml-tool-fork"]
+				"obsoletes": ["naenae-amll-ttml-tool-fork"],
+				"recommends": ["xdg-desktop-portal", "zenity"]
 			}
 		}
 	},
 	"app": {
 		"windows": [
 			{
-				"title": "",
+				"title": "Spicy Lyrics TTML Tool",
 				"label": "main",
 				"width": 800,
 				"height": 600,
@@ -23,7 +25,7 @@
 				"fullscreen": false,
 				"dragDropEnabled": false,
 				"visible": false,
-				"decorations": false
+				"decorations": true
 			}
 		]
 	}

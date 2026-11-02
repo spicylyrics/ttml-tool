@@ -1,5 +1,4 @@
-import { type createStore, useAtomValue } from "jotai";
-import { useMemo } from "react";
+import type { createStore } from "jotai";
 import {
 	lyricLinesAtom,
 	selectedLinesAtom,
@@ -89,38 +88,6 @@ export function getCurrentLocation(
 		isFirstWord,
 		isLastWord,
 	};
-}
-
-export function useCurrentLocation(): LineAndWordLocationResult | undefined {
-	const lyrics = useAtomValue(lyricLinesAtom);
-	const selectedLines = useAtomValue(selectedLinesAtom);
-	const selectedWords = useAtomValue(selectedWordsAtom);
-	const result = useMemo(() => {
-		const lyricLine = lyrics.lyricLines.findIndex((line) =>
-			selectedLines.has(line.id),
-		);
-		if (lyricLine === -1) return;
-		const line = lyrics.lyricLines[lyricLine];
-		const syncUnits = getSynchronizableUnits(line);
-		const syncIndex = syncUnits.findIndex((unit) => selectedWords.has(unit.id));
-		if (syncIndex === -1) return;
-		const targetUnit = syncUnits[syncIndex];
-		if (!targetUnit) return;
-		const isFirstWord = syncIndex === 0;
-		const isLastWord = syncIndex === syncUnits.length - 1;
-		return {
-			lines: lyrics.lyricLines,
-			line,
-			lineIndex: lyricLine,
-			word: targetUnit.word,
-			wordIndex: targetUnit.wordIndex,
-			syncIndex,
-			syncId: targetUnit.id,
-			isFirstWord,
-			isLastWord,
-		};
-	}, [lyrics, selectedLines, selectedWords]);
-	return result;
 }
 
 export const isSynchronizableLine = (line: LyricLine) => !line.ignoreSync;

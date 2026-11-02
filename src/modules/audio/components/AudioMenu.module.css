@@ -1,0 +1,99 @@
+/* The popover's own padding is replaced so the song row can run edge to edge. */
+.content {
+	padding: 0;
+	overflow: hidden;
+}
+
+.controls {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+	padding: var(--space-4);
+}
+
+.group {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
+
+.head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	min-height: var(--space-5);
+}
+
+.presets {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: var(--space-1);
+}
+
+/* A hairline at the track's midpoint marks 1x, which the scale puts there. */
+.centered {
+	position: relative;
+}
+
+.centered::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 1px;
+	height: 12px;
+	translate: -50% -50%;
+	background: var(--gray-a7);
+	pointer-events: none;
+}
+
+.value {
+	font-variant-numeric: tabular-nums;
+}
+
+/* The song being synced, closest to the button that opened the menu. */
+.song {
+	display: grid;
+	grid-template-columns: 40px minmax(0, 1fr) auto;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-4);
+	background: var(--gray-2);
+	border-top: 1px solid var(--gray-a4);
+}
+
+.loadWide {
+	grid-column: 2 / -1;
+}
+
+.cover {
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-2);
+	object-fit: cover;
+	display: block;
+}
+
+.coverPlaceholder {
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-2);
+	display: grid;
+	place-items: center;
+	background: var(--gray-a3);
+	color: var(--gray-11);
+	font-size: 20px;
+}
+
+.songText {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.songName {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

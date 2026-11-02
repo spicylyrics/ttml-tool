@@ -1,5 +1,6 @@
 import { atom, type ExtractAtomValue } from "jotai";
 import { atomWithStorage } from "jotai/utils";
+import { type EffectsMode, usesLiteEffects } from "../logic/effects-mode";
 import { clampGlassBlur } from "../logic/glass-blur";
 import { atomWithMigratedStorage } from "./migrated-storage";
 
@@ -36,11 +37,6 @@ export const showLineTranslationAtom = atomWithStorage(
 
 export const showLineRomanizationAtom = atomWithStorage(
 	"showLineRomanization",
-	true,
-);
-
-export const generateNameFromMetadataAtom = atomWithStorage(
-	"generateNameFromMetadata",
 	true,
 );
 
@@ -281,6 +277,18 @@ export const spicyLyricsDesignAtom = atomWithStorage<boolean>(
 	{ getOnInit: true },
 );
 
+// Read on init so the first paint already skips the expensive effects.
+export const effectsModeAtom = atomWithStorage<EffectsMode>(
+	"effectsMode",
+	"auto",
+	undefined,
+	{ getOnInit: true },
+);
+
+export const liteEffectsAtom = atom((get) =>
+	usesLiteEffects(get(effectsModeAtom), import.meta.env.TAURI_ENV_PLATFORM),
+);
+
 export const advancedWaveformColorAtom = atomWithStorage<string>(
 	"advancedWaveformColor",
 	"",
@@ -424,6 +432,8 @@ export interface AppearancePresetSettings {
 	legacyDarkTheme: boolean;
 	legacySpaceLabels: boolean;
 	spicyLyricsDesign: boolean;
+	logoColorPreset: string;
+	logoColorCustom: string;
 }
 
 export interface AppearancePreset {
@@ -437,14 +447,16 @@ export const appearancePresetsAtom = atomWithStorage<AppearancePreset[]>(
 	[],
 );
 
-export const geniusCategorizationEnabledAtom = atomWithStorage<boolean>(
-	"geniusCategorizationEnabled",
-	false,
+/** Where Apply timings from... starts the copied timings, remembered between uses. */
+export const sectionTimingsAnchorAtom = atomWithStorage<"section" | "playhead">(
+	"sectionTimingsAnchor",
+	"section",
 );
 
-export const geniusHeaderDetectionDialogShownAtom = atomWithStorage<boolean>(
-	"geniusHeaderDetectionDialogShown",
-	false,
+/** Show "Updated to vX.Y.Z" the first time the app starts on a new version. */
+export const showUpdatedToastAtom = atomWithStorage(
+	"showUpdatedToast",
+	true,
+	undefined,
+	{ getOnInit: true },
 );
-
-export const geniusHeaderDetectionDialogOpenAtom = atom(false);

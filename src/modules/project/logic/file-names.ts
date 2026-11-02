@@ -6,8 +6,8 @@ export function sanitizeFileName(name: string, maxLength = 240): string {
 	})
 		.join("")
 		.replace(/\s+/g, " ")
-		.replace(/\.{2,}/g, ".")
-		.replace(/^[.\s]+|[.\s]+$/g, "");
+		.replace(/\.{2,}/g, ".");
+	cleaned = trimDotsAndSpaces(cleaned);
 	if (
 		cleaned.toLowerCase() === "project.json" ||
 		/^(CON|PRN|AUX|NUL|CONIN\$|CONOUT\$|COM[1-9¹²³]|LPT[1-9¹²³])\s*(\..*)?$/i.test(
@@ -26,5 +26,16 @@ export function sanitizeFileName(name: string, maxLength = 240): string {
 		if (shortened.length + char.length > maxLength - suffix.length) break;
 		shortened += char;
 	}
-	return `${shortened.replace(/[.\s]+$/, "")}${suffix}` || "Untitled";
+	return `${trimDotsAndSpaces(shortened)}${suffix}` || "Untitled";
+}
+
+// Index scans instead of /[.\s]+$/, which backtracks quadratically on long
+// dot/space runs from untrusted metadata.
+function trimDotsAndSpaces(value: string): string {
+	const isTrimmed = (char: string) => char === "." || /\s/.test(char);
+	let start = 0;
+	let end = value.length;
+	while (start < end && isTrimmed(value[start])) start++;
+	while (end > start && isTrimmed(value[end - 1])) end--;
+	return value.slice(start, end);
 }

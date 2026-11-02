@@ -1,0 +1,46 @@
+/*
+ * Lite effects: App.tsx sets data-effects="lite" on <html> from the Visual
+ * effects setting, and Automatic turns it on for the Linux desktop app.
+ * WebKitGTK repaints blur and running animations far slower than Chromium or
+ * WebView2, so this drops them with the design on or off. Colors are left
+ * alone, so the user's Advanced overrides still apply.
+ *
+ * The rest of lite effects lives elsewhere: App.tsx makes Radix panels solid,
+ * useSpicyLyrics.ts swaps the animated preview background for flat colors, and
+ * component CSS modules drop their own glows under the same attribute.
+ *
+ * Specificity: index.css, spicy-lyrics-design.css and the CSS modules set
+ * backdrop filters with !important at up to (0,4,0). An !important rule inside
+ * a cascade layer beats every unlayered !important rule whatever its
+ * specificity, so this one universal rule wins over all of them.
+ */
+
+@layer lite-effects {
+	:root[data-effects="lite"] *,
+	:root[data-effects="lite"] *::before,
+	:root[data-effects="lite"] *::after {
+		backdrop-filter: none !important;
+		-webkit-backdrop-filter: none !important;
+	}
+}
+
+/* Radix waits for animationend before it unmounts a closing dialog or menu.
+   When WebKitGTK delivers that late, a dismissed dialog flashes back open.
+   With no animation, Radix unmounts it at once. The empty-project panel
+   remounts on every mode switch, so its entrance would replay each time.
+   Toasts keep their animation:
+   react-toastify waits for animationend and would never remove them. */
+:root[data-effects="lite"]
+	:is(
+		.rt-BaseDialogOverlay,
+		.rt-BaseDialogContent,
+		.rt-PopperContent,
+		.rt-PopoverContent,
+		.rt-HoverCardContent,
+		.rt-BaseMenuContent,
+		.rt-TooltipContent,
+		.sl-empty-panel
+	),
+:root[data-effects="lite"] .rt-BaseDialogOverlay::before {
+	animation: none !important;
+}

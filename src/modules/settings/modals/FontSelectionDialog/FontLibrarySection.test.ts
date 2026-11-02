@@ -1,7 +1,6 @@
 import { createInstance } from "i18next";
 import {
 	Children,
-	type CSSProperties,
 	isValidElement,
 	type ReactElement,
 	type ReactNode,
@@ -11,7 +10,7 @@ import { FontLibrarySection } from "./FontLibrarySection";
 
 type CardProps = {
 	children?: ReactNode;
-	style?: CSSProperties;
+	selected?: boolean;
 	onClick?: () => void;
 };
 
@@ -43,13 +42,13 @@ describe("system font selection", () => {
 			handleSelectFont,
 		};
 		const before = findFontCard(FontLibrarySection(props), "Arial");
-		expect(before?.props.style?.border).toBe("none");
+		expect(before?.props.selected).toBe(false);
 		before?.props.onClick?.();
 		expect(handleSelectFont).toHaveBeenCalledWith("Arial", false);
 		const after = findFontCard(
 			FontLibrarySection({ ...props, appFont: "Arial" }),
 			"Arial",
 		);
-		expect(after?.props.style?.border).toBe("2px solid var(--accent-9)");
+		expect(after?.props.selected).toBe(true);
 	});
 });

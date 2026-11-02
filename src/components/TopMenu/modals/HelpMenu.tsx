@@ -1,15 +1,13 @@
 import { Button, DropdownMenu } from "@radix-ui/themes";
-import { useSetAtom } from "jotai";
 import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
-import { Trans, useTranslation } from "react-i18next";
-import { guideWelcomeOpenAtom } from "$/modules/onboarding/states";
+import { Trans } from "react-i18next";
+import { CommandPaletteMenuItem } from "$/modules/command-palette/CommandPaletteMenuItem";
+import { MENU_ACTIONS, type MenuAction } from "$/modules/menu-actions/actions";
 import {
-	changelogDialogAtom,
-	settingsDialogAtom,
-	settingsTabAtom,
-} from "$/states/dialogs.ts";
-import { useTopMenuActions } from "../useTopMenuActions";
+	MenuActionItem,
+	useMenuActionContext,
+} from "$/modules/menu-actions/MenuActionItem";
 
 type HelpMenuProps = {
 	variant: "toolbar" | "submenu";
@@ -17,36 +15,21 @@ type HelpMenuProps = {
 };
 
 const HelpMenuItems = () => {
-	const { t } = useTranslation();
-	const menu = useTopMenuActions();
-	const setChangelogOpen = useSetAtom(changelogDialogAtom);
-	const setSettingsOpen = useSetAtom(settingsDialogAtom);
-	const setSettingsTab = useSetAtom(settingsTabAtom);
-	const setGuideWelcomeOpen = useSetAtom(guideWelcomeOpenAtom);
-	const openAbout = () => {
-		setSettingsTab("about");
-		setSettingsOpen(true);
-	};
+	const context = useMenuActionContext();
+	const item = (action: MenuAction) => (
+		<MenuActionItem action={action} context={context} />
+	);
 
 	return (
 		<>
-			<DropdownMenu.Item onSelect={() => setGuideWelcomeOpen(true)}>
-				{t("beginnerGuide.menu", "Start guide")}
-			</DropdownMenu.Item>
-			<DropdownMenu.Item onSelect={menu.onOpenGitHub}>
-				{t("aboutModal.github", "Star on GitHub")}
-			</DropdownMenu.Item>
-			<DropdownMenu.Item onSelect={menu.onOpenGuides}>
-				{t("topBar.menu.helpDoc", "TTML guides")}
-			</DropdownMenu.Item>
+			<CommandPaletteMenuItem />
+			{item(MENU_ACTIONS.startGuide)}
+			{item(MENU_ACTIONS.github)}
+			{item(MENU_ACTIONS.guides)}
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item onSelect={() => setChangelogOpen(true)}>
-				{t("topBar.menu.changelog", "Changelog & updates")}
-			</DropdownMenu.Item>
+			{item(MENU_ACTIONS.changelog)}
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item onSelect={openAbout}>
-				{t("common.about", "About")}
-			</DropdownMenu.Item>
+			{item(MENU_ACTIONS.about)}
 		</>
 	);
 };

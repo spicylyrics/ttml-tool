@@ -398,6 +398,140 @@ describe("shortcut recording and storage", () => {
 	});
 });
 
+describe("layout-aware shortcuts", () => {
+	it.each([
+		"я",
+		"ض",
+		"ש",
+		"あ",
+		"ㅁ",
+	])("keeps physical positions for %s", (character) => {
+		const callback = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings(["Control", "KeyZ"], callback));
+		key("keydown", "ControlLeft", 0, { key: "Control" });
+		key("keydown", "KeyZ", 10, { key: character, ctrlKey: true });
+		key("keyup", "KeyZ", 20, { key: character, ctrlKey: true });
+		key("keyup", "ControlLeft", 30, { key: "Control" });
+		expect(callback).toHaveBeenCalledOnce();
+	});
+	it.each([
+		["QWERTZ", "KeyY", "z", "KeyZ"],
+		["AZERTY", "KeyQ", "a", "KeyA"],
+		["Dvorak", "Semicolon", "s", "KeyS"],
+		["Colemak", "KeyK", "e", "KeyE"],
+	])("follows the character on %s", (_, physical, character, binding) => {
+		const callback = vi.fn();
+		const wrongPosition = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings([binding], callback));
+		cleanups.push(keyboard.registerKeyBindings([physical], wrongPosition));
+		key("keydown", physical, 10, { key: character });
+		key("keyup", physical, 20, { key: character });
+		expect(callback).toHaveBeenCalledOnce();
+		expect(wrongPosition).not.toHaveBeenCalled();
+	});
+
+	it.each([
+		"keydown",
+		"keyup",
+	] as const)("keeps Ctrl+Z on Z in %s mode", (mode) => {
+		createStore().set(
+			keyboard.keyBindingTriggerModeAtom,
+			mode === "keyup"
+				? keyboard.KeyBindingTriggerMode.KeyUp
+				: keyboard.KeyBindingTriggerMode.KeyDown,
+		);
+		const callback = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings(["Control", "KeyZ"], callback));
+		key("keydown", "ControlLeft", 0, { key: "Control" });
+		key("keydown", "KeyY", 10, { key: "z", ctrlKey: true });
+		key("keyup", "KeyY", 20, { key: "z", ctrlKey: true });
+		key("keyup", "ControlLeft", 30, { key: "Control" });
+		expect(callback).toHaveBeenCalledOnce();
+	});
+
+	it("records logical keys and dispatches double presses on them", async () => {
+		const recording = keyboard.recordShortcut();
+		key("keydown", "KeyY", 0, { key: "z" });
+		key("keyup", "KeyY", 10, { key: "z" });
+		const binding = await recording;
+		expect(binding).toEqual(["KeyZ"]);
+		const callback = vi.fn();
+		cleanups.push(keyboard.registerDoubleKeyBindings(binding, callback));
+		for (const time of [20, 100]) {
+			key("keydown", "KeyY", time, { key: "z" });
+			key("keyup", "KeyY", time + 10, { key: "z" });
+		}
+		expect(callback).toHaveBeenCalledOnce();
+	});
+
+	it("cleans up the original key when modifiers change before release", () => {
+		const callback = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings(["KeyZ", "KeyA"], callback));
+		key("keydown", "KeyY", 0, { key: "Z", shiftKey: true });
+		key("keyup", "KeyY", 10, { key: "z" });
+		key("keydown", "KeyQ", 20, { key: "a" });
+		expect(callback).not.toHaveBeenCalled();
+	});
+
+	it("preserves shifted defaults, navigation and distinct numpad keys", () => {
+		for (const [code, keyValue, expected] of [
+			["Digit1", "!", "Digit1"],
+			["Equal", "+", "Equal"],
+			["Numpad1", "1", "Numpad1"],
+			["ArrowLeft", "ArrowLeft", "ArrowLeft"],
+			["Space", " ", "Space"],
+			["ShiftLeft", "Shift", "Shift"],
+		]) {
+			expect(keyboard.shortcutKeyFromEvent({ code, key: keyValue })).toBe(
+				expected,
+			);
+		}
+	});
+
+	it.each([
+		["QWERTZ Shift+2", "Digit2", '"'],
+		["UK Shift+3", "Digit3", "£"],
+		["QWERTZ Ö", "Semicolon", "ö"],
+		["QWERTZ dash", "Slash", "-"],
+		["QWERTZ dead caret", "Backquote", "Dead"],
+		["AZERTY Ù", "Quote", "ù"],
+		["AZERTY colon", "Period", ":"],
+		["AZERTY ampersand", "Digit1", "&"],
+		["macOS Option+C", "KeyC", "ç"],
+		["macOS Option+W", "KeyW", "∑"],
+		["AltGr+E", "KeyE", "€"],
+	])("keeps %s on its physical key", (_, code, keyValue) => {
+		expect(keyboard.shortcutKeyFromEvent({ code, key: keyValue })).toBe(code);
+	});
+
+	it("dispatches dead keys by position", () => {
+		const callback = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings(["Backquote"], callback));
+		key("keydown", "Backquote", 0, { key: "Dead" });
+		key("keyup", "Backquote", 10, { key: "Dead" });
+		expect(callback).toHaveBeenCalledOnce();
+	});
+
+	it.each([
+		"keydown",
+		"keyup",
+	] as const)("does not dispatch IME keystrokes in %s mode", (mode) => {
+		createStore().set(
+			keyboard.keyBindingTriggerModeAtom,
+			mode === "keyup"
+				? keyboard.KeyBindingTriggerMode.KeyUp
+				: keyboard.KeyBindingTriggerMode.KeyDown,
+		);
+		const callback = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings(["KeyZ"], callback));
+		key("keydown", "KeyZ", 0, { key: "z", isComposing: true });
+		key("keyup", "KeyZ", 5, { key: "z" });
+		key("keydown", "KeyZ", 10, { key: "Process" });
+		key("keyup", "KeyZ", 15, { key: "Process" });
+		expect(callback).not.toHaveBeenCalled();
+	});
+});
+
 describe("double-press shortcuts", () => {
 	it("does not leave the consumed key held in the key-up dispatcher", () => {
 		createStore().set(
@@ -460,6 +594,53 @@ describe("double-press shortcuts", () => {
 		expect(callback).toHaveBeenCalledOnce();
 	});
 
+	it("runs a Press twice to run action on the second press only, and others at once", () => {
+		const flaggedAtom = keyboard.atomWithKeybindingStorage("test-double", [
+			"KeyE",
+		]);
+		const otherAtom = keyboard.atomWithKeybindingStorage("test-single", [
+			"KeyF",
+		]);
+		const flagged = vi.fn();
+		const other = vi.fn();
+		cleanups.push(
+			keyboard.registerKeyBindingAtom(flaggedAtom, ["KeyE"], flagged, true),
+			keyboard.registerKeyBindingAtom(otherAtom, ["KeyF"], other),
+		);
+		key("keydown", "KeyE", 0);
+		key("keyup", "KeyE", 10);
+		expect(flagged).not.toHaveBeenCalled();
+		// An action without the flag fires on its own first keydown, no waiting.
+		key("keydown", "KeyF", 20);
+		expect(other).toHaveBeenCalledOnce();
+		key("keyup", "KeyF", 30);
+		key("keydown", "KeyE", 40 + keyboard.DOUBLE_PRESS_WINDOW_MS);
+		key("keyup", "KeyE", 50 + keyboard.DOUBLE_PRESS_WINDOW_MS);
+		expect(flagged).not.toHaveBeenCalled();
+		key("keydown", "KeyE", 100 + keyboard.DOUBLE_PRESS_WINDOW_MS);
+		expect(flagged).toHaveBeenCalledOnce();
+	});
+
+	it("still runs a Press twice to run action at once from the palette", () => {
+		const flaggedAtom = keyboard.atomWithKeybindingStorage("test-palette", [
+			"KeyE",
+		]);
+		const callback = vi.fn();
+		cleanups.push(
+			keyboard.registerKeyBindingAtom(flaggedAtom, ["KeyE"], callback, true),
+		);
+		keyboard.forceInvokeKeyBindingAtom(createStore(), flaggedAtom);
+		expect(callback).toHaveBeenCalledOnce();
+	});
+
+	it("ignores an unbound Press twice to run action", () => {
+		const callback = vi.fn();
+		cleanups.push(keyboard.registerDoubleKeyBindings([], callback));
+		key("keydown", "KeyE", 0);
+		key("keydown", "KeyE", 50);
+		expect(callback).not.toHaveBeenCalled();
+	});
+
 	it("does not count slow taps or taps interrupted by typing", () => {
 		const callback = vi.fn();
 		cleanups.push(keyboard.registerDoubleKeyBindings(["KeyE"], callback));
@@ -503,5 +684,47 @@ describe("command defaults and conflict warnings", () => {
 				{ command: commands.cmdUndo, keys: [] },
 			]),
 		).toEqual(new Map());
+	});
+});
+
+describe("Press twice to run migration", () => {
+	function memoryStorage(entries: Record<string, string>) {
+		const data = new Map(Object.entries(entries));
+		return {
+			data,
+			getItem: (name: string) => data.get(name) ?? null,
+			setItem: (name: string, value: string) => void data.set(name, value),
+			removeItem: (name: string) => void data.delete(name),
+		};
+	}
+
+	it.each([
+		["on", "true", ["autoSegment"]],
+		["off", "false", []],
+	])("moves the old Auto segment switch (%s) to the per-action list", async (_, legacy, expected) => {
+		const states = await import("./states");
+		const storage = memoryStorage({
+			[states.LEGACY_AUTO_SEGMENT_DOUBLE_PRESS_KEY]: legacy,
+		});
+		states.migrateDoublePressSetting(storage);
+		expect(
+			JSON.parse(storage.getItem(states.DOUBLE_PRESS_STORAGE_KEY) ?? ""),
+		).toEqual(expected);
+		expect(storage.data.has(states.LEGACY_AUTO_SEGMENT_DOUBLE_PRESS_KEY)).toBe(
+			false,
+		);
+	});
+
+	it("leaves a fresh install on the default and an existing list alone", async () => {
+		const states = await import("./states");
+		const fresh = memoryStorage({});
+		states.migrateDoublePressSetting(fresh);
+		expect(fresh.data.size).toBe(0);
+		const existing = memoryStorage({
+			[states.DOUBLE_PRESS_STORAGE_KEY]: '["undo"]',
+			[states.LEGACY_AUTO_SEGMENT_DOUBLE_PRESS_KEY]: "false",
+		});
+		states.migrateDoublePressSetting(existing);
+		expect(existing.getItem(states.DOUBLE_PRESS_STORAGE_KEY)).toBe('["undo"]');
 	});
 });

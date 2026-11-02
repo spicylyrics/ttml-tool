@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { uid } from "uid";
 import { useFileOpener } from "$/hooks/useFileOpener.ts";
+import { useLoadAudio } from "$/hooks/useLoadAudio.ts";
 import { deleteWordsFromLines } from "$/modules/lyric-editor/utils/normalize-line-time";
 import { getGuideUrl } from "$/modules/onboarding/logic";
 import {
@@ -64,7 +65,6 @@ import {
 	startFreshLyricDocumentAtom,
 	undoLyricLinesAtom,
 } from "$/states/main.ts";
-import { openFileWithDialog } from "$/utils/fileDialog.ts";
 import { error, log } from "$/utils/logging.ts";
 import { createHistoryActionGate } from "./history-action-gate";
 
@@ -97,6 +97,7 @@ export const useTopMenuActions = () => {
 	const setTimeStretchDialog = useSetAtom(timeStretchDialogAtom);
 	const setTTMLChecklistDialog = useSetAtom(ttmlChecklistDialogAtom);
 	const { openFile } = useFileOpener();
+	const { pickFiles } = useLoadAudio();
 	const setProjectId = useSetAtom(projectIdAtom);
 	const { config: segmentationConfig } = useSegmentationConfig();
 	const newFileKey = useAtomValue(keyNewFileAtom);
@@ -148,33 +149,9 @@ export const useTopMenuActions = () => {
 		store,
 	]);
 
-	const onOpenFile = useCallback(async () => {
-		const file = await openFileWithDialog({
-			multiple: false,
-			filters: [
-				{
-					name: "Lyric/Audio files",
-					extensions: [
-						"ttml",
-						"lrc",
-						"qrc",
-						"eslrc",
-						"lys",
-						"yrc",
-						"mp3",
-						"flac",
-						"wav",
-						"ogg",
-						"m4a",
-						"opus",
-						"webm",
-					],
-				},
-			],
-		});
-		if (!file || Array.isArray(file)) return;
-		openFile(file);
-	}, [openFile]);
+	// Takes lyrics, audio or one of each, like Load audio, but remembers its
+	// own folder.
+	const onOpenFile = useCallback(() => pickFiles("openFile"), [pickFiles]);
 
 	const onOpenFileFromClipboard = useCallback(async () => {
 		try {

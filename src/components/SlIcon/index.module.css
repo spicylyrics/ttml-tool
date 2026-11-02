@@ -1,0 +1,32 @@
+.icon {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+}
+
+.sl,
+.fallback {
+	display: inline-flex;
+}
+
+.icon svg {
+	width: 1em;
+	height: 1em;
+}
+
+/* One drawing per look: the Spicy Lyrics glyph with the design on, Fluent without. */
+.sl {
+	display: none;
+}
+
+:global(:root[data-design="spicy-lyrics"]) .sl {
+	display: inline-flex;
+}
+
+:global(:root[data-design="spicy-lyrics"]) .fallback {
+	display: none;
+}

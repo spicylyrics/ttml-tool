@@ -1,6 +1,15 @@
 .trigger {
 	gap: var(--space-1);
+	min-width: 0;
+	max-width: 100%;
 	white-space: nowrap;
+}
+
+/* Long translations shrink to an ellipsis instead of widening the row. */
+.triggerLabel {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .chevron {

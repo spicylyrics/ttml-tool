@@ -25,21 +25,17 @@ import {
 	spectrogramFftSizeAtom,
 	spectrogramGainAtom,
 	spectrogramHeightAtom,
-	spectrogramHoverFrequencyAtom,
 	spectrogramHoverPxAtom,
 	spectrogramHoverPyAtom,
-	spectrogramHoverTimeMsAtom,
 	spectrogramIsHoveringAtom,
 } from "$/modules/spectrogram/states";
 import { isDraggingAtom } from "$/modules/spectrogram/states/dnd.ts";
 import { timeShiftPreviewActiveAtom } from "$/states/dialogs.ts";
 import { selectedLinesAtom, showUnselectedLinesAtom } from "$/states/main.ts";
-import { msToTimestamp } from "$/utils/timestamp.ts";
 import type { ISpectrogramContext } from "../components/SpectrogramContext.ts";
 import type { TileComponentProps } from "../components/TileComponent.tsx";
 import type { TimelineRulerHandle } from "../components/TimelineRuler.tsx";
 
-import { getNoteFromFreq } from "../utils/frequency-note";
 import { updateVisibleSpectrogramTiles } from "../utils/visible-tiles";
 import { useSpectrogramTransfers } from "./useSpectrogramTransfers";
 
@@ -82,11 +78,10 @@ export function useAudioSpectrogram() {
 
 	const [isHovering, setIsHovering] = useState(false);
 	const setSpectrogramIsHovering = useSetAtom(spectrogramIsHoveringAtom);
-	const hoverPx = useAtomValue(spectrogramHoverPxAtom);
+	// Pointer position is only written here; HoverIndicators read it, so mouse
+	// movement does not re-render the whole panel.
 	const setHoverPx = useSetAtom(spectrogramHoverPxAtom);
 	const setHoverPy = useSetAtom(spectrogramHoverPyAtom);
-	const hoverTimeMs = useAtomValue(spectrogramHoverTimeMsAtom);
-	const hoverFrequency = useAtomValue(spectrogramHoverFrequencyAtom);
 	const isDragging = useAtomValue(isDraggingAtom);
 
 	const rulerRef = useRef<TimelineRulerHandle>(null);
@@ -125,9 +120,8 @@ export function useAudioSpectrogram() {
 		() => ({
 			scrollContainerRef,
 			zoom,
-			scrollLeft,
 		}),
-		[zoom, scrollLeft],
+		[zoom],
 	);
 
 	const updateVisibleTiles = useCallback(() => {
@@ -158,37 +152,20 @@ export function useAudioSpectrogram() {
 		fftSize,
 	]);
 
-	const updateVisibleTilesRef = useRef(updateVisibleTiles);
-	useLayoutEffect(() => {
-		updateVisibleTilesRef.current = updateVisibleTiles;
-	}, [updateVisibleTiles]);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: lastTileTimestamp 用来重运行这个 effect
-	useEffect(() => {
-		updateVisibleTiles();
-	}, [updateVisibleTiles, lastTileTimestamp]);
-
 	const { handleScrubStart: handleRulerScrubStart } = useScrubbing(
 		scrollContainerRef,
 		scrollLeft,
 		zoom,
 	);
 
+	// One refresh per view/tile change, before paint. Separate effects here used
+	// to repeat the same tile preparation and ruler drawing up to three times.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: a tile-cache notification must refresh bitmaps even when the viewport is unchanged.
 	useLayoutEffect(() => {
-		if (lastTileTimestamp === 0) {
-			return;
-		}
+		if (!audioBuffer) return;
 		rulerRef.current?.draw(scrollLeft);
-		updateVisibleTilesRef.current();
-	}, [scrollLeft, lastTileTimestamp]);
-
-	useLayoutEffect(() => {
-		if (lastTileTimestamp === 0 && !audioBuffer) {
-			return;
-		}
-		rulerRef.current?.draw(scrollLeft);
-		updateVisibleTilesRef.current();
-	}, [scrollLeft, lastTileTimestamp, audioBuffer]);
+		updateVisibleTiles();
+	}, [scrollLeft, lastTileTimestamp, audioBuffer, updateVisibleTiles]);
 
 	useEffect(() => {
 		const container = scrollContainerRef.current;
@@ -231,34 +208,7 @@ export function useAudioSpectrogram() {
 	const totalWidth = audioBuffer ? audioBuffer.duration * zoom : 0;
 	const auditionCursorPosition = auditionTime ? auditionTime * zoom : null;
 
-	let hoverTimeFormatted = msToTimestamp(hoverTimeMs);
-	if (hoverFrequency > 0) {
-		const freqFormatted =
-			hoverFrequency >= 1000
-				? `${(hoverFrequency / 1000).toFixed(2)} kHz`
-				: `${Math.round(hoverFrequency)} Hz`;
-		const noteFormatted = getNoteFromFreq(hoverFrequency);
-		hoverTimeFormatted = `${hoverTimeFormatted} (${freqFormatted}${noteFormatted ? ` / ${noteFormatted}` : ""})`;
-	}
-	let tooltipBgColor: string | undefined;
-	let hoverLineColor: string | undefined;
-
-	if (isInvalidEndTime) {
-		hoverTimeFormatted = t("spectrogram.invalidEndTime", "不能选择此结束时间");
-		tooltipBgColor = "var(--red-9)";
-		hoverLineColor = "var(--red-9)";
-	} else if (editingTimeField && !editingTimeField.isWord) {
-		const fieldName =
-			editingTimeField.field === "startTime"
-				? t("ribbonBar.editMode.startTime", "起始时间")
-				: t("ribbonBar.editMode.endTime", "结束时间");
-		hoverTimeFormatted = `${t("common.clickToSet", "Click to set")}${fieldName}: ${hoverTimeFormatted}`;
-		tooltipBgColor = "var(--accent-9)";
-	}
-
 	const transformX = isZooming ? scrollLeft : Math.round(scrollLeft);
-
-	const hoverX = scrollLeft + hoverPx;
 
 	const minGain = 0.5;
 	const maxGain = 8;
@@ -283,10 +233,9 @@ export function useAudioSpectrogram() {
 		containerWidth,
 		handleRulerScrubStart,
 		isDragging,
-		hoverPx,
 		isHovering,
-		tooltipBgColor,
-		hoverTimeFormatted,
+		isInvalidEndTime,
+		editingTimeField,
 		scrollContainerRef,
 		scrollLeft,
 		handleMouseEnter,
@@ -305,8 +254,6 @@ export function useAudioSpectrogram() {
 		selectionStyle,
 		contextValue,
 		selectedLines,
-		hoverX,
-		hoverLineColor,
 		showUnselectedLines,
 		setShowUnselectedLines,
 		setPreviewActive,

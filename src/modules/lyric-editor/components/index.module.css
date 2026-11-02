@@ -701,6 +701,11 @@
 }
 
 .lyricWord.selected {
+	/* Joined syllables overlap and the romanization field sits right below,
+	   so lift the selected chip or they paint over its outline. */
+	position: relative;
+	z-index: 1;
+
 	.startTime,
 	.endTime {
 		color: var(--white-a10);
@@ -784,6 +789,29 @@
 			text-shadow: none;
 		}
 	}
+}
+
+/* Lite effects: keep the fills, drop the glows and the burst while syncing. */
+:global(:root[data-effects="lite"])
+	.lyricWord.sync.active:is(.animated, .selected) {
+	animation: none;
+	box-shadow: none;
+
+	.displayWord {
+		text-shadow: none;
+	}
+}
+
+/* The translation or romanization icon before a line's sub-line label. */
+.subLineIcon {
+	align-self: center;
+	margin-right: var(--space-1);
+	font-size: 15px;
+}
+
+/* Background and duet markers beside the line number. */
+.roleBadge {
+	font-size: 1.1em;
 }
 
 .lineNumber {

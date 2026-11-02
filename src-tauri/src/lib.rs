@@ -1,5 +1,8 @@
+mod app_icon;
+
 use std::fs;
-use std::sync::Mutex;
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
+use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 
 use discord_rich_presence::{DiscordIpc, DiscordIpcClient, activity};
@@ -39,7 +42,7 @@ impl Default for DiscordConnection {
 }
 
 #[derive(Default)]
-struct DiscordState(Mutex<DiscordConnection>);
+struct DiscordState(Arc<Mutex<DiscordConnection>>, Arc<AtomicU64>);
 
 #[cfg(windows)]
 const LINKABLE_EXTENSIONS: &[&str] = &[
@@ -82,11 +85,30 @@ fn connect_discord() -> Result<DiscordIpcClient, String> {
 }
 
 #[tauri::command]
-fn set_discord_activity(
+async fn set_discord_activity(
     payload: DiscordActivityPayload,
     discord: tauri::State<'_, DiscordState>,
 ) -> Result<(), String> {
-    let mut connection = discord.0.lock().map_err(|e| e.to_string())?;
+    let connection = Arc::clone(&discord.0);
+    let revision = Arc::clone(&discord.1);
+    let generation = revision.fetch_add(1, Ordering::Relaxed) + 1;
+    tauri::async_runtime::spawn_blocking(move || {
+        update_discord_activity(payload, &connection, &revision, generation)
+    })
+    .await
+    .map_err(|error| error.to_string())?
+}
+
+fn update_discord_activity(
+    payload: DiscordActivityPayload,
+    discord: &Mutex<DiscordConnection>,
+    revision: &AtomicU64,
+    generation: u64,
+) -> Result<(), String> {
+    let mut connection = discord.lock().map_err(|e| e.to_string())?;
+    if revision.load(Ordering::Relaxed) != generation {
+        return Ok(());
+    }
     if connection.client.is_none() {
         if connection
             .retry_after
@@ -165,8 +187,26 @@ fn set_discord_activity(
 }
 
 #[tauri::command]
-fn clear_discord_activity(discord: tauri::State<'_, DiscordState>) -> Result<(), String> {
-    let mut connection = discord.0.lock().map_err(|e| e.to_string())?;
+async fn clear_discord_activity(discord: tauri::State<'_, DiscordState>) -> Result<(), String> {
+    let connection = Arc::clone(&discord.0);
+    let revision = Arc::clone(&discord.1);
+    let generation = revision.fetch_add(1, Ordering::Relaxed) + 1;
+    tauri::async_runtime::spawn_blocking(move || {
+        clear_discord_connection(&connection, &revision, generation)
+    })
+    .await
+    .map_err(|error| error.to_string())?
+}
+
+fn clear_discord_connection(
+    discord: &Mutex<DiscordConnection>,
+    revision: &AtomicU64,
+    generation: u64,
+) -> Result<(), String> {
+    let mut connection = discord.lock().map_err(|e| e.to_string())?;
+    if revision.load(Ordering::Relaxed) != generation {
+        return Ok(());
+    }
     if let Some(client) = connection.client.as_mut() {
         let result = client.clear_activity().map_err(|e| e.to_string());
         if result.is_err() {
@@ -178,32 +218,86 @@ fn clear_discord_activity(discord: tauri::State<'_, DiscordState>) -> Result<(),
     Ok(())
 }
 
-#[derive(serde::Serialize)]
+/// On Linux the updater can only replace an `AppImage`. Flatpak, AUR and other
+/// package-manager installs update through their package manager instead.
+#[tauri::command]
+fn can_self_update() -> bool {
+    !cfg!(target_os = "linux") || std::env::var_os("APPIMAGE").is_some()
+}
+
+/// Inside the Flatpak, GTK can't see the host's theme, so native decorations
+/// come out as GNOME's Adwaita header bar on every desktop. Draw our own title
+/// bar there instead, as on Windows. Other Linux installs keep the native one.
+#[tauri::command]
+fn uses_custom_title_bar() -> bool {
+    cfg!(target_os = "linux") && std::path::Path::new("/.flatpak-info").exists()
+}
+
+#[derive(Clone, serde::Serialize)]
 struct OpenFileData {
     pub filename: String,
     pub data: String,
     pub ext: String,
 }
 
-#[tauri::command]
-fn get_open_file_data() -> Option<OpenFileData> {
-    let filename = std::env::args().nth(1);
-    if let Some(filename) = filename {
-        let path = std::path::Path::new(&filename);
-        let ext = path
-            .extension()
-            .map(|x| x.to_string_lossy().into_owned())
-            .unwrap_or_default();
-        if let Ok(data) = std::fs::read_to_string(&filename) {
-            return Some(OpenFileData {
-                filename,
-                data,
-                ext,
-            });
-        }
-    }
+/// A file the OS asked us to open (double-clicked `.ttml`, "Open with").
+/// It waits here until the frontend is listening for `open-file`.
+#[derive(Default)]
+struct OpenFileState {
+    frontend_ready: AtomicBool,
+    pending: Mutex<Option<OpenFileData>>,
+}
 
-    None
+/// Reads a file the OS handed us. Linux launchers may pass a `file://` URL
+/// instead of a path.
+fn read_open_file(arg: &str) -> Option<OpenFileData> {
+    let path = tauri::Url::parse(arg)
+        .ok()
+        .filter(|url| url.scheme() == "file")
+        .and_then(|url| url.to_file_path().ok())
+        .unwrap_or_else(|| std::path::PathBuf::from(arg));
+    let data = fs::read_to_string(&path).ok()?;
+    let ext = path
+        .extension()
+        .map(|x| x.to_string_lossy().into_owned())
+        .unwrap_or_default();
+    Some(OpenFileData {
+        filename: path.to_string_lossy().into_owned(),
+        data,
+        ext,
+    })
+}
+
+/// Sends an opened file to the frontend, or keeps it for `get_open_file_data`
+/// when the frontend hasn't started listening yet.
+fn deliver_open_file(app: &tauri::AppHandle, file: OpenFileData) {
+    use tauri::{Emitter, Manager};
+
+    let state = app.state::<OpenFileState>();
+    if state.frontend_ready.load(Ordering::SeqCst) {
+        if let Err(error) = app.emit("open-file", file) {
+            log::warn!("Couldn't send the opened file to the window: {error}");
+        }
+    } else if let Ok(mut pending) = state.pending.lock() {
+        *pending = Some(file);
+    }
+}
+
+/// The frontend calls this once it listens for `open-file`. Returns the file
+/// the app was launched with, if any.
+#[tauri::command]
+#[allow(clippy::needless_pass_by_value)]
+fn get_open_file_data(state: tauri::State<'_, OpenFileState>) -> Option<OpenFileData> {
+    state.frontend_ready.store(true, Ordering::SeqCst);
+    if let Some(file) = state
+        .pending
+        .lock()
+        .ok()
+        .and_then(|mut pending| pending.take())
+    {
+        return Some(file);
+    }
+    std::env::args().nth(1).as_deref().and_then(read_open_file)
 }
 
 #[tauri::command]
@@ -472,7 +566,26 @@ fn show_main_window_if_frontend_stalls(app: &tauri::App) {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 #[allow(clippy::missing_panics_doc)]
 pub fn run() {
-    let mut builder = tauri::Builder::default()
+    let mut builder = tauri::Builder::default();
+
+    // Has to be the first plugin. A second launch (say, double-clicking a
+    // .ttml while the app is open) focuses this window and passes the file on.
+    #[cfg(desktop)]
+    {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|app, argv, _cwd| {
+            use tauri::Manager;
+
+            if let Some(window) = app.get_webview_window("main") {
+                let _ = window.unminimize();
+                let _ = window.set_focus();
+            }
+            if let Some(file) = argv.get(1).and_then(|arg| read_open_file(arg)) {
+                deliver_open_file(app, file);
+            }
+        }));
+    }
+
+    builder = builder
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_decorum::init())
@@ -482,7 +595,7 @@ pub fn run() {
         .plugin(tauri_plugin_process::init());
 
     #[cfg(any(target_os = "macos", target_os = "linux"))]
-    {
+    if can_self_update() {
         builder = builder.plugin(tauri_plugin_updater::Builder::new().build());
     }
 
@@ -514,6 +627,7 @@ pub fn run() {
     builder
         .manage(DiscordState::default())
         .manage(DroppedPaths::default())
+        .manage(OpenFileState::default())
         .setup(|app| {
             #[cfg(windows)]
             {
@@ -553,18 +667,44 @@ pub fn run() {
                     });
                 }
             }
+            #[cfg(target_os = "linux")]
+            if uses_custom_title_bar() {
+                use tauri::Manager;
+
+                // The window is still hidden, so this never flashes the native bar.
+                // Tauri keeps edge resizing for undecorated GTK windows.
+                if let Some(main_window) = app.get_webview_window("main") {
+                    if let Err(error) = main_window.set_decorations(false) {
+                        log::warn!("Couldn't remove the native title bar: {error}");
+                    }
+                }
+            }
             show_main_window_if_frontend_stalls(app);
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
             get_open_file_data,
+            can_self_update,
+            uses_custom_title_bar,
             set_discord_activity,
             clear_discord_activity,
             pick_project_folder,
             open_linked_projects_folder,
             open_linked_project_dir,
             allow_dropped_file,
+            app_icon::apply_app_icon,
         ])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|_app, _event| {
+            // macOS hands over opened files as an event, not as an argument.
+            #[cfg(target_os = "macos")]
+            if let tauri::RunEvent::Opened { urls } = _event {
+                for url in urls {
+                    if let Some(file) = read_open_file(url.as_str()) {
+                        deliver_open_file(_app, file);
+                    }
+                }
+            }
+        });
 }

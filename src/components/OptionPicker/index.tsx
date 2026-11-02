@@ -80,8 +80,9 @@ export function OptionPicker<T extends string>({
 					size={menuSize}
 					aria-label={`${label}: ${current?.label ?? value}`}
 					className={styles.trigger}
+					title={current?.label ?? value}
 				>
-					{current?.label ?? value}
+					<span className={styles.triggerLabel}>{current?.label ?? value}</span>
 					<ChevronDownRegular className={styles.chevron} />
 				</Button>
 			</DropdownMenu.Trigger>

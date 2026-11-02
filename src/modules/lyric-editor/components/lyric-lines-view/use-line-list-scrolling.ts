@@ -27,11 +27,18 @@ import {
 } from "$/states/main.ts";
 import {
 	calculateScrollDuration,
-	easeInOutSine,
+	createScrollGlide,
 	findClosestLineToViewportCenter,
 	resolveAnchorLineIndex,
+	type ScrollGlide,
+	scrollGlideOffset,
+	scrollGlideVelocity,
 } from "../selection-scroll";
 import { findCurrentLineIndex } from "./current-line";
+import {
+	type EditScrollMemory,
+	useEditScrollMemory,
+} from "./use-edit-scroll-memory";
 import type { useLineListSelection } from "./use-line-list-selection";
 
 export function useLineListScrolling({
@@ -40,23 +47,32 @@ export function useLineListScrolling({
 	visibleItems,
 	toolMode,
 	store,
+	onAnchorSettled,
 }: {
 	viewElRef: React.RefObject<HTMLDivElement | null>;
 	viewRef: React.RefObject<ViewportListRef | null>;
 	visibleItems: ReturnType<typeof useLineListSelection>["visibleItems"];
 	toolMode: ToolMode;
 	store: ReturnType<typeof useStore>;
+	/** Called once the list sits on its restored line, or has none to restore. */
+	onAnchorSettled: () => void;
 }) {
 	// Explicit ref dependencies preserve the original callbacks: these refs never change identity.
 	const scrollRafRef = useRef<number | null>(null);
 	const isProgrammaticScrollRef = useRef(false);
 	const lastProgrammaticScrollTimeRef = useRef<number>(0);
+	const glideRef = useRef<{ glide: ScrollGlide; startTime: number } | null>(
+		null,
+	);
+	// Set below, once scrollToLineIndex exists.
+	const editScrollMemoryRef = useRef<EditScrollMemory | null>(null);
 
 	const cancelScrollAnimation = useCallback(() => {
 		if (scrollRafRef.current !== null) {
 			cancelAnimationFrame(scrollRafRef.current);
 			scrollRafRef.current = null;
 		}
+		glideRef.current = null;
 		isProgrammaticScrollRef.current = false;
 	}, []);
 
@@ -80,26 +96,44 @@ export function useLineListScrolling({
 		if (closest !== -1) {
 			modeAnchorLines[toolMode] = closest;
 			sharedAnchorLineIndex = closest;
+			editScrollMemoryRef.current?.noteAnchor(closest);
 		}
 	}, [toolMode, viewElRef]);
 
 	const smoothScrollTo = useCallback(
 		(viewEl: HTMLElement, targetTop: number, duration?: number) => {
+			// A glide still in flight hands its speed to the new one, so syncing
+			// while the list scrolls doesn't stall it.
+			const running = scrollRafRef.current !== null ? glideRef.current : null;
+			const startVelocity = running
+				? scrollGlideVelocity(
+						running.glide,
+						Math.min(
+							(performance.now() - running.startTime) / running.glide.duration,
+							1,
+						),
+					)
+				: 0;
 			cancelScrollAnimation();
 			const startTop = viewEl.scrollTop;
 			const distance = targetTop - startTop;
 			if (Math.abs(distance) < 2) return;
 
-			const animDuration = calculateScrollDuration(distance, duration);
+			const glide = createScrollGlide(
+				distance,
+				startVelocity,
+				calculateScrollDuration(distance, duration),
+			);
 			isProgrammaticScrollRef.current = true;
 			lastProgrammaticScrollTimeRef.current = performance.now();
 			const startTime = performance.now();
+			glideRef.current = { glide, startTime };
 
 			const step = (now: number) => {
 				const elapsed = now - startTime;
-				const progress = Math.min(elapsed / animDuration, 1);
+				const progress = Math.min(elapsed / glide.duration, 1);
 				lastProgrammaticScrollTimeRef.current = performance.now();
-				viewEl.scrollTop = startTop + distance * easeInOutSine(progress);
+				viewEl.scrollTop = startTop + scrollGlideOffset(glide, progress);
 
 				if (progress < 1) {
 					scrollRafRef.current = requestAnimationFrame(step);
@@ -173,6 +207,7 @@ export function useLineListScrolling({
 				(item) => item.sourceIndex === index,
 			);
 			if (visibleIndex === -1) return;
+			cancelScrollAnimation();
 			isProgrammaticScrollRef.current = true;
 			lastProgrammaticScrollTimeRef.current = performance.now();
 			viewRef.current?.scrollToIndex({
@@ -216,6 +251,11 @@ export function useLineListScrolling({
 			viewRef,
 		],
 	);
+	editScrollMemoryRef.current = useEditScrollMemory({
+		store,
+		toolMode,
+		scrollToLineIndex,
+	});
 	const syncTabPosition = useAtomValue(
 		toolMode === ToolMode.Edit ? editTabPositionAtom : syncTabPositionAtom,
 	);
@@ -230,7 +270,7 @@ export function useLineListScrolling({
 			if (!instance || hasRestoredAnchorRef.current) return;
 
 			const leftState = modeLeftState[toolMode];
-			const targetLineIndex = resolveAnchorLineIndex({
+			const resolvedLineIndex = resolveAnchorLineIndex({
 				syncTabPosition,
 				toolMode,
 				unchangedSinceLeft:
@@ -246,9 +286,14 @@ export function useLineListScrolling({
 				syncFocusMainLine: store.get(syncFocusMainLineAtom),
 				findCurrentLineIndex,
 			});
+			// A project reopened with scroll memory on goes back to its saved spot.
+			const remembered = editScrollMemoryRef.current?.claimRestore() ?? -1;
+			const targetLineIndex =
+				remembered !== -1 ? remembered : resolvedLineIndex;
 
 			if (targetLineIndex === -1) {
 				hasRestoredAnchorRef.current = true;
+				onAnchorSettled();
 				return;
 			}
 
@@ -283,8 +328,13 @@ export function useLineListScrolling({
 				};
 				requestAnimationFrame(() => {
 					requestAnimationFrame(() => {
-						if (!centerTarget()) {
-							setTimeout(centerTarget, 50);
+						if (centerTarget()) {
+							onAnchorSettled();
+						} else {
+							setTimeout(() => {
+								centerTarget();
+								onAnchorSettled();
+							}, 50);
 						}
 					});
 				});
@@ -293,7 +343,7 @@ export function useLineListScrolling({
 				}
 			});
 		},
-		[syncTabPosition, store, toolMode, viewElRef, viewRef],
+		[syncTabPosition, store, toolMode, viewElRef, viewRef, onAnchorSettled],
 	);
 
 	return {

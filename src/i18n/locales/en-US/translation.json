@@ -1,7 +1,12 @@
 {
   "changeNotes": {
-    "changelogTitle": "Changelog & updates",
     "viewCommits": "View Commits on GitHub"
+  },
+  "updatedToast": {
+    "message": "Updated to v{version}",
+    "seeChanges": "See what changed",
+    "setting": "Show what changed after an update",
+    "settingDesc": "The first time the app starts on a new version, show a short notice with a link to the changelog."
   },
   "app": {
     "error": {
@@ -23,6 +28,7 @@
     "window": {
       "minimize": "Minimize window",
       "maximize": "Maximize window",
+      "restore": "Restore window",
       "close": "Close window"
     }
   },
@@ -32,6 +38,15 @@
   "preview": {
     "untimedLines": "{count, plural, one {# line has no timing yet} other {# lines have no timing yet}}",
     "jumpToUntimed": "Time the first untimed line"
+  },
+  "previewProblems": {
+    "count": "{count, plural, one {# word has a timing problem} other {# words have timing problems}}",
+    "jump": "Select the first one",
+    "untimed": "No timing in a timed line",
+    "untimedLine": "Not synced yet",
+    "endsBeforeStart": "Ends before it starts",
+    "startsBeforeLine": "Starts before its line",
+    "endsAfterLine": "Ends after its line"
   },
   "beginnerGuide": {
     "empty": {
@@ -156,12 +171,12 @@
     "sectionsTitle": "Section headers",
     "sectionsFound": "{count, plural, one {# header found} other {# headers found}}",
     "makeSections": "Make sections",
-    "makeSectionsHint": "Each header starts a section. Turns on Genius sections.",
+    "makeSectionsHint": "Each header starts a section.",
     "removeHeaders": "Remove",
     "removeHeadersHint": "Drops the header rows from the lyrics.",
     "textFormat": "Text format",
     "reviewSections": "Review sections",
-    "reviewHint": "Fix any category that was guessed wrong. Colors, vocalists and notes can be set later from the section menu.",
+    "reviewHint": "Fix any type that was guessed wrong. You can rename sections later by clicking their name in the editor.",
     "sectionLabel": "Section label",
     "sectionCategory": "Section category",
     "lowConfidence": "Category guessed. Check it.",
@@ -210,7 +225,57 @@
       "dropped": "Not imported",
       "missingTranslation": "Missing translation",
       "missingRomanization": "Missing romanization"
+    },
+    "search": {
+      "label": "Find and replace",
+      "find": "Find",
+      "replace": "Replace with",
+      "matchCase": "Match case",
+      "wholeWord": "Whole word",
+      "regex": "Use a pattern (regex)",
+      "inSelection": "Only in the selection",
+      "showList": "List every match",
+      "listLabel": "Matches",
+      "rows": "Rows to search",
+      "rowsAll": "All rows",
+      "rowsLyrics": "Lyrics only",
+      "rowsTranslations": "Translations and romanization",
+      "previous": "Previous match",
+      "next": "Next match",
+      "toggleReplace": "Show replace",
+      "close": "Close search",
+      "replaceOne": "Replace",
+      "replaceAll": "Replace all",
+      "replaceThis": "Replace this match",
+      "count": "{count, plural, one {# match} other {# matches}}",
+      "position": "{current} of {count}",
+      "noMatches": "No matches",
+      "replaced": "{count, plural, one {Replaced # match} other {Replaced # matches}}",
+      "invalid": "Pattern isn't valid"
     }
+  },
+  "editAsText": {
+    "menuItem": "Edit as text...",
+    "title": "Edit as text",
+    "description": "Edit the whole lyrics as plain text. Words you don't change keep their timing.",
+    "textLabel": "Lyrics text",
+    "toolsHint": "Process lyrics and Split syllables work on the selected lines, or on everything when nothing is selected.",
+    "nothingToProcess": "Nothing to change.",
+    "summaryTitle": "Changes",
+    "unchanged": "{count, plural, one {# line unchanged} other {# lines unchanged}}",
+    "edited": "{count, plural, one {# line edited} other {# lines edited}}",
+    "editedHint": "Timings are kept where words match.",
+    "moved": "{count, plural, one {# line moved} other {# lines moved}}",
+    "added": "{count, plural, one {# line added} other {# lines added}}",
+    "removed": "{count, plural, one {# line removed} other {# lines removed}}",
+    "noChanges": "No changes yet.",
+    "droppedTimings": "{count, plural, one {# timed word loses its timing} other {# timed words lose their timing}}",
+    "lineNumber": "Line {line}",
+    "more": "{count, plural, one {and # more} other {and # more}}",
+    "help": "New words come in untimed. Lines that only moved keep their timing. Apply is one undo step.",
+    "apply": "Apply",
+    "applied": "Applied the text. Undo reverts it in one step.",
+    "failed": "Couldn't apply the text. Check it and try again."
   },
   "importChooser": {
     "options": {
@@ -257,6 +322,12 @@
       "title": "Import new lyrics?",
       "description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to import new lyrics?"
     },
+    "discardTextEdits": {
+      "title": "Discard your edits?",
+      "description": "The text has changes you haven't applied. Closing now loses them.",
+      "discard": "Discard",
+      "keepEditing": "Keep editing"
+    },
     "noSongwriter": {
       "description": "This song has no songwriters. Save anyway?"
     },
@@ -265,18 +336,28 @@
       "description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to create a new project?"
     }
   },
-  "experimentalFeatures": {
-    "geniusCategorization": {
-      "dialogTitle": "Genius section headers found",
-      "dialogDesc": "Your lyrics have section headers like [Verse] and [Chorus]. Turn on the experimental Genius sections feature to use them?",
-      "usageInfo": "Section headers then get their own style in the editor. Click one for tools like Copy previous timing and Snap to playhead.",
-      "maybeLater": "Maybe later",
-      "enableNow": "Enable now",
-      "title": "Genius sections",
-      "snapToPlayhead": "Snap to playhead",
-      "noPreviousFound": "No earlier matching section with timing found.",
-      "noMatchingLines": "No lines in this section match the earlier one, so nothing was copied.",
-      "copyPrevious": "Copy previous timing"
+  "logoColor": {
+    "title": "Logo color",
+    "description": "Pick a color for the logo in the title bar and on the guide's welcome screen.",
+    "descriptionDesktop": "Pick a color for the app's window and taskbar icon, and on Windows its desktop and Start menu shortcuts.",
+    "colorLabel": "Color",
+    "customLabel": "Custom logo color",
+    "designNote": "The logo only shows with the Spicy Lyrics design on.",
+    "presets": {
+      "default": "Default",
+      "defaultDesc": "The design's own color",
+      "lilac": "Lilac",
+      "lilacDesc": "From the v3 logo",
+      "purple": "Purple",
+      "purpleDesc": "From the multicolor logo",
+      "red": "Red",
+      "redDesc": "From the v0.9 logo",
+      "gold": "Gold",
+      "green": "Green",
+      "blue": "Blue",
+      "white": "White",
+      "custom": "Custom",
+      "customDesc": "Pick any color"
     }
   },
   "common": {
@@ -289,7 +370,6 @@
     "search": "Search",
     "success": "Restored",
     "error": "The data is corrupted or missing",
-    "edit": "Edit",
     "apply": "Apply",
     "confirm": "Confirm",
     "back": "Back",
@@ -306,6 +386,7 @@
     "preview": "Preview"
   },
   "dialog": {
+    "openFilesIgnored": "{count, plural, one {# file was left out} other {# files were left out}}: open one lyric file and one audio file at a time.",
     "createProjectPrompt": {
       "title": "Create a project?",
       "description": "Keep the audio and lyrics together in a project folder.",
@@ -331,6 +412,17 @@
     "openWorkspace": {
       "title": "Select a workspace folder containing projects"
     }
+  },
+  "commandPalette": {
+    "title": "Command palette",
+    "placeholder": "Search commands and settings",
+    "noResults": "No matching commands or settings",
+    "settingTag": "Preferences",
+    "hint": "Arrow keys to move, Enter to run, Esc to close",
+    "notRunnable": "Couldn't run this command. Give it a shortcut in Preferences, then try again.",
+    "menu": "Command palette...",
+    "shortcut": "View - Open command palette",
+    "shortcutAlternate": "View - Open command palette (alternate shortcut)"
   },
   "projectsDialog": {
     "title": "Projects",
@@ -433,9 +525,8 @@
       "mode": "Mode",
       "standard": "Standard",
       "timing": "Timing",
-      "spicy": "Spicy",
+      "spicy": "Spicy Lyrics",
       "simpleLyrics": "Simple Lyrics mode",
-      "forceLineRendering": "Show as line-synced",
       "background": "Background",
       "backgroundAnimated": "Animated",
       "backgroundColor": "Color",
@@ -452,19 +543,13 @@
       "syncAdjustment": "Offsets",
       "timeOffset": "Sync offset",
       "commitOffset": "Next key offset",
-      "syncLevel": "Sync by",
-      "syncLevelWord": "Word",
-      "syncLevelLine": "Line",
       "assistSettings": "Sync aids",
-      "showTimestampUpdate": "Show timestamp updates",
       "touchSyncPanel": "Touch sync panel",
       "bgLyricSync": "Background lines",
       "bgSyncInline": "Sync with main",
       "bgSyncInlineDesc": "Sync each background line right after its main line.",
       "bgSyncSeparate": "Skip while syncing",
       "bgSyncSeparateDesc": "G and H stay on main lines. Click a background line to sync them on their own.",
-      "quickFixes": "Quick fixes",
-      "manualTimestampEdit": "Manual timestamp editing",
       "doubleClickEdit": "Double-click word editing",
       "displayOptions": "Display options",
       "showTimestamps": "Show timestamps",
@@ -475,11 +560,6 @@
       "startSync": "Start",
       "continuousSync": "Next",
       "endSync": "End",
-      "manageQuickFixExclusions": {
-        "title": "Manage quick fix exclusions",
-        "description": "Add words to ignore in quick fixes.",
-        "placeholder": "Enter word to ignore"
-      },
       "playbackTracking": "Tracking",
       "autoScroll": "Auto-scroll",
       "highlightActiveLine": "Highlight line",
@@ -605,6 +685,15 @@
         "accentNote": "The Spicy Lyrics design brings its own lavender accent. Turn on a custom accent color to use a different one.",
         "legacyDarkThemeNote": "Has no effect while the Spicy Lyrics design is on.",
         "fontNote": "Geist, from the Spicy Lyrics design"
+      },
+      "effects": {
+        "title": "Visual effects",
+        "description": "Lighter drops blur, glows, dialog animations and the moving preview background, so the app stays smooth where they render slowly. It also turns off glass blur.",
+        "auto": "Automatic",
+        "full": "Full",
+        "lite": "Lighter",
+        "autoLite": "Using Lighter, because Linux renders these effects slowly.",
+        "autoFull": "Using Full."
       },
       "presets": {
         "missingBackground": "This preset's background image is unavailable on this device. The current image was kept.",
@@ -766,7 +855,6 @@
       "hint": {
         "settings": "{count, plural, one {# stored value} other {# stored values}}",
         "keybindings": "{count, plural, one {# shortcut} other {# shortcuts}}",
-        "assetsSet": "Custom background image set",
         "assetsNone": "No custom assets",
         "presetsCount": "{count, plural, one {# preset} other {# presets}}",
         "backgroundSet": "Custom background",
@@ -783,9 +871,7 @@
       "exportTitle": "Export",
       "exportDesc": "Save your settings and data to a file you can restore later or move to another device.",
       "exportButton": "Export backup",
-      "previewToggle": "Preview contents",
       "previewLoading": "Loading preview…",
-      "previewEmpty": "Nothing selected to preview",
       "previewCategoryEmpty": "Nothing to export in this category",
       "previewMore": "+{count} more",
       "previewTotal": "Estimated total size",
@@ -833,12 +919,10 @@
       "previewShowTranslationDesc": "Show translation lines in the preview.",
       "previewShowRomanDesc": "Show romanization in the preview.",
       "simpleLyricsDesc": "Match Spicy Lyrics' Simple Lyrics mode, with calmer word animations.",
-      "forceLineRenderingDesc": "Show every line in the Spicy preview as line-synced, without word timing.",
       "instantFadeDesc": "Drop a word's highlight as soon as it ends instead of fading it out slowly.",
       "timingOverviewAutoScrollDesc": "Keep the timing overview scrolled to the playhead.",
       "vsyncDesc": "Update the Standard and Toxi previews every frame instead of about 30 times per second. Smoother, but uses more CPU.",
       "showFpsDesc": "Show a frame rate counter on the preview.",
-      "syncLevelDesc": "Word: time each word as you go. Line: time whole lines and spread their words out evenly, for a rough sync you fine-tune in the spectrogram.",
       "previewModeDesc": "Choose which preview the Preview tab shows.",
       "spicyBackgroundDesc": "What shows behind the Spicy preview.",
       "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews."
@@ -858,6 +942,10 @@
     "order": "Order",
     "orderChronological": "Chronological",
     "orderTextual": "Textual"
+  },
+  "joinSplitWords": {
+    "label": "Join split words",
+    "description": "Show a word sung in parts as one word when the parts line up evenly, like Spicy Lyrics' Join Split Words setting."
   },
   "topBar": {
     "modeBtns": {
@@ -932,6 +1020,7 @@
     "deleteWords": "{count, plural, one {Delete # word} other {Delete # words}}",
     "bgLyric": "Background line",
     "duetLyric": "Duet line",
+    "lineRole": "Line role",
     "moveLineToPlayhead": "Move line to playhead",
     "copyTimingsTo": "Copy timings to…",
     "cancelCopyTimings": "Cancel timing copy",
@@ -958,12 +1047,21 @@
   "settingsDialog": {
     "search": "Search settings",
     "clearSearch": "Clear search",
-    "noSearchResults": "No matching categories",
+    "matchCount": "Matching settings: {count}",
+    "noResults": "No settings match \"{query}\"",
+    "noResultsDesc": "Try another word, or clear the search.",
     "title": "Preferences",
     "common": {
       "latencyTest": "Audio/input latency test"
     },
     "keybindings": {
+      "clearWordTiming": "Timing - Clear word/syllable timestamps",
+      "sectionRename": "Section - Rename",
+      "sectionStartHere": "Section - Start section here",
+      "sectionApplyTimings": "Section - Apply timings from...",
+      "sectionSnapToPlayhead": "Section - Snap to playhead",
+      "sectionMergePrevious": "Section - Merge with previous",
+      "sectionRemove": "Section - Remove header (keep lyrics)",
       "newFile": "New file",
       "openFile": "Open file",
       "saveFile": "Save file",
@@ -972,6 +1070,8 @@
       "redoAlternate": "Redo (alternate shortcut)",
       "selectAll": "Select all",
       "unselectAll": "Deselect all",
+      "findInLyrics": "Find in lyrics",
+      "replaceInLyrics": "Replace in lyrics",
       "deleteSelection": "Delete selection",
       "autoSegment": "Quick auto segment",
       "autoSegmentDialog": "Auto segment…",
@@ -1010,6 +1110,15 @@
       "auditionSelection": "Spectrogram - Play selection",
       "auditionSelectionAfter": "Spectrogram - Play selection (+0.5 s after)",
       "cancelTimelineEditing": "Spectrogram - Cancel timeline editing",
+      "exportTtml": "Export lyrics: TTML",
+      "exportLrc": "Export lyrics: LRC",
+      "exportEslrc": "Export lyrics: ESLRC",
+      "exportQrc": "Export lyrics: QRC",
+      "exportYrc": "Export lyrics: YRC",
+      "exportLys": "Export lyrics: Lyricify Syllable",
+      "exportAss": "Export lyrics: ASS subtitles",
+      "newLyricLine": "New lyric line",
+      "advancedRibbonControls": "Advanced ribbon controls",
       "resetDefault": "Reset to default",
       "clear": "Clear",
       "unbound": "Not set",
@@ -1021,28 +1130,57 @@
         "View": "View",
         "Sync": "Timing",
         "Audio": "Audio",
-        "Spectrogram": "Spectrogram"
+        "Spectrogram": "Spectrogram",
+        "Tools": "Tools",
+        "Help": "Help",
+        "Preview": "Preview"
       },
-      "autoSegmentOptions": "Auto segment",
-      "autoSegmentDoublePress": "Require double press",
-      "autoSegmentDoublePressDesc": "Only run quick auto segment when you press its shortcut twice quickly."
+      "showAll": "Show actions without a key"
     },
     "tab": {
       "common": "General",
       "appearance": "Appearance",
-      "audio": "Audio",
-      "keybindings": "Shortcuts",
-      "spectrogram": "Spectrogram",
+      "editing": "Editing",
+      "syncing": "Syncing",
+      "preview": "Preview",
+      "audioSpectrogram": "Audio & spectrogram",
+      "importFiles": "Import & files",
       "backup": "Backup",
-      "editor": "Editor & sync",
-      "files": "Files & storage"
-    },
-    "page": {
-      "generalDesc": "Language, privacy, and app-wide behavior.",
-      "editorDesc": "Timing input, synchronization behavior, and visual cues.",
-      "filesDesc": "Import cleanup, autosave history, and portable backups.",
-      "audioDesc": "Playback, equalizer, and spectrogram display."
+      "keybindings": "Shortcuts",
+      "changelog": "Changelog"
     }
+  },
+  "keyboardView": {
+    "title": "Keyboard",
+    "search": "Search actions",
+    "searchResults": "{count, plural, =0 {No actions match} one {# action matches} other {# actions match}}",
+    "layout": "Keyboard layout",
+    "layoutAuto": "Automatic",
+    "layoutDetected": "Detected: {layout}",
+    "layoutUnavailable": "Can't detect the layout here, so QWERTY is shown",
+    "layerHint": "Click a modifier key, such as Shift, to see the shortcuts that use it.",
+    "category": {
+      "sync": "Sync",
+      "edit": "Edit",
+      "playback": "Playback",
+      "navigation": "Navigation"
+    },
+    "free": "Free",
+    "keyFree": "{key}: free",
+    "keyActions": "{key}: {actions}",
+    "modifierLayer": "Show shortcuts with {key}",
+    "freeKey": "Nothing uses {key} yet.",
+    "assignLabel": "Action",
+    "assignPlaceholder": "Choose an action...",
+    "assign": "Add to {key}",
+    "changeKey": "Change key",
+    "addKey": "Add second key",
+    "removeKey": "Remove {key}",
+    "duplicateKey": "That key is already set for this action.",
+    "doublePress": "Press twice to run",
+    "doublePressDesc": "Runs only when you press its key twice quickly.",
+    "otherLayers": "Also on this key",
+    "closePanel": "Close"
   },
   "autoSegmentApplied": "Auto-segmented with {engine}",
   "error": {
@@ -1100,11 +1238,23 @@
     "volume": "Volume",
     "playbackRate": "Playback speed",
     "preservesPitch": "Preserve pitch",
-    "clickToLoadMusic": "Click the music icon to load audio",
+    "audioMenu": "Audio and playback",
+    "loadedAudio": "Loaded audio",
+    "replaceAudio": "Replace",
+    "resetSpeed": "Reset to 1×",
     "playPause": "Play / pause music",
     "expandSpectrogram": "Expand / collapse spectrogram"
   },
   "latencyTestDialog": {
+    "invalidOffset": "Enter an offset in whole milliseconds",
+    "precision": "Average absolute error: {error} ms ({count} taps)",
+    "recommendationProgress": "Tap at least 20 times for a recommendation ({count}/20)",
+    "recommendedOffset": "Recommended sync offset: {offset} ms",
+    "tryRecommendation": "Try recommended offset",
+    "trialOffsetHint": "Changes stay in this dialog until you save the offset",
+    "saveOffset": "Save offset",
+    "useOffset": "Use sync offset",
+    "offsetNotice": "Results include your sync offset of {offset} ms.",
     "title": "Latency test",
     "latencyDisplay": {
       "fastest": "Fastest",
@@ -1161,6 +1311,11 @@
     "addPresets": "Add all standard fields",
     "clear": "Clear"
   },
+  "helpText": {
+    "metadataArtists": "Who performs the song, as the track is credited on streaming services. Example: \"Shake It Off\" is by Taylor Swift.",
+    "metadataSongwriter": "Who wrote the music and lyrics, from the writing credits. Often different from the artists. Example: \"Shake It Off\" was written by Taylor Swift, Max Martin and Shellback.",
+    "openSongwritersGuide": "Open the songwriters guide"
+  },
   "lrclib": {
     "placeholder": "Song title and artist…",
     "notFound": "No results. Try different keywords.",
@@ -1183,39 +1338,67 @@
     "insertLine": "Insert new line here",
     "insertWord": "Insert word here…"
   },
+  "editModeTools": {
+    "splitTypedLinesTitle": "Split typed lines into words",
+    "splitTypedLinesDesc": "Text typed into a line is split into words at spaces and hyphens, and with your learned splits.",
+    "scrollMemoryTitle": "Remember Edit mode position",
+    "scrollMemoryDesc": "Reopen each project at the line you were on in Edit mode.",
+    "swapDuetAll": "Swap main and duet lines",
+    "swapDuetSelected": "Swap main and duet"
+  },
   "lyricWordView": {
     "empty": "Empty",
-    "spaceCount": "Space ×{count}",
-    "removeWord": "Remove duplicate word",
-    "editingWordTitle": "Editing word",
-    "editingWordDesc": "Edit the word or apply suggested quick fixes.",
-    "correctedWordPlaceholder": "Type the corrected word",
-    "noSuggestions": "No suggestions"
+    "spaceCount": "Space ×{count}"
   },
   "sectionActions": {
-    "categorizeSelected": "Categorize selected {count, plural, one {line} other {lines}}",
-    "categorizeTitle": "Categorize selected lines",
-    "categorize": "Categorize",
     "expand": "Expand section",
     "collapse": "Collapse section",
-    "editTitle": "Edit section",
-    "vocalist": "Vocalist / role",
-    "notes": "Notes",
-    "manage": "Manage sections",
-    "goPrevious": "Go to previous section",
-    "goNext": "Go to next section",
-    "editMetadata": "Edit metadata",
-    "split": "Split at selected line",
     "mergePrevious": "Merge with previous",
-    "mergeNext": "Merge with next",
-    "moveUp": "Move up",
-    "moveDown": "Move down",
-    "linkPrevious": "Link to previous {category}",
-    "unlinkRepeat": "Unlink repeat",
-    "removeHeader": "Remove header (keep lyrics)",
-    "addToPrevious": "Add unassigned lines to previous section",
-    "addToNext": "Add unassigned lines to next section",
-    "section": "Section"
+    "removeHeader": "Remove header (keep lyrics)"
+  },
+  "sectionEditing": {
+    "menu": "Section actions",
+    "startHere": "Start section here",
+    "noSection": "No section",
+    "rename": "Rename",
+    "renameHint": "Rename or change type",
+    "label": "Section name",
+    "type": "Section type",
+    "snapToPlayhead": "Snap to playhead",
+    "applyTimings": "Apply timings from...",
+    "applyTitle": "Apply timings to {name}",
+    "applyDesc": "Words that match get their timing from the section you pick. The rest keep theirs.",
+    "source": "Copy from",
+    "similarity": "{percent}% match",
+    "showMore": "{count, plural, one {Show # more section} other {Show # more sections}}",
+    "noSources": "No other section has timings yet. Sync one first.",
+    "anchor": "Start at",
+    "anchorSection": "Section start ({time})",
+    "anchorPlayhead": "Playhead ({time})",
+    "anchorPlayheadOnly": "Starts at the playhead ({time}). This section has no timing yet.",
+    "refineNote": "Copied timings are a starting point. Play the section back and fix what's off.",
+    "apply": "Apply",
+    "applied": "Copied timings to {copied} of {total} lines. {untimed, plural, =0 {Every word has timing.} one {# word was left untimed.} other {# words were left untimed.}}",
+    "nothingMatched": "No lines in this section match that one, so nothing was copied."
+  },
+  "sectionCategories": {
+    "intro": "Intro",
+    "verse": "Verse",
+    "pre-chorus": "Pre-chorus",
+    "chorus": "Chorus",
+    "post-chorus": "Post-chorus",
+    "refrain": "Refrain",
+    "hook": "Hook",
+    "bridge": "Bridge",
+    "break": "Break",
+    "interlude": "Interlude",
+    "instrumental": "Instrumental",
+    "solo": "Solo",
+    "spoken": "Spoken",
+    "skit": "Skit",
+    "sample": "Sample",
+    "outro": "Outro",
+    "other": "Other"
   },
   "touchSyncPanel": {
     "prevWord": "Previous word",
@@ -1234,6 +1417,16 @@
     "placeholder": "New word",
     "applyToAll": "Replace all identical words",
     "caseSensitive": "Match case"
+  },
+  "replaceWordCombinationDialog": {
+    "title": "Replace word combination",
+    "description": "Click a token to edit its text. Timing stays the same.",
+    "word": "Word {index}",
+    "reorderWord": "Reorder word {index}",
+    "reorderHint": "Drag a handle to reorder, or focus a token and press Alt+Left/Right.",
+    "position": "Position {index} of {count}",
+    "applyToAll": "Replace all matching combinations",
+    "adjacentOnly": "Select adjacent words or syllables in one line to replace a combination."
   },
   "replaceRomanizationDialog": {
     "title": "Replace romanization",
@@ -1383,6 +1576,14 @@
     "legacyProjectName": "Legacy snapshots",
     "untitledProjectName": "Untitled project"
   },
+  "didYouKnow": {
+    "title": "Did you know?",
+    "repeatedSection": "Repeated lines can reuse earlier timing. Select the earlier lines, put the playhead where the repeat starts, and use Duplicate at playhead.",
+    "splitInTimeMode": "You can split a word without leaving Time mode: hold {modifier} and double-click it.",
+    "turnOff": "Don't show tips",
+    "setting": "Show tips",
+    "settingDesc": "After you do something by hand that has a faster way, show a short tip about it. Each tip shows once."
+  },
   "time": {
     "daysAgo": "{count, plural, one {# day ago} other {# days ago}}",
     "hoursAgo": "{count, plural, one {# hour ago} other {# hours ago}}",
@@ -1501,6 +1702,19 @@
     "apply": "Apply suggestion",
     "noSuggestions": "No automated split suggestions available for this content."
   },
+  "changelogScreen": {
+    "viewLabel": "Show",
+    "viewAll": "Everything",
+    "viewHighlights": "Highlights",
+    "highlights": "Highlights",
+    "latest": "Latest",
+    "sectionNew": "New",
+    "sectionChanged": "Changed",
+    "sectionFixed": "Fixed",
+    "empty": "No releases to show.",
+    "versions": "Versions",
+    "earlier": "Earlier"
+  },
   "aboutModal": {
     "appName": "Spicy Lyrics TTML Tool",
     "description": "A word-by-word TTML editor and timing tool for Apple Music-like lyrics",
@@ -1523,6 +1737,23 @@
     "openContributorProfile": "Open {name}'s GitHub profile",
     "unknown": "Unknown"
   },
+  "spectrogramLanes": {
+    "settingTitle": "Separate lanes",
+    "settingDesc": "Draw background lines in their own row under the main lines. Lanes are view-only: change a line's role in Edit mode.",
+    "menu": "Lanes",
+    "visibleLanes": "Show lanes",
+    "duetLane": "Separate duet lane",
+    "lane": {
+      "main": "Main",
+      "duet": "Duet",
+      "bg": "Background"
+    }
+  },
+  "spectrogramLineEnds": {
+    "mergedHandle": "Line and last word end. Alt-drag to move only one.",
+    "wordEndHandle": "Last word end",
+    "lineEndHandle": "Line end"
+  },
   "spectrogram": {
     "invalidEndTime": "Cannot select this end time",
     "noAudioLoaded": "Load an audio file to show the spectrogram",
@@ -1531,13 +1762,18 @@
     "settings": "Spectrogram settings",
     "fftSize": "FFT size",
     "resolution": "FFT resolution",
-    "fftSizeOption": {
-      "512": "512 (fastest)",
-      "1024": "1024 (balanced)",
-      "2048": "2048 (more frequency detail)",
-      "4096": "4096 (most detail)"
-    },
     "height": "Display height"
+  },
+  "spectrogramFollow": {
+    "toggle": "Follow playhead",
+    "shortcut": "Spectrogram - Follow playhead on/off",
+    "setting": "Follow the playhead",
+    "settingDesc": "Scrolls the spectrogram to keep the playhead in view. Scrolling or dragging pauses it until you press play or leave it for a moment.",
+    "style": "Follow style",
+    "page": "Page",
+    "pageDesc": "Jumps ahead when the playhead leaves the view.",
+    "continuous": "Continuous",
+    "continuousDesc": "Scrolls with the playhead and keeps it centered."
   },
   "export": {
     "recoveryUntimed": "This recovery export contains untimed lyrics. Check timing before submitting.",

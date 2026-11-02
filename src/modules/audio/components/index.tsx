@@ -12,22 +12,10 @@
 import {
 	ChevronDownFilled,
 	ChevronUpFilled,
-	MusicNote2Filled,
 	PauseFilled,
 	PlayFilled,
 } from "@fluentui/react-icons";
-import {
-	Card,
-	Flex,
-	Grid,
-	HoverCard,
-	IconButton,
-	Inset,
-	Slider,
-	Switch,
-	Text,
-	Tooltip,
-} from "@radix-ui/themes";
+import { Card, Flex, IconButton, Inset, Text, Tooltip } from "@radix-ui/themes";
 import { useAtom, useAtomValue, useStore } from "jotai";
 import {
 	type CSSProperties,
@@ -38,8 +26,8 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useLoadAudio } from "$/hooks/useLoadAudio";
 import { audioEngine } from "$/modules/audio/audio-engine";
+import { AudioMenu } from "$/modules/audio/components/AudioMenu";
 import { AudioSlider } from "$/modules/audio/components/AudioSlider";
 import {
 	audioPlayingAtom,
@@ -49,11 +37,7 @@ import {
 	preservesPitchAtom,
 	volumeAtom,
 } from "$/modules/audio/states";
-import {
-	MAX_PLAYBACK_RATE,
-	MIN_PLAYBACK_RATE,
-	stepPlaybackRate,
-} from "$/modules/audio/utils/playback-rate";
+import { stepPlaybackRate } from "$/modules/audio/utils/playback-rate";
 import { AuditionKeyBinding } from "$/modules/keyboard/components/AuditionKeyBinding";
 import { AudioSpectrogram } from "$/modules/spectrogram/components/AudioSpectrogram";
 import {
@@ -132,13 +116,12 @@ const CurrentTimeLabel: FC = () => {
 
 export const AudioControls: FC = memo(() => {
 	const [audioLoaded, setAudioLoaded] = useState(false);
-	const [playbackRate, setPlaybackRate] = useAtom(playbackRateAtom);
-	const [preservesPitch, setPreservesPitch] = useAtom(preservesPitchAtom);
+	const playbackRate = useAtomValue(playbackRateAtom);
+	const preservesPitch = useAtomValue(preservesPitchAtom);
 	const [spectrogramVisible, setSpectrogramVisible] = useState(false);
 	const currentDuration = useAtomValue(currentDurationAtom);
 	const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
 	const [volume, setVolume] = useAtom(volumeAtom);
-	const { loadAudio: onLoadMusic } = useLoadAudio();
 	const { t } = useTranslation();
 
 	const onTogglePlay = useCallback(() => {
@@ -215,7 +198,7 @@ export const AudioControls: FC = memo(() => {
 				<AuditionKeyBinding />
 				<Flex direction="column">
 					<div style={{ display: spectrogramVisible ? "flex" : "none" }}>
-						<AudioSpectrogram />
+						{spectrogramVisible && <AudioSpectrogram />}
 					</div>
 					<Flex
 						align="center"
@@ -223,72 +206,7 @@ export const AudioControls: FC = memo(() => {
 						gapX="2"
 						data-guide-target="audio-playback-bar"
 					>
-						<HoverCard.Root>
-							<HoverCard.Trigger>
-								<IconButton
-									my="2"
-									variant="soft"
-									onClick={onLoadMusic}
-									aria-label={t("spectrogram.loadAudio", "Load audio file")}
-								>
-									<MusicNote2Filled />
-								</IconButton>
-							</HoverCard.Trigger>
-							<HoverCard.Content>
-								<Flex direction="column" align="center">
-									<Grid columns="0fr 7em 2em" gap="2" align="baseline">
-										<Text wrap="nowrap">{t("audioPanel.volume", "音量")}</Text>
-										<Slider
-											min={0}
-											max={1}
-											value={[volume]}
-											step={0.01}
-											onValueChange={(v) => setVolume(v[0])}
-										/>
-										<Text wrap="nowrap" color="gray" size="1">
-											{(volume * 100).toFixed()}%
-										</Text>
-										<Text wrap="nowrap">
-											{t("audioPanel.playbackRate", "Playback speed")}
-										</Text>
-										<Slider
-											min={MIN_PLAYBACK_RATE}
-											max={MAX_PLAYBACK_RATE}
-											value={[playbackRate]}
-											step={0.05}
-											onValueChange={(v) => setPlaybackRate(v[0])}
-										/>
-										<Text wrap="nowrap" color="gray" size="1">
-											{playbackRate.toFixed(2)}x
-										</Text>
-										<Text wrap="nowrap">
-											{t("audioPanel.preservesPitch", "Preserve pitch")}
-										</Text>
-										<Flex align="center" gap="2">
-											<Switch
-												checked={preservesPitch}
-												onCheckedChange={setPreservesPitch}
-											/>
-										</Flex>
-										<Text wrap="nowrap" color="gray" size="1">
-											{preservesPitch ? "ON" : "OFF"}
-										</Text>
-									</Grid>
-									<Text
-										wrap="nowrap"
-										align="center"
-										mt="2"
-										size="1"
-										color="gray"
-									>
-										{t(
-											"audioPanel.clickToLoadMusic",
-											"Click the music icon to load audio",
-										)}
-									</Text>
-								</Flex>
-							</HoverCard.Content>
-						</HoverCard.Root>
+						<AudioMenu />
 						<Tooltip content={t("audioPanel.playPause", "暂停 / 播放音乐")}>
 							<IconButton
 								my="2"

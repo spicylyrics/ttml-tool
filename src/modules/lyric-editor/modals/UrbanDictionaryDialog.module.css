@@ -1,0 +1,82 @@
+/* Solid overlay and dialog, like the Radix dialogs: no blur behind it. */
+.overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--color-overlay);
+}
+
+.dialog {
+	width: calc(100vw - 40px);
+	max-width: 600px;
+	max-height: 85vh;
+	overflow: hidden;
+	border: 1px solid var(--gray-a5);
+	border-radius: var(--radius-5);
+	background-color: var(--color-panel-solid);
+	box-shadow: var(--shadow-6);
+}
+
+:global(:root[data-design="spicy-lyrics"]) .dialog {
+	border-color: var(--sl-border);
+	background-color: var(--sl-popover);
+	box-shadow: var(--sl-shadow-lift);
+}
+
+.header {
+	padding: var(--space-4) var(--space-5);
+	border-bottom: 1px solid var(--gray-a5);
+	background-color: var(--gray-2);
+}
+
+.headerIcon {
+	font-size: 20px;
+}
+
+.word {
+	padding: var(--space-4) var(--space-5) var(--space-2);
+}
+
+.wordText {
+	color: var(--accent-11);
+	letter-spacing: -0.028em;
+}
+
+.body {
+	padding: var(--space-2) var(--space-5) var(--space-5);
+}
+
+.status {
+	height: 200px;
+}
+
+.definition {
+	white-space: pre-wrap;
+	line-height: 1.6;
+	word-break: break-word;
+}
+
+.example {
+	white-space: pre-wrap;
+	font-style: italic;
+	line-height: 1.5;
+	word-break: break-word;
+}
+
+.footer {
+	margin-top: var(--space-1);
+}
+
+.link {
+	font-weight: 500;
+}
+
+@media (prefers-contrast: more) {
+	.dialog,
+	.header {
+		border-color: var(--gray-a8);
+	}
+}

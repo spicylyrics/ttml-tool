@@ -4,9 +4,9 @@ import { distributeTime as distributeUnitTimes } from "$/modules/lyric-editor/ut
  */
 
 import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml";
+import { escapeRegExp } from "$/utils/text";
 import { CharType, type SegmentationConfig } from "../types";
 import {
-	escapeRegExp,
 	getCharType,
 	getMergeDirection,
 	MergeDirection,
@@ -303,10 +303,25 @@ function distributeTime(
 /**
  * @description 将单个 LyricWord 拆分为多个
  */
+function prepareProtectedPattern(config: SegmentationConfig): RegExp | null {
+	const protectedWords = new Set([
+		...config.ignoreList,
+		...config.customRules.keys(),
+	]);
+	const patterns = [...protectedWords]
+		.filter((word) => word.trim() !== "")
+		.sort((a, b) => b.length - a.length)
+		.map(escapeRegExp);
+	return patterns.length > 0
+		? new RegExp(`(${patterns.join("|")})`, "g")
+		: null;
+}
+
 export function segmentWord(
 	word: LyricWord,
 	config: SegmentationConfig,
 	context?: SegmentationContext,
+	pattern = prepareProtectedPattern(config),
 ): LyricWord[] {
 	const learnedSegments = applyLearnedRule(word.word, config.learnedRules);
 	if (learnedSegments) {
@@ -316,32 +331,14 @@ export function segmentWord(
 		return distributeTime(word, learnedSegments, weights);
 	}
 
-	const protectedWords = new Set([
-		...config.ignoreList,
-		...config.customRules.keys(),
-	]);
 	const ctx = context || { isQuoteOpen: false };
 
-	if (protectedWords.size === 0) {
+	if (!pattern) {
 		const tokens = autoTokenize(word.word, config);
 		if (tokens.length === 0) return [];
 		const { finalTokens, finalWeights } = postProcess(tokens, config, ctx);
 		return distributeTime(word, finalTokens, finalWeights);
 	}
-
-	const sortedPatterns = Array.from(protectedWords)
-		.filter((k) => k.trim() !== "")
-		.sort((a, b) => b.length - a.length)
-		.map(escapeRegExp);
-
-	if (sortedPatterns.length === 0) {
-		const tokens = autoTokenize(word.word, config);
-		if (tokens.length === 0) return [];
-		const { finalTokens, finalWeights } = postProcess(tokens, config, ctx);
-		return distributeTime(word, finalTokens, finalWeights);
-	}
-
-	const pattern = new RegExp(`(${sortedPatterns.join("|")})`, "g");
 
 	const parts = word.word.split(pattern);
 
@@ -388,6 +385,7 @@ export function segmentLyricLines(
 	resetStatePerLine = true,
 ): LyricLine[] {
 	const context: SegmentationContext = { isQuoteOpen: false };
+	const pattern = prepareProtectedPattern(config);
 
 	return lines.map((line) => {
 		if (resetStatePerLine) {
@@ -396,7 +394,7 @@ export function segmentLyricLines(
 
 		const newWords: LyricWord[] = [];
 		for (const word of line.words) {
-			const segments = segmentWord(word, config, context);
+			const segments = segmentWord(word, config, context, pattern);
 			newWords.push(...segments);
 		}
 
@@ -418,6 +416,7 @@ export function segmentSelectedWords(
 	config: SegmentationConfig,
 ): number {
 	let splitCount = 0;
+	const pattern = prepareProtectedPattern(config);
 	for (const line of lines) {
 		if (!line.words.some((w) => selectedWordIds.has(w.id))) continue;
 		const context: SegmentationContext = { isQuoteOpen: false };
@@ -427,7 +426,7 @@ export function segmentSelectedWords(
 				newWords.push(word);
 				continue;
 			}
-			const segments = segmentWord(word, config, context);
+			const segments = segmentWord(word, config, context, pattern);
 			if (segments.length > 1) splitCount++;
 			newWords.push(...segments);
 		}

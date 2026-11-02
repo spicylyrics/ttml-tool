@@ -1,0 +1,95 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	max-height: min(420px, 52vh);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+/* Keyboard moves the selection here, so it changes color only: no motion, no layout shift. */
+.option {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	min-height: 36px;
+	padding: var(--space-1) var(--space-3);
+	border-radius: var(--radius-4);
+	cursor: default;
+	user-select: none;
+}
+
+.option[aria-selected="true"] {
+	background: var(--accent-a4);
+}
+
+/* Fixed width, so labels line up even for a group without an icon. */
+.icon {
+	display: flex;
+	flex: none;
+	width: 16px;
+	color: var(--gray-11);
+}
+
+.icon svg {
+	width: 16px;
+	height: 16px;
+}
+
+.option[aria-selected="true"] .icon {
+	color: var(--accent-11);
+}
+
+.label {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Greyed like the menu item it mirrors; Enter and click do nothing. */
+.option[aria-disabled="true"] .label {
+	color: var(--gray-a9);
+}
+
+.check {
+	flex-shrink: 0;
+	color: var(--accent-11);
+}
+
+.tag {
+	flex-shrink: 0;
+}
+
+.shortcut {
+	flex-shrink: 0;
+}
+
+.footer {
+	padding-top: var(--space-3);
+	border-top: 1px solid var(--gray-a5);
+}
+
+:global(:root[data-design="spicy-lyrics"]) .footer {
+	border-top-color: var(--sl-border);
+}
+
+.empty {
+	padding: var(--space-4) var(--space-3);
+	text-align: center;
+}
+
+@media (prefers-contrast: more) {
+	.option[aria-selected="true"] {
+		background: var(--accent-a6);
+		outline: 1px solid var(--accent-9);
+		outline-offset: -1px;
+	}
+}

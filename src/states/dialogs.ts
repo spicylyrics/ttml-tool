@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import type { WordCombinationSelection } from "$/modules/lyric-editor/tools/replace-word-combination";
 
 export const importLyricsDialogAtom = atom(false);
 export const metadataEditorDialogAtom = atom(false);
@@ -8,6 +9,10 @@ export const latencyTestDialogAtom = atom(false);
 export const ttmlChecklistDialogAtom = atom(false);
 export const splitWordDialogAtom = atom(false);
 export const replaceWordDialogAtom = atom(false);
+export const replaceWordCombinationDialogAtom = atom<{
+	open: boolean;
+	selection: WordCombinationSelection | null;
+}>({ open: false, selection: null });
 export const replaceRomanizationDialogAtom = atom({
 	open: false,
 	lineIndex: -1,
@@ -37,7 +42,12 @@ export const confirmDialogAtom = atom<{
 });
 export const historyRestoreDialogAtom = atom(false);
 export const geniusSearchDialogAtom = atom(false);
-export const changelogDialogAtom = atom(false);
+/** Write `true` to open Preferences on the Changelog page. */
+export const changelogDialogAtom = atom(null, (_get, set, open: boolean) => {
+	if (!open) return;
+	set(settingsTabAtom, "changelog");
+	set(settingsDialogAtom, true);
+});
 export const fontSelectionDialogAtom = atom(false);
 export const projectsDialogAtom = atom(false);
 export const timeShiftPreviewOffsetAtom = atom(0);

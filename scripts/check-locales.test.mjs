@@ -7,6 +7,8 @@ import ICU from "i18next-icu";
 import {
 	checkLocale,
 	checkLocales,
+	checkRegional,
+	checkRegionalOverrides,
 	checkUsedKeys,
 	placeholders,
 } from "./check-locales.mjs";
@@ -207,4 +209,53 @@ test("reports keys used in source that en-US does not define", () => {
 	assert.deepEqual(checkUsedKeys(source, file(`t(\`steps.${id}.waiting\`)`)), [
 		`a.tsx:1: no en-US key matches steps.${id}.waiting`,
 	]);
+});
+
+test("regional overrides need en-US keys, en-US placeholders and order, and a real difference", () => {
+	const source = {
+		menu: { open: "Open", close: "Close" },
+		count: "{count} lines",
+	};
+	const base = {
+		menu: { open: "Abrir", close: "Cerrar" },
+		count: "{count} líneas",
+	};
+	assert.deepEqual(
+		checkRegionalOverrides(source, { menu: { close: "Salir" } }, "es-MX", base),
+		[],
+	);
+	assert.deepEqual(
+		checkRegionalOverrides(
+			source,
+			{ menu: { gone: "Ya no" }, count: "{total} líneas" },
+			"es-MX",
+			base,
+		),
+		[
+			"es-MX: extra key menu.gone",
+			"es-MX: count: placeholders differ (single:count / single:total)",
+		],
+	);
+	assert.match(
+		checkRegionalOverrides(
+			source,
+			{ count: "{count} renglones", menu: { open: "Abrir ya" } },
+			"es-MX",
+			base,
+		)[0],
+		/key order/,
+	);
+	assert.deepEqual(
+		checkRegionalOverrides(source, { menu: { open: "Abrir" } }, "es-MX", base),
+		["es-MX: menu.open: same as the base catalog"],
+	);
+});
+
+test("the shipped regional override files are valid", () => {
+	const { locales, errors } = checkRegional(
+		fileURLToPath(new URL("../src/i18n/regional", import.meta.url)),
+		fileURLToPath(new URL("../src/i18n/locales", import.meta.url)),
+	);
+	assert.ok(locales.includes("es-MX"));
+	assert.deepEqual(errors, []);
 });

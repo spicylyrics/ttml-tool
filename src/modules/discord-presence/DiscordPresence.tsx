@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useStore } from "jotai";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { audioPlayingAtom, playbackRateAtom } from "$/modules/audio/states";
@@ -15,6 +15,7 @@ import {
 } from "$/modules/settings/states";
 import {
 	lyricLinesAtom,
+	lyricMetadataAtom,
 	projectIdAtom,
 	saveFileNameAtom,
 	selectedLinesAtom,
@@ -38,11 +39,10 @@ import { ProjectTimeTracker } from "./project-time";
 const isTauri = Boolean(import.meta.env.TAURI_ENV_PLATFORM);
 
 export function DiscordPresence() {
-	const lyrics = useAtomValue(lyricLinesAtom);
+	const store = useStore();
+	const metadata = useAtomValue(lyricMetadataAtom);
 	const fileName = useAtomValue(saveFileNameAtom);
 	const mode = useAtomValue(toolModeAtom);
-	const selectedLineIds = useAtomValue(selectedLinesAtom);
-	const selectedWordIds = useAtomValue(selectedWordsAtom);
 	const playing = useAtomValue(audioPlayingAtom);
 	const playbackRate = useAtomValue(playbackRateAtom);
 	const enabled = useAtomValue(discordRichPresenceEnabledAtom);
@@ -55,6 +55,9 @@ export function DiscordPresence() {
 	const idleTimeoutMinutes = useAtomValue(discordIdleTimeoutMinutesAtom);
 	const projectId = useAtomValue(projectIdAtom);
 	const [inactive, setInactive] = useState(false);
+	const nativeUpdateInFlight = useRef(false);
+	const lastNativePayload = useRef<string | null>(null);
+	const nativeEpoch = useRef(0);
 	const trackerRef = useRef<ProjectTimeTracker | null>(null);
 	if (!trackerRef.current) {
 		trackerRef.current = new ProjectTimeTracker(window.localStorage);
@@ -107,6 +110,9 @@ export function DiscordPresence() {
 	}, [projectId, tracker]);
 
 	const publish = useCallback(() => {
+		const lyrics = { ...store.get(lyricLinesAtom), metadata };
+		const selectedLineIds = store.get(selectedLinesAtom);
+		const selectedWordIds = store.get(selectedWordsAtom);
 		const snapshot = createPresenceSnapshot({
 			lyrics,
 			fileName,
@@ -127,7 +133,8 @@ export function DiscordPresence() {
 			meta.name = PRESENCE_META_NAME;
 			document.head.append(meta);
 		}
-		meta.content = JSON.stringify(snapshot);
+		const content = JSON.stringify(snapshot);
+		if (meta.content !== content) meta.content = content;
 
 		if (isTauri && enabled) {
 			const safeDetailsTemplate = validateDiscordTemplate(detailsTemplate)
@@ -143,31 +150,41 @@ export function DiscordPresence() {
 				selectedLineIds,
 				selectedWordIds,
 			});
-			invoke("set_discord_activity", {
-				payload: inactive
-					? createInactiveDiscordActivity()
-					: formatNativeDiscordActivity(snapshot, context, {
-							detailsTemplate: safeDetailsTemplate,
-							stateTemplate: safeStateTemplate,
-							showPlaybackTimeline,
-							showProjectElapsed,
-							showRepositoryButton,
-							showStatusBadge,
-						}),
-			}).catch((error) => log("Unable to update Discord presence", error));
+			const payload = inactive
+				? createInactiveDiscordActivity()
+				: formatNativeDiscordActivity(snapshot, context, {
+						detailsTemplate: safeDetailsTemplate,
+						stateTemplate: safeStateTemplate,
+						showPlaybackTimeline,
+						showProjectElapsed,
+						showRepositoryButton,
+						showStatusBadge,
+					});
+			const key = JSON.stringify(payload);
+			if (nativeUpdateInFlight.current || lastNativePayload.current === key)
+				return;
+			nativeUpdateInFlight.current = true;
+			const epoch = nativeEpoch.current;
+			invoke("set_discord_activity", { payload })
+				.then(() => {
+					if (nativeEpoch.current === epoch) lastNativePayload.current = key;
+				})
+				.catch((error) => log("Unable to update Discord presence", error))
+				.finally(() => {
+					nativeUpdateInFlight.current = false;
+				});
 		}
 	}, [
 		enabled,
 		detailsTemplate,
 		fileName,
 		inactive,
-		lyrics,
+		metadata,
+		store,
 		mode,
 		playbackRate,
 		playing,
 		projectId,
-		selectedLineIds,
-		selectedWordIds,
 		showPlaybackTimeline,
 		showProjectElapsed,
 		showRepositoryButton,
@@ -178,13 +195,14 @@ export function DiscordPresence() {
 
 	useEffect(() => {
 		publish();
-		if (!playing) return;
 		const timer = window.setInterval(publish, 1000);
 		return () => window.clearInterval(timer);
-	}, [playing, publish]);
+	}, [publish]);
 
 	useEffect(() => {
 		if (!isTauri || enabled) return;
+		nativeEpoch.current++;
+		lastNativePayload.current = null;
 		invoke("clear_discord_activity").catch((error) =>
 			log("Unable to clear Discord presence", error),
 		);

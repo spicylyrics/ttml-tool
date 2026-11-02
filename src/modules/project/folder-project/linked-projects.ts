@@ -53,13 +53,28 @@ export async function listLinkedProjects(): Promise<LinkedProjectEntry[]> {
 	);
 }
 
-export async function removeLinkedProject(dir: string): Promise<void> {
-	const root = await getLinkedProjectsRoot();
-	const normalized = dir.replace(/\\/g, "/").replace(/\/+$/, "");
+function normalizeDir(dir: string): string {
+	return dir.replace(/\\/g, "/").replace(/\/+$/, "");
+}
+
+/**
+ * Linked manifests point at absolute paths, so only trust them in folders the
+ * app created itself. A shared folder's project.json must never redirect saves.
+ */
+export async function isLinkedProjectDir(dir: string): Promise<boolean> {
+	const normalized = normalizeDir(dir);
 	const name = normalized.slice(normalized.lastIndexOf("/") + 1);
-	if (assertSafePath(root, name) !== normalized) {
+	try {
+		return assertSafePath(await getLinkedProjectsRoot(), name) === normalized;
+	} catch {
+		return false;
+	}
+}
+
+export async function removeLinkedProject(dir: string): Promise<void> {
+	if (!(await isLinkedProjectDir(dir))) {
 		throw new Error(`Not a linked project folder: ${dir}`);
 	}
-	await remove(normalized, { recursive: true });
+	await remove(normalizeDir(dir), { recursive: true });
 	await removeRecentProject(dir);
 }

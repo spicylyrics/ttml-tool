@@ -111,14 +111,21 @@
 }
 
 .radix-themes:is(.dark, .dark-theme):not([data-legacy-dark-theme="true"])
-	.rt-BaseMenuItem {
+	.rt-BaseMenuItem:not([data-disabled]) {
 	color: var(--gray-12) !important;
 }
 
 .radix-themes:is(.dark, .dark-theme):not([data-legacy-dark-theme="true"])
-	.rt-BaseMenuItem[data-highlighted] {
+	.rt-BaseMenuItem[data-highlighted]:not([data-disabled]) {
 	background-color: var(--accent-9) !important;
 	color: var(--accent-contrast) !important;
+}
+
+.radix-themes:is(.rt-ContextMenuContent, .rt-ContextMenuSubContent)
+	.rt-BaseMenuItem[data-disabled] {
+	color: var(--gray-11);
+	opacity: 0.5;
+	cursor: not-allowed;
 }
 
 /* Tooltips match menus in dark themes instead of Radix's inverted light bubble.
@@ -318,4 +325,15 @@
 
 .Toastify__close-button--light:hover {
 	color: var(--gray-12, #1c2024) !important;
+}
+
+/* No tooltips while a menu or select list is open. A ribbon control's
+   tooltip would otherwise stay up, or pop up from a label the pointer
+   crosses, on top of the choices the menu is showing. */
+body:has(
+	.rt-BaseMenuContent[data-state="open"],
+	.rt-SelectContent[data-state="open"]
+)
+.rt-TooltipContent {
+	display: none;
 }

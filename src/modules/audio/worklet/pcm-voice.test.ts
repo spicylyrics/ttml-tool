@@ -1,8 +1,14 @@
 import { readFileSync } from "node:fs";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { seekFrame } from "../utils/pcm-clock";
-import { PcmVoice, type StretchProcessor } from "./pcm-voice";
-import type { VoiceState } from "./protocol";
+import { BufferedPcmVoice } from "./buffered-voice";
+import { PcmVoice, renderPcmBlock, type StretchProcessor } from "./pcm-voice";
+import type {
+	PcmPacket,
+	RendererCommand,
+	RendererEvent,
+	VoiceState,
+} from "./protocol";
 import {
 	initSync,
 	SoundTouchProcessor,
@@ -42,6 +48,166 @@ function realVoice(channels: Float32Array[], sampleRate = 44100) {
 }
 
 describe("decoded PCM playback", () => {
+	it("bounds background rendering and stops refills after pause", async () => {
+		vi.useFakeTimers();
+		const scope = {
+			onmessage: null as ((event: { data: RendererCommand }) => void) | null,
+		};
+		vi.stubGlobal("self", scope);
+		try {
+			await import("../workers/pcm-render.worker");
+			const messages: RendererEvent[] = [];
+			const port = {
+				onmessage: null as ((event: { data: RendererCommand }) => void) | null,
+				start() {},
+				postMessage(message: RendererEvent, transfer: Transferable[]) {
+					messages.push(structuredClone(message, { transfer }));
+				},
+			};
+			scope.onmessage?.({
+				data: {
+					type: "init",
+					channels: [new Float32Array(48000).fill(0.25)],
+					sampleRate: 48000,
+					wasm: new Uint8Array(
+						readFileSync("src/modules/audio/worklet/vendor/soundtouch_bg.wasm"),
+					).buffer,
+					port: port as unknown as MessagePort,
+				},
+			});
+			port.onmessage?.({
+				data: {
+					type: "voice",
+					voice: "music",
+					state: state({ endFrame: 48000 }),
+				},
+			});
+			await vi.advanceTimersByTimeAsync(50);
+			expect(messages.filter((message) => message.type === "pcm")).toHaveLength(
+				4,
+			);
+			await vi.advanceTimersByTimeAsync(100);
+			expect(messages.filter((message) => message.type === "pcm")).toHaveLength(
+				4,
+			);
+			const first = messages.find((message) => message.type === "pcm");
+			if (!first || first.type !== "pcm") throw new Error("Missing PCM packet");
+			expect(first.report.renderedFrames).toBe(2048);
+			port.onmessage?.({
+				data: {
+					type: "recycle",
+					voice: "music",
+					generation: 1,
+					channels: first.channels,
+				},
+			});
+			await vi.advanceTimersByTimeAsync(50);
+			expect(messages.filter((message) => message.type === "pcm")).toHaveLength(
+				5,
+			);
+			port.onmessage?.({
+				data: {
+					type: "voice",
+					voice: "music",
+					state: state({ generation: 2, playing: false }),
+				},
+			});
+			await vi.advanceTimersByTimeAsync(100);
+			expect(messages.filter((message) => message.type === "pcm")).toHaveLength(
+				5,
+			);
+		} finally {
+			vi.unstubAllGlobals();
+			vi.useRealTimers();
+		}
+	});
+
+	it.each([
+		0.1, 0.5, 1, 1.5, 2,
+	])("preserves exact samples and endpoint accounting through buffered %sx playback", (rate) => {
+		const sampleRate = 48000;
+		const source = Float32Array.from({ length: sampleRate }, (_, index) =>
+			Math.sin(index * 0.05),
+		);
+		const configuration = state({ frame: 10000, endFrame: 14801, rate });
+		const reference = realVoice([source, source], sampleRate);
+		const producer = realVoice([source, source], sampleRate);
+		reference.setState({ ...configuration });
+		producer.setState({ ...configuration });
+		const buffered = new BufferedPcmVoice(() => {});
+		buffered.setState({ ...configuration });
+		let produced = false;
+		const scratch = [new Float32Array(128), new Float32Array(128)];
+		while (!produced) {
+			const channels = [new Float32Array(2048), new Float32Array(2048)];
+			const report = renderPcmBlock(producer, channels, scratch);
+			if (!report) throw new Error("Missing render report");
+			buffered.accept({ type: "pcm", voice: "music", channels, report });
+			produced = report.ended;
+		}
+		let ended = false;
+		let rendered = 0;
+		const output = [new Float32Array(128), new Float32Array(128)];
+		const expected = [new Float32Array(128), new Float32Array(128)];
+		for (let block = 0; block < 1000 && !ended; block++) {
+			for (const channel of output) channel.fill(0);
+			const actual = buffered.render(output, (block * 128) / sampleRate);
+			const report = reference.render(expected, (block * 128) / sampleRate);
+			expect(actual).toEqual(report);
+			for (let channel = 0; channel < output.length; channel++) {
+				let error = 0;
+				for (let frame = 0; frame < 128; frame++)
+					error = Math.max(
+						error,
+						Math.abs(output[channel][frame] - expected[channel][frame]),
+					);
+				expect(error).toBeLessThan(0.00001);
+			}
+			rendered += actual?.renderedFrames ?? 0;
+			ended = actual?.ended ?? false;
+		}
+		expect(ended).toBe(true);
+		expect(rendered).toBe(
+			Math.ceil((configuration.endFrame - configuration.frame) / rate),
+		);
+		expect(buffered.render(output, 99)).toBeNull();
+		reference.destroy();
+		producer.destroy();
+	});
+
+	it("discards obsolete packets and does not count underrun silence", () => {
+		const recycle = vi.fn();
+		const buffered = new BufferedPcmVoice(recycle);
+		const packet = (generation: number): PcmPacket => ({
+			type: "pcm",
+			voice: "music",
+			channels: [new Float32Array(128).fill(0.5)],
+			report: {
+				generation,
+				startFrame: 100,
+				endFrame: 228,
+				contextTime: 0,
+				renderedFrames: 128,
+				ended: true,
+			},
+		});
+		buffered.setState(state({ generation: 1, frame: 100 }));
+		buffered.accept(packet(1));
+		buffered.setState(state({ generation: 2, frame: 100 }));
+		buffered.accept(packet(1));
+		expect(recycle).toHaveBeenCalledTimes(2);
+		const output = [new Float32Array(128)];
+		expect(buffered.render(output, 1)).toBeNull();
+		buffered.accept(packet(2));
+		expect(buffered.render(output, 2)).toMatchObject({
+			startFrame: 100,
+			endFrame: 228,
+			contextTime: 2,
+			renderedFrames: 128,
+			ended: true,
+		});
+	});
+
 	it.each([
 		44100, 48000,
 	])("seeks to the requested frame regardless of the original format at %i Hz", (sampleRate) => {

@@ -4,13 +4,14 @@ import { renderToString } from "react-dom/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { KeyBindingCallback } from "$/utils/keybindings";
 
-const { handlers, doubleHandlers, menuActions } = vi.hoisted(() => {
+const { handlers, doublePressShortcuts, menuActions } = vi.hoisted(() => {
 	vi.stubGlobal("window", new EventTarget());
 	vi.stubGlobal("document", { activeElement: null });
 	vi.stubGlobal("navigator", { userAgent: "Windows" });
 	return {
 		handlers: new Map<string, KeyBindingCallback>(),
-		doubleHandlers: new Map<string, KeyBindingCallback>(),
+		/** Shortcuts registered as "Press twice to run". */
+		doublePressShortcuts: new Set<string>(),
 		menuActions: {
 			onNewFile: vi.fn(),
 			onOpenFile: vi.fn(),
@@ -41,17 +42,9 @@ vi.mock("$/utils/keybindings", async (importOriginal) => {
 			callback: KeyBindingCallback,
 		) => {
 			const keys = useAtomValue(binding);
-			handlers.set(original.getShortcutKey(keys), callback);
-			return keys;
-		},
-		useDoubleKeyBindingAtom: (
-			binding: ReturnType<typeof original.atomWithKeybindingStorage>,
-			callback: KeyBindingCallback,
-			_deps: unknown,
-			enabled: boolean,
-		) => {
-			const keys = useAtomValue(binding);
-			if (enabled) doubleHandlers.set(original.getShortcutKey(keys), callback);
+			const shortcut = original.getShortcutKey(keys);
+			handlers.set(shortcut, callback);
+			if (original.useDoublePress(binding)) doublePressShortcuts.add(shortcut);
 			return keys;
 		},
 	};
@@ -77,6 +70,9 @@ vi.mock("$/components/TopMenu/modals/HomeMenu", () => ({
 }));
 vi.mock("$/components/TopMenu/modals/ToolMenu", () => ({
 	ToolMenu: () => null,
+}));
+vi.mock("$/modules/menu-actions/MenuActionShortcuts", () => ({
+	MenuActionShortcuts: () => null,
 }));
 
 vi.mock("$/modules/audio/audio-engine", () => ({
@@ -117,7 +113,9 @@ import {
 	cmdRedoAlternate,
 } from "./commands";
 import { AuditionKeyBinding } from "./components/AuditionKeyBinding";
-import { autoSegmentDoublePressAtom } from "./states";
+import { doublePressAtom } from "./states";
+// Installs the second-key and double-press resolvers, as App does.
+import "./binding-list";
 
 function invoke(shortcut: string) {
 	const handler = handlers.get(shortcut);
@@ -134,7 +132,7 @@ function mount(
 
 beforeEach(() => {
 	handlers.clear();
-	doubleHandlers.clear();
+	doublePressShortcuts.clear();
 	vi.clearAllMocks();
 	vi.unstubAllEnvs();
 });
@@ -164,24 +162,21 @@ describe("menu shortcut wiring", () => {
 	it("quick segmentation and the dialog have distinct shortcuts", () => {
 		mount(TopMenu, createStore());
 		invoke("KeyE");
-		expect(menuActions.onQuickAutoSegment).not.toHaveBeenCalled();
-		doubleHandlers.get("KeyE")?.({
-			downTime: 0,
-			downTimeOffset: 0,
-			triggerTime: 0,
-		});
 		expect(menuActions.onQuickAutoSegment).toHaveBeenCalledOnce();
 		invoke("Shift + KeyE");
 		expect(menuActions.onAutoSegment).toHaveBeenCalledOnce();
 	});
 
-	it("uses a single tap when double press is disabled", () => {
+	it("quick segmentation waits for a double press by default, and only it", () => {
+		mount(TopMenu, createStore());
+		expect([...doublePressShortcuts]).toEqual(["KeyE"]);
+	});
+
+	it("quick segmentation runs on one press once Press twice to run is off", () => {
 		const store = createStore();
-		store.set(autoSegmentDoublePressAtom, false);
+		store.set(doublePressAtom("autoSegment"), false);
 		mount(TopMenu, store);
-		invoke("KeyE");
-		expect(menuActions.onQuickAutoSegment).toHaveBeenCalledOnce();
-		expect(doubleHandlers.size).toBe(0);
+		expect(doublePressShortcuts.size).toBe(0);
 	});
 });
 

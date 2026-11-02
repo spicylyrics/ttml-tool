@@ -1,13 +1,15 @@
 .dialogContent {
-	width: min(980px, calc(100vw - 32px));
-	height: min(760px, 88vh);
+	--settings-sidebar: 232px;
+	position: relative;
+	width: min(1040px, calc(100vw - 32px));
+	height: min(780px, 88vh);
 	padding: 0;
 	overflow: hidden;
 }
 
 .settingsLayout {
 	display: grid;
-	grid-template-columns: 220px minmax(0, 1fr);
+	grid-template-columns: var(--settings-sidebar) minmax(0, 1fr);
 	height: 100%;
 	min-height: 0;
 }
@@ -16,14 +18,18 @@
 	display: flex;
 	flex-direction: column;
 	min-width: 0;
+	min-height: 0;
+	overflow-y: auto;
 	padding: var(--space-4) var(--space-2);
 	background: var(--gray-a2);
 	border-right: 1px solid var(--gray-a5);
+	scrollbar-width: thin;
 }
 
 .sidebarTitle {
 	margin: 0 var(--space-3) var(--space-3);
 	font-size: var(--font-size-3);
+	letter-spacing: -0.014em;
 }
 
 .searchField {
@@ -31,21 +37,11 @@
 	flex-shrink: 0;
 }
 
-.noResults {
-	padding: var(--space-2) var(--space-3);
-}
-
-.searchHighlight {
-	outline: 2px solid var(--accent-9);
-	outline-offset: 3px;
-	border-radius: var(--radius-3);
-}
-
 .navigation {
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	gap: var(--space-1);
+	gap: 2px;
 	box-shadow: none;
 }
 
@@ -53,18 +49,29 @@
 	display: none;
 }
 
+/* The space between clusters is the only divider: no rule, no label. */
+.clusterGap {
+	flex: 0 0 auto;
+	height: var(--space-3);
+}
+
+/* Labels wrap instead of running out of the sidebar: Russian and Finnish page
+   names don't fit one line. */
 .navigationItem {
 	position: relative;
 	display: flex;
+	flex-direction: row;
 	justify-content: flex-start;
-	gap: var(--space-2);
 	width: 100%;
-	min-height: 36px;
-	padding: 0 var(--space-3) 0 calc(var(--space-3) - 3px);
+	height: auto;
+	min-height: 34px;
+	padding: 7px var(--space-3) 7px calc(var(--space-3) - 3px);
 	border-left: 3px solid transparent;
 	border-radius: var(--radius-3);
 	color: var(--gray-11);
 	font-weight: 500;
+	white-space: normal;
+	text-align: start;
 }
 
 .navigation .navigationItem[data-state="active"]::before {
@@ -72,18 +79,42 @@
 	display: none;
 }
 
-.navigationItem svg {
-	width: 18px;
-	height: 18px;
-	flex: 0 0 auto;
-}
-
 .navigationItem :global(.rt-TabsTriggerInner) {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: flex-start;
 	gap: var(--space-2);
-	width: 100%;
+	/* Radix pins this copy absolutely and sizes the tab from a hidden twin;
+	   in flow, a wrapped label grows the tab instead. */
+	position: static;
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 0;
+	background: none;
+	line-height: 20px;
+	overflow-wrap: anywhere;
+	hyphens: auto;
+}
+
+/* Radix renders the label twice (one copy reserves bold width). */
+.navigationItem :global(.rt-TabsTriggerInnerHidden) {
+	display: none;
+}
+
+.navigationIcon {
+	display: inline-flex;
+	flex: 0 0 auto;
+	margin-top: 1px;
+}
+
+.navigationIcon svg {
+	width: 18px;
+	height: 18px;
+}
+
+.navigationLabel {
+	flex: 1 1 auto;
+	min-width: 0;
 }
 
 .navigationItem[data-state="active"] {
@@ -92,12 +123,44 @@
 	background: var(--accent-a4);
 }
 
+/* Matching settings on a page, while searching. */
+.count {
+	display: inline-flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+	min-width: 20px;
+	height: 20px;
+	padding: 0 6px;
+	border-radius: calc(9999px * var(--radius-factor));
+	background: var(--gray-a4);
+	color: var(--gray-12);
+	font-size: var(--font-size-1);
+	font-weight: 500;
+	font-variant-numeric: tabular-nums;
+}
+
+.navigationItem[data-state="active"] .count {
+	background: var(--accent-a5);
+}
+
 /* Under the design the active tab is a tinted 8px pill; a side stripe would
    bend around the rounder corner. */
+:global(:root[data-design="spicy-lyrics"]) .sidebar {
+	background: var(--sl-chrome);
+	border-color: var(--sl-border);
+}
+
 :global(:root[data-design="spicy-lyrics"]) .navigationItem {
 	padding-left: var(--space-3);
 	border-left: 0;
 	border-radius: var(--radius-2);
+}
+
+:global(:root[data-design="spicy-lyrics"])
+	.navigationItem:not([data-state="active"]):hover {
+	background: var(--gray-a3);
+	color: var(--gray-12);
 }
 
 :global(:root[data-design="spicy-lyrics"])
@@ -108,7 +171,7 @@
 
 :global(:root[data-design="spicy-lyrics"])
 	.navigationItem[data-state="active"]
-	svg {
+	.navigationIcon {
 	color: var(--accent-11);
 }
 
@@ -126,14 +189,31 @@
 .contentPane {
 	min-width: 0;
 	overflow-y: auto;
-	padding: var(--space-5);
+	padding: var(--space-6) var(--space-6) var(--space-7);
+}
+
+/* Pinned to the dialog, not the scrolling pane, so it never scrolls away. */
+.close {
+	position: absolute;
+	top: var(--space-3);
+	right: var(--space-3);
+	z-index: 1;
+	margin: 0;
+}
+
+.contentPane[data-empty] .tabContent {
+	display: none;
+}
+
+.empty {
+	margin-top: var(--space-8);
 }
 
 .tabContent {
 	outline: none;
 }
 
-/* While searching, every page stays mounted so its text can be matched. */
+/* While searching, every page stays mounted so its rows can be read. */
 .tabContent[data-state="inactive"] {
 	display: none;
 }
@@ -153,16 +233,44 @@
 }
 
 .page {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-5);
 	max-width: 760px;
 	margin: 0 auto;
 }
 
-.page :global(.rt-Card) {
+.pageTitle {
+	margin: 0;
+	line-height: 1.15;
+	letter-spacing: -0.028em;
+}
+
+.pageBody {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-5);
+}
+
+.pageBody :global(.rt-Card) {
 	padding: var(--space-3);
 }
 
-.page :global(.rt-Heading) {
+.pageBody :global(.rt-Heading) {
 	line-height: 1.2;
+}
+
+/* Rows and headings a search filters out. The doubled attribute outranks
+   Radix's own display rules on Cards and Headings. */
+.pageBody [data-search-hidden][data-search-hidden] {
+	display: none;
+}
+
+/* The best match on the open page. */
+.pageBody [data-search-match] {
+	outline: 2px solid var(--accent-9);
+	outline-offset: 3px;
+	border-radius: var(--radius-4);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -172,9 +280,24 @@
 	}
 }
 
-@media (max-width: 720px) {
-	.settingsLayout {
-		grid-template-columns: 168px minmax(0, 1fr);
+@media (prefers-contrast: more) {
+	.sidebar {
+		border-color: var(--gray-a8);
+	}
+
+	.navigationItem {
+		color: var(--gray-12);
+	}
+
+	.navigationItem[data-state="active"] {
+		box-shadow: inset 0 0 0 1px var(--accent-9);
+	}
+}
+
+/* Below the 1024px desktop floor (a small window), give the content room. */
+@media (max-width: 900px) {
+	.dialogContent {
+		--settings-sidebar: 196px;
 	}
 
 	.navigationItem {
@@ -183,6 +306,6 @@
 	}
 
 	.contentPane {
-		padding: var(--space-3);
+		padding: var(--space-4) var(--space-3);
 	}
 }

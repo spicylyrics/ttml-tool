@@ -1,0 +1,21 @@
+#!/bin/sh
+# First-run fontconfig cache builder for the Spicy Lyrics TTML Tool flatpak.
+#
+# The flatpak runtime redirects XDG_CACHE_HOME to the app's own cache dir,
+# which starts empty. WebKitGTK's Skia fontconfig backend (FontCache ->
+# SkFontMgr_fontconfig::GetFamilyNames) then rescans every host font on each
+# font resolution, pegging one CPU core at 100% and never showing the window.
+# The host .deb never hits this because it uses the already-built host
+# fontconfig cache.
+#
+# Force a cache build once. The cache persists under XDG_CACHE_HOME, so later
+# launches (and every launch once the cache exists) skip this and start in
+# milliseconds. The build is ~3s the first time; without it the app hangs.
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/fontconfig"
+
+if ! find "$cache_dir" -name '*.cache-*' 2>/dev/null | grep -q .; then
+    fc-cache -f >/dev/null 2>&1 || true
+fi
+
+exec /app/bin/amll-ttml-tool-bin "$@"

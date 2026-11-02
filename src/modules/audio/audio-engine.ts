@@ -21,6 +21,7 @@ import playerUrl from "./worklet/audio.worklet.ts?worker&url";
 import type {
 	PlayerCommand,
 	PlayerEvent,
+	RendererCommand,
 	RenderReport,
 	VoiceId,
 } from "./worklet/protocol";
@@ -155,6 +156,7 @@ export class AudioEngine extends EventTarget {
 	/** Raw parsed tags (title/artist/album included when present); music-metadata signals availability. */
 	public musicMetadata: AudioMetadata | null = null;
 	private node: AudioWorkletNode | null = null;
+	private renderer: Worker | null = null;
 	private playerReady: Promise<void> | null = null;
 	private loadGeneration = 0;
 	private loadAbort: AbortController | null = null;
@@ -233,7 +235,8 @@ export class AudioEngine extends EventTarget {
 	get ctxOutputLatency() {
 		return this.ctx.outputLatency ?? 0;
 	}
-	private get audibleContextTime() {
+	/** Context time of the sample being heard now, the clock sync stamps use. */
+	get audibleContextTime() {
 		// getOutputTimestamp supplies the device's audible context time, including graph/device latency.
 		const stamp = this.ctx.getOutputTimestamp?.();
 		if (stamp?.performanceTime && stamp.contextTime !== undefined) {
@@ -490,8 +493,7 @@ export class AudioEngine extends EventTarget {
 				this.playing = false;
 				this.dispatchEvent(new Event("music-timeupdate"));
 				this.dispatchEvent(new Event("music-pause"));
-			} else if (this.playing)
-				this.dispatchEvent(new Event("music-timeupdate"));
+			}
 			if (hasEnded(this.auditionEndReport)) this.stopAudition();
 			else if (this.auditionPlaying) {
 				globalStore.set(
@@ -500,7 +502,6 @@ export class AudioEngine extends EventTarget {
 				);
 			}
 			if (
-				this.playing ||
 				this.auditionPlaying ||
 				this.musicEndReport ||
 				this.auditionEndReport
@@ -524,11 +525,14 @@ export class AudioEngine extends EventTarget {
 		++this.loadGeneration;
 		this.loadAbort?.abort();
 		this.loadAbort = null;
+		this.workerClient.cancelPending();
 		this.pauseMusic();
 		this.post({ type: "destroy" });
 		this.node?.disconnect();
 		if (this.node) this.node.port.close();
 		this.node = null;
+		this.renderer?.terminate();
+		this.renderer = null;
 		this.playerReady = null;
 		this.musicBuffer = null;
 		this.musicMetadata = null;
@@ -605,6 +609,7 @@ export class AudioEngine extends EventTarget {
 				/* Tag-less files remain playable. */
 			});
 		let node: AudioWorkletNode | null = null;
+		let renderer: Worker | null = null;
 		let rejectInit: ((error: Error) => void) | null = null;
 		const operation = async () => {
 			let buffer: AudioBuffer;
@@ -660,22 +665,41 @@ export class AudioEngine extends EventTarget {
 				() => abort.signal.removeEventListener("abort", cancelReady),
 			);
 			ownedNode.connect(this.eqEntryPoint);
-			// Transfer one copy; neither structured cloning nor audition duplicates the full PCM.
 			const channels = Array.from(
 				{ length: buffer.numberOfChannels },
 				(_, channel) => buffer.getChannelData(channel).slice(),
 			);
-			// Compiled WASM modules do not reliably deserialize in Chromium AudioWorklet.
-			const command: PlayerCommand = { type: "init", channels, wasm };
+			renderer = new Worker(
+				new URL("./workers/pcm-render.worker.ts", import.meta.url),
+				{ type: "module" },
+			);
+			renderer.onerror = (event) => {
+				const error = new Error(event.message || "Audio renderer failed");
+				rejectInit?.(error);
+				if (current() && this.node === ownedNode) this.failPlayback(error);
+			};
+			const channel = new MessageChannel();
+			const command: RendererCommand = {
+				type: "init",
+				channels,
+				wasm,
+				sampleRate: buffer.sampleRate,
+				port: channel.port1,
+			};
+			renderer.postMessage(command, [
+				channel.port1,
+				...channels.map((channel) => channel.buffer),
+			]);
 			ownedNode.port.postMessage(
-				command,
-				channels.map((channel) => channel.buffer),
+				{ type: "init", port: channel.port2 } satisfies PlayerCommand,
+				[channel.port2],
 			);
 			if (this.ctx.state === "running") {
 				await this.withTimeout(ready, audioErrorMessage("workletInit"));
 			}
 			assertCurrent();
 			this.node = ownedNode;
+			this.renderer = renderer;
 			this.playerReady = ready;
 			this.musicBuffer = buffer;
 			globalStore.set(audioBufferAtom, buffer);
@@ -688,6 +712,7 @@ export class AudioEngine extends EventTarget {
 			const cancel = () => {
 				const error = new DOMException("Audio load replaced", "AbortError");
 				rejectInit?.(error);
+				renderer?.terminate();
 				if (node) {
 					node.port.postMessage({ type: "destroy" });
 					node.disconnect();
@@ -698,6 +723,7 @@ export class AudioEngine extends EventTarget {
 			abort.signal.addEventListener("abort", cancel, { once: true });
 			operation()
 				.then(resolve, (error) => {
+					renderer?.terminate();
 					if (node) {
 						node.port.postMessage({ type: "destroy" });
 						node.disconnect();

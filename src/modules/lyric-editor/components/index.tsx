@@ -14,11 +14,12 @@ import {
 	TextBulletListSquare24Regular,
 } from "@fluentui/react-icons";
 import { Box, Button, Flex, Grid, Text } from "@radix-ui/themes";
-import { useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
+import { useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import {
 	type FC,
 	forwardRef,
+	useCallback,
 	useEffect,
 	useImperativeHandle,
 	useRef,
@@ -32,18 +33,11 @@ import {
 	guideStepAtom,
 	guideWelcomeOpenAtom,
 } from "$/modules/onboarding/states";
-import {
-	folderProjectsEnabledAtom,
-	geniusCategorizationEnabledAtom,
-	geniusHeaderDetectionDialogOpenAtom,
-	geniusHeaderDetectionDialogShownAtom,
-} from "$/modules/settings/states/index.ts";
+import { folderProjectsEnabledAtom } from "$/modules/settings/states/index.ts";
 import { importLyricsDialogAtom, projectsDialogAtom } from "$/states/dialogs";
 import { lyricLinesAtom, ToolMode, toolModeAtom } from "$/states/main.ts";
-import {
-	hasGeniusHeaderAtom,
-	lyricLinesOnlyAtom,
-} from "../states/document-structure.ts";
+import { lyricLinesOnlyAtom } from "../states/document-structure.ts";
+import { ApplySectionTimingsDialog } from "./ApplySectionTimingsDialog.tsx";
 import styles from "./index.module.css";
 import { LyricLineView } from "./lyric-line-view";
 import { timingCopyPlacementAtom } from "./lyric-line-view-states";
@@ -51,11 +45,6 @@ import { useLineDragDrop } from "./lyric-lines-view/use-line-drag-drop.ts";
 import { useLineListAutoScroll } from "./lyric-lines-view/use-line-list-auto-scroll.ts";
 import { useLineListScrolling } from "./lyric-lines-view/use-line-list-scrolling.ts";
 import { useLineListSelection } from "./lyric-lines-view/use-line-list-selection.ts";
-import {
-	CategorizeSelectionDialog,
-	SectionManagerDialog,
-	SectionMetadataDialog,
-} from "./SectionActions";
 
 export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 	const editLyric = useAtomValue(lyricLinesOnlyAtom);
@@ -84,6 +73,23 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 
 	useLineDragDrop({ viewElRef, editLyric, toolMode, store, editLyricLines });
 
+	// A new view first draws the top of the song, then jumps to its saved line
+	// and fills in around it over a few frames. Keep it hidden until it has
+	// settled so a mode switch shows the finished list at once. The timeout
+	// covers a list that never finds its line.
+	const [anchorSettled, setAnchorSettled] = useState(false);
+	// The list measures its first row before drawing the rest, so give it two
+	// more frames to fill in.
+	const onAnchorSettled = useCallback(() => {
+		requestAnimationFrame(() =>
+			requestAnimationFrame(() => setAnchorSettled(true)),
+		);
+	}, []);
+	useEffect(() => {
+		const timer = window.setTimeout(onAnchorSettled, 600);
+		return () => window.clearTimeout(timer);
+	}, [onAnchorSettled]);
+
 	const {
 		scrollToIndex,
 		lastSelectionScrolledIndexRef,
@@ -105,28 +111,8 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 		visibleItems,
 		toolMode,
 		store,
+		onAnchorSettled,
 	});
-
-	const geniusCategorizationEnabled = useAtomValue(
-		geniusCategorizationEnabledAtom,
-	);
-	const dialogShown = useAtomValue(geniusHeaderDetectionDialogShownAtom);
-	const [, setDetectionDialogOpen] = useAtom(
-		geniusHeaderDetectionDialogOpenAtom,
-	);
-	const hasGeniusHeader = useAtomValue(hasGeniusHeaderAtom);
-
-	useEffect(() => {
-		if (dialogShown || geniusCategorizationEnabled) return;
-		if (hasGeniusHeader) {
-			setDetectionDialogOpen(true);
-		}
-	}, [
-		hasGeniusHeader,
-		dialogShown,
-		geniusCategorizationEnabled,
-		setDetectionDialogOpen,
-	]);
 
 	const { handleLocate } = useLineListAutoScroll({
 		viewElRef,
@@ -227,9 +213,7 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 			flexGrow="1"
 			className={styles.lyricLinesWrapper}
 		>
-			<SectionMetadataDialog />
-			<SectionManagerDialog />
-			<CategorizeSelectionDialog />
+			<ApplySectionTimingsDialog />
 			<Box
 				flexGrow="1"
 				style={{
@@ -241,6 +225,7 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 					maxHeight: "100%",
 					overflowY: "auto",
 					backgroundColor: "var(--editor-bg, transparent)",
+					visibility: anchorSettled ? undefined : "hidden",
 				}}
 				ref={viewElRef}
 			>

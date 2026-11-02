@@ -1,7 +1,6 @@
 import {
 	BackgroundSyncControl,
 	SettingToggle,
-	SyncLevelControl,
 	SyncOffsetControl,
 } from "$/modules/settings/components/WorkflowControls";
 /*
@@ -21,30 +20,23 @@ import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ActionTooltip } from "$/components/ActionTooltip";
 import { cmdToggleWordHighlight } from "$/modules/keyboard/commands";
+import { MENU_ACTIONS } from "$/modules/menu-actions/actions";
+import { RIBBON_ACTIONS } from "$/modules/menu-actions/ribbon-actions";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import {
-	displayRomanizationInSyncAtom,
 	highlightActiveWordAtom,
-	highlightErrorsAtom,
-	showTimestampsAtom,
 	showWordRomanizationInputAtom,
 } from "$/modules/settings/states/index.ts";
-import {
-	showTouchSyncPanelAtom,
-	spectrogramHoverSyncEnabledAtom,
-	syncActiveLineHighlightAtom,
-	syncAutoScrollAtom,
-} from "$/modules/settings/states/sync.ts";
+import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync.ts";
 import { showPreviewPanelAtom } from "$/states/main.ts";
 import { AdvancedSection } from "./AdvancedSection";
 import { RibbonFrame, RibbonSection } from "./common";
-import { RibbonLabel, RibbonToggle } from "./RibbonToggle";
+import { RibbonActionToggle, RibbonLabel, RibbonToggle } from "./RibbonToggle";
 
 export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 	const showWordRomanizationInput = useAtomValue(showWordRomanizationInputAtom);
 	const { t } = useTranslation();
 	const showAdvanced = useAtomValue(advancedRibbonControlsAtom);
-	const syncLevelLabel = t("ribbonBar.syncMode.syncLevel", "Sync by");
 	const bgSyncLabel = t("ribbonBar.syncMode.bgLyricSync", "Background lines");
 	const previewPanelLabel = t(
 		"ribbonBar.editMode.previewPanel",
@@ -79,26 +71,6 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 					<SyncOffsetControl commit compact />
 				</Grid>
 			</RibbonSection>
-			<RibbonSection label={syncLevelLabel}>
-				<Flex
-					direction="column"
-					gap="2"
-					align="center"
-					justify="center"
-					px="2"
-					style={{ height: "100%" }}
-				>
-					<ActionTooltip
-						label={syncLevelLabel}
-						description={t(
-							"settings.workflow.syncLevelDesc",
-							"Word: time each word as you go. Line: time whole lines and spread their words out evenly, for a rough sync you fine-tune in the spectrogram.",
-						)}
-					>
-						<SyncLevelControl />
-					</ActionTooltip>
-				</Flex>
-			</RibbonSection>
 			<RibbonSection
 				label={t("ribbonBar.syncMode.playbackTracking", "Tracking")}
 			>
@@ -109,24 +81,19 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 					flexGrow="1"
 					align="center"
 				>
-					<RibbonToggle
-						label={t("ribbonBar.syncMode.autoScroll", "Auto-scroll")}
+					<RibbonActionToggle
+						action={RIBBON_ACTIONS.syncAutoScroll}
 						description={t(
 							"settings.common.syncAutoScrollDesc",
 							"Scrolls the editor to follow the line that is playing.",
 						)}
-						setting={syncAutoScrollAtom}
 					/>
-					<RibbonToggle
-						label={t(
-							"ribbonBar.syncMode.highlightActiveLine",
-							"Highlight line",
-						)}
+					<RibbonActionToggle
+						action={RIBBON_ACTIONS.syncHighlightLine}
 						description={t(
 							"settings.common.highlightActiveLineDesc",
 							"Highlights the line that is playing in the selected mode.",
 						)}
-						setting={syncActiveLineHighlightAtom}
 					/>
 				</Grid>
 			</RibbonSection>
@@ -138,6 +105,7 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 							"settings.workflow.previewPanelDesc",
 							"Show a live lyric preview next to the word list.",
 						)}
+						shortcut={RIBBON_ACTIONS.previewPanel.command.atom}
 					>
 						<SettingToggle setting={showPreviewPanelAtom} />
 					</ActionTooltip>
@@ -176,13 +144,12 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 						flexGrow="1"
 						align="center"
 					>
-						<RibbonToggle
-							label={t("ribbonBar.syncMode.touchSyncPanel", "Touch sync panel")}
+						<RibbonActionToggle
+							action={RIBBON_ACTIONS.touchSyncPanel}
 							description={t(
 								"settings.workflow.touchSyncPanelDesc",
 								"Show on-screen Start, Next and End buttons for touch screens.",
 							)}
-							setting={showTouchSyncPanelAtom}
 						/>
 						<RibbonToggle
 							label={t(
@@ -193,6 +160,7 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 								"settings.common.spectrogramHoverSyncDesc",
 								"While the mouse is over the spectrogram in Time mode, the sync keys record the time under the mouse instead of the playback time.",
 							)}
+							shortcut={MENU_ACTIONS.spectrogramHoverSync.command.atom}
 							setting={spectrogramHoverSyncEnabledAtom}
 						/>
 					</Grid>
@@ -209,13 +177,12 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 						flexGrow="1"
 						align="center"
 					>
-						<RibbonToggle
-							label={t("ribbonBar.syncMode.showTimestamps", "Show timestamps")}
+						<RibbonActionToggle
+							action={RIBBON_ACTIONS.showTimestamps}
 							description={t(
 								"settings.workflow.showTimestampsDesc",
 								"Show start and end times on each word.",
 							)}
-							setting={showTimestampsAtom}
 						/>
 						<RibbonToggle
 							label={t(
@@ -229,28 +196,20 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 							shortcut={cmdToggleWordHighlight.atom}
 							setting={highlightActiveWordAtom}
 						/>
-						<RibbonToggle
-							label={t(
-								"ribbonBar.syncMode.highlightErrors",
-								"Highlight errors",
-							)}
+						<RibbonActionToggle
+							action={RIBBON_ACTIONS.highlightErrors}
 							description={t(
 								"settings.assistant.highlightErrorsDesc",
 								"Mark words whose start time is after their end time.",
 							)}
-							setting={highlightErrorsAtom}
 						/>
 						{showWordRomanizationInput && (
-							<RibbonToggle
-								label={t(
-									"ribbonBar.syncMode.showPerWordRomanization",
-									"Show per-word romanization",
-								)}
+							<RibbonActionToggle
+								action={RIBBON_ACTIONS.syncWordRomanization}
 								description={t(
 									"settings.workflow.showPerWordRomanizationDesc",
 									"Show each word's romanization under it.",
 								)}
-								setting={displayRomanizationInSyncAtom}
 							/>
 						)}
 					</Grid>

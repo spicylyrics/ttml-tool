@@ -4,6 +4,8 @@
  */
 import classNames from "classnames";
 import { memo, type RefObject } from "react";
+import { useTranslation } from "react-i18next";
+import type { WordTimingProblem } from "$/modules/preview-problems/detect-word-timing-problems";
 import styles from "./index.module.css";
 import {
 	groupSpicyTokens,
@@ -13,6 +15,17 @@ import {
 	type SpicyToken,
 } from "./model";
 import { rowGap, type SpicyVirtualRow } from "./useSpicyVirtualList";
+
+/** Tooltip and accessible label for each problem a word can be marked with. */
+const problemLabels: Record<WordTimingProblem, [string, string]> = {
+	untimed: ["previewProblems.untimed", "No timing in a timed line"],
+	endsBeforeStart: ["previewProblems.endsBeforeStart", "Ends before it starts"],
+	startsBeforeLine: [
+		"previewProblems.startsBeforeLine",
+		"Starts before its line",
+	],
+	endsAfterLine: ["previewProblems.endsAfterLine", "Ends after its line"],
+};
 
 type NodeMaps = {
 	lineNodes: RefObject<Map<string, HTMLDivElement>>;
@@ -77,6 +90,10 @@ const SpicyLineRow = memo(function SpicyLineRow({
 	showTranslation: boolean;
 	seek: (time: number) => void;
 }) {
+	const { t } = useTranslation();
+	const untimed = line.isUntimed
+		? t("previewProblems.untimedLine", "Not synced yet")
+		: undefined;
 	const renderToken = (
 		line: SpicyLine,
 		word: SpicyToken,
@@ -87,6 +104,12 @@ const SpicyLineRow = memo(function SpicyLineRow({
 		const key = keyFor(line, word, wordIndex);
 		const letters = word.letters;
 		const className = letters ? styles.letterGroup : styles.word;
+		const problem = word.problems?.length
+			? word.problems.map((item) => t(...problemLabels[item])).join(". ")
+			: undefined;
+		const pending = word.isUntimed
+			? t("previewProblems.untimedLine", "Not synced yet")
+			: undefined;
 		return (
 			<span
 				key={key}
@@ -99,8 +122,13 @@ const SpicyLineRow = memo(function SpicyLineRow({
 					wordBoundary && styles.wordBoundary,
 					partOfWord && styles.partOfWord,
 					word.allowInternalWrap && styles.breakableToken,
+					problem && styles.timingProblem,
+					pending && styles.untimedWord,
 				)}
 				dir={isRtl(word.text) ? "rtl" : undefined}
+				title={problem ?? pending}
+				aria-label={problem ? `${word.text}: ${problem}` : undefined}
+				data-timing-problem={problem ? word.problems?.join(" ") : undefined}
 			>
 				{letters
 					? letters
@@ -142,9 +170,12 @@ const SpicyLineRow = memo(function SpicyLineRow({
 				line.isRtl && styles.rtl,
 				line.isBackground && styles.backgroundLine,
 				line.isDuet && styles.duet,
+				line.isUntimed && styles.untimedLine,
 			)}
 			dir={line.isRtl ? "rtl" : undefined}
-			onClick={() => seek(line.startTime)}
+			title={untimed}
+			data-untimed={line.isUntimed || undefined}
+			onClick={line.isUntimed ? undefined : () => seek(line.startTime)}
 		>
 			{line.isDotLine ? (
 				<div className={styles.dotGroup}>
@@ -182,6 +213,9 @@ const SpicyLineRow = memo(function SpicyLineRow({
 							className={classNames(
 								styles.wordGroup,
 								group.hasTrailingSpace && styles.wordBoundary,
+								// One box around a split word, not one per touching syllable.
+								group.items.some(({ token }) => token.problems?.length) &&
+									styles.problemGroup,
 							)}
 						>
 							{/* Every syllable but the last joins the next one, so each

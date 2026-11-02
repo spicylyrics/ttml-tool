@@ -17,9 +17,9 @@ import {
 	Theme,
 	Tooltip,
 } from "@radix-ui/themes";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
-import { type FC, useCallback, useEffect, useRef, useState } from "react";
+import { type FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { uid } from "uid";
 import { OptionPicker } from "$/components/OptionPicker";
@@ -34,7 +34,7 @@ import {
 import { lyricLinesAtom, selectedLinesAtom } from "$/states/main.ts";
 import styles from "./TimeShiftToolbar.module.css";
 
-export const TimeShiftToolbar: FC = () => {
+export const TimeShiftToolbar: FC = memo(() => {
 	const { t } = useTranslation();
 	const [previewOffset, setPreviewOffset] = useAtom(timeShiftPreviewOffsetAtom);
 	const [previewActive, setPreviewActive] = useAtom(timeShiftPreviewActiveAtom);
@@ -45,7 +45,8 @@ export const TimeShiftToolbar: FC = () => {
 	const lyricLines = useAtomValue(lyricLinesAtom);
 	const selectedLines = useAtomValue(selectedLinesAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
-	const currentTime = useAtomValue(currentTimeAtom);
+	// Read the playhead on click; subscribing would re-render every frame.
+	const store = useStore();
 
 	const [isCopyMode, setIsCopyMode] = useState(false);
 	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -81,14 +82,9 @@ export const TimeShiftToolbar: FC = () => {
 		const firstIndex = getFirstAffectedIndex();
 		if (firstIndex !== -1 && lyricLines.lyricLines[firstIndex]) {
 			const targetLine = lyricLines.lyricLines[firstIndex];
-			setPreviewOffset(currentTime - targetLine.startTime);
+			setPreviewOffset(store.get(currentTimeAtom) - targetLine.startTime);
 		}
-	}, [
-		currentTime,
-		getFirstAffectedIndex,
-		lyricLines.lyricLines,
-		setPreviewOffset,
-	]);
+	}, [store, getFirstAffectedIndex, lyricLines.lyricLines, setPreviewOffset]);
 
 	// Default scope to "selected" if lines are selected
 	useEffect(() => {
@@ -386,4 +382,4 @@ export const TimeShiftToolbar: FC = () => {
 			</Box>
 		</Theme>
 	);
-};
+});

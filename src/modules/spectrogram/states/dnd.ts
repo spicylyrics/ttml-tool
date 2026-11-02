@@ -11,6 +11,8 @@ type DividerDragOperation = {
 	startX: number;
 	isGapCreation: boolean;
 	virtual?: boolean;
+	/** Set by a merged line-end handle: moves the last word's end and the line end together. */
+	mergedLineEnd?: boolean;
 };
 
 type WordPanOperation = {

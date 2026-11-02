@@ -60,8 +60,6 @@ export const normalizeLyricText = (
 		sections: lyrics.sections?.map((section) => ({
 			...section,
 			label: normalize(section.label),
-			notes: normalizeOptionalText(section.notes, normalize),
-			vocalist: normalizeOptionalText(section.vocalist, normalize),
 		})),
 		lyricLines: lyrics.lyricLines.map((line) => ({
 			...line,

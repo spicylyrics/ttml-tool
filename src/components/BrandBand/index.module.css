@@ -58,7 +58,8 @@
 	top: -34%;
 	right: -20%;
 	width: min(50%, 280px);
-	color: var(--sl-band-tint);
+	/* Unset unless the user picked a logo color (src/modules/logo-color). */
+	color: var(--sl-logo-color, var(--sl-band-tint));
 	opacity: 0.5;
 	transform: rotate(-14deg);
 	animation: band-mark-settle 700ms var(--sl-ease-out) both;

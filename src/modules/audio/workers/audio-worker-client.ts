@@ -35,10 +35,17 @@ export class AudioWorkerClient {
 
 	constructor(uiHandlers: WorkerUIHandlers) {
 		this.uiHandlers = uiHandlers;
-		this.worker = new AudioWorker();
+		this.worker = this.createWorker();
+	}
 
-		this.worker.onmessage = this.handleMessage.bind(this);
-		this.worker.onerror = (e) => {
+	private createWorker() {
+		const worker = new AudioWorker();
+
+		worker.onmessage = (event) => {
+			if (this.worker === worker) this.handleMessage(event);
+		};
+		worker.onerror = (e) => {
+			if (this.worker !== worker) return;
 			console.error("[Worker Error]", e);
 			this.fatalError = new Error(e.message || "Audio worker failed");
 			for (const pending of this.pendingRequests.values()) {
@@ -46,6 +53,24 @@ export class AudioWorkerClient {
 			}
 			this.pendingRequests.clear();
 		};
+		worker.onmessageerror = () => {
+			if (this.worker !== worker) return;
+			this.fatalError = new Error("Invalid audio worker response");
+			for (const pending of this.pendingRequests.values())
+				pending.reject(this.fatalError);
+			this.pendingRequests.clear();
+		};
+		return worker;
+	}
+
+	public cancelPending() {
+		if (this.pendingRequests.size === 0 && !this.fatalError) return;
+		this.worker.terminate();
+		for (const pending of this.pendingRequests.values())
+			pending.reject(new DOMException("Audio load replaced", "AbortError"));
+		this.pendingRequests.clear();
+		this.fatalError = null;
+		this.worker = this.createWorker();
 	}
 
 	private handleMessage(e: MessageEvent<WorkerResponse>) {

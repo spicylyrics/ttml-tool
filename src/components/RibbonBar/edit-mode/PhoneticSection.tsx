@@ -27,6 +27,7 @@ import {
 	pasteRomanizationDialogAtom,
 	romanizationToolsFlagAtom,
 } from "$/modules/romanization/states";
+import { SlIcon } from "$/components/SlIcon";
 import { displayRomanizationInSyncAtom } from "$/modules/settings/states/index.ts";
 import { RibbonSection } from "../common";
 
@@ -63,6 +64,7 @@ export const PhoneticSection = () => {
 		<RibbonSection
 			label={
 				<Flex gap="1" align="center">
+					<SlIcon name="romanization" />
 					{t("ribbonBar.editMode.romanization.section", "Romanization")}
 					<Popover.Root>
 						<ActionTooltip label={aboutLabel}>

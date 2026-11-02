@@ -22,6 +22,7 @@ import {
 import type { TTMLLyric } from "$/types/ttml";
 import { log, error as logError } from "$/utils/logging";
 import { AUDIO_EXTS, loadProjectAudioFile } from "./audio-io";
+import { isLinkedProjectDir } from "./linked-projects";
 import { readProjectLyricFile } from "./lyric-io";
 import {
 	assertSafePath,
@@ -130,6 +131,13 @@ export async function loadProjectFromDir(
 	}
 
 	const linked = parsedManifest.linked;
+	if (linked && !(await isLinkedProjectDir(dir))) {
+		logError(`Linked manifest outside the linked projects folder: ${dir}`);
+		toast.error(
+			t("error.folderProjectInvalid", "Invalid project manifest file"),
+		);
+		return false;
+	}
 	const validManifest: ProjectManifest = linked
 		? parsedManifest
 		: await resolveManifestFiles(dir, parsedManifest);

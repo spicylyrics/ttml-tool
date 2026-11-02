@@ -40,7 +40,9 @@ export const DEFAULT_IMPORT_TEXT_FORMAT: ImportTextFormat = {
 
 /**
  * Parse the import text into untimed lines. Blank rows are dropped, and
- * `[Header]` rows become sections or are dropped.
+ * `[Header]` rows become sections or are dropped. Words split only at the
+ * word separator: hyphenated words stay whole unless Process lyrics marked
+ * the split.
  */
 export function importTextToLines(
 	text: string,
@@ -48,6 +50,7 @@ export function importTextToLines(
 	makeSections: boolean,
 ): LyricLine[] {
 	return textToLines(text, {
+		splitHyphens: false,
 		mode: format.mode,
 		lineSeparatorMode: format.lineSeparatorMode,
 		lineSeparator: format.lineSeparator,

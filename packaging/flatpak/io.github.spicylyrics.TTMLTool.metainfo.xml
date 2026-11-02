@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.spicylyrics.TTMLTool</id>
+  <name>Spicy Lyrics TTML Tool</name>
+  <summary>Write and time word-by-word lyrics</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>AGPL-3.0-only</project_license>
+  <developer id="io.github.spicylyrics">
+    <name>Spicy Lyrics</name>
+  </developer>
+  <description>
+    <p>
+      A word-by-word TTML lyrics editor and timing tool for Spicy Lyrics.
+      Import lyrics, split them into syllables, time each word against the
+      song, and preview the result before exporting TTML.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.spicylyrics.TTMLTool.desktop</launchable>
+  <url type="homepage">https://tool.spicylyrics.org/</url>
+  <url type="bugtracker">https://github.com/spicylyrics/ttml-tool/issues</url>
+  <url type="vcs-browser">https://github.com/spicylyrics/ttml-tool</url>
+  <content_rating type="oars-1.1"/>
+</component>

@@ -1,5 +1,6 @@
-import { Card, Flex, Grid, Text } from "@radix-ui/themes";
+import { Flex, Grid, Text } from "@radix-ui/themes";
 import { OptionPicker } from "$/components/OptionPicker";
+import { Panel } from "$/components/Panel";
 import type { FontSelection } from "./useFontSelection";
 export const FontStyleSection = ({
 	t,
@@ -15,10 +16,7 @@ export const FontStyleSection = ({
 	| "appFontStyle"
 	| "setAppFontStyle"
 >) => (
-	<Card
-		variant="surface"
-		style={{ padding: "40px", backgroundColor: "var(--gray-2)" }}
-	>
+	<Panel tone="sunken" style={{ padding: "var(--space-7)" }}>
 		<Grid columns="2" gap="6" width="100%">
 			<Flex direction="column" gap="3">
 				<Text size="4" weight="bold" mb="2">
@@ -67,5 +65,5 @@ export const FontStyleSection = ({
 				/>
 			</Flex>
 		</Grid>
-	</Card>
+	</Panel>
 );

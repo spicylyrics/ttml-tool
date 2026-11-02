@@ -39,3 +39,37 @@
 .divider:focus {
 	outline: none;
 }
+
+/* Bars on a line's outer edge stop where its rounded corners start, so they
+   don't poke out past the curve. */
+.divider.lineStart .dividerLine,
+.divider.mergedEnd .dividerLine {
+	height: calc(100% - 2 * var(--radius-1));
+	align-self: center;
+}
+
+/* Split: the last word's end is a short accent bar... */
+.divider.wordEnd .dividerLine {
+	height: 50%;
+	align-self: center;
+}
+
+/* ...and the line end a full-height neutral bar, so the two read apart without color alone. */
+.divider.lineEnd .dividerLine {
+	height: calc(100% - 2 * var(--radius-1));
+	align-self: center;
+	background-color: var(--gray-11);
+}
+
+.divider.lineEnd:hover .dividerLine,
+.divider.lineEnd:focus .dividerLine {
+	background-color: var(--gray-12);
+}
+
+/* Where two lines touch, keep the seam's matching short bars. */
+.divider.touching.lineStart .dividerLine,
+.divider.touching.mergedEnd .dividerLine,
+.divider.touching.lineEnd .dividerLine {
+	height: 60%;
+	align-self: center;
+}

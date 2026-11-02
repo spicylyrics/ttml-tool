@@ -3,11 +3,14 @@ import { Button, Flex, Select, Text, TextField } from "@radix-ui/themes";
 import { useAtom } from "jotai";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FollowPlayheadSettings } from "$/modules/spectrogram/components/FollowPlayheadSettings";
 import {
 	customPaletteStopsAtom,
 	predefinedPalettes,
 	selectedPaletteIdAtom,
 } from "$/modules/spectrogram/states";
+import { spectrogramLanesEnabledAtom } from "$/modules/spectrogram/states/lanes.ts";
+import { SettingToggle } from "../components/WorkflowControls";
 
 export const SettingsSpectrogramTab = () => {
 	const { t } = useTranslation();
@@ -69,6 +72,21 @@ export const SettingsSpectrogramTab = () => {
 
 	return (
 		<Flex direction="column" gap="4">
+			<FollowPlayheadSettings />
+			<Text as="label">
+				<Flex gap="3" align="center" justify="between">
+					<Flex direction="column" gap="1">
+						<Text>{t("spectrogramLanes.settingTitle", "Separate lanes")}</Text>
+						<Text size="1" color="gray">
+							{t(
+								"spectrogramLanes.settingDesc",
+								"Draw background lines in their own row under the main lines. Lanes are view-only: change a line's role in Edit mode.",
+							)}
+						</Text>
+					</Flex>
+					<SettingToggle setting={spectrogramLanesEnabledAtom} />
+				</Flex>
+			</Text>
 			<Text as="label">
 				<Flex direction="column" gap="2" align="start">
 					<Text>{t("settings.spectrogram.palette", "Color palette")}</Text>

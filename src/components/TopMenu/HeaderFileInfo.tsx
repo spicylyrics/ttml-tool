@@ -171,11 +171,16 @@ export const HeaderFileInfo = () => {
 		setIsEditing(true);
 	}, [filename, setConfirmDialog, setFilename, suggestedFile, t]);
 
+	const autoSavedLabel = t("header.status.autoSavedAt", "已自动保存于 {time}", {
+		time: autoSaveTimeLabel,
+	});
+
 	return (
 		<Flex align="center" gap="2" style={{ maxWidth: "100%" }}>
 			<Button
 				variant="soft"
 				onClick={() => setHistoryDialogOpen(true)}
+				title={autoSaveExpanded ? autoSavedLabel : undefined}
 				style={{
 					justifyContent: "start",
 					overflow: "hidden",
@@ -184,15 +189,22 @@ export const HeaderFileInfo = () => {
 					transition: "max-width 0.3s ease",
 				}}
 			>
-				<Flex align="center" gap="1">
+				<Flex align="center" gap="1" minWidth="0">
 					<Text size="1" style={{ display: "flex" }}>
 						<HistoryRegular />
 					</Text>
 					{autoSaveExpanded && (
-						<Text size="1" color="gray">
-							{t("header.status.autoSavedAt", "已自动保存于 {time}", {
-								time: autoSaveTimeLabel,
-							})}
+						<Text
+							size="1"
+							color="gray"
+							// Long translations end in an ellipsis instead of being cut off.
+							style={{
+								minWidth: 0,
+								overflow: "hidden",
+								textOverflow: "ellipsis",
+							}}
+						>
+							{autoSavedLabel}
 						</Text>
 					)}
 				</Flex>

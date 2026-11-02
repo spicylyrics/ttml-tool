@@ -1,9 +1,12 @@
 import { Button, DropdownMenu } from "@radix-ui/themes";
 import { Toolbar } from "radix-ui";
 import type { CSSProperties } from "react";
-import { Trans, useTranslation } from "react-i18next";
-import { formatKeyBindings } from "$/utils/keybindings";
-import { useTopMenuActions } from "../useTopMenuActions";
+import { Trans } from "react-i18next";
+import { MENU_ACTIONS, type MenuAction } from "$/modules/menu-actions/actions";
+import {
+	MenuActionItem,
+	useMenuActionContext,
+} from "$/modules/menu-actions/MenuActionItem";
 
 type EditMenuProps = {
 	variant: "toolbar" | "submenu";
@@ -12,60 +15,27 @@ type EditMenuProps = {
 };
 
 const EditMenuItems = () => {
-	const { t } = useTranslation();
-	const menu = useTopMenuActions();
-
-	const getShortcut = (key: string[] | undefined) =>
-		key ? formatKeyBindings(key) : undefined;
+	const context = useMenuActionContext();
+	const item = (action: MenuAction) => (
+		<MenuActionItem action={action} context={context} />
+	);
 
 	return (
 		<>
-			<DropdownMenu.Item
-				onSelect={menu.onUndo}
-				shortcut={getShortcut(menu.undoKey)}
-			>
-				<Trans i18nKey="topBar.menu.undo">撤销</Trans>
-			</DropdownMenu.Item>
-			<DropdownMenu.Item
-				onSelect={menu.onRedo}
-				shortcut={getShortcut(menu.redoKey)}
-			>
-				<Trans i18nKey="topBar.menu.redo">重做</Trans>
-			</DropdownMenu.Item>
+			{item(MENU_ACTIONS.undo)}
+			{item(MENU_ACTIONS.redo)}
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item
-				onSelect={menu.onSelectAll}
-				shortcut={getShortcut(menu.selectAllLinesKey)}
-			>
-				<Trans i18nKey="topBar.menu.selectAllLines">选中所有歌词行</Trans>
-			</DropdownMenu.Item>
-			<DropdownMenu.Item
-				onSelect={menu.onUnselectAll}
-				shortcut={getShortcut(menu.unselectAllLinesKey)}
-			>
-				<Trans i18nKey="topBar.menu.unselectAllLines">取消选中所有歌词行</Trans>
-			</DropdownMenu.Item>
+			{item(MENU_ACTIONS.selectAll)}
+			{item(MENU_ACTIONS.unselectAll)}
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item
-				onSelect={menu.onDeleteSelection}
-				shortcut={getShortcut(menu.deleteSelectionKey)}
-			>
-				{t("settingsDialog.keybindings.deleteSelection", "Delete selection")}
-			</DropdownMenu.Item>
+			{item(MENU_ACTIONS.deleteSelection)}
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item onSelect={menu.onOpenTimeShift}>
-				{t("topBar.menu.timeShift", "Time shift…")}
-			</DropdownMenu.Item>
-			<DropdownMenu.Item onSelect={menu.onOpenTimeStretch}>
-				{t("topBar.menu.timeStretch", "Time stretch…")}
-			</DropdownMenu.Item>
-			<DropdownMenu.Item onSelect={menu.onOpenMetadataEditor}>
-				<Trans i18nKey="topBar.menu.editMetadata">编辑歌词元数据</Trans>
-			</DropdownMenu.Item>
+			{item(MENU_ACTIONS.timeShift)}
+			{item(MENU_ACTIONS.timeStretch)}
+			{item(MENU_ACTIONS.editMetadata)}
+			{item(MENU_ACTIONS.editAsText)}
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item onSelect={menu.onOpenSettings}>
-				<Trans i18nKey="settingsDialog.title">首选项</Trans>
-			</DropdownMenu.Item>
+			{item(MENU_ACTIONS.preferences)}
 		</>
 	);
 };

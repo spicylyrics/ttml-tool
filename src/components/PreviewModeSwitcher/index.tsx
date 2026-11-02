@@ -3,6 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
+import { PreviewProblemsBanner } from "$/modules/preview-problems/PreviewProblemsBanner";
 import {
 	PreviewModeType,
 	previewModeTypeAtom,
@@ -47,6 +48,7 @@ export const PreviewModeSwitcher = () => {
 					</Button>
 				</Flex>
 			)}
+			<PreviewProblemsBanner />
 			<Flex
 				flexGrow="1"
 				direction="column"

@@ -23,7 +23,6 @@ import {
 import { instantHighlightFadeAtom } from "$/modules/settings/states/preview";
 import {
 	enableTimeModeDoubleClickEditAtom,
-	syncLevelModeAtom,
 	visualizeTimestampUpdateAtom,
 } from "$/modules/settings/states/sync.ts";
 import { splitWordDialogAtom } from "$/states/dialogs.ts";
@@ -81,7 +80,6 @@ export const LyricSyncWordView: FC<{
 	const highlightErrors = useAtomValue(highlightErrorsAtom);
 	const highlightActiveWord = useAtomValue(highlightActiveWordAtom);
 	const toolMode = useAtomValue(toolModeAtom);
-	const syncLevelMode = useAtomValue(syncLevelModeAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const enableSyncGlowAnimation = useAtomValue(enableSyncGlowAnimationAtom);
 	const enableManualTimestampEdit = useAtomValue(enableManualTimestampEditAtom);
@@ -182,7 +180,6 @@ export const LyricSyncWordView: FC<{
 	} = useSyncWordEvents({
 		line,
 		syncId,
-		syncLevelMode,
 		wordIndex,
 		lineIndex,
 		word,

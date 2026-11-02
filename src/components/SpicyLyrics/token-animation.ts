@@ -23,42 +23,48 @@ import type { SpringSet } from "./createSpicyAnimator";
 import { progressAt, Spring, stateAt } from "./math";
 import type { SpicyToken } from "./model";
 
+type TokenState = "not-sung" | "active" | "sung";
+
 interface TokenAnimationContext {
 	springs: RefObject<Map<string, SpringSet>>;
 	wordNodes: RefObject<Map<string, HTMLElement>>;
-	word: SpicyToken;
-	wordState: "not-sung" | "active" | "sung";
+	wordState: TokenState;
 	simple: boolean;
 	snap: boolean;
 	dt: number;
 	time: number;
-	prefillNext: () => void;
-	runSlmAnimation: (
-		key: string,
-		node: HTMLElement | undefined,
-		phase: "pre" | "fill",
-		duration: number,
-		elapsed: number,
-	) => void;
-	pinSlmGradient: (
-		key: string,
-		node: HTMLElement | undefined,
-		position: "-50%" | "100%",
-	) => void;
 }
+
+/**
+ * Where a word's fill edge sits, in percent. Spicy writes it every frame from
+ * the word's progress, in Simple Lyrics mode as well: the dim part starts
+ * further left there, and the edge reaches 70% before the word is sung.
+ */
+export function wordGradientAt(
+	state: TokenState,
+	progress: number,
+	simple: boolean,
+) {
+	const rest = simple ? -50 : -20;
+	return state === "active"
+		? rest + 120 * progress
+		: state === "sung"
+			? 100
+			: rest;
+}
+
+/** The custom property each mode's word and letter gradient reads. */
+const gradientProperty = (simple: boolean) =>
+	simple ? "--spicy-slm-gradient-position" : "--gradient-position";
 
 export function createTokenAnimator({
 	springs,
 	wordNodes,
-	word,
 	wordState,
 	simple,
 	snap,
 	dt,
 	time,
-	prefillNext,
-	runSlmAnimation,
-	pinSlmGradient,
 }: TokenAnimationContext) {
 	const animateNode = (
 		nodeKey: string,
@@ -122,26 +128,11 @@ export function createTokenAnimator({
 			? `translate3d(0, calc(var(--line-size) * ${currentY}), 0)`
 			: `translate3d(0, ${currentY}em, 0)`;
 		node.style.scale = String(currentScale);
-		if (!isDot) {
-			if (simple) {
-				const duration = word.endTime - word.startTime;
-				if (wordState === "active") {
-					runSlmAnimation(
-						nodeKey,
-						node,
-						"fill",
-						duration,
-						time - word.startTime,
-					);
-					if (time >= word.startTime + duration * 0.6 - 22) prefillNext();
-				} else
-					pinSlmGradient(nodeKey, node, wordState === "sung" ? "100%" : "-50%");
-			} else
-				node.style.setProperty(
-					"--gradient-position",
-					`${wordState === "active" ? -20 + 120 * p : wordState === "sung" ? 100 : -20}%`,
-				);
-		}
+		if (!isDot)
+			node.style.setProperty(
+				gradientProperty(simple),
+				`${wordGradientAt(wordState, p, simple)}%`,
+			);
 		node.style.setProperty(
 			"--shadow-blur",
 			`${4 + (letter ? 12 : isDot ? 6 : 2) * currentGlow}px`,
@@ -208,13 +199,6 @@ export function createTokenAnimator({
 					);
 		const letterScale = simple ? simpleLetterScaleSpline : letterScaleSpline;
 		const letterY = simple ? simpleLetterYSpline : letterYSpline;
-		const wordDuration = word.endTime - word.startTime;
-		if (
-			simple &&
-			groupState === "active" &&
-			time >= word.startTime + wordDuration * 0.845 - 130
-		)
-			prefillNext();
 		for (let index = 0; index < letterInfo.length; index++) {
 			const { start, end } = letterInfo[index];
 			const nodeKey = `${rootKey}:${start}`;
@@ -289,16 +273,7 @@ export function createTokenAnimator({
 								: simple
 									? -50
 									: -20;
-			if (simple) {
-				if (letterState === "active")
-					runSlmAnimation(nodeKey, node, "fill", end - start, time - start);
-				else
-					pinSlmGradient(
-						nodeKey,
-						node,
-						letterState === "sung" ? "100%" : "-50%",
-					);
-			} else node.style.setProperty("--gradient-position", `${gradient}%`);
+			node.style.setProperty(gradientProperty(simple), `${gradient}%`);
 			node.style.transform = `translateY(${currentY * 2}em)`;
 			node.style.scale = String(currentScale);
 			node.style.setProperty("--shadow-blur", `${4 + 12 * currentGlow}px`);

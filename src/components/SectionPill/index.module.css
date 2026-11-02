@@ -1,0 +1,107 @@
+/* A section's name as a pill, coloured by its type. Edit as text, the import
+   screen and the editor's section dividers all use it, so a chorus looks the
+   same everywhere. The name is always written out; the hue only groups. */
+.pill {
+	--pill-hue-a: var(--gray-a4);
+	--pill-hue-border: var(--gray-a7);
+	--pill-hue-text: var(--gray-12);
+	padding: 0 var(--space-2);
+	border: 1px solid var(--pill-hue-border);
+	border-radius: var(--sl-radius-pill, 9999px);
+	background-color: var(--pill-hue-a);
+	color: var(--pill-hue-text);
+	font: inherit;
+	font-size: var(--font-size-2);
+	font-weight: 500;
+	line-height: 1.7;
+}
+
+/* Compact, for rows where the pill labels something else (dividers, lists). */
+.pill[data-size="1"] {
+	font-size: var(--font-size-1);
+	line-height: 18px;
+}
+
+.pill:is(button) {
+	cursor: pointer;
+}
+
+.pill:is(button):hover {
+	--pill-hue-a: var(--pill-hue-hover, var(--gray-a5));
+}
+
+.pill:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: 1px;
+}
+
+.pill[data-category="intro"],
+.pill[data-category="outro"] {
+	--pill-hue-a: var(--cyan-a4);
+	--pill-hue-hover: var(--cyan-a5);
+	--pill-hue-border: var(--cyan-a7);
+	--pill-hue-text: var(--cyan-11);
+}
+
+.pill[data-category="verse"] {
+	--pill-hue-a: var(--blue-a4);
+	--pill-hue-hover: var(--blue-a5);
+	--pill-hue-border: var(--blue-a7);
+	--pill-hue-text: var(--blue-11);
+}
+
+.pill[data-category="pre-chorus"],
+.pill[data-category="post-chorus"] {
+	--pill-hue-a: var(--iris-a4);
+	--pill-hue-hover: var(--iris-a5);
+	--pill-hue-border: var(--iris-a7);
+	--pill-hue-text: var(--iris-11);
+}
+
+.pill[data-category="chorus"],
+.pill[data-category="refrain"] {
+	--pill-hue-a: var(--purple-a4);
+	--pill-hue-hover: var(--purple-a5);
+	--pill-hue-border: var(--purple-a7);
+	--pill-hue-text: var(--purple-11);
+}
+
+.pill[data-category="hook"] {
+	--pill-hue-a: var(--pink-a4);
+	--pill-hue-hover: var(--pink-a5);
+	--pill-hue-border: var(--pink-a7);
+	--pill-hue-text: var(--pink-11);
+}
+
+.pill[data-category="bridge"] {
+	--pill-hue-a: var(--orange-a4);
+	--pill-hue-hover: var(--orange-a5);
+	--pill-hue-border: var(--orange-a7);
+	--pill-hue-text: var(--orange-11);
+}
+
+.pill[data-category="break"],
+.pill[data-category="interlude"],
+.pill[data-category="instrumental"],
+.pill[data-category="solo"] {
+	--pill-hue-a: var(--teal-a4);
+	--pill-hue-hover: var(--teal-a5);
+	--pill-hue-border: var(--teal-a7);
+	--pill-hue-text: var(--teal-11);
+}
+
+.pill[data-category="spoken"],
+.pill[data-category="skit"],
+.pill[data-category="sample"] {
+	--pill-hue-a: var(--brown-a4);
+	--pill-hue-hover: var(--brown-a5);
+	--pill-hue-border: var(--brown-a7);
+	--pill-hue-text: var(--brown-11);
+}
+
+@media (prefers-contrast: more) {
+	.pill {
+		--pill-hue-text: var(--gray-12);
+		border-width: 2px;
+	}
+}

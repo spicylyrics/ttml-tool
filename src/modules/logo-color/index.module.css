@@ -1,0 +1,23 @@
+/* Same fallback as the title bar mark, so the preview matches it. */
+.preview {
+	flex-shrink: 0;
+	width: 24px;
+	height: 24px;
+	color: var(--sl-logo-color, var(--accent-9));
+}
+
+.colorInput {
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	border: 1px solid var(--gray-a6);
+	border-radius: var(--radius-2);
+	background: none;
+	cursor: pointer;
+}
+
+@media (prefers-contrast: more) {
+	.colorInput {
+		border-color: var(--gray-a11);
+	}
+}

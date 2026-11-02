@@ -14,7 +14,6 @@ import {
 	lyricLinesAtom,
 	ToolMode,
 } from "$/states/main";
-import { getSynchronizableUnits } from "../../utils/lyric-states";
 import { lastLineDragEndAtom, lineDragAtom } from "../lyric-line-view-states";
 import type { LyricLineViewState } from "./use-line-view";
 
@@ -24,7 +23,6 @@ export function useLineInteractions({
 	toolMode,
 	blockDragRef,
 	store,
-	syncLevelMode,
 	setSelectedLines,
 	setSelectedWords,
 }: Pick<
@@ -34,7 +32,6 @@ export function useLineInteractions({
 	| "toolMode"
 	| "blockDragRef"
 	| "store"
-	| "syncLevelMode"
 	| "setSelectedLines"
 	| "setSelectedWords"
 >) {
@@ -124,12 +121,6 @@ export function useLineInteractions({
 			});
 			setSelectedWords((state) => {
 				state.clear();
-				if (toolMode === ToolMode.Sync && syncLevelMode === "line") {
-					const units = getSynchronizableUnits(line);
-					for (const unit of units) {
-						state.add(unit.id);
-					}
-				}
 			});
 		}
 	};

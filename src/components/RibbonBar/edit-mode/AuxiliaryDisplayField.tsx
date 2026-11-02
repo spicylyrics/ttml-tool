@@ -1,6 +1,7 @@
 import { Grid } from "@radix-ui/themes";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
+
 /*
  * Copyright 2023-2025 Steve Xiao (stevexmh@qq.com) and contributors.
  *
@@ -12,47 +13,38 @@ import { useTranslation } from "react-i18next";
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import {
-	showLineRomanizationAtom,
-	showLineTranslationAtom,
-	showWordRomanizationInputAtom,
-} from "$/modules/settings/states/index.ts";
-import { RibbonToggle } from "../RibbonToggle";
+import { SlIcon } from "$/components/SlIcon";
+import { RIBBON_ACTIONS } from "$/modules/menu-actions/ribbon-actions";
+import { RibbonActionToggle } from "../RibbonToggle";
 
 export const AuxiliaryDisplayField: FC = () => {
 	const { t } = useTranslation();
 
 	return (
 		<Grid columns="1fr auto" gapX="4" gapY="1" flexGrow="1" align="center">
-			<RibbonToggle
-				label={t("ribbonBar.editMode.showTranslation", "Show translation line")}
+			<RibbonActionToggle
+				action={RIBBON_ACTIONS.showLineTranslation}
 				description={t(
 					"settings.workflow.showTranslationDesc",
 					"Show a translation field under each lyric line.",
 				)}
-				setting={showLineTranslationAtom}
+				icon={<SlIcon name="translation" />}
 			/>
-			<RibbonToggle
-				label={t(
-					"ribbonBar.editMode.showRomanization",
-					"Show romanization line",
-				)}
+			<RibbonActionToggle
+				action={RIBBON_ACTIONS.showLineRomanization}
 				description={t(
 					"settings.workflow.showRomanizationDesc",
 					"Show a romanization field under each lyric line.",
 				)}
-				setting={showLineRomanizationAtom}
+				icon={<SlIcon name="romanization" />}
 			/>
-			<RibbonToggle
-				label={t(
-					"ribbonBar.editMode.showWordRomanizationInput",
-					"Show per-word romanization",
-				)}
+			<RibbonActionToggle
+				action={RIBBON_ACTIONS.showWordRomanizationInput}
 				description={t(
 					"settings.workflow.showWordRomanizationInputDesc",
 					"Show a romanization field on each word.",
 				)}
-				setting={showWordRomanizationInputAtom}
+				icon={<SlIcon name="romanization" />}
 			/>
 		</Grid>
 	);

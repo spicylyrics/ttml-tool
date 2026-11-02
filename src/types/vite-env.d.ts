@@ -23,6 +23,8 @@ declare module "virtual:i18next-loader" {
 declare module "virtual:buildmeta" {
 	export const BUILD_TIME: string;
 	export const GIT_COMMIT: string;
+	/** `version` from package.json, kept in sync with the desktop build. */
+	export const APP_VERSION: string;
 }
 
 interface ImportMetaEnv {

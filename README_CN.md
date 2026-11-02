@@ -4,54 +4,40 @@
 
 # Spicy Lyrics TTML Tool
 
-一个全新的逐词歌词编辑器！针对 [Apple Music-like Lyrics 生态](https://github.com/amll-dev/applemusic-like-lyrics)制作！
+一个逐词歌词编辑器的分支，专为 [Spicy Lyrics 生态](https://spicylyrics.org/)制作。
 
-<img width="1312" alt="image" src="https://github.com/user-attachments/assets/4db81b29-df0c-4f6e-819a-3b956b28247c">
-<img width="1312" alt="image" src="https://github.com/user-attachments/assets/929eefee-ebda-43db-ad04-c0f099077053">
-<img width="1312" alt="image" src="https://github.com/user-attachments/assets/7c80902e-45a9-42ae-b980-f5500069acb8">
+[English](./README.md) | 简体中文
 
 </div>
 
 ## 使用
 
 > [!WARNING]
-> 本工具不建议移动手机或小尺寸电子设备使用，操作会非常繁琐！
+> 不建议在手机或小屏幕设备上使用本工具，操作会非常繁琐。
 
-你可以通过访问 [`https://amll-ttml-tool.stevexmh.net/`](https://amll-ttml-tool.stevexmh.net/)来使用本工具的在线版本。
+- 网页版：访问 [https://tool.spicylyrics.org/](https://tool.spicylyrics.org/)。
+- 桌面版（Tauri，由 GitHub Actions 构建）：从 [最新发布](https://github.com/spicylyrics/ttml-tool/releases/latest) 下载。
 
-欢迎访问[ test 分支](https://amll-ttml-tool-test.vercel.app/)来体验最新的功能和最新的 BUG！
+## 主要功能
 
-也可以使用 Github Action 构建的 Tauri 桌面版本，具体见 [Github Action 构建 Tauri 桌面版本](https://github.com/spicylyrics/ttml-tool/actions/workflows/build-desktop.yaml)。
+- **打轴与编辑**：逐词编辑、拆分和组合单词，在时间模式中直接修改单词和罗马音。
+- **歌词导入**：从纯文本、LRCLIB 或 Genius 导入歌词，自动清理 Genius 标签和空行，并保留 `[Chorus]`、`[Verse]` 等段落信息。
+- **智能拆分**：为英语、波兰语、西班牙语、法语、德语、印尼语、意大利语、葡萄牙语、俄语、日语和中日韩歌词提供专用的音节拆分引擎，并记住你手动拆分过的单词。
+- **自动注音**：为日语、普通话和韩语生成逐词罗马音，支持混合语言的歌词行。
+- **Spicy Lyrics 预览**：高还原度的 Spicy Lyrics 渲染器，支持动态、自定义和封面背景，以及逐词、简易和逐行布局。
+- **时间工具**：吸附到播放头、复制行和单词的时间、按新的歌曲时长整体缩放时间轴。
+- **导出前检查**：保存前检查未打轴或重叠的歌词。
+- **项目文件夹（桌面版，可选）**：把歌词和音频放在同一个项目文件夹中，支持最近项目和 Ctrl+S 保存。
+- **TTML 待办清单**：在本地记录要打轴的歌曲、备注和进度。
+- **新手引导**：用你自己的歌曲一步步学习导入、打轴、导出和测试。
+- **备份与恢复**：导出和恢复设置、快捷键、外观、项目和历史记录。
+- **Discord 动态（桌面版，可选）**：在 Discord 上显示当前歌曲、模式和进度，网页版可通过 PreMiD 显示。
+- **外观与多语言**：可调整编辑器外观，并提供社区翻译的多语言界面。
 
-## 编辑器功能
-
-- 基本输入、编辑、打轴功能
-- 读取保存 TTML 格式歌词
-- 配置歌词行行为（背景歌词、对唱歌词等）
-- 配置歌词文件元数据（名称，作者，网易云音乐 ID 等）
-- 拆分/组合/移动单词
-- LRC/ESLyric/YRC/QRC/Lyricify Syllable 等歌词文件格式的导入以及部分格式的导出
-- 支持带有特殊标识符的纯文本导入歌词
-- 可配置的快捷键
-
-## 开发构建
-
-本工具构建可能相对比较复杂，如果文字描述太过繁杂的话可以直接参考 [`build-desktop.yaml`](.github/workflows/build-desktop.yaml) 工作流的步骤自行进行。
-
-首先，本项目仅可使用 PNPM，请确保你已经安装好了 PNPM 包管理器！
-
-然后克隆本仓库，然后在仓库文件夹下执行构建：
-
-```bash
-pnpm i # 安装依赖
-pnpm dev # 开启开发服务器
-pnpm build # 构建网页版本
-pnpm tauri dev # 开启 Tauri 桌面版本开发环境
-pnpm tauri build # 构建 Tauri 桌面版本
-```
+完整功能列表见 [英文 README](./README.md)。
 
 ## 贡献
 
-欢迎各种积极的代码/翻译贡献！也欢迎积极提交各种议题和建议！
+欢迎提交代码、翻译、问题报告和建议。请先阅读 [CONTRIBUTING.md](./CONTRIBUTING.md)。翻译文件位于 [`src/i18n/locales/`](./src/i18n/locales/)。
 
-如果想要提供新的语言翻译，可以参考 [`./src/i18n/index.ts`](./src/i18n/index.ts) 和 [`./locales/zh-CN/translation.json`](./locales/zh-CN/translation.json) 哦！
+有问题或想法，也可以在 [Spicy Lyrics Discord](https://discord.com/invite/uqgXU5wh8j) 的 [#ttml-tool](https://discord.com/channels/1369992682214264993/1558259984318603334) 频道发帖（先加入服务器，频道链接才能打开）。

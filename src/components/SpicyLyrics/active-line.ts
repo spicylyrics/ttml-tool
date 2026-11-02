@@ -4,7 +4,12 @@
  */
 import { stateAt } from "./math";
 
-type TimedLine = { startTime: number; endTime: number; isBackground?: boolean };
+type TimedLine = {
+	startTime: number;
+	endTime: number;
+	isBackground?: boolean;
+	isUntimed?: boolean;
+};
 
 /**
  * How far ahead, in lead rows (background rows excluded), the highest active
@@ -39,7 +44,11 @@ function lookaheadLine(lines: TimedLine[], lead: number) {
 export function findSpicyActiveIndex(lines: TimedLine[], timeMs: number) {
 	const active: number[] = [];
 	for (let i = 0; i < lines.length; i++)
-		if (lines[i].startTime <= timeMs && lines[i].endTime >= timeMs)
+		if (
+			!lines[i].isUntimed &&
+			lines[i].startTime <= timeMs &&
+			lines[i].endTime >= timeMs
+		)
 			active.push(i);
 	if (active.length === 0) return -1;
 
@@ -64,7 +73,16 @@ export function findSpicyActiveIndex(lines: TimedLine[], timeMs: number) {
 }
 
 export function findSpicyScrollIndex(lines: TimedLine[], timeMs: number) {
-	if (lines.every((line) => timeMs >= line.endTime)) return lines.length - 1;
+	// Past the end, rest on the last timed row. Untimed rows are never a
+	// target, so an unsynced tail (or song) doesn't pull the view to the bottom.
+	let lastTimed = -1;
+	for (let i = lines.length - 1; i >= 0 && lastTimed < 0; i--)
+		if (!lines[i].isUntimed) lastTimed = i;
+	if (
+		lastTimed >= 0 &&
+		lines.every((line) => line.isUntimed || timeMs >= line.endTime)
+	)
+		return lastTimed;
 	return findSpicyActiveIndex(lines, timeMs);
 }
 

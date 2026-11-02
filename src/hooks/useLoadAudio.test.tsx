@@ -13,12 +13,26 @@ vi.mock("$/modules/project/autosave/autosave", () => ({
 vi.mock("$/modules/project/folder-project/project-create", () => ({
 	maybePromptCreateProject: vi.fn(),
 }));
-vi.mock("$/utils/fileDialog", () => ({ openFileWithDialog: vi.fn() }));
+vi.mock("$/utils/fileDialog", async (importOriginal) => ({
+	...(await importOriginal<typeof import("$/utils/fileDialog")>()),
+	openFileWithDialog: vi.fn(),
+}));
 vi.mock("$/utils/logging", () => ({ log: vi.fn(), error: vi.fn() }));
 vi.mock("react-i18next", () => ({
 	useTranslation: () => ({ t: (key: string) => key }),
 }));
-vi.mock("react-toastify", () => ({ toast: { error: vi.fn() } }));
+vi.mock("react-toastify", () => ({
+	toast: { error: vi.fn(), info: vi.fn() },
+}));
+// Lyrics open through their own hook; here it only records what it got.
+const { openLyricFile } = vi.hoisted(() => ({
+	openLyricFile: vi.fn(
+		(_file: File, _forceExt?: string, afterOpen?: () => void) => afterOpen?.(),
+	),
+}));
+vi.mock("$/hooks/useOpenLyricFile", () => ({
+	useOpenLyricFile: () => ({ openLyricFile }),
+}));
 
 import { toast } from "react-toastify";
 import { audioEngine } from "$/modules/audio/audio-engine";
@@ -29,8 +43,10 @@ import {
 	pendingAudioPathAtom,
 	projectAudioFileAtom,
 } from "$/modules/project/folder-project/state";
-import { AUDIO_FILE_FILTERS } from "$/utils/audio-formats";
-import { openFileWithDialog } from "$/utils/fileDialog";
+import {
+	LYRICS_AND_AUDIO_FILTERS,
+	openFileWithDialog,
+} from "$/utils/fileDialog";
 import { useLoadAudio } from "./useLoadAudio";
 
 Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true });
@@ -65,8 +81,9 @@ describe("audio picker and window-drop entry points", () => {
 		vi.mocked(openFileWithDialog).mockResolvedValueOnce(null);
 		await act(async () => opener.loadAudio());
 		expect(openFileWithDialog).toHaveBeenCalledWith({
-			multiple: false,
-			filters: AUDIO_FILE_FILTERS,
+			multiple: true,
+			filters: LYRICS_AND_AUDIO_FILTERS,
+			place: "loadAudio",
 		});
 		expect(audioEngine.loadMusic).not.toHaveBeenCalled();
 		expect(toast.error).not.toHaveBeenCalled();
@@ -118,12 +135,36 @@ describe("audio picker and window-drop entry points", () => {
 		expect(maybePromptCreateProject).not.toHaveBeenCalled();
 	});
 
-	it("rejects non-audio selections without replacing editor lyrics", async () => {
-		vi.mocked(openFileWithDialog).mockResolvedValueOnce(
-			new File([], "song.ttml"),
-		);
+	it("opens a lyric file picked from Load audio as lyrics", async () => {
+		const lyric = new File([], "song.ttml");
+		vi.mocked(openFileWithDialog).mockResolvedValueOnce([lyric]);
 		await act(async () => opener.loadAudio());
-		expect(toast.error).toHaveBeenCalledWith("error.unsupportedFileFormat");
+		expect(openLyricFile).toHaveBeenCalledWith(lyric, undefined, undefined);
 		expect(audioEngine.loadMusic).not.toHaveBeenCalled();
+		expect(toast.error).not.toHaveBeenCalled();
+	});
+
+	it("opens lyrics and audio picked together, lyrics first", async () => {
+		const lyric = new File([], "song.lrc");
+		const audio = new File([], "song.mp3");
+		vi.mocked(openFileWithDialog).mockResolvedValueOnce([audio, lyric]);
+		await act(async () => opener.loadAudio());
+		expect(openLyricFile).toHaveBeenCalledOnce();
+		expect(openLyricFile.mock.calls[0][0]).toBe(lyric);
+		expect(audioEngine.loadMusic).toHaveBeenCalledWith(audio);
+		expect(
+			openLyricFile.mock.invocationCallOrder[0] <
+				vi.mocked(audioEngine.loadMusic).mock.invocationCallOrder[0],
+		).toBe(true);
+	});
+
+	it("says when extra files were left out", async () => {
+		vi.mocked(openFileWithDialog).mockResolvedValueOnce([
+			new File([], "a.mp3"),
+			new File([], "b.mp3"),
+		]);
+		await act(async () => opener.loadAudio());
+		expect(toast.info).toHaveBeenCalledWith("dialog.openFilesIgnored");
+		expect(audioEngine.loadMusic).toHaveBeenCalledOnce();
 	});
 });

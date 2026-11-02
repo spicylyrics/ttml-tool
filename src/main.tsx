@@ -24,6 +24,7 @@ import App from "./App.tsx";
 import "./i18n/index.ts";
 import "./index.css";
 import "./styles/spicy-lyrics-design.css";
+import "./styles/lite-effects.css";
 import "./utils/pwa.tsx";
 import { isMigrationPath } from "$/modules/domain-migration/config";
 import { MigrationRouteApp } from "$/modules/domain-migration/MigrationRouteApp";

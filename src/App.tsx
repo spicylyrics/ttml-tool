@@ -21,12 +21,15 @@ import {
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
 import { TouchSyncPanel } from "$/modules/lyric-editor/components/TouchSyncPanel/index.tsx";
 import { log } from "$/utils/logging.ts";
+// Installs second-key dispatch.
+import "$/modules/keyboard/binding-list";
 import "@radix-ui/themes/styles.css";
 import { invoke } from "@tauri-apps/api/core";
+import { listen } from "@tauri-apps/api/event";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { platform, version } from "@tauri-apps/plugin-os";
-import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue, useSetAtom, useStore } from "jotai";
+import { Tooltip as TooltipPrimitive } from "radix-ui";
 import {
 	Suspense,
 	useEffect,
@@ -39,6 +42,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useTranslation } from "react-i18next";
 import { Bounce, cssTransition, ToastContainer, toast } from "react-toastify";
 import semverGt from "semver/functions/gt";
+import { DidYouKnowHints } from "$/modules/did-you-know/DidYouKnowHints";
 import { backgroundGradients } from "$/modules/settings/states/gradients";
 import {
 	accentColorAtom,
@@ -85,6 +89,7 @@ import {
 	DEFAULT_APP_FONT,
 	glassmorphismBlurAtom,
 	legacyDarkThemeAtom,
+	liteEffectsAtom,
 	SPICY_LYRICS_FONT_STACK,
 	selectedGradientAtom,
 	spicyLyricsDesignAtom,
@@ -102,6 +107,7 @@ import AudioControls from "./modules/audio/components/index.tsx";
 import { useAudioFeedback } from "./modules/audio/hooks/useAudioFeedback.ts";
 import { DiscordPresence } from "./modules/discord-presence/DiscordPresence";
 import { MigrationNotice } from "./modules/domain-migration/MigrationNotice";
+import { LogoColorStyle } from "./modules/logo-color/LogoColorStyle";
 import { SyncKeyBinding } from "./modules/lyric-editor/components/sync-keybinding.tsx";
 import { UrbanDictionaryKeybinding } from "./modules/lyric-editor/components/urban-dictionary-keybinding.tsx";
 import { BeginnerGuide } from "./modules/onboarding/BeginnerGuide";
@@ -119,6 +125,7 @@ import {
 	customBackgroundOpacityAtom,
 } from "./modules/settings/modals/customBackground";
 import { showTouchSyncPanelAtom } from "./modules/settings/states/sync.ts";
+import { UpdatedToast } from "./modules/updated-toast/UpdatedToast";
 import { settingsDialogAtom, settingsTabAtom } from "./states/dialogs.ts";
 import {
 	isDarkThemeAtom,
@@ -137,6 +144,12 @@ const PreviewModeSwitcher = lazy(
 	() => import("./components/PreviewModeSwitcher"),
 );
 const Dialogs = lazy(() => import("./components/Dialogs"));
+
+const editorModeViewStyle = {
+	height: "100%",
+	maxHeight: "100%",
+	overflowY: "hidden",
+} as const;
 
 // The default toast bounce overshoots; the design slides in and out instead.
 const spicyLyricsToastTransition = cssTransition({
@@ -210,6 +223,7 @@ function App() {
 	const isDarkTheme = useAtomValue(isDarkThemeAtom);
 	const legacyDarkTheme = useAtomValue(legacyDarkThemeAtom);
 	const spicyLyricsDesign = useAtomValue(spicyLyricsDesignAtom);
+	const liteEffects = useAtomValue(liteEffectsAtom);
 	const toolMode = useAtomValue(toolModeAtom);
 	const showTouchSyncPanel = useAtomValue(showTouchSyncPanelAtom);
 	const showPreviewPanel = useAtomValue(showPreviewPanelAtom);
@@ -319,6 +333,13 @@ function App() {
 		else delete root.designBackdrop;
 	}, [spicyLyricsDesign, useCustomAccent, hasBackground]);
 
+	// Read by src/styles/lite-effects.css, with the design on or off.
+	useLayoutEffect(() => {
+		const root = document.documentElement.dataset;
+		if (liteEffects) root.effects = "lite";
+		else delete root.effects;
+	}, [liteEffects]);
+
 	const customThemeStyles = useCustomAccent
 		? generateRadixScale(customAccentColor, effectiveTheme === "dark")
 		: null;
@@ -326,11 +347,12 @@ function App() {
 		spicyLyricsDesign && appFont === DEFAULT_APP_FONT
 			? SPICY_LYRICS_FONT_STACK
 			: appFont;
-	// Solid panels under the design unless the user picked a backdrop to see through.
-	const panelBackdrop =
-		spicyLyricsDesign && !hasBackground
-			? "none"
-			: `blur(${glassmorphismBlur}px) saturate(160%)`;
+	// Solid panels under the design unless the user picked a backdrop to see
+	// through. Lite effects always go solid: Radix blurs behind every card.
+	const solidPanels = liteEffects || (spicyLyricsDesign && !hasBackground);
+	const panelBackdrop = solidPanels
+		? "none"
+		: `blur(${glassmorphismBlur}px) saturate(160%)`;
 
 	const customStyleString = useMemo(() => {
 		let vars = "";
@@ -496,9 +518,11 @@ function App() {
 	}, [initCustomBackgroundImage]);
 
 	useEffect(() => {
-		if (import.meta.env.TAURI_ENV_PLATFORM) {
-			checkUpdate(true);
-		}
+		if (!import.meta.env.TAURI_ENV_PLATFORM) return;
+		// Flatpak and package-manager installs on Linux update elsewhere.
+		invoke<boolean>("can_self_update").then((supported) => {
+			if (supported) checkUpdate(true);
+		});
 	}, [checkUpdate]);
 
 	useEffect(() => {
@@ -525,7 +549,7 @@ function App() {
 	}, [status, update, t, setSettingsOpen, setSettingsTab]);
 
 	const setIsGlobalDragging = useSetAtom(isGlobalFileDraggingAtom);
-	const { openFile } = useFileOpener();
+	const { openFile, openFiles } = useFileOpener();
 	useAudioFeedback();
 
 	useEffect(() => {
@@ -533,23 +557,32 @@ function App() {
 			return;
 		}
 
+		type OpenFileData = { filename: string; data: string; ext: string };
+		const openFromOs = (file: OpenFileData) => {
+			log("File opened by the OS", file.filename);
+			const name = file.filename.split(/[\\/]/).pop() || file.filename;
+			openFile(new File([file.data], name, { type: "text/plain" }));
+		};
+
+		let disposed = false;
+		let unlisten: (() => void) | undefined;
 		(async () => {
-			const file: {
-				filename: string;
-				data: string;
-				ext: string;
-			} | null = await invoke("get_open_file_data");
-
-			if (file) {
-				log("File data from tauri args", file);
-
-				const fileObj = new File([file.data], file.filename, {
-					type: "text/plain",
-				});
-
-				openFile(fileObj);
+			// Listen before asking, so a file opened in between isn't lost.
+			const stop = await listen<OpenFileData>("open-file", (event) =>
+				openFromOs(event.payload),
+			);
+			if (disposed) {
+				stop();
+				return;
 			}
+			unlisten = stop;
+			const file: OpenFileData | null = await invoke("get_open_file_data");
+			if (file && !disposed) openFromOs(file);
 		})();
+		return () => {
+			disposed = true;
+			unlisten?.();
+		};
 	}, [openFile]);
 
 	useEffect(() => {
@@ -599,7 +632,26 @@ function App() {
 			}
 		};
 
+		// Only files may be dropped on the window. Accepting every drag made
+		// stray ones look droppable everywhere (Windows' dotted-box cursor).
 		const handleDragOver = (e: DragEvent) => {
+			if (e.dataTransfer?.types.includes("Files")) e.preventDefault();
+		};
+
+		// The browser's own drag of selected text, images and links takes the
+		// pointer away from the app, so lines, words and the spectrogram stop
+		// dragging. Keep native drags to what the app made draggable, and to
+		// text fields.
+		const handleDragStart = (e: DragEvent) => {
+			const target = e.target as Node | null;
+			const element =
+				target instanceof Element ? target : (target?.parentElement ?? null);
+			if (
+				element?.closest(
+					'[draggable="true"], input, textarea, [contenteditable="true"]',
+				)
+			)
+				return;
 			e.preventDefault();
 		};
 
@@ -613,25 +665,28 @@ function App() {
 			e.preventDefault();
 			setIsGlobalDragging(false);
 
-			const files = e.dataTransfer?.files;
-			if (files && files.length > 0) {
-				const file = files[0];
-				void attachDroppedFilePath(file).finally(() => openFile(file));
-			}
+			// A lyric file and an audio file dropped together both open.
+			const files = Array.from(e.dataTransfer?.files ?? []);
+			if (files.length > 0)
+				void Promise.allSettled(files.map(attachDroppedFilePath)).then(() =>
+					openFiles(files),
+				);
 		};
 
+		window.addEventListener("dragstart", handleDragStart, true);
 		window.addEventListener("dragenter", handleDragEnter);
 		window.addEventListener("dragover", handleDragOver);
 		window.addEventListener("dragleave", handleDragLeave);
 		window.addEventListener("drop", handleDrop);
 
 		return () => {
+			window.removeEventListener("dragstart", handleDragStart, true);
 			window.removeEventListener("dragenter", handleDragEnter);
 			window.removeEventListener("dragover", handleDragOver);
 			window.removeEventListener("dragleave", handleDragLeave);
 			window.removeEventListener("drop", handleDrop);
 		};
-	}, [setIsGlobalDragging, openFile]);
+	}, [setIsGlobalDragging, openFiles]);
 
 	return (
 		<Theme
@@ -641,177 +696,143 @@ function App() {
 			data-legacy-dark-theme={
 				(!spicyLyricsDesign && legacyDarkTheme) || undefined
 			}
-			panelBackground="translucent"
+			panelBackground={liteEffects ? "solid" : "translucent"}
 			hasBackground={hasBackground}
 			accentColor={accentColor}
 			className={styles.radixTheme}
 		>
-			{import.meta.env.TAURI_ENV_PLATFORM && <InterfaceScaleManager />}
-			<MigrationNotice />
-			<DiscordPresence />
-			<BeginnerGuide />
-			<AudioMetadataPrefill />
-			{customStyleString ? <style>{customStyleString}</style> : null}
-			<ErrorBoundary
-				FallbackComponent={AppErrorPage}
-				onReset={(_details) => {
-					// TODO
-				}}
-			>
-				{hasBackground && (
-					<div className={styles.customBackgroundLayer} aria-hidden="true">
-						<div
-							className={styles.customBackgroundImage}
-							style={{
-								backgroundImage:
-									backgroundMode === "image"
-										? `url(${customBackgroundImage})`
-										: backgroundMode === "gradient"
-											? useCustomGradient
-												? generateGradient(
-														customGradientColors,
-														customGradientType,
-														customGradientCenter,
-														customGradientAngle,
-														customGradientSize,
-													)
-												: selectedGradient?.css
-											: undefined,
-								opacity:
-									backgroundMode === "gradient"
-										? customGradientOpacity
-										: customBackgroundOpacity,
-								filter: `blur(${customBackgroundBlur}px) brightness(${customBackgroundBrightness})`,
-							}}
-						/>
-						<div
-							className={styles.customBackgroundMask}
-							style={{
-								opacity:
-									backgroundMode === "gradient" ? 0 : customBackgroundMask,
-							}}
-						/>
-					</div>
-				)}
-				<div className={styles.appContent}>
-					<AutosaveManager />
-					<GlobalDragOverlay />
-					{toolMode === ToolMode.Sync && <SyncKeyBinding />}
-					<UrbanDictionaryKeybinding />
-					<DarkThemeDetector />
-					<Flex direction="column" height="100vh">
-						{appLayoutOrder.map((id) => {
-							if (id === "titlebar") return <TitleBar key="titlebar" />;
-							if (id === "ribbonbar") return <RibbonBar key="ribbonbar" />;
-							if (id === "editor") {
-								const editorContent = (
-									<Box flexGrow="1" overflow="hidden" key="editor-content">
-										<Flex height="100%" overflow="hidden">
-											<Box flexGrow="1" minWidth="0" overflow="hidden">
-												{previewPanelVisible ? (
-													<Flex height="100%" gap="2" p="2">
-														<Box flexGrow="1" overflow="hidden">
-															<AnimatePresence mode="wait">
+			{/* Same delay as the Theme's own provider, but a tooltip closes once the
+			    pointer leaves its control instead of staying up while hovered. */}
+			<TooltipPrimitive.Provider delayDuration={200} disableHoverableContent>
+				{import.meta.env.TAURI_ENV_PLATFORM && <InterfaceScaleManager />}
+				<MigrationNotice />
+				<DiscordPresence />
+				<BeginnerGuide />
+				<DidYouKnowHints />
+				<AudioMetadataPrefill />
+				{customStyleString ? <style>{customStyleString}</style> : null}
+				<ErrorBoundary
+					FallbackComponent={AppErrorPage}
+					onReset={(_details) => {
+						// TODO
+					}}
+				>
+					{hasBackground && (
+						<div className={styles.customBackgroundLayer} aria-hidden="true">
+							<div
+								className={styles.customBackgroundImage}
+								style={{
+									backgroundImage:
+										backgroundMode === "image"
+											? `url(${customBackgroundImage})`
+											: backgroundMode === "gradient"
+												? useCustomGradient
+													? generateGradient(
+															customGradientColors,
+															customGradientType,
+															customGradientCenter,
+															customGradientAngle,
+															customGradientSize,
+														)
+													: selectedGradient?.css
+												: undefined,
+									opacity:
+										backgroundMode === "gradient"
+											? customGradientOpacity
+											: customBackgroundOpacity,
+									filter: `blur(${customBackgroundBlur}px) brightness(${customBackgroundBrightness})`,
+								}}
+							/>
+							<div
+								className={styles.customBackgroundMask}
+								style={{
+									opacity:
+										backgroundMode === "gradient" ? 0 : customBackgroundMask,
+								}}
+							/>
+						</div>
+					)}
+					<div className={styles.appContent}>
+						<AutosaveManager />
+						<GlobalDragOverlay />
+						{toolMode === ToolMode.Sync && <SyncKeyBinding />}
+						<UrbanDictionaryKeybinding />
+						<DarkThemeDetector />
+						<LogoColorStyle />
+						<Flex direction="column" height="100vh">
+							{appLayoutOrder.map((id) => {
+								if (id === "titlebar") return <TitleBar key="titlebar" />;
+								if (id === "ribbonbar") return <RibbonBar key="ribbonbar" />;
+								if (id === "editor") {
+									const editorContent = (
+										<Box flexGrow="1" overflow="hidden" key="editor-content">
+											<Flex height="100%" overflow="hidden">
+												<Box flexGrow="1" minWidth="0" overflow="hidden">
+													{previewPanelVisible ? (
+														<Flex height="100%" gap="2" p="2">
+															<Box flexGrow="1" overflow="hidden">
 																<SuspensePlaceHolder key={toolMode}>
-																	<motion.div
-																		layout="position"
-																		style={{
-																			height: "100%",
-																			maxHeight: "100%",
-																			overflowY: "hidden",
-																		}}
-																		initial={{ opacity: 0 }}
-																		animate={{ opacity: 1 }}
-																		exit={{ opacity: 0 }}
-																	>
+																	<div style={editorModeViewStyle}>
 																		<LyricLinesView key={toolMode} />
-																	</motion.div>
+																	</div>
 																</SuspensePlaceHolder>
-															</AnimatePresence>
-														</Box>
-														<ResizablePanel>
-															<SuspensePlaceHolder key="preview-panel">
-																<motion.div
-																	layout="position"
-																	initial={{ opacity: 0 }}
-																	animate={{ opacity: 1 }}
-																	exit={{ opacity: 0 }}
-																	style={{ height: "100%" }}
-																>
-																	<PreviewModeSwitcher />
-																</motion.div>
-															</SuspensePlaceHolder>
-														</ResizablePanel>
-													</Flex>
-												) : (
-													<AnimatePresence mode="wait">
-														{toolMode !== ToolMode.Preview && (
-															<SuspensePlaceHolder key={toolMode}>
-																<motion.div
-																	layout="position"
-																	style={{
-																		height: "100%",
-																		maxHeight: "100%",
-																		overflowY: "hidden",
-																	}}
-																	initial={{ opacity: 0 }}
-																	animate={{ opacity: 1 }}
-																	exit={{ opacity: 0 }}
-																>
-																	<LyricLinesView key={toolMode} />
-																</motion.div>
-															</SuspensePlaceHolder>
-														)}
-														{toolMode === ToolMode.Preview && (
-															<SuspensePlaceHolder key="preview-switcher">
-																<Box
-																	height="100%"
-																	key="preview-switcher"
-																	p="2"
-																	asChild
-																>
-																	<motion.div
-																		layout="position"
-																		initial={{ opacity: 0 }}
-																		animate={{ opacity: 1 }}
-																		exit={{ opacity: 0 }}
-																	>
+															</Box>
+															<ResizablePanel>
+																<SuspensePlaceHolder key="preview-panel">
+																	<div style={{ height: "100%" }}>
 																		<PreviewModeSwitcher />
-																	</motion.div>
-																</Box>
-															</SuspensePlaceHolder>
-														)}
-													</AnimatePresence>
-												)}
-											</Box>
-										</Flex>
-									</Box>
-								);
+																	</div>
+																</SuspensePlaceHolder>
+															</ResizablePanel>
+														</Flex>
+													) : toolMode !== ToolMode.Preview ? (
+														// Mode switches swap instantly: fading the editor
+														// out and in left a blank panel and flickered.
+														<SuspensePlaceHolder key={toolMode}>
+															<div style={editorModeViewStyle}>
+																<LyricLinesView key={toolMode} />
+															</div>
+														</SuspensePlaceHolder>
+													) : (
+														<SuspensePlaceHolder key="preview-switcher">
+															<Box height="100%" p="2">
+																<PreviewModeSwitcher />
+															</Box>
+														</SuspensePlaceHolder>
+													)}
+												</Box>
+											</Flex>
+										</Box>
+									);
 
-								return editorContent;
+									return editorContent;
+								}
+								if (id === "audio-controls") {
+									return (
+										<Box flexShrink="0" key="audio-controls">
+											<AudioControls />
+										</Box>
+									);
+								}
+								return null;
+							})}
+							{showTouchSyncPanel && toolMode === ToolMode.Sync && (
+								<TouchSyncPanel />
+							)}
+						</Flex>
+						<Suspense fallback={null}>
+							<Dialogs />
+						</Suspense>
+						<ToastContainer
+							theme={effectiveTheme}
+							transition={
+								spicyLyricsDesign ? spicyLyricsToastTransition : Bounce
 							}
-							if (id === "audio-controls") {
-								return (
-									<Box flexShrink="0" key="audio-controls">
-										<AudioControls />
-									</Box>
-								);
-							}
-							return null;
-						})}
-						{showTouchSyncPanel && toolMode === ToolMode.Sync && (
-							<TouchSyncPanel />
-						)}
-					</Flex>
-					<Suspense fallback={null}>
-						<Dialogs />
-					</Suspense>
-					<ToastContainer
-						theme={effectiveTheme}
-						transition={spicyLyricsDesign ? spicyLyricsToastTransition : Bounce}
-					/>
-				</div>
-			</ErrorBoundary>
+						/>
+						<UpdatedToast />
+					</div>
+				</ErrorBoundary>
+			</TooltipPrimitive.Provider>
 		</Theme>
 	);
 }

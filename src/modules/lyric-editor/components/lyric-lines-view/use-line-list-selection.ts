@@ -45,24 +45,29 @@ export function useLineListSelection({
 	const lastPlaybackScrolledIndexRef = useRef<number | undefined>(undefined);
 	const lyricStructure = useAtomValue(lyricLineStructureAtom);
 	const collapsedSections = useAtomValue(collapsedSectionIdsAtom);
-	const visibleItems = useMemo(
-		() =>
-			editLyric
-				.map((lineAtom, sourceIndex) => ({
-					lineAtom,
-					sourceIndex,
-					line: lyricStructure[sourceIndex],
-				}))
-				.filter(
-					({ line, sourceIndex }) =>
-						!line?.sectionId ||
-						!collapsedSections.has(line.sectionId) ||
-						lyricStructure.findIndex(
-							(candidate) => candidate.sectionId === line.sectionId,
-						) === sourceIndex,
-				),
-		[editLyric, lyricStructure, collapsedSections],
-	);
+	const visibleItems = useMemo(() => {
+		const seenSections = new Set<string>();
+		// Same keys as collapseKey, in one pass: a section, or a stretch of
+		// lines outside any section named by its first line.
+		let runKey: string | undefined;
+		return editLyric
+			.map((lineAtom, sourceIndex) => ({
+				lineAtom,
+				sourceIndex,
+				line: lyricStructure[sourceIndex],
+			}))
+			.filter(({ line }) => {
+				if (!line) return true;
+				if (line.sectionId) runKey = undefined;
+				else runKey ??= `unsectioned:${line.id}`;
+				const key = line.sectionId ?? runKey;
+				if (!key || !collapsedSections.has(key)) return true;
+				// The first line stays to carry the divider; it draws only that.
+				if (seenSections.has(key)) return false;
+				seenSections.add(key);
+				return true;
+			});
+	}, [editLyric, lyricStructure, collapsedSections]);
 
 	return {
 		scrollToIndex,

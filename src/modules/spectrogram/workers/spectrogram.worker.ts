@@ -16,7 +16,11 @@ let audioSampleRate: number = 0;
 let wasmInitialized: Promise<void> | null = null;
 let currentPalette: Uint8Array | null = null;
 
-const useSerialRenderer = Boolean(import.meta.env.TAURI_ENV_PLATFORM);
+let useSerialRenderer =
+	Boolean(import.meta.env.TAURI_ENV_PLATFORM) ||
+	!globalThis.crossOriginIsolated ||
+	typeof SharedArrayBuffer === "undefined";
+let scratchCanvas: OffscreenCanvas | null = null;
 
 async function initializeWasm() {
 	if (!wasmInitialized) {
@@ -26,15 +30,30 @@ async function initializeWasm() {
 				return;
 			}
 
-			await initThreaded();
-			await initThreadPool(Math.max(1, navigator.hardwareConcurrency || 1));
+			try {
+				await initThreaded();
+				await initThreadPool(
+					Math.max(1, Math.min(2, (navigator.hardwareConcurrency || 2) - 2)),
+				);
+			} catch {
+				useSerialRenderer = true;
+				await initSerial();
+			}
 		})();
 	}
 	await wasmInitialized;
 }
 
 ctx.onmessage = async (event) => {
-	await initializeWasm();
+	try {
+		await initializeWasm();
+	} catch (error) {
+		ctx.postMessage({
+			type: "FATAL_ERROR",
+			message: error instanceof Error ? error.message : String(error),
+		});
+		return;
+	}
 
 	const msg = event.data;
 
@@ -114,12 +133,19 @@ ctx.onmessage = async (event) => {
 					config.free();
 				}
 
-				const canvas = new OffscreenCanvas(tileWidthPx, height);
+				scratchCanvas ??= new OffscreenCanvas(tileWidthPx, height);
+				const canvas = scratchCanvas;
+				if (canvas.width !== tileWidthPx) canvas.width = tileWidthPx;
+				if (canvas.height !== height) canvas.height = height;
 				const context = canvas.getContext("2d");
 				if (!context) throw new Error("OffscreenCanvas context 失败");
 
 				const imageData = new ImageData(
-					new Uint8ClampedArray(pixelData),
+					new Uint8ClampedArray(
+						pixelData.buffer as ArrayBuffer,
+						pixelData.byteOffset,
+						pixelData.byteLength,
+					),
 					tileWidthPx,
 					height,
 				);

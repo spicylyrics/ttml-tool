@@ -10,7 +10,6 @@
  */
 
 import { Card, Inset } from "@radix-ui/themes";
-import { AnimatePresence } from "framer-motion";
 import { useAtomValue } from "jotai";
 import { type CSSProperties, forwardRef, memo } from "react";
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
@@ -52,23 +51,21 @@ export const RibbonBar = memo(
 							overflowX: "clip",
 						}}
 					>
-						<AnimatePresence mode="wait">
-							{toolMode === ToolMode.Edit && (
-								<SuspensePlaceHolder key="edit">
-									<EditModeRibbonBar />
-								</SuspensePlaceHolder>
-							)}
-							{toolMode === ToolMode.Sync && (
-								<SuspensePlaceHolder key="sync">
-									<SyncModeRibbonBar />
-								</SuspensePlaceHolder>
-							)}
-							{toolMode === ToolMode.Preview && (
-								<SuspensePlaceHolder key="preview">
-									<PreviewModeRibbonBar />
-								</SuspensePlaceHolder>
-							)}
-						</AnimatePresence>
+						{toolMode === ToolMode.Edit && (
+							<SuspensePlaceHolder key="edit">
+								<EditModeRibbonBar />
+							</SuspensePlaceHolder>
+						)}
+						{toolMode === ToolMode.Sync && (
+							<SuspensePlaceHolder key="sync">
+								<SyncModeRibbonBar />
+							</SuspensePlaceHolder>
+						)}
+						{toolMode === ToolMode.Preview && (
+							<SuspensePlaceHolder key="preview">
+								<PreviewModeRibbonBar />
+							</SuspensePlaceHolder>
+						)}
 					</div>
 				</Inset>
 			</Card>

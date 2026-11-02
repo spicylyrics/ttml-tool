@@ -1,5 +1,6 @@
 import { Delete20Regular } from "@fluentui/react-icons";
-import { Button, Card, Flex, IconButton, Text } from "@radix-ui/themes";
+import { Button, Flex, IconButton, Text } from "@radix-ui/themes";
+import { Panel } from "$/components/Panel";
 import type { FontSelection } from "./useFontSelection";
 export const CustomFontSection = ({
 	t,
@@ -12,10 +13,10 @@ export const CustomFontSection = ({
 	"t" | "appFont" | "customFontName" | "handleSelectFont" | "clearCustomFont"
 >) =>
 	customFontName && (
-		<Card variant="surface" style={{ backgroundColor: "var(--indigo-3)" }}>
+		<Panel>
 			<Flex align="center" justify="between">
 				<Flex direction="column">
-					<Text size="1" color="indigo" weight="bold">
+					<Text size="1" weight="bold" style={{ color: "var(--accent-11)" }}>
 						{t("settings.appearance.customFontActive", "Local custom font")}
 					</Text>
 					<Text
@@ -28,7 +29,6 @@ export const CustomFontSection = ({
 				<Flex gap="2">
 					<Button
 						variant="solid"
-						color="indigo"
 						size="1"
 						onClick={() =>
 							handleSelectFont(`"${customFontName}", sans-serif`, false)
@@ -42,10 +42,11 @@ export const CustomFontSection = ({
 						color="red"
 						size="1"
 						onClick={clearCustomFont}
+						aria-label={t("common.remove", "Remove")}
 					>
 						<Delete20Regular />
 					</IconButton>
 				</Flex>
 			</Flex>
-		</Card>
+		</Panel>
 	);

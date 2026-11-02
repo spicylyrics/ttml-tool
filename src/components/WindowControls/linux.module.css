@@ -1,0 +1,41 @@
+.controls {
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	gap: 8px;
+	padding: 0 10px 0 8px;
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border: none;
+	border-radius: var(--sl-radius-pill, 9999px);
+	background-color: var(--gray-a3);
+	color: var(--gray-12);
+	cursor: default;
+	transition: background-color 150ms cubic-bezier(0.23, 1, 0.32, 1);
+
+	&:hover {
+		background-color: var(--gray-a5);
+	}
+
+	&:active {
+		background-color: var(--gray-a6);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--focus-8);
+		outline-offset: 1px;
+	}
+}
+
+@media (prefers-contrast: more) {
+	.button {
+		outline: 1px solid var(--gray-a8);
+	}
+}

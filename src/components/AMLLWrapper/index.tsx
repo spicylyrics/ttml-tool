@@ -1,7 +1,3 @@
-import {
-	BackgroundRender,
-	MeshGradientRenderer,
-} from "@applemusic-like-lyrics/react";
 import classNames from "classnames";
 import { useAtomValue, useSetAtom } from "jotai";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -29,6 +25,7 @@ import type { LyricLine } from "$/types/ttml";
 import styles from "./index.module.css";
 import { ActiveLineGroup, StaticLineGroup } from "./LineGroups";
 import { groupAMLLLines, type LineGroup } from "./line-groups";
+import { PreviewBackground } from "./PreviewBackground";
 import { displayTimeAtom, wordRegistry } from "./word-registry";
 export const AMLLWrapper = memo(
 	({ variant }: { variant?: "standard" | "toxi" }) => {
@@ -154,14 +151,10 @@ export const AMLLWrapper = memo(
 			>
 				{/* Dynamic Mesh Warp Background (Kawarp) */}
 				<div className={styles.bgLayer}>
-					<BackgroundRender
+					<PreviewBackground
 						key={albumImg || "default"}
 						album={albumImg || undefined}
-						// PERF: Only animate when audio is actually playing
 						playing={isPlaying}
-						// PERF: 0.5x render scale - invisible quality difference on a blurred gradient
-						renderScale={0.5}
-						renderer={MeshGradientRenderer}
 					/>
 				</div>
 				<div className={styles.contentOverlay}>

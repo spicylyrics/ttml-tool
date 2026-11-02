@@ -298,10 +298,11 @@
 
 /* -------------------------------------------------------------- controls */
 
-/* With a near-white checked track, the thumb flips to dark ink to stay visible. */
+/* With a near-white checked track, the thumb flips to dark ink to stay visible.
+   aria-checked, not data-state: a wrapping Tooltip overwrites data-state. */
 :root[data-design="spicy-lyrics"][data-design-accent="brand"]
 	.radix-themes:is(.dark, .dark-theme)
-	.rt-SwitchRoot[data-state="checked"]
+	.rt-SwitchRoot[aria-checked="true"]
 	.rt-SwitchThumb {
 	background-color: var(--sl-primary-ink);
 }
@@ -338,7 +339,7 @@
    accent block on every hover. */
 :root[data-design="spicy-lyrics"]
 	.radix-themes:is(.dark, .dark-theme)
-	.rt-BaseMenuItem[data-highlighted] {
+	.rt-BaseMenuItem[data-highlighted]:not([data-disabled]) {
 	background-color: var(--sl-accent-fill) !important;
 	color: var(--sl-foreground) !important;
 }

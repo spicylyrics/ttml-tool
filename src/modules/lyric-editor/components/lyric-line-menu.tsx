@@ -3,10 +3,13 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
+import { MenuIconRow } from "$/components/MenuIconRow";
+import { ROLE_COLORS, SlIcon } from "$/components/SlIcon";
 import { lyricLinesAtom, selectedLinesAtom } from "$/states/main";
 
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
 import { insertLinesInSection } from "../utils/section-system";
+import { swapDuetLinesAtom } from "../utils/swap-duet";
 import {
 	globalEnableInsertAtom,
 	timingCopyPlacementAtom,
@@ -14,14 +17,13 @@ import {
 
 const selectedLinesSizeAtom = atom((get) => get(selectedLinesAtom).size);
 
-export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
+/** Background, duet and swap for the selected lines. Edit and Time mode both show it. */
+export const LineRoleMenuRow = ({ lineIndex }: { lineIndex: number }) => {
 	const { t } = useTranslation();
-	const setGlobalEnableInsert = useSetAtom(globalEnableInsertAtom);
-	const setTimingCopyPlacement = useSetAtom(timingCopyPlacementAtom);
-
 	const selectedLinesSize = useAtomValue(selectedLinesSizeAtom);
 	const selectedLines = useAtomValue(selectedLinesAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
+	const swapDuetLines = useSetAtom(swapDuetLinesAtom);
 
 	const lineObjs = useAtomValue(lyricLinesAtom);
 	const selectedLineObjs = lineObjs.lyricLines.filter((line) =>
@@ -37,18 +39,6 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 		else if (selectedLineObjs.every((line) => !line.isDuet)) return false;
 		else return "indeterminate" as const;
 	});
-	const combineEnabled = (() => {
-		if (selectedLinesSize < 2) return null;
-		const lineIdxs = lineObjs.lyricLines
-			.filter((line) => selectedLines.has(line.id))
-			.map((line) => lineObjs.lyricLines.indexOf(line));
-		const minIdx = Math.min(...lineIdxs);
-		const maxIdx = Math.max(...lineIdxs);
-		if (lineIdxs.length !== maxIdx - minIdx + 1) return null;
-		for (let i = minIdx; i <= maxIdx; i++)
-			if (!lineIdxs.includes(i)) return null;
-		return { minIdx, maxIdx };
-	})();
 
 	function bgOnCheck(checked: boolean) {
 		setBgChecked(checked);
@@ -70,16 +60,64 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 	}
 
 	return (
+		<MenuIconRow label={t("contextMenu.lineRole", "Line role")}>
+			<MenuIconRow.Track>
+				<MenuIconRow.Toggle
+					icon={<SlIcon name="background" />}
+					label={t("contextMenu.bgLyric", "背景歌词")}
+					checked={Bgchecked}
+					onCheckedChange={bgOnCheck}
+					color={ROLE_COLORS.background}
+				/>
+				<MenuIconRow.Toggle
+					icon={<SlIcon name="duet" />}
+					label={t("contextMenu.duetLyric", "对唱歌词")}
+					checked={DuetChecked}
+					onCheckedChange={duetOnCheck}
+					color={ROLE_COLORS.duet}
+				/>
+			</MenuIconRow.Track>
+			<MenuIconRow.Action
+				icon={<SlIcon name="swapDuet" />}
+				label={t("editModeTools.swapDuetSelected", "Swap main and duet")}
+				onSelect={() => {
+					const lineId = lineObjs.lyricLines[lineIndex]?.id;
+					swapDuetLines(
+						selectedLinesSize > 0
+							? selectedLines
+							: new Set(lineId ? [lineId] : []),
+					);
+				}}
+			/>
+		</MenuIconRow>
+	);
+};
+
+export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
+	const { t } = useTranslation();
+	const setGlobalEnableInsert = useSetAtom(globalEnableInsertAtom);
+	const setTimingCopyPlacement = useSetAtom(timingCopyPlacementAtom);
+
+	const selectedLinesSize = useAtomValue(selectedLinesSizeAtom);
+	const selectedLines = useAtomValue(selectedLinesAtom);
+	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
+	const lineObjs = useAtomValue(lyricLinesAtom);
+	const combineEnabled = (() => {
+		if (selectedLinesSize < 2) return null;
+		const lineIdxs = lineObjs.lyricLines
+			.filter((line) => selectedLines.has(line.id))
+			.map((line) => lineObjs.lyricLines.indexOf(line));
+		const minIdx = Math.min(...lineIdxs);
+		const maxIdx = Math.max(...lineIdxs);
+		if (lineIdxs.length !== maxIdx - minIdx + 1) return null;
+		for (let i = minIdx; i <= maxIdx; i++)
+			if (!lineIdxs.includes(i)) return null;
+		return { minIdx, maxIdx };
+	})();
+
+	return (
 		<>
-			<ContextMenu.CheckboxItem checked={Bgchecked} onCheckedChange={bgOnCheck}>
-				{t("contextMenu.bgLyric", "背景歌词")}
-			</ContextMenu.CheckboxItem>
-			<ContextMenu.CheckboxItem
-				checked={DuetChecked}
-				onCheckedChange={duetOnCheck}
-			>
-				{t("contextMenu.duetLyric", "对唱歌词")}
-			</ContextMenu.CheckboxItem>
+			<LineRoleMenuRow lineIndex={lineIndex} />
 			<ContextMenu.Separator />
 			<ContextMenu.Item
 				onSelect={() => {

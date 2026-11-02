@@ -63,9 +63,3 @@ export const editTabPositionAtom = atomWithMigratedStorage<boolean>(
 	true,
 	{ legacyKey: "syncTabPosition" },
 );
-
-export type SyncLevelMode = "word" | "line";
-export const syncLevelModeAtom = atomWithStorage<SyncLevelMode>(
-	"syncLevelMode",
-	"word",
-);

@@ -88,3 +88,55 @@ describe("TTML round trip", () => {
 		expect(lines.map((line) => line.isDuet)).toEqual([false, true]);
 	});
 });
+
+const ITUNES_TT = `<tt xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:itunes="http://music.apple.com/lyric-ttml-internal"`;
+
+describe("romanized word gaps", () => {
+	const xml = `${ITUNES_TT}><head><metadata><iTunesMetadata xmlns="http://music.apple.com/lyric-ttml-internal"><transliterations><transliteration><text for="L1"><span begin="00:01.000" end="00:01.500">yu</span><span begin="00:01.500" end="00:02.000">me</span> <span begin="00:02.000" end="00:03.000">wo</span>
+		<span begin="00:03.000" end="00:04.000">mi</span></text></transliteration></transliterations></iTunesMetadata></metadata></head><body><div><p begin="00:01.000" end="00:04.000" itunes:key="L1"><span begin="00:01.000" end="00:01.500">ゆ</span><span begin="00:01.500" end="00:02.000">め</span><span begin="00:02.000" end="00:03.000">を</span><span begin="00:03.000" end="00:04.000">見</span></p></div></body></tt>`;
+
+	it("keeps spaces between romanized syllables of an unspaced line", () => {
+		const [line] = roundTrip(xml);
+		// The newline before "mi" is indentation, not a gap.
+		expect(line.words.map((w) => w.romanWord)).toEqual([
+			"yu",
+			"me ",
+			"wo",
+			"mi",
+		]);
+	});
+
+	it("writes the gap between spans, as Apple does", () => {
+		const out = exportTTMLText(parseLyric(xml));
+		expect(out).toContain(">me</span> <span");
+		expect(out).toContain(">yu</span><span");
+	});
+});
+
+describe("translation language", () => {
+	const withTranslation = (lang: string, text: string) =>
+		`${ITUNES_TT}><head/><body><div><p begin="00:01.000" end="00:02.000">line<span ttm:role="x-translation" xml:lang="${lang}">${text}</span></p></div></body></tt>`;
+
+	it("exports translations as English by default", () => {
+		const parsed = parseLyric(withTranslation("es", "hola"));
+		expect(
+			exportTTMLText({ ...parsed, translationLanguage: undefined }),
+		).toContain('xml:lang="en"');
+	});
+
+	it("keeps the imported language", () => {
+		const out = exportTTMLText(parseLyric(withTranslation("es", "hola")));
+		expect(out).toContain('xml:lang="es"');
+	});
+
+	it("drops the zh-CN tag older exports put on non-Chinese translations", () => {
+		const parsed = parseLyric(withTranslation("zh-CN", "a dream"));
+		expect(parsed.translationLanguage).toBeUndefined();
+		expect(exportTTMLText(parsed)).toContain('xml:lang="en"');
+	});
+
+	it("keeps zh-CN on Chinese translations", () => {
+		const parsed = parseLyric(withTranslation("zh-CN", "一个梦"));
+		expect(parsed.translationLanguage).toBe("zh-CN");
+	});
+});

@@ -10,7 +10,6 @@
  */
 
 import { Flex, Grid, Separator } from "@radix-ui/themes";
-import { motion } from "framer-motion";
 import {
 	type FC,
 	forwardRef,
@@ -171,18 +170,13 @@ export const RibbonFrame = forwardRef<
 			className="ribbon-scrollbar"
 			asChild
 		>
-			<motion.div
-				initial={{ x: 10, opacity: 0 }}
-				animate={{ x: 0, opacity: 1 }}
-				exit={{ x: -10, opacity: 0 }}
-				layout
-				ref={frameRef}
-			>
+			{/* No slide or fade: it runs on every Edit/Time/Preview switch. */}
+			<div ref={frameRef}>
 				{reserveControlRows && (
 					<RibbonHeightReserve rows={reserveControlRows} />
 				)}
 				{children}
-			</motion.div>
+			</div>
 		</Flex>
 	);
 });

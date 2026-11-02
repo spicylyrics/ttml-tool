@@ -52,6 +52,11 @@ trap 'rm -rf "$work_dir"' EXIT
 	sed -i '/apprun-hooks\/"linuxdeploy-plugin-gtk.sh"/a source "$this_dir"/apprun-hooks/"host-gstreamer.sh"' \
 		squashfs-root/AppRun
 
+	# The extracted tree keeps owner-only modes on some folders, and
+	# appimagetool refuses to pack anything other users can't read or run.
+	chmod -R a+rX squashfs-root
+	chmod a+rx squashfs-root/AppRun
+
 	ARCH=x86_64 appimagetool squashfs-root patched.AppImage >/dev/null
 )
 

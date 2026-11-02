@@ -1,5 +1,6 @@
 import { History24Regular } from "@fluentui/react-icons";
 import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { DEFAULT_CUSTOM_LOGO_COLOR } from "$/modules/logo-color/presets";
 import {
 	type AdvancedOverrideSetters,
 	resetAdvancedOverrides,
@@ -22,6 +23,8 @@ type ResetThemeProps = AdvancedOverrideSetters &
 		| "setCustomGradientAngle"
 		| "setCustomGradientSize"
 		| "setSpicyLyricsDesign"
+		| "setLogoColorPreset"
+		| "setLogoColorCustom"
 		| "t"
 	>;
 
@@ -60,6 +63,8 @@ export const ResetThemeSection = (props: ResetThemeProps) => {
 							props.setCustomGradientAngle(45);
 							props.setCustomGradientSize(1);
 							props.setSpicyLyricsDesign(true);
+							props.setLogoColorPreset("default");
+							props.setLogoColorCustom(DEFAULT_CUSTOM_LOGO_COLOR);
 							resetAdvancedOverrides(props);
 						}}
 					>

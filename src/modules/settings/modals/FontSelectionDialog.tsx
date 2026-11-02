@@ -39,7 +39,10 @@ export const FontSelectionDialog = () => {
 				<Flex justify="between" align="center" mb="5">
 					<Flex align="center" gap="3">
 						<TextFont24Regular />
-						<Dialog.Title mb="0" style={{ fontSize: "32px" }}>
+						<Dialog.Title
+							mb="0"
+							style={{ fontSize: "32px", letterSpacing: "-0.028em" }}
+						>
 							{state.t("settings.appearance.fontLibrary", "Font library")}
 						</Dialog.Title>
 					</Flex>
@@ -48,6 +51,7 @@ export const FontSelectionDialog = () => {
 							variant="ghost"
 							color="gray"
 							style={{ cursor: "pointer" }}
+							aria-label={t("common.close", "Close")}
 						>
 							<DismissRegular />
 						</IconButton>

@@ -1,41 +1,53 @@
 import classNames from "classnames";
-import { useAtomValue, useSetAtom } from "jotai";
-import React, { type FC, useCallback, useContext } from "react";
+import { useAtomValue, useSetAtom, useStore } from "jotai";
+import React, { type FC, memo, useCallback, useContext } from "react";
 import type { ProcessedLyricLine } from "$/modules/segmentation/utils/segment-processing.ts";
+import { spectrogramScrollLeftAtom } from "$/modules/spectrogram/states";
 import {
 	previewLineAtom,
 	selectedWordIdAtom,
 	timelineDragAtom,
 } from "$/modules/spectrogram/states/dnd.ts";
 import {
+	getLineEndDividers,
+	type LineEndDividerProps,
+} from "$/modules/spectrogram/utils/line-end-handles.ts";
+import {
 	getDividerEdge,
 	hasOverlappedStart,
 } from "$/modules/spectrogram/utils/timeline-mutations.ts";
 import { editingTimeFieldAtom, selectedLinesAtom } from "$/states/main.ts";
-import { DividerSegment } from "./DividerSegment.tsx";
+import { DividerSegment, type LineEndRole } from "./DividerSegment.tsx";
 import { GapSegment } from "./GapSegment.tsx";
 import styles from "./LyricLineSegment.module.css";
 import { LyricWordSegment } from "./LyricWordSegment.tsx";
 import { SpectrogramContext } from "./SpectrogramContext.ts";
 
+/** Accessible names for the line-end handles, translated once by the overlay. */
+export type LineEndLabels = Readonly<Record<LineEndRole, string>>;
+
 interface LyricLineSegmentProps {
 	line: ProcessedLyricLine;
-	allLines: ProcessedLyricLine[];
+	isTouchingStart: boolean;
+	isTouchingEnd: boolean;
 	isGhost?: boolean;
 	offset?: number;
+	lineEndLabels?: LineEndLabels;
 }
 
-export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
+const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 	line,
-	allLines,
+	isTouchingStart,
+	isTouchingEnd,
 	isGhost = false,
 	offset = 0,
+	lineEndLabels,
 }) => {
 	const previewLine = useAtomValue(previewLineAtom);
 	const setSelectedLines = useSetAtom(selectedLinesAtom);
 	const setSelectedWordId = useSetAtom(selectedWordIdAtom);
-	const { scrollContainerRef, zoom, scrollLeft } =
-		useContext(SpectrogramContext);
+	const { scrollContainerRef, zoom } = useContext(SpectrogramContext);
+	const store = useStore();
 	const editingTimeField = useAtomValue(editingTimeFieldAtom);
 	const setTimelineDrag = useSetAtom(timelineDragAtom);
 
@@ -54,6 +66,13 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 
 			if (!displayLine) return;
 			e.stopPropagation();
+			// A whole-line drag only moves the segments, so the word still being
+			// synced would stay behind. Select the line, but don't drag it.
+			if (displayLine.syncInProgress) {
+				setSelectedLines(new Set([displayLine.id]));
+				setSelectedWordId(null);
+				return;
+			}
 
 			const { id, startTime } = displayLine;
 
@@ -62,6 +81,7 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 
 			const rect = scrollContainer.getBoundingClientRect();
 			const mouseXPx = e.clientX - rect.left;
+			const scrollLeft = store.get(spectrogramScrollLeftAtom);
 			const initialMouseTimeMS = ((scrollLeft + mouseXPx) / zoom) * 1000;
 
 			setTimelineDrag({
@@ -81,7 +101,7 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 			setSelectedLines,
 			setSelectedWordId,
 			scrollContainerRef,
-			scrollLeft,
+			store,
 			zoom,
 			setTimelineDrag,
 		],
@@ -107,21 +127,17 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 		return null;
 	}
 
-	const isTouchingStart = allLines.some(
-		(l) => l.id !== line.id && l.endTime === startTime,
-	);
-	const isTouchingEnd = allLines.some(
-		(l) => l.id !== line.id && l.startTime === endTime,
-	);
-
 	const dynamicStyles = {
 		left: `${left}px`,
 		width: `${width}px`,
 		cursor: isGhost ? "default" : "auto",
 	};
 
+	const lineEnd = isGhost
+		? null
+		: getLineEndDividers(segments, displayLine.endTime, zoom, isTouchingEnd);
+
 	return (
-		// biome-ignore lint/a11y/useSemanticElements: <button> 不适用
 		<div
 			className={classNames(
 				styles.lineSegment,
@@ -177,7 +193,7 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 							isGhost={isGhost}
 						/>
 					)}
-					{!isGhost && (
+					{!isGhost && !lineEnd?.hidden.has(index) && (
 						<DividerSegment
 							key={`divider-${segment.id}`}
 							lineId={displayLine.id}
@@ -187,6 +203,7 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 							segmentsLength={segmentsLength}
 							isTouching={index === segmentsLength - 1 ? isTouchingEnd : false}
 							edge={getDividerEdge(segments, index, displayLine.endTime)}
+							{...lineEndProps(lineEnd?.props.get(index), lineEndLabels)}
 						/>
 					)}
 				</React.Fragment>
@@ -194,3 +211,12 @@ export const LyricLineSegment: FC<LyricLineSegmentProps> = ({
 		</div>
 	);
 };
+
+function lineEndProps(
+	props: LineEndDividerProps | undefined,
+	labels: LineEndLabels | undefined,
+) {
+	return props && { ...props, ariaLabel: labels?.[props.lineEndRole] };
+}
+
+export const LyricLineSegment = memo(LyricLineSegmentImpl);

@@ -3,6 +3,7 @@ import { exists, readTextFile, remove, stat } from "@tauri-apps/plugin-fs";
 import type { getDefaultStore } from "jotai";
 import { toast } from "react-toastify";
 import { log, error as logError } from "$/utils/logging";
+import { isLinkedProjectDir } from "./linked-projects";
 import { writeProjectLyricFile } from "./lyric-io";
 import { assertSafePath } from "./manifest";
 import { splitDirPath } from "./project-folder-sync";
@@ -75,7 +76,7 @@ export async function restoreLinkedBackup(
 ): Promise<boolean> {
 	if (!isTauri()) return false;
 	const backupPath = getLinkedBackupPath(dir);
-	if (!backupPath) {
+	if (!backupPath || !(await isLinkedProjectDir(dir))) {
 		toast.error(t("error.folderProjectInvalid", "Invalid project folder"));
 		return false;
 	}

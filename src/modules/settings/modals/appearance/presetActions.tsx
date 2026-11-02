@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import type { LogoColorPreset } from "$/modules/logo-color/presets";
 import { applyDefinedPresetSettings } from "$/modules/settings/logic/appearance-presets";
 import { getPresetGlassBlur } from "$/modules/settings/logic/glass-blur";
 import type { AppearancePreset } from "$/modules/settings/states/index.ts";
@@ -35,6 +36,10 @@ export function createPresetActions({
 	setLegacySpaceLabels,
 	spicyLyricsDesign,
 	setSpicyLyricsDesign,
+	logoColorPreset,
+	setLogoColorPreset,
+	logoColorCustom,
+	setLogoColorCustom,
 	advWaveformColor,
 	setAdvWaveformColor,
 	advWaveformProgress,
@@ -183,6 +188,8 @@ export function createPresetActions({
 				legacyDarkTheme,
 				legacySpaceLabels,
 				spicyLyricsDesign,
+				logoColorPreset,
+				logoColorCustom,
 			}),
 		};
 		setPresets([...presets, newPreset]);
@@ -249,6 +256,11 @@ export function createPresetActions({
 			setLegacySpaceLabels(!!s.legacySpaceLabels);
 		if (s.spicyLyricsDesign !== undefined)
 			setSpicyLyricsDesign(!!s.spicyLyricsDesign);
+		// resolveLogoColor treats anything unknown as Default, so a stale or
+		// hand-edited preset can't inject a color.
+		if (s.logoColorPreset !== undefined)
+			setLogoColorPreset(s.logoColorPreset as LogoColorPreset);
+		if (s.logoColorCustom !== undefined) setLogoColorCustom(s.logoColorCustom);
 
 		// Advanced
 		if (s.advWaveformColor !== undefined)

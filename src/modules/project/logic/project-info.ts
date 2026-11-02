@@ -33,7 +33,9 @@ export interface ProjectIdentity {
  * @param lyrics - 需要识别的歌词对象
  * @returns
  */
-export function identifyProject(lyrics: TTMLLyric): ProjectIdentity {
+export function identifyProject(
+	lyrics: Pick<TTMLLyric, "metadata">,
+): ProjectIdentity {
 	const getMeta = (key: string) =>
 		lyrics.metadata.find((m) => m.key.toLowerCase() === key.toLowerCase())
 			?.value[0];

@@ -96,6 +96,23 @@ describe("ruby import compatibility", () => {
 });
 
 describe("legacy project and autosave compatibility", () => {
+	it("preserves normalized document containers and only replaces legacy lines", () => {
+		const clean = {
+			metadata: [],
+			lyricLines: [{ ...newLyricLine(), words: [newLyricWord()] }],
+		};
+		expect(normalizeDocumentWords(clean)).toBe(clean);
+		const legacy = legacyDocument();
+		const mixed = {
+			...legacy,
+			lyricLines: [...legacy.lyricLines, clean.lyricLines[0]],
+		};
+		const normalized = normalizeDocumentWords(mixed);
+		expect(normalized.lyricLines[0]).not.toBe(legacy.lyricLines[0]);
+		expect(normalized.lyricLines[1]).toBe(clean.lyricLines[0]);
+		expect(normalizeDocumentWords(normalized)).toBe(normalized);
+	});
+
 	it("loads old words into the editor without retaining ruby or losing supported data", () => {
 		const legacy = legacyDocument();
 		const before = structuredClone(legacy);

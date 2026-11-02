@@ -25,7 +25,8 @@
 	display: block;
 	width: 20px;
 	height: 20px;
-	color: var(--accent-9);
+	/* Unset unless the user picked a logo color (src/modules/logo-color). */
+	color: var(--sl-logo-color, var(--accent-9));
 }
 
 @media screen and (max-width: 768px) {

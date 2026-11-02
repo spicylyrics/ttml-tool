@@ -1,5 +1,5 @@
 import { exec } from "node:child_process";
-import { existsSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
@@ -13,14 +13,6 @@ import svgLoader from "vite-svg-loader";
 import { configDefaults } from "vitest/config";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const AMLL_LOCAL_PATH = resolve(
-	__dirname,
-	"./applemusic-like-lyrics-main/applemusic-like-lyrics-main",
-);
-const AMLL_LOCAL_EXISTS = existsSync(AMLL_LOCAL_PATH);
-
-process.env.AMLL_LOCAL_EXISTS = AMLL_LOCAL_EXISTS ? "true" : "false";
 
 const localePaths: string[] = [resolve(__dirname, "./src/i18n/locales")];
 
@@ -65,9 +57,14 @@ const plugins: Plugin[] = [
 					} catch {}
 				}
 
+				const appVersion: string =
+					JSON.parse(readFileSync(resolve(__dirname, "package.json"), "utf8"))
+						.version ?? "";
+
 				return `
 					export const BUILD_TIME = ${JSON.stringify(new Date().toISOString())};
 					export const GIT_COMMIT = ${JSON.stringify(gitCommit ?? "unknown")};
+					export const APP_VERSION = ${JSON.stringify(appVersion)};
 				`;
 			}
 		},
@@ -109,7 +106,7 @@ export default defineConfig({
 		},
 		strictPort: true,
 	},
-	envPrefix: ["VITE_", "TAURI_", "AMLL_", "SENTRY_"],
+	envPrefix: ["VITE_", "TAURI_", "SENTRY_"],
 	build: {
 		target:
 			process.env.TAURI_ENV_PLATFORM === "windows" ? "chrome105" : "safari15",
@@ -117,32 +114,10 @@ export default defineConfig({
 		sourcemap: true,
 	},
 	resolve: {
-		alias: Object.assign<Record<string, string>, Record<string, string>>(
-			{
-				$: resolve(__dirname, "src"),
-				url: resolve(__dirname, "src/utils/url-shim.ts"),
-			},
-			AMLL_LOCAL_EXISTS
-				? {
-						"@applemusic-like-lyrics/core": resolve(
-							AMLL_LOCAL_PATH,
-							"packages/core/src",
-						),
-						"@applemusic-like-lyrics/react": resolve(
-							AMLL_LOCAL_PATH,
-							"packages/react/src",
-						),
-						"@applemusic-like-lyrics/lyric": resolve(
-							AMLL_LOCAL_PATH,
-							"packages/lyric/src",
-						),
-						"@applemusic-like-lyrics/ttml": resolve(
-							AMLL_LOCAL_PATH,
-							"packages/ttml/src",
-						),
-					}
-				: {},
-		),
+		alias: {
+			$: resolve(__dirname, "src"),
+			url: resolve(__dirname, "src/utils/url-shim.ts"),
+		},
 		dedupe: ["react", "react-dom"],
 	},
 	worker: {
@@ -152,6 +127,15 @@ export default defineConfig({
 		global: "globalThis",
 	},
 	test: {
+		// The lyric parsers only declare a "module" entry, which the test
+		// resolver skips; point it at the file so modules importing them can
+		// be mocked in tests.
+		alias: {
+			"@applemusic-like-lyrics/lyric": resolve(
+				__dirname,
+				"node_modules/@applemusic-like-lyrics/lyric/pkg/amll_lyric.js",
+			),
+		},
 		exclude: [
 			...configDefaults.exclude,
 			"scripts/version-utils.test.mjs",
@@ -160,5 +144,9 @@ export default defineConfig({
 			// Session worktrees are full checkouts of the repo.
 			".claude/**",
 		],
+		// Node 25+ ships its own localStorage global, which is undefined without
+		// --localstorage-file and hides jsdom's, so atomWithStorage atoms lose
+		// what tests set. Turn Node's off so jsdom's is used.
+		execArgv: ["--no-experimental-webstorage"],
 	},
 });
