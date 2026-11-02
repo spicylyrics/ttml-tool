@@ -81,6 +81,23 @@ export function isPreselected(
 	return row.sources.length >= sourcesWithCredits;
 }
 
+/**
+ * What an unattended lookup (the import) adds: the rows the finder would tick
+ * at the start, by legal name.
+ */
+export function namesToAdd(
+	results: SourceResult[],
+	existing: string[],
+): string[] {
+	const rows = mergeWriters(results, existing);
+	const withCredits = results.filter(
+		(result) => result.writers.length > 0,
+	).length;
+	return rows
+		.filter((row) => isPreselected(row, withCredits))
+		.map((row) => nameFor(row, true));
+}
+
 export function nameFor(row: FinderRow, preferLegal: boolean): string {
 	return preferLegal && row.legal ? row.legal : row.credited;
 }

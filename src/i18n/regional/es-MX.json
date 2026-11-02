@@ -37,6 +37,7 @@
 	},
 	"importLyrics": {
 		"splitHint": "Marca las sílabas con el separador de palabras según tu configuración de segmentación y tus divisiones aprendidas. Corrige las marcas en el texto antes de importar.",
+		"findSongwriters": "Agregar compositores de MusicBrainz y Genius",
 		"importSuccess": "{count, plural, one {Se importó # línea.} many {Se importaron # líneas.} other {Se importaron # líneas.}}",
 		"importFailed": "No se pudo leer esta letra. Revisa el texto y las opciones de formato del texto."
 	},

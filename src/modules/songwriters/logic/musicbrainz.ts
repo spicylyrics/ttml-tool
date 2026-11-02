@@ -24,17 +24,26 @@ function rateLimited<T>(run: () => Promise<T>): Promise<T> {
 	return next;
 }
 
+/** A 503 means "slow down"; wait this long and try once more. */
+const RETRY_AFTER_MS = 2000;
+
 async function getJson<T>(path: string): Promise<T> {
-	return rateLimited(async () => {
-		const separator = path.includes("?") ? "&" : "?";
-		const response = await fetch(`${BASE_URL}${path}${separator}fmt=json`, {
-			headers: { Accept: "application/json" },
-		});
-		if (!response.ok) {
-			throw new Error(`MusicBrainz ${response.status} ${response.statusText}`);
-		}
-		return (await response.json()) as T;
-	});
+	const separator = path.includes("?") ? "&" : "?";
+	const request = () =>
+		rateLimited(() =>
+			fetch(`${BASE_URL}${path}${separator}fmt=json`, {
+				headers: { Accept: "application/json" },
+			}),
+		);
+	let response = await request();
+	if (response.status === 503) {
+		await new Promise((resolve) => setTimeout(resolve, RETRY_AFTER_MS));
+		response = await request();
+	}
+	if (!response.ok) {
+		throw new Error(`MusicBrainz ${response.status} ${response.statusText}`);
+	}
+	return (await response.json()) as T;
 }
 
 interface ArtistCredit {

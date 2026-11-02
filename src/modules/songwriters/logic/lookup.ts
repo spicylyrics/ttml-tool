@@ -1,5 +1,5 @@
 import { getGeniusWriters, searchGenius } from "./genius";
-import { normalizeName } from "./merge";
+import { namesToAdd, normalizeName } from "./merge";
 import {
 	buildRecordingQuery,
 	getRecordingWriters,
@@ -108,4 +108,34 @@ export async function lookUpWriters(
 			: Promise.resolve({ source: "musicbrainz", match: null, writers: [] }),
 	);
 	return Promise.all(tasks);
+}
+
+/**
+ * Songwriters to add for a song picked elsewhere (the lyrics import), with
+ * no one reviewing them: the names every source with credits agrees on, by
+ * legal name, minus those already in the list. A Genius pick keeps its id so
+ * the lookup doesn't have to guess the song on Genius.
+ */
+export async function findSongwritersToAdd(
+	song: { title: string; artist: string; geniusId?: string },
+	geniusApiKey: string,
+	existing: string[],
+): Promise<string[]> {
+	const search = await searchSongs(song.title, song.artist, geniusApiKey);
+	const picked: SongMatch | undefined =
+		song.geniusId && geniusApiKey
+			? {
+					source: "genius",
+					id: song.geniusId,
+					title: song.title,
+					artist: song.artist,
+				}
+			: [...search.musicbrainz, ...search.genius].find((match) =>
+					isSameSong(match, song),
+				);
+	if (!picked) return [];
+	return namesToAdd(
+		await lookUpWriters(picked, search, geniusApiKey),
+		existing,
+	);
 }

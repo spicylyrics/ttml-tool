@@ -23,6 +23,10 @@ import { OptionPicker } from "$/components/OptionPicker";
 import { currentDurationAtom, loadedAudioAtom } from "$/modules/audio/states";
 import { applyReviewedSections } from "$/modules/lyric-editor/utils/section-system.ts";
 import type { ImportSourceId } from "$/modules/lyrics-import/components/ImportSourceCards";
+import {
+	metadataValues,
+	setMetadataValues,
+} from "$/modules/project/logic/metadata-fields";
 import { getAudioSearchQuery } from "$/modules/project/logic/song-metadata";
 import { prepareTextImport } from "$/modules/project/logic/text-to-lines";
 import {
@@ -36,6 +40,8 @@ import {
 	normalizeApostrophesOnImportAtom,
 	normalizeCyrillicEsOnImportAtom,
 } from "$/modules/settings/states/index.ts";
+import { findSongwritersToAdd } from "$/modules/songwriters/logic/lookup";
+import { addSongwriters } from "$/modules/songwriters/logic/merge";
 import { confirmDialogAtom, importLyricsDialogAtom } from "$/states/dialogs.ts";
 import {
 	isDirtyAtom,
@@ -338,23 +344,45 @@ export const ImportLyricsDialog = () => {
 			setOriginalText(null);
 			setPickedTrack(null);
 
-			if (track?.fetchSongwriters && store.get(fetchImportedSongwritersAtom)) {
+			// Runs after the dialog closes; adds to the songwriters, never replaces.
+			if (track && store.get(fetchImportedSongwritersAtom)) {
 				try {
-					const writers = await track.fetchSongwriters();
-					const current = store.get(lyricLinesAtom);
-					const metadata = current.metadata.filter(
-						(item) => item.key !== "songwriter",
+					const existing = metadataValues(
+						store.get(lyricLinesAtom).metadata,
+						"songwriter",
 					);
-					if (writers.length)
-						metadata.push({ key: "songwriter", value: writers });
-					store.set(lyricLinesAtom, { ...current, metadata });
+					const names = await findSongwritersToAdd(
+						{
+							title: track.name,
+							artist: track.artist,
+							geniusId:
+								track.source === "genius" ? String(track.id) : undefined,
+						},
+						geniusApiKey,
+						existing,
+					);
+					if (names.length) {
+						// Re-read: the user may have edited while the lookup ran.
+						const current = store.get(lyricLinesAtom);
+						const metadata = current.metadata.map((entry) => ({
+							...entry,
+							value: [...entry.value],
+						}));
+						setMetadataValues(
+							metadata,
+							"songwriter",
+							addSongwriters(metadataValues(metadata, "songwriter"), names),
+						);
+						store.set(lyricLinesAtom, { ...current, metadata });
+					}
 				} catch (e) {
-					console.error("Genius songwriter fetch failed", e);
+					console.error("Songwriter lookup failed", e);
 				}
 			}
 		},
 		[
 			format,
+			geniusApiKey,
 			pickedTrack,
 			setIsOpen,
 			setOriginalText,
@@ -540,7 +568,7 @@ export const ImportLyricsDialog = () => {
 										!!format.wordSeparator &&
 										!segmentationLoading
 									}
-									showSongwriters={pickedTrack?.source === "genius"}
+									showSongwriters={!!pickedTrack}
 									onProcess={handleProcess}
 									onSplit={handleSplit}
 									onRestore={handleRestore}

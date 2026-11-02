@@ -4,6 +4,7 @@ import {
 	isPreselected,
 	mergeWriters,
 	nameFor,
+	namesToAdd,
 	normalizeName,
 } from "./merge";
 
@@ -92,6 +93,51 @@ describe("mergeWriters", () => {
 			"Taylor Swift",
 		]);
 		expect(rows.every((row) => isPreselected(row, 1))).toBe(true);
+	});
+});
+
+describe("namesToAdd", () => {
+	it("takes agreed names by legal name and skips ones already listed", () => {
+		expect(
+			namesToAdd(
+				[
+					{
+						source: "genius",
+						match: null,
+						writers: [
+							{ credited: "Max Martin" },
+							{ credited: "Shellback" },
+							{ credited: "Only Genius" },
+						],
+					},
+					{
+						source: "musicbrainz",
+						match: null,
+						writers: [
+							{ credited: "Max Martin", legal: "Martin Karl Sandberg" },
+							{ credited: "Shellback", legal: "Johan Karl Schuster" },
+						],
+					},
+				],
+				["Shellback"],
+			),
+		).toEqual(["Martin Karl Sandberg"]);
+	});
+
+	it("takes everything when only one source had credits", () => {
+		expect(
+			namesToAdd(
+				[
+					{ source: "genius", match: null, writers: [] },
+					{
+						source: "musicbrainz",
+						match: null,
+						writers: [{ credited: "A" }, { credited: "B", legal: "Bee" }],
+					},
+				],
+				[],
+			),
+		).toEqual(["A", "Bee"]);
 	});
 });
 

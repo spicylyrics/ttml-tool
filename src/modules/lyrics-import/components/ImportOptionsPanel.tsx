@@ -245,8 +245,8 @@ export function ImportOptionsPanel({
 							}
 						/>
 						{t(
-							"metadataDialog.fetchSongwriters.button",
-							"Fetch songwriters from Genius",
+							"importLyrics.findSongwriters",
+							"Add songwriters from MusicBrainz and Genius",
 						)}
 					</Flex>
 				</Text>

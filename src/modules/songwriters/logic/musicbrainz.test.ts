@@ -85,6 +85,18 @@ describe("MusicBrainz requests", () => {
 		]);
 	});
 
+	it("retries once when MusicBrainz asks to slow down", async () => {
+		fetchMock
+			.mockImplementationOnce(() =>
+				Promise.resolve(new Response("", { status: 503 })),
+			)
+			.mockImplementation(() => json({ recordings: [] }));
+		const pending = searchRecordings("query");
+		await vi.runAllTimersAsync();
+		expect(await pending).toEqual([]);
+		expect(fetchMock).toHaveBeenCalledTimes(2);
+	});
+
 	it("skips recordings without a work and adds legal names", async () => {
 		fetchMock.mockImplementation((input) => {
 			const url = String(input);
