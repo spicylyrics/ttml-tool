@@ -5,7 +5,7 @@
  * LABELS_DIR=<label JSON dir> SPLITS=<claude-splits.json> [REPORT=<out.md>]
  *   pnpm exec vitest run research/autosplit/model/score-claude
  */
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { it } from "vitest";
 import { segmentWord } from "$/modules/segmentation/utils/segmentation";
@@ -32,6 +32,85 @@ const rules = (word: string) =>
 		.map((w) => w.word)
 		.join("/")
 		.toLowerCase();
+
+/**
+ * Votes from a correction pass (VOTES=<votes.jsonl>, words shown pre-filled
+ * with the list): how often TX24 kept the suggested split, split by whether
+ * the word was also in the labels. Pre-filling pulls toward keeping, so this
+ * reads high compared with labeling blind.
+ */
+function votesSection(
+	list: { word: string; split: string; unsure: boolean }[],
+	labels: Map<string, unknown>,
+) {
+	const path = process.env.VOTES;
+	if (!path || !existsSync(path)) return [];
+	const mine = new Map(list.map((e) => [e.word.toLowerCase(), e]));
+	const groups = {
+		"new words (not in your labels)": {
+			n: 0,
+			kept: 0,
+			acceptable: 0,
+			rules: 0,
+			unsure: 0,
+			unsureKept: 0,
+		},
+		"words also in your labels": {
+			n: 0,
+			kept: 0,
+			acceptable: 0,
+			rules: 0,
+			unsure: 0,
+			unsureKept: 0,
+		},
+	};
+	const changed: string[] = [];
+	for (const line of readFileSync(path, "utf8").split("\n").filter(Boolean)) {
+		const vote = JSON.parse(line);
+		const word = String(vote.word).toLowerCase();
+		const entry = mine.get(word);
+		if (vote.skipped || !vote.pick || !entry) continue;
+		const g =
+			groups[
+				labels.has(word)
+					? "words also in your labels"
+					: "new words (not in your labels)"
+			];
+		const right = new Set(
+			[...vote.ticked, vote.pick, vote.custom]
+				.filter(Boolean)
+				.map((s: string) => s.toLowerCase()),
+		);
+		const split = entry.split.toLowerCase();
+		const pick = String(vote.pick).toLowerCase();
+		g.n++;
+		if (pick === split) g.kept++;
+		else changed.push(`${entry.word}: me ${split}, you ${pick}`);
+		if (right.has(split)) g.acceptable++;
+		if (right.has(rules(String(vote.word)))) g.rules++;
+		if (entry.unsure) {
+			g.unsure++;
+			if (pick === split) g.unsureKept++;
+		}
+	}
+	const pct = (a: number, b: number) =>
+		b ? `${((100 * a) / b).toFixed(1)}%` : "-";
+	return [
+		"## Your correction pass (pre-filled with my splits)",
+		"",
+		"| | words | kept my split | mine still marked right | rules marked right | my unsure ones kept |",
+		"|---|---|---|---|---|---|",
+		...Object.entries(groups).map(
+			([name, g]) =>
+				`| ${name} | ${g.n} | ${pct(g.kept, g.n)} | ${pct(g.acceptable, g.n)} | ${pct(g.rules, g.n)} | ${g.unsureKept}/${g.unsure} |`,
+		),
+		"",
+		`### You changed (${changed.length})`,
+		"",
+		...changed.map((c) => `- ${c}`),
+		"",
+	];
+}
 
 it.skipIf(!labelsDir || !splitsPath)(
 	"score hand-made splits against labels",
@@ -101,6 +180,7 @@ it.skipIf(!labelsDir || !splitsPath)(
 			"",
 			...disagreements.map((d) => `- ${d}`),
 			"",
+			...votesSection(list, labels),
 		].join("\n");
 		if (process.env.REPORT) writeFileSync(process.env.REPORT, report);
 		console.log(report);
