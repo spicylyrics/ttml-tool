@@ -204,35 +204,26 @@ jobs:
           gh release upload "${{ github.ref_name }}" "$appimage_path" --clobber
         env:
           GH_TOKEN: ${{ github.token }}
-      # dpkg and rpm sort 0.23.0-2 above 0.23.0, so a beta's .deb or .rpm would
-      # block the stable one from installing over it. Repack both as 0.23.0~2,
-      # which both sort below 0.23.0, sign them again and replace the uploads.
-      # The file names stay, so latest.json's URLs still match.
-      - name: Give beta .deb and .rpm packages a pre-release version
+      # dpkg sorts 0.23.0-2 above 0.23.0, so a beta .deb would block the stable
+      # one from installing over it. Repack it as 0.23.0~2, which dpkg sorts
+      # below 0.23.0, sign it again and replace the upload under the same name,
+      # so latest.json's URL still matches. The .rpm gets the same in
+      # repack-beta-rpm, which needs Fedora's rpmrebuild.
+      - name: Give the beta .deb a pre-release version
         if: matrix.platform == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v') && contains(github.ref_name, '-')
         shell: bash
         run: |
           version="${GITHUB_REF_NAME#v}"
           tilde="${version%%-*}~${version#*-}"
-          sudo apt-get install -y rpmrebuild
           deb=$(find src-tauri/target -path '*/release/bundle/deb/*.deb' -type f -print -quit)
-          rpm=$(find src-tauri/target -path '*/release/bundle/rpm/*.rpm' -type f -print -quit)
-          test -n "$deb" && test -n "$rpm"
-          work="$RUNNER_TEMP/repack"
-          mkdir -p "$work/rpm"
-          dpkg-deb -R "$deb" "$work/deb"
-          sed -i "s/^Version: .*/Version: $tilde/" "$work/deb/DEBIAN/control"
-          dpkg-deb --root-owner-group -b "$work/deb" "$deb"
-          rpmrebuild --package --notest-install --directory="$work/rpm" \
-            --change-spec-preamble="sed -e 's/^Version:.*/Version: $tilde/'" "$rpm"
-          mv "$(find "$work/rpm" -name '*.rpm' -type f -print -quit)" "$rpm"
+          test -n "$deb"
+          dpkg-deb -R "$deb" "$RUNNER_TEMP/deb"
+          sed -i "s/^Version: .*/Version: $tilde/" "$RUNNER_TEMP/deb/DEBIAN/control"
+          dpkg-deb --root-owner-group -b "$RUNNER_TEMP/deb" "$deb"
           test "$(dpkg-deb -f "$deb" Version)" = "$tilde"
-          test "$(rpm -qp --queryformat '%{VERSION}' "$rpm")" = "$tilde"
-          for file in "$deb" "$rpm"; do
-            rm -f "$file.sig"
-            pnpm tauri signer sign "$file"
-            gh release upload "${{ github.ref_name }}" "$file" "$file.sig" --clobber
-          done
+          rm -f "$deb.sig"
+          pnpm tauri signer sign "$deb"
+          gh release upload "${{ github.ref_name }}" "$deb" "$deb.sig" --clobber
         env:
           GH_TOKEN: ${{ github.token }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
@@ -315,11 +306,50 @@ jobs:
           path: arch-out/*.pkg.tar.zst
           if-no-files-found: error
 
+  # rpm sorts 0.23.0-2 above 0.23.0, like dpkg (see the .deb step above).
+  # Repacks the beta .rpm as 0.23.0~2 with rpmrebuild, which Ubuntu doesn't
+  # package, and signs it again. Its failure only leaves the -N .rpm in place.
+  repack-beta-rpm:
+    name: Repack beta .rpm (x86_64)
+    needs: build-tauri-desktop
+    if: ${{ !cancelled() && needs.build-tauri-desktop.result != 'skipped' && contains(github.ref_name, '-') && startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v7
+        with:
+          name: Spicy Lyrics TTML Tool linux-x86_64
+          path: linux-build
+      - name: Repack, sign and upload
+        shell: bash
+        run: |
+          dnf install -y --setopt=install_weak_deps=False rpmrebuild nodejs npm gh
+          version="${GITHUB_REF_NAME#v}"
+          tilde="${version%%-*}~${version#*-}"
+          rpm=$(find linux-build -path '*/bundle/rpm/*.rpm' -type f -print -quit)
+          test -n "$rpm"
+          name=$(basename "$rpm")
+          mkdir -p "$RUNNER_TEMP/rpm"
+          rpmrebuild --package --notest-install --directory="$RUNNER_TEMP/rpm" \
+            --change-spec-preamble="sed -e 's/^Version:.*/Version: $tilde/'" "$rpm"
+          mkdir -p out
+          mv "$(find "$RUNNER_TEMP/rpm" -name '*.rpm' -type f -print -quit)" "out/$name"
+          test "$(rpm -qp --queryformat '%{VERSION}' "out/$name")" = "$tilde"
+          cli=$(node -p "require('./package.json').devDependencies['@tauri-apps/cli'].replace(/^[^0-9]*/, '')")
+          npx --yes "@tauri-apps/cli@$cli" signer sign "out/$name"
+          gh release upload "${{ github.ref_name }}" "out/$name" "out/$name.sig" --repo "$GITHUB_REPOSITORY" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+
   finalize-release:
     name: Finalize release notes
     # A failed Flatpak or Arch package only leaves it off the release; notes and Winget still go out.
     if: ${{ startsWith(github.ref, 'refs/tags/v') && !cancelled() && needs.build-tauri-desktop.result == 'success' && needs.prepare-release-notes.result == 'success' }}
-    needs: [build-tauri-desktop, build-flatpak, build-arch, prepare-release-notes]
+    needs: [build-tauri-desktop, build-flatpak, build-arch, repack-beta-rpm, prepare-release-notes]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
