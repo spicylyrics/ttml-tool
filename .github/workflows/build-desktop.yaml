@@ -192,6 +192,14 @@ jobs:
           appimage_path=$(find src-tauri/target -path '*/release/bundle/appimage/*.AppImage' -type f -print -quit)
           test -n "$appimage_path"
           bash scripts/patch-appimage.sh "$appimage_path"
+          # The updater checks this signature against the downloaded file, and
+          # the one Tauri wrote is for the bytes before patching.
+          rm -f "$appimage_path.sig"
+          pnpm tauri signer sign "$appimage_path"
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+      # finalize-release copies the new .sig into latest.json.
       - name: Replace published Linux AppImage
         if: matrix.platform == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v')
         shell: bash
@@ -201,7 +209,7 @@ jobs:
           for asset in $(gh release view "${{ github.ref_name }}" --json assets --jq '.assets[].name | select(endswith(".AppImage"))'); do
             gh release delete-asset "${{ github.ref_name }}" "$asset" --yes || true
           done
-          gh release upload "${{ github.ref_name }}" "$appimage_path" --clobber
+          gh release upload "${{ github.ref_name }}" "$appimage_path" "$appimage_path.sig" --clobber
         env:
           GH_TOKEN: ${{ github.token }}
       # dpkg sorts 0.23.0-2 above 0.23.0, so a beta .deb would block the stable
@@ -405,7 +413,8 @@ jobs:
         shell: bash
         run: |
           gh release download "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --pattern latest.json --dir updater
-          # Betas re-sign their .deb and .rpm after tauri-action wrote latest.json.
+          # The patched AppImage, and a beta's .deb and .rpm, are signed again
+          # after tauri-action wrote latest.json.
           gh release download "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --pattern '*.sig' --dir signatures
           node scripts/updater-feed.mjs notes --file updater/latest.json --version "${GITHUB_REF_NAME#v}" --signatures signatures
           gh release upload "${{ github.ref_name }}" updater/latest.json --repo "$GITHUB_REPOSITORY" --clobber

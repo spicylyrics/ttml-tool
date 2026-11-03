@@ -55,7 +55,8 @@ export function withReleaseNotes(updater, releases, version) {
 /**
  * The updater file with each platform's signature taken from the release's
  * `<file>.sig`, for packages signed again after tauri-action wrote it (the
- * beta .deb and .rpm, repacked with a pre-release version).
+ * patched AppImage, and the beta .deb and .rpm, repacked with a pre-release
+ * version).
  */
 export function withSignatures(updater, signatures) {
 	const platforms = Object.fromEntries(
