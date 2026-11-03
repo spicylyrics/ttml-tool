@@ -238,13 +238,63 @@ jobs:
           artifact-name: Spicy Lyrics TTML Tool flatpak-x86_64
           cache-key: flatpak-builder-${{ github.sha }}
 
+  # A pacman package for Arch and its derivatives, installed with `pacman -U`.
+  # Repacks the matrix's .deb, so it uses the system's WebKitGTK like the .deb.
+  build-arch:
+    name: Build Arch package (x86_64)
+    needs: build-tauri-desktop
+    if: ${{ !cancelled() && needs.build-tauri-desktop.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v7
+        with:
+          name: Spicy Lyrics TTML Tool linux-x86_64
+          path: linux-build
+      - name: Build the package
+        shell: bash
+        run: |
+          deb=$(find linux-build -path '*/bundle/deb/*.deb' -type f -print -quit)
+          test -n "$deb"
+          work="$RUNNER_TEMP/arch"
+          mkdir -p "$work"
+          cp packaging/archlinux/bin/PKGBUILD LICENSE "$work/"
+          cp "$deb" "$work/amll-ttml-tool.deb"
+          # pacman versions can't contain "-".
+          version=$(sed -n 's/^\t"version": "\([^"]*\)".*/\1/p' package.json)
+          test -n "$version"
+          sed -i "s/^pkgver=.*/pkgver=${version//-/_}/" "$work/PKGBUILD"
+          # makepkg refuses to run as root.
+          useradd --create-home builder
+          chown -R builder "$work"
+          su builder -c "cd '$work' && makepkg --nodeps --noconfirm"
+          mkdir -p arch-out
+          cp "$work"/*.pkg.tar.zst arch-out/
+      - uses: actions/upload-artifact@v6
+        with:
+          name: Spicy Lyrics TTML Tool arch-x86_64
+          path: arch-out/*.pkg.tar.zst
+          if-no-files-found: error
+
   finalize-release:
     name: Finalize release notes
-    # A failed Flatpak only leaves it off the release; notes and Winget still go out.
+    # A failed Flatpak or Arch package only leaves it off the release; notes and Winget still go out.
     if: ${{ startsWith(github.ref, 'refs/tags/v') && !cancelled() && needs.build-tauri-desktop.result == 'success' && needs.prepare-release-notes.result == 'success' }}
-    needs: [build-tauri-desktop, build-flatpak, prepare-release-notes]
+    needs: [build-tauri-desktop, build-flatpak, build-arch, prepare-release-notes]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/download-artifact@v7
+        if: needs.build-arch.result == 'success'
+        with:
+          name: Spicy Lyrics TTML Tool arch-x86_64
+          path: arch
+      - name: Upload Arch package
+        if: needs.build-arch.result == 'success'
+        run: gh release upload "${{ github.ref_name }}" arch/*.pkg.tar.zst --repo "$GITHUB_REPOSITORY" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
       - uses: actions/download-artifact@v7
         if: needs.build-flatpak.result == 'success'
         with:
