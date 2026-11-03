@@ -268,11 +268,14 @@ export function romanizeJapaneseLine(
 
 	const tokens = tokenize(tk, text);
 	tokens.forEach((token, tokenIndex) => {
-		// Punctuation never starts a word ("Oh yeah, hashiridasu").
+		// Punctuation never starts a word ("Oh yeah, hashiridasu"), except an
+		// opening quote or bracket, which leans on the word after it
+		// (不条理『しかた → Fujouri "shikata).
 		const newWord =
 			tokenIndex > 0 &&
-			/[\p{L}\p{N}]/u.test(token.surface) &&
-			!attaches(token, tokens[tokenIndex - 1]);
+			(/^[「『（(“‘〈《【]$/.test(token.surface) ||
+				(/[\p{L}\p{N}]/u.test(token.surface) &&
+					!attaches(token, tokens[tokenIndex - 1])));
 		if (newWord) {
 			const syllable = startsAt.indexOf(token.position);
 			if (syllable > 0) startsWord[syllable] = true;

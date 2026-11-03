@@ -95,6 +95,12 @@ describe("Japanese romanization", () => {
 		expect(romanize("「今", "ま")).toEqual(['"ima ', "ma"]);
 	});
 
+	it("puts a gap before an opening quote inside a line", () => {
+		expect(romanize("今", "『", "夢")).toEqual(["ima ", '"', "yume"]);
+		expect(romanize("今『夢")).toEqual(['ima "yume']);
+		expect(romanize("今", "『夢』")).toEqual(["ima ", '"yume"']);
+	});
+
 	it("reads half-width katakana", () => {
 		expect(
 			romanize(
