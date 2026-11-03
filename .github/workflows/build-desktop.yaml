@@ -26,12 +26,14 @@ jobs:
         run: node scripts/validate-release-version.mjs --tag "${{ github.ref_name }}"
       # Create the release up front so the first matrix job to finish doesn't have to.
       # tauri-action's create-then-upload path silently failed the Windows job in v0.10.1.
+      # It stays a draft until finalize-release, so a failed or cancelled build never
+      # leaves a half release as Latest for the updater (v0.22.0's first build did).
       - name: Create release
         if: startsWith(github.ref, 'refs/tags/v')
         shell: bash
         run: |
           gh release view "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1 ||
-            gh release create "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --verify-tag \
+            gh release create "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --verify-tag --draft \
               --title "Spicy Lyrics TTML Tool ${{ github.ref_name }}" \
               --notes "Desktop release ${{ github.ref_name }}. Release notes are finalized after all platform assets are uploaded."
         env:
@@ -139,6 +141,8 @@ jobs:
           includeUpdaterJson: true
           # Installed apps read the generic windows-x86_64 entry; point it at setup.exe (see lib.rs).
           updaterJsonPreferNsis: true
+          # Upload to the draft validate-release made; without this it looks for a published one.
+          releaseDraft: true
           args: ${{ matrix.args }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -154,6 +158,8 @@ jobs:
           includeUpdaterJson: true
           # Installed apps read the generic windows-x86_64 entry; point it at setup.exe (see lib.rs).
           updaterJsonPreferNsis: true
+          # Upload to the draft validate-release made; without this it looks for a published one.
+          releaseDraft: true
           args: ${{ matrix.args }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -267,6 +273,12 @@ jobs:
             -f tag_name="${{ github.ref_name }}" --jq .body > release-notes.md
           gh release edit "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" \
             --title "Spicy Lyrics TTML Tool ${{ github.ref_name }}" --notes-file release-notes.md
+        env:
+          GH_TOKEN: ${{ github.token }}
+      # Every desktop build uploaded (this job needs them all), so the updater and
+      # the Latest badge can see it now.
+      - name: Publish release
+        run: gh release edit "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --draft=false --latest
         env:
           GH_TOKEN: ${{ github.token }}
 
