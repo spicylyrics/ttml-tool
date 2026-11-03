@@ -251,17 +251,21 @@ fn install_kind() -> &'static str {
     if Path::new("/var/lib/dpkg/info/amll-ttml-tool.list").exists() {
         return "deb";
     }
-    let from_aur = fs::read_dir("/var/lib/pacman/local")
-        .map(|entries| {
-            entries.flatten().any(|entry| {
-                entry
-                    .file_name()
-                    .to_string_lossy()
-                    .starts_with("amll-ttml-tool-git-")
+    // pacman keeps one "<name>-<version>" folder per installed package: the
+    // release's prebuilt package, or the AUR one built from source.
+    let pacman = |name: &str| {
+        fs::read_dir("/var/lib/pacman/local")
+            .map(|entries| {
+                entries
+                    .flatten()
+                    .any(|entry| entry.file_name().to_string_lossy().starts_with(name))
             })
-        })
-        .unwrap_or(false);
-    if from_aur {
+            .unwrap_or(false)
+    };
+    if pacman("amll-ttml-tool-bin-") {
+        return "arch";
+    }
+    if pacman("amll-ttml-tool-git-") {
         return "aur";
     }
     if Path::new("/var/lib/rpm").exists() || Path::new("/usr/lib/sysimage/rpm").exists() {

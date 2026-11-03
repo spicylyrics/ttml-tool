@@ -15,6 +15,7 @@ export type InstallKind =
 	| "appimage"
 	| "deb"
 	| "rpm"
+	| "arch"
 	| "aur"
 	| "unknown";
 
@@ -48,7 +49,8 @@ const INSTALL_LABELS: Record<InstallKind, string> = {
 	appimage: "AppImage",
 	deb: ".deb package",
 	rpm: ".rpm package",
-	aur: "AUR package",
+	arch: "Arch package (amll-ttml-tool-bin)",
+	aur: "AUR package (amll-ttml-tool-git)",
 	unknown: "Unknown package",
 };
 
