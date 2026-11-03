@@ -393,15 +393,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       # The beta feed is beta.json on the rolling update-feed pre-release. Stable
       # releases go in too, so beta users get the stable version once it passes
-      # their beta; an older hotfix never replaces a newer beta.
+      # their beta; an older hotfix never replaces a newer beta. The job token
+      # can't create the release (that makes a new tag), so it's made once by
+      # hand; see AGENTS.md.
       - name: Update the beta feed
         shell: bash
         run: |
           feed=update-feed
           if ! gh release view "$feed" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
-            gh release create "$feed" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
-              --prerelease --latest=false --title "Update feed, not a release" \
-              --notes "Holds beta.json, which apps with Beta updates turned on check for new versions. Download releases from the list instead."
+            echo "::error::The $feed release is missing. Create it once: gh release create $feed --target main --prerelease --latest=false --title \"Update feed, not a release\""
+            exit 1
           fi
           gh release download "$feed" --repo "$GITHUB_REPOSITORY" --pattern beta.json --dir current-feed || true
           if node scripts/updater-feed.mjs newer --feed current-feed/beta.json --version "${GITHUB_REF_NAME#v}"; then
