@@ -48,6 +48,8 @@ export const changelogDialogAtom = atom(null, (_get, set, open: boolean) => {
 	set(settingsTabAtom, "changelog");
 	set(settingsDialogAtom, true);
 });
+/** Which report Help › Report a problem / Suggest something has open. */
+export const reportDialogAtom = atom<"problem" | "suggestion" | null>(null);
 export const fontSelectionDialogAtom = atom(false);
 export const projectsDialogAtom = atom(false);
 export const timeShiftPreviewOffsetAtom = atom(0);

@@ -225,6 +225,51 @@ fn can_self_update() -> bool {
     !cfg!(target_os = "linux") || std::env::var_os("APPIMAGE").is_some()
 }
 
+/// How this copy was installed, for problem reports. On Linux, package-manager
+/// installs are told apart by the package database entry for our package.
+#[tauri::command]
+fn install_kind() -> &'static str {
+    use std::path::Path;
+
+    if cfg!(windows) {
+        // NSIS puts its uninstaller next to the app; the MSI doesn't.
+        let nsis = std::env::current_exe()
+            .ok()
+            .and_then(|exe| exe.parent().map(|dir| dir.join("uninstall.exe").exists()))
+            .unwrap_or(false);
+        return if nsis { "nsis" } else { "msi" };
+    }
+    if cfg!(target_os = "macos") {
+        return "app";
+    }
+    if Path::new("/.flatpak-info").exists() {
+        return "flatpak";
+    }
+    if std::env::var_os("APPIMAGE").is_some() {
+        return "appimage";
+    }
+    if Path::new("/var/lib/dpkg/info/amll-ttml-tool.list").exists() {
+        return "deb";
+    }
+    let from_aur = fs::read_dir("/var/lib/pacman/local")
+        .map(|entries| {
+            entries.flatten().any(|entry| {
+                entry
+                    .file_name()
+                    .to_string_lossy()
+                    .starts_with("amll-ttml-tool-git-")
+            })
+        })
+        .unwrap_or(false);
+    if from_aur {
+        return "aur";
+    }
+    if Path::new("/var/lib/rpm").exists() || Path::new("/usr/lib/sysimage/rpm").exists() {
+        return "rpm";
+    }
+    "unknown"
+}
+
 /// Inside the Flatpak, GTK can't see the host's theme, so native decorations
 /// come out as GNOME's Adwaita header bar on every desktop. Draw our own title
 /// bar there instead, as on Windows. Other Linux installs keep the native one.
@@ -685,6 +730,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_open_file_data,
             can_self_update,
+            install_kind,
             uses_custom_title_bar,
             set_discord_activity,
             clear_discord_activity,

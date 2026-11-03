@@ -1,6 +1,7 @@
-import { BUILD_TIME, GIT_COMMIT } from "virtual:buildmeta";
+import { APP_VERSION, BUILD_TIME, GIT_COMMIT } from "virtual:buildmeta";
 import { Card, Flex, Link, Text } from "@radix-ui/themes";
 import { Children, Fragment, type ReactNode } from "react";
+import { parseAppVersion } from "$/utils/version-label";
 import { openExternal } from "./externalLinks";
 import type { AboutSettings } from "./useAboutSettings";
 
@@ -12,10 +13,26 @@ import type { AboutSettings } from "./useAboutSettings";
 const keyedParts = (parts: ReactNode) =>
 	Children.map(parts, (part) => <Fragment>{part}</Fragment>);
 
+/** "0.22.0", or "0.23.0 Beta 2" on a beta build. */
+const appVersionLabel = (t: AboutSettings["t"]) => {
+	const { base, beta } = parseAppVersion(APP_VERSION);
+	return beta === null
+		? base
+		: t("aboutModal.betaVersion", "{version} Beta {number}", {
+				version: base,
+				number: beta,
+			});
+};
+
 export const VersionSection = ({ t }: Pick<AboutSettings, "t">) => (
 	<Card>
 		<Flex direction="column" gap="2">
 			<Flex direction="column" gap="1">
+				<Text as="div" size="2" weight="medium">
+					{t("aboutModal.version", "Version: {version}", {
+						version: appVersionLabel(t),
+					})}
+				</Text>
 				<Text as="div" size="2">
 					{t("aboutModal.buildDate", "Build date: {date}", {
 						date: BUILD_TIME,
