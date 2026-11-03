@@ -73,12 +73,6 @@
 			},
 			{
 				"type": "fix",
-				"title": "Smooth syncing on Linux with NVIDIA",
-				"body": "The app now turns off NVIDIA's explicit sync on every NVIDIA setup, fixing the lag and dropped Space presses on Wayland",
-				"highlight": true
-			},
-			{
-				"type": "fix",
 				"title": "Website asks the browser to keep your projects",
 				"body": "The website asks for persistent storage when it first saves a project, so browsers are less likely to clear your history",
 				"highlight": false
