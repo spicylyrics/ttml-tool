@@ -21,6 +21,7 @@ import {
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
 import { TouchSyncPanel } from "$/modules/lyric-editor/components/TouchSyncPanel/index.tsx";
 import { log } from "$/utils/logging.ts";
+import { translatedVersionLabel } from "$/utils/version-label.ts";
 // Installs second-key dispatch.
 import "$/modules/keyboard/binding-list";
 import "@radix-ui/themes/styles.css";
@@ -519,10 +520,9 @@ function App() {
 
 	useEffect(() => {
 		if (!import.meta.env.TAURI_ENV_PLATFORM) return;
-		// Flatpak and package-manager installs on Linux update elsewhere.
-		invoke<boolean>("can_self_update").then((supported) => {
-			if (supported) checkUpdate(true);
-		});
+		// Flatpak and package-manager installs check too, then download the
+		// new version from the release page instead of installing it.
+		checkUpdate(true);
 	}, [checkUpdate]);
 
 	useEffect(() => {
@@ -533,7 +533,7 @@ function App() {
 				<div>
 					<div style={{ fontWeight: "bold" }}>
 						{t("app.update.updateAvailable", "发现新版本: {version}", {
-							version: update.version,
+							version: translatedVersionLabel(update.version, t),
 						})}
 					</div>
 				</div>,

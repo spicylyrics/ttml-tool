@@ -648,6 +648,11 @@
       "downloading": "Stahování aktualizace...",
       "ready": "Aktualizace je připravena. Restartujte aplikaci, aby se projevila.",
       "restart": "Restartovat",
+      "betaUpdates": "Beta aktualizace",
+      "betaUpdatesDescription": "Získávejte nové verze o pár dní dřív, vyzkoušejte je a nahlaste problémy. Po vypnutí si ponecháte svou verzi, dokud nevyjde novější stabilní.",
+      "downloadUpdateHint": "Tato kopie se nemůže aktualizovat sama. Stáhněte novou verzi pro svůj systém ze stránky vydání.",
+      "openDownloadPage": "Otevřít stránku ke stažení",
+      "aurUpdateHint": "Tato kopie byla sestavena z AUR, aktualizujte ji svým pomocníkem pro AUR.",
       "websiteUpdate": "Aktualizace webu",
       "websiteUpdateDescription": "Znovu načtěte web a získejte nejnovější verzi.",
       "forceRefresh": "Vynutit obnovení",
@@ -943,6 +948,7 @@
       "previewDesc": "Přehraje text tak, jak ho uvidí posluchači."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Zpět",
       "redo": "Znovu",

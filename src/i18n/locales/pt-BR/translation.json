@@ -648,6 +648,11 @@
       "downloading": "Baixando atualização...",
       "ready": "A atualização está pronta. Reinicie o aplicativo para aplicar.",
       "restart": "Reiniciar",
+      "betaUpdates": "Atualizações beta",
+      "betaUpdatesDescription": "Receba novas versões alguns dias antes para testar e relatar problemas. Se desativar, você fica com a sua versão até a próxima estável ser mais nova.",
+      "downloadUpdateHint": "Esta cópia não consegue se atualizar sozinha. Baixe a nova versão para o seu sistema na página da versão.",
+      "openDownloadPage": "Abrir a página de download",
+      "aurUpdateHint": "Esta cópia foi compilada pelo AUR, então atualize com o seu auxiliar do AUR.",
       "websiteUpdate": "Atualização do site",
       "websiteUpdateDescription": "Recarregue o site para obter a versão mais recente.",
       "forceRefresh": "Forçar atualização",
@@ -943,6 +948,7 @@
       "previewDesc": "Reproduza a letra do jeito que os ouvintes vão ver."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Desfazer",
       "redo": "Refazer",

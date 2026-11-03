@@ -1,14 +1,20 @@
+import { invoke } from "@tauri-apps/api/core";
 import { relaunch } from "@tauri-apps/plugin-process";
-import { check } from "@tauri-apps/plugin-updater";
+import { Update } from "@tauri-apps/plugin-updater";
 import { useAtom, useStore } from "jotai";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import {
+	betaUpdatesAtom,
+	canSelfUpdateAtom,
+	installKindAtom,
 	updateErrorAtom,
 	updateInfoAtom,
 	updateProgressAtom,
 	updateStatusAtom,
 } from "$/states/update";
+
+type UpdateMetadata = ConstructorParameters<typeof Update>[0];
 
 export function useAppUpdate() {
 	const [status, setStatus] = useAtom(updateStatusAtom);
@@ -29,7 +35,13 @@ export function useAppUpdate() {
 			setErrorMsg("");
 
 			try {
-				const updateResult = await check();
+				store.set(canSelfUpdateAtom, await invoke<boolean>("can_self_update"));
+				store.set(installKindAtom, await invoke<string>("install_kind"));
+				// The plugin's check can't pick a feed, so ours picks stable or beta.
+				const metadata = await invoke<UpdateMetadata | null>("check_update", {
+					beta: store.get(betaUpdatesAtom),
+				});
+				const updateResult = metadata ? new Update(metadata) : null;
 				if (updateResult) {
 					setUpdate(updateResult);
 					setStatus("available");
@@ -45,11 +57,11 @@ export function useAppUpdate() {
 				setErrorMsg(String(e));
 			}
 		},
-		[setStatus, setUpdate, setErrorMsg, store.get],
+		[setStatus, setUpdate, setErrorMsg, store],
 	);
 
 	const installUpdate = useCallback(async () => {
-		if (!update) return;
+		if (!update || !store.get(canSelfUpdateAtom)) return;
 
 		setStatus("downloading");
 		setProgress(0);
@@ -84,7 +96,7 @@ export function useAppUpdate() {
 			setStatus("error");
 			setErrorMsg(t("app.update.installError", "安装更新失败"));
 		}
-	}, [update, t, setStatus, setProgress, setErrorMsg]);
+	}, [update, t, setStatus, setProgress, setErrorMsg, store]);
 
 	return {
 		status,

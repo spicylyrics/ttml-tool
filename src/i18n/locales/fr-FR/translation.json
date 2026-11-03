@@ -648,6 +648,11 @@
       "downloading": "Téléchargement de la mise à jour...",
       "ready": "La mise à jour est prête. Redémarrez l'application pour qu'elle prenne effet.",
       "restart": "Redémarrer",
+      "betaUpdates": "Mises à jour bêta",
+      "betaUpdatesDescription": "Recevez les nouvelles versions quelques jours plus tôt pour les essayer et signaler les problèmes. Si vous désactivez cette option, vous gardez votre version jusqu'à ce que la prochaine version stable soit plus récente.",
+      "downloadUpdateHint": "Cette copie ne peut pas se mettre à jour seule. Téléchargez la nouvelle version pour votre système depuis la page de la version.",
+      "openDownloadPage": "Ouvrir la page de téléchargement",
+      "aurUpdateHint": "Cette copie a été compilée depuis l'AUR, mettez-la à jour avec votre assistant AUR.",
       "websiteUpdate": "Mise à jour du site Web",
       "websiteUpdateDescription": "Rechargez le site pour obtenir la dernière version.",
       "forceRefresh": "Forcer l'actualisation",
@@ -943,6 +948,7 @@
       "previewDesc": "Lire les paroles telles que les auditeurs les verront."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Bêta",
     "menu": {
       "undo": "Annuler",
       "redo": "Rétablir",

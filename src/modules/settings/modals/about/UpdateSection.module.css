@@ -1,0 +1,16 @@
+/* The offered version and what it changes, on a sunken well. */
+.release {
+	padding: var(--space-3);
+	border-radius: var(--radius-4);
+	background: var(--gray-3);
+}
+
+/* Long releases scroll inside the card instead of stretching the tab. */
+.notes {
+	max-height: 16rem;
+	overflow-y: auto;
+}
+
+.plainNotes {
+	white-space: pre-wrap;
+}

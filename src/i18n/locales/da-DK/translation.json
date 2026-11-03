@@ -648,6 +648,11 @@
       "downloading": "Downloader opdatering...",
       "ready": "Opdateringen er klar. Genstart applikationen for at den træder i kraft.",
       "restart": "Genstart",
+      "betaUpdates": "Betaopdateringer",
+      "betaUpdatesDescription": "Få nye versioner et par dage før alle andre, så du kan prøve dem og rapportere problemer. Slår du det fra, beholder du din version, indtil den næste stabile er nyere.",
+      "downloadUpdateHint": "Denne kopi kan ikke opdatere sig selv. Hent den nye version til dit system fra udgivelsessiden.",
+      "openDownloadPage": "Åbn downloadsiden",
+      "aurUpdateHint": "Denne kopi er bygget fra AUR, så opdater den med din AUR-hjælper.",
       "websiteUpdate": "Hjemmesideopdatering",
       "websiteUpdateDescription": "Genindlæs webstedet for at få den nyeste version.",
       "forceRefresh": "Tving opdatering",
@@ -943,6 +948,7 @@
       "previewDesc": "Afspil sangteksten, som lytterne vil se den."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Fortryd",
       "redo": "Gentag",

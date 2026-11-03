@@ -19,6 +19,23 @@ export function parseAppVersion(version: string): AppVersion {
 export const isBetaVersion = (version: string) =>
 	parseAppVersion(version).beta !== null;
 
+type Translate = (
+	key: "aboutModal.betaVersion",
+	fallback: string,
+	values: { version: string; number: number },
+) => string;
+
+/** "0.23.0 Beta 2", translated, for the UI. */
+export function translatedVersionLabel(version: string, t: Translate) {
+	const { base, beta } = parseAppVersion(version);
+	return beta === null
+		? base
+		: t("aboutModal.betaVersion", "{version} Beta {number}", {
+				version: base,
+				number: beta,
+			});
+}
+
 /** "0.23.0 Beta 2" in English, for reports; the UI uses the translated label. */
 export function versionLabel(version: string) {
 	const { base, beta } = parseAppVersion(version);

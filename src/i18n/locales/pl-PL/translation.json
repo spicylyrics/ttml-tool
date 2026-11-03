@@ -648,6 +648,11 @@
       "downloading": "Pobieranie aktualizacji...",
       "ready": "Aktualizacja jest gotowa. Uruchom aplikację ponownie, aby ją zastosować.",
       "restart": "Uruchom ponownie",
+      "betaUpdates": "Aktualizacje beta",
+      "betaUpdatesDescription": "Otrzymuj nowe wersje kilka dni wcześniej, aby je wypróbować i zgłaszać problemy. Po wyłączeniu zostaje Twoja wersja, aż następna stabilna będzie nowsza.",
+      "downloadUpdateHint": "Ta kopia nie może zaktualizować się sama. Pobierz nową wersję dla swojego systemu ze strony wydania.",
+      "openDownloadPage": "Otwórz stronę pobierania",
+      "aurUpdateHint": "Ta kopia została zbudowana z AUR, więc zaktualizuj ją swoim pomocnikiem AUR.",
       "websiteUpdate": "Aktualizacja witryny",
       "websiteUpdateDescription": "Odśwież witrynę, aby pobrać najnowszą wersję.",
       "forceRefresh": "Wymuś odświeżenie",
@@ -943,6 +948,7 @@
       "previewDesc": "Odtwórz tekst tak, jak zobaczą go słuchacze."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Cofnij",
       "redo": "Ponów",
