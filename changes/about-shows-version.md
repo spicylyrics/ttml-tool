@@ -1,8 +1,8 @@
 ---
-type: fix
+type: change
 impact: 2
 highlight: false
 ---
-About shows the version again
+About shows the app version
 
-**Preferences** › **About** lists the app version above the build date, on the website and the desktop app
+**Preferences** › **About** lists the version above the build date, on the website and the desktop app
