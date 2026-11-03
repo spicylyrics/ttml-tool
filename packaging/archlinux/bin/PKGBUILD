@@ -1,0 +1,27 @@
+# Prebuilt package for each release, installed with `pacman -U`. It repacks
+# the release's .deb, so the binary, desktop entry, icons and .ttml file
+# association match it exactly. The release workflow fills in the version and
+# puts the .deb next to this file. ../PKGBUILD builds from source instead.
+pkgname=amll-ttml-tool-bin
+pkgver=0.0.0
+pkgrel=1
+pkgdesc="Syllable lyric editor for Spicy Lyrics and Apple Music-like lyrics"
+arch=('x86_64')
+url="https://github.com/spicylyrics/ttml-tool"
+license=('AGPL-3.0-only')
+depends=('webkit2gtk-4.1' 'gtk3' 'glib2' 'cairo' 'pango' 'gdk-pixbuf2' 'libappindicator-gtk3'
+         'gstreamer' 'gst-plugins-base' 'gst-plugins-good' 'gst-plugins-bad' 'gst-plugins-ugly'
+         'alsa-lib' 'hicolor-icon-theme')
+optdepends=('xdg-desktop-portal: native file picker for your desktop'
+            'zenity: file picker when no portal is running')
+provides=('amll-ttml-tool')
+conflicts=('amll-ttml-tool' 'amll-ttml-tool-git')
+options=('!strip' '!debug')
+source=("amll-ttml-tool.deb" "LICENSE")
+noextract=("amll-ttml-tool.deb")
+sha256sums=('SKIP' 'SKIP')
+
+package() {
+  bsdtar -xOf "$srcdir/amll-ttml-tool.deb" 'data.tar.*' | bsdtar -xf - -C "$pkgdir"
+  install -Dm644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
