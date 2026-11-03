@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { replacesFeed, withReleaseNotes } from "./updater-feed.mjs";
+import {
+	replacesFeed,
+	withReleaseNotes,
+	withSignatures,
+} from "./updater-feed.mjs";
 
 const updater = {
 	version: "0.23.0-2",
@@ -49,6 +53,25 @@ describe("updater feed", () => {
 
 	it("leaves the file alone without a changelog entry", () => {
 		expect(withReleaseNotes(updater, releases, "0.23.0-3")).toBe(updater);
+	});
+
+	it("takes signatures from re-signed packages", () => {
+		const base =
+			"https://github.com/spicylyrics/ttml-tool/releases/download/v0.23.0-2";
+		const file = {
+			platforms: {
+				"linux-x86_64-deb": {
+					url: `${base}/AMLL.TTML.Tool_0.23.0-2_amd64.deb`,
+					signature: "old",
+				},
+				"windows-x86_64": { url: `${base}/setup.exe`, signature: "keep" },
+			},
+		};
+		const result = withSignatures(file, {
+			"AMLL.TTML.Tool_0.23.0-2_amd64.deb": "new",
+		});
+		expect(result.platforms["linux-x86_64-deb"].signature).toBe("new");
+		expect(result.platforms["windows-x86_64"].signature).toBe("keep");
 	});
 
 	it("moves the beta feed forward only", () => {

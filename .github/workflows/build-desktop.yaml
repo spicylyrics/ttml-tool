@@ -204,6 +204,39 @@ jobs:
           gh release upload "${{ github.ref_name }}" "$appimage_path" --clobber
         env:
           GH_TOKEN: ${{ github.token }}
+      # dpkg and rpm sort 0.23.0-2 above 0.23.0, so a beta's .deb or .rpm would
+      # block the stable one from installing over it. Repack both as 0.23.0~2,
+      # which both sort below 0.23.0, sign them again and replace the uploads.
+      # The file names stay, so latest.json's URLs still match.
+      - name: Give beta .deb and .rpm packages a pre-release version
+        if: matrix.platform == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v') && contains(github.ref_name, '-')
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          tilde="${version%%-*}~${version#*-}"
+          sudo apt-get install -y rpmrebuild
+          deb=$(find src-tauri/target -path '*/release/bundle/deb/*.deb' -type f -print -quit)
+          rpm=$(find src-tauri/target -path '*/release/bundle/rpm/*.rpm' -type f -print -quit)
+          test -n "$deb" && test -n "$rpm"
+          work="$RUNNER_TEMP/repack"
+          mkdir -p "$work/rpm"
+          dpkg-deb -R "$deb" "$work/deb"
+          sed -i "s/^Version: .*/Version: $tilde/" "$work/deb/DEBIAN/control"
+          dpkg-deb --root-owner-group -b "$work/deb" "$deb"
+          rpmrebuild --package --notest-install --directory="$work/rpm" \
+            --change-spec-preamble="sed -e 's/^Version:.*/Version: $tilde/'" "$rpm"
+          mv "$(find "$work/rpm" -name '*.rpm' -type f -print -quit)" "$rpm"
+          test "$(dpkg-deb -f "$deb" Version)" = "$tilde"
+          test "$(rpm -qp --queryformat '%{VERSION}' "$rpm")" = "$tilde"
+          for file in "$deb" "$rpm"; do
+            rm -f "$file.sig"
+            pnpm tauri signer sign "$file"
+            gh release upload "${{ github.ref_name }}" "$file" "$file.sig" --clobber
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
       - uses: actions/upload-artifact@v6
         with:
           name: Spicy Lyrics TTML Tool ${{ matrix.name }}-${{ matrix.arch }}
@@ -339,7 +372,9 @@ jobs:
         shell: bash
         run: |
           gh release download "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --pattern latest.json --dir updater
-          node scripts/updater-feed.mjs notes --file updater/latest.json --version "${GITHUB_REF_NAME#v}"
+          # Betas re-sign their .deb and .rpm after tauri-action wrote latest.json.
+          gh release download "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --pattern '*.sig' --dir signatures
+          node scripts/updater-feed.mjs notes --file updater/latest.json --version "${GITHUB_REF_NAME#v}" --signatures signatures
           gh release upload "${{ github.ref_name }}" updater/latest.json --repo "$GITHUB_REPOSITORY" --clobber
         env:
           GH_TOKEN: ${{ github.token }}

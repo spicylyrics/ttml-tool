@@ -2,11 +2,13 @@
 // (served from the Latest release); beta.json, on the rolling update-feed
 // release, is the beta feed. The release workflow calls this from
 // finalize-release:
-//   notes --file latest.json --version X   puts the changelog entries in
+//   notes --file latest.json --version X [--signatures dir]
+//                                          puts the changelog entries (and
+//                                          any re-signed .sig files) in
 //   newer --feed beta.json --version X     exits 0 when X should replace that feed
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
 	formatEntryLine,
@@ -51,6 +53,22 @@ export function withReleaseNotes(updater, releases, version) {
 }
 
 /**
+ * The updater file with each platform's signature taken from the release's
+ * `<file>.sig`, for packages signed again after tauri-action wrote it (the
+ * beta .deb and .rpm, repacked with a pre-release version).
+ */
+export function withSignatures(updater, signatures) {
+	const platforms = Object.fromEntries(
+		Object.entries(updater.platforms ?? {}).map(([target, platform]) => {
+			const file = decodeURIComponent(platform.url.split("/").pop() ?? "");
+			const signature = signatures[file];
+			return [target, signature ? { ...platform, signature } : platform];
+		}),
+	);
+	return { ...updater, platforms };
+}
+
+/**
  * Whether a release should become the beta feed. Stable releases count too,
  * so beta users move on to the stable version once it passes their beta, but
  * a hotfix older than the current beta must not replace it.
@@ -78,10 +96,24 @@ if (
 				"utf8",
 			),
 		);
-		const updated = withReleaseNotes(
-			JSON.parse(readFileSync(file, "utf8")),
-			releases,
-			version,
+		const directory = option("--signatures");
+		const signatures = directory
+			? Object.fromEntries(
+					readdirSync(directory)
+						.filter((name) => name.endsWith(".sig"))
+						.map((name) => [
+							name.slice(0, -".sig".length),
+							readFileSync(join(directory, name), "utf8").trim(),
+						]),
+				)
+			: {};
+		const updated = withSignatures(
+			withReleaseNotes(
+				JSON.parse(readFileSync(file, "utf8")),
+				releases,
+				version,
+			),
+			signatures,
 		);
 		writeFileSync(file, `${JSON.stringify(updated, null, 2)}\n`);
 		console.log(
