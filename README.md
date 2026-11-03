@@ -33,7 +33,13 @@ The desktop app on Linux runs on WebKitGTK, which draws this app's effects much 
   ```
 
   WebKitGTK, GStreamer and GLib come from the GNOME runtime, so the app behaves the same on every distro. Install newer releases the same way; it is not on Flathub yet.
-- **Arch Linux:** the `amll-ttml-tool-git` AUR package builds the app against your system libraries. See [`packaging/archlinux`](./packaging/archlinux).
+- **Arch Linux and derivatives:** download the `.pkg.tar.zst` file from the [latest release](https://github.com/spicylyrics/ttml-tool/releases/latest) and install it with pacman. It uses your system's WebKitGTK and GStreamer. Install newer releases the same way:
+
+  ```sh
+  sudo pacman -U ./amll-ttml-tool-bin-*-x86_64.pkg.tar.zst
+  ```
+
+  To build from source instead, use the `amll-ttml-tool-git` AUR package in [`packaging/archlinux`](./packaging/archlinux).
 - **AppImage (unsupported):** still published so existing installs keep updating, but it mixes Ubuntu's WebKitGTK and GLib with your system's GStreamer and GPU driver, which breaks on some distros. Move to the Flatpak.
 
 On Linux the app starts with lighter visual effects: no blur, glows, dialog animations or moving preview background. Change it in **Preferences → Appearance → Visual effects**.
