@@ -30,6 +30,12 @@
 				"highlight": false
 			},
 			{
+				"type": "feature",
+				"title": "Arch Linux package",
+				"body": "Releases include a .pkg.tar.zst for Arch and its derivatives, installed with pacman and using your system's WebKitGTK",
+				"highlight": false
+			},
+			{
 				"type": "change",
 				"title": "One place for romanization",
 				"body": "**Romanization...** romanizes the whole song or chosen lines, shows how much is done and asks before replacing anything",
