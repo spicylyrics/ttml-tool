@@ -15,7 +15,8 @@ Instructions for coding agents working on the Spicy Lyrics TTML Tool. Read this 
 - Branches: `main` is production, `dev` is staging. Do not commit or push directly to either.
 - Start each feature or fix on its own working branch cut from the latest `dev` (e.g. `feat/<slug>`, `fix/<slug>`). Commit and push to that branch freely; open a PR into `dev` when the user asks. Target or retarget PRs to `dev` unless the user explicitly requests another branch.
 - Merge `dev` into `main` only when the user explicitly requests it.
-- Hotfix releases are cut on a `release/vX.Y.Z` branch from `main`, merged into `main` and tagged, then `main` is merged back into `dev`. Delete the release branch afterwards.
+- Hotfix releases are cut on a `release/vX.Y.Z` branch from `main`, merged into `main` and tagged, then `main` is merged back into `dev`. Delete the release branch afterwards. During a beta cycle a hotfix (0.22.1) is older than every beta (0.23.0-N), so beta users only get the fix in the next beta; when merging `main` back into `dev`, keep `dev`'s version in the four version files and its beta blocks in `changelog.json`.
+- Betas are cut on a `release/vX.Y.Z-N` branch from `dev` (compile + `version:bump beta`), merged into `dev`, and the merge commit on `dev` is tagged `vX.Y.Z-N`. The stable release is the `dev` to `main` PR with `version:bump stable`, tagged on `main`.
 - When reviewing PRs, fix actionable issues directly when repository permissions allow instead of asking the contributor to make the changes. Prefer updating the PR branch; if maintainer edits are disabled, apply the fix through a maintainer-owned branch, while preserving contributor attribution and avoiding unrelated changes.
 - Keep changes focused. Preserve unrelated work already present in the worktree.
 - Follow existing module and test conventions. Add or update focused Vitest coverage for non-trivial logic changes.
@@ -31,10 +32,12 @@ Instructions for coding agents working on the Spicy Lyrics TTML Tool. Read this 
 - `node scripts/generate-release-notes.mjs --version X.Y.Z --discord` prints the release's Discord announcement.
 - Never edit `src/data/changelog.json` by hand except to fix typos. The changelog dialog and GitHub release notes render from compiled data; `changelog-legacy.json` preserves the migrated historical list.
 - Release order: `pnpm contributors:update` (refreshes the About tab contributor list from GitHub), `pnpm changelog:compile --version X.Y.Z --summary "Short summary"` (1-5 words), `pnpm version:bump <patch|minor|major>`, a `release: vX.Y.Z` commit, then tag `vX.Y.Z`. Preview compilation with `--dry-run`; it validates and sorts features then fixes by descending impact, rotates Radix colors, and deletes compiled notes. Version bumping does not compile notes automatically.
+- Betas: numbered `X.Y.Z-N` (Windows MSI only accepts a numeric pre-release). `pnpm version:bump beta minor` starts a cycle (0.22.0 to 0.23.0-1), `beta` makes the next one, `stable` finishes it (0.23.0-3 to 0.23.0). A beta tag publishes a pre-release that is never Latest, updates the beta feed (`update-feed/beta.json`) and skips Winget; the stable release also updates the beta feed so beta users move on to it. Compile a beta with `--version X.Y.Z-N`; the stable compile folds its betas into one release (see `changes/README.md`). Users see betas as "0.23.0 Beta 2".
+- Stable only ships what sat in a beta for at least 3 days with no open issues labeled `beta`, and about weekly at most. Check `gh issue list --label beta` before tagging a stable release.
 - Treat requests to update or correct release documentation as edit-only. Do not commit it unless the user explicitly asks to commit.
 - Keep the README feature list accurate for this hard fork; it does not need to track upstream differences.
 - PRs touching `src/` or `src-tauri/` must add a change note, or carry the `no-changelog` label when no user-visible behavior changes.
-- Change `src-tauri/tauri.conf.json`, `package.json` and `src-tauri/Cargo.toml` only when the user explicitly requests a release/version bump. Bump with `pnpm version:bump <patch|minor|major>` (`scripts/bump-version.mjs`), which keeps all three files and `Cargo.lock` in sync. CI validates that a pushed `vX.Y.Z` tag matches these files before building a release.
+- Change `src-tauri/tauri.conf.json`, `package.json` and `src-tauri/Cargo.toml` only when the user explicitly requests a release/version bump. Bump with `pnpm version:bump <patch|minor|major|beta [minor]|stable>` (`scripts/bump-version.mjs`), which keeps all three files and `Cargo.lock` in sync. CI validates that a pushed `vX.Y.Z` or `vX.Y.Z-N` tag matches these files before building a release.
 
 ## Commits
 
