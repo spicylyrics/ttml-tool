@@ -219,7 +219,8 @@ jobs:
           test -n "$deb"
           dpkg-deb -R "$deb" "$RUNNER_TEMP/deb"
           sed -i "s/^Version: .*/Version: $tilde/" "$RUNNER_TEMP/deb/DEBIAN/control"
-          dpkg-deb --root-owner-group -b "$RUNNER_TEMP/deb" "$deb"
+          # xz, not Ubuntu's default zstd, which dpkg before Debian 12 can't read.
+          dpkg-deb --root-owner-group -Zxz -b "$RUNNER_TEMP/deb" "$deb"
           test "$(dpkg-deb -f "$deb" Version)" = "$tilde"
           rm -f "$deb.sig"
           pnpm tauri signer sign "$deb"
@@ -331,11 +332,13 @@ jobs:
           rpm=$(find linux-build -path '*/bundle/rpm/*.rpm' -type f -print -quit)
           test -n "$rpm"
           name=$(basename "$rpm")
-          mkdir -p "$RUNNER_TEMP/rpm"
-          rpmrebuild --package --notest-install --directory="$RUNNER_TEMP/rpm" \
-            --change-spec-preamble="sed -e 's/^Version:.*/Version: $tilde/'" "$rpm"
+          # rpmrebuild takes option values as separate words and wants an absolute path.
+          cp "$rpm" /tmp/beta.rpm
+          mkdir -p /tmp/rebuilt
+          rpmrebuild --package --notest-install --directory /tmp/rebuilt \
+            --change-spec-preamble "sed -e 's/^Version:.*/Version: $tilde/'" /tmp/beta.rpm
           mkdir -p out
-          mv "$(find "$RUNNER_TEMP/rpm" -name '*.rpm' -type f -print -quit)" "out/$name"
+          mv "$(find /tmp/rebuilt -name '*.rpm' -type f -print -quit)" "out/$name"
           test "$(rpm -qp --queryformat '%{VERSION}' "out/$name")" = "$tilde"
           cli=$(node -p "require('./package.json').devDependencies['@tauri-apps/cli'].replace(/^[^0-9]*/, '')")
           npx --yes "@tauri-apps/cli@$cli" signer sign "out/$name"
