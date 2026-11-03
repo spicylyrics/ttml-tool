@@ -8,20 +8,39 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { generateReleaseNotes } from "./generate-release-notes.mjs";
+import {
+	formatEntryLine,
+	SECTION_HEADINGS,
+	sectionOf,
+} from "./generate-release-notes.mjs";
 import { compareVersions } from "./version-utils.mjs";
 
 /**
- * The updater file with the release's notes: `notes` as the plain one-line
- * entries GitHub shows, and `entries` for the in-app update card.
+ * The release notes as plain text. Versions up to 0.22.0 show `notes` as is,
+ * so markdown would reach them as literal ** and #.
+ */
+export function plainNotes(release) {
+	return Object.entries(SECTION_HEADINGS)
+		.map(([section, heading]) => {
+			const lines = release.entries
+				.filter((entry) => sectionOf(entry) === section)
+				.map((entry) => formatEntryLine(entry).replace(/\*\*|`/g, ""));
+			return lines.length ? [heading, ...lines].join("\n") : null;
+		})
+		.filter(Boolean)
+		.join("\n\n");
+}
+
+/**
+ * The updater file with the release's notes: `notes` as plain text for older
+ * versions' update card, and `entries` for the current one.
  */
 export function withReleaseNotes(updater, releases, version) {
 	const release = releases.find((item) => item.version === version);
-	const notes = generateReleaseNotes(releases, version);
-	if (!release || !notes) return updater;
+	if (!release?.entries.length) return updater;
 	return {
 		...updater,
-		notes,
+		notes: plainNotes(release),
 		entries: release.entries.map(({ type, title, body, highlight }) => ({
 			type,
 			title,

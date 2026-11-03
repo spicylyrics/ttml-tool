@@ -14,7 +14,7 @@ const releases = [
 			{
 				type: "feature",
 				title: "Beta switch",
-				body: "Try new things",
+				body: "Press **Try** or `B` to try new things",
 				impact: 3,
 			},
 			{
@@ -32,14 +32,15 @@ describe("updater feed", () => {
 	it("writes the release's entries and notes into the updater file", () => {
 		const result = withReleaseNotes(updater, releases, "0.23.0-2");
 		expect(result.platforms).toBe(updater.platforms);
+		// Plain text: versions up to 0.22.0 show notes without rendering markdown.
 		expect(result.notes).toBe(
-			"## New\n- **Beta switch.** Try new things\n\n## Fixed\n- **Crash**",
+			"New\n- Beta switch. Press Try or B to try new things\n\nFixed\n- Crash",
 		);
 		expect(result.entries).toEqual([
 			{
 				type: "feature",
 				title: "Beta switch",
-				body: "Try new things",
+				body: "Press **Try** or `B` to try new things",
 				highlight: false,
 			},
 			{ type: "fix", title: "Crash", highlight: true },
