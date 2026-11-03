@@ -648,6 +648,11 @@
       "downloading": "Mengunduh pembaruan...",
       "ready": "Pembaruan telah siap, mulai ulang aplikasi untuk menerapkan.",
       "restart": "Mulai ulang",
+      "betaUpdates": "Pembaruan beta",
+      "betaUpdatesDescription": "Dapatkan versi baru beberapa hari lebih awal untuk mencobanya dan melaporkan masalah. Jika dimatikan, versi Anda tetap sampai versi stabil berikutnya lebih baru.",
+      "downloadUpdateHint": "Salinan ini tidak bisa memperbarui dirinya sendiri. Unduh versi baru untuk sistem Anda dari halaman rilis.",
+      "openDownloadPage": "Buka halaman unduhan",
+      "aurUpdateHint": "Salinan ini dibangun dari AUR, jadi perbarui dengan AUR helper Anda.",
       "websiteUpdate": "Pembaruan situs web",
       "websiteUpdateDescription": "Muat ulang situs web untuk mendapatkan versi terbaru.",
       "forceRefresh": "Paksa penyegaran",
@@ -943,6 +948,7 @@
       "previewDesc": "Putar lirik seperti yang akan dilihat pendengar."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Urungkan",
       "redo": "Ulangi",

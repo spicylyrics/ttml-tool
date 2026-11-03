@@ -648,6 +648,11 @@
       "downloading": "Se descarcă actualizarea…",
       "ready": "Actualizarea este gata. Repornește aplicația pentru a o aplica.",
       "restart": "Repornește",
+      "betaUpdates": "Actualizări beta",
+      "betaUpdatesDescription": "Primește versiunile noi cu câteva zile mai devreme ca să le încerci și să raportezi probleme. Dacă dezactivezi, îți păstrezi versiunea până când următoarea versiune stabilă e mai nouă.",
+      "downloadUpdateHint": "Această copie nu se poate actualiza singură. Descarcă versiunea nouă pentru sistemul tău de pe pagina versiunii.",
+      "openDownloadPage": "Deschide pagina de descărcare",
+      "aurUpdateHint": "Această copie a fost compilată din AUR, așa că actualizeaz-o cu asistentul tău AUR.",
       "websiteUpdate": "Actualizare site",
       "websiteUpdateDescription": "Reîncarcă site-ul pentru a obține ultima versiune.",
       "forceRefresh": "Forțează reîncărcarea",
@@ -943,6 +948,7 @@
       "previewDesc": "Redă versurile așa cum le vor vedea ascultătorii."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Anulează",
       "redo": "Refă",

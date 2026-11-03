@@ -648,6 +648,11 @@
       "downloading": "Update downloaden...",
       "ready": "Update is klaar. Start de applicatie opnieuw om deze toe te passen.",
       "restart": "Herstarten",
+      "betaUpdates": "Bèta-updates",
+      "betaUpdatesDescription": "Krijg nieuwe versies een paar dagen eerder om ze uit te proberen en problemen te melden. Zet je dit uit, dan houd je je versie tot de volgende stabiele versie nieuwer is.",
+      "downloadUpdateHint": "Deze kopie kan zichzelf niet bijwerken. Download de nieuwe versie voor je systeem van de releasepagina.",
+      "openDownloadPage": "Downloadpagina openen",
+      "aurUpdateHint": "Deze kopie is gebouwd vanuit de AUR, dus werk hem bij met je AUR-helper.",
       "websiteUpdate": "Website-update",
       "websiteUpdateDescription": "Laad de website opnieuw om de nieuwste versie te krijgen.",
       "forceRefresh": "Forceer vernieuwing",
@@ -943,6 +948,7 @@
       "previewDesc": "Speel de songtekst af zoals luisteraars hem zien."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Bèta",
     "menu": {
       "undo": "Ongedaan maken",
       "redo": "Opnieuw uitvoeren",

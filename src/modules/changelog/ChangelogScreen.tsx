@@ -12,6 +12,7 @@ import { ChangeMarkdown } from "$/components/Dialogs/change-notes.tsx";
 import { OptionPicker } from "$/components/OptionPicker";
 import changelog from "$/data/changelog.json";
 import legacy from "$/data/changelog-legacy.json";
+import { translatedVersionLabel } from "$/utils/version-label";
 import styles from "./ChangelogScreen.module.css";
 import {
 	buildReleaseCards,
@@ -25,7 +26,7 @@ import {
 type View = "all" | "highlights";
 
 /** One line, as in the release notes: "**Lead.** Explanation". */
-function EntryText({ entry }: { entry: ChangeEntry }) {
+export function EntryText({ entry }: { entry: ChangeEntry }) {
 	const lead =
 		entry.body && !/[.!?:]$/.test(entry.title)
 			? `${entry.title}.`
@@ -80,7 +81,9 @@ function ReleaseItem({
 		fixed: t("changelogScreen.sectionFixed", "Fixed"),
 	};
 	const date = formatDate(card.date, i18n.language);
-	const title = card.version ? `v${card.version}` : card.summary;
+	const title = card.version
+		? `v${translatedVersionLabel(card.version, t)}`
+		: card.summary;
 	const Chevron = open ? ChevronDownRegular : ChevronRightRegular;
 	return (
 		<article

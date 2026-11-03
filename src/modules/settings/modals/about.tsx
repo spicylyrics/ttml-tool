@@ -2,6 +2,7 @@ import { Flex, Heading, Text } from "@radix-ui/themes";
 import { CommunitySection } from "./about/CommunitySection";
 import { CreditsSection } from "./about/CreditsSection";
 import { MaintainersSection } from "./about/MaintainersSection";
+import { UpdateChannelSection } from "./about/UpdateChannelSection";
 import { UpdateSection } from "./about/UpdateSection";
 import { useAboutSettings } from "./about/useAboutSettings";
 import { VersionSection } from "./about/VersionSection";
@@ -32,6 +33,7 @@ export const SettingsAboutTab = () => {
 
 			<VersionSection {...state} />
 
+			<UpdateChannelSection {...state} />
 			<UpdateSection {...state} />
 		</Flex>
 	);

@@ -648,6 +648,11 @@
       "downloading": "Downloading update…",
       "ready": "Update is ready. Restart the application for it to take effect.",
       "restart": "Restart",
+      "betaUpdates": "Beta updates",
+      "betaUpdatesDescription": "Get new versions a few days early to try them out and report problems. Turning this off keeps your version until the next stable one is newer.",
+      "downloadUpdateHint": "This copy can't update itself. Download the new version for your system from the release page.",
+      "openDownloadPage": "Open download page",
+      "aurUpdateHint": "This copy was built from the AUR, so update it with your AUR helper.",
       "websiteUpdate": "Website update",
       "websiteUpdateDescription": "Reload the website to get the latest version.",
       "forceRefresh": "Force refresh",
@@ -943,6 +948,7 @@
       "previewDesc": "Play the lyrics back the way listeners will see them."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Undo",
       "redo": "Redo",

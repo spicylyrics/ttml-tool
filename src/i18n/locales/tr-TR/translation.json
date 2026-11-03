@@ -648,6 +648,11 @@
       "downloading": "Güncelleme indiriliyor...",
       "ready": "Güncelleme hazır. Uygulanması için uygulamayı yeniden başlatın.",
       "restart": "Yeniden başlat",
+      "betaUpdates": "Beta güncellemeleri",
+      "betaUpdatesDescription": "Yeni sürümleri denemek ve sorunları bildirmek için birkaç gün önce alın. Kapatırsanız, bir sonraki kararlı sürüm daha yeni olana kadar sürümünüz kalır.",
+      "downloadUpdateHint": "Bu kopya kendini güncelleyemez. Sisteminiz için yeni sürümü sürüm sayfasından indirin.",
+      "openDownloadPage": "İndirme sayfasını aç",
+      "aurUpdateHint": "Bu kopya AUR'dan derlendi, bu yüzden AUR yardımcınızla güncelleyin.",
       "websiteUpdate": "Web sitesi güncellemesi",
       "websiteUpdateDescription": "En son sürümü almak için web sitesini yeniden yükleyin.",
       "forceRefresh": "Zorla yenile",
@@ -943,6 +948,7 @@
       "previewDesc": "Sözleri dinleyicilerin göreceği şekilde oynatır."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Geri al",
       "redo": "İleri al",

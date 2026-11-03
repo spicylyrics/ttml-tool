@@ -648,6 +648,11 @@
       "downloading": "Ladataan päivitystä...",
       "ready": "Päivitys on valmis. Käynnistä sovellus uudelleen, jotta se tulee voimaan.",
       "restart": "Käynnistä uudelleen",
+      "betaUpdates": "Beta-päivitykset",
+      "betaUpdatesDescription": "Saat uudet versiot muutamaa päivää aiemmin kokeiltavaksi ja voit ilmoittaa ongelmista. Kun poistat tämän käytöstä, versiosi pysyy, kunnes seuraava vakaa versio on uudempi.",
+      "downloadUpdateHint": "Tämä kopio ei voi päivittää itseään. Lataa uusi versio järjestelmällesi julkaisusivulta.",
+      "openDownloadPage": "Avaa lataussivu",
+      "aurUpdateHint": "Tämä kopio on koottu AUR:sta, joten päivitä se AUR-apuohjelmallasi.",
       "websiteUpdate": "Verkkosivuston päivitys",
       "websiteUpdateDescription": "Lataa verkkosivusto uudelleen saadaksesi uusimman version.",
       "forceRefresh": "Pakota päivitys",
@@ -943,6 +948,7 @@
       "previewDesc": "Toista sanoitukset niin kuin kuulijat ne näkevät."
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "Kumoa",
       "redo": "Tee uudelleen",

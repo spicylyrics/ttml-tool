@@ -648,6 +648,11 @@
       "downloading": "正在下载更新...",
       "ready": "更新已就绪。重启应用程序使其生效。",
       "restart": "重启",
+      "betaUpdates": "Beta 更新",
+      "betaUpdatesDescription": "提前几天获取新版本，试用并报告问题。关闭后会保留当前版本，直到下一个稳定版比它更新。",
+      "downloadUpdateHint": "此副本无法自行更新。请从发布页面下载适合你系统的新版本。",
+      "openDownloadPage": "打开下载页面",
+      "aurUpdateHint": "此副本是从 AUR 构建的，请用你的 AUR 助手更新。",
       "websiteUpdate": "网站更新",
       "websiteUpdateDescription": "重新加载网站以获取最新版本。",
       "forceRefresh": "强制刷新",
@@ -943,6 +948,7 @@
       "previewDesc": "按听众看到的样子播放歌词。"
     },
     "appName": "TTML Tool",
+    "betaBadge": "Beta",
     "menu": {
       "undo": "撤销",
       "redo": "重做",
