@@ -28,12 +28,15 @@ jobs:
       # tauri-action's create-then-upload path silently failed the Windows job in v0.10.1.
       # It stays a draft until finalize-release, so a failed or cancelled build never
       # leaves a half release as Latest for the updater (v0.22.0's first build did).
+      # Betas (vX.Y.Z-N) are pre-releases, so they never become Latest either.
       - name: Create release
         if: startsWith(github.ref, 'refs/tags/v')
         shell: bash
         run: |
+          prerelease=()
+          [[ "${{ github.ref_name }}" == *-* ]] && prerelease=(--prerelease)
           gh release view "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1 ||
-            gh release create "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --verify-tag --draft \
+            gh release create "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --verify-tag --draft "${prerelease[@]}" \
               --title "Spicy Lyrics TTML Tool ${{ github.ref_name }}" \
               --notes "Desktop release ${{ github.ref_name }}. Release notes are finalized after all platform assets are uploaded."
         env:
@@ -262,10 +265,11 @@ jobs:
           mkdir -p "$work"
           cp packaging/archlinux/bin/PKGBUILD LICENSE "$work/"
           cp "$deb" "$work/amll-ttml-tool.deb"
-          # pacman versions can't contain "-".
+          # pacman versions can't contain "-". A beta 0.23.0-2 becomes 0.23.0beta2,
+          # which pacman sorts below 0.23.0, so the stable release still upgrades it.
           version=$(sed -n 's/^\t"version": "\([^"]*\)".*/\1/p' package.json)
           test -n "$version"
-          sed -i "s/^pkgver=.*/pkgver=${version//-/_}/" "$work/PKGBUILD"
+          sed -i "s/^pkgver=.*/pkgver=${version/-/beta}/" "$work/PKGBUILD"
           # makepkg refuses to run as root.
           useradd --create-home builder
           chown -R builder "$work"
@@ -285,6 +289,10 @@ jobs:
     needs: [build-tauri-desktop, build-flatpak, build-arch, prepare-release-notes]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
       - uses: actions/download-artifact@v7
         if: needs.build-arch.result == 'success'
         with:
@@ -325,16 +333,53 @@ jobs:
             --title "Spicy Lyrics TTML Tool ${{ github.ref_name }}" --notes-file release-notes.md
         env:
           GH_TOKEN: ${{ github.token }}
+      # tauri-action fills latest.json's notes with the placeholder body; the
+      # in-app update card shows the real entries instead.
+      - name: Write the notes into the updater file
+        shell: bash
+        run: |
+          gh release download "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --pattern latest.json --dir updater
+          node scripts/updater-feed.mjs notes --file updater/latest.json --version "${GITHUB_REF_NAME#v}"
+          gh release upload "${{ github.ref_name }}" updater/latest.json --repo "$GITHUB_REPOSITORY" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
       # Every desktop build uploaded (this job needs them all), so the updater and
-      # the Latest badge can see it now.
+      # the Latest badge can see it now. Betas stay pre-releases, never Latest,
+      # so the stable feed (releases/latest/download/latest.json) never offers one.
       - name: Publish release
-        run: gh release edit "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --draft=false --latest
+        shell: bash
+        run: |
+          if [[ "${{ github.ref_name }}" == *-* ]]; then
+            gh release edit "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease --latest=false
+          else
+            gh release edit "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --draft=false --latest
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+      # The beta feed is beta.json on the rolling update-feed pre-release. Stable
+      # releases go in too, so beta users get the stable version once it passes
+      # their beta; an older hotfix never replaces a newer beta.
+      - name: Update the beta feed
+        shell: bash
+        run: |
+          feed=update-feed
+          if ! gh release view "$feed" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gh release create "$feed" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+              --prerelease --latest=false --title "Update feed, not a release" \
+              --notes "Holds beta.json, which apps with Beta updates turned on check for new versions. Download releases from the list instead."
+          fi
+          gh release download "$feed" --repo "$GITHUB_REPOSITORY" --pattern beta.json --dir current-feed || true
+          if node scripts/updater-feed.mjs newer --feed current-feed/beta.json --version "${GITHUB_REF_NAME#v}"; then
+            cp updater/latest.json updater/beta.json
+            gh release upload "$feed" updater/beta.json --repo "$GITHUB_REPOSITORY" --clobber
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
 
   submit-winget:
     name: Submit Winget manifest
-    if: startsWith(github.ref, 'refs/tags/v')
+    # Winget only gets stable releases.
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
     needs: finalize-release
     runs-on: ubuntu-latest
     steps:
