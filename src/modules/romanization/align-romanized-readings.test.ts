@@ -34,6 +34,8 @@ describe("pasted romaji over kanji, placed by the dictionary's readings", () => 
 			["Go", "ki", "gen", "ukaga", "i"],
 		],
 		["Itaitashii", ["痛", "々", "しい"], ["Ita", "ita", "shii"]],
+		["Akashingou", ["赤", "信", "号"], ["Aka", "shin", "gou"]],
+		["juujun", ["従", "順"], ["juu", "jun"]],
 		["mohaya", ["最", "早"], ["mo", "haya"]],
 		["Egao", ["笑", "顔"], ["E", "gao"]],
 		["houshiki", ["方", "式"], ["hou", "shiki"]],
