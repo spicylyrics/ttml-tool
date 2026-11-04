@@ -159,6 +159,9 @@ const SOKUON_ONLY = /^[っッ]$/u;
 const hasKanji = (text: string) => /[\p{Script=Han}々〆]/u.test(text);
 const hasKana = (text: string) =>
 	/[\p{Script=Hiragana}\p{Script=Katakana}]/u.test(text);
+/** Letters, all of them Latin: "gimme", "God," but not "ラブ" or "Bチーム". */
+const isLatinOnly = (text: string) =>
+	LATIN.test(text) && !/(?=\p{L})\P{Script=Latin}/u.test(text);
 
 const KANA_FIXES: Array<[RegExp, string]> = [
 	[/fu([aieo])/g, "f$1"],
@@ -816,7 +819,12 @@ export function alignRomanizedPage(
 		return targets.map((line) => {
 			const own = line.words.map((_, index) => offset + index);
 			offset += line.words.length;
-			const romanWords = own.map((index) => fitted.romanWords[index]);
+			// Latin words still anchor the fit, but keep no romaji of their own:
+			// Spicy Lyrics shows the original text for a syllable without any.
+			const latin = line.words.map((word) => isLatinOnly(word.word));
+			const romanWords = own.map((index, at) =>
+				latin[at] ? "" : fitted.romanWords[index],
+			);
 			// A line's last word has no gap after it.
 			for (let index = romanWords.length - 1; index >= 0; index--) {
 				if (!romanWords[index]) continue;
@@ -829,8 +837,11 @@ export function alignRomanizedPage(
 				romanWords: Object.fromEntries(
 					line.words.map((word, index) => [word.id, romanWords[index]]),
 				),
-				uncertain: own.some((index) => fitted.guessed[index]),
-				romanLine: fitted.pageText(own[0] ?? 0, offset),
+				uncertain: own.some((index, at) => !latin[at] && fitted.guessed[index]),
+				// A line all in Latin letters ("Look around!") needs no romanization.
+				romanLine: romanWords.some((text) => text.trim())
+					? fitted.pageText(own[0] ?? 0, offset)
+					: "",
 			};
 		});
 	};

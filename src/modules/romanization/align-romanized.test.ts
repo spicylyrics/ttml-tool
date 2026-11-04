@@ -284,6 +284,35 @@ describe("romanized page lines", () => {
 		]);
 	});
 
+	it("keeps no romaji for English words and English-only lines", () => {
+		const lines = [
+			line("Oh ", "my ", "God, ", "大嫌い"),
+			{ ...line("Look ", "around!"), isBG: true },
+			line("gimme ", "ちょう", "だい"),
+		];
+		const result = alignRomanizedPage(
+			lines,
+			"Oh my God, daikirai (Look around!)\nGimme choudai",
+		);
+		if (!result.ok) throw new Error("expected a match");
+		const byLine = new Map(
+			result.lines.map((aligned) => [aligned.lineId, aligned]),
+		);
+		const [mixed, background, gimme] = lines.map((target) =>
+			byLine.get(target.id),
+		);
+		expect(Object.values(mixed?.romanWords ?? {})).toEqual([
+			"",
+			"",
+			"",
+			"daikirai",
+		]);
+		expect(mixed?.romanLine).toBe("Oh my God, daikirai");
+		expect(Object.values(background?.romanWords ?? {})).toEqual(["", ""]);
+		expect(background?.romanLine).toBe("");
+		expect(Object.values(gimme?.romanWords ?? {})).toEqual(["", "chou", "dai"]);
+	});
+
 	it("pulls a section toward its header on the page", () => {
 		// Without headers, 空 could take "sora umi" and 海 nothing.
 		const lines = [
