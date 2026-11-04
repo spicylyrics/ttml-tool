@@ -3,6 +3,7 @@ import * as wanakana from "wanakana";
 import { getLineDisplayNumbers } from "$/modules/lyric-editor/utils/line-numbers";
 import { getSectionHeader } from "$/modules/lyric-editor/utils/section-system";
 import type { LyricLine, LyricWord } from "$/types/ttml";
+import { isLatinOnly } from "./fill";
 
 /**
  * Aligns a pasted romanized lyric page (such as Genius's "Romanized" page) to
@@ -159,9 +160,6 @@ const SOKUON_ONLY = /^[っッ]$/u;
 const hasKanji = (text: string) => /[\p{Script=Han}々〆]/u.test(text);
 const hasKana = (text: string) =>
 	/[\p{Script=Hiragana}\p{Script=Katakana}]/u.test(text);
-/** Letters, all of them Latin: "gimme", "God," but not "ラブ" or "Bチーム". */
-const isLatinOnly = (text: string) =>
-	LATIN.test(text) && !/(?=\p{L})\P{Script=Latin}/u.test(text);
 
 const KANA_FIXES: Array<[RegExp, string]> = [
 	[/fu([aieo])/g, "f$1"],

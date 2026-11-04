@@ -72,6 +72,46 @@ describe("filling romanization", () => {
 		).toBe("Nukashitenda ka?");
 	});
 
+	it("clears earlier romaji on English words when replacing from a page", () => {
+		const mixed = line(["gimme ", "Gimme "], ["ちょう", "chou"], "だい");
+		const [gimme, chou, dai] = mixed.words;
+		const romanWords = {
+			[gimme.id]: "",
+			[chou.id]: "chou",
+			[dai.id]: "dai",
+		};
+		expect(
+			mergeLineRomanization(mixed, romanWords, "replace", "Gimme choudai"),
+		).toMatchObject({
+			romanWords: { [gimme.id]: "", [chou.id]: "chou", [dai.id]: "dai" },
+			romanLyric: "Gimme choudai",
+		});
+		expect(
+			mergeLineRomanization(mixed, romanWords, "fillEmpty")?.romanWords[
+				gimme.id
+			],
+		).toBe("Gimme ");
+
+		const english = {
+			...line(["Look ", "Look "], ["around!", "around!"]),
+			romanLyric: "Look around!",
+		};
+		const blank = Object.fromEntries(english.words.map((w) => [w.id, ""]));
+		expect(mergeLineRomanization(english, blank, "replace", "")).toMatchObject({
+			romanWords: Object.fromEntries(english.words.map((w) => [w.id, ""])),
+			romanLyric: "",
+		});
+		const stale = { ...line("Look ", "around!"), romanLyric: "Look around!" };
+		expect(
+			mergeLineRomanization(
+				stale,
+				Object.fromEntries(stale.words.map((w) => [w.id, ""])),
+				"replace",
+				"",
+			)?.romanLyric,
+		).toBe("");
+	});
+
 	it("fills over leftover romanization that is still in kana", () => {
 		const target = line(["ソンナ", "ソンナ"]);
 		expect(
