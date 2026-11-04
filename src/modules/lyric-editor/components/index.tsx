@@ -236,11 +236,15 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 					viewportRef={viewElRef}
 				>
 					{(item) => (
-						<LyricLineView
-							key={`${item.lineAtom}`}
-							lineAtom={item.lineAtom}
-							lineIndex={item.sourceIndex}
-						/>
+						// The list counts its DOM children as items. A line can also draw a
+						// section divider or an insert button, so without this wrapper the
+						// count drifts and the list can swap rows forever at a section start.
+						<div key={`${item.lineAtom}`}>
+							<LyricLineView
+								lineAtom={item.lineAtom}
+								lineIndex={item.sourceIndex}
+							/>
+						</div>
 					)}
 				</ViewportList>
 			</Box>
