@@ -68,8 +68,9 @@ export function parseChangeNote(source, filename = "Change note") {
 	};
 }
 
-const isBetaRelease = (release) =>
-	Boolean(release.version) && isBetaVersion(release.version);
+// Matched, not parsed: old releases have versions like "0.7" that aren't
+// SemVer, and they are never betas.
+const isBetaRelease = (release) => /-\d+$/.test(release.version ?? "");
 
 /** The compiled betas a stable version finishes: 0.23.0 takes every 0.23.0-N. */
 export function betasOf(releases, version) {
