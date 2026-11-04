@@ -66,7 +66,8 @@ describe("romanized page alignment", () => {
 
 	it("reads づ and ぢ spelled with a d", () => {
 		expect(
-			align("chikadzuku tabi ni", "近", "づ", "く", "た", "び", "に").romanWords,
+			align("chikadzuku tabi ni", "近", "づ", "く", "た", "び", "に")
+				.romanWords,
 		).toEqual(["chika", "dzu", "ku ", "ta", "bi ", "ni"]);
 		expect(align("hanadi", "は", "な", "ぢ").romanWords).toEqual([
 			"ha",
