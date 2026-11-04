@@ -149,6 +149,13 @@ describe("Japanese romanization", () => {
 			"呼んで",
 			"いた",
 		]);
+		// Slang the dictionary splits (クラ|っ|ちゃっ|た) stays one word.
+		expect(words("報いにクラっちゃった")).toEqual([
+			"報い",
+			"に",
+			"クラっちゃった",
+		]);
+		expect(romanize("クラっちゃった")).toEqual(["kuratchatta"]);
 		expect(words("「おい、なんでｿﾝﾅことを")).toEqual([
 			"「おい、",
 			"なんで",

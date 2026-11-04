@@ -128,6 +128,22 @@ function tokenize(tk: Tokenizer<IpadicFeatures>, text: string): Token[] {
 			position: token.word_position - 1,
 		};
 	});
+	// A lone っ the dictionary reads as a verb ending is slang made from the
+	// word before (クラ|っ|ちゃっ|た): it joins that word, which then inflects.
+	for (let index = 1; index < tokens.length; index++) {
+		const token = tokens[index];
+		const previous = tokens[index - 1];
+		if (
+			/^[っッ]$/.test(token.surface) &&
+			token.pos === "動詞" &&
+			hasJapanese(previous.surface)
+		) {
+			previous.surface += token.surface;
+			previous.reading += token.reading;
+			previous.pos = token.pos;
+			tokens.splice(index--, 1);
+		}
+	}
 	// A verb or adjective ending in っ takes the next token in (言っ|て → itte).
 	for (let index = 0; index < tokens.length - 1; index++) {
 		const token = tokens[index];
