@@ -228,10 +228,19 @@ const kanjiMorae = (romaji: string) =>
 		return morae;
 	}, []);
 
+/**
+ * The sounds a run is shared by: as kanji take them, or plain morae when that
+ * leaves a kanji with none (不甲斐 "fugai" is fu|ga|i, not fu||gai).
+ */
+const shareMorae = (romaji: string, count: number) => {
+	const morae = kanjiMorae(romaji);
+	return morae.length < count ? splitRomajiMorae(romaji) : morae;
+};
+
 /** Shares a romaji run between kanji words by mora, front-loaded, as lengths. */
 function distribute(run: string, count: number): number[] {
 	if (count === 1) return [run.length];
-	const morae = kanjiMorae(run);
+	const morae = shareMorae(run, count);
 	return Array.from({ length: count }, (_, index) => {
 		const start = Math.round((morae.length * index) / count);
 		const end = Math.round((morae.length * (index + 1)) / count);
@@ -251,7 +260,7 @@ function shareKanjiRun(run: string, chunks: number[], count: number) {
 	if (chunks.length > count)
 		return {
 			shares: distribute(run, count),
-			guessed: kanjiMorae(run).length % count !== 0,
+			guessed: shareMorae(run, count).length % count !== 0,
 		};
 	const texts: string[] = [];
 	let offset = 0;
