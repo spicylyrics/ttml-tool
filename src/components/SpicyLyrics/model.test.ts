@@ -299,6 +299,46 @@ describe("buildSpicyLines", () => {
 		expect(gaps(true)).toEqual([true, true, false]);
 	});
 
+	it("keeps syllables of one romanized word together", () => {
+		const line = newLyricLine();
+		line.startTime = 0;
+		line.endTime = 1_500;
+		line.words = [
+			{
+				...newLyricWord(),
+				startTime: 0,
+				endTime: 500,
+				word: "呼",
+				romanWord: "yo",
+			},
+			{
+				...newLyricWord(),
+				startTime: 500,
+				endTime: 1_000,
+				word: "んで",
+				romanWord: "nde ",
+			},
+			{
+				...newLyricWord(),
+				startTime: 1_000,
+				endTime: 1_500,
+				word: "た",
+				romanWord: "ta",
+			},
+		];
+
+		const [spicyLine] = buildSpicyLines([line], false, true);
+
+		expect(spicyLine.words.map((word) => word.text)).toEqual([
+			"yo",
+			"nde",
+			"ta",
+		]);
+		expect(
+			groupSpicyTokens(spicyLine.words).map((group) => group.items.length),
+		).toEqual([2, 1]);
+	});
+
 	it("keeps multi-word karaoke lines on the word-synced path", () => {
 		const line = newLyricLine();
 		line.startTime = 0;
