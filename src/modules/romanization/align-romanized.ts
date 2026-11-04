@@ -182,11 +182,21 @@ function expectedReadings(word: string): string[] | undefined {
 		const latin = normalizeRomaji(text);
 		return latin ? [latin] : [];
 	}
-	const romaji = wanakana.toRomaji(text);
+	// づ and ぢ are "zu" and "ji", or "dzu"/"du" and "dji"/"di" on some pages.
+	const romajis = [wanakana.toRomaji(text)];
+	if (/[づヅぢヂ]/u.test(text))
+		romajis.push(
+			wanakana.toRomaji(text, {
+				customRomajiMapping: { づ: "dzu", ぢ: "dji" },
+			}),
+			wanakana.toRomaji(text, { customRomajiMapping: { づ: "du", ぢ: "di" } }),
+		);
 	// ー lengthens the vowel before it: へー "hee". Pages often leave it out.
-	const long = normalizeRomaji(romaji.replace(/([aeiou])[-ー]/g, "$1$1"));
-	const short = normalizeRomaji(romaji);
-	const readings = [long, short].flatMap((value) => {
+	const spellings = romajis.flatMap((romaji) => [
+		normalizeRomaji(romaji.replace(/([aeiou])[-ー]/g, "$1$1")),
+		normalizeRomaji(romaji),
+	]);
+	const readings = spellings.flatMap((value) => {
 		let reading = value;
 		for (const [pattern, replacement] of KANA_FIXES) {
 			reading = reading.replace(pattern, replacement);

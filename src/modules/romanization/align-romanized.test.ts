@@ -64,6 +64,17 @@ describe("romanized page alignment", () => {
 		).toEqual(["Onore ", "no ", "yowa-", "sa ", "ga ", "fu", "ga", "i", "nai"]);
 	});
 
+	it("reads づ and ぢ spelled with a d", () => {
+		expect(
+			align("chikadzuku tabi ni", "近", "づ", "く", "た", "び", "に").romanWords,
+		).toEqual(["chika", "dzu", "ku ", "ta", "bi ", "ni"]);
+		expect(align("hanadi", "は", "な", "ぢ").romanWords).toEqual([
+			"ha",
+			"na",
+			"di",
+		]);
+	});
+
 	it("reads particles the way pages spell them", () => {
 		expect(align("Boku wa kimi wo", "僕", "は", "君", "を")).toEqual({
 			romanWords: ["Boku ", "wa ", "kimi ", "wo"],
