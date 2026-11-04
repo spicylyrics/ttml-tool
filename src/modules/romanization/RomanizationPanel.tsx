@@ -28,6 +28,12 @@ import {
 import type { LyricLine } from "$/types/ttml";
 import { alignRomanizedPage } from "./align-romanized";
 import {
+	getLoadedJapaneseTokenizer,
+	loadJapaneseTokenizer,
+	needsJapaneseDictionary,
+	romanizeJapaneseLine,
+} from "./engines/japanese";
+import {
 	type ExistingMode,
 	hasRomanization,
 	isLineRomanized,
@@ -183,9 +189,34 @@ const PanelBody = ({ onClose }: { onClose: () => void }) => {
 		}
 	};
 
-	const romanizeFromPage = () => {
+	const romanizeFromPage = async () => {
 		const current = store.get(lyricLinesAtom).lyricLines;
-		const result = alignRomanizedPage(current, pasted);
+		// The dictionary's readings place the page's romaji over runs of kanji.
+		// Without it the page is still shared out, just by sound.
+		const text = current
+			.map((line) => line.words.map((word) => word.word).join(""))
+			.join("\n");
+		let tokenizer = getLoadedJapaneseTokenizer();
+		if (!tokenizer && needsJapaneseDictionary(text)) {
+			setBusy(true);
+			tokenizer = await loadJapaneseTokenizer()
+				.catch((error) => {
+					console.warn("Japanese dictionary didn't load", error);
+					return undefined;
+				})
+				.finally(() => setBusy(false));
+		}
+		const tk = tokenizer;
+		const result = alignRomanizedPage(
+			current,
+			pasted,
+			tk &&
+				((line) =>
+					romanizeJapaneseLine(
+						tk,
+						line.words.map((word) => word.word),
+					)),
+		);
 		if (!result.ok) {
 			setProblem(
 				t(

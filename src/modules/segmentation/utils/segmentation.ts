@@ -5,6 +5,10 @@ import { distributeTime as distributeUnitTimes } from "$/modules/lyric-editor/ut
  */
 
 import { alignLineWords } from "$/modules/romanization/align-romanized";
+import {
+	getLoadedJapaneseTokenizer,
+	romanizeJapaneseLine,
+} from "$/modules/romanization/engines/japanese";
 import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml";
 import { escapeRegExp } from "$/utils/text";
 import { CharType, type SegmentationConfig } from "../types";
@@ -333,7 +337,16 @@ function distributeTime(
  */
 function shareRomanization(romanWord: string, parts: LyricWord[]) {
 	if (!romanWord.trim()) return parts;
-	const shares = alignLineWords(parts, romanWord.trim()).romanWords;
+	const tokenizer = getLoadedJapaneseTokenizer();
+	const shares = alignLineWords(
+		parts,
+		romanWord.trim(),
+		tokenizer &&
+			romanizeJapaneseLine(
+				tokenizer,
+				parts.map((part) => part.word),
+			),
+	).romanWords;
 	if (/\s$/.test(romanWord)) {
 		for (let last = shares.length - 1; last >= 0; last--) {
 			if (!shares[last].trim()) continue;
