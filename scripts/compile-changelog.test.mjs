@@ -132,6 +132,13 @@ describe("change note compilation", () => {
 			"No change notes",
 		);
 	});
+	it("compiles past old releases whose versions aren't SemVer", () => {
+		const releases = [...previous, { version: "0.7", entries: [] }];
+		const notes = [parseChangeNote(note())];
+		expect(createRelease(releases, notes, "0.10.4", "Test").version).toBe(
+			"0.10.4",
+		);
+	});
 	it("compiles betas with impact kept, then folds them into the stable release", () => {
 		const beta1 = createRelease(
 			previous,
