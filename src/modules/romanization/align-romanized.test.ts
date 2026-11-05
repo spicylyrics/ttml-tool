@@ -47,6 +47,35 @@ describe("romanized page alignment", () => {
 		]);
 	});
 
+	it("gives every kanji in a run a sound", () => {
+		expect(
+			align(
+				"Onore no yowa-sa ga fugainai",
+				"己",
+				"の",
+				"弱",
+				"さ",
+				"が",
+				"不",
+				"甲",
+				"斐",
+				"ない",
+			).romanWords,
+		).toEqual(["Onore ", "no ", "yowa-", "sa ", "ga ", "fu", "ga", "i", "nai"]);
+	});
+
+	it("reads づ and ぢ spelled with a d", () => {
+		expect(
+			align("chikadzuku tabi ni", "近", "づ", "く", "た", "び", "に")
+				.romanWords,
+		).toEqual(["chika", "dzu", "ku ", "ta", "bi ", "ni"]);
+		expect(align("hanadi", "は", "な", "ぢ").romanWords).toEqual([
+			"ha",
+			"na",
+			"di",
+		]);
+	});
+
 	it("reads particles the way pages spell them", () => {
 		expect(align("Boku wa kimi wo", "僕", "は", "君", "を")).toEqual({
 			romanWords: ["Boku ", "wa ", "kimi ", "wo"],
@@ -282,6 +311,35 @@ describe("romanized page lines", () => {
 			["a"],
 			["boku"],
 		]);
+	});
+
+	it("keeps no romaji for English words and English-only lines", () => {
+		const lines = [
+			line("Oh ", "my ", "God, ", "大嫌い"),
+			{ ...line("Look ", "around!"), isBG: true },
+			line("gimme ", "ちょう", "だい"),
+		];
+		const result = alignRomanizedPage(
+			lines,
+			"Oh my God, daikirai (Look around!)\nGimme choudai",
+		);
+		if (!result.ok) throw new Error("expected a match");
+		const byLine = new Map(
+			result.lines.map((aligned) => [aligned.lineId, aligned]),
+		);
+		const [mixed, background, gimme] = lines.map((target) =>
+			byLine.get(target.id),
+		);
+		expect(Object.values(mixed?.romanWords ?? {})).toEqual([
+			"",
+			"",
+			"",
+			"daikirai",
+		]);
+		expect(mixed?.romanLine).toBe("Oh my God, daikirai");
+		expect(Object.values(background?.romanWords ?? {})).toEqual(["", ""]);
+		expect(background?.romanLine).toBe("");
+		expect(Object.values(gimme?.romanWords ?? {})).toEqual(["", "chou", "dai"]);
 	});
 
 	it("pulls a section toward its header on the page", () => {

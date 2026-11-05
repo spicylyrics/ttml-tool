@@ -63,6 +63,36 @@ describe("Japanese splitting by script", () => {
 		expect(split("every")).toEqual(["e", "very"]);
 	});
 
+	it("puts an opening quote on the sound after it", () => {
+		expect(split("｢憎たらしい！｣｢痛々しい！｣")).toEqual([
+			"｢憎",
+			"た",
+			"ら",
+			"しい！｣",
+			"｢痛々",
+			"しい！｣",
+		]);
+		expect(split("しい！」「痛")).toEqual(["しい！」", "「痛"]);
+	});
+
+	it("keeps a word that opens with a quote as its own part", () => {
+		const parts = segmentWord(
+			{
+				...newLyricWord(),
+				word: "｢憎たらしい！｣｢痛々しい！｣",
+				startTime: 0,
+				endTime: 1000,
+			},
+			{ ...base, japaneseWords: () => new Set([8]) },
+		);
+		expect(parts.map((part) => part.word)).toEqual([
+			"｢憎たらしい！｣",
+			"｢痛々しい！｣",
+		]);
+		// Timed by its letters, not as a punctuation mark.
+		expect(parts[1].endTime - parts[1].startTime).toBeGreaterThan(300);
+	});
+
 	it("does nothing with the none engine", () => {
 		expect(split("コーヒー", { engine: "none" })).toEqual(["コーヒー"]);
 	});

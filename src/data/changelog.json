@@ -1,5 +1,43 @@
 [
 	{
+		"version": "0.22.1",
+		"summary": "Romaji and lyric list fixes",
+		"color": "violet",
+		"date": "2026-11-05",
+		"entries": [
+			{
+				"type": "fix",
+				"title": "Kanji get the right part of the romaji",
+				"body": "Romaji over a run of kanji follows each kanji's reading, like 赤信号 as aka|shin|gou and ご機嫌伺い as go|ki|gen|ukaga|i",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Japanese splits keep quotes and っ right",
+				"body": "「 goes on the word after it, no more lone っ parts, and pasted romaji fits every kanji and づ written as dzu",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Lyric list no longer twitches at section starts",
+				"body": "The list could keep jumping on its own around the first line of a section, especially after selecting a line",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Pasted romaji leaves English words alone",
+				"body": "English words in a pasted romanized page no longer get romaji, and English-only background lines get no romanized line",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Space before opening quotes in romaji",
+				"body": "On-device romanization puts a space before 「 and 『 inside a line, like Fujouri \"shikata, instead of gluing them on",
+				"highlight": false
+			}
+		]
+	},
+	{
 		"version": "0.22.0",
 		"summary": "Romanization and metadata",
 		"color": "cyan",
