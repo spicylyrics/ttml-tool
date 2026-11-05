@@ -1,0 +1,21 @@
+/* The exact text that gets sent, so people can see nothing else goes along. */
+.details {
+	margin: 0;
+	max-height: 14rem;
+	overflow: auto;
+	padding: var(--space-3);
+	border: 1px solid var(--gray-a5);
+	border-radius: var(--radius-4);
+	background: var(--gray-2);
+	color: var(--gray-12);
+	font-family: var(--code-font-family);
+	font-size: var(--font-size-1);
+	line-height: 1.55;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+.details:focus-visible {
+	outline: 2px solid var(--focus-8);
+	outline-offset: 2px;
+}
