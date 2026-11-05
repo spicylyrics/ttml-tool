@@ -429,7 +429,12 @@ jobs:
       # their beta; an older hotfix never replaces a newer beta. The job token
       # can't create the release (that makes a new tag), so it's made once by
       # hand; see AGENTS.md.
-      - name: Update the beta feed
+      # The beta website deploys from the beta branch, so it moves with the feed:
+      # each beta version is one website build, and nothing reaches testers until
+      # a release publishes. Forced because a hotfix cut from main isn't a
+      # descendant of the last beta; the version check is what stops it going
+      # backwards. Moved first, so re-running this job after a failure retries it.
+      - name: Update the beta feed and website branch
         shell: bash
         run: |
           feed=update-feed
@@ -439,6 +444,7 @@ jobs:
           fi
           gh release download "$feed" --repo "$GITHUB_REPOSITORY" --pattern beta.json --dir current-feed || true
           if node scripts/updater-feed.mjs newer --feed current-feed/beta.json --version "${GITHUB_REF_NAME#v}"; then
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/heads/beta" -f sha="$GITHUB_SHA" -F force=true --silent
             cp updater/latest.json updater/beta.json
             gh release upload "$feed" updater/beta.json --repo "$GITHUB_REPOSITORY" --clobber
           fi
