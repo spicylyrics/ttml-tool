@@ -3,6 +3,7 @@ import * as wanakana from "wanakana";
 import { getLineDisplayNumbers } from "$/modules/lyric-editor/utils/line-numbers";
 import { getSectionHeader } from "$/modules/lyric-editor/utils/section-system";
 import type { LyricLine, LyricWord } from "$/types/ttml";
+import { isLatinOnly } from "./fill";
 
 /**
  * Aligns a pasted romanized lyric page (such as Genius's "Romanized" page) to
@@ -936,7 +937,12 @@ export function alignRomanizedPage(
 		return targets.map((line) => {
 			const own = line.words.map((_, index) => offset + index);
 			offset += line.words.length;
-			const romanWords = own.map((index) => fitted.romanWords[index]);
+			// Latin words still anchor the fit, but keep no romaji of their own:
+			// Spicy Lyrics shows the original text for a syllable without any.
+			const latin = line.words.map((word) => isLatinOnly(word.word));
+			const romanWords = own.map((index, at) =>
+				latin[at] ? "" : fitted.romanWords[index],
+			);
 			// A line's last word has no gap after it.
 			for (let index = romanWords.length - 1; index >= 0; index--) {
 				if (!romanWords[index]) continue;
@@ -949,8 +955,11 @@ export function alignRomanizedPage(
 				romanWords: Object.fromEntries(
 					line.words.map((word, index) => [word.id, romanWords[index]]),
 				),
-				uncertain: own.some((index) => fitted.guessed[index]),
-				romanLine: fitted.pageText(own[0] ?? 0, offset),
+				uncertain: own.some((index, at) => !latin[at] && fitted.guessed[index]),
+				// A line all in Latin letters ("Look around!") needs no romanization.
+				romanLine: romanWords.some((text) => text.trim())
+					? fitted.pageText(own[0] ?? 0, offset)
+					: "",
 			};
 		});
 	};

@@ -34,6 +34,10 @@ export const hasRomanization = (romanWord: string) =>
 		romanWord,
 	);
 
+/** Letters, all of them Latin: "gimme", "God," but not "ラブ" or "Bチーム". */
+export const isLatinOnly = (text: string) =>
+	/\p{Script=Latin}/u.test(text) && !/(?=\p{L})\P{Script=Latin}/u.test(text);
+
 /**
  * Applies new per-word romanization to a line, keeping or replacing what is
  * there, and rebuilds the line romanization. Undefined when nothing changes.
@@ -42,12 +46,23 @@ export function mergeLineRomanization(
 	line: LyricLine,
 	romanWords: Record<string, string>,
 	mode: ExistingMode,
-	/** The line as a pasted page writes it, used when every word is new. */
+	/**
+	 * The line as a pasted page writes it, used when every word is new. Empty
+	 * when the line needs none (all English).
+	 */
 	pageLine?: string,
 ): LineRomanization | undefined {
 	let keptOld = false;
 	const merged = line.words.map((word) => {
 		const next = romanWords[word.id];
+		// Replacing from a page clears romaji an English word got earlier.
+		if (
+			mode === "replace" &&
+			next === "" &&
+			word.romanWord &&
+			isLatinOnly(word.word)
+		)
+			return { ...word, romanWord: "" };
 		if (next === undefined || !next.trim()) {
 			if (hasRomanization(word.romanWord)) keptOld = true;
 			return word;
@@ -58,14 +73,20 @@ export function mergeLineRomanization(
 		}
 		return { ...word, romanWord: next };
 	});
-	if (merged.every((word, index) => word === line.words[index])) return;
+	const romanLyric =
+		pageLine !== undefined && !keptOld
+			? pageLine
+			: lineRomanizationFromWords(merged);
+	const clearsLine =
+		mode === "replace" && pageLine === "" && !keptOld && !!line.romanLyric;
+	if (merged.every((word, index) => word === line.words[index]) && !clearsLine)
+		return;
 	return {
 		lineId: line.id,
 		romanWords: Object.fromEntries(
 			merged.map((word) => [word.id, word.romanWord]),
 		),
-		romanLyric:
-			pageLine && !keptOld ? pageLine : lineRomanizationFromWords(merged),
+		romanLyric,
 	};
 }
 
