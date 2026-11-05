@@ -135,6 +135,7 @@ export const ImportLyricsDialog = () => {
 	const [hasSearched, setHasSearched] = useState(false);
 	const [showResults, setShowResults] = useState(false);
 	const [loadingId, setLoadingId] = useState<ImportTrack["id"] | null>(null);
+	const [blockedSongUrl, setBlockedSongUrl] = useState<string | null>(null);
 	const sortedResults = useMemo(
 		() => prioritizeMatchingTracks(results, audioDuration),
 		[results, audioDuration],
@@ -161,6 +162,7 @@ export const ImportLyricsDialog = () => {
 	const changeSource = (next: ImportSourceId) => {
 		setSource(next);
 		setResults([]);
+		setBlockedSongUrl(null);
 		setHasSearched(false);
 		setShowResults(next !== "plainText" && !text.trim());
 	};
@@ -171,6 +173,7 @@ export const ImportLyricsDialog = () => {
 		setHasSearched(true);
 		setShowResults(true);
 		setResults([]);
+		setBlockedSongUrl(null);
 		try {
 			setResults(await searchOnlineLyrics(onlineSource, query, geniusApiKey));
 		} catch (e) {
@@ -189,6 +192,7 @@ export const ImportLyricsDialog = () => {
 	const handlePick = useCallback(
 		async (track: ImportTrack) => {
 			setLoadingId(track.id);
+			setBlockedSongUrl(null);
 			try {
 				const lyrics =
 					track.lyrics?.trim() ||
@@ -208,17 +212,16 @@ export const ImportLyricsDialog = () => {
 				setShowResults(false);
 				setStep("edit");
 			} catch (e) {
+				if (e instanceof GeniusLyricsBlockedError) {
+					setBlockedSongUrl(e.songUrl);
+					return;
+				}
 				toast.error(
-					e instanceof GeniusLyricsBlockedError
-						? t(
-								"genius.lyricsBlocked",
-								"Genius blocked this lyrics request, likely a Cloudflare check. Try again in a moment.",
-							)
-						: t(
-								"metadataDialog.fetchSongwriters.fetchError",
-								"Could not fetch lyrics: {error}",
-								{ error: e instanceof Error ? e.message : String(e) },
-							),
+					t(
+						"metadataDialog.fetchSongwriters.fetchError",
+						"Could not fetch lyrics: {error}",
+						{ error: e instanceof Error ? e.message : String(e) },
+					),
 				);
 			} finally {
 				setLoadingId(null);
@@ -503,6 +506,7 @@ export const ImportLyricsDialog = () => {
 									hasSearched={hasSearched}
 									audioDuration={audioDuration}
 									loadingId={loadingId}
+									blockedSongUrl={blockedSongUrl}
 									onPick={handlePick}
 								/>
 								{text.trim() && (

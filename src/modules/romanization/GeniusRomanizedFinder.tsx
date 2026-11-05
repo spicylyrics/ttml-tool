@@ -1,13 +1,11 @@
-import {
-	DocumentText16Regular,
-	ErrorCircle16Regular,
-	Search16Regular,
-} from "@fluentui/react-icons";
+import { DocumentText16Regular, Search16Regular } from "@fluentui/react-icons";
 import { Button, Flex, Spinner, Text, TextField } from "@radix-ui/themes";
 import { useAtom, useStore } from "jotai";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { InlineAlert } from "$/components/InlineAlert";
 import { GeniusLyricsBlockedError } from "$/modules/genius/api/client";
+import { GeniusBlockedMessage } from "$/modules/genius/components/GeniusBlockedMessage";
 import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
 import { lyricLinesAtom } from "$/states/main";
 import { getGeniusKeyGuideUrl } from "$/utils/genius-guide";
@@ -44,23 +42,24 @@ export function GeniusRomanizedFinder({
 	);
 	const [searching, setSearching] = useState(false);
 	const [loadingId, setLoadingId] = useState<number | null>(null);
-	const [problem, setProblem] = useState("");
+	const [problem, setProblem] = useState<ReactNode>(null);
 	const [needsToken, setNeedsToken] = useState(false);
 
 	const failed = (error: unknown) =>
 		setProblem(
-			error instanceof GeniusLyricsBlockedError
-				? t(
-						"genius.lyricsBlocked",
-						"Genius blocked this lyrics request, likely a Cloudflare check. Try again in a moment.",
-					)
-				: t(
+			error instanceof GeniusLyricsBlockedError ? (
+				<GeniusBlockedMessage songUrl={error.songUrl} />
+			) : (
+				<InlineAlert>
+					{t(
 						"romanizationPanel.geniusFailed",
 						"Genius didn't answer: {message}",
 						{
 							message: error instanceof Error ? error.message : String(error),
 						},
-					),
+					)}
+				</InlineAlert>
+			),
 		);
 
 	// Only ask for a token once someone tries to search, so the source still
@@ -113,7 +112,7 @@ export function GeniusRomanizedFinder({
 			return;
 		}
 		setSearching(true);
-		setProblem("");
+		setProblem(null);
 		try {
 			const artist = firstMetadata(
 				store.get(lyricLinesAtom).metadata,
@@ -135,7 +134,7 @@ export function GeniusRomanizedFinder({
 
 	const pick = async (candidate: RomanizedCandidate) => {
 		setLoadingId(candidate.id);
-		setProblem("");
+		setProblem(null);
 		try {
 			onLyrics(await fetchRomanizedLyrics(candidate.id));
 			setCandidates(null);
@@ -195,16 +194,7 @@ export function GeniusRomanizedFinder({
 					))}
 				</div>
 			)}
-			{problem && (
-				<Flex gap="2" align="start" role="alert">
-					<Text color="red" asChild>
-						<ErrorCircle16Regular aria-hidden />
-					</Text>
-					<Text size="2" color="red">
-						{problem}
-					</Text>
-				</Flex>
-			)}
+			{problem}
 		</Flex>
 	);
 }

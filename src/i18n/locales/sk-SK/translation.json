@@ -1547,7 +1547,8 @@
     "noResult": "Začnite zadaním názvu skladby alebo interpreta.",
     "howToGetKey": "Ako získať prístupový token Genius",
     "changeKey": "Zmeniť prístupový token",
-    "lyricsBlocked": "Genius zablokoval túto požiadavku na text, pravdepodobne kontrolou Cloudflare. Skúste to o chvíľu znova."
+    "lyricsBlocked": "Genius zablokoval túto požiadavku na text, pravdepodobne kontrolou Cloudflare. Skúste to o chvíľu znova alebo skopírujte text zo stránky skladby.",
+    "openOnGenius": "Otvoriť na Genius"
   },
   "textImportDialog": {
     "processLyrics": "Spracovať text",

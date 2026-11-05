@@ -55,6 +55,9 @@ describe("GeniusApi.getLyrics", () => {
 
 		const result = await getLyrics();
 		expect(result).toEqual({ error: expect.any(GeniusLyricsBlockedError) });
+		expect(result).toMatchObject({
+			error: { songUrl: "https://genius.com/songs/1" },
+		});
 		expect(fetchMock).toHaveBeenCalledTimes(3);
 	});
 

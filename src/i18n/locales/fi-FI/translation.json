@@ -1547,7 +1547,8 @@
     "noResult": "Aloita kirjoittamalla kappaleen nimi tai esittäjä.",
     "howToGetKey": "Genius-käyttöoikeustunnuksen hankkiminen",
     "changeKey": "Vaihda käyttöoikeustunnus",
-    "lyricsBlocked": "Genius esti tämän sanoituspyynnön, todennäköisesti Cloudflare-tarkistuksella. Yritä hetken kuluttua uudelleen."
+    "lyricsBlocked": "Genius esti tämän sanoituspyynnön, todennäköisesti Cloudflare-tarkistuksella. Yritä hetken kuluttua uudelleen tai kopioi sanat kappaleen sivulta.",
+    "openOnGenius": "Avaa Geniuksessa"
   },
   "textImportDialog": {
     "processLyrics": "Käsittele sanoitukset",

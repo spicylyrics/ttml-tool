@@ -1547,7 +1547,8 @@
     "noResult": "Başlamak için şarkı veya sanatçı adı girin.",
     "howToGetKey": "Genius erişim belirteci nasıl alınır",
     "changeKey": "Erişim belirtecini değiştir",
-    "lyricsBlocked": "Genius bu şarkı sözü isteğini engelledi, muhtemelen bir Cloudflare denetimi nedeniyle. Birazdan yeniden deneyin."
+    "lyricsBlocked": "Genius bu şarkı sözü isteğini engelledi, muhtemelen bir Cloudflare denetimi nedeniyle. Birazdan yeniden deneyin veya sözleri şarkı sayfasından kopyalayın.",
+    "openOnGenius": "Genius'ta aç"
   },
   "textImportDialog": {
     "processLyrics": "Şarkı sözlerini işle",

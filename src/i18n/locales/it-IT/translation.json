@@ -1547,7 +1547,8 @@
     "noResult": "Inserisci il titolo di un brano o un artista per iniziare.",
     "howToGetKey": "Come ottenere un token di accesso Genius",
     "changeKey": "Cambia token di accesso",
-    "lyricsBlocked": "Genius ha bloccato questa richiesta di testo, probabilmente con un controllo Cloudflare. Riprova tra un momento."
+    "lyricsBlocked": "Genius ha bloccato questa richiesta di testo, probabilmente con un controllo Cloudflare. Riprova tra un momento o copia il testo dalla pagina del brano.",
+    "openOnGenius": "Apri su Genius"
   },
   "textImportDialog": {
     "processLyrics": "Elabora testo",

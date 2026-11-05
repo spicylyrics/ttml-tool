@@ -15,9 +15,12 @@ const LYRICS_RETRY_DELAY_MS = 800;
  * so the browser reports it as a network error rather than a 403.
  */
 export class GeniusLyricsBlockedError extends Error {
-	constructor() {
+	readonly songUrl: string;
+
+	constructor(songId: number) {
 		super("Genius blocked the lyrics request.");
 		this.name = "GeniusLyricsBlockedError";
+		this.songUrl = `https://genius.com/songs/${songId}`;
 	}
 }
 
@@ -38,7 +41,7 @@ const fetchLyricsEmbed = async (songId: number): Promise<string> => {
 				`Genius lyrics request failed: ${response.status} ${response.statusText}`,
 			);
 		}
-		if (attempt === LYRICS_ATTEMPTS) throw new GeniusLyricsBlockedError();
+		if (attempt === LYRICS_ATTEMPTS) throw new GeniusLyricsBlockedError(songId);
 		await new Promise((resolve) =>
 			setTimeout(resolve, LYRICS_RETRY_DELAY_MS * attempt),
 		);
