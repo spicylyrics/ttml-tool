@@ -128,6 +128,22 @@ function tokenize(tk: Tokenizer<IpadicFeatures>, text: string): Token[] {
 			position: token.word_position - 1,
 		};
 	});
+	// A lone っ the dictionary reads as a verb ending is slang made from the
+	// word before (クラ|っ|ちゃっ|た): it joins that word, which then inflects.
+	for (let index = 1; index < tokens.length; index++) {
+		const token = tokens[index];
+		const previous = tokens[index - 1];
+		if (
+			/^[っッ]$/.test(token.surface) &&
+			token.pos === "動詞" &&
+			hasJapanese(previous.surface)
+		) {
+			previous.surface += token.surface;
+			previous.reading += token.reading;
+			previous.pos = token.pos;
+			tokens.splice(index--, 1);
+		}
+	}
 	// A verb or adjective ending in っ takes the next token in (言っ|て → itte).
 	for (let index = 0; index < tokens.length - 1; index++) {
 		const token = tokens[index];
@@ -191,13 +207,90 @@ const morae = (reading: string) => {
 	return result;
 };
 
+/** Sounds that end a kanji's Chinese reading: シン, ゴウ, ジュウ, シキ, イッ. */
+const READING_TAIL = new Set(["ウ", "イ", "キ", "ク", "チ", "ツ"]);
+const HAS_TAIL = /[ンッー]$/;
+
 /**
- * Shares a reading between characters by mora, the extra mora going to the
- * last (名前 → ナ|マエ); with fewer morae than characters, the first ones
- * get them, so nothing sung is left without a reading.
+ * How unlike one kanji's reading a piece is. A kanji's Chinese reading is a
+ * sound with an optional tail (シン, ゴウ, ジュウ, シキ), which costs nothing;
+ * anything else costs more the longer it runs, and more again when it ends
+ * on ン or ッ, which a longer reading rarely does (アカ 1, カシン 2).
+ */
+const pieceCost = (piece: string[]) => {
+	if (piece.length === 1) return 0;
+	if (
+		piece.length === 2 &&
+		!HAS_TAIL.test(piece[0]) &&
+		READING_TAIL.has(piece[1])
+	)
+		return 0;
+	return (
+		1 +
+		Math.max(0, piece.length - 2) +
+		(/[ンッ]$/.test(piece[piece.length - 1]) ? 1 : 0)
+	);
+};
+
+/**
+ * Every way to cut `total` sounds into `count` non-empty pieces, as lengths.
+ * Capped, since a long run has too many to try.
+ */
+function* compositions(total: number, count: number): Generator<number[]> {
+	if (count === 1) {
+		yield [total];
+		return;
+	}
+	for (let first = 1; first <= total - count + 1; first++)
+		for (const rest of compositions(total - first, count - 1))
+			yield [first, ...rest];
+}
+
+/**
+ * Shares a reading between characters by mora. Each kanji takes a piece
+ * shaped like a kanji reading where it can (赤信号 → アカ|シン|ゴウ, 従順 →
+ * ジュウ|ジュン); between equally good cuts the extra mora goes to the last
+ * (名前 → ナ|マエ). With fewer morae than characters, the first ones get
+ * them, so nothing sung is left without a reading.
  */
 const share = (reading: string, count: number) => {
 	const parts = morae(reading);
+	if (count > 1 && parts.length > count && parts.length <= 12) {
+		let best: { cost: number; lengths: number[] } | undefined;
+		for (const lengths of compositions(parts.length, count)) {
+			let at = 0;
+			const cost = lengths.reduce((sum, length) => {
+				const piece = parts.slice(at, at + length);
+				at += length;
+				return sum + pieceCost(piece);
+			}, 0);
+			// Ties: the most even cut (足元 → アシ|モト), then the earlier pieces
+			// shorter, so the extra goes last (名前 → ナ|マエ).
+			const unevenness = (cut: number[]) =>
+				cut.reduce(
+					(sum, length) => sum + Math.abs(length - parts.length / count),
+					0,
+				);
+			const better = () => {
+				if (!best) return true;
+				if (cost !== best.cost) return cost < best.cost;
+				const difference = unevenness(lengths) - unevenness(best.lengths);
+				if (Math.abs(difference) > 1e-9) return difference < 0;
+				const known = best.lengths;
+				const index = lengths.findIndex((length, i) => length !== known[i]);
+				return index >= 0 && lengths[index] < known[index];
+			};
+			if (better()) best = { cost, lengths };
+		}
+		if (best) {
+			let at = 0;
+			return best.lengths.map((length) => {
+				const piece = parts.slice(at, at + length).join("");
+				at += length;
+				return piece;
+			});
+		}
+	}
 	const cut = parts.length < count ? Math.round : Math.floor;
 	return Array.from({ length: count }, (_, index) =>
 		parts
@@ -233,11 +326,18 @@ export function charReadings(surface: string, reading?: string): string[] {
 		// No clean alignment (an unusual reading): share it over the whole word.
 		return share(reading, chars.length);
 	}
-	return runs.flatMap((run, index) =>
-		isKanaChar(run[0])
-			? toKatakana(run).split("")
-			: share(match[index + 1], run.length),
-	);
+	return runs.flatMap((run, index) => {
+		if (isKanaChar(run[0])) return toKatakana(run).split("");
+		const runReading = match[index + 1];
+		// 々 repeats the kanji before it, so each takes half (痛々 → イタ|イタ,
+		// 人々 → ヒト|ビト).
+		const parts = morae(runReading);
+		if (/^.々$/.test(run) && parts.length % 2 === 0) {
+			const half = parts.length / 2;
+			return [parts.slice(0, half).join(""), parts.slice(half).join("")];
+		}
+		return share(runReading, run.length);
+	});
 }
 
 /**

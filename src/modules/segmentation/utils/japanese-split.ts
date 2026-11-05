@@ -1,4 +1,5 @@
 import { toRomaji } from "wanakana";
+import { PUNCT_LEFT } from "./charUtils";
 
 /**
  * Japanese split by sound, one part per syllable as it's heard: small kana,
@@ -94,12 +95,22 @@ export function splitJapaneseSyllables(text: string): string[] {
 	// A っ with nothing before it to join (a word like って from Process
 	// lyrics) joins the sound after it instead: って is one part, "tte".
 	let sokuonWaits = false;
+	// The last token is an opening quote waiting for the sound after it.
+	let opening = false;
 	for (const char of Array.from(text)) {
 		if (isSpace(char)) {
 			tokens.push(char);
 			lastIsKana = false;
 			latinRun = false;
 			sokuonWaits = false;
+			opening = false;
+		} else if (opening) {
+			// An opening quote or bracket goes with the sound after it.
+			tokens[tokens.length - 1] += char;
+			opening = isPunctuation(char);
+			lastIsKana = !opening && isJapaneseCharacter(char);
+			latinRun = !opening && !lastIsKana;
+			sokuonWaits = SOKUON.has(char);
 		} else if (isJapaneseCharacter(char)) {
 			const previous = tokens[tokens.length - 1] ?? "";
 			if (
@@ -116,7 +127,11 @@ export function splitJapaneseSyllables(text: string): string[] {
 			latinRun = false;
 		} else if (isPunctuation(char)) {
 			const previous = lastChar(tokens[tokens.length - 1]);
-			if (previous && !isSpace(previous)) tokens[tokens.length - 1] += char;
+			if (PUNCT_LEFT.has(char)) {
+				tokens.push(char);
+				opening = true;
+			} else if (previous && !isSpace(previous))
+				tokens[tokens.length - 1] += char;
 			else tokens.push(char);
 			lastIsKana = false;
 			latinRun = false;

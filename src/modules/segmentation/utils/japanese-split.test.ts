@@ -34,8 +34,7 @@ describe("Japanese split by sound", () => {
 
 	it("keeps punctuation, spaces and Latin text as today", () => {
 		expect(split("「君」と love you!")).toEqual([
-			"「",
-			"君」",
+			"「君」",
 			"と",
 			" ",
 			"love",

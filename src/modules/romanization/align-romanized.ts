@@ -182,11 +182,21 @@ function expectedReadings(word: string): string[] | undefined {
 		const latin = normalizeRomaji(text);
 		return latin ? [latin] : [];
 	}
-	const romaji = wanakana.toRomaji(text);
+	// づ and ぢ are "zu" and "ji", or "dzu"/"du" and "dji"/"di" on some pages.
+	const romajis = [wanakana.toRomaji(text)];
+	if (/[づヅぢヂ]/u.test(text))
+		romajis.push(
+			wanakana.toRomaji(text, {
+				customRomajiMapping: { づ: "dzu", ぢ: "dji" },
+			}),
+			wanakana.toRomaji(text, { customRomajiMapping: { づ: "du", ぢ: "di" } }),
+		);
 	// ー lengthens the vowel before it: へー "hee". Pages often leave it out.
-	const long = normalizeRomaji(romaji.replace(/([aeiou])[-ー]/g, "$1$1"));
-	const short = normalizeRomaji(romaji);
-	const readings = [long, short].flatMap((value) => {
+	const spellings = romajis.flatMap((romaji) => [
+		normalizeRomaji(romaji.replace(/([aeiou])[-ー]/g, "$1$1")),
+		normalizeRomaji(romaji),
+	]);
+	const readings = spellings.flatMap((value) => {
 		let reading = value;
 		for (const [pattern, replacement] of KANA_FIXES) {
 			reading = reading.replace(pattern, replacement);
@@ -228,15 +238,102 @@ const kanjiMorae = (romaji: string) =>
 		return morae;
 	}, []);
 
+/**
+ * The sounds a run is shared by: as kanji take them, or plain morae when that
+ * leaves a kanji with none (不甲斐 "fugai" is fu|ga|i, not fu||gai).
+ */
+const shareMorae = (romaji: string, count: number) => {
+	const morae = kanjiMorae(romaji);
+	return morae.length < count ? splitRomajiMorae(romaji) : morae;
+};
+
 /** Shares a romaji run between kanji words by mora, front-loaded, as lengths. */
 function distribute(run: string, count: number): number[] {
 	if (count === 1) return [run.length];
-	const morae = kanjiMorae(run);
+	const morae = shareMorae(run, count);
 	return Array.from({ length: count }, (_, index) => {
 		const start = Math.round((morae.length * index) / count);
 		const end = Math.round((morae.length * (index + 1)) / count);
 		return morae.slice(start, end).join("").length;
 	});
+}
+
+/** How many letters to add, drop or change to turn one text into the other. */
+function editDistance(a: string, b: string) {
+	let previous = Array.from({ length: b.length + 1 }, (_, index) => index);
+	for (let i = 1; i <= a.length; i++) {
+		const current = [i];
+		for (let j = 1; j <= b.length; j++)
+			current[j] = Math.min(
+				previous[j] + 1,
+				current[j - 1] + 1,
+				previous[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1),
+			);
+		previous = current;
+	}
+	return previous[b.length];
+}
+
+/**
+ * Shares a run of romaji between kanji words by each one's reading from the
+ * dictionary: the run is cut between sounds where the pieces come closest to
+ * those readings, so ご機嫌伺い's "kigenukaga" is ki|gen|ukaga and 痛々
+ * "itaita" ita|ita. Cuts never fall inside a sound, and a space on the page
+ * always ends a share. Returns undefined when a word has no reading.
+ */
+function shareByHints(run: string, chunks: number[], hints: string[]) {
+	const count = hints.length;
+	if (hints.some((hint) => !hint)) return undefined;
+	const spaces = new Set<number>();
+	if (chunks.length <= count) {
+		let offset = 0;
+		for (const chunk of chunks.slice(0, -1)) {
+			offset += chunk;
+			spaces.add(offset);
+		}
+	}
+	// Between sounds, after any n too ("kigen|ukaga" splits like "ge|nu"
+	// otherwise), and at the page's spaces.
+	const between = new Set([0, run.length, ...spaces]);
+	let offset = 0;
+	for (const mora of splitRomajiMorae(run)) {
+		offset += mora.length;
+		between.add(offset);
+	}
+	for (let at = 1; at < run.length; at++)
+		if (run[at - 1] === "n") between.add(at);
+	const cuts = [...between].sort((a, b) => a - b);
+	if (cuts.length - 1 < count) return undefined;
+	const crossesSpace = (from: number, to: number) =>
+		[...spaces].some((space) => space > from && space < to);
+	// best[word][cut]: the closest fit of the first `word` words ending at `cut`.
+	const best = Array.from({ length: count + 1 }, () =>
+		cuts.map(() => Number.POSITIVE_INFINITY),
+	);
+	const from = Array.from({ length: count + 1 }, () => cuts.map(() => 0));
+	best[0][0] = 0;
+	for (let word = 1; word <= count; word++)
+		for (let end = word; end < cuts.length; end++)
+			for (let start = word - 1; start < end; start++) {
+				if (!Number.isFinite(best[word - 1][start])) continue;
+				if (crossesSpace(cuts[start], cuts[end])) continue;
+				const cost =
+					best[word - 1][start] +
+					editDistance(run.slice(cuts[start], cuts[end]), hints[word - 1]);
+				if (cost < best[word][end]) {
+					best[word][end] = cost;
+					from[word][end] = start;
+				}
+			}
+	const last = cuts.length - 1;
+	if (!Number.isFinite(best[count][last])) return undefined;
+	const shares: number[] = [];
+	for (let word = count, end = last; word > 0; word--) {
+		const start = from[word][end];
+		shares.unshift(cuts[end] - cuts[start]);
+		end = start;
+	}
+	return { shares, guessed: best[count][last] > 0 };
 }
 
 /**
@@ -246,12 +343,19 @@ function distribute(run: string, count: number): number[] {
  * split is by sound. An uneven split (支配 as "shi|hai" or "shiha|i") is a
  * guess worth checking; an even one (無駄 "mu|da") is usually right.
  */
-function shareKanjiRun(run: string, chunks: number[], count: number) {
+function shareKanjiRun(
+	run: string,
+	chunks: number[],
+	count: number,
+	hints?: string[],
+) {
 	if (chunks.length === count) return { shares: chunks, guessed: false };
+	const hinted = hints && shareByHints(run, chunks, hints);
+	if (hinted) return hinted;
 	if (chunks.length > count)
 		return {
 			shares: distribute(run, count),
-			guessed: kanjiMorae(run).length % count !== 0,
+			guessed: shareMorae(run, count).length % count !== 0,
 		};
 	const texts: string[] = [];
 	let offset = 0;
@@ -417,12 +521,15 @@ const CONSONANT = /[bcdfghjkmpqrstvwxz]/;
 /**
  * Fits words, in order, to a stretch of romaji that may span many page lines.
  * `anchors` pair a word that starts a section with where that section starts
- * in the romaji. Returns each word's romaji and whether it was guessed.
+ * in the romaji. `hints` are each word's reading from the dictionary, which
+ * place the cuts in a run of kanji. Returns each word's romaji and whether it
+ * was guessed.
  */
 function fitWords(
 	words: LyricWord[],
 	romaji: string,
 	anchors: Array<{ word: number; offset: number }> = [],
+	hints?: readonly string[],
 ) {
 	const line = cleanPastedLine(romaji);
 	const { normalized: stream, sources } = normalizeWithSources(line);
@@ -659,6 +766,8 @@ function fitWords(
 			stream.slice(step.start, step.end),
 			spacedChunks(step.start, step.end),
 			token.indices.length,
+			hints &&
+				token.indices.map((index) => normalizeRomaji(hints[index] ?? "")),
 		);
 		let start = step.start;
 		token.indices.forEach((wordIndex, shareIndex) => {
@@ -697,12 +806,16 @@ function fitWords(
 	};
 }
 
-/** Splits one line's romaji across its words. */
+/**
+ * Splits one line's romaji across its words. `hints` are the words' readings
+ * from the dictionary, when it's loaded.
+ */
 export function alignLineWords(
 	words: LyricWord[],
 	romanizedLine: string,
+	hints?: readonly string[],
 ): { romanWords: string[]; uncertain: boolean } {
-	const { romanWords, guessed } = fitWords(words, romanizedLine);
+	const { romanWords, guessed } = fitWords(words, romanizedLine, [], hints);
 	return { romanWords, uncertain: guessed.some(Boolean) };
 }
 
@@ -777,9 +890,14 @@ function editorSections(lines: LyricLine[]): EditorSection[] {
 	return runs;
 }
 
+/**
+ * `readingsOf` gives a line's word readings from the dictionary, when it's
+ * loaded, to place the cuts in runs of kanji.
+ */
 export function alignRomanizedPage(
 	lines: LyricLine[],
 	pastedText: string,
+	readingsOf?: (line: LyricLine) => readonly string[] | undefined,
 ): RomanizedAlignment {
 	const page = parseRomanizedPage(pastedText);
 	const editor = editorSections(lines);
@@ -809,6 +927,8 @@ export function alignRomanizedPage(
 			targets.flatMap((line) => line.words),
 			romaji,
 			anchors,
+			readingsOf &&
+				targets.flatMap((line) => readingsOf(line) ?? line.words.map(() => "")),
 		);
 		readable += fitted.readable;
 		matched += fitted.matched;

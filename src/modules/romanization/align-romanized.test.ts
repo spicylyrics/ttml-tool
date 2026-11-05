@@ -47,6 +47,35 @@ describe("romanized page alignment", () => {
 		]);
 	});
 
+	it("gives every kanji in a run a sound", () => {
+		expect(
+			align(
+				"Onore no yowa-sa ga fugainai",
+				"己",
+				"の",
+				"弱",
+				"さ",
+				"が",
+				"不",
+				"甲",
+				"斐",
+				"ない",
+			).romanWords,
+		).toEqual(["Onore ", "no ", "yowa-", "sa ", "ga ", "fu", "ga", "i", "nai"]);
+	});
+
+	it("reads づ and ぢ spelled with a d", () => {
+		expect(
+			align("chikadzuku tabi ni", "近", "づ", "く", "た", "び", "に")
+				.romanWords,
+		).toEqual(["chika", "dzu", "ku ", "ta", "bi ", "ni"]);
+		expect(align("hanadi", "は", "な", "ぢ").romanWords).toEqual([
+			"ha",
+			"na",
+			"di",
+		]);
+	});
+
 	it("reads particles the way pages spell them", () => {
 		expect(align("Boku wa kimi wo", "僕", "は", "君", "を")).toEqual({
 			romanWords: ["Boku ", "wa ", "kimi ", "wo"],

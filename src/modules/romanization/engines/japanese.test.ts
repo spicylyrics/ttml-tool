@@ -36,6 +36,21 @@ describe("Japanese romanization", () => {
 		]);
 	});
 
+	it("gives each kanji a piece shaped like a kanji reading", () => {
+		expect(romanize("赤", "信", "号")).toEqual(["aka", "shin", "gou"]);
+		expect(romanize("従", "順")).toEqual(["juu", "jun"]);
+		expect(romanize("方", "式")).toEqual(["hou", "shiki"]);
+		expect(romanize("最", "早")).toEqual(["mo", "haya"]);
+		expect(romanize("痛", "々", "し", "い")).toEqual([
+			"ita",
+			"ita",
+			"shi",
+			"i",
+		]);
+		// Equally good cuts keep the extra sound on the last kanji.
+		expect(romanize("名", "前")).toEqual(["na", "mae"]);
+	});
+
 	it("spells long vowels and particles the way Genius does", () => {
 		expect(romanize("今", "日", "も")).toEqual(["kyo", "u ", "mo"]);
 		expect(romanize("いっ", "しょ", "に", "コー", "ヒー", "を")).toEqual([
@@ -149,6 +164,13 @@ describe("Japanese romanization", () => {
 			"呼んで",
 			"いた",
 		]);
+		// Slang the dictionary splits (クラ|っ|ちゃっ|た) stays one word.
+		expect(words("報いにクラっちゃった")).toEqual([
+			"報い",
+			"に",
+			"クラっちゃった",
+		]);
+		expect(romanize("クラっちゃった")).toEqual(["kuratchatta"]);
 		expect(words("「おい、なんでｿﾝﾅことを")).toEqual([
 			"「おい、",
 			"なんで",

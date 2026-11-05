@@ -5,6 +5,10 @@ import { distributeTime as distributeUnitTimes } from "$/modules/lyric-editor/ut
  */
 
 import { alignLineWords } from "$/modules/romanization/align-romanized";
+import {
+	getLoadedJapaneseTokenizer,
+	romanizeJapaneseLine,
+} from "$/modules/romanization/engines/japanese";
 import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml";
 import { escapeRegExp } from "$/utils/text";
 import { CharType, type SegmentationConfig } from "../types";
@@ -153,13 +157,22 @@ function calculateWeight(token: string, config: SegmentationConfig): number {
 		case CharType.Cjk:
 			return token.length;
 		case CharType.Other:
-			return config.punctuationWeight;
+			// A word that opens with a quote (`｢痛々しい`) still weighs its letters.
+			return hasLetters(token)
+				? calculateLearnedWeight(token, config)
+				: config.punctuationWeight;
 		case CharType.Whitespace:
 			return 0.0;
 		default:
 			return 0.0;
 	}
 }
+
+const hasLetters = (token: string) =>
+	Array.from(token).some((char) => {
+		const type = getCharType(char);
+		return type !== CharType.Other && type !== CharType.Whitespace;
+	});
 
 function calculateLearnedWeight(
 	token: string,
@@ -203,9 +216,13 @@ function postProcess(
 		const tokenWeight = calculateWeight(token, config);
 		const firstChar = token.length > 0 ? Array.from(token)[0] : " ";
 		// A token of only apostrophes is a quote mark, not a syllable: `Run!'`.
+		// A token with letters is a word even when it opens with a quote
+		// (`｢痛々しい！｣` from the Japanese word finder).
 		const charType = /^['’]+$/.test(token)
 			? CharType.Other
-			: getCharType(firstChar);
+			: hasLetters(token)
+				? CharType.Cjk
+				: getCharType(firstChar);
 
 		if (config.punctuationMode === "merge" && charType === CharType.Other) {
 			let direction = getMergeDirection(token);
@@ -320,7 +337,16 @@ function distributeTime(
  */
 function shareRomanization(romanWord: string, parts: LyricWord[]) {
 	if (!romanWord.trim()) return parts;
-	const shares = alignLineWords(parts, romanWord.trim()).romanWords;
+	const tokenizer = getLoadedJapaneseTokenizer();
+	const shares = alignLineWords(
+		parts,
+		romanWord.trim(),
+		tokenizer &&
+			romanizeJapaneseLine(
+				tokenizer,
+				parts.map((part) => part.word),
+			),
+	).romanWords;
 	if (/\s$/.test(romanWord)) {
 		for (let last = shares.length - 1; last >= 0; last--) {
 			if (!shares[last].trim()) continue;
