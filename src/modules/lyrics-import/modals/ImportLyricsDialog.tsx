@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import { LyricMarkupEditor } from "$/components/LyricMarkupEditor";
 import { OptionPicker } from "$/components/OptionPicker";
 import { currentDurationAtom, loadedAudioAtom } from "$/modules/audio/states";
+import { GeniusLyricsBlockedError } from "$/modules/genius/api/client";
 import { applyReviewedSections } from "$/modules/lyric-editor/utils/section-system.ts";
 import type { ImportSourceId } from "$/modules/lyrics-import/components/ImportSourceCards";
 import {
@@ -208,11 +209,16 @@ export const ImportLyricsDialog = () => {
 				setStep("edit");
 			} catch (e) {
 				toast.error(
-					t(
-						"metadataDialog.fetchSongwriters.fetchError",
-						"Could not fetch lyrics: {error}",
-						{ error: e instanceof Error ? e.message : String(e) },
-					),
+					e instanceof GeniusLyricsBlockedError
+						? t(
+								"genius.lyricsBlocked",
+								"Genius blocked this lyrics request, likely a Cloudflare check. Try again in a moment.",
+							)
+						: t(
+								"metadataDialog.fetchSongwriters.fetchError",
+								"Could not fetch lyrics: {error}",
+								{ error: e instanceof Error ? e.message : String(e) },
+							),
 				);
 			} finally {
 				setLoadingId(null);

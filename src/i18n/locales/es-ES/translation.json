@@ -1546,7 +1546,8 @@
     "notFound": "Sin resultados. Prueba con otras palabras clave.",
     "noResult": "Introduce una canción o un artista para empezar.",
     "howToGetKey": "Cómo obtener un token de acceso de Genius",
-    "changeKey": "Cambiar token de acceso"
+    "changeKey": "Cambiar token de acceso",
+    "lyricsBlocked": "Genius bloqueó esta solicitud de letra, probablemente por una comprobación de Cloudflare. Inténtalo de nuevo en un momento."
   },
   "textImportDialog": {
     "processLyrics": "Procesar letra",

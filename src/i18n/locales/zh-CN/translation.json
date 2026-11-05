@@ -1546,7 +1546,8 @@
     "notFound": "未找到结果。请尝试不同的关键词。",
     "noResult": "输入歌曲名称或歌手以开始。",
     "howToGetKey": "如何获取 Genius 访问令牌",
-    "changeKey": "更换访问令牌"
+    "changeKey": "更换访问令牌",
+    "lyricsBlocked": "Genius 拦截了此歌词请求，可能是 Cloudflare 验证所致。请稍后重试。"
   },
   "textImportDialog": {
     "processLyrics": "处理歌词",

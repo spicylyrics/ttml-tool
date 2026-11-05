@@ -7,6 +7,7 @@ import { Button, Flex, Spinner, Text, TextField } from "@radix-ui/themes";
 import { useAtom, useStore } from "jotai";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { GeniusLyricsBlockedError } from "$/modules/genius/api/client";
 import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
 import { lyricLinesAtom } from "$/states/main";
 import { getGeniusKeyGuideUrl } from "$/utils/genius-guide";
@@ -48,9 +49,18 @@ export function GeniusRomanizedFinder({
 
 	const failed = (error: unknown) =>
 		setProblem(
-			t("romanizationPanel.geniusFailed", "Genius didn't answer: {message}", {
-				message: error instanceof Error ? error.message : String(error),
-			}),
+			error instanceof GeniusLyricsBlockedError
+				? t(
+						"genius.lyricsBlocked",
+						"Genius blocked this lyrics request, likely a Cloudflare check. Try again in a moment.",
+					)
+				: t(
+						"romanizationPanel.geniusFailed",
+						"Genius didn't answer: {message}",
+						{
+							message: error instanceof Error ? error.message : String(error),
+						},
+					),
 		);
 
 	// Only ask for a token once someone tries to search, so the source still

@@ -1546,7 +1546,8 @@
     "notFound": "Tuloksia ei löytynyt. Kokeile eri avainsanoja.",
     "noResult": "Aloita kirjoittamalla kappaleen nimi tai esittäjä.",
     "howToGetKey": "Genius-käyttöoikeustunnuksen hankkiminen",
-    "changeKey": "Vaihda käyttöoikeustunnus"
+    "changeKey": "Vaihda käyttöoikeustunnus",
+    "lyricsBlocked": "Genius esti tämän sanoituspyynnön, todennäköisesti Cloudflare-tarkistuksella. Yritä hetken kuluttua uudelleen."
   },
   "textImportDialog": {
     "processLyrics": "Käsittele sanoitukset",

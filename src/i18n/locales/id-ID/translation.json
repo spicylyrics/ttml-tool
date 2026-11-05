@@ -1546,7 +1546,8 @@
     "notFound": "Tidak ada hasil yang ditemukan. Coba kata kunci yang berbeda.",
     "noResult": "Masukkan nama lagu atau artis untuk memulai.",
     "howToGetKey": "Cara mendapatkan token akses Genius",
-    "changeKey": "Ubah token akses"
+    "changeKey": "Ubah token akses",
+    "lyricsBlocked": "Genius memblokir permintaan lirik ini, kemungkinan karena pemeriksaan Cloudflare. Coba lagi sebentar lagi."
   },
   "textImportDialog": {
     "processLyrics": "Proses lirik",

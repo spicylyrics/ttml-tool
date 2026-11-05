@@ -1546,7 +1546,8 @@
     "notFound": "Nebyly nalezeny žádné výsledky. Zkuste jiná klíčová slova.",
     "noResult": "Začněte zadáním názvu skladby nebo interpreta.",
     "howToGetKey": "Jak získat přístupový token Genius",
-    "changeKey": "Změnit přístupový token"
+    "changeKey": "Změnit přístupový token",
+    "lyricsBlocked": "Genius zablokoval tento požadavek na text, pravděpodobně kontrolou Cloudflare. Zkuste to za chvíli znovu."
   },
   "textImportDialog": {
     "processLyrics": "Zpracovat text",

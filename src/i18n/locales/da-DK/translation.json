@@ -1546,7 +1546,8 @@
     "notFound": "Ingen resultater fundet. Prøv forskellige søgeord.",
     "noResult": "Indtast et sangnavn eller en kunstner for at starte.",
     "howToGetKey": "Sådan får du et Genius-adgangstoken",
-    "changeKey": "Skift adgangstoken"
+    "changeKey": "Skift adgangstoken",
+    "lyricsBlocked": "Genius blokerede denne anmodning om sangtekst, sandsynligvis med et Cloudflare-tjek. Prøv igen om et øjeblik."
   },
   "textImportDialog": {
     "processLyrics": "Behandl sangtekster",

@@ -1546,7 +1546,8 @@
     "notFound": "Geen resultaten gevonden. Probeer andere trefwoorden.",
     "noResult": "Voer de naam van het nummer of de artiest in om te starten.",
     "howToGetKey": "Een Genius-toegangstoken verkrijgen",
-    "changeKey": "Toegangstoken wijzigen"
+    "changeKey": "Toegangstoken wijzigen",
+    "lyricsBlocked": "Genius heeft dit songtekstverzoek geblokkeerd, waarschijnlijk door een Cloudflare-controle. Probeer het zo opnieuw."
   },
   "textImportDialog": {
     "processLyrics": "Songteksten verwerken",
