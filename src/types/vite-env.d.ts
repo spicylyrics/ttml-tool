@@ -36,6 +36,7 @@ interface ImportMetaEnv {
 	/** Local two-origin testing of the domain migration only. */
 	readonly VITE_MIGRATION_OFFICIAL_ORIGIN?: string;
 	readonly VITE_MIGRATION_LEGACY_ORIGIN?: string;
+	readonly VITE_MIGRATION_BETA_ORIGIN?: string;
 	// 更多环境变量...
 }
 

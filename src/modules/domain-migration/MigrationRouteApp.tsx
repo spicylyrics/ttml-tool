@@ -1,4 +1,8 @@
-import { ArrowDownload24Regular } from "@fluentui/react-icons";
+import {
+	ArrowDownload24Regular,
+	CheckmarkRegular,
+	CopyArrowRightRegular,
+} from "@fluentui/react-icons";
 import {
 	Box,
 	Button,
@@ -10,7 +14,9 @@ import {
 	Text,
 	Theme,
 } from "@radix-ui/themes";
+import type { TFunction } from "i18next";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ToastContainer } from "react-toastify";
 import {
 	type BackupCounts,
@@ -26,14 +32,13 @@ import {
 	validateBackupFile,
 } from "$/modules/settings/backup/types";
 import {
-	classifyMigrationOrigin,
 	createMigrationNonce,
-	LEGACY_TOOL_ORIGINS,
-	MIGRATION_COMPLETED_KEY,
 	MIGRATION_PROTOCOL_VERSION,
 	MIGRATION_RECEIVE_PATH,
 	MIGRATION_SEND_PATH,
-	OFFICIAL_TOOL_ORIGIN,
+	type TransferRoute,
+	transferRouteFrom,
+	transferRoutesTo,
 } from "./config";
 import {
 	getMigrationConflicts,
@@ -53,14 +58,34 @@ import {
 const allCategories = new Set(BACKUP_CATEGORY_IDS);
 const messageTimeout = 30_000;
 
-const plural = (count: number, word: string) =>
-	`${count} ${word}${count === 1 ? "" : "s"}`;
+const hostOf = (origin: string) => new URL(origin).host;
 
-function countsText(counts: BackupCounts | MigrationCounts | null) {
-	if (!counts) return "Checking local data…";
-	const appearance =
-		counts.assets.background || counts.assets.presets > 0 || counts.assets.font;
-	return `${plural(counts.projects, "project")} · ${plural(counts.settings, "setting")} · ${plural(counts.keybindings, "shortcut")}${counts.apiKeys > 0 ? " · Genius token" : ""}${appearance ? " · appearance" : ""}`;
+function countsLines(t: TFunction, counts: BackupCounts | MigrationCounts) {
+	const lines: string[] = [
+		t("domainMigration.transfer.counts", {
+			defaultValue:
+				"{projects, plural, one {# project} other {# projects}}, {settings, plural, one {# setting} other {# settings}}, {shortcuts, plural, one {# shortcut} other {# shortcuts}}",
+			projects: counts.projects,
+			settings: counts.settings,
+			shortcuts: counts.keybindings,
+		}),
+	];
+	if (counts.apiKeys > 0)
+		lines.push(
+			t("domainMigration.transfer.includesToken", "Includes your Genius token"),
+		);
+	if (
+		counts.assets.background ||
+		counts.assets.presets > 0 ||
+		counts.assets.font
+	)
+		lines.push(
+			t(
+				"domainMigration.transfer.includesAppearance",
+				"Includes your background, presets and font",
+			),
+		);
+	return lines;
 }
 
 function waitForMigrationMessage(
@@ -75,12 +100,12 @@ function waitForMigrationMessage(
 		};
 		const timeout = window.setTimeout(() => {
 			cleanup();
-			reject(new Error("The migration connection timed out."));
+			reject(new Error("timeout"));
 		}, messageTimeout);
 		const closedPoll = window.setInterval(() => {
 			if (!peer?.closed) return;
 			cleanup();
-			reject(new Error("The new-address window was closed."));
+			reject(new Error("closed"));
 		}, 500);
 		const listener = (event: MessageEvent) => {
 			if (!isMigrationMessage(event.data) || !accept(event, event.data)) return;
@@ -99,7 +124,7 @@ type MigrationReply =
 
 function MigrationShell({ children }: { children: React.ReactNode }) {
 	return (
-		<Theme appearance="dark" accentColor="red">
+		<Theme appearance="dark" accentColor="iris">
 			<Flex align="center" justify="center" minHeight="100vh" p="4">
 				<Card style={{ width: "min(680px, 100%)" }}>{children}</Card>
 			</Flex>
@@ -108,43 +133,63 @@ function MigrationShell({ children }: { children: React.ReactNode }) {
 	);
 }
 
-function SenderPage() {
+function SenderPage({ route }: { route: TransferRoute }) {
+	const { t } = useTranslation();
+	const { destination } = route;
 	const [counts, setCounts] = useState<BackupCounts | null>(null);
-	const [status, setStatus] = useState("Ready to move your local data.");
+	const [status, setStatus] = useState<string>(() =>
+		t("domainMigration.transfer.ready", "Ready to copy your data."),
+	);
 	const [progress, setProgress] = useState(0);
 	const [working, setWorking] = useState(false);
 
 	useEffect(() => {
 		void getBackupCounts()
 			.then(setCounts)
-			.catch(() => setStatus("Could not inspect local data."));
-	}, []);
+			.catch(() =>
+				setStatus(
+					t(
+						"domainMigration.transfer.readFailed",
+						"Could not read the data on this site.",
+					),
+				),
+			);
+	}, [t]);
 
 	const migrate = useCallback(async () => {
 		const nonce = createMigrationNonce();
 		const receiver = window.open(
-			`${OFFICIAL_TOOL_ORIGIN}${MIGRATION_RECEIVE_PATH}#${nonce}`,
+			`${destination}${MIGRATION_RECEIVE_PATH}#${nonce}`,
 			"amll-domain-migration",
 		);
 		if (!receiver) {
 			setStatus(
-				"Your browser blocked the migration window. Allow popups and try again, or download a backup.",
+				t(
+					"domainMigration.transfer.popupBlocked",
+					"Your browser blocked the new window. Allow popups and try again, or download a backup.",
+				),
 			);
 			return;
 		}
 		setWorking(true);
 		try {
-			setStatus("Waiting for the new address to open…");
-			const ready = waitForMigrationMessage(
+			setStatus(
+				t(
+					"domainMigration.transfer.waiting",
+					"Waiting for the other site to open...",
+				),
+			);
+			await waitForMigrationMessage(
 				(event, message) =>
-					event.origin === OFFICIAL_TOOL_ORIGIN &&
+					event.origin === destination &&
 					event.source === receiver &&
 					message.nonce === nonce &&
 					message.type === "receiver-ready",
 				receiver,
 			);
-			await ready;
-			setStatus("Preparing your backup…");
+			setStatus(
+				t("domainMigration.transfer.preparing", "Preparing your data..."),
+			);
 			const backup = await buildBackup(allCategories);
 			const chunks = encodeMigrationPayload(backup);
 			receiver.postMessage(
@@ -155,14 +200,14 @@ function SenderPage() {
 					counts: counts ?? (await getBackupCounts()),
 					totalChunks: chunks.length,
 				} satisfies MigrationMessage,
-				OFFICIAL_TOOL_ORIGIN,
+				destination,
 			);
 
 			for (let index = 0; index < chunks.length; index++) {
 				const data = chunks[index];
 				const acknowledgement = waitForMigrationMessage(
 					(event, message) =>
-						event.origin === OFFICIAL_TOOL_ORIGIN &&
+						event.origin === destination &&
 						event.source === receiver &&
 						message.nonce === nonce &&
 						message.type === "chunk-ack" &&
@@ -177,7 +222,7 @@ function SenderPage() {
 						index,
 						data,
 					} satisfies MigrationMessage,
-					OFFICIAL_TOOL_ORIGIN,
+					destination,
 					[data],
 				);
 				await acknowledgement;
@@ -185,7 +230,7 @@ function SenderPage() {
 			}
 			const resultPromise = waitForMigrationMessage(
 				(event, message) =>
-					event.origin === OFFICIAL_TOOL_ORIGIN &&
+					event.origin === destination &&
 					event.source === receiver &&
 					message.nonce === nonce &&
 					(message.type === "migration-complete" ||
@@ -199,53 +244,99 @@ function SenderPage() {
 					protocol: MIGRATION_PROTOCOL_VERSION,
 					nonce,
 				},
-				OFFICIAL_TOOL_ORIGIN,
+				destination,
 			);
-			setStatus("Review and finish the migration in the new window.");
+			setStatus(
+				t(
+					"domainMigration.transfer.finishThere",
+					"Check and finish in the new window.",
+				),
+			);
 			const result = await resultPromise;
-			if (result.type === "migration-error") throw new Error(result.reason);
-			if (result.type === "migration-cancelled")
-				throw new Error("Migration was cancelled on the new address.");
-			localStorage.setItem(MIGRATION_COMPLETED_KEY, new Date().toISOString());
+			if (result.type === "migration-error") throw new Error("failed");
+			if (result.type === "migration-cancelled") throw new Error("cancelled");
+			localStorage.setItem(route.completedKey, new Date().toISOString());
 			setProgress(100);
 			setStatus(
-				"Migration complete. Your data is on the new address; this old copy stays until the address starts redirecting.",
+				t(
+					"domainMigration.transfer.done",
+					"Copied. Your data on this site hasn't changed.",
+				),
 			);
 		} catch (error) {
+			const reason = error instanceof Error ? error.message : "";
 			setStatus(
-				error instanceof Error
-					? error.message
-					: "Migration failed. Your source data was not changed.",
+				reason === "timeout"
+					? t(
+							"domainMigration.transfer.timedOut",
+							"The other site didn't answer in time. Your data on this site hasn't changed. Try again.",
+						)
+					: reason === "closed" || reason === "cancelled"
+						? t(
+								"domainMigration.transfer.stopped",
+								"The other window closed before the copy finished. Your data on this site hasn't changed.",
+							)
+						: t(
+								"domainMigration.transfer.failed",
+								"The copy failed. Your data on this site hasn't changed.",
+							),
 			);
 		} finally {
 			setWorking(false);
 		}
-	}, [counts]);
+	}, [counts, destination, route.completedKey, t]);
 
 	return (
 		<MigrationShell>
 			<Flex direction="column" gap="4">
 				<Box>
-					<Heading>Move to the new TTML Tool address</Heading>
-					<Text color="gray">{OFFICIAL_TOOL_ORIGIN}</Text>
+					<Heading>
+						{t(
+							"domainMigration.transfer.sendTitle",
+							"Copy your data to {address}",
+							{ address: hostOf(destination) },
+						)}
+					</Heading>
 				</Box>
-				<Text>{countsText(counts)}</Text>
+				<Flex direction="column" gap="1">
+					{counts ? (
+						countsLines(t, counts).map((line) => <Text key={line}>{line}</Text>)
+					) : (
+						<Text>
+							{t("domainMigration.transfer.checking", "Checking your data...")}
+						</Text>
+					)}
+				</Flex>
+				{route.kind === "copy" && (
+					<Text size="2">
+						{t(
+							"domainMigration.transfer.copyNote",
+							"This is a one-time copy, not a sync. Changes you make afterwards stay on the site where you make them.",
+						)}
+					</Text>
+				)}
 				<Text size="2" color="gray">
-					Your data is transferred directly between browser windows and is never
-					uploaded.
+					{t(
+						"domainMigration.transfer.private",
+						"Your data goes directly between the two browser windows and is never uploaded.",
+					)}
 				</Text>
 				{progress > 0 && <Progress value={progress} />}
-				<Text size="2">{status}</Text>
+				<Text size="2" role="status">
+					{status}
+				</Text>
 				<Flex gap="2" justify="end" wrap="wrap">
 					<Button
 						variant="soft"
 						color="gray"
 						onClick={() => void exportBackup(allCategories)}
 					>
-						<ArrowDownload24Regular /> Download backup
+						<ArrowDownload24Regular />
+						{t("domainMigration.notice.backup", "Download backup")}
 					</Button>
 					<Button disabled={!counts || working} onClick={() => void migrate()}>
-						Move my data
+						<CopyArrowRightRegular />
+						{t("domainMigration.transfer.copy", "Copy my data")}
 					</Button>
 				</Flex>
 			</Flex>
@@ -253,23 +344,14 @@ function SenderPage() {
 	);
 }
 
-function conflictCount(conflicts: MigrationConflictSummary) {
-	return (
-		conflicts.settings.length +
-		conflicts.keybindings.length +
-		conflicts.projects.length +
-		conflicts.apiKeys.length +
-		Number(conflicts.appearance)
-	);
-}
-
-function ReceiverPage() {
+function ReceiverPage({ routes }: { routes: readonly TransferRoute[] }) {
+	const { t } = useTranslation();
 	const nonce = useMemo(() => window.location.hash.slice(1), []);
 	const opener = useRef(window.opener);
 	const chunks = useRef<ArrayBuffer[]>([]);
 	const expectedChunks = useRef(0);
 	const receivedChunks = useRef(new Set<number>());
-	const sourceOrigin = useRef<string | null>(null);
+	const activeRoute = useRef<TransferRoute | null>(null);
 	const accepted = useRef(false);
 	const completed = useRef(false);
 	const [source, setSource] = useState<BackupFile | null>(null);
@@ -277,7 +359,9 @@ function ReceiverPage() {
 	const [conflicts, setConflicts] = useState<MigrationConflictSummary | null>(
 		null,
 	);
-	const [status, setStatus] = useState("Connecting to the old address…");
+	const [status, setStatus] = useState<string>(() =>
+		t("domainMigration.transfer.connecting", "Connecting to the other site..."),
+	);
 	const [working, setWorking] = useState(false);
 	const [choices, setChoices] = useState<MigrationMergeChoices>({
 		replaceSettings: false,
@@ -288,10 +372,10 @@ function ReceiverPage() {
 
 	const reply = useCallback(
 		(message: MigrationReply) => {
-			if (!opener.current || !sourceOrigin.current) return;
+			if (!opener.current || !activeRoute.current) return;
 			opener.current.postMessage(
 				{ ...message, protocol: MIGRATION_PROTOCOL_VERSION, nonce },
-				sourceOrigin.current,
+				activeRoute.current.source,
 			);
 		},
 		[nonce],
@@ -305,11 +389,18 @@ function ReceiverPage() {
 		) => {
 			setWorking(true);
 			try {
-				const merged = mergeMigrationBackup(
-					sourceBackup,
-					destinationBackup,
-					mergeChoices,
-				);
+				const route = activeRoute.current;
+				if (!route) throw new Error("No transfer route.");
+				const merged = mergeMigrationBackup(sourceBackup, destinationBackup, {
+					...mergeChoices,
+					keepBothProjects:
+						route.kind === "copy"
+							? (name) =>
+									t("domainMigration.transfer.copyName", "{name} (copy)", {
+										name,
+									})
+							: undefined,
+				});
 				await applyBackup(merged, allCategories);
 				const verifiedCounts = await getBackupCounts();
 				const expected = {
@@ -330,50 +421,66 @@ function ReceiverPage() {
 					verifiedCounts.projects < expected.projects ||
 					(expected.background && !verifiedCounts.assets.background)
 				)
-					throw new Error("The migrated data could not be verified.");
-				localStorage.setItem(MIGRATION_COMPLETED_KEY, new Date().toISOString());
+					throw new Error("The copied data could not be verified.");
+				localStorage.setItem(route.completedKey, new Date().toISOString());
 				completed.current = true;
 				reply({ type: "migration-complete", counts: verifiedCounts });
-				setStatus("Migration complete. Opening the TTML Tool…");
+				setStatus(
+					t(
+						"domainMigration.transfer.opening",
+						"Copied. Opening the TTML Tool...",
+					),
+				);
 				window.setTimeout(() => window.location.replace("/"), 1200);
 			} catch (error) {
 				const reason =
 					error instanceof Error
 						? error.message
-						: "Could not apply the migrated data.";
+						: "Could not apply the copied data.";
 				reply({ type: "migration-error", reason });
-				setStatus(`${reason} No source data was removed.`);
+				setStatus(
+					t(
+						"domainMigration.transfer.applyFailed",
+						"Could not save the copied data here. The other site's data hasn't changed.",
+					),
+				);
 				setWorking(false);
 			}
 		},
-		[reply],
+		[reply, t],
 	);
 
 	useEffect(() => {
 		window.history.replaceState(null, "", window.location.pathname);
 		if (!/^[a-f0-9]{32}$/.test(nonce) || !opener.current) {
 			setStatus(
-				"This migration link is invalid or was opened without the old tool.",
+				t(
+					"domainMigration.transfer.invalidLink",
+					"This page only works when the site with your data opens it. Start from that site.",
+				),
 			);
 			return;
 		}
 
 		const listener = (event: MessageEvent) => {
+			const route = routes.find((item) => item.source === event.origin);
 			if (
-				!LEGACY_TOOL_ORIGINS.includes(event.origin) ||
+				!route ||
 				event.source !== opener.current ||
 				!isMigrationMessage(event.data) ||
 				event.data.nonce !== nonce
 			)
 				return;
 			const message = event.data;
-			sourceOrigin.current = event.origin;
+			activeRoute.current = route;
 			if (message.type === "metadata" && !accepted.current) {
 				accepted.current = true;
 				expectedChunks.current = message.totalChunks;
 				chunks.current = new Array(message.totalChunks);
 				receivedChunks.current.clear();
-				setStatus(`Receiving ${countsText(message.counts)}…`);
+				setStatus(
+					t("domainMigration.transfer.receiving", "Receiving your data..."),
+				);
 				return;
 			}
 			if (message.type === "chunk" && accepted.current) {
@@ -392,14 +499,19 @@ function ReceiverPage() {
 				return;
 			}
 			if (message.type === "transfer-complete" && accepted.current) {
+				const failed = () =>
+					setStatus(
+						t(
+							"domainMigration.transfer.receiveFailed",
+							"The data didn't arrive complete. Try again from the site with your data.",
+						),
+					);
 				if (chunks.current.some((chunk) => !(chunk instanceof ArrayBuffer))) {
 					reply({
 						type: "migration-error",
 						reason: "The transfer was incomplete.",
 					});
-					setStatus(
-						"The transfer was incomplete. Try again from the old address.",
-					);
+					failed();
 					return;
 				}
 				void (async () => {
@@ -412,7 +524,6 @@ function ReceiverPage() {
 						setDestination(current);
 						setConflicts(nextConflicts);
 						if (!hasMigrationConflicts(nextConflicts)) {
-							setStatus("Applying migrated data…");
 							await finish(decoded, current, {
 								replaceSettings: false,
 								replaceKeybindings: false,
@@ -420,15 +531,20 @@ function ReceiverPage() {
 								replaceAppearance: false,
 							});
 						} else {
-							setStatus("Review the matching data before finishing.");
+							setStatus(
+								t(
+									"domainMigration.transfer.review",
+									"Some of this data is already here. Choose what to keep.",
+								),
+							);
 						}
 					} catch (error) {
 						const reason =
 							error instanceof Error
 								? error.message
-								: "The migration backup is invalid.";
+								: "The received data is invalid.";
 						reply({ type: "migration-error", reason });
-						setStatus(reason);
+						failed();
 					}
 				})();
 			}
@@ -438,7 +554,7 @@ function ReceiverPage() {
 		};
 		window.addEventListener("message", listener);
 		window.addEventListener("beforeunload", cancelOnClose);
-		for (const origin of LEGACY_TOOL_ORIGINS) {
+		for (const { source: origin } of routes) {
 			opener.current.postMessage(
 				{ type: "receiver-ready", protocol: MIGRATION_PROTOCOL_VERSION, nonce },
 				origin,
@@ -448,40 +564,63 @@ function ReceiverPage() {
 			window.removeEventListener("message", listener);
 			window.removeEventListener("beforeunload", cancelOnClose);
 		};
-	}, [finish, nonce, reply]);
+	}, [finish, nonce, reply, routes, t]);
 
 	return (
 		<MigrationShell>
 			<Flex direction="column" gap="4">
-				<Heading>Receive your data on the new address</Heading>
-				<Text size="2">{status}</Text>
+				<Heading>
+					{t("domainMigration.transfer.receiveTitle", "Receive your data")}
+				</Heading>
+				<Text size="2" role="status">
+					{status}
+				</Text>
 				{conflicts && hasMigrationConflicts(conflicts) && (
 					<Flex direction="column" gap="3">
-						<Text color="orange">
-							{conflictCount(conflicts)} matching items need a merge decision.
-							Matching projects automatically keep the newer copy.
+						<Text size="2" color="gray">
+							{activeRoute.current?.kind === "copy"
+								? t(
+										"domainMigration.transfer.projectsKept",
+										"Projects already here are never overwritten. If the other site has a newer version, it's added next to yours as a copy.",
+									)
+								: t(
+										"domainMigration.transfer.projectsNewest",
+										"Projects on both sites keep the newer version.",
+									)}
 						</Text>
 						{(
 							[
 								[
 									"replaceSettings",
 									conflicts.settings.length,
-									"Use old-address values for matching settings",
+									t(
+										"domainMigration.transfer.useSettings",
+										"Use the other site's value for settings that differ",
+									),
 								],
 								[
 									"replaceKeybindings",
 									conflicts.keybindings.length,
-									"Use old-address values for matching shortcuts",
+									t(
+										"domainMigration.transfer.useShortcuts",
+										"Use the other site's shortcuts where they differ",
+									),
 								],
 								[
 									"replaceApiKeys",
 									conflicts.apiKeys.length,
-									"Use the old-address Genius token",
+									t(
+										"domainMigration.transfer.useToken",
+										"Use the other site's Genius token",
+									),
 								],
 								[
 									"replaceAppearance",
 									Number(conflicts.appearance),
-									"Use the old-address appearance (background, presets, font)",
+									t(
+										"domainMigration.transfer.useAppearance",
+										"Use the other site's background, presets and font",
+									),
 								],
 							] as const
 						)
@@ -510,7 +649,8 @@ function ReceiverPage() {
 								void finish(source, destination, choices)
 							}
 						>
-							Merge and finish
+							<CheckmarkRegular />
+							{t("domainMigration.transfer.finish", "Finish copying")}
 						</Button>
 					</Flex>
 				)}
@@ -520,7 +660,11 @@ function ReceiverPage() {
 						color="gray"
 						onClick={() => void saveBackupFile(source)}
 					>
-						<ArrowDownload24Regular /> Download received backup
+						<ArrowDownload24Regular />
+						{t(
+							"domainMigration.transfer.downloadReceived",
+							"Download the received data",
+						)}
 					</Button>
 				)}
 			</Flex>
@@ -529,21 +673,29 @@ function ReceiverPage() {
 }
 
 export function MigrationRouteApp() {
-	const kind = classifyMigrationOrigin(
-		window.location.origin,
-		Boolean(import.meta.env.TAURI_ENV_PLATFORM),
-	);
-	if (window.location.pathname === MIGRATION_SEND_PATH && kind === "legacy")
-		return <SenderPage />;
-	if (
-		window.location.pathname === MIGRATION_RECEIVE_PATH &&
-		kind === "official"
-	)
-		return <ReceiverPage />;
+	const { t } = useTranslation();
+	const isTauri = Boolean(import.meta.env.TAURI_ENV_PLATFORM);
+	const { origin, pathname } = window.location;
+	const sendRoute = transferRouteFrom(origin, isTauri);
+	const receiveRoutes = transferRoutesTo(origin, isTauri);
+	if (pathname === MIGRATION_SEND_PATH && sendRoute)
+		return <SenderPage route={sendRoute} />;
+	if (pathname === MIGRATION_RECEIVE_PATH && receiveRoutes.length > 0)
+		return <ReceiverPage routes={receiveRoutes} />;
 	return (
 		<MigrationShell>
-			<Heading>Invalid migration route</Heading>
-			<Text>This page only works on the old and new TTML Tool addresses.</Text>
+			<Heading>
+				{t(
+					"domainMigration.transfer.invalidTitle",
+					"This page isn't available here",
+				)}
+			</Heading>
+			<Text>
+				{t(
+					"domainMigration.transfer.invalidBody",
+					"Copying data only works between the official TTML Tool sites.",
+				)}
+			</Text>
 		</MigrationShell>
 	);
 }
