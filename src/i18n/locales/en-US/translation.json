@@ -1546,7 +1546,9 @@
     "notFound": "No results found. Try different keywords.",
     "noResult": "Enter a song name or artist to start.",
     "howToGetKey": "How to get a Genius access token",
-    "changeKey": "Change access token"
+    "changeKey": "Change access token",
+    "lyricsBlocked": "Genius blocked this lyrics request, likely a Cloudflare check. Try again in a moment, or copy the lyrics from the song page.",
+    "openOnGenius": "Open on Genius"
   },
   "textImportDialog": {
     "processLyrics": "Process lyrics",

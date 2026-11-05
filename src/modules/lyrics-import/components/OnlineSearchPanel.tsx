@@ -1,6 +1,7 @@
 import { DismissRegular, Search16Regular } from "@fluentui/react-icons";
 import {
 	Badge,
+	Box,
 	Button,
 	Flex,
 	IconButton,
@@ -11,6 +12,7 @@ import {
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { GeniusBlockedMessage } from "$/modules/genius/components/GeniusBlockedMessage";
 import { getBetterGeniusCoverArt } from "$/modules/genius/utils/image";
 import { geniusApiKeyAtom } from "$/modules/settings/states/index.ts";
 import { getGeniusKeyGuideUrl } from "$/utils/genius-guide";
@@ -114,6 +116,7 @@ export function OnlineResults({
 	hasSearched,
 	audioDuration,
 	loadingId,
+	blockedSongUrl,
 	onPick,
 }: {
 	results: ImportTrack[];
@@ -121,6 +124,7 @@ export function OnlineResults({
 	hasSearched: boolean;
 	audioDuration: number;
 	loadingId: ImportTrack["id"] | null;
+	blockedSongUrl: string | null;
 	onPick: (track: ImportTrack) => void;
 }) {
 	const { t } = useTranslation();
@@ -142,6 +146,11 @@ export function OnlineResults({
 		);
 	return (
 		<div className={styles.results}>
+			{blockedSongUrl && (
+				<Box p="2" flexShrink="0">
+					<GeniusBlockedMessage songUrl={blockedSongUrl} />
+				</Box>
+			)}
 			{results.map((track) => (
 				<button
 					type="button"

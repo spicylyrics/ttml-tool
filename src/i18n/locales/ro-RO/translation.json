@@ -1546,7 +1546,9 @@
     "notFound": "Niciun rezultat găsit. Încearcă cuvinte cheie diferite.",
     "noResult": "Introdu un nume de melodie sau un artist pentru a începe.",
     "howToGetKey": "Cum obții un token de acces Genius",
-    "changeKey": "Schimbă tokenul de acces"
+    "changeKey": "Schimbă tokenul de acces",
+    "lyricsBlocked": "Genius a blocat această cerere de versuri, probabil printr-o verificare Cloudflare. Încearcă din nou peste câteva momente sau copiază versurile de pe pagina piesei.",
+    "openOnGenius": "Deschide pe Genius"
   },
   "textImportDialog": {
     "processLyrics": "Procesează versurile",
