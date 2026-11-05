@@ -648,6 +648,8 @@
       "downloading": "Ladataan päivitystä...",
       "ready": "Päivitys on valmis. Käynnistä sovellus uudelleen, jotta se tulee voimaan.",
       "restart": "Käynnistä uudelleen",
+      "retryUpdate": "Yritä uudelleen",
+      "downloadFromGitHub": "Lataa GitHubista",
       "websiteUpdate": "Verkkosivuston päivitys",
       "websiteUpdateDescription": "Lataa verkkosivusto uudelleen saadaksesi uusimman version.",
       "forceRefresh": "Pakota päivitys",

@@ -648,6 +648,8 @@
       "downloading": "Update downloaden...",
       "ready": "Update is klaar. Start de applicatie opnieuw om deze toe te passen.",
       "restart": "Herstarten",
+      "retryUpdate": "Opnieuw proberen",
+      "downloadFromGitHub": "Downloaden van GitHub",
       "websiteUpdate": "Website-update",
       "websiteUpdateDescription": "Laad de website opnieuw om de nieuwste versie te krijgen.",
       "forceRefresh": "Forceer vernieuwing",

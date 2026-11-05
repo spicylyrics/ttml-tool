@@ -648,6 +648,8 @@
       "downloading": "Mengunduh pembaruan...",
       "ready": "Pembaruan telah siap, mulai ulang aplikasi untuk menerapkan.",
       "restart": "Mulai ulang",
+      "retryUpdate": "Coba lagi",
+      "downloadFromGitHub": "Unduh dari GitHub",
       "websiteUpdate": "Pembaruan situs web",
       "websiteUpdateDescription": "Muat ulang situs web untuk mendapatkan versi terbaru.",
       "forceRefresh": "Paksa penyegaran",

@@ -648,6 +648,8 @@
       "downloading": "Se descarcă actualizarea…",
       "ready": "Actualizarea este gata. Repornește aplicația pentru a o aplica.",
       "restart": "Repornește",
+      "retryUpdate": "Încearcă din nou",
+      "downloadFromGitHub": "Descarcă de pe GitHub",
       "websiteUpdate": "Actualizare site",
       "websiteUpdateDescription": "Reîncarcă site-ul pentru a obține ultima versiune.",
       "forceRefresh": "Forțează reîncărcarea",

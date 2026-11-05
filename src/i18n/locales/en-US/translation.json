@@ -648,6 +648,8 @@
       "downloading": "Downloading update…",
       "ready": "Update is ready. Restart the application for it to take effect.",
       "restart": "Restart",
+      "retryUpdate": "Try again",
+      "downloadFromGitHub": "Download from GitHub",
       "websiteUpdate": "Website update",
       "websiteUpdateDescription": "Reload the website to get the latest version.",
       "forceRefresh": "Force refresh",

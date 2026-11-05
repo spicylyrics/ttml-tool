@@ -648,6 +648,8 @@
       "downloading": "正在下载更新...",
       "ready": "更新已就绪。重启应用程序使其生效。",
       "restart": "重启",
+      "retryUpdate": "重试",
+      "downloadFromGitHub": "从 GitHub 下载",
       "websiteUpdate": "网站更新",
       "websiteUpdateDescription": "重新加载网站以获取最新版本。",
       "forceRefresh": "强制刷新",

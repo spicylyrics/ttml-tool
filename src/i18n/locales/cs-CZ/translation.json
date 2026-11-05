@@ -648,6 +648,8 @@
       "downloading": "Stahování aktualizace...",
       "ready": "Aktualizace je připravena. Restartujte aplikaci, aby se projevila.",
       "restart": "Restartovat",
+      "retryUpdate": "Zkusit znovu",
+      "downloadFromGitHub": "Stáhnout z GitHubu",
       "websiteUpdate": "Aktualizace webu",
       "websiteUpdateDescription": "Znovu načtěte web a získejte nejnovější verzi.",
       "forceRefresh": "Vynutit obnovení",

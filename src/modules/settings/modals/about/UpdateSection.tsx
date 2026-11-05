@@ -1,23 +1,29 @@
 import {
+	ArrowClockwise24Regular,
 	CheckmarkCircle24Regular,
 	CloudArrowDown24Regular,
+	ErrorCircle24Regular,
+	Open24Regular,
 } from "@fluentui/react-icons";
 import {
 	Badge,
 	Box,
 	Button,
+	Callout,
 	Card,
 	Flex,
 	Heading,
 	Progress,
 	Text,
 } from "@radix-ui/themes";
+import { openExternal, RELEASES_URL } from "./externalLinks";
 import type { AboutSettings } from "./useAboutSettings";
 export const UpdateSection = ({
 	t,
 	status,
 	update,
 	progress,
+	errorMsg,
 	installUpdate,
 	restartApp,
 	showUpdateCard,
@@ -27,6 +33,7 @@ export const UpdateSection = ({
 	| "status"
 	| "update"
 	| "progress"
+	| "errorMsg"
 	| "installUpdate"
 	| "restartApp"
 	| "showUpdateCard"
@@ -82,6 +89,46 @@ export const UpdateSection = ({
 								<Text size="2">{progress.toFixed(0)}%</Text>
 							</Flex>
 							<Progress value={progress} />
+						</Flex>
+					)}
+
+					{status === "error" && (
+						<Flex direction="column" gap="3">
+							<Callout.Root color="red" role="alert">
+								<Callout.Icon>
+									<ErrorCircle24Regular />
+								</Callout.Icon>
+								<Flex direction="column" gap="1">
+									<Callout.Text weight="medium">
+										{t(
+											"app.update.installError",
+											"Error when installing update",
+										)}
+									</Callout.Text>
+									<Text
+										size="1"
+										style={{ overflowWrap: "anywhere", userSelect: "text" }}
+									>
+										{errorMsg}
+									</Text>
+								</Flex>
+							</Callout.Root>
+							<Flex gap="3" wrap="wrap">
+								<Button onClick={installUpdate}>
+									<ArrowClockwise24Regular />
+									{t("settings.about.retryUpdate", "Try again")}
+								</Button>
+								<Button
+									variant="soft"
+									onClick={() => openExternal(RELEASES_URL)}
+								>
+									<Open24Regular />
+									{t(
+										"settings.about.downloadFromGitHub",
+										"Download from GitHub",
+									)}
+								</Button>
+							</Flex>
 						</Flex>
 					)}
 

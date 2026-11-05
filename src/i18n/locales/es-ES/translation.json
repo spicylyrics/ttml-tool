@@ -648,6 +648,8 @@
       "downloading": "Descargando actualización...",
       "ready": "La actualización está lista. Reinicia la aplicación para que surta efecto.",
       "restart": "Reiniciar",
+      "retryUpdate": "Reintentar",
+      "downloadFromGitHub": "Descargar de GitHub",
       "websiteUpdate": "Actualización del sitio web",
       "websiteUpdateDescription": "Recarga el sitio web para obtener la última versión.",
       "forceRefresh": "Forzar actualización",

@@ -648,6 +648,8 @@
       "downloading": "Güncelleme indiriliyor...",
       "ready": "Güncelleme hazır. Uygulanması için uygulamayı yeniden başlatın.",
       "restart": "Yeniden başlat",
+      "retryUpdate": "Yeniden dene",
+      "downloadFromGitHub": "GitHub'dan indir",
       "websiteUpdate": "Web sitesi güncellemesi",
       "websiteUpdateDescription": "En son sürümü almak için web sitesini yeniden yükleyin.",
       "forceRefresh": "Zorla yenile",

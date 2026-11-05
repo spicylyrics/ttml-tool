@@ -5,14 +5,18 @@ import { clearWebsiteCache, forceWebsiteRefresh } from "$/utils/pwa";
 import { useAppUpdate } from "$/utils/useAppUpdate";
 export function useAboutSettings() {
 	const { t } = useTranslation();
-	const { status, update, progress, installUpdate, restartApp } =
+	const { status, update, progress, errorMsg, installUpdate, restartApp } =
 		useAppUpdate();
 	const [cacheConfirmationOpen, setCacheConfirmationOpen] = useState(false);
 	const [recoveryAction, setRecoveryAction] = useState<
 		"refresh" | "clear" | null
 	>(null);
 	const contributors = getContributors();
-	const showUpdateCard = ["available", "downloading", "ready"].includes(status);
+	// A failed install keeps its update, so it stays on screen with the reason.
+	// A failed background check has none and stays quiet (say, when offline).
+	const showUpdateCard =
+		["available", "downloading", "ready"].includes(status) ||
+		(status === "error" && update !== null);
 	const isWebsite = !import.meta.env.TAURI_ENV_PLATFORM;
 	const handleForceRefresh = async () => {
 		setRecoveryAction("refresh");
@@ -36,6 +40,7 @@ export function useAboutSettings() {
 		status,
 		update,
 		progress,
+		errorMsg,
 		installUpdate,
 		restartApp,
 		cacheConfirmationOpen,

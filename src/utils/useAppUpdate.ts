@@ -2,7 +2,6 @@ import { relaunch } from "@tauri-apps/plugin-process";
 import { check } from "@tauri-apps/plugin-updater";
 import { useAtom, useStore } from "jotai";
 import { useCallback } from "react";
-import { useTranslation } from "react-i18next";
 import {
 	updateErrorAtom,
 	updateInfoAtom,
@@ -16,8 +15,6 @@ export function useAppUpdate() {
 	const [progress, setProgress] = useAtom(updateProgressAtom);
 	const [errorMsg, setErrorMsg] = useAtom(updateErrorAtom);
 	const store = useStore();
-
-	const { t } = useTranslation();
 
 	const checkUpdate = useCallback(
 		async (silent = false) => {
@@ -82,9 +79,9 @@ export function useAppUpdate() {
 		} catch (e) {
 			console.error("Failed to install update", e);
 			setStatus("error");
-			setErrorMsg(t("app.update.installError", "安装更新失败"));
+			setErrorMsg(String(e));
 		}
-	}, [update, t, setStatus, setProgress, setErrorMsg]);
+	}, [update, setStatus, setProgress, setErrorMsg]);
 
 	return {
 		status,

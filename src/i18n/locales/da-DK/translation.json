@@ -648,6 +648,8 @@
       "downloading": "Downloader opdatering...",
       "ready": "Opdateringen er klar. Genstart applikationen for at den træder i kraft.",
       "restart": "Genstart",
+      "retryUpdate": "Prøv igen",
+      "downloadFromGitHub": "Download fra GitHub",
       "websiteUpdate": "Hjemmesideopdatering",
       "websiteUpdateDescription": "Genindlæs webstedet for at få den nyeste version.",
       "forceRefresh": "Tving opdatering",
