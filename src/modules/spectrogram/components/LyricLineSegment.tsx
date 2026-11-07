@@ -34,6 +34,8 @@ interface LyricLineSegmentProps {
 	isGhost?: boolean;
 	offset?: number;
 	lineEndLabels?: LineEndLabels;
+	/** The editor's line number to show on the bar when zoomed out, if any. */
+	lineNumber?: number;
 }
 
 const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
@@ -43,6 +45,7 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 	isGhost = false,
 	offset = 0,
 	lineEndLabels,
+	lineNumber,
 }) => {
 	const previewLine = useAtomValue(previewLineAtom);
 	const setSelectedLines = useSetAtom(selectedLinesAtom);
@@ -154,6 +157,11 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 			role={isGhost ? "presentation" : "button"}
 			aria-label={isGhost ? "Ghost Lyric Line" : "Lyric Line"}
 		>
+			{compact && !isGhost && !!lineNumber && (
+				<span className={styles.lineNumber} aria-hidden>
+					{lineNumber}
+				</span>
+			)}
 			{!isGhost && !compact && (
 				<DividerSegment
 					key="divider-start"
