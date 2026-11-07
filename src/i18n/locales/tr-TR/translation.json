@@ -1570,6 +1570,12 @@
     "bgLyricPrefix": "Arka vokal satırı öneki",
     "duetLyricPrefix": "Düet satırı öneki"
   },
+  "joinedBackground": {
+    "title": "Birleştirilen ad-lib'leri kontrol et",
+    "description": "{count, plural, one {# satırda kelimelerin arasında ad-lib vardı.} other {# satırda kelimelerin arasında ad-lib vardı.}} Bunlar tek bir arka plan satırında birleştirildi ve ilkinden sonraki her parça küçük harfle başlıyor. İsimleri, büyük harfleri ve fazla virgülleri düzelt. Sondaki parantezler arka plan satırı olur.",
+    "keep": "İşlenmiş hâliyle bırak",
+    "apply": "Düzenlemeleri uygula"
+  },
   "sectionImportReview": {
     "title": "Algılanan bölümleri incele",
     "lineCount": "{count, plural, one {# şarkı sözü satırı} other {# şarkı sözü satırı}}"

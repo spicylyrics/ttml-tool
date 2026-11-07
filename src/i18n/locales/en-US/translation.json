@@ -1570,6 +1570,12 @@
     "bgLyricPrefix": "Background line prefix",
     "duetLyricPrefix": "Duet line prefix"
   },
+  "joinedBackground": {
+    "title": "Check joined ad-libs",
+    "description": "{count, plural, one {# line had ad-libs between its words.} other {# lines had ad-libs between their words.}} They were joined into one background line, with every part after the first in lowercase. Fix names, capitals and extra commas. Brackets at the end become the background line.",
+    "keep": "Keep as processed",
+    "apply": "Apply edits"
+  },
   "sectionImportReview": {
     "title": "Review detected sections",
     "lineCount": "{count, plural, one {# lyric line} other {# lyric lines}}"

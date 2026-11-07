@@ -1570,6 +1570,12 @@
     "bgLyricPrefix": "Predpona sprievodného riadka",
     "duetLyricPrefix": "Predpona duetového riadka"
   },
+  "joinedBackground": {
+    "title": "Skontrolujte spojené ad-liby",
+    "description": "{count, plural, one {# riadok mal ad-liby medzi slovami.} few {# riadky mali ad-liby medzi slovami.} many {# riadka malo ad-liby medzi slovami.} other {# riadkov malo ad-liby medzi slovami.}} Boli spojené do jedného riadka v pozadí a každá časť po prvej začína malým písmenom. Opravte mená, veľké písmená a nadbytočné čiarky. Zátvorky na konci sa stanú riadkom v pozadí.",
+    "keep": "Ponechať spracované",
+    "apply": "Použiť úpravy"
+  },
   "sectionImportReview": {
     "title": "Kontrola nájdených sekcií",
     "lineCount": "{count, plural, one {# riadok textu} few {# riadky textu} many {# riadka textu} other {# riadkov textu}}"

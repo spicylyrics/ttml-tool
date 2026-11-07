@@ -20,6 +20,7 @@ import { useAtom, useSetAtom, useStore } from "jotai";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { JoinedBackgroundReview } from "$/components/JoinedBackgroundReview";
 import {
 	LyricMarkupEditor,
 	type LyricMarkupTool,
@@ -36,6 +37,10 @@ import {
 	importTextFormatAtom,
 	processStepsAtom,
 } from "$/modules/lyrics-import/states";
+import {
+	type JoinedBackgroundRow,
+	replaceTextRows,
+} from "$/modules/project/logic/text-to-lines";
 import { useJapaneseDictionary } from "$/modules/romanization/useJapaneseDictionary";
 import { segmentWord } from "$/modules/segmentation/utils/segmentation";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
@@ -50,11 +55,16 @@ import { useKeyBindingAtom } from "$/utils/keybindings";
 import { error as logError } from "$/utils/logging.ts";
 import { editTextFormat, serializeLyrics } from "../logic/serialize";
 import { applyEditedText, type TextEditSummary } from "../logic/text-diff";
-import { processTextRows, splitTextRows } from "../logic/text-tools";
+import {
+	processTextRows,
+	type RowRange,
+	splitTextRows,
+} from "../logic/text-tools";
 import { editAsTextDialogAtom } from "../states";
 import styles from "./EditAsTextDialog.module.css";
 
 const LOSSY_LINES_SHOWN = 8;
+const NO_JOINED_ROWS: JoinedBackgroundRow[] = [];
 
 /** The selected words' text when they all sit in one line, else nothing. */
 function selectedWordsText(store: ReturnType<typeof useStore>) {
@@ -160,6 +170,12 @@ function EditAsTextBody({
 		return { format, original: serializeLyrics(lyrics, format) };
 	});
 	const [text, setText] = useState(original);
+	// Lines Process lyrics joined ad-libs on, with the text from before it ran.
+	const [joined, setJoined] = useState<{
+		source: string;
+		lines: RowRange;
+		rows: JoinedBackgroundRow[];
+	} | null>(null);
 	const dirty = text !== original;
 	useEffect(() => onDirtyChange(dirty), [dirty, onDirtyChange]);
 	const deferredText = useDeferredValue(text);
@@ -185,14 +201,17 @@ function EditAsTextBody({
 			label: t("textImportDialog.processLyrics", "Process lyrics"),
 			disabled: japaneseDictionary.loading,
 			run: (value, lines) => {
+				const rows: JoinedBackgroundRow[] = [];
 				const next = processTextRows(
 					value,
 					format,
 					store.get(processStepsAtom),
 					lines,
+					rows,
 				);
 				if (next === value)
 					toast.info(t("editAsText.nothingToProcess", "Nothing to change."));
+				if (rows.length) setJoined({ source: value, lines, rows });
 				return next;
 			},
 		},
@@ -313,6 +332,22 @@ function EditAsTextBody({
 					{t("editAsText.apply", "Apply")}
 				</Button>
 			</Flex>
+			<JoinedBackgroundReview
+				rows={joined?.rows ?? NO_JOINED_ROWS}
+				onKeep={() => setJoined(null)}
+				onApply={(edits) => {
+					if (joined)
+						setText(
+							processTextRows(
+								replaceTextRows(joined.source, edits),
+								format,
+								store.get(processStepsAtom),
+								joined.lines,
+							),
+						);
+					setJoined(null);
+				}}
+			/>
 		</>
 	);
 }

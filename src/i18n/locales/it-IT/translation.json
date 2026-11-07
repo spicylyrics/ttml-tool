@@ -1570,6 +1570,12 @@
     "bgLyricPrefix": "Prefisso dei versi dei cori",
     "duetLyricPrefix": "Prefisso dei versi del duetto"
   },
+  "joinedBackground": {
+    "title": "Controlla gli ad-lib uniti",
+    "description": "{count, plural, one {# verso aveva ad-lib tra le parole.} many {# versi avevano ad-lib tra le parole.} other {# versi avevano ad-lib tra le parole.}} Sono stati uniti in un solo verso di sottofondo, con ogni parte dopo la prima in minuscolo. Correggi nomi, maiuscole e virgole in più. Le parentesi alla fine diventano il verso di sottofondo.",
+    "keep": "Lascia com'è",
+    "apply": "Applica modifiche"
+  },
   "sectionImportReview": {
     "title": "Esamina le sezioni rilevate",
     "lineCount": "{count, plural, one {# verso} many {# versi} other {# versi}}"

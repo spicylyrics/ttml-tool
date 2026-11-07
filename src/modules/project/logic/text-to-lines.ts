@@ -24,26 +24,48 @@ export interface TextToLinesOptions {
 	swapTransAndRoman?: boolean;
 }
 
-/** Shared preprocessing for the editable text preview and online imports. */
+/** A source row whose background parts were joined, to show for review. */
+export interface JoinedBackgroundRow {
+	/** 0-based row in the source text. */
+	row: number;
+	source: string;
+	suggestion: string;
+}
+
+/**
+ * Shared preprocessing for the editable text preview and online imports.
+ * Rows whose background parts were joined go to `joined`, when given.
+ */
 export function prepareTextImport(
 	text: string,
 	keepSectionHeaders: boolean,
 	steps: Partial<LyricPrepOptions> = {},
+	joined?: JoinedBackgroundRow[],
 ): string {
 	// Kanji-only lines of a Japanese song split into words too.
 	const japaneseWords = loadedJapaneseWordFinder(text);
 	return text
 		.split(/\r\n|\r|\n/)
-		.flatMap((line) => {
+		.flatMap((line, row) => {
 			const trimmed = trimInvisible(line);
 			if (/^\[.*\]$/.test(trimmed)) {
 				return keepSectionHeaders && !isGeniusPageTitle(trimmed)
 					? [trimmed]
 					: [];
 			}
-			return prepareLyricLine(line, steps, japaneseWords).split("\n");
+			return prepareLyricLine(line, steps, japaneseWords, (suggestion) =>
+				joined?.push({ row, source: trimmed, suggestion }),
+			).split("\n");
 		})
 		.filter((line) => line.trim().length > 0)
+		.join("\n");
+}
+
+/** Swaps whole rows of a text, by 0-based row. */
+export function replaceTextRows(text: string, edits: Map<number, string>) {
+	return text
+		.split(/\r\n|\r|\n/)
+		.map((row, index) => edits.get(index) ?? row)
 		.join("\n");
 }
 

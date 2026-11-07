@@ -1,6 +1,7 @@
 import type { LyricMarkupFormat } from "$/components/LyricMarkupEditor";
 import { getSectionHeader } from "$/modules/lyric-editor/utils/section-system";
 import { segmentImportText } from "$/modules/lyrics-import/logic/import-text";
+import type { JoinedBackgroundRow } from "$/modules/project/logic/text-to-lines";
 import { loadedJapaneseWordFinder } from "$/modules/romanization/engines/japanese";
 import { type LyricPrepOptions, prepareLyricLine } from "$/utils/lyric-prep";
 import { subKeysOf } from "./serialize";
@@ -50,13 +51,15 @@ const trimEnd = (value: string, mark: string) => {
 /**
  * Runs Process lyrics over the picked lyric rows, leaving section headers,
  * translation rows and empty lines alone. A line only grows a background row
- * when there are no translation rows to keep in step.
+ * when there are no translation rows to keep in step. Rows whose background
+ * parts were joined go to `joined`, when given, as rows in this format.
  */
 export function processTextRows(
 	text: string,
 	format: LyricMarkupFormat,
 	steps: LyricPrepOptions,
 	range: RowRange,
+	joined?: JoinedBackgroundRow[],
 ): string {
 	const separator = format.wordSeparator;
 	const subRowCount = subKeysOf(format).length;
@@ -109,6 +112,7 @@ export function processTextRows(
 				);
 			})
 			.join("");
+		let suggestion: string | undefined;
 		const prepared = prepareLyricLine(
 			masked.split(separator).join(PREP_SEPARATOR),
 			{
@@ -117,6 +121,9 @@ export function processTextRows(
 					steps.backgroundVocals && subRowCount === 0 && !isBackground,
 			},
 			japaneseWords,
+			(value) => {
+				suggestion = value;
+			},
 		)
 			.split("\n")
 			.filter((line) => line.length > 0);
@@ -126,6 +133,12 @@ export function processTextRows(
 				const code = char.charCodeAt(0) - KEPT_WORD;
 				return code >= 0 && code < kept.length ? kept[code] : char;
 			}).join("");
+		if (suggestion !== undefined)
+			joined?.push({
+				row: index,
+				source: row.trim(),
+				suggestion: lead + duet + toMarkup(suggestion),
+			});
 		const lines = prepared.map((line) =>
 			line.startsWith(PREP_BACKGROUND)
 				? lead +

@@ -1570,6 +1570,12 @@
     "bgLyricPrefix": "Préfixe des lignes de chœurs",
     "duetLyricPrefix": "Préfixe des lignes de duo"
   },
+  "joinedBackground": {
+    "title": "Vérifier les ad-libs regroupés",
+    "description": "{count, plural, one {# ligne avait des ad-libs entre ses mots.} many {# lignes avaient des ad-libs entre leurs mots.} other {# lignes avaient des ad-libs entre leurs mots.}} Ils ont été regroupés en une seule ligne de fond, chaque partie après la première en minuscule. Corrigez les noms, les majuscules et les virgules en trop. Les parenthèses à la fin deviennent la ligne de fond.",
+    "keep": "Garder tel quel",
+    "apply": "Appliquer les modifications"
+  },
   "sectionImportReview": {
     "title": "Examiner les sections détectées",
     "lineCount": "{count, plural, one {# ligne de paroles} many {# lignes de paroles} other {# lignes de paroles}}"

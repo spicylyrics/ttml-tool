@@ -1570,6 +1570,12 @@
     "bgLyricPrefix": "Prefijo de líneas de voces de fondo",
     "duetLyricPrefix": "Prefijo de líneas de dúo"
   },
+  "joinedBackground": {
+    "title": "Revisa los ad-libs unidos",
+    "description": "{count, plural, one {# línea tenía ad-libs entre sus palabras.} many {# líneas tenían ad-libs entre sus palabras.} other {# líneas tenían ad-libs entre sus palabras.}} Se unieron en una sola línea de fondo, con cada parte después de la primera en minúscula. Corrige nombres, mayúsculas y comas de más. Los paréntesis del final pasan a ser la línea de fondo.",
+    "keep": "Dejar como está",
+    "apply": "Aplicar cambios"
+  },
   "sectionImportReview": {
     "title": "Revisar secciones detectadas",
     "lineCount": "{count, plural, one {# línea de letra} many {# líneas de letra} other {# líneas de letra}}"
