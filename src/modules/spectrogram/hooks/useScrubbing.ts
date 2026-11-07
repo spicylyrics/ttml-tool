@@ -32,13 +32,14 @@ export function useScrubbing(
 				Math.min(timeAtCursor, audioBuffer.duration),
 			);
 
-			audioEngine.seekMusic(clampedTime);
+			audioEngine.scrubTo(clampedTime);
 			setCurrentTime(clampedTime * 1000);
 		},
 		[audioBuffer, zoom, setCurrentTime, scrollContainerRef],
 	);
 
 	const handleScrubEnd = useCallback(() => {
+		if (isScrubbingRef.current) audioEngine.endScrub();
 		isScrubbingRef.current = false;
 		window.removeEventListener("mousemove", handleScrubMove);
 		window.removeEventListener("mouseup", handleScrubEnd);
@@ -52,6 +53,7 @@ export function useScrubbing(
 			event.preventDefault();
 			isScrubbingRef.current = true;
 			scrollLeftForScrubRef.current = scrollLeft;
+			audioEngine.beginScrub();
 
 			handleScrubMove(event.nativeEvent);
 

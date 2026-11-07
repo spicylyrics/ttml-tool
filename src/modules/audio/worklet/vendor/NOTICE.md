@@ -24,3 +24,14 @@ That wrapper repository is GPL-3.0; the underlying soundtouch-rs port is LGPL-2.
 
 The generated bindings are deliberately kept byte-identical. The existing Biome
 vendor exclusion applies; no suppressions were added.
+
+# Signalsmith Stretch WASM attribution
+
+`signalsmith-stretch.wasm` is the unmodified WebAssembly binary embedded (as
+base64) in `SignalsmithStretch.mjs` of the `signalsmith-stretch` npm package,
+version 1.3.2 (SHA-256 of the binary:
+`83869197b3c5ebf9fc8c517a1586aef1ecf77404842218d62b9c0e82882d8ca3`).
+Source: https://github.com/Signalsmith-Audio/signalsmith-stretch
+Copyright (c) 2022 Geraint Luff / Signalsmith Audio Ltd., MIT License; a copy
+is included in LICENSE-MIT-signalsmith.txt. Our loader is `../signalsmith.ts`,
+which maps the build's minified export names.

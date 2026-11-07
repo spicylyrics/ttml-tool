@@ -35,6 +35,7 @@ import {
 	currentTimeAtom,
 	playbackRateAtom,
 	preservesPitchAtom,
+	scrubAudioAtom,
 	volumeAtom,
 } from "$/modules/audio/states";
 import { stepPlaybackRate } from "$/modules/audio/utils/playback-rate";
@@ -118,6 +119,7 @@ export const AudioControls: FC = memo(() => {
 	const [audioLoaded, setAudioLoaded] = useState(false);
 	const playbackRate = useAtomValue(playbackRateAtom);
 	const preservesPitch = useAtomValue(preservesPitchAtom);
+	const scrubAudio = useAtomValue(scrubAudioAtom);
 	const [spectrogramVisible, setSpectrogramVisible] = useState(false);
 	const currentDuration = useAtomValue(currentDurationAtom);
 	const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
@@ -177,6 +179,10 @@ export const AudioControls: FC = memo(() => {
 	useEffect(() => {
 		audioEngine.preservesPitch = preservesPitch;
 	}, [preservesPitch]);
+
+	useEffect(() => {
+		audioEngine.scrubAudio = scrubAudio;
+	}, [scrubAudio]);
 
 	return (
 		<Card

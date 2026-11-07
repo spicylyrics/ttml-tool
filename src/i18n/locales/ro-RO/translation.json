@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Menține redarea și centrează versul activ când treci între Editare, Sincronizare și Previzualizare.",
       "volume": "Volumul muzicii",
       "playbackRate": "Viteză de redare",
+      "scrubAudio": "Auzi sunetul când tragi",
+      "scrubAudioDesc": "Redă melodia de sub capul de redare în timp ce îl tragi în bara audio sau în spectrogramă. Urmează Păstrează înălțimea sunetului.",
       "autosave": {
         "enable": "Activează salvarea automată",
         "enableDesc": "Salvează versurile la câteva secunde după fiecare modificare și păstrează versiuni pe care le poți restaura din meniul Fișier.",

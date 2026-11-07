@@ -5,6 +5,8 @@ import type {
 	PlayerEvent,
 	RendererEvent,
 } from "./protocol";
+import { ScrubVoice } from "./scrub-voice";
+import { SignalsmithStretcher } from "./signalsmith";
 
 declare const currentTime: number;
 declare abstract class AudioWorkletProcessor {
@@ -22,6 +24,7 @@ declare function registerProcessor(
 class PcmPlayer extends AudioWorkletProcessor {
 	private rendererPort: MessagePort | null = null;
 	private destroyed = false;
+	private scrub: ScrubVoice | null = null;
 	private voices = {
 		music: new BufferedPcmVoice((packet) => this.recycle(packet)),
 		audition: new BufferedPcmVoice((packet) => this.recycle(packet)),
@@ -32,6 +35,23 @@ class PcmPlayer extends AudioWorkletProcessor {
 		this.port.onmessage = (event: MessageEvent<PlayerCommand>) => {
 			const command = event.data;
 			if (command.type === "init") {
+				if (command.scrub) {
+					const { channels, sampleRate, signalsmithWasm } = command.scrub;
+					try {
+						this.scrub = new ScrubVoice(
+							channels,
+							sampleRate,
+							new SignalsmithStretcher(
+								new WebAssembly.Module(signalsmithWasm),
+								channels,
+								sampleRate,
+							),
+						);
+					} catch {
+						// Scrubbing just stays silent; playback doesn't depend on it.
+						this.scrub = null;
+					}
+				}
 				this.rendererPort = command.port;
 				command.port.onmessage = (event: MessageEvent<RendererEvent>) => {
 					const message = event.data;
@@ -43,7 +63,10 @@ class PcmPlayer extends AudioWorkletProcessor {
 			} else if (command.type === "voice") {
 				this.rendererPort?.postMessage(command);
 				this.voices[command.voice].setState(command.state);
+			} else if (command.type === "scrub") {
+				this.scrub?.set(command.state);
 			} else {
+				this.scrub = null;
 				this.voices.music.clear();
 				this.voices.audition.clear();
 				this.rendererPort?.close();
@@ -80,6 +103,7 @@ class PcmPlayer extends AudioWorkletProcessor {
 		const audition = this.voices.audition.render(output, currentTime);
 		if (audition)
 			this.post({ type: "render", voice: "audition", report: audition });
+		this.scrub?.render(output);
 		return true;
 	}
 }

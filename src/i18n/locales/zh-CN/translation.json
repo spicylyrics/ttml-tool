@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "在编辑、打轴和预览标签页之间切换时保持播放，并将当前歌词行居中。",
       "volume": "音乐音量",
       "playbackRate": "播放倍速",
+      "scrubAudio": "拖动时播放音频",
+      "scrubAudioDesc": "在音频栏或频谱图中拖动播放头时，播放其下方的歌曲。跟随保持音高设置。",
       "autosave": {
         "enable": "启用自动保存",
         "enableDesc": "每次修改几秒后保存歌词，并保留快照，可从“文件”菜单恢复。",

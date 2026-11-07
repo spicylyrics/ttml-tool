@@ -47,6 +47,8 @@ export const playbackRateAtom = atom(
 	},
 );
 export const preservesPitchAtom = atomWithStorage("preservesPitch", true);
+/** Dragging the playhead plays the song under it. */
+export const scrubAudioAtom = atomWithStorage("scrubAudio", true);
 export const audioPlayingAtom = atom(false);
 export const loadedAudioAtom = atom(new Blob([]));
 /** Object URL for artwork embedded in the currently loaded audio file. */

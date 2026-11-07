@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Maintient la lecture et centre la ligne active quand vous passez entre Édition, Synchronisation et Aperçu.",
       "volume": "Volume de la musique",
       "playbackRate": "Vitesse de lecture",
+      "scrubAudio": "Entendre l'audio en faisant glisser",
+      "scrubAudioDesc": "Joue le morceau sous la tête de lecture pendant que vous la faites glisser dans la barre audio ou le spectrogramme. Suit Conserver la hauteur.",
       "autosave": {
         "enable": "Activer la sauvegarde automatique",
         "enableDesc": "Enregistre vos paroles quelques secondes après chaque modification et conserve des instantanés que vous pouvez restaurer depuis le menu Fichier.",
