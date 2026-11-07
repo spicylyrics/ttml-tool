@@ -4,10 +4,11 @@ const DEFAULT_MIN_ZOOM = 50;
 /**
  * Below this zoom, lines draw as plain bars without their words. A word is a
  * few pixels wide there, too small to read or grab, and drawing a whole song's
- * words on every zoom frame took ~30 ms. Above the old 50 px/s floor, so
- * nothing reachable before changes.
+ * words on every zoom frame took ~30 ms. It's the old 50 px/s floor: every
+ * zoom reachable before still shows words, and only the newly reachable
+ * zoomed-out range shows bars.
  */
-export const WORD_DETAIL_MIN_ZOOM = 30;
+export const WORD_DETAIL_MIN_ZOOM = DEFAULT_MIN_ZOOM;
 
 /**
  * Lowest zoom (pixels per second): far enough out for the whole song to fit
