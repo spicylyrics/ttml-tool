@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Mantém a reprodução e centraliza a linha ativa ao alternar entre Edição, Sincronização e Prévia.",
       "volume": "Volume da música",
       "playbackRate": "Velocidade de reprodução",
+      "stretchEngine": "Reprodução com tom preservado",
+      "stretchEngineDesc": "Usado quando Preservar o tom está ativado e a velocidade não é 1x.",
+      "stretchEngineClearer": "Mais nítido",
+      "stretchEngineClearerDesc": "Vocais mais limpos em câmera lenta, usa um pouco mais de CPU",
+      "stretchEngineLighter": "Mais leve",
+      "stretchEngineLighterDesc": "O mecanismo anterior, experimente se a reprodução engasgar",
       "autosave": {
         "enable": "Ativar salvamento automático",
         "enableDesc": "Salva a letra alguns segundos após cada alteração e mantém instantâneos que você pode restaurar pelo menu Arquivo.",

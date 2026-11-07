@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Maintient la lecture et centre la ligne active quand vous passez entre Édition, Synchronisation et Aperçu.",
       "volume": "Volume de la musique",
       "playbackRate": "Vitesse de lecture",
+      "stretchEngine": "Lecture à hauteur conservée",
+      "stretchEngineDesc": "Utilisé quand Conserver la hauteur est activé et que la vitesse n'est pas 1x.",
+      "stretchEngineClearer": "Plus nette",
+      "stretchEngineClearerDesc": "Voix plus propres au ralenti, utilise un peu plus le processeur",
+      "stretchEngineLighter": "Plus légère",
+      "stretchEngineLighterDesc": "L'ancien moteur, essayez-le si la lecture saccade",
       "autosave": {
         "enable": "Activer la sauvegarde automatique",
         "enableDesc": "Enregistre vos paroles quelques secondes après chaque modification et conserve des instantanés que vous pouvez restaurer depuis le menu Fichier.",

@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Menține redarea și centrează versul activ când treci între Editare, Sincronizare și Previzualizare.",
       "volume": "Volumul muzicii",
       "playbackRate": "Viteză de redare",
+      "stretchEngine": "Redare cu înălțimea păstrată",
+      "stretchEngineDesc": "Folosit când Păstrează înălțimea sunetului este activat și viteza nu este 1x.",
+      "stretchEngineClearer": "Mai clar",
+      "stretchEngineClearerDesc": "Voce mai curată la încetinire, folosește puțin mai mult procesorul",
+      "stretchEngineLighter": "Mai ușor",
+      "stretchEngineLighterDesc": "Motorul anterior, încearcă-l dacă redarea sacadează",
       "autosave": {
         "enable": "Activează salvarea automată",
         "enableDesc": "Salvează versurile la câteva secunde după fiecare modificare și păstrează versiuni pe care le poți restaura din meniul Fișier.",

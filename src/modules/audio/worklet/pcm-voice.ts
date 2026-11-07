@@ -15,6 +15,18 @@ export interface StretchProcessor {
 	extractOutput(frames: number): number;
 }
 
+/** A stretcher that renders straight from a source position (Signalsmith). */
+export interface PositionalStretcher {
+	reset(position: number, rate: number, end: number): void;
+	render(
+		position: number,
+		rate: number,
+		end: number,
+		output: Float32Array[],
+		frames: number,
+	): void;
+}
+
 /**
  * SoundTouch's Spectral stretcher starts its output this far into its input:
  * 90 - 60 * tempo source milliseconds (60 ms at 0.5x, 30 ms at 1x), measured
@@ -67,6 +79,8 @@ export class PcmVoice {
 	private paddedFrames = 0;
 	private renderedSinceSeek = 0;
 	private processor: StretchProcessor | null = null;
+	private positional: PositionalStretcher | null = null;
+	private mode: "direct" | "soundtouch" | "signalsmith" = "direct";
 	private inputChunk = 0;
 	private discardFrames = 0;
 
@@ -75,6 +89,7 @@ export class PcmVoice {
 		private sampleRate: number,
 		private memory: WebAssembly.Memory,
 		private createProcessor: () => StretchProcessor,
+		private createPositional?: () => PositionalStretcher,
 	) {
 		this.state = {
 			generation: 0,
@@ -83,6 +98,7 @@ export class PcmVoice {
 			playing: false,
 			rate: 1,
 			preservesPitch: true,
+			stretchEngine: "signalsmith",
 		};
 	}
 
@@ -94,6 +110,7 @@ export class PcmVoice {
 	destroy() {
 		this.processor?.free();
 		this.processor = null;
+		this.positional = null;
 	}
 
 	render(output: Float32Array[], contextTime: number): RenderReport | null {
@@ -104,7 +121,20 @@ export class PcmVoice {
 			this.paddedFrames = 0;
 			this.renderedSinceSeek = 0;
 			this.appliedGeneration = this.state.generation;
-			if (this.state.preservesPitch && this.state.rate !== 1) {
+			const stretched = this.state.preservesPitch && this.state.rate !== 1;
+			this.mode = !stretched
+				? "direct"
+				: this.state.stretchEngine === "signalsmith" && this.createPositional
+					? "signalsmith"
+					: "soundtouch";
+			if (this.mode === "signalsmith") {
+				this.positional ??= this.createPositional?.() ?? null;
+				this.positional?.reset(
+					this.state.frame,
+					this.state.rate,
+					Math.min(this.state.endFrame, this.channels[0].length),
+				);
+			} else if (this.mode === "soundtouch") {
 				this.processor ??= this.createProcessor();
 				this.processor.setTempo(this.state.rate);
 				this.processor.setPitch(1);
@@ -134,11 +164,16 @@ export class PcmVoice {
 		);
 		let rendered = 0;
 		if (allowed > 0) {
-			if (
-				this.state.preservesPitch &&
-				this.state.rate !== 1 &&
-				this.processor
-			) {
+			if (this.mode === "signalsmith" && this.positional) {
+				this.positional.render(
+					this.position,
+					this.state.rate,
+					end,
+					output,
+					allowed,
+				);
+				rendered = allowed;
+			} else if (this.mode === "soundtouch" && this.processor) {
 				rendered = this.renderStretched(output, allowed, end);
 			} else {
 				for (let i = 0; i < allowed; i++) {

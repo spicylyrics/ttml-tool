@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Keeps playback going and the active line centered when you switch between Edit, Time and Preview.",
       "volume": "Music volume",
       "playbackRate": "Playback speed",
+      "stretchEngine": "Pitch-preserved playback",
+      "stretchEngineDesc": "Used when Preserve pitch is on and the speed isn't 1x.",
+      "stretchEngineClearer": "Clearer",
+      "stretchEngineClearerDesc": "Cleaner vocals when slowed down, uses a bit more CPU",
+      "stretchEngineLighter": "Lighter",
+      "stretchEngineLighterDesc": "The previous engine, try it if playback stutters",
       "autosave": {
         "enable": "Enable autosave",
         "enableDesc": "Saves your lyrics a few seconds after each change and keeps snapshots you can restore from the File menu.",

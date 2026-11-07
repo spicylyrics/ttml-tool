@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Laat de muziek doorspelen en houdt de actieve regel in het midden wanneer je wisselt tussen Bewerken, Timing en Voorbeeld.",
       "volume": "Muziekvolume",
       "playbackRate": "Afspeelsnelheid",
+      "stretchEngine": "Afspelen met behouden toonhoogte",
+      "stretchEngineDesc": "Gebruikt als Toonhoogte behouden aan staat en de snelheid niet 1x is.",
+      "stretchEngineClearer": "Helderder",
+      "stretchEngineClearerDesc": "Schonere zang bij vertragen, gebruikt iets meer CPU",
+      "stretchEngineLighter": "Lichter",
+      "stretchEngineLighterDesc": "De vorige engine, probeer deze als het afspelen hapert",
       "autosave": {
         "enable": "Automatisch opslaan inschakelen",
         "enableDesc": "Slaat je songtekst een paar seconden na elke wijziging op en bewaart momentopnamen die je via het menu Bestand kunt herstellen.",

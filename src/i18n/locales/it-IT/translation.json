@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Mantiene la riproduzione e centra il verso attivo passando tra Modifica, Sincronizzazione e Anteprima.",
       "volume": "Volume della musica",
       "playbackRate": "Velocità di riproduzione",
+      "stretchEngine": "Riproduzione con intonazione mantenuta",
+      "stretchEngineDesc": "Usata quando Mantieni l’intonazione è attivo e la velocità non è 1x.",
+      "stretchEngineClearer": "Più nitida",
+      "stretchEngineClearerDesc": "Voci più pulite al rallentatore, usa un po' più di CPU",
+      "stretchEngineLighter": "Più leggera",
+      "stretchEngineLighterDesc": "Il motore precedente, provalo se la riproduzione scatta",
       "autosave": {
         "enable": "Abilita salvataggio automatico",
         "enableDesc": "Salva il testo qualche secondo dopo ogni modifica e conserva istantanee che puoi ripristinare dal menu File.",

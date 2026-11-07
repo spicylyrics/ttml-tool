@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Utrzymuje odtwarzanie i centruje aktywny wers przy przełączaniu między kartami Edycja, Synchronizacja i Podgląd.",
       "volume": "Głośność muzyki",
       "playbackRate": "Prędkość odtwarzania",
+      "stretchEngine": "Odtwarzanie z zachowaną wysokością",
+      "stretchEngineDesc": "Używane, gdy włączone jest Zachowaj wysokość dźwięku, a prędkość nie wynosi 1x.",
+      "stretchEngineClearer": "Czystszy",
+      "stretchEngineClearerDesc": "Czystszy wokal po spowolnieniu, nieco bardziej obciąża procesor",
+      "stretchEngineLighter": "Lżejszy",
+      "stretchEngineLighterDesc": "Poprzedni silnik, wypróbuj go, jeśli odtwarzanie się zacina",
       "autosave": {
         "enable": "Włącz automatyczny zapis",
         "enableDesc": "Zapisuje tekst kilka sekund po każdej zmianie i przechowuje migawki, które przywrócisz z menu Plik.",

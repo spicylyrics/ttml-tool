@@ -3,6 +3,7 @@ import { atomWithStorage, selectAtom } from "jotai/utils";
 import { atomWithMigratedStorage } from "$/modules/settings/states/migrated-storage";
 import { lyricLinesAtom } from "$/states/main.ts";
 import { clampPlaybackRate } from "../utils/playback-rate";
+import type { StretchEngine } from "../worklet/protocol";
 
 const activeLineIdsBaseAtom = atom((get) => {
 	const currentTime = get(currentTimeAtom);
@@ -47,6 +48,11 @@ export const playbackRateAtom = atom(
 	},
 );
 export const preservesPitchAtom = atomWithStorage("preservesPitch", true);
+/** Signalsmith sounds cleaner slowed down; SoundTouch is the lighter fallback. */
+export const stretchEngineAtom = atomWithStorage<StretchEngine>(
+	"stretchEngine",
+	"signalsmith",
+);
 export const audioPlayingAtom = atom(false);
 export const loadedAudioAtom = atom(new Blob([]));
 /** Object URL for artwork embedded in the currently loaded audio file. */

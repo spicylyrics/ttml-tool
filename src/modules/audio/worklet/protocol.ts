@@ -1,5 +1,8 @@
 export type VoiceId = "music" | "audition";
 
+/** Which pitch-preserving stretcher runs when the speed isn't 1x. */
+export type StretchEngine = "signalsmith" | "soundtouch";
+
 export interface VoiceState {
 	generation: number;
 	frame: number;
@@ -7,6 +10,7 @@ export interface VoiceState {
 	playing: boolean;
 	rate: number;
 	preservesPitch: boolean;
+	stretchEngine: StretchEngine;
 }
 
 export type PlayerCommand =
@@ -40,6 +44,7 @@ export type RendererCommand =
 			type: "init";
 			channels: Float32Array[];
 			wasm: ArrayBuffer;
+			signalsmithWasm: ArrayBuffer;
 			sampleRate: number;
 			port: MessagePort;
 	  }

@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Düzenle, Zamanla ve Önizleme sekmeleri arasında geçerken oynatmayı sürdürür ve etkin satırı ortalar.",
       "volume": "Müzik ses düzeyi",
       "playbackRate": "Oynatma hızı",
+      "stretchEngine": "Ses perdesi korunarak oynatma",
+      "stretchEngineDesc": "Ses perdesini koru açıkken ve hız 1x değilken kullanılır.",
+      "stretchEngineClearer": "Daha net",
+      "stretchEngineClearerDesc": "Yavaşlatıldığında daha temiz vokal, biraz daha fazla işlemci kullanır",
+      "stretchEngineLighter": "Daha hafif",
+      "stretchEngineLighterDesc": "Önceki motor, oynatma takılırsa bunu deneyin",
       "autosave": {
         "enable": "Otomatik kaydı etkinleştir",
         "enableDesc": "Şarkı sözlerinizi her değişiklikten birkaç saniye sonra kaydeder ve Dosya menüsünden geri yükleyebileceğiniz anlık görüntüler tutar.",

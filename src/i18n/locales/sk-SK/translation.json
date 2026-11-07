@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Zachová prehrávanie a vycentruje aktívny riadok pri prepínaní medzi kartami Úpravy, Časovanie a Náhľad.",
       "volume": "Hlasitosť hudby",
       "playbackRate": "Rýchlosť prehrávania",
+      "stretchEngine": "Prehrávanie so zachovanou výškou",
+      "stretchEngineDesc": "Použije sa, keď je zapnuté Zachovať výšku tónu a rýchlosť nie je 1x.",
+      "stretchEngineClearer": "Čistejšie",
+      "stretchEngineClearerDesc": "Čistejší spev pri spomalení, o niečo viac zaťažuje procesor",
+      "stretchEngineLighter": "Ľahšie",
+      "stretchEngineLighterDesc": "Predchádzajúci engine, skúste ho, ak sa prehrávanie seká",
       "autosave": {
         "enable": "Povoliť automatické ukladanie",
         "enableDesc": "Uloží text pár sekúnd po každej zmene a uchováva snímky, ktoré obnovíte z ponuky Súbor.",

@@ -23,8 +23,10 @@ import type {
 	PlayerEvent,
 	RendererCommand,
 	RenderReport,
+	StretchEngine,
 	VoiceId,
 } from "./worklet/protocol";
+import signalsmithWasmUrl from "./worklet/vendor/signalsmith-stretch.wasm?url";
 import wasmUrl from "./worklet/vendor/soundtouch_bg.wasm?url";
 
 interface PendingStart {
@@ -161,7 +163,7 @@ export class AudioEngine extends EventTarget {
 	private loadGeneration = 0;
 	private loadAbort: AbortController | null = null;
 	private workletReady: Promise<void> | null = null;
-	private wasmBytes: Promise<ArrayBuffer> | null = null;
+	private wasmBytes: Promise<[ArrayBuffer, ArrayBuffer]> | null = null;
 	private musicClock = new PcmClock();
 	private auditionClock = new PcmClock();
 	private musicGeneration = 0;
@@ -175,6 +177,7 @@ export class AudioEngine extends EventTarget {
 	private pendingStarts = new Map<VoiceId, PendingStart>();
 	private _musicPlayBackRate = 1;
 	private _preservesPitch = true;
+	private _stretchEngine: StretchEngine = "signalsmith";
 
 	get musicLoaded() {
 		return this.musicBuffer !== null;
@@ -216,6 +219,14 @@ export class AudioEngine extends EventTarget {
 		this._preservesPitch = value;
 		this.refreshVoices();
 		this.dispatchEvent(new Event("music-preserves-pitch-change"));
+	}
+	get stretchEngine() {
+		return this._stretchEngine;
+	}
+	set stretchEngine(value: StretchEngine) {
+		if (value === this._stretchEngine) return;
+		this._stretchEngine = value;
+		this.refreshVoices();
 	}
 	get volume() {
 		return this._volume;
@@ -282,6 +293,7 @@ export class AudioEngine extends EventTarget {
 				playing,
 				rate: this._musicPlayBackRate,
 				preservesPitch: this._preservesPitch,
+				stretchEngine: this._stretchEngine,
 			},
 		});
 		return generation;
@@ -565,18 +577,21 @@ export class AudioEngine extends EventTarget {
 				this.workletReady = null;
 				throw error;
 			});
-		this.wasmBytes ??= fetch(wasmUrl)
-			.then(async (response) => {
-				if (!response.ok)
-					throw new Error(`SoundTouch download failed: ${response.status}`);
-				const bytes = await response.arrayBuffer();
-				await WebAssembly.compile(bytes);
-				return bytes;
-			})
-			.catch((error) => {
-				this.wasmBytes = null;
-				throw error;
-			});
+		const download = async (url: string, name: string) => {
+			const response = await fetch(url);
+			if (!response.ok)
+				throw new Error(`${name} download failed: ${response.status}`);
+			const bytes = await response.arrayBuffer();
+			await WebAssembly.compile(bytes);
+			return bytes;
+		};
+		this.wasmBytes ??= Promise.all([
+			download(wasmUrl, "SoundTouch"),
+			download(signalsmithWasmUrl, "Signalsmith Stretch"),
+		]).catch((error) => {
+			this.wasmBytes = null;
+			throw error;
+		});
 		const [, wasm] = await Promise.all([this.workletReady, this.wasmBytes]);
 		return wasm;
 	}
@@ -626,7 +641,7 @@ export class AudioEngine extends EventTarget {
 				buffer = await this.ctx.decodeAudioData(wavBytes);
 			}
 			assertCurrent();
-			const wasm = await this.withTimeout(
+			const [wasm, signalsmithWasm] = await this.withTimeout(
 				this.prepareWorklet(),
 				audioErrorMessage("workletInit"),
 			);
@@ -683,6 +698,7 @@ export class AudioEngine extends EventTarget {
 				type: "init",
 				channels,
 				wasm,
+				signalsmithWasm,
 				sampleRate: buffer.sampleRate,
 				port: channel.port1,
 			};

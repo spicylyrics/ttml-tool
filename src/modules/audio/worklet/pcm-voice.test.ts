@@ -7,8 +7,10 @@ import type {
 	PcmPacket,
 	RendererCommand,
 	RendererEvent,
+	StretchEngine,
 	VoiceState,
 } from "./protocol";
+import { SignalsmithStretcher } from "./signalsmith";
 import {
 	initSync,
 	SoundTouchProcessor,
@@ -30,9 +32,13 @@ function state(overrides: Partial<VoiceState> = {}): VoiceState {
 		playing: true,
 		rate: 1,
 		preservesPitch: true,
+		stretchEngine: "soundtouch",
 		...overrides,
 	};
 }
+const signalsmithModule = new WebAssembly.Module(
+	readFileSync("src/modules/audio/worklet/vendor/signalsmith-stretch.wasm"),
+);
 function realVoice(channels: Float32Array[], sampleRate = 44100) {
 	return new PcmVoice(
 		channels,
@@ -44,8 +50,17 @@ function realVoice(channels: Float32Array[], sampleRate = 44100) {
 				sampleRate,
 				StretchAlgorithm.Spectral,
 			),
+		() => new SignalsmithStretcher(signalsmithModule, channels, sampleRate),
 	);
 }
+const ENGINES: StretchEngine[] = ["soundtouch", "signalsmith"];
+/**
+ * Below 0.5x Signalsmith deliberately wobbles its time factor, so a pure test
+ * tone dips by up to ~5 dB per 10 ms and a click can blur under the threshold.
+ * Music masks that; these level/click probes only hold for it from 0.5x up.
+ */
+const probes = (engine: StretchEngine, rate: number) =>
+	engine === "soundtouch" || rate >= 0.5;
 
 describe("decoded PCM playback", () => {
 	it("bounds background rendering and stops refills after pause", async () => {
@@ -71,6 +86,11 @@ describe("decoded PCM playback", () => {
 					sampleRate: 48000,
 					wasm: new Uint8Array(
 						readFileSync("src/modules/audio/worklet/vendor/soundtouch_bg.wasm"),
+					).buffer,
+					signalsmithWasm: new Uint8Array(
+						readFileSync(
+							"src/modules/audio/worklet/vendor/signalsmith-stretch.wasm",
+						),
 					).buffer,
 					port: port as unknown as MessagePort,
 				},
@@ -314,16 +334,18 @@ describe("decoded PCM playback", () => {
 		expect(report?.renderedFrames).toBe(0);
 		voice.destroy();
 	});
-	it.each([
-		0.1, 0.5, 0.75, 1.25, 2,
-	])("drains real SoundTouch at %sx and reaches the exact range endpoint", (rate) => {
+	it.each(
+		ENGINES.flatMap((engine) =>
+			[0.1, 0.5, 0.75, 1.25, 2].map((rate) => [engine, rate] as const),
+		),
+	)("drains real %s at %sx and reaches the exact range endpoint", (stretchEngine, rate) => {
 		const pcm = Float32Array.from({ length: 44100 }, (_, index) =>
 			Math.sin(index * 0.062),
 		);
 		const voice = realVoice([pcm, pcm]);
 		const start = 10000;
 		const end = 16000;
-		voice.setState(state({ frame: start, endFrame: end, rate }));
+		voice.setState(state({ frame: start, endFrame: end, rate, stretchEngine }));
 		const output = [new Float32Array(128), new Float32Array(128)];
 		let rendered = 0;
 		let nonzero = false;
@@ -342,14 +364,20 @@ describe("decoded PCM playback", () => {
 		expect(rendered).toBeCloseTo(Math.ceil((end - start) / rate), 0);
 		voice.destroy();
 	});
-	it.each([
-		[0.25, 0],
-		[0.5, 0],
-		[0.5, 3],
-		[0.75, 3],
-		[1.25, 3],
-		[1.75, 3],
-	])("keeps stretched audio aligned with the frame clock at %sx after a seek to %ss", (rate, seekSeconds) => {
+	it.each(
+		ENGINES.flatMap((engine) =>
+			[
+				[0.25, 0],
+				[0.5, 0],
+				[0.5, 3],
+				[0.75, 3],
+				[1.25, 3],
+				[1.75, 3],
+			]
+				.filter(([rate]) => probes(engine, rate))
+				.map(([rate, seek]) => [engine, rate, seek] as const),
+		),
+	)("keeps %s audio aligned with the frame clock at %sx after a seek to %ss", (stretchEngine, rate, seekSeconds) => {
 		const sampleRate = 44100;
 		const pcm = Float32Array.from(
 			{ length: sampleRate * 6 },
@@ -365,7 +393,9 @@ describe("decoded PCM playback", () => {
 		for (const click of clicks) pcm.fill(0.9, click, click + 32);
 		const voice = realVoice([pcm], sampleRate);
 		const start = Math.round(seekSeconds * sampleRate);
-		voice.setState(state({ frame: start, endFrame: pcm.length, rate }));
+		voice.setState(
+			state({ frame: start, endFrame: pcm.length, rate, stretchEngine }),
+		);
 		const heard: number[] = [];
 		const output = [new Float32Array(128)];
 		for (let block = 0; heard.length < (1.8 / rate) * sampleRate; block++) {
@@ -380,20 +410,29 @@ describe("decoded PCM playback", () => {
 			);
 			// Error in song time, as the lyric clock sees it.
 			const errorMs = (((onset - expected) * rate) / sampleRate) * 1000;
-			expect(Math.abs(errorMs), `click at ${click}`).toBeLessThan(3);
+			// Signalsmith places a transient anywhere within its ~30 ms analysis hop,
+			// scaled by speed: under 2.2 ms up to 1.25x, up to ~5 ms at 2x. No drift.
+			const limit = stretchEngine === "signalsmith" && rate > 1.25 ? 6 : 3;
+			expect(Math.abs(errorMs), `click at ${click}`).toBeLessThan(limit);
 		}
 		voice.destroy();
 	});
-	it.each([
-		0.25, 0.5, 0.75, 1.25,
-	])("starts stretched audio at full level after a reset at %sx", (rate) => {
+	it.each(
+		ENGINES.flatMap((engine) =>
+			[0.25, 0.5, 0.75, 1.25]
+				.filter((rate) => probes(engine, rate))
+				.map((rate) => [engine, rate] as const),
+		),
+	)("starts %s audio at full level after a reset at %sx", (stretchEngine, rate) => {
 		const sampleRate = 44100;
 		const pcm = Float32Array.from(
 			{ length: sampleRate * 3 },
 			(_, i) => 0.5 * Math.sin((2 * Math.PI * 440 * i) / sampleRate),
 		);
 		const voice = realVoice([pcm], sampleRate);
-		voice.setState(state({ frame: sampleRate, endFrame: pcm.length, rate }));
+		voice.setState(
+			state({ frame: sampleRate, endFrame: pcm.length, rate, stretchEngine }),
+		);
 		const heard: number[] = [];
 		const output = [new Float32Array(128)];
 		for (let block = 0; block < 80; block++) {

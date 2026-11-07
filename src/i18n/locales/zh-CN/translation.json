@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "在编辑、打轴和预览标签页之间切换时保持播放，并将当前歌词行居中。",
       "volume": "音乐音量",
       "playbackRate": "播放倍速",
+      "stretchEngine": "保持音高时的播放引擎",
+      "stretchEngineDesc": "在开启保持音高且倍速不是 1x 时使用。",
+      "stretchEngineClearer": "更清晰",
+      "stretchEngineClearerDesc": "放慢时人声更干净，CPU 占用稍高",
+      "stretchEngineLighter": "更轻量",
+      "stretchEngineLighterDesc": "之前的引擎，播放卡顿时可以试试",
       "autosave": {
         "enable": "启用自动保存",
         "enableDesc": "每次修改几秒后保存歌词，并保留快照，可从“文件”菜单恢复。",

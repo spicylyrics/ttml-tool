@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Jatkaa toistoa ja pitää aktiivisen rivin keskellä, kun vaihdat Muokkaus-, Ajoitus- ja Esikatselu-välilehtien välillä.",
       "volume": "Musiikin äänenvoimakkuus",
       "playbackRate": "Toistonopeus",
+      "stretchEngine": "Toisto sävelkorkeus säilyttäen",
+      "stretchEngineDesc": "Käytetään, kun Säilytä sävelkorkeus on päällä eikä nopeus ole 1x.",
+      "stretchEngineClearer": "Selkeämpi",
+      "stretchEngineClearerDesc": "Puhtaampi laulu hidastettuna, käyttää hieman enemmän suoritinta",
+      "stretchEngineLighter": "Kevyempi",
+      "stretchEngineLighterDesc": "Aiempi moottori, kokeile sitä jos toisto pätkii",
       "autosave": {
         "enable": "Ota automaattinen tallennus käyttöön",
         "enableDesc": "Tallentaa sanoitukset muutaman sekunnin kuluttua jokaisesta muutoksesta ja säilyttää tilannekuvia, jotka voit palauttaa Tiedosto-valikosta.",

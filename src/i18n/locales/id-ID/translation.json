@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Pertahankan pemutaran dan pusatkan baris aktif saat beralih antara tab Edit, Sinkronisasi, dan Pratinjau.",
       "volume": "Volume musik",
       "playbackRate": "Kecepatan putar",
+      "stretchEngine": "Pemutaran dengan nada dipertahankan",
+      "stretchEngineDesc": "Dipakai saat Pertahankan nada aktif dan kecepatan bukan 1x.",
+      "stretchEngineClearer": "Lebih jernih",
+      "stretchEngineClearerDesc": "Vokal lebih bersih saat diperlambat, memakai sedikit lebih banyak CPU",
+      "stretchEngineLighter": "Lebih ringan",
+      "stretchEngineLighterDesc": "Mesin sebelumnya, coba ini jika pemutaran tersendat",
       "autosave": {
         "enable": "Aktifkan simpan otomatis",
         "enableDesc": "Menyimpan lirik beberapa detik setelah setiap perubahan dan menyimpan snapshot yang bisa dipulihkan lewat menu File.",

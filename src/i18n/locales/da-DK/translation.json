@@ -592,6 +592,12 @@
       "syncTabPositionDesc": "Fortsætter afspilningen og centrerer den aktive linje, når du skifter mellem Redigering, Timing og Forhåndsvisning.",
       "volume": "Musiklydstyrke",
       "playbackRate": "Afspilningshastighed",
+      "stretchEngine": "Afspilning med bevaret tonehøjde",
+      "stretchEngineDesc": "Bruges når Bevar tonehøjde er slået til og hastigheden ikke er 1x.",
+      "stretchEngineClearer": "Klarere",
+      "stretchEngineClearerDesc": "Renere vokal ved langsom afspilning, bruger lidt mere CPU",
+      "stretchEngineLighter": "Lettere",
+      "stretchEngineLighterDesc": "Den tidligere motor, prøv den hvis afspilningen hakker",
       "autosave": {
         "enable": "Aktiver automatisk lagring",
         "enableDesc": "Gemmer dine sangtekster et par sekunder efter hver ændring og beholder øjebliksbilleder, du kan gendanne fra menuen Filer.",

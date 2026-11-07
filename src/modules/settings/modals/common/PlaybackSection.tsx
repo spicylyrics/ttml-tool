@@ -1,5 +1,6 @@
 import { Speaker224Regular, TopSpeed24Regular } from "@fluentui/react-icons";
 import { Box, Card, Flex, Heading, Slider, Text } from "@radix-ui/themes";
+import { StretchEngineSetting } from "$/modules/audio/components/StretchEngineSetting";
 import {
 	MAX_PLAYBACK_RATE,
 	MIN_PLAYBACK_RATE,
@@ -71,5 +72,7 @@ export const PlaybackSection = ({
 				</Box>
 			</Flex>
 		</Card>
+
+		<StretchEngineSetting />
 	</Flex>
 );

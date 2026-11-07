@@ -5,6 +5,7 @@ import type {
 	VoiceId,
 	VoiceState,
 } from "../worklet/protocol";
+import { SignalsmithStretcher } from "../worklet/signalsmith";
 import {
 	initSync,
 	SoundTouchProcessor,
@@ -85,6 +86,7 @@ self.onmessage = (event: MessageEvent<RendererCommand>) => {
 	channelCount = command.channels.length;
 	try {
 		const { memory } = initSync({ module: command.wasm });
+		const signalsmith = new WebAssembly.Module(command.signalsmithWasm);
 		const createVoice = (): Voice => ({
 			renderer: new PcmVoice(
 				command.channels,
@@ -95,6 +97,12 @@ self.onmessage = (event: MessageEvent<RendererCommand>) => {
 						channelCount,
 						command.sampleRate,
 						StretchAlgorithm.Spectral,
+					),
+				() =>
+					new SignalsmithStretcher(
+						signalsmith,
+						command.channels,
+						command.sampleRate,
 					),
 			),
 			state: null,
