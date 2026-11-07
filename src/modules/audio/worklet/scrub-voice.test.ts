@@ -158,6 +158,33 @@ describe("scrub voice", () => {
 		}
 	});
 
+	it.each([
+		true,
+		false,
+	])("keeps sounding through a slow pixel-by-pixel drag (pitch kept: %s)", (preservesPitch) => {
+		// 0.15x with a report every 120 ms: one pixel at a time on a slow drag.
+		// It used to fade to nothing between pixels. (Kept pitch wobbles in level
+		// this slow on a pure tone, the library's own variation, so the check is
+		// "never drops out" rather than "steady".)
+		const floor = preservesPitch ? 0.02 : 0.1;
+		const scrub = voice();
+		const heard = play(
+			scrub,
+			1.5,
+			pointer(scrub, sampleRate, 0.15, preservesPitch, 0.12),
+		);
+		const window = Math.round(sampleRate * 0.025);
+		for (
+			let from = sampleRate * 0.4;
+			from + window < heard.length;
+			from += window
+		)
+			expect(
+				rms(heard.subarray(from, from + window)),
+				`at ${(from / sampleRate).toFixed(3)}s`,
+			).toBeGreaterThan(floor);
+	});
+
 	it("goes quiet when the pointer stops in tape mode", () => {
 		const scrub = voice();
 		const move = pointer(scrub, sampleRate, 1, false, 0.016);

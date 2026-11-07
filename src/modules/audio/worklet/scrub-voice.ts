@@ -14,8 +14,13 @@ export interface PositionalStretcher {
 
 /** Smoothing of the measured pointer speed, which becomes the playback rate. */
 const SPEED_SECONDS = 0.05;
-/** No pointer update for this long means it's being held still. */
+/**
+ * No pointer update for 1.5 report intervals (within these bounds) means it's
+ * held still. A crawling mouse moves a pixel at a time, often 100+ ms apart,
+ * and a fixed short timeout faded the sound out between every pixel.
+ */
 const HOLD_SECONDS = 0.06;
+const MAX_HOLD_SECONDS = 0.25;
 /** How gently the heard position is pulled onto the dragged one. */
 const CORRECT_SECONDS = 0.15;
 /** Faster pull once the pointer is held, so the sound lands on the playhead. */
@@ -55,6 +60,7 @@ export class ScrubVoice {
 	private targetSpeed = 0;
 	private lastTime = 0;
 	private framesSinceInput = 0;
+	private inputInterval = 0;
 	private readonly scratch: Float32Array[];
 
 	constructor(
@@ -80,9 +86,13 @@ export class ScrubVoice {
 			this.jumping = false;
 			this.speed = 0;
 			this.targetSpeed = 0;
+			this.inputInterval = 0;
 			this.stretcher.reset(this.position, 0, length);
 		} else if (state.active && state.time > this.lastTime) {
 			const elapsed = ((state.time - this.lastTime) / 1000) * this.sampleRate;
+			// A real pause isn't a report interval; keep the last one.
+			if (elapsed <= MAX_HOLD_SECONDS * this.sampleRate)
+				this.inputInterval = elapsed;
 			this.targetSpeed = Math.max(
 				-MAX_RATE,
 				Math.min(MAX_RATE, (frame - this.target) / elapsed),
@@ -103,7 +113,11 @@ export class ScrubVoice {
 		const frames = output[0].length;
 		const length = this.channels[0].length;
 		this.framesSinceInput += frames;
-		const held = this.framesSinceInput > HOLD_SECONDS * this.sampleRate;
+		const holdFrames = Math.max(
+			HOLD_SECONDS * this.sampleRate,
+			Math.min(MAX_HOLD_SECONDS * this.sampleRate, this.inputInterval * 1.5),
+		);
+		const held = this.framesSinceInput > holdFrames;
 		if (held) this.targetSpeed = 0;
 		const smoothing = 1 - Math.exp(-frames / (SPEED_SECONDS * this.sampleRate));
 		this.speed += (this.targetSpeed - this.speed) * smoothing;
