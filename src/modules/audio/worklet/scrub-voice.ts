@@ -21,11 +21,13 @@ const CORRECT_SECONDS = 0.15;
 /** Faster pull once the pointer is held, so the sound lands on the playhead. */
 const SETTLE_SECONDS = 0.04;
 const MAX_RATE = 8;
-/** Fade in on grab and out on release, so neither clicks. */
+/** Further behind the playhead than this, fade out and jump there instead. */
+const JUMP_SECONDS = 0.25;
+/** Fade in on grab and out on release or a jump, so none of them click. */
 const FADE_SECONDS = 0.012;
-/** Tape mode goes quiet below this many source frames per output frame. */
-const TAPE_SILENT_SPEED = 0.02;
-const TAPE_FULL_SPEED = 0.25;
+/** Quiet below this many source frames per output frame, full from the next. */
+const SILENT_SPEED = 0.02;
+const FULL_SPEED = 0.25;
 
 /**
  * Plays the song at a dragged playhead, rendered in the audio callback so it
@@ -34,11 +36,12 @@ const TAPE_FULL_SPEED = 0.25;
  * The playback rate is the pointer's measured speed (from the input events'
  * own timestamps), smoothed, plus a gentle pull toward the dragged position.
  * Chasing each pointer step directly would make the rate spike after every
- * event and decay before the next, which tape mode turns into a warble.
+ * event and decay before the next, which tape mode turns into a warble. A
+ * drag too fast or far to follow jumps instead of racing to catch up.
  *
- * With pitch kept (Signalsmith) the spot under the playhead keeps sounding
- * while the pointer holds still; tape mode reads the song at that speed, so
- * pitch follows the drag and it goes silent when the pointer stops.
+ * It only sounds while the playhead moves, fading with speed. With pitch kept
+ * (Signalsmith) speech stays at its own pitch; tape mode reads the song at the
+ * drag speed, so the pitch follows the drag.
  */
 export class ScrubVoice {
 	private active = false;
@@ -46,7 +49,8 @@ export class ScrubVoice {
 	private target = 0;
 	private position = 0;
 	private gain = 0;
-	private tapeLevel = 0;
+	private motionLevel = 0;
+	private jumping = false;
 	private speed = 0;
 	private targetSpeed = 0;
 	private lastTime = 0;
@@ -72,7 +76,8 @@ export class ScrubVoice {
 			// A fresh grab starts at the pointer; a quick re-grab while still fading
 			// out keeps gliding from where the sound is.
 			if (this.gain === 0) this.position = frame;
-			this.tapeLevel = 0;
+			this.motionLevel = 0;
+			this.jumping = false;
 			this.speed = 0;
 			this.targetSpeed = 0;
 			this.stretcher.reset(this.position, 0, length);
@@ -106,6 +111,17 @@ export class ScrubVoice {
 		// pointer by design; pull only against error beyond that, so a steady
 		// drag plays at exactly its speed. Once held, settle quickly onto it.
 		const expectedLag = this.speed * SPEED_SECONDS * this.sampleRate;
+		if (
+			Math.abs(this.target - expectedLag - this.position) >
+			JUMP_SECONDS * this.sampleRate
+		)
+			this.jumping = true;
+		if (this.jumping && this.gain === 0) {
+			// Faded out: land where the sound should be and fade back in.
+			this.position = Math.max(0, Math.min(length, this.target - expectedLag));
+			this.stretcher.reset(this.position, this.speed, length);
+			this.jumping = false;
+		}
 		const pull =
 			(this.target - expectedLag - this.position) /
 			((held ? SETTLE_SECONDS : CORRECT_SECONDS) * this.sampleRate);
@@ -116,8 +132,6 @@ export class ScrubVoice {
 				? this.scratch
 				: this.channels.map(() => new Float32Array(frames));
 
-		let levelFrom = 1;
-		let levelTo = 1;
 		if (this.preservesPitch) {
 			this.stretcher.render(this.position, rate, length, scratch, frames);
 		} else {
@@ -132,23 +146,23 @@ export class ScrubVoice {
 						source[index] + (source[next] - source[index]) * fraction;
 				}
 			}
-			const speed = Math.abs(rate);
-			levelFrom = this.tapeLevel;
-			levelTo = Math.max(
-				0,
-				Math.min(
-					1,
-					(speed - TAPE_SILENT_SPEED) / (TAPE_FULL_SPEED - TAPE_SILENT_SPEED),
-				),
-			);
-			this.tapeLevel = levelTo;
 		}
+		const levelFrom = this.motionLevel;
+		const levelTo = Math.max(
+			0,
+			Math.min(
+				1,
+				(Math.abs(rate) - SILENT_SPEED) / (FULL_SPEED - SILENT_SPEED),
+			),
+		);
+		this.motionLevel = levelTo;
 
 		const fadeStep = frames / (FADE_SECONDS * this.sampleRate);
 		const gainFrom = this.gain;
-		const gainTo = this.active
-			? Math.min(1, gainFrom + fadeStep)
-			: Math.max(0, gainFrom - fadeStep);
+		const gainTo =
+			this.active && !this.jumping
+				? Math.min(1, gainFrom + fadeStep)
+				: Math.max(0, gainFrom - fadeStep);
 		for (let i = 0; i < frames; i++) {
 			const t = (i + 1) / frames;
 			const level =

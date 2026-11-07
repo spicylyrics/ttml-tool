@@ -69,18 +69,35 @@ function pointer(
 }
 
 describe("scrub voice", () => {
-	it("keeps sounding at the held spot with pitch kept", () => {
-		const scrub = voice();
+	it.each([
+		true,
+		false,
+	])("jumps after a far fling instead of racing to catch up (pitch kept: %s)", (preservesPitch) => {
+		const long = Float32Array.from(
+			{ length: sampleRate * 40 },
+			(_, i) => 0.5 * Math.sin((2 * Math.PI * 440 * i) / sampleRate),
+		);
+		const scrub = voice(long);
+		scrub.set({ active: true, frame: sampleRate, preservesPitch, time: 0 });
+		play(scrub, 0.05);
 		scrub.set({
 			active: true,
-			frame: sampleRate,
-			preservesPitch: true,
-			time: 0,
+			frame: sampleRate * 30,
+			preservesPitch,
+			time: 66,
 		});
-		const heard = play(scrub, 0.4);
-		const held = heard.subarray(sampleRate * 0.1);
-		expect(rms(held)).toBeGreaterThan(0.08);
-		expect(pitch(held)).toBeCloseTo(440, -1);
+		const after = play(scrub, 1);
+		expect(after.every(Number.isFinite)).toBe(true);
+		// Racing 29 s at the 8x cap would still be sounding for seconds.
+		expect(rms(after.subarray(sampleRate * 0.4))).toBeLessThan(0.01);
+	});
+
+	it("goes silent while held with pitch kept", () => {
+		const scrub = voice();
+		const moving = play(scrub, 0.3, pointer(scrub, sampleRate, 1, true, 0.016));
+		expect(rms(moving.subarray(sampleRate * 0.15))).toBeGreaterThan(0.2);
+		const held = play(scrub, 0.4).subarray(sampleRate * 0.25);
+		expect(rms(held)).toBeLessThan(0.01);
 	});
 
 	it.each([
@@ -151,16 +168,10 @@ describe("scrub voice", () => {
 
 	it("fades out on release instead of cutting off", () => {
 		const scrub = voice();
-		scrub.set({
-			active: true,
-			frame: sampleRate,
-			preservesPitch: true,
-			time: 0,
-		});
-		play(scrub, 0.2);
+		play(scrub, 0.2, pointer(scrub, sampleRate, 1, true));
 		scrub.set({
 			active: false,
-			frame: sampleRate,
+			frame: sampleRate * 1.2,
 			preservesPitch: true,
 			time: 200,
 		});
