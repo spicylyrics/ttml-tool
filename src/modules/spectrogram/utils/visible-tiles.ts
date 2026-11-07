@@ -3,7 +3,9 @@ import type { useSpectrogramWorker } from "$/modules/spectrogram/hooks/useSpectr
 import type { TileComponentProps } from "../components/TileComponent.tsx";
 
 const TILE_DURATION_S = 5;
-const LOD_WIDTHS = [512, 1024, 2048, 4096, 8192];
+// The small sizes serve a zoomed-out view, where a whole song's tiles show
+// at once and each covers only a few dozen pixels.
+const LOD_WIDTHS = [128, 256, 512, 1024, 2048, 4096, 8192];
 
 export function updateVisibleSpectrogramTiles({
 	audioBuffer,

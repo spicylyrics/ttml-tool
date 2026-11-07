@@ -1,7 +1,13 @@
+import { clampZoom as clampSpectrogramZoom } from "$/modules/spectrogram/utils/zoom";
+
 export * from "./useAudioRegion";
 export * from "./useHoverGuide";
 
-export const clampZoom = (z: number) => Math.max(50, Math.min(z, 1000));
+export const clampZoom = (
+	z: number,
+	durationSeconds: number,
+	viewWidthPx: number,
+) => clampSpectrogramZoom(z, durationSeconds, viewWidthPx, 1000);
 export const clampScroll = (
 	s: number,
 	currentZoom: number,

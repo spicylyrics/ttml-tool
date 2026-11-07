@@ -7,8 +7,9 @@ import {
 	spectrogramZoomAtom,
 } from "$/modules/spectrogram/states";
 import { spectrogramFollowEngagedAtom } from "../states/follow-playhead";
+import { clampZoom } from "../utils/zoom";
 
-const clampZoom = (z: number) => Math.max(50, Math.min(z, 10000));
+const MAX_ZOOM = 10000;
 const initializedBuffers = new WeakMap<
 	ReturnType<typeof useStore>,
 	WeakSet<AudioBuffer>
@@ -120,7 +121,12 @@ export function useSpectrogramInteraction(
 				playheadAnchorRef.current = following ? anchorX : null;
 				const timeAtAnchor = (currentScroll + anchorX) / currentZoom;
 				const zoomFactor = event.deltaY < 0 ? 1.15 : 0.85;
-				const newZoom = clampZoom(currentZoom * zoomFactor);
+				const newZoom = clampZoom(
+					currentZoom * zoomFactor,
+					audioBuffer.duration,
+					containerWidth,
+					MAX_ZOOM,
+				);
 				if (newZoom === currentZoom) return;
 
 				const newScrollLeft = timeAtAnchor * newZoom - anchorX;
