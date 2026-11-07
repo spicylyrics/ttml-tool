@@ -47,10 +47,36 @@ function pitch(samples: Float32Array) {
 	return crossings / 2 / (samples.length / sampleRate);
 }
 
+/** A pointer reporting every `interval` seconds while moving at `speed`. */
+function pointer(
+	scrub: ScrubVoice,
+	start: number,
+	speed: number,
+	preservesPitch: boolean,
+	interval = 0,
+) {
+	let last = -Infinity;
+	return (time: number) => {
+		if (time - last < interval) return;
+		last = time;
+		scrub.set({
+			active: true,
+			frame: start + time * speed * sampleRate,
+			preservesPitch,
+			time: time * 1000,
+		});
+	};
+}
+
 describe("scrub voice", () => {
 	it("keeps sounding at the held spot with pitch kept", () => {
 		const scrub = voice();
-		scrub.set({ active: true, frame: sampleRate, preservesPitch: true });
+		scrub.set({
+			active: true,
+			frame: sampleRate,
+			preservesPitch: true,
+			time: 0,
+		});
 		const heard = play(scrub, 0.4);
 		const held = heard.subarray(sampleRate * 0.1);
 		expect(rms(held)).toBeGreaterThan(0.08);
@@ -62,14 +88,7 @@ describe("scrub voice", () => {
 	])("keeps the pitch while dragging at %sx", (speed) => {
 		const scrub = voice();
 		const start = sampleRate * 2;
-		scrub.set({ active: true, frame: start, preservesPitch: true });
-		const heard = play(scrub, 0.5, (time) =>
-			scrub.set({
-				active: true,
-				frame: start + time * speed * sampleRate,
-				preservesPitch: true,
-			}),
-		);
+		const heard = play(scrub, 0.5, pointer(scrub, start, speed, true));
 		const steady = heard.subarray(sampleRate * 0.15);
 		expect(steady.every(Number.isFinite)).toBe(true);
 		expect(pitch(steady)).toBeCloseTo(440, -1);
@@ -77,16 +96,21 @@ describe("scrub voice", () => {
 
 	it("is silent while held in tape mode and plays the song at drag speed", () => {
 		const scrub = voice();
-		scrub.set({ active: true, frame: sampleRate, preservesPitch: false });
+		scrub.set({
+			active: true,
+			frame: sampleRate,
+			preservesPitch: false,
+			time: 0,
+		});
 		expect(rms(play(scrub, 0.2).subarray(sampleRate * 0.05))).toBeLessThan(
 			0.01,
 		);
-		const start = sampleRate;
 		const heard = play(scrub, 0.5, (time) =>
 			scrub.set({
 				active: true,
-				frame: start + time * sampleRate,
+				frame: sampleRate + time * sampleRate,
 				preservesPitch: false,
+				time: 200 + time * 1000,
 			}),
 		);
 		const steady = heard.subarray(sampleRate * 0.2);
@@ -94,11 +118,52 @@ describe("scrub voice", () => {
 		expect(pitch(steady)).toBeCloseTo(440, -1);
 	});
 
+	it.each([
+		0.008, 0.016,
+	])("holds a steady tape pitch for a 1x drag reported every %ss", (interval) => {
+		// A mouse moves the playhead in steps. Chasing each step made the rate
+		// spike and decay between events, which warbled the pitch.
+		const scrub = voice();
+		const heard = play(
+			scrub,
+			1,
+			pointer(scrub, sampleRate, 1, false, interval),
+		);
+		const window = Math.round(sampleRate * 0.025);
+		for (
+			let from = sampleRate * 0.3;
+			from + window < heard.length;
+			from += window
+		) {
+			const hz = pitch(heard.subarray(from, from + window));
+			expect(hz, `at ${(from / sampleRate).toFixed(3)}s`).toBeGreaterThan(400);
+			expect(hz, `at ${(from / sampleRate).toFixed(3)}s`).toBeLessThan(480);
+		}
+	});
+
+	it("goes quiet when the pointer stops in tape mode", () => {
+		const scrub = voice();
+		const move = pointer(scrub, sampleRate, 1, false, 0.016);
+		play(scrub, 0.4, move);
+		const stopped = play(scrub, 0.4).subarray(sampleRate * 0.25);
+		expect(rms(stopped)).toBeLessThan(0.02);
+	});
+
 	it("fades out on release instead of cutting off", () => {
 		const scrub = voice();
-		scrub.set({ active: true, frame: sampleRate, preservesPitch: true });
+		scrub.set({
+			active: true,
+			frame: sampleRate,
+			preservesPitch: true,
+			time: 0,
+		});
 		play(scrub, 0.2);
-		scrub.set({ active: false, frame: sampleRate, preservesPitch: true });
+		scrub.set({
+			active: false,
+			frame: sampleRate,
+			preservesPitch: true,
+			time: 200,
+		});
 		const tail = play(scrub, 0.05);
 		// No jump to silence in the first block, nothing left after the fade.
 		expect(Math.max(...tail.subarray(0, 64).map(Math.abs))).toBeGreaterThan(
@@ -110,12 +175,13 @@ describe("scrub voice", () => {
 
 	it("stays inside the song when dragged past either end", () => {
 		const scrub = voice();
-		scrub.set({ active: true, frame: -5000, preservesPitch: false });
+		scrub.set({ active: true, frame: -5000, preservesPitch: false, time: 0 });
 		play(scrub, 0.05);
 		scrub.set({
 			active: true,
 			frame: tone.length + 5000,
 			preservesPitch: false,
+			time: 50,
 		});
 		const heard = play(scrub, 0.3);
 		expect(heard.every(Number.isFinite)).toBe(true);

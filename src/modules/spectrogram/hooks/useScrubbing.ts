@@ -3,6 +3,11 @@ import { useCallback, useEffect, useRef } from "react";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { audioBufferAtom, currentTimeAtom } from "$/modules/audio/states";
 
+/**
+ * Dragging the playhead or ruler scrubs the song. The time under the pointer
+ * is recomputed when the pointer moves and when the view scrolls or zooms
+ * under a still pointer, so wheel-scrolling mid-drag carries the playhead.
+ */
 export function useScrubbing(
 	scrollContainerRef: React.RefObject<HTMLDivElement | null>,
 	scrollLeft: number,
@@ -10,57 +15,61 @@ export function useScrubbing(
 ) {
 	const audioBuffer = useAtomValue(audioBufferAtom);
 	const setCurrentTime = useSetAtom(currentTimeAtom);
-	const isScrubbingRef = useRef(false);
-	const scrollLeftForScrubRef = useRef(scrollLeft);
-	const currentMouseXRef = useRef(0);
+	const scrubbingRef = useRef(false);
+	const clientXRef = useRef(0);
+	// Latest values for the window listeners, which live for the whole drag.
+	const viewRef = useRef({ scrollLeft, zoom, audioBuffer, setCurrentTime });
+	viewRef.current = { scrollLeft, zoom, audioBuffer, setCurrentTime };
 
-	const handleScrubMove = useCallback(
+	const update = useCallback(() => {
+		const container = scrollContainerRef.current;
+		const { scrollLeft, zoom, audioBuffer, setCurrentTime } = viewRef.current;
+		if (!container || !audioBuffer) return;
+		const rect = container.getBoundingClientRect();
+		const x = Math.max(0, Math.min(clientXRef.current - rect.left, rect.width));
+		const time = Math.max(
+			0,
+			Math.min((scrollLeft + x) / zoom, audioBuffer.duration),
+		);
+		audioEngine.scrubTo(time);
+		setCurrentTime(time * 1000);
+	}, [scrollContainerRef]);
+
+	const handleMove = useCallback(
 		(event: MouseEvent) => {
-			if (!scrollContainerRef.current || !audioBuffer) return;
-
-			const rect = scrollContainerRef.current.getBoundingClientRect();
-			const mouseX = event.clientX - rect.left;
-			currentMouseXRef.current = mouseX;
-
-			const clampedMouseX = Math.max(0, Math.min(mouseX, rect.width));
-
-			const timeAtCursor =
-				(scrollLeftForScrubRef.current + clampedMouseX) / zoom;
-
-			const clampedTime = Math.max(
-				0,
-				Math.min(timeAtCursor, audioBuffer.duration),
-			);
-
-			audioEngine.scrubTo(clampedTime);
-			setCurrentTime(clampedTime * 1000);
+			clientXRef.current = event.clientX;
+			update();
 		},
-		[audioBuffer, zoom, setCurrentTime, scrollContainerRef],
+		[update],
 	);
 
-	const handleScrubEnd = useCallback(() => {
-		if (isScrubbingRef.current) audioEngine.endScrub();
-		isScrubbingRef.current = false;
-		window.removeEventListener("mousemove", handleScrubMove);
-		window.removeEventListener("mouseup", handleScrubEnd);
-	}, [handleScrubMove]);
+	const handleEnd = useCallback(() => {
+		if (!scrubbingRef.current) return;
+		scrubbingRef.current = false;
+		audioEngine.endScrub();
+		window.removeEventListener("mousemove", handleMove);
+		window.removeEventListener("mouseup", handleEnd);
+	}, [handleMove]);
 
-	useEffect(() => handleScrubEnd, [handleScrubEnd]);
+	// The view moved under a still pointer (wheel scroll, zoom).
+	// biome-ignore lint/correctness/useExhaustiveDependencies: re-run on view changes
+	useEffect(() => {
+		if (scrubbingRef.current) update();
+	}, [scrollLeft, zoom, update]);
+
+	useEffect(() => handleEnd, [handleEnd]);
 
 	const handleScrubStart = useCallback(
 		(event: React.MouseEvent) => {
 			if (event.button !== 0) return;
 			event.preventDefault();
-			isScrubbingRef.current = true;
-			scrollLeftForScrubRef.current = scrollLeft;
+			scrubbingRef.current = true;
 			audioEngine.beginScrub();
-
-			handleScrubMove(event.nativeEvent);
-
-			window.addEventListener("mousemove", handleScrubMove);
-			window.addEventListener("mouseup", handleScrubEnd, { once: true });
+			handleMove(event.nativeEvent);
+			window.addEventListener("mousemove", handleMove);
+			window.addEventListener("mouseup", handleEnd);
 		},
-		[handleScrubMove, handleScrubEnd, scrollLeft],
+		[handleMove, handleEnd],
 	);
 
 	return { handleScrubStart };

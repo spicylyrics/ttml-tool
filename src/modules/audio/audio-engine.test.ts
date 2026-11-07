@@ -345,10 +345,14 @@ describe("PCM engine lifecycle", () => {
 });
 
 describe("scrubbing", () => {
+	/** Scrub commands without their timestamps, which must be present. */
 	const scrubCommands = (node: FakeNode) =>
-		node.commands.flatMap((command) =>
-			command.type === "scrub" ? [command.state] : [],
-		);
+		node.commands.flatMap((command) => {
+			if (command.type !== "scrub") return [];
+			const { time, ...rest } = command.state;
+			expect(time).toEqual(expect.any(Number));
+			return [rest];
+		});
 
 	it("holds playback while dragging, follows the pointer, then resumes there", async () => {
 		await engine.loadMusic(new Blob());

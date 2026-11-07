@@ -369,6 +369,7 @@ export class AudioEngine extends EventTarget {
 					active: true,
 					frame: this.scrubFrame,
 					preservesPitch: this._preservesPitch,
+					time: performance.now(),
 				},
 			});
 		this.dispatchEvent(new Event("music-seeked"));
@@ -379,7 +380,12 @@ export class AudioEngine extends EventTarget {
 		this.scrubFrame = null;
 		this.post({
 			type: "scrub",
-			state: { active: false, frame, preservesPitch: this._preservesPitch },
+			state: {
+				active: false,
+				frame,
+				preservesPitch: this._preservesPitch,
+				time: performance.now(),
+			},
 		});
 		this.setVoice("music", frame, this.playing);
 		this.dispatchEvent(new Event("music-seeked"));
