@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Onderhouder en bijdrager",
     "visitWebsite": "Bezoek website",
     "credits": "Credits en mededelingen van derden",
+    "creditsShow": "Details tonen",
+    "creditsHide": "Details verbergen",
     "creditsIntro": "Dit project omvat werk dat is aangepast van de volgende open-sourceprojecten.",
     "creditRoles": {
       "spicyLyrics": "Tekstweergave en lettertype, door Spikerko en bijdragers",

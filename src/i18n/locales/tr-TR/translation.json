@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Bakımcı ve katkıda bulunan",
     "visitWebsite": "Web sitesini aç",
     "credits": "Emeği geçenler ve üçüncü taraf bildirimleri",
+    "creditsShow": "Ayrıntıları göster",
+    "creditsHide": "Ayrıntıları gizle",
     "creditsIntro": "Bu proje aşağıdaki açık kaynaklı projelerden uyarlanan çalışmaları içermektedir.",
     "creditRoles": {
       "spicyLyrics": "Söz görüntüleyici ve yazı tipi, Spikerko ve katkıda bulunanlardan",

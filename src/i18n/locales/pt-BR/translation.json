@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Mantenedor e contribuidor",
     "visitWebsite": "Visitar site",
     "credits": "Créditos e avisos de terceiros",
+    "creditsShow": "Mostrar detalhes",
+    "creditsHide": "Ocultar detalhes",
     "creditsIntro": "Este projeto inclui trabalhos adaptados dos seguintes projetos de código aberto.",
     "creditRoles": {
       "spicyLyrics": "Renderizador de letras e fonte, por Spikerko e colaboradores",

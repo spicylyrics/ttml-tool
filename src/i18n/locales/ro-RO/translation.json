@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Responsabil și contribuitor",
     "visitWebsite": "Vizitează site-ul",
     "credits": "Credite și notificări ale terților",
+    "creditsShow": "Afișează detaliile",
+    "creditsHide": "Ascunde detaliile",
     "creditsIntro": "Acest proiect include lucrări adaptate din următoarele proiecte open-source.",
     "creditRoles": {
       "spicyLyrics": "Afișarea versurilor și fontul, de Spikerko și contribuitori",

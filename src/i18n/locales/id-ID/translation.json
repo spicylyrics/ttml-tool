@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Pengelola & kontributor",
     "visitWebsite": "Kunjungi situs web",
     "credits": "Kredit & pemberitahuan pihak ketiga",
+    "creditsShow": "Tampilkan detail",
+    "creditsHide": "Sembunyikan detail",
     "creditsIntro": "Proyek ini mencakup pekerjaan yang diadaptasi dari proyek sumber terbuka berikut.",
     "creditRoles": {
       "spicyLyrics": "Perender lirik dan font, oleh Spikerko dan kontributor",

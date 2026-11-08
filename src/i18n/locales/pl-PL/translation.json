@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Opiekun i współtwórca",
     "visitWebsite": "Odwiedź stronę internetową",
     "credits": "Podziękowania i informacje o zewnętrznych składnikach",
+    "creditsShow": "Pokaż szczegóły",
+    "creditsHide": "Ukryj szczegóły",
     "creditsIntro": "Ten projekt obejmuje prace zaadaptowane z następujących projektów open source.",
     "creditRoles": {
       "spicyLyrics": "Renderowanie tekstów i czcionka, autorstwa Spikerko i współtwórców",

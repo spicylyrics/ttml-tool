@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Vedligeholder og bidragyder",
     "visitWebsite": "Besøg hjemmesiden",
     "credits": "Tak og tredjepartsmeddelelser",
+    "creditsShow": "Vis detaljer",
+    "creditsHide": "Skjul detaljer",
     "creditsIntro": "Dette projekt omfatter arbejde tilpasset fra følgende open source-projekter.",
     "creditRoles": {
       "spicyLyrics": "Tekstvisning og skrifttype, af Spikerko og bidragydere",

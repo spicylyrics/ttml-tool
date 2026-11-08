@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Ylläpitäjä ja avustaja",
     "visitWebsite": "Vieraile verkkosivustolla",
     "credits": "Kiitokset ja kolmansien osapuolten ilmoitukset",
+    "creditsShow": "Näytä tiedot",
+    "creditsHide": "Piilota tiedot",
     "creditsIntro": "Tämä projekti sisältää työtä, joka on muokattu seuraavista avoimen lähdekoodin projekteista.",
     "creditRoles": {
       "spicyLyrics": "Sanoitusten piirto ja fontti, tekijöinä Spikerko ja avustajat",

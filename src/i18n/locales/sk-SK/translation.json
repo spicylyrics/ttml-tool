@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Správca a prispievateľ",
     "visitWebsite": "Navštíviť web",
     "credits": "Poďakovanie a informácie tretích strán",
+    "creditsShow": "Zobraziť podrobnosti",
+    "creditsHide": "Skryť podrobnosti",
     "creditsIntro": "Tento projekt zahŕňa prácu upravenú z nasledujúcich projektov s otvoreným zdrojom.",
     "creditRoles": {
       "spicyLyrics": "Vykresľovanie textov a písmo, od Spikerka a prispievateľov",

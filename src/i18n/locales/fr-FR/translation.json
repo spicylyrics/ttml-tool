@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Mainteneur et contributeur",
     "visitWebsite": "Visiter le site web",
     "credits": "Crédits et avis de tiers",
+    "creditsShow": "Afficher les détails",
+    "creditsHide": "Masquer les détails",
     "creditsIntro": "Ce projet comprend des travaux adaptés des projets open source suivants.",
     "creditRoles": {
       "spicyLyrics": "Rendu des paroles et police, par Spikerko et les contributeurs",

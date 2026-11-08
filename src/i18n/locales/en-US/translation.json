@@ -1762,6 +1762,8 @@
     "forkMaintainer": "Maintainer & contributor",
     "visitWebsite": "Visit website",
     "credits": "Credits & third-party notices",
+    "creditsShow": "Show details",
+    "creditsHide": "Hide details",
     "creditsIntro": "This project includes work adapted from the following open-source projects.",
     "creditRoles": {
       "spicyLyrics": "Lyrics renderer and font, by Spikerko and contributors",

@@ -1,4 +1,6 @@
-import { Badge, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { ChevronDownRegular, ChevronUpRegular } from "@fluentui/react-icons";
+import { Badge, Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { useId, useState } from "react";
 import styles from "./AboutSections.module.css";
 import { ExternalLink } from "./externalLinks";
 import type { AboutSettings } from "./useAboutSettings";
@@ -90,57 +92,89 @@ const CREDITS: Credit[] = [
 	},
 ];
 
-export const CreditsSection = ({ t }: Pick<AboutSettings, "t">) => (
-	<Card>
-		<Flex direction="column" gap="2">
-			<Heading size="3">
-				{t("aboutModal.credits", "Credits & third-party notices")}
-			</Heading>
-			<Text size="2" color="gray">
-				{t(
-					"aboutModal.creditsIntro",
-					"This project includes work adapted from the following open-source projects.",
-				)}
-			</Text>
-			<div className={styles.list}>
-				{CREDITS.map((credit) => (
-					<Flex
-						key={credit.name}
-						className={styles.row}
-						align="start"
-						justify="between"
-						gap="3"
+/**
+ * The project names always show, so the credit is never hidden; what each one
+ * does and its license open on request, which keeps the tab short.
+ */
+export const CreditsSection = ({ t }: Pick<AboutSettings, "t">) => {
+	const [open, setOpen] = useState(false);
+	const listId = useId();
+	return (
+		<Card>
+			<Flex direction="column" gap="2">
+				<Flex align="center" justify="between" gap="3">
+					<Heading size="3">
+						{t("aboutModal.credits", "Credits & third-party notices")}
+					</Heading>
+					<Button
+						variant="ghost"
+						color="gray"
+						size="1"
+						aria-expanded={open}
+						aria-controls={listId}
+						onClick={() => setOpen((value) => !value)}
 					>
-						<Flex direction="column" gap="1" minWidth="0">
-							<Text size="2" weight="medium">
-								{credit.url ? (
-									<ExternalLink href={credit.url}>{credit.name}</ExternalLink>
-								) : (
-									credit.name
-								)}
-							</Text>
-							<Text size="1" color="gray">
-								{credit.role(t)}
-							</Text>
-							{credit.notice && (
-								<Text size="1" color="gray">
-									{credit.notice}
-								</Text>
-							)}
-						</Flex>
-						{credit.license && (
-							<Badge
-								variant="soft"
-								color="gray"
-								radius="full"
-								className={styles.license}
+						{open ? <ChevronUpRegular /> : <ChevronDownRegular />}
+						{open
+							? t("aboutModal.creditsHide", "Hide details")
+							: t("aboutModal.creditsShow", "Show details")}
+					</Button>
+				</Flex>
+				<Text size="2" color="gray">
+					{t(
+						"aboutModal.creditsIntro",
+						"This project includes work adapted from the following open-source projects.",
+					)}
+				</Text>
+				{!open && (
+					<Text size="2">
+						{CREDITS.map((credit) => credit.name).join(", ")}
+					</Text>
+				)}
+				{open && (
+					<div id={listId} className={styles.list}>
+						{CREDITS.map((credit) => (
+							<Flex
+								key={credit.name}
+								className={styles.row}
+								align="start"
+								justify="between"
+								gap="3"
 							>
-								{credit.license}
-							</Badge>
-						)}
-					</Flex>
-				))}
-			</div>
-		</Flex>
-	</Card>
-);
+								<Flex direction="column" gap="1" minWidth="0">
+									<Text size="2" weight="medium">
+										{credit.url ? (
+											<ExternalLink href={credit.url}>
+												{credit.name}
+											</ExternalLink>
+										) : (
+											credit.name
+										)}
+									</Text>
+									<Text size="1" color="gray">
+										{credit.role(t)}
+									</Text>
+									{credit.notice && (
+										<Text size="1" color="gray">
+											{credit.notice}
+										</Text>
+									)}
+								</Flex>
+								{credit.license && (
+									<Badge
+										variant="soft"
+										color="gray"
+										radius="full"
+										className={styles.license}
+									>
+										{credit.license}
+									</Badge>
+								)}
+							</Flex>
+						))}
+					</div>
+				)}
+			</Flex>
+		</Card>
+	);
+};
