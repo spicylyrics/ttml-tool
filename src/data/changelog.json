@@ -1,5 +1,63 @@
 [
 	{
+		"version": "0.24.0-1",
+		"summary": "Scrubbing and spectrogram scales",
+		"color": "teal",
+		"date": "2026-11-08",
+		"prerelease": true,
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Hear the song while you drag the playhead",
+				"body": "Drag in the audio bar or spectrogram to find a syllable by ear, even while paused, or turn it off in Preferences",
+				"highlight": true,
+				"impact": 4
+			},
+			{
+				"type": "feature",
+				"title": "Set how far the arrow keys seek",
+				"body": "Pick the jump length next to the seek shortcuts in **Shortcuts**, and hold `←` or `→` to keep seeking",
+				"highlight": true,
+				"impact": 3
+			},
+			{
+				"type": "feature",
+				"title": "Log and mel frequency scales for the spectrogram",
+				"body": "Pick **Frequency scale** in the spectrogram settings to stretch out the low end where voices sit",
+				"highlight": true,
+				"impact": 3
+			},
+			{
+				"type": "feature",
+				"title": "Zoom the spectrogram out to the whole song",
+				"body": "Ctrl+scroll out until the whole song fits, with line numbers on the bars, so far-away parts are one zoom away",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "feature",
+				"title": "Voice range and steadier detail in the spectrogram",
+				"body": "Pick Voice under **Top frequency** to show up to 8 kHz, and zoomed-out views now keep short peaks while you scroll",
+				"highlight": false,
+				"impact": 2
+			},
+			{
+				"type": "fix",
+				"title": "Genius lyrics retry when Cloudflare blocks them",
+				"body": "Imports and romanized lookups try again on their own, then link to the song page if Genius keeps blocking the request",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Process lyrics asks you to check joined ad-libs",
+				"body": "Ad-libs from between words now continue in lowercase, and a dialog lets you fix names, capitals and commas",
+				"highlight": true,
+				"impact": 3
+			}
+		]
+	},
+	{
 		"version": "0.23.0",
 		"summary": "Beta channel",
 		"color": "orange",
