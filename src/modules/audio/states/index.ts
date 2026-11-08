@@ -3,6 +3,7 @@ import { atomWithStorage, selectAtom } from "jotai/utils";
 import { atomWithMigratedStorage } from "$/modules/settings/states/migrated-storage";
 import { lyricLinesAtom } from "$/states/main.ts";
 import { clampPlaybackRate } from "../utils/playback-rate";
+import { clampSeekStep, DEFAULT_SEEK_STEP } from "../utils/seek-step";
 
 const activeLineIdsBaseAtom = atom((get) => {
 	const currentTime = get(currentTimeAtom);
@@ -47,6 +48,12 @@ export const playbackRateAtom = atom(
 	},
 );
 export const preservesPitchAtom = atomWithStorage("preservesPitch", true);
+/** Seconds the seek forward and backward shortcuts jump. */
+export const seekStepAtom = atomWithMigratedStorage<number>(
+	"seekStep",
+	DEFAULT_SEEK_STEP,
+	{ normalize: clampSeekStep },
+);
 export const audioPlayingAtom = atom(false);
 export const loadedAudioAtom = atom(new Blob([]));
 /** Object URL for artwork embedded in the currently loaded audio file. */

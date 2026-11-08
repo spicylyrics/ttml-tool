@@ -35,9 +35,14 @@ import {
 	currentTimeAtom,
 	playbackRateAtom,
 	preservesPitchAtom,
+	seekStepAtom,
 	volumeAtom,
 } from "$/modules/audio/states";
 import { stepPlaybackRate } from "$/modules/audio/utils/playback-rate";
+import {
+	createRepeatThrottle,
+	seekTarget,
+} from "$/modules/audio/utils/seek-step";
 import { AuditionKeyBinding } from "$/modules/keyboard/components/AuditionKeyBinding";
 import { AudioSpectrogram } from "$/modules/spectrogram/components/AudioSpectrogram";
 import {
@@ -50,7 +55,10 @@ import {
 	keyVolumeDownAtom,
 	keyVolumeUpAtom,
 } from "$/states/keybindings.ts";
-import { useKeyBindingAtom } from "$/utils/keybindings.ts";
+import {
+	type KeyBindingEvent,
+	useKeyBindingAtom,
+} from "$/utils/keybindings.ts";
 import { msToTimestamp } from "$/utils/timestamp.ts";
 
 const AudioPlaybackKeyBinding = memo(() => {
@@ -61,15 +69,30 @@ const AudioPlaybackKeyBinding = memo(() => {
 		else audioEngine.resumeOrSeekMusic();
 	}, []);
 
-	useKeyBindingAtom(keySeekForwardAtom, () => {
-		audioEngine.seekMusic(
-			Math.min(audioEngine.musicCurrentTime + 5, audioEngine.musicDuration),
-		);
-	}, []);
+	// Holding a seek key keeps seeking, throttled so it stays steerable.
+	const [acceptSeek] = useState(() => createRepeatThrottle());
+	const seekBy = useCallback(
+		(direction: 1 | -1, evt: KeyBindingEvent) => {
+			if (!acceptSeek(evt)) return;
+			audioEngine.seekMusic(
+				seekTarget(
+					audioEngine.musicCurrentTime,
+					store.get(seekStepAtom),
+					direction,
+					audioEngine.musicDuration,
+				),
+			);
+		},
+		[acceptSeek, store],
+	);
 
-	useKeyBindingAtom(keySeekBackwardAtom, () => {
-		audioEngine.seekMusic(Math.max(audioEngine.musicCurrentTime - 5, 0));
-	}, []);
+	useKeyBindingAtom(keySeekForwardAtom, (evt) => seekBy(1, evt), [seekBy], {
+		repeat: true,
+	});
+
+	useKeyBindingAtom(keySeekBackwardAtom, (evt) => seekBy(-1, evt), [seekBy], {
+		repeat: true,
+	});
 
 	useKeyBindingAtom(keyVolumeUpAtom, () => {
 		store.set(volumeAtom, (v) => Math.min(1, v + 0.1));
