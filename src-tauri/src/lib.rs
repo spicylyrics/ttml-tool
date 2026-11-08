@@ -225,6 +225,56 @@ fn can_self_update() -> bool {
     !cfg!(target_os = "linux") || std::env::var_os("APPIMAGE").is_some()
 }
 
+const STABLE_UPDATE_FEED: &str =
+    "https://github.com/spicylyrics/ttml-tool/releases/latest/download/latest.json";
+/// Every release, stable or beta, that is newer than the one already there.
+const BETA_UPDATE_FEED: &str =
+    "https://github.com/spicylyrics/ttml-tool/releases/download/update-feed/beta.json";
+
+/// What the updater plugin's own `check` returns, so the JS `Update` class
+/// can download and install it as usual.
+#[derive(serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct UpdateMetadata {
+    rid: tauri::ResourceId,
+    current_version: String,
+    version: String,
+    date: Option<String>,
+    body: Option<String>,
+    raw_json: serde_json::Value,
+}
+
+/// The updater plugin's check, reading the beta feed when Beta updates is on.
+/// Never offers an older version, so turning beta off keeps the current one
+/// until stable passes it.
+#[tauri::command]
+async fn check_update(
+    webview: tauri::Webview,
+    beta: bool,
+) -> Result<Option<UpdateMetadata>, String> {
+    use tauri::Manager;
+    use tauri_plugin_updater::UpdaterExt;
+
+    let feed = if beta { BETA_UPDATE_FEED } else { STABLE_UPDATE_FEED };
+    let url = tauri::Url::parse(feed).map_err(|e| e.to_string())?;
+    let update = webview
+        .updater_builder()
+        .endpoints(vec![url])
+        .and_then(|builder| builder.build())
+        .map_err(|e| e.to_string())?
+        .check()
+        .await
+        .map_err(|e| e.to_string())?;
+    Ok(update.map(|update| UpdateMetadata {
+        current_version: update.current_version.clone(),
+        version: update.version.clone(),
+        date: update.date.map(|date| date.to_string()),
+        body: update.body.clone(),
+        raw_json: update.raw_json.clone(),
+        rid: webview.resources_table().add(update),
+    }))
+}
+
 /// How this copy was installed, for problem reports. On Linux, package-manager
 /// installs are told apart by the package database entry for our package.
 #[tauri::command]
@@ -643,8 +693,10 @@ pub fn run() {
         .plugin(tauri_plugin_persisted_scope::init())
         .plugin(tauri_plugin_process::init());
 
+    // Registered on every install so Flatpak and package-manager installs can
+    // check for updates too; only can_self_update installs download them.
     #[cfg(any(target_os = "macos", target_os = "linux"))]
-    if can_self_update() {
+    {
         builder = builder.plugin(tauri_plugin_updater::Builder::new().build());
     }
 
@@ -734,6 +786,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_open_file_data,
             can_self_update,
+            check_update,
             install_kind,
             uses_custom_title_bar,
             set_discord_activity,

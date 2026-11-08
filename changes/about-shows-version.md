@@ -1,8 +1,8 @@
 ---
 type: change
-impact: 2
-highlight: false
+impact: 3
+highlight: true
 ---
-About shows the app version
+A clearer About page
 
-**Preferences** › **About** lists the version above the build date, on the website and the desktop app
+**About** opens with your version and a Check for updates button, and the credits fold away until you need them

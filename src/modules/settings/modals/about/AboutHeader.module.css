@@ -1,0 +1,15 @@
+.mark {
+	flex: none;
+	width: 56px;
+	height: 56px;
+	/* Unset unless the user picked a logo color (src/modules/logo-color). */
+	color: var(--sl-logo-color, var(--accent-9));
+}
+
+.name {
+	letter-spacing: -0.014em;
+}
+
+.version {
+	font-variant-numeric: tabular-nums;
+}

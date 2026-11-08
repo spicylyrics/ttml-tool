@@ -1,0 +1,37 @@
+/* Rows in a card, split by hairlines instead of nested cards. */
+.list {
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	padding-block: var(--space-2);
+}
+
+.row + .row {
+	border-top: 1px solid var(--gray-a4);
+}
+
+.license {
+	flex: none;
+}
+
+/* A maintainer's name, role and website button, on a sunken well. */
+.person {
+	padding: var(--space-3);
+	border-radius: var(--radius-4);
+	background: var(--gray-3);
+	min-width: 0;
+}
+
+.avatarLink {
+	display: inline-flex;
+	border-radius: var(--radius-full);
+	outline-offset: 2px;
+}
+
+@media (prefers-contrast: more) {
+	.row + .row {
+		border-top-color: var(--gray-a7);
+	}
+}
