@@ -28,12 +28,15 @@ jobs:
       # tauri-action's create-then-upload path silently failed the Windows job in v0.10.1.
       # It stays a draft until finalize-release, so a failed or cancelled build never
       # leaves a half release as Latest for the updater (v0.22.0's first build did).
+      # Betas (vX.Y.Z-N) are pre-releases, so they never become Latest either.
       - name: Create release
         if: startsWith(github.ref, 'refs/tags/v')
         shell: bash
         run: |
+          prerelease=()
+          [[ "${{ github.ref_name }}" == *-* ]] && prerelease=(--prerelease)
           gh release view "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1 ||
-            gh release create "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --verify-tag --draft \
+            gh release create "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --verify-tag --draft "${prerelease[@]}" \
               --title "Spicy Lyrics TTML Tool ${{ github.ref_name }}" \
               --notes "Desktop release ${{ github.ref_name }}. Release notes are finalized after all platform assets are uploaded."
         env:
@@ -201,6 +204,31 @@ jobs:
           gh release upload "${{ github.ref_name }}" "$appimage_path" --clobber
         env:
           GH_TOKEN: ${{ github.token }}
+      # dpkg sorts 0.23.0-2 above 0.23.0, so a beta .deb would block the stable
+      # one from installing over it. Repack it as 0.23.0~2, which dpkg sorts
+      # below 0.23.0, sign it again and replace the upload under the same name,
+      # so latest.json's URL still matches. The .rpm gets the same in
+      # repack-beta-rpm, which needs Fedora's rpmrebuild.
+      - name: Give the beta .deb a pre-release version
+        if: matrix.platform == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v') && contains(github.ref_name, '-')
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          tilde="${version%%-*}~${version#*-}"
+          deb=$(find src-tauri/target -path '*/release/bundle/deb/*.deb' -type f -print -quit)
+          test -n "$deb"
+          dpkg-deb -R "$deb" "$RUNNER_TEMP/deb"
+          sed -i "s/^Version: .*/Version: $tilde/" "$RUNNER_TEMP/deb/DEBIAN/control"
+          # xz, not Ubuntu's default zstd, which dpkg before Debian 12 can't read.
+          dpkg-deb --root-owner-group -Zxz -b "$RUNNER_TEMP/deb" "$deb"
+          test "$(dpkg-deb -f "$deb" Version)" = "$tilde"
+          rm -f "$deb.sig"
+          pnpm tauri signer sign "$deb"
+          gh release upload "${{ github.ref_name }}" "$deb" "$deb.sig" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
       - uses: actions/upload-artifact@v6
         with:
           name: Spicy Lyrics TTML Tool ${{ matrix.name }}-${{ matrix.arch }}
@@ -262,10 +290,11 @@ jobs:
           mkdir -p "$work"
           cp packaging/archlinux/bin/PKGBUILD LICENSE "$work/"
           cp "$deb" "$work/amll-ttml-tool.deb"
-          # pacman versions can't contain "-".
+          # pacman versions can't contain "-". A beta 0.23.0-2 becomes 0.23.0beta2,
+          # which pacman sorts below 0.23.0, so the stable release still upgrades it.
           version=$(sed -n 's/^\t"version": "\([^"]*\)".*/\1/p' package.json)
           test -n "$version"
-          sed -i "s/^pkgver=.*/pkgver=${version//-/_}/" "$work/PKGBUILD"
+          sed -i "s/^pkgver=.*/pkgver=${version/-/beta}/" "$work/PKGBUILD"
           # makepkg refuses to run as root.
           useradd --create-home builder
           chown -R builder "$work"
@@ -278,13 +307,58 @@ jobs:
           path: arch-out/*.pkg.tar.zst
           if-no-files-found: error
 
+  # rpm sorts 0.23.0-2 above 0.23.0, like dpkg (see the .deb step above).
+  # Repacks the beta .rpm as 0.23.0~2 with rpmrebuild, which Ubuntu doesn't
+  # package, and signs it again. Its failure only leaves the -N .rpm in place.
+  repack-beta-rpm:
+    name: Repack beta .rpm (x86_64)
+    needs: build-tauri-desktop
+    if: ${{ !cancelled() && needs.build-tauri-desktop.result != 'skipped' && contains(github.ref_name, '-') && startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v7
+        with:
+          name: Spicy Lyrics TTML Tool linux-x86_64
+          path: linux-build
+      - name: Repack, sign and upload
+        shell: bash
+        run: |
+          dnf install -y --setopt=install_weak_deps=False rpmrebuild nodejs npm gh
+          version="${GITHUB_REF_NAME#v}"
+          tilde="${version%%-*}~${version#*-}"
+          rpm=$(find linux-build -path '*/bundle/rpm/*.rpm' -type f -print -quit)
+          test -n "$rpm"
+          name=$(basename "$rpm")
+          # rpmrebuild takes option values as separate words and wants an absolute path.
+          cp "$rpm" /tmp/beta.rpm
+          mkdir -p /tmp/rebuilt
+          rpmrebuild --package --notest-install --directory /tmp/rebuilt \
+            --change-spec-preamble "sed -e 's/^Version:.*/Version: $tilde/'" /tmp/beta.rpm
+          mkdir -p out
+          mv "$(find /tmp/rebuilt -name '*.rpm' -type f -print -quit)" "out/$name"
+          test "$(rpm -qp --queryformat '%{VERSION}' "out/$name")" = "$tilde"
+          cli=$(node -p "require('./package.json').devDependencies['@tauri-apps/cli'].replace(/^[^0-9]*/, '')")
+          npx --yes "@tauri-apps/cli@$cli" signer sign "out/$name"
+          gh release upload "${{ github.ref_name }}" "out/$name" "out/$name.sig" --repo "$GITHUB_REPOSITORY" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+
   finalize-release:
     name: Finalize release notes
     # A failed Flatpak or Arch package only leaves it off the release; notes and Winget still go out.
     if: ${{ startsWith(github.ref, 'refs/tags/v') && !cancelled() && needs.build-tauri-desktop.result == 'success' && needs.prepare-release-notes.result == 'success' }}
-    needs: [build-tauri-desktop, build-flatpak, build-arch, prepare-release-notes]
+    needs: [build-tauri-desktop, build-flatpak, build-arch, repack-beta-rpm, prepare-release-notes]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
       - uses: actions/download-artifact@v7
         if: needs.build-arch.result == 'success'
         with:
@@ -325,16 +399,62 @@ jobs:
             --title "Spicy Lyrics TTML Tool ${{ github.ref_name }}" --notes-file release-notes.md
         env:
           GH_TOKEN: ${{ github.token }}
+      # tauri-action fills latest.json's notes with the placeholder body; the
+      # in-app update card shows the real entries instead.
+      - name: Write the notes into the updater file
+        shell: bash
+        run: |
+          gh release download "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --pattern latest.json --dir updater
+          # Betas re-sign their .deb and .rpm after tauri-action wrote latest.json.
+          gh release download "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --pattern '*.sig' --dir signatures
+          node scripts/updater-feed.mjs notes --file updater/latest.json --version "${GITHUB_REF_NAME#v}" --signatures signatures
+          gh release upload "${{ github.ref_name }}" updater/latest.json --repo "$GITHUB_REPOSITORY" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
       # Every desktop build uploaded (this job needs them all), so the updater and
-      # the Latest badge can see it now.
+      # the Latest badge can see it now. Betas stay pre-releases, never Latest,
+      # so the stable feed (releases/latest/download/latest.json) never offers one.
       - name: Publish release
-        run: gh release edit "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --draft=false --latest
+        shell: bash
+        run: |
+          if [[ "${{ github.ref_name }}" == *-* ]]; then
+            gh release edit "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease --latest=false
+          else
+            gh release edit "${{ github.ref_name }}" --repo "$GITHUB_REPOSITORY" --draft=false --latest
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+      # The beta feed is beta.json on the rolling update-feed pre-release. Stable
+      # releases go in too, so beta users get the stable version once it passes
+      # their beta; an older hotfix never replaces a newer beta. The job token
+      # can't create the release (that makes a new tag), so it's made once by
+      # hand; see AGENTS.md.
+      # The beta website deploys from the beta branch, so it moves with the feed:
+      # each beta version is one website build, and nothing reaches testers until
+      # a release publishes. Forced because a hotfix cut from main isn't a
+      # descendant of the last beta; the version check is what stops it going
+      # backwards. Moved first, so re-running this job after a failure retries it.
+      - name: Update the beta feed and website branch
+        shell: bash
+        run: |
+          feed=update-feed
+          if ! gh release view "$feed" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "::error::The $feed release is missing. Create it once: gh release create $feed --target main --prerelease --latest=false --title \"Update feed, not a release\""
+            exit 1
+          fi
+          gh release download "$feed" --repo "$GITHUB_REPOSITORY" --pattern beta.json --dir current-feed || true
+          if node scripts/updater-feed.mjs newer --feed current-feed/beta.json --version "${GITHUB_REF_NAME#v}"; then
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/heads/beta" -f sha="$GITHUB_SHA" -F force=true --silent
+            cp updater/latest.json updater/beta.json
+            gh release upload "$feed" updater/beta.json --repo "$GITHUB_REPOSITORY" --clobber
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
 
   submit-winget:
     name: Submit Winget manifest
-    if: startsWith(github.ref, 'refs/tags/v')
+    # Winget only gets stable releases.
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
     needs: finalize-release
     runs-on: ubuntu-latest
     steps:
