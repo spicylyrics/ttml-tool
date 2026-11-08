@@ -1809,12 +1809,7 @@
   },
   "domainMigration": {
     "notice": {
-      "title": "TTML Tool punya alamat baru",
-      "description": "Pindahkan proyek dan pengaturanmu ke sana sekarang. Alamat ini akan segera dialihkan, dan data browser tidak ikut terbawa saat dialihkan.",
-      "counts": "Ditemukan {projects, plural, other {# proyek}} dan {settings, plural, other {# pengaturan}} di alamat ini.",
-      "backup": "Unduh cadangan",
-      "later": "Nanti",
-      "move": "Pindahkan dataku"
+      "backup": "Unduh cadangan"
     },
     "transfer": {
       "counts": "{projects, plural, other {# proyek}}, {settings, plural, other {# pengaturan}}, {shortcuts, plural, other {# pintasan}}",
@@ -1845,7 +1840,6 @@
       "review": "Sebagian data ini sudah ada di sini. Pilih yang ingin disimpan.",
       "receiveTitle": "Terima data Anda",
       "projectsKept": "Proyek yang sudah ada di sini tidak pernah ditimpa. Jika situs lain punya versi lebih baru, versi itu ditambahkan di samping milik Anda sebagai salinan.",
-      "projectsNewest": "Proyek yang ada di kedua situs memakai versi yang lebih baru.",
       "useSettings": "Gunakan nilai dari situs lain untuk pengaturan yang berbeda",
       "useShortcuts": "Gunakan pintasan dari situs lain jika berbeda",
       "useToken": "Gunakan token Genius dari situs lain",

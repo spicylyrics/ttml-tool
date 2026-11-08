@@ -1809,12 +1809,7 @@
   },
   "domainMigration": {
     "notice": {
-      "title": "TTML Tool are o adresă nouă",
-      "description": "Mută-ți acum proiectele și setările acolo. Această adresă va începe curând să redirecționeze, iar datele din browser nu urmează o redirecționare.",
-      "counts": "Pe această adresă: {projects, plural, one {# proiect} few {# proiecte} other {# de proiecte}} și {settings, plural, one {# setare} few {# setări} other {# de setări}}.",
-      "backup": "Descarcă backup",
-      "later": "Mai târziu",
-      "move": "Mută datele mele"
+      "backup": "Descarcă backup"
     },
     "transfer": {
       "counts": "{projects, plural, one {# proiect} few {# proiecte} other {# de proiecte}}, {settings, plural, one {# setare} few {# setări} other {# de setări}}, {shortcuts, plural, one {# scurtătură} few {# scurtături} other {# de scurtături}}",
@@ -1845,7 +1840,6 @@
       "review": "O parte din aceste date există deja aici. Alege ce păstrezi.",
       "receiveTitle": "Primește datele tale",
       "projectsKept": "Proiectele deja existente aici nu sunt suprascrise niciodată. Dacă celălalt site are o versiune mai nouă, aceasta este adăugată lângă a ta ca o copie.",
-      "projectsNewest": "Proiectele de pe ambele site-uri păstrează versiunea mai nouă.",
       "useSettings": "Folosește valoarea de pe celălalt site pentru setările care diferă",
       "useShortcuts": "Folosește scurtăturile de pe celălalt site acolo unde diferă",
       "useToken": "Folosește tokenul Genius de pe celălalt site",

@@ -307,14 +307,12 @@ function SenderPage({ route }: { route: TransferRoute }) {
 						</Text>
 					)}
 				</Flex>
-				{route.kind === "copy" && (
-					<Text size="2">
-						{t(
-							"domainMigration.transfer.copyNote",
-							"This is a one-time copy, not a sync. Changes you make afterwards stay on the site where you make them.",
-						)}
-					</Text>
-				)}
+				<Text size="2">
+					{t(
+						"domainMigration.transfer.copyNote",
+						"This is a one-time copy, not a sync. Changes you make afterwards stay on the site where you make them.",
+					)}
+				</Text>
 				<Text size="2" color="gray">
 					{t(
 						"domainMigration.transfer.private",
@@ -393,13 +391,10 @@ function ReceiverPage({ routes }: { routes: readonly TransferRoute[] }) {
 				if (!route) throw new Error("No transfer route.");
 				const merged = mergeMigrationBackup(sourceBackup, destinationBackup, {
 					...mergeChoices,
-					keepBothProjects:
-						route.kind === "copy"
-							? (name) =>
-									t("domainMigration.transfer.copyName", "{name} (copy)", {
-										name,
-									})
-							: undefined,
+					keepBothProjects: (name) =>
+						t("domainMigration.transfer.copyName", "{name} (copy)", {
+							name,
+						}),
 				});
 				await applyBackup(merged, allCategories);
 				const verifiedCounts = await getBackupCounts();
@@ -578,15 +573,10 @@ function ReceiverPage({ routes }: { routes: readonly TransferRoute[] }) {
 				{conflicts && hasMigrationConflicts(conflicts) && (
 					<Flex direction="column" gap="3">
 						<Text size="2" color="gray">
-							{activeRoute.current?.kind === "copy"
-								? t(
-										"domainMigration.transfer.projectsKept",
-										"Projects already here are never overwritten. If the other site has a newer version, it's added next to yours as a copy.",
-									)
-								: t(
-										"domainMigration.transfer.projectsNewest",
-										"Projects on both sites keep the newer version.",
-									)}
+							{t(
+								"domainMigration.transfer.projectsKept",
+								"Projects already here are never overwritten. If the other site has a newer version, it's added next to yours as a copy.",
+							)}
 						</Text>
 						{(
 							[

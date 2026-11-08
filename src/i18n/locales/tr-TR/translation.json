@@ -1809,12 +1809,7 @@
   },
   "domainMigration": {
     "notice": {
-      "title": "TTML Tool'un yeni bir adresi var",
-      "description": "Projelerini ve ayarlarını şimdi oraya taşı. Bu adres yakında yönlendirmeye başlayacak ve tarayıcı verileri bir yönlendirmeyi takip edemez.",
-      "counts": "Bu adreste {projects, plural, one {# proje} other {# proje}} ve {settings, plural, one {# ayar} other {# ayar}} bulundu.",
-      "backup": "Yedeği indir",
-      "later": "Sonra",
-      "move": "Verilerimi taşı"
+      "backup": "Yedeği indir"
     },
     "transfer": {
       "counts": "{projects, plural, one {# proje} other {# proje}}, {settings, plural, one {# ayar} other {# ayar}}, {shortcuts, plural, one {# kısayol} other {# kısayol}}",
@@ -1845,7 +1840,6 @@
       "review": "Bu verilerin bir kısmı zaten burada. Neyi tutacağınızı seçin.",
       "receiveTitle": "Verilerinizi alın",
       "projectsKept": "Burada zaten olan projelerin üzerine asla yazılmaz. Diğer sitede daha yeni bir sürüm varsa sizinkinin yanına kopya olarak eklenir.",
-      "projectsNewest": "İki sitede de olan projeler daha yeni sürümü korur.",
       "useSettings": "Farklı olan ayarlar için diğer sitenin değerini kullan",
       "useShortcuts": "Farklı olduğu yerlerde diğer sitenin kısayollarını kullan",
       "useToken": "Diğer sitenin Genius token'ını kullan",

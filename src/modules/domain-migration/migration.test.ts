@@ -7,7 +7,6 @@ import {
 	classifyMigrationOrigin,
 	createMigrationNonce,
 	isMigrationPath,
-	LEGACY_TOOL_ORIGINS,
 	OFFICIAL_TOOL_ORIGIN,
 	transferRouteFrom,
 	transferRoutesTo,
@@ -57,17 +56,17 @@ const project = (name: string, lastModified: number) => ({
 });
 
 describe("domain migration hosts", () => {
-	it("moves from tool.community to tool.spicylyrics.org by default", () => {
+	it("copies from tool.spicylyrics.org to the beta site by default", () => {
 		expect(OFFICIAL_TOOL_ORIGIN).toBe("https://tool.spicylyrics.org");
-		expect(LEGACY_TOOL_ORIGINS).toEqual([
-			"https://tool.community.spicylyrics.org",
-		]);
+		expect(BETA_TOOL_ORIGIN).toBe("https://beta.tool.spicylyrics.org");
 	});
 
-	it("classifies only the official and explicitly allowed legacy origins", () => {
+	it("classifies only the official sites", () => {
 		expect(classifyMigrationOrigin(OFFICIAL_TOOL_ORIGIN)).toBe("official");
-		for (const origin of LEGACY_TOOL_ORIGINS)
-			expect(classifyMigrationOrigin(origin)).toBe("legacy");
+		expect(classifyMigrationOrigin(BETA_TOOL_ORIGIN)).toBe("beta");
+		expect(
+			classifyMigrationOrigin("https://tool.community.spicylyrics.org"),
+		).toBe("other");
 		expect(classifyMigrationOrigin("https://preview.example.com")).toBe(
 			"other",
 		);
@@ -75,9 +74,9 @@ describe("domain migration hosts", () => {
 	});
 
 	it("only allows the listed transfers, and never beta to stable", () => {
-		expect(transferRouteFrom(LEGACY_TOOL_ORIGINS[0])?.destination).toBe(
-			OFFICIAL_TOOL_ORIGIN,
-		);
+		expect(
+			transferRouteFrom("https://tool.community.spicylyrics.org"),
+		).toBeUndefined();
 		expect(transferRouteFrom(OFFICIAL_TOOL_ORIGIN)?.destination).toBe(
 			BETA_TOOL_ORIGIN,
 		);
@@ -90,9 +89,8 @@ describe("domain migration hosts", () => {
 		).toEqual([OFFICIAL_TOOL_ORIGIN]);
 		expect(
 			transferRoutesTo(OFFICIAL_TOOL_ORIGIN).map((route) => route.source),
-		).toEqual([...LEGACY_TOOL_ORIGINS]);
+		).toEqual([]);
 		expect(transferRoutesTo("https://evil.example.com")).toEqual([]);
-		expect(classifyMigrationOrigin(BETA_TOOL_ORIGIN)).toBe("beta");
 	});
 
 	it("offers beta data once, only on the beta site", () => {
