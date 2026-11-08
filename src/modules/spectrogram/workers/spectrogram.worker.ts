@@ -12,6 +12,10 @@ import type { SpectrogramWorkerScope } from "$/modules/spectrogram/workers/types
 
 /** Tallest linear image drawn before resampling to log or mel. */
 const MAX_RENDER_HEIGHT = 2048;
+/** FFT for the low end of log and mel views (about 11 Hz bins at 44.1 kHz). */
+const LOW_BAND_FFT = 4096;
+/** Below `fromHz` the low-end image is used alone; up to `toHz` it fades out. */
+const LOW_BAND_CROSSOVER = { fromHz: 500, toHz: 1000 };
 
 const ctx: SpectrogramWorkerScope = self as SpectrogramWorkerScope;
 
@@ -103,54 +107,63 @@ ctx.onmessage = async (event) => {
 
 			const FFT_SIZE = fftSize || 1024;
 			const HOP_LENGTH = 64;
+			const palette = currentPalette;
+			const render = (fft: number, hop: number, rows: number) => {
+				const Config = useSerialRenderer
+					? SerialSpectrogramConfig
+					: ThreadedSpectrogramConfig;
+				const generate = useSerialRenderer
+					? generateSerialSpectrogramImage
+					: generateThreadedSpectrogramImage;
+				const config = new Config(
+					audioSampleRate,
+					fft,
+					hop,
+					tileWidthPx,
+					rows,
+					gain,
+				);
+				try {
+					return generate(audioSlice, palette, config);
+				} finally {
+					config.free();
+				}
+			};
 			// The renderer draws a linear axis. For log or mel, draw it at least one
 			// row per FFT bin, then resample the rows onto the chosen scale.
-			const renderHeight =
-				scale === "linear"
-					? height
-					: Math.max(height, Math.min(MAX_RENDER_HEIGHT, FFT_SIZE / 2));
+			const rowsFor = (fft: number) =>
+				Math.max(height, Math.min(MAX_RENDER_HEIGHT, fft / 2));
 
 			try {
 				let pixelData: Uint8Array;
-				if (useSerialRenderer) {
-					const config = new SerialSpectrogramConfig(
-						audioSampleRate,
-						FFT_SIZE,
-						HOP_LENGTH,
-						tileWidthPx,
-						renderHeight,
-						gain,
-					);
-					pixelData = generateSerialSpectrogramImage(
-						audioSlice,
-						currentPalette,
-						config,
-					);
-					config.free();
+				if (scale === "linear") {
+					pixelData = render(FFT_SIZE, HOP_LENGTH, height);
 				} else {
-					const config = new ThreadedSpectrogramConfig(
-						audioSampleRate,
-						FFT_SIZE,
-						HOP_LENGTH,
-						tileWidthPx,
-						renderHeight,
-						gain,
-					);
-					pixelData = generateThreadedSpectrogramImage(
-						audioSlice,
-						currentPalette,
-						config,
-					);
-					config.free();
-				}
-				if (scale !== "linear") {
+					const nyquist = audioSampleRate / 2;
+					const main = render(FFT_SIZE, HOP_LENGTH, rowsFor(FFT_SIZE));
+					// Log and mel give the bottom octaves most of the height, where a
+					// small FFT has only a few bins. Draw the low end again with a long
+					// FFT (bass notes are slow, so its coarser timing doesn't show).
+					const lowBand =
+						FFT_SIZE < LOW_BAND_FFT
+							? {
+									source: render(
+										LOW_BAND_FFT,
+										LOW_BAND_FFT / 16,
+										rowsFor(LOW_BAND_FFT),
+									),
+									height: rowsFor(LOW_BAND_FFT),
+									...LOW_BAND_CROSSOVER,
+								}
+							: undefined;
 					pixelData = remapSpectrogramRows(
-						pixelData,
+						main,
 						tileWidthPx,
-						renderHeight,
+						rowsFor(FFT_SIZE),
 						height,
 						scale,
-						audioSampleRate / 2,
+						nyquist,
+						lowBand,
 					);
 				}
 
