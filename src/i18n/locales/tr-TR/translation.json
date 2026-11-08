@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "Yedeği indir"
+      "backup": "Yedeği indir",
+      "later": "Sonra"
     },
     "transfer": {
       "counts": "{projects, plural, one {# proje} other {# proje}}, {settings, plural, one {# ayar} other {# ayar}}, {shortcuts, plural, one {# kısayol} other {# kısayol}}",

@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "下载备份"
+      "backup": "下载备份",
+      "later": "稍后"
     },
     "transfer": {
       "counts": "{projects, plural, other {# 个项目}}，{settings, plural, other {# 项设置}}，{shortcuts, plural, other {# 个快捷键}}",

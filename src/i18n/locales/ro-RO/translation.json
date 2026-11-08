@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "Descarcă backup"
+      "backup": "Descarcă backup",
+      "later": "Mai târziu"
     },
     "transfer": {
       "counts": "{projects, plural, one {# proiect} few {# proiecte} other {# de proiecte}}, {settings, plural, one {# setare} few {# setări} other {# de setări}}, {shortcuts, plural, one {# scurtătură} few {# scurtături} other {# de scurtături}}",

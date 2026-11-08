@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "Unduh cadangan"
+      "backup": "Unduh cadangan",
+      "later": "Nanti"
     },
     "transfer": {
       "counts": "{projects, plural, other {# proyek}}, {settings, plural, other {# pengaturan}}, {shortcuts, plural, other {# pintasan}}",

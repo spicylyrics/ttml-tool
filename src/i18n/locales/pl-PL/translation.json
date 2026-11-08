@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "Pobierz kopię zapasową"
+      "backup": "Pobierz kopię zapasową",
+      "later": "Później"
     },
     "transfer": {
       "counts": "{projects, plural, one {# projekt} few {# projekty} many {# projektów} other {# projektu}}, {settings, plural, one {# ustawienie} few {# ustawienia} many {# ustawień} other {# ustawienia}}, {shortcuts, plural, one {# skrót} few {# skróty} many {# skrótów} other {# skrótu}}",

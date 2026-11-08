@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "Скачать резервную копию"
+      "backup": "Скачать резервную копию",
+      "later": "Позже"
     },
     "transfer": {
       "counts": "{projects, plural, one {# проект} few {# проекта} many {# проектов} other {# проекта}}, {settings, plural, one {# настройка} few {# настройки} many {# настроек} other {# настройки}}, {shortcuts, plural, one {# сочетание} few {# сочетания} many {# сочетаний} other {# сочетания}}",

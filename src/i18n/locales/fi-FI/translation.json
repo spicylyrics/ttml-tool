@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "Lataa varmuuskopio"
+      "backup": "Lataa varmuuskopio",
+      "later": "Myöhemmin"
     },
     "transfer": {
       "counts": "{projects, plural, one {# projekti} other {# projektia}}, {settings, plural, one {# asetus} other {# asetusta}}, {shortcuts, plural, one {# pikanäppäin} other {# pikanäppäintä}}",

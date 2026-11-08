@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "Download sikkerhedskopi"
+      "backup": "Download sikkerhedskopi",
+      "later": "Senere"
     },
     "transfer": {
       "counts": "{projects, plural, one {# projekt} other {# projekter}}, {settings, plural, one {# indstilling} other {# indstillinger}}, {shortcuts, plural, one {# genvej} other {# genveje}}",

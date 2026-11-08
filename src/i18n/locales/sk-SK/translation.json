@@ -1809,7 +1809,8 @@
   },
   "domainMigration": {
     "notice": {
-      "backup": "Stiahnuť zálohu"
+      "backup": "Stiahnuť zálohu",
+      "later": "Neskôr"
     },
     "transfer": {
       "counts": "{projects, plural, one {# projekt} few {# projekty} many {# projektu} other {# projektov}}, {settings, plural, one {# nastavenie} few {# nastavenia} many {# nastavenia} other {# nastavení}}, {shortcuts, plural, one {# skratka} few {# skratky} many {# skratky} other {# skratiek}}",
