@@ -22,6 +22,7 @@ import { JoinedBackgroundReview } from "$/components/JoinedBackgroundReview";
 import { LyricMarkupEditor } from "$/components/LyricMarkupEditor";
 import { OptionPicker } from "$/components/OptionPicker";
 import { currentDurationAtom, loadedAudioAtom } from "$/modules/audio/states";
+import { GeniusLyricsBlockedError } from "$/modules/genius/api/client";
 import { applyReviewedSections } from "$/modules/lyric-editor/utils/section-system.ts";
 import type { ImportSourceId } from "$/modules/lyrics-import/components/ImportSourceCards";
 import {
@@ -145,6 +146,7 @@ export const ImportLyricsDialog = () => {
 	const [hasSearched, setHasSearched] = useState(false);
 	const [showResults, setShowResults] = useState(false);
 	const [loadingId, setLoadingId] = useState<ImportTrack["id"] | null>(null);
+	const [blockedSongUrl, setBlockedSongUrl] = useState<string | null>(null);
 	const sortedResults = useMemo(
 		() => prioritizeMatchingTracks(results, audioDuration),
 		[results, audioDuration],
@@ -171,6 +173,7 @@ export const ImportLyricsDialog = () => {
 	const changeSource = (next: ImportSourceId) => {
 		setSource(next);
 		setResults([]);
+		setBlockedSongUrl(null);
 		setHasSearched(false);
 		setShowResults(next !== "plainText" && !text.trim());
 	};
@@ -181,6 +184,7 @@ export const ImportLyricsDialog = () => {
 		setHasSearched(true);
 		setShowResults(true);
 		setResults([]);
+		setBlockedSongUrl(null);
 		try {
 			setResults(await searchOnlineLyrics(onlineSource, query, geniusApiKey));
 		} catch (e) {
@@ -199,6 +203,7 @@ export const ImportLyricsDialog = () => {
 	const handlePick = useCallback(
 		async (track: ImportTrack) => {
 			setLoadingId(track.id);
+			setBlockedSongUrl(null);
 			try {
 				const lyrics =
 					track.lyrics?.trim() ||
@@ -218,6 +223,10 @@ export const ImportLyricsDialog = () => {
 				setShowResults(false);
 				setStep("edit");
 			} catch (e) {
+				if (e instanceof GeniusLyricsBlockedError) {
+					setBlockedSongUrl(e.songUrl);
+					return;
+				}
 				toast.error(
 					t(
 						"metadataDialog.fetchSongwriters.fetchError",
@@ -512,6 +521,7 @@ export const ImportLyricsDialog = () => {
 									hasSearched={hasSearched}
 									audioDuration={audioDuration}
 									loadingId={loadingId}
+									blockedSongUrl={blockedSongUrl}
 									onPick={handlePick}
 								/>
 								{text.trim() && (

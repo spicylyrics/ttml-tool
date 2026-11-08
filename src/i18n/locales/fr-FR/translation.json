@@ -1558,7 +1558,9 @@
     "notFound": "Aucun résultat trouvé. Essayez différents mots-clés.",
     "noResult": "Entrez un nom de chanson ou un artiste pour commencer.",
     "howToGetKey": "Comment obtenir un jeton d’accès Genius",
-    "changeKey": "Changer le jeton d’accès"
+    "changeKey": "Changer le jeton d’accès",
+    "lyricsBlocked": "Genius a bloqué cette demande de paroles, probablement à cause d’une vérification Cloudflare. Réessayez dans un instant ou copiez les paroles depuis la page du titre.",
+    "openOnGenius": "Ouvrir sur Genius"
   },
   "textImportDialog": {
     "processLyrics": "Préparer les paroles",
