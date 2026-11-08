@@ -1,4 +1,5 @@
-import { Flex, SegmentedControl, Text } from "@radix-ui/themes";
+import { APP_VERSION } from "virtual:buildmeta";
+import { Badge, Flex, SegmentedControl, Text } from "@radix-ui/themes";
 import { useAtom, useSetAtom } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { type FC, useCallback } from "react";
@@ -19,8 +20,12 @@ import {
 	toolModeAtom,
 } from "$/states/main.ts";
 import { useKeyBindingAtom } from "$/utils/keybindings.ts";
+import { isBetaVersion } from "$/utils/version-label.ts";
 import { TopMenu } from "../TopMenu/index.tsx";
 import styles from "./index.module.css";
+
+/** Betas say so in the top bar, so screenshots and screen shares show it. */
+const IS_BETA_BUILD = isBetaVersion(APP_VERSION);
 
 export const TitleBar: FC = () => {
 	const [toolMode, setToolMode] = useAtom(toolModeAtom);
@@ -101,26 +106,33 @@ export const TitleBar: FC = () => {
 				</SegmentedControl.Root>
 			}
 			endChildren={
-				!import.meta.env.TAURI_ENV_PLATFORM && (
+				(IS_BETA_BUILD || !import.meta.env.TAURI_ENV_PLATFORM) && (
 					<Flex align="center" gap="2" mr="2">
-						<Flex
-							direction="column"
-							align="end"
-							justify="center"
-							style={{ lineHeight: 1.2 }}
-						>
-							<Text
-								style={{ color: "var(--accent-11)" }}
-								wrap="nowrap"
-								size="2"
-								className={styles.lockup}
+						{IS_BETA_BUILD && (
+							<Badge variant="soft" radius="full">
+								{t("topBar.betaBadge", "Beta")}
+							</Badge>
+						)}
+						{!import.meta.env.TAURI_ENV_PLATFORM && (
+							<Flex
+								direction="column"
+								align="end"
+								justify="center"
+								style={{ lineHeight: 1.2 }}
 							>
-								<BrandMark className={styles.lockupMark} />
-								<span className={styles.title}>
-									{t("topBar.appName", "TTML Tool")}
-								</span>
-							</Text>
-						</Flex>
+								<Text
+									style={{ color: "var(--accent-11)" }}
+									wrap="nowrap"
+									size="2"
+									className={styles.lockup}
+								>
+									<BrandMark className={styles.lockupMark} />
+									<span className={styles.title}>
+										{t("topBar.appName", "TTML Tool")}
+									</span>
+								</Text>
+							</Flex>
+						)}
 					</Flex>
 				)
 			}

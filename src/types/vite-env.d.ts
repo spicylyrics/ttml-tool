@@ -33,9 +33,9 @@ interface ImportMetaEnv {
 	readonly TAURI_ENV_ARCH?: string;
 	readonly TAURI_ENV_PLATFORM?: string;
 	readonly TAURI_ENV_FAMILY?: string;
-	/** Local two-origin testing of the domain migration only. */
+	/** Local two-origin testing of the data transfer only. */
 	readonly VITE_MIGRATION_OFFICIAL_ORIGIN?: string;
-	readonly VITE_MIGRATION_LEGACY_ORIGIN?: string;
+	readonly VITE_MIGRATION_BETA_ORIGIN?: string;
 	// 更多环境变量...
 }
 

@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SECTION_BY_TYPE } from "./compile-changelog.mjs";
+import { parseReleaseVersion } from "./version-utils.mjs";
 
 const REPOSITORY = "https://github.com/spicylyrics/ttml-tool";
 
@@ -44,7 +45,10 @@ export const generateReleaseNotes = (releases, version) => {
 	return release?.entries.length ? sections(release, "\n\n") : null;
 };
 
-/** The Discord announcement: no blank lines around headings, links in <>. */
+/**
+ * The Discord announcement: no blank lines around headings, links in <>.
+ * Betas are titled "v0.23.0 Beta 2" and ping nobody.
+ */
 export const generateDiscordPost = (releases, version) => {
 	const data = parse(releases);
 	const index = data.findIndex((item) => item.version === version);
@@ -54,12 +58,13 @@ export const generateDiscordPost = (releases, version) => {
 	const changelogLink = previous
 		? `${REPOSITORY}/compare/v${previous}...v${version}`
 		: `${REPOSITORY}/commits/v${version}`;
+	const { base, beta } = parseReleaseVersion(version);
 	return [
-		`# 📝 TTML Tool v${version}`,
+		`# 📝 TTML Tool v${beta === null ? version : `${base} Beta ${beta}`}`,
 		sections(release, "\n"),
 		"",
 		`**Full Changelog**: <${changelogLink}>`,
-		"-# ||@TTML Tool Announcements||",
+		...(beta === null ? ["-# ||@TTML Tool Announcements||"] : []),
 	].join("\n");
 };
 

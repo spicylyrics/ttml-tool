@@ -1,5 +1,55 @@
 [
 	{
+		"version": "0.23.0",
+		"summary": "Beta channel",
+		"color": "orange",
+		"date": "2026-11-08",
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Beta updates",
+				"body": "Turn on **Beta updates** in **About** to get new versions a few days early, with a Beta tag in the top bar",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Update notices for Flatpak and Linux packages",
+				"body": "Flatpak, .deb, .rpm and Arch installs now say when a new version is out and open its download page",
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Report a problem from the Help menu",
+				"body": "Opens a GitHub issue with your version, system and recent errors filled in, or copies them for the Discord forum",
+				"highlight": true
+			},
+			{
+				"type": "feature",
+				"title": "Bring your data to the beta website",
+				"body": "**Bring my data from stable** copies your projects and settings to the beta site, without overwriting anything there",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "A clearer About page",
+				"body": "**About** opens with your version and a Check for updates button, and the credits fold away until you need them",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "AppImage updates install again",
+				"body": "The AppImage was changed after signing, so the app rejected its own updates",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Update notes show what changed",
+				"body": "The update card in **About** lists the new version's changes like the changelog, instead of placeholder text",
+				"highlight": false
+			}
+		]
+	},
+	{
 		"version": "0.22.1",
 		"summary": "Romaji and lyric list fixes",
 		"color": "violet",

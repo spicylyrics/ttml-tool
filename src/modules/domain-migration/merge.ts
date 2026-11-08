@@ -15,6 +15,12 @@ export type MigrationMergeChoices = {
 	replaceKeybindings: boolean;
 	replaceApiKeys: boolean;
 	replaceAppearance: boolean;
+	/**
+	 * Copy mode: never overwrite a project already here. A newer incoming copy
+	 * is added beside it, named by this function. Its id comes from the source
+	 * project and time, so running the copy again doesn't add it twice.
+	 */
+	keepBothProjects?: (name: string) => string;
 };
 
 const differentEntries = (
@@ -107,25 +113,39 @@ export function mergeMigrationBackup(
 	const projectMap = new Map(
 		destinationProjects.map((project) => [project.id, project]),
 	);
+	// Incoming project id -> the id it is stored under here, when it is stored.
+	const incomingIds = new Map<string, string>();
 	for (const sourceProject of sourceProjects) {
 		const current = projectMap.get(sourceProject.id);
-		if (!current || sourceProject.lastModified >= current.lastModified)
+		if (!current) {
 			projectMap.set(sourceProject.id, sourceProject);
+			incomingIds.set(sourceProject.id, sourceProject.id);
+		} else if (choices.keepBothProjects) {
+			if (sourceProject.lastModified <= current.lastModified) continue;
+			const id = `${sourceProject.id}~copy-${sourceProject.lastModified}`;
+			if (projectMap.has(id)) continue;
+			projectMap.set(id, {
+				...sourceProject,
+				id,
+				name: choices.keepBothProjects(sourceProject.name),
+			});
+			incomingIds.set(sourceProject.id, id);
+		} else if (sourceProject.lastModified >= current.lastModified) {
+			projectMap.set(sourceProject.id, sourceProject);
+			incomingIds.set(sourceProject.id, sourceProject.id);
+		}
 	}
-	const sourceChosenProjectIds = new Set(
-		sourceProjects
-			.filter((project) => projectMap.get(project.id) === project)
-			.map((project) => project.id),
-	);
+	const replacedIds = new Set(incomingIds.values());
 	const destinationVersions = destination.categories.projects?.versions ?? [];
 	const sourceVersions = source.categories.projects?.versions ?? [];
 	const mergedVersions = [
 		...destinationVersions.filter(
-			(version) => !sourceChosenProjectIds.has(version.projectId),
+			(version) => !replacedIds.has(version.projectId),
 		),
-		...sourceVersions.filter((version) =>
-			sourceChosenProjectIds.has(version.projectId),
-		),
+		...sourceVersions.flatMap((version) => {
+			const projectId = incomingIds.get(version.projectId);
+			return projectId ? [{ ...version, projectId }] : [];
+		}),
 	];
 
 	const mergeEntries = (

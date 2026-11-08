@@ -5,6 +5,7 @@ Start with these three frontmatter fields between `---` lines:
 `impact: 1` through `impact: 5` (5 is biggest)
 `highlight: true` or `highlight: false` (true puts it in the release's Highlights box)
 Use `change` for something that works differently now (a rename, a moved setting, a new default) rather than something new or a bug fixed.
+Optional: `beta-only: true` for a fix to something that is itself new in the current beta cycle. It shows in that beta's notes and is left out of the stable release, since stable users never had the bug.
 
 ## The format
 Every entry becomes one line, the same in the app, on GitHub and on Discord:
@@ -19,3 +20,6 @@ Compilation rejects notes that break these rules.
 ## Releasing
 `pnpm changelog:compile --version X.Y.Z --summary "Short summary"` (preview with `--dry-run`) sorts features, then changes, then fixes by descending impact, rotates colors and deletes compiled notes; then bump, release commit and tag.
 `node scripts/generate-release-notes.mjs --version X.Y.Z` prints the GitHub release notes; add `--discord` for the full Discord announcement.
+
+## Betas
+Compile a beta with `--version 0.23.0-2`: it lists only the notes since the previous beta and keeps each entry's impact. Compiling the stable `0.23.0` takes in every `0.23.0-N` entry (minus `beta-only` ones) plus any pending notes, sorts them again and removes the beta blocks, so the stable release lists everything since the last stable.

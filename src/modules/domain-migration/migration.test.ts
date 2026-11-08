@@ -1,11 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
+import { shouldOfferStableData } from "$/components/BringDataFromStable";
 import type { BackupFile } from "$/modules/settings/backup/types";
 import {
+	BETA_COPY_COMPLETED_KEY,
+	BETA_TOOL_ORIGIN,
 	classifyMigrationOrigin,
 	createMigrationNonce,
 	isMigrationPath,
-	LEGACY_TOOL_ORIGINS,
 	OFFICIAL_TOOL_ORIGIN,
+	transferRouteFrom,
+	transferRoutesTo,
 } from "./config";
 import {
 	getMigrationConflicts,
@@ -52,21 +56,55 @@ const project = (name: string, lastModified: number) => ({
 });
 
 describe("domain migration hosts", () => {
-	it("moves from tool.community to tool.spicylyrics.org by default", () => {
+	it("copies from tool.spicylyrics.org to the beta site by default", () => {
 		expect(OFFICIAL_TOOL_ORIGIN).toBe("https://tool.spicylyrics.org");
-		expect(LEGACY_TOOL_ORIGINS).toEqual([
-			"https://tool.community.spicylyrics.org",
-		]);
+		expect(BETA_TOOL_ORIGIN).toBe("https://beta.tool.spicylyrics.org");
 	});
 
-	it("classifies only the official and explicitly allowed legacy origins", () => {
+	it("classifies only the official sites", () => {
 		expect(classifyMigrationOrigin(OFFICIAL_TOOL_ORIGIN)).toBe("official");
-		for (const origin of LEGACY_TOOL_ORIGINS)
-			expect(classifyMigrationOrigin(origin)).toBe("legacy");
+		expect(classifyMigrationOrigin(BETA_TOOL_ORIGIN)).toBe("beta");
+		expect(
+			classifyMigrationOrigin("https://tool.community.spicylyrics.org"),
+		).toBe("other");
 		expect(classifyMigrationOrigin("https://preview.example.com")).toBe(
 			"other",
 		);
 		expect(classifyMigrationOrigin(OFFICIAL_TOOL_ORIGIN, true)).toBe("other");
+	});
+
+	it("only allows the listed transfers, and never beta to stable", () => {
+		expect(
+			transferRouteFrom("https://tool.community.spicylyrics.org"),
+		).toBeUndefined();
+		expect(transferRouteFrom(OFFICIAL_TOOL_ORIGIN)?.destination).toBe(
+			BETA_TOOL_ORIGIN,
+		);
+		expect(transferRouteFrom(BETA_TOOL_ORIGIN)).toBeUndefined();
+		expect(transferRouteFrom("https://evil.example.com")).toBeUndefined();
+		expect(transferRouteFrom(OFFICIAL_TOOL_ORIGIN, true)).toBeUndefined();
+
+		expect(
+			transferRoutesTo(BETA_TOOL_ORIGIN).map((route) => route.source),
+		).toEqual([OFFICIAL_TOOL_ORIGIN]);
+		expect(
+			transferRoutesTo(OFFICIAL_TOOL_ORIGIN).map((route) => route.source),
+		).toEqual([]);
+		expect(transferRoutesTo("https://evil.example.com")).toEqual([]);
+	});
+
+	it("offers beta data once, only on the beta site", () => {
+		const storage = (entries: Record<string, string>) => ({
+			getItem: (key: string) => entries[key] ?? null,
+		});
+		expect(shouldOfferStableData(storage({}), true)).toBe(true);
+		expect(shouldOfferStableData(storage({}), false)).toBe(false);
+		expect(
+			shouldOfferStableData(storage({ [BETA_COPY_COMPLETED_KEY]: "x" }), true),
+		).toBe(false);
+		expect(
+			shouldOfferStableData(storage({ betaDataOfferDismissed: "true" }), true),
+		).toBe(false);
 	});
 
 	it("only routes the two flat migration paths", () => {
@@ -221,6 +259,83 @@ describe("domain migration merge", () => {
 		expect(merged.categories.projects?.versions).toEqual([
 			{ projectId: "p", timestamp: 3, data: {} },
 		]);
+	});
+
+	describe("copy mode", () => {
+		const copyChoices: MigrationMergeChoices = {
+			...keepDestination,
+			keepBothProjects: (name) => `${name} (copy)`,
+		};
+		const version = (projectId: string, timestamp: number) => ({
+			projectId,
+			timestamp,
+			data: {} as never,
+		});
+
+		it("adds a newer incoming project beside the one here, with its history", () => {
+			const source = backup({
+				projects: {
+					projects: [project("stable", 200)],
+					versions: [version("p", 150)],
+				},
+			});
+			const destination = backup({
+				projects: {
+					projects: [project("beta", 100)],
+					versions: [version("p", 90)],
+				},
+			});
+			const merged = mergeMigrationBackup(source, destination, copyChoices);
+			const projects = merged.categories.projects;
+			expect(projects?.projects.map((item) => [item.id, item.name])).toEqual([
+				["p", "beta"],
+				["p~copy-200", "stable (copy)"],
+			]);
+			expect(projects?.versions).toEqual([
+				version("p", 90),
+				version("p~copy-200", 150),
+			]);
+		});
+
+		it("is safe to run again: nothing here changes and nothing doubles", () => {
+			const source = backup({
+				projects: {
+					projects: [project("stable", 200)],
+					versions: [version("p", 150)],
+				},
+			});
+			const first = mergeMigrationBackup(
+				source,
+				backup({
+					projects: { projects: [project("beta", 100)], versions: [] },
+				}),
+				copyChoices,
+			);
+			const second = mergeMigrationBackup(source, first, copyChoices);
+			expect(second.categories.projects).toEqual(first.categories.projects);
+		});
+
+		it("keeps a project that's newer here without adding anything", () => {
+			const merged = mergeMigrationBackup(
+				backup({
+					projects: {
+						projects: [project("stable", 100)],
+						versions: [version("p", 50)],
+					},
+				}),
+				backup({
+					projects: {
+						projects: [project("beta", 200)],
+						versions: [version("p", 190)],
+					},
+				}),
+				copyChoices,
+			);
+			expect(merged.categories.projects?.projects).toEqual([
+				project("beta", 200),
+			]);
+			expect(merged.categories.projects?.versions).toEqual([version("p", 190)]);
+		});
 	});
 
 	it("honours replace choices for settings, the Genius token and appearance", () => {

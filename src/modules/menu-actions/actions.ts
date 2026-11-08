@@ -35,6 +35,7 @@ import {
 	changelogDialogAtom,
 	combineWordsDialogAtom,
 	importLyricsDialogAtom,
+	reportDialogAtom,
 	settingsDialogAtom,
 	settingsTabAtom,
 	songwriterFinderDialogAtom,
@@ -466,6 +467,18 @@ export const MENU_ACTIONS = {
 		"Help",
 		[key("topBar.menu.helpDoc"), "TTML guides"],
 		{ run: ({ menu }) => menu.onOpenGuides() },
+	),
+	reportProblem: defineAction(
+		"reportProblem",
+		"Help",
+		[key("topBar.menu.reportProblem"), "Report a problem..."],
+		{ run: ({ store }) => store.set(reportDialogAtom, "problem") },
+	),
+	suggestSomething: defineAction(
+		"suggestSomething",
+		"Help",
+		[key("topBar.menu.suggestSomething"), "Suggest something..."],
+		{ run: ({ store }) => store.set(reportDialogAtom, "suggestion") },
 	),
 	changelog: defineAction(
 		"openChangelog",
