@@ -99,6 +99,7 @@ import {
 } from "$/modules/settings/states/index.ts";
 import { lazy } from "$/utils/lazy.ts";
 import styles from "./App.module.css";
+import { BringDataFromStableOffer } from "./components/BringDataFromStable";
 import DarkThemeDetector from "./components/DarkThemeDetector";
 import { ResizablePanel } from "./components/ResizablePanel";
 import RibbonBar from "./components/RibbonBar";
@@ -706,6 +707,7 @@ function App() {
 			<TooltipPrimitive.Provider delayDuration={200} disableHoverableContent>
 				{import.meta.env.TAURI_ENV_PLATFORM && <InterfaceScaleManager />}
 				<MigrationNotice />
+				<BringDataFromStableOffer />
 				<DiscordPresence />
 				<BeginnerGuide />
 				<DidYouKnowHints />
