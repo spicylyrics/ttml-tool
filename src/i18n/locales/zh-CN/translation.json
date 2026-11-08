@@ -1796,6 +1796,11 @@
       "linear": "线性",
       "log": "对数",
       "mel": "梅尔"
+    },
+    "topFrequency": "最高频率",
+    "top": {
+      "full": "完整",
+      "voice": "人声"
     }
   },
   "spectrogramFollow": {

@@ -15,7 +15,12 @@ import {
 import { memo } from "react";
 import { OptionPicker } from "$/components/OptionPicker";
 import type { useAudioSpectrogram } from "../hooks/useAudioSpectrogram";
-import { FREQUENCY_SCALES, isFrequencyScale } from "../utils/frequency-scale";
+import {
+	FREQUENCY_SCALES,
+	isFrequencyScale,
+	isTopFrequency,
+	TOP_FREQUENCIES,
+} from "../utils/frequency-scale";
 import styles from "./AudioSpectrogram.module.css";
 import { FollowPlayheadButton } from "./FollowPlayheadButton.tsx";
 import { FrequencyRuler } from "./FrequencyRuler.tsx";
@@ -92,6 +97,8 @@ function SettingsSidebar({
 	setFftSize,
 	frequencyScale,
 	setFrequencyScale,
+	topFrequency,
+	setTopFrequency,
 	dynamicMaxHeight,
 	dataHeight,
 	setDataHeight,
@@ -105,6 +112,8 @@ function SettingsSidebar({
 	| "setFftSize"
 	| "frequencyScale"
 	| "setFrequencyScale"
+	| "topFrequency"
+	| "setTopFrequency"
 	| "dynamicMaxHeight"
 	| "dataHeight"
 	| "setDataHeight"
@@ -189,6 +198,25 @@ function SettingsSidebar({
 								options={FREQUENCY_SCALES.map((scale) => ({
 									value: scale,
 									label: t(`spectrogram.scale.${scale}`, scale),
+								}))}
+								variant="segmented"
+								fullWidth
+							/>
+						</Flex>
+
+						<Flex direction="column" gap="2">
+							<Text size="1" color="gray">
+								{t("spectrogram.topFrequency", "Top frequency")}
+							</Text>
+							<OptionPicker
+								value={topFrequency}
+								onValueChange={(v) => {
+									if (isTopFrequency(v)) setTopFrequency(v);
+								}}
+								label={t("spectrogram.topFrequency", "Top frequency")}
+								options={TOP_FREQUENCIES.map((top) => ({
+									value: top,
+									label: t(`spectrogram.top.${top}`, top),
 								}))}
 								variant="segmented"
 								fullWidth

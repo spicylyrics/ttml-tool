@@ -1796,6 +1796,11 @@
       "linear": "Lineaarinen",
       "log": "Log",
       "mel": "Mel"
+    },
+    "topFrequency": "Ylin taajuus",
+    "top": {
+      "full": "Täysi",
+      "voice": "Ääni"
     }
   },
   "spectrogramFollow": {

@@ -1796,6 +1796,11 @@
       "linear": "Doğrusal",
       "log": "Log",
       "mel": "Mel"
+    },
+    "topFrequency": "Üst frekans",
+    "top": {
+      "full": "Tam",
+      "voice": "Vokal"
     }
   },
   "spectrogramFollow": {

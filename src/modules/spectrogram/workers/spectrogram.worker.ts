@@ -1,4 +1,7 @@
-import { FREQUENCY_SCALE_CODES } from "$/modules/spectrogram/utils/frequency-scale";
+import {
+	FREQUENCY_SCALE_CODES,
+	TOP_FREQUENCY_LIMITS,
+} from "$/modules/spectrogram/utils/frequency-scale";
 import initThreaded, {
 	generate_spectrogram_image as generateThreadedSpectrogramImage,
 	initThreadPool,
@@ -81,6 +84,7 @@ ctx.onmessage = async (event) => {
 
 			const { startTime, endTime, gain, tileWidthPx, height, fftSize } = params;
 			const scale = params.frequencyScale ?? "linear";
+			const maxFrequency = TOP_FREQUENCY_LIMITS[params.topFrequency ?? "full"];
 
 			const startSample = Math.floor(startTime * audioSampleRate);
 			const endSample = Math.ceil(endTime * audioSampleRate);
@@ -118,6 +122,7 @@ ctx.onmessage = async (event) => {
 					height,
 					gain,
 					FREQUENCY_SCALE_CODES[scale],
+					maxFrequency,
 				);
 				let pixelData: Uint8Array;
 				try {

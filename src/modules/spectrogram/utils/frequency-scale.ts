@@ -35,18 +35,35 @@ export function isFrequencyScale(value: unknown): value is FrequencyScale {
 }
 
 /**
+ * How high the spectrogram reaches. Full goes to 20 kHz; Voice stops at
+ * 8 kHz, so a singing voice gets nearly the whole height.
+ */
+export type TopFrequency = "full" | "voice";
+
+export const TOP_FREQUENCIES: readonly TopFrequency[] = ["full", "voice"];
+
+/** The renderer's `max_freq` argument for each setting, in Hz. */
+export const TOP_FREQUENCY_LIMITS: Record<TopFrequency, number> = {
+	full: RENDER_MAX_FREQUENCY,
+	voice: 8000,
+};
+
+export function isTopFrequency(value: unknown): value is TopFrequency {
+	return TOP_FREQUENCIES.includes(value as TopFrequency);
+}
+
+/**
  * The frequency at the top edge of the image: the renderer keeps whole FFT
- * bins up to 20 kHz (or Nyquist, if lower).
+ * bins up to `maxFrequency` (at most 20 kHz, and never past Nyquist).
  */
 export function spectrogramTopFrequency(
 	sampleRate: number,
 	fftSize: number,
+	maxFrequency: number = RENDER_MAX_FREQUENCY,
 ): number {
 	const binWidth = sampleRate / fftSize;
-	const bins = Math.min(
-		Math.round(RENDER_MAX_FREQUENCY / binWidth),
-		fftSize / 2,
-	);
+	const limit = Math.max(0, Math.min(RENDER_MAX_FREQUENCY, maxFrequency));
+	const bins = Math.min(Math.round(limit / binWidth), fftSize / 2);
 	return bins * binWidth;
 }
 
@@ -98,17 +115,25 @@ export function ratioAtFrequency(
 	return Math.max(0, Math.min(1, ratio));
 }
 
+const FULL_RULER_LABELS: Record<FrequencyScale, number[]> = {
+	linear: [0, 500, 1000, 2000, 5000, 10000, 20000],
+	log: [100, 200, 500, 1000, 2000, 5000, 10000],
+	mel: [200, 500, 1000, 2000, 4000, 8000, 16000],
+};
+
+/** Evenly spaced labels for a top of about 8 kHz (the Voice range). */
+const VOICE_RULER_LABELS: Record<FrequencyScale, number[]> = {
+	linear: [0, 1000, 2000, 4000, 6000, 8000],
+	log: [100, 200, 500, 1000, 2000, 4000, 8000],
+	mel: [200, 500, 1000, 2000, 4000, 8000],
+};
+
 /** Ruler labels that stay readable on each scale, top first. */
 export function frequencyRulerLabels(
 	scale: FrequencyScale,
 	top: number,
 ): number[] {
-	const labels =
-		scale === "log"
-			? [100, 200, 500, 1000, 2000, 5000, 10000]
-			: scale === "mel"
-				? [200, 500, 1000, 2000, 4000, 8000, 16000]
-				: [0, 500, 1000, 2000, 5000, 10000, 20000];
-	// The top is a whole number of bins, a hair under 20 kHz; keep that label.
+	const labels = (top <= 10000 ? VOICE_RULER_LABELS : FULL_RULER_LABELS)[scale];
+	// The top is a whole number of bins, a hair off 20 or 8 kHz; keep that label.
 	return labels.filter((f) => f <= top * 1.01).sort((a, b) => b - a);
 }

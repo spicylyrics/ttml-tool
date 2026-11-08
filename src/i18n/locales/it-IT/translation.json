@@ -1796,6 +1796,11 @@
       "linear": "Lineare",
       "log": "Log",
       "mel": "Mel"
+    },
+    "topFrequency": "Frequenza massima",
+    "top": {
+      "full": "Completa",
+      "voice": "Voce"
     }
   },
   "spectrogramFollow": {

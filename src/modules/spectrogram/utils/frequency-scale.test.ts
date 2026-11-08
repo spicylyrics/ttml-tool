@@ -5,9 +5,12 @@ import {
 	frequencyAtRatio,
 	frequencyRulerLabels,
 	isFrequencyScale,
+	isTopFrequency,
 	LOG_MIN_FREQUENCY,
 	ratioAtFrequency,
 	spectrogramTopFrequency,
+	TOP_FREQUENCIES,
+	TOP_FREQUENCY_LIMITS,
 } from "./frequency-scale";
 
 const TOP = 20000;
@@ -61,6 +64,43 @@ describe("spectrogramTopFrequency", () => {
 	it("stops at Nyquist for low sample rates", () => {
 		expect(spectrogramTopFrequency(16000, 1024)).toBe(8000);
 	});
+
+	it("stops at the last whole bin under 8 kHz on voice, like the renderer", () => {
+		const voice = TOP_FREQUENCY_LIMITS.voice;
+		// 48 kHz, FFT 1024: 46.875 Hz bins, 171 of them; bin 170 is 7968.75 Hz.
+		expect(spectrogramTopFrequency(48000, 1024, voice)).toBeCloseTo(
+			171 * 46.875,
+			6,
+		);
+		for (const [rate, fft] of [
+			[44100, 512],
+			[44100, 1024],
+			[48000, 2048],
+			[48000, 4096],
+		]) {
+			const binWidth = rate / fft;
+			const top = spectrogramTopFrequency(rate, fft, voice);
+			expect(top - binWidth).toBeLessThan(voice);
+			expect(Math.abs(top - voice)).toBeLessThanOrEqual(binWidth / 2);
+		}
+	});
+
+	it("never goes past 20 kHz or Nyquist, and full is the default", () => {
+		expect(
+			spectrogramTopFrequency(48000, 1024, TOP_FREQUENCY_LIMITS.full),
+		).toBe(spectrogramTopFrequency(48000, 1024));
+		expect(spectrogramTopFrequency(96000, 1024, 40000)).toBe(
+			spectrogramTopFrequency(96000, 1024),
+		);
+		expect(spectrogramTopFrequency(11025, 1024, 8000)).toBe(5512.5);
+	});
+
+	it("rejects unknown top frequency values", () => {
+		expect(TOP_FREQUENCIES).toEqual(["full", "voice"]);
+		expect(isTopFrequency("voice")).toBe(true);
+		expect(isTopFrequency("treble")).toBe(false);
+		expect(isTopFrequency(null)).toBe(false);
+	});
 });
 
 describe("frequencyRulerLabels", () => {
@@ -70,5 +110,29 @@ describe("frequencyRulerLabels", () => {
 		const labels = frequencyRulerLabels("log", 8000);
 		expect(Math.max(...labels)).toBeLessThanOrEqual(8000);
 		expect(labels).toEqual([...labels].sort((a, b) => b - a));
+	});
+
+	it.each(
+		FREQUENCY_SCALES,
+	)("stays readable with an 8 kHz top on %s", (scale) => {
+		for (const [rate, fft] of [
+			[44100, 1024],
+			[48000, 1024],
+			[48000, 4096],
+		]) {
+			const top = spectrogramTopFrequency(
+				rate,
+				fft,
+				TOP_FREQUENCY_LIMITS.voice,
+			);
+			const labels = frequencyRulerLabels(scale, top);
+			expect(labels.length).toBeGreaterThanOrEqual(5);
+			expect(labels[0]).toBe(8000);
+			// At the 100 px minimum height, 9 px labels need about 10% apart.
+			const ratios = labels.map((f) => ratioAtFrequency(scale, f, top));
+			for (let i = 1; i < ratios.length; i++) {
+				expect(ratios[i - 1] - ratios[i]).toBeGreaterThanOrEqual(0.1);
+			}
+		}
 	});
 });

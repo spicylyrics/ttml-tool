@@ -1796,6 +1796,11 @@
       "linear": "Lineair",
       "log": "Log",
       "mel": "Mel"
+    },
+    "topFrequency": "Hoogste frequentie",
+    "top": {
+      "full": "Volledig",
+      "voice": "Stem"
     }
   },
   "spectrogramFollow": {

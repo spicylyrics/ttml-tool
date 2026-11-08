@@ -1,25 +1,18 @@
 import { Text } from "@radix-ui/themes";
 import { useAtomValue } from "jotai";
 import type { FC } from "react";
-import { audioBufferAtom } from "$/modules/audio/states";
-import {
-	spectrogramFftSizeAtom,
-	spectrogramFrequencyScaleAtom,
-} from "../states";
+import { spectrogramFrequencyScaleAtom, spectrogramTopHzAtom } from "../states";
 import {
 	frequencyRulerLabels,
 	ratioAtFrequency,
-	spectrogramTopFrequency,
 } from "../utils/frequency-scale";
 
 export const FrequencyRuler: FC = () => {
-	const audioBuffer = useAtomValue(audioBufferAtom);
 	const scale = useAtomValue(spectrogramFrequencyScaleAtom);
-	const fftSize = useAtomValue(spectrogramFftSizeAtom);
+	const top = useAtomValue(spectrogramTopHzAtom);
 
-	if (!audioBuffer) return null;
+	if (top <= 0) return null;
 
-	const top = spectrogramTopFrequency(audioBuffer.sampleRate, fftSize);
 	const uniqueLabels = frequencyRulerLabels(scale, top);
 
 	return (

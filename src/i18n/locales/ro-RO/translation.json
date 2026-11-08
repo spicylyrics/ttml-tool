@@ -1796,6 +1796,11 @@
       "linear": "Liniară",
       "log": "Log",
       "mel": "Mel"
+    },
+    "topFrequency": "Frecvența maximă",
+    "top": {
+      "full": "Completă",
+      "voice": "Voce"
     }
   },
   "spectrogramFollow": {

@@ -1,4 +1,4 @@
-import type { FrequencyScale } from "../utils/frequency-scale";
+import type { FrequencyScale, TopFrequency } from "../utils/frequency-scale";
 
 export interface TileGenerationParams {
 	tileIndex: number;
@@ -10,6 +10,7 @@ export interface TileGenerationParams {
 	paletteId: string;
 	fftSize?: number;
 	frequencyScale?: FrequencyScale;
+	topFrequency?: TopFrequency;
 }
 
 export type WorkerRequest =

@@ -1796,6 +1796,11 @@
       "linear": "Lineárna",
       "log": "Log",
       "mel": "Mel"
+    },
+    "topFrequency": "Horná frekvencia",
+    "top": {
+      "full": "Plná",
+      "voice": "Hlas"
     }
   },
   "spectrogramFollow": {

@@ -29,6 +29,7 @@ import {
 	spectrogramHoverPxAtom,
 	spectrogramHoverPyAtom,
 	spectrogramIsHoveringAtom,
+	spectrogramTopFrequencyAtom,
 } from "$/modules/spectrogram/states";
 import { isDraggingAtom } from "$/modules/spectrogram/states/dnd.ts";
 import { timeShiftPreviewActiveAtom } from "$/states/dialogs.ts";
@@ -52,6 +53,7 @@ export function useAudioSpectrogram() {
 	const [frequencyScale, setFrequencyScale] = useAtom(
 		spectrogramFrequencyScaleAtom,
 	);
+	const [topFrequency, setTopFrequency] = useAtom(spectrogramTopFrequencyAtom);
 	const [showUnselectedLines, setShowUnselectedLines] = useAtom(
 		showUnselectedLinesAtom,
 	);
@@ -142,6 +144,7 @@ export function useAudioSpectrogram() {
 			scrollLeft,
 			fftSize,
 			frequencyScale,
+			topFrequency,
 			setVisibleTiles,
 		});
 	}, [
@@ -156,6 +159,7 @@ export function useAudioSpectrogram() {
 		scrollLeft,
 		fftSize,
 		frequencyScale,
+		topFrequency,
 	]);
 
 	const { handleScrubStart: handleRulerScrubStart } = useScrubbing(
@@ -267,6 +271,8 @@ export function useAudioSpectrogram() {
 		setFftSize,
 		frequencyScale,
 		setFrequencyScale,
+		topFrequency,
+		setTopFrequency,
 		dynamicMaxHeight,
 		dataHeight,
 		setDataHeight,

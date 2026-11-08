@@ -31,6 +31,7 @@ function setup() {
 		scrollLeft: 0,
 		fftSize: 1024,
 		frequencyScale: "linear" as const,
+		topFrequency: "full" as const,
 		setVisibleTiles,
 	};
 	return {
@@ -131,6 +132,7 @@ describe("spectrogram tile preparation", () => {
 			paletteId: "test",
 			fftSize: 1024,
 			frequencyScale: "linear",
+			topFrequency: "full",
 		});
 		expect(getTiles().map((tile) => [tile.left, tile.width])).toEqual([
 			[0, 1000],

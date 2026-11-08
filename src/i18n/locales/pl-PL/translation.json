@@ -1796,6 +1796,11 @@
       "linear": "Liniowa",
       "log": "Log",
       "mel": "Mel"
+    },
+    "topFrequency": "Górna częstotliwość",
+    "top": {
+      "full": "Pełna",
+      "voice": "Głos"
     }
   },
   "spectrogramFollow": {

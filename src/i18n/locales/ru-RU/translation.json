@@ -1796,6 +1796,11 @@
       "linear": "Линейная",
       "log": "Лог.",
       "mel": "Мел"
+    },
+    "topFrequency": "Верхняя частота",
+    "top": {
+      "full": "Полная",
+      "voice": "Голос"
     }
   },
   "spectrogramFollow": {

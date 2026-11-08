@@ -1796,6 +1796,11 @@
       "linear": "Lineær",
       "log": "Log",
       "mel": "Mel"
+    },
+    "topFrequency": "Øverste frekvens",
+    "top": {
+      "full": "Fuld",
+      "voice": "Stemme"
     }
   },
   "spectrogramFollow": {
