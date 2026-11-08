@@ -1,3 +1,4 @@
+import { remapSpectrogramRows } from "$/modules/spectrogram/utils/frequency-scale";
 import initThreaded, {
 	generate_spectrogram_image as generateThreadedSpectrogramImage,
 	initThreadPool,
@@ -8,6 +9,9 @@ import initSerial, {
 	SpectrogramConfig as SerialSpectrogramConfig,
 } from "$/modules/spectrogram/vendor/serial/wasm_spectrogram";
 import type { SpectrogramWorkerScope } from "$/modules/spectrogram/workers/types";
+
+/** Tallest linear image drawn before resampling to log or mel. */
+const MAX_RENDER_HEIGHT = 2048;
 
 const ctx: SpectrogramWorkerScope = self as SpectrogramWorkerScope;
 
@@ -79,6 +83,7 @@ ctx.onmessage = async (event) => {
 			}
 
 			const { startTime, endTime, gain, tileWidthPx, height, fftSize } = params;
+			const scale = params.frequencyScale ?? "linear";
 
 			const startSample = Math.floor(startTime * audioSampleRate);
 			const endSample = Math.ceil(endTime * audioSampleRate);
@@ -98,6 +103,12 @@ ctx.onmessage = async (event) => {
 
 			const FFT_SIZE = fftSize || 1024;
 			const HOP_LENGTH = 64;
+			// The renderer draws a linear axis. For log or mel, draw it at least one
+			// row per FFT bin, then resample the rows onto the chosen scale.
+			const renderHeight =
+				scale === "linear"
+					? height
+					: Math.max(height, Math.min(MAX_RENDER_HEIGHT, FFT_SIZE / 2));
 
 			try {
 				let pixelData: Uint8Array;
@@ -107,7 +118,7 @@ ctx.onmessage = async (event) => {
 						FFT_SIZE,
 						HOP_LENGTH,
 						tileWidthPx,
-						height,
+						renderHeight,
 						gain,
 					);
 					pixelData = generateSerialSpectrogramImage(
@@ -122,7 +133,7 @@ ctx.onmessage = async (event) => {
 						FFT_SIZE,
 						HOP_LENGTH,
 						tileWidthPx,
-						height,
+						renderHeight,
 						gain,
 					);
 					pixelData = generateThreadedSpectrogramImage(
@@ -131,6 +142,16 @@ ctx.onmessage = async (event) => {
 						config,
 					);
 					config.free();
+				}
+				if (scale !== "linear") {
+					pixelData = remapSpectrogramRows(
+						pixelData,
+						tileWidthPx,
+						renderHeight,
+						height,
+						scale,
+						audioSampleRate / 2,
+					);
 				}
 
 				scratchCanvas ??= new OffscreenCanvas(tileWidthPx, height);

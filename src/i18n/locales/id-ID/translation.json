@@ -1790,7 +1790,13 @@
     "settings": "Pengaturan spektrogram",
     "fftSize": "Ukuran FFT",
     "resolution": "Resolusi FFT",
-    "height": "Tinggi tampilan"
+    "height": "Tinggi tampilan",
+    "frequencyScale": "Skala frekuensi",
+    "scale": {
+      "linear": "Linear",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Ikuti playhead",

@@ -19,6 +19,7 @@ export type TileEntry = {
 	gain: number;
 	paletteId: string;
 	fftSize?: number;
+	frequencyScale?: string;
 };
 
 type TileRequest = {
@@ -198,7 +199,7 @@ export const useSpectrogramWorker = (
 		async (params: TileGenerationParams) => {
 			const client = clientRef.current;
 			if (!client) return;
-			const config = `${params.tileWidthPx}:${params.height}:${params.gain}:${params.paletteId}:${params.fftSize ?? 1024}`;
+			const config = `${params.tileWidthPx}:${params.height}:${params.gain}:${params.paletteId}:${params.fftSize ?? 1024}:${params.frequencyScale ?? "linear"}`;
 			if (configuration.current !== config) {
 				configuration.current = config;
 				revision.current++;
@@ -214,7 +215,8 @@ export const useSpectrogramWorker = (
 				entry.height === params.height &&
 				entry.gain === params.gain &&
 				entry.paletteId === params.paletteId &&
-				entry.fftSize === params.fftSize
+				entry.fftSize === params.fftSize &&
+				entry.frequencyScale === params.frequencyScale
 			)
 				return;
 			if (activeRequests.current.has(cacheKey)) return;
@@ -236,6 +238,7 @@ export const useSpectrogramWorker = (
 					gain: params.gain,
 					paletteId: params.paletteId,
 					fftSize: params.fftSize,
+					frequencyScale: params.frequencyScale,
 				});
 				setLastTileTimestamp((value) => value + 1);
 			} catch (error) {

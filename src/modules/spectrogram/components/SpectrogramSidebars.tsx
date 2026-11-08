@@ -15,6 +15,7 @@ import {
 import { memo } from "react";
 import { OptionPicker } from "$/components/OptionPicker";
 import type { useAudioSpectrogram } from "../hooks/useAudioSpectrogram";
+import { FREQUENCY_SCALES, isFrequencyScale } from "../utils/frequency-scale";
 import styles from "./AudioSpectrogram.module.css";
 import { FollowPlayheadButton } from "./FollowPlayheadButton.tsx";
 import { FrequencyRuler } from "./FrequencyRuler.tsx";
@@ -89,6 +90,8 @@ function SettingsSidebar({
 	setPreviewActive,
 	fftSize,
 	setFftSize,
+	frequencyScale,
+	setFrequencyScale,
 	dynamicMaxHeight,
 	dataHeight,
 	setDataHeight,
@@ -100,6 +103,8 @@ function SettingsSidebar({
 	| "setPreviewActive"
 	| "fftSize"
 	| "setFftSize"
+	| "frequencyScale"
+	| "setFrequencyScale"
 	| "dynamicMaxHeight"
 	| "dataHeight"
 	| "setDataHeight"
@@ -165,6 +170,23 @@ function SettingsSidebar({
 								options={["512", "1024", "2048", "4096"].map((size) => ({
 									value: size,
 									label: size,
+								}))}
+							/>
+						</Flex>
+
+						<Flex direction="column" gap="2">
+							<Text size="1" color="gray">
+								{t("spectrogram.frequencyScale", "Frequency scale")}
+							</Text>
+							<OptionPicker
+								value={frequencyScale}
+								onValueChange={(v) => {
+									if (isFrequencyScale(v)) setFrequencyScale(v);
+								}}
+								label={t("spectrogram.frequencyScale", "Frequency scale")}
+								options={FREQUENCY_SCALES.map((scale) => ({
+									value: scale,
+									label: t(`spectrogram.scale.${scale}`, scale),
 								}))}
 							/>
 						</Flex>

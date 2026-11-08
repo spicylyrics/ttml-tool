@@ -1790,7 +1790,13 @@
     "settings": "Spektrogramindstillinger",
     "fftSize": "FFT-størrelse",
     "resolution": "FFT-opløsning",
-    "height": "Visningshøjde"
+    "height": "Visningshøjde",
+    "frequencyScale": "Frekvensskala",
+    "scale": {
+      "linear": "Lineær",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Følg afspilningshovedet",

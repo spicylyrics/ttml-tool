@@ -1790,7 +1790,13 @@
     "settings": "Impostazioni dello spettrogramma",
     "fftSize": "Dimensione FFT",
     "resolution": "Risoluzione FFT",
-    "height": "Altezza di visualizzazione"
+    "height": "Altezza di visualizzazione",
+    "frequencyScale": "Scala delle frequenze",
+    "scale": {
+      "linear": "Lineare",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Segui la testina",

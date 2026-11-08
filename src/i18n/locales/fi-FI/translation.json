@@ -1790,7 +1790,13 @@
     "settings": "Spektrogrammin asetukset",
     "fftSize": "FFT-koko",
     "resolution": "FFT-resoluutio",
-    "height": "Näyttökorkeus"
+    "height": "Näyttökorkeus",
+    "frequencyScale": "Taajuusasteikko",
+    "scale": {
+      "linear": "Lineaarinen",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Seuraa toistokohtaa",

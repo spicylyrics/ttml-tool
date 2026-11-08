@@ -1790,7 +1790,13 @@
     "settings": "Setările spectrogramei",
     "fftSize": "Dimensiune FFT",
     "resolution": "Rezoluție FFT",
-    "height": "Înălțimea afișajului"
+    "height": "Înălțimea afișajului",
+    "frequencyScale": "Scară de frecvență",
+    "scale": {
+      "linear": "Liniară",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Urmărește cursorul de redare",

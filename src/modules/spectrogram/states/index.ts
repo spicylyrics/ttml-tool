@@ -9,6 +9,11 @@ import {
 	getGreenColor,
 	getIcyBlueColor,
 } from "$/modules/spectrogram/utils/colors";
+import {
+	type FrequencyScale,
+	frequencyAtRatio,
+	isFrequencyScale,
+} from "$/modules/spectrogram/utils/frequency-scale";
 
 export const spectrogramGainAtom = atomWithStorage(
 	"settings_spectrogramGain",
@@ -28,6 +33,20 @@ export const spectrogramContainerWidthAtom = atom(0);
 export const spectrogramFftSizeAtom = atomWithStorage<number>(
 	"settings_spectrogramFftSize",
 	1024,
+);
+const storedFrequencyScaleAtom = atomWithStorage<FrequencyScale>(
+	"settings_spectrogramFrequencyScale",
+	"linear",
+	undefined,
+	{ getOnInit: true },
+);
+/** Linear, log or mel frequency axis; an unknown stored value reads as linear. */
+export const spectrogramFrequencyScaleAtom = atom(
+	(get) => {
+		const value = get(storedFrequencyScaleAtom);
+		return isFrequencyScale(value) ? value : "linear";
+	},
+	(_get, set, next: FrequencyScale) => set(storedFrequencyScaleAtom, next),
 );
 
 const icyBluePalette = {
@@ -122,7 +141,7 @@ export const spectrogramHoverFrequencyAtom = atom((get) => {
 
 	const nyquist = audioBuffer.sampleRate / 2;
 	const ratio = 1 - Math.max(0, Math.min(hoverPy, height)) / height;
-	return ratio * nyquist;
+	return frequencyAtRatio(get(spectrogramFrequencyScaleAtom), ratio, nyquist);
 });
 
 export const spectrogramSelectionAtom = atom<{

@@ -1790,7 +1790,13 @@
     "settings": "Nastavení spektrogramu",
     "fftSize": "Velikost FFT",
     "resolution": "Rozlišení FFT",
-    "height": "Výška zobrazení"
+    "height": "Výška zobrazení",
+    "frequencyScale": "Frekvenční osa",
+    "scale": {
+      "linear": "Lineární",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Sledovat přehrávací hlavu",

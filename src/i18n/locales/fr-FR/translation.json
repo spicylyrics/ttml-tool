@@ -1790,7 +1790,13 @@
     "settings": "Paramètres du spectrogramme",
     "fftSize": "Taille FFT",
     "resolution": "Résolution FFT",
-    "height": "Hauteur d'affichage"
+    "height": "Hauteur d'affichage",
+    "frequencyScale": "Échelle de fréquence",
+    "scale": {
+      "linear": "Linéaire",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Suivre la tête de lecture",

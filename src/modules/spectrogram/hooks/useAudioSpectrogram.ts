@@ -23,6 +23,7 @@ import {
 	currentPaletteAtom,
 	spectrogramContainerWidthAtom,
 	spectrogramFftSizeAtom,
+	spectrogramFrequencyScaleAtom,
 	spectrogramGainAtom,
 	spectrogramHeightAtom,
 	spectrogramHoverPxAtom,
@@ -48,6 +49,9 @@ export function useAudioSpectrogram() {
 	const [gain, setGain] = useAtom(spectrogramGainAtom);
 	const [dataHeight, setDataHeight] = useAtom(spectrogramHeightAtom);
 	const [fftSize, setFftSize] = useAtom(spectrogramFftSizeAtom);
+	const [frequencyScale, setFrequencyScale] = useAtom(
+		spectrogramFrequencyScaleAtom,
+	);
 	const [showUnselectedLines, setShowUnselectedLines] = useAtom(
 		showUnselectedLinesAtom,
 	);
@@ -137,6 +141,7 @@ export function useAudioSpectrogram() {
 			zoom,
 			scrollLeft,
 			fftSize,
+			frequencyScale,
 			setVisibleTiles,
 		});
 	}, [
@@ -150,6 +155,7 @@ export function useAudioSpectrogram() {
 		zoom,
 		scrollLeft,
 		fftSize,
+		frequencyScale,
 	]);
 
 	const { handleScrubStart: handleRulerScrubStart } = useScrubbing(
@@ -259,6 +265,8 @@ export function useAudioSpectrogram() {
 		setPreviewActive,
 		fftSize,
 		setFftSize,
+		frequencyScale,
+		setFrequencyScale,
 		dynamicMaxHeight,
 		dataHeight,
 		setDataHeight,

@@ -1790,7 +1790,13 @@
     "settings": "Ustawienia spektrogramu",
     "fftSize": "Rozmiar FFT",
     "resolution": "Rozdzielczość FFT",
-    "height": "Wysokość widoku"
+    "height": "Wysokość widoku",
+    "frequencyScale": "Skala częstotliwości",
+    "scale": {
+      "linear": "Liniowa",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Podążaj za głowicą",

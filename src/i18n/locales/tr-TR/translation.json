@@ -1790,7 +1790,13 @@
     "settings": "Spektrogram ayarları",
     "fftSize": "FFT boyutu",
     "resolution": "FFT çözünürlüğü",
-    "height": "Görünüm yüksekliği"
+    "height": "Görünüm yüksekliği",
+    "frequencyScale": "Frekans ölçeği",
+    "scale": {
+      "linear": "Doğrusal",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Oynatma imlecini takip et",

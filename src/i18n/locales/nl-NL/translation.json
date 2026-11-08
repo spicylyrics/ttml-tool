@@ -1790,7 +1790,13 @@
     "settings": "Spectrogram-instellingen",
     "fftSize": "FFT-grootte",
     "resolution": "FFT-resolutie",
-    "height": "Weergavehoogte"
+    "height": "Weergavehoogte",
+    "frequencyScale": "Frequentieschaal",
+    "scale": {
+      "linear": "Lineair",
+      "log": "Log",
+      "mel": "Mel"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Afspeelkop volgen",
