@@ -1,6 +1,10 @@
 import {
+	ArrowSyncRegular,
+	BeakerRegular,
 	CheckmarkCircle24Regular,
+	CheckmarkCircleRegular,
 	CloudArrowDown24Regular,
+	ErrorCircleRegular,
 	OpenRegular,
 } from "@fluentui/react-icons";
 import {
@@ -11,9 +15,13 @@ import {
 	Flex,
 	Heading,
 	Progress,
+	Separator,
+	Spinner,
+	Switch,
 	Text,
 } from "@radix-ui/themes";
 import type { Update } from "@tauri-apps/plugin-updater";
+import { FieldRow } from "$/components/FieldRow";
 import { EntryText } from "$/modules/changelog/ChangelogScreen";
 import {
 	type ChangeEntry,
@@ -108,95 +116,179 @@ const DownloadInstead = ({
 		</Flex>
 	);
 
+/** The result of the last check, when there is no update to show. */
+const CheckStatus = ({ t, status }: Pick<AboutSettings, "t" | "status">) => {
+	if (status === "checking")
+		return (
+			<Flex align="center" gap="2">
+				<Spinner />
+				<Text size="2" color="gray" role="status">
+					{t("settings.about.checking", "Checking for updates...")}
+				</Text>
+			</Flex>
+		);
+	if (status === "up-to-date")
+		return (
+			<Flex align="center" gap="2">
+				<CheckmarkCircleRegular color="var(--accent-11)" aria-hidden />
+				<Text size="2" role="status">
+					{t("settings.about.upToDate", "You have the newest version")}
+				</Text>
+			</Flex>
+		);
+	if (status === "error")
+		return (
+			<Flex align="center" gap="2">
+				<ErrorCircleRegular color="var(--red-11)" aria-hidden />
+				<Text size="2" color="red" role="status">
+					{t(
+						"settings.about.checkFailed",
+						"Couldn't check for updates. Check your connection and try again",
+					)}
+				</Text>
+			</Flex>
+		);
+	return null;
+};
+
+/**
+ * Preferences › About › Updates: what's new, the check button and the beta
+ * switch in one card at the top. Desktop only; the website has no updater.
+ */
 export const UpdateSection = ({
 	t,
+	isWebsite,
 	status,
 	update,
 	progress,
 	installUpdate,
 	restartApp,
+	checkUpdate,
 	showUpdateCard,
 	canSelfUpdate,
 	installKind,
+	betaUpdates,
+	setBetaUpdates,
 }: Pick<
 	AboutSettings,
 	| "t"
+	| "isWebsite"
 	| "status"
 	| "update"
 	| "progress"
 	| "installUpdate"
 	| "restartApp"
+	| "checkUpdate"
 	| "showUpdateCard"
 	| "canSelfUpdate"
 	| "installKind"
+	| "betaUpdates"
+	| "setBetaUpdates"
 >) =>
-	showUpdateCard && (
+	!isWebsite && (
 		<Card>
 			<Flex direction="column" gap="3">
-				<Flex align="center" gap="2">
-					<Heading size="3">
-						{t("settings.about.update", "Software Update")}
-					</Heading>
-					{status === "available" && (
-						<Badge>{t("settings.about.newVersion", "New Version")}</Badge>
+				<Flex align="center" justify="between" gap="3" wrap="wrap">
+					<Flex align="center" gap="2">
+						<Heading size="3">
+							{t("settings.about.update", "Software Update")}
+						</Heading>
+						{status === "available" && (
+							<Badge>{t("settings.about.newVersion", "New Version")}</Badge>
+						)}
+					</Flex>
+					{!showUpdateCard && (
+						<Button
+							variant="soft"
+							color="gray"
+							disabled={status === "checking"}
+							onClick={() => void checkUpdate()}
+						>
+							<ArrowSyncRegular />
+							{t("settings.about.checkForUpdates", "Check for updates")}
+						</Button>
 					)}
 				</Flex>
 
-				<Box>
-					{status === "available" && update && (
-						<Flex direction="column" gap="3">
-							<Flex direction="column" gap="2" className={styles.release}>
-								<Text weight="bold" size="2">
-									{translatedVersionLabel(update.version, t)}
-								</Text>
-								<UpdateNotes t={t} update={update} />
-							</Flex>
-							{canSelfUpdate ? (
-								<Flex gap="3">
-									<Button onClick={installUpdate}>
-										<CloudArrowDown24Regular />
-										{t("settings.about.updateNow", "Update Now")}
-									</Button>
+				{!showUpdateCard && <CheckStatus t={t} status={status} />}
+
+				{showUpdateCard && (
+					<Box>
+						{status === "available" && update && (
+							<Flex direction="column" gap="3">
+								<Flex direction="column" gap="2" className={styles.release}>
+									<Text weight="bold" size="2">
+										{translatedVersionLabel(update.version, t)}
+									</Text>
+									<UpdateNotes t={t} update={update} />
 								</Flex>
-							) : (
-								<DownloadInstead
-									t={t}
-									update={update}
-									installKind={installKind}
-								/>
-							)}
-						</Flex>
-					)}
-
-					{status === "downloading" && (
-						<Flex direction="column" gap="2">
-							<Flex justify="between">
-								<Text size="2">
-									{t("settings.about.downloading", "Downloading update…")}
-								</Text>
-								<Text size="2">{progress.toFixed(0)}%</Text>
+								{canSelfUpdate ? (
+									<Flex gap="3">
+										<Button onClick={installUpdate}>
+											<CloudArrowDown24Regular />
+											{t("settings.about.updateNow", "Update Now")}
+										</Button>
+									</Flex>
+								) : (
+									<DownloadInstead
+										t={t}
+										update={update}
+										installKind={installKind}
+									/>
+								)}
 							</Flex>
-							<Progress value={progress} />
-						</Flex>
-					)}
+						)}
 
-					{status === "ready" && (
-						<Flex direction="column" gap="2">
-							<Flex align="center" gap="2">
-								<CheckmarkCircle24Regular color="var(--accent-11)" />
-								<Text size="2">
-									{t(
-										"settings.about.ready",
-										"Update ready, restart application to apply",
-									)}
-								</Text>
+						{status === "downloading" && (
+							<Flex direction="column" gap="2">
+								<Flex justify="between">
+									<Text size="2">
+										{t("settings.about.downloading", "Downloading update…")}
+									</Text>
+									<Text size="2">{progress.toFixed(0)}%</Text>
+								</Flex>
+								<Progress value={progress} />
 							</Flex>
-							<Button onClick={restartApp}>
-								{t("settings.about.restart", "Restart Application")}
-							</Button>
-						</Flex>
+						)}
+
+						{status === "ready" && (
+							<Flex direction="column" gap="2">
+								<Flex align="center" gap="2">
+									<CheckmarkCircle24Regular color="var(--accent-11)" />
+									<Text size="2">
+										{t(
+											"settings.about.ready",
+											"Update ready, restart application to apply",
+										)}
+									</Text>
+								</Flex>
+								<Button onClick={restartApp}>
+									{t("settings.about.restart", "Restart Application")}
+								</Button>
+							</Flex>
+						)}
+					</Box>
+				)}
+
+				<Separator size="4" />
+
+				<FieldRow
+					icon={<BeakerRegular />}
+					label={t("settings.about.betaUpdates", "Beta updates")}
+					description={t(
+						"settings.about.betaUpdatesDescription",
+						"Get new versions a few days early to try them out and report problems. Turning this off keeps your version until the next stable one is newer.",
 					)}
-				</Box>
+				>
+					{({ controlId, descriptionId }) => (
+						<Switch
+							id={controlId}
+							aria-describedby={descriptionId}
+							checked={betaUpdates}
+							onCheckedChange={setBetaUpdates}
+						/>
+					)}
+				</FieldRow>
 			</Flex>
 		</Card>
 	);

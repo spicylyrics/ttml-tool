@@ -23,7 +23,12 @@ const update = {
 	},
 } as unknown as Update;
 
-async function render(props: { canSelfUpdate: boolean; installKind: string }) {
+async function render(
+	props: Partial<Parameters<typeof UpdateSection>[0]> & {
+		canSelfUpdate: boolean;
+		installKind: string;
+	},
+) {
 	const instance = i18n.createInstance().use(ICU);
 	await instance.init({ lng: "en-US", resources: {} });
 	const t = instance.t.bind(instance) as Parameters<
@@ -36,12 +41,16 @@ async function render(props: { canSelfUpdate: boolean; installKind: string }) {
 			<Theme>
 				<UpdateSection
 					t={t}
+					isWebsite={false}
 					status="available"
 					update={update}
 					progress={0}
 					installUpdate={async () => {}}
 					restartApp={async () => {}}
+					checkUpdate={async () => {}}
 					showUpdateCard
+					betaUpdates={false}
+					setBetaUpdates={() => {}}
 					{...props}
 				/>
 			</Theme>,
@@ -72,5 +81,34 @@ describe("UpdateSection", () => {
 		const aur = await render({ canSelfUpdate: false, installKind: "aur" });
 		expect(aur).toContain("AUR helper");
 		expect(aur).not.toContain("Open download page");
+	});
+
+	it("shows the check button, the result and the beta switch with no update", async () => {
+		const text = await render({
+			canSelfUpdate: true,
+			installKind: "nsis",
+			status: "up-to-date",
+			update: null,
+			showUpdateCard: false,
+		});
+		expect(text).toContain("Check for updates");
+		expect(text).toContain("You have the newest version");
+		expect(text).toContain("Beta updates");
+		expect(text).not.toContain("Update Now");
+	});
+
+	it("keeps the beta switch next to an offered update", async () => {
+		const text = await render({ canSelfUpdate: true, installKind: "nsis" });
+		expect(text).toContain("Beta updates");
+		expect(text).not.toContain("Check for updates");
+	});
+
+	it("shows nothing on the website, which has no updater", async () => {
+		const text = await render({
+			canSelfUpdate: false,
+			installKind: "web",
+			isWebsite: true,
+		});
+		expect(text).toBe("");
 	});
 });

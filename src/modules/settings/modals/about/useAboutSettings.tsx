@@ -53,6 +53,7 @@ export function useAboutSettings() {
 		progress,
 		installUpdate,
 		restartApp,
+		checkUpdate,
 		betaUpdates,
 		setBetaUpdates,
 		canSelfUpdate,

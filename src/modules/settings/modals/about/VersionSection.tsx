@@ -1,7 +1,6 @@
-import { APP_VERSION, BUILD_TIME, GIT_COMMIT } from "virtual:buildmeta";
-import { Card, Flex, Link, Text } from "@radix-ui/themes";
+import { BUILD_TIME, GIT_COMMIT } from "virtual:buildmeta";
+import { Card, Flex, Heading, Link, Text } from "@radix-ui/themes";
 import { Children, Fragment, type ReactNode } from "react";
-import { translatedVersionLabel } from "$/utils/version-label";
 import { openExternal } from "./externalLinks";
 import type { AboutSettings } from "./useAboutSettings";
 
@@ -13,26 +12,25 @@ import type { AboutSettings } from "./useAboutSettings";
 const keyedParts = (parts: ReactNode) =>
 	Children.map(parts, (part) => <Fragment>{part}</Fragment>);
 
+/** Build details for bug reports. The version itself is in the header. */
 export const VersionSection = ({ t }: Pick<AboutSettings, "t">) => (
 	<Card>
 		<Flex direction="column" gap="2">
+			<Heading size="3">
+				{t("aboutModal.buildDetails", "Build details")}
+			</Heading>
 			<Flex direction="column" gap="1">
-				<Text as="div" size="2" weight="medium">
-					{t("aboutModal.version", "Version: {version}", {
-						version: translatedVersionLabel(APP_VERSION, t),
-					})}
-				</Text>
-				<Text as="div" size="2">
+				<Text as="div" size="2" color="gray">
 					{t("aboutModal.buildDate", "Build date: {date}", {
 						date: BUILD_TIME,
 					})}
 				</Text>
-				<Text as="div" size="2">
+				<Text as="div" size="2" color="gray">
 					{t("aboutModal.platform", "Platform: {platform}", {
 						platform: window.navigator.platform,
 					})}
 				</Text>
-				<Text as="div" size="2">
+				<Text as="div" size="2" color="gray">
 					{keyedParts(
 						t("aboutModal.gitCommit", "Git commit: {commit}", {
 							commit:
