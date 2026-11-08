@@ -1853,12 +1853,8 @@
   },
   "domainMigration": {
     "notice": {
-      "title": "TTML Tool ma nowy adres",
-      "description": "Przenieś tam teraz swoje projekty i ustawienia. Ten adres wkrótce zacznie przekierowywać, a dane przeglądarki nie przechodzą przez przekierowanie.",
-      "counts": "Na tym adresie: {projects, plural, one {# projekt} few {# projekty} many {# projektów} other {# projektu}} i {settings, plural, one {# ustawienie} few {# ustawienia} many {# ustawień} other {# ustawienia}}.",
       "backup": "Pobierz kopię zapasową",
-      "later": "Później",
-      "move": "Przenieś moje dane"
+      "later": "Później"
     },
     "transfer": {
       "counts": "{projects, plural, one {# projekt} few {# projekty} many {# projektów} other {# projektu}}, {settings, plural, one {# ustawienie} few {# ustawienia} many {# ustawień} other {# ustawienia}}, {shortcuts, plural, one {# skrót} few {# skróty} many {# skrótów} other {# skrótu}}",
@@ -1889,7 +1885,6 @@
       "review": "Część tych danych już tu jest. Wybierz, co zachować.",
       "receiveTitle": "Odbierz dane",
       "projectsKept": "Projekty, które już tu są, nigdy nie zostaną nadpisane. Jeśli druga witryna ma nowszą wersję, zostanie dodana obok Twojej jako kopia.",
-      "projectsNewest": "Projekty na obu witrynach zachowują nowszą wersję.",
       "useSettings": "Użyj wartości z drugiej witryny dla ustawień, które się różnią",
       "useShortcuts": "Użyj skrótów z drugiej witryny tam, gdzie się różnią",
       "useToken": "Użyj tokenu Genius z drugiej witryny",

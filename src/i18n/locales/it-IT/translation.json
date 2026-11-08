@@ -1853,12 +1853,8 @@
   },
   "domainMigration": {
     "notice": {
-      "title": "TTML Tool ha un nuovo indirizzo",
-      "description": "Sposta lì ora i tuoi progetti e le impostazioni. Questo indirizzo inizierà presto a reindirizzare e i dati del browser non seguono un reindirizzamento.",
-      "counts": "Trovati {projects, plural, one {# progetto} many {# progetti} other {# progetti}} e {settings, plural, one {# impostazione} many {# impostazioni} other {# impostazioni}} su questo indirizzo.",
       "backup": "Scarica backup",
-      "later": "Più tardi",
-      "move": "Sposta i miei dati"
+      "later": "Più tardi"
     },
     "transfer": {
       "counts": "{projects, plural, one {# progetto} many {# progetti} other {# progetti}}, {settings, plural, one {# impostazione} many {# impostazioni} other {# impostazioni}}, {shortcuts, plural, one {# scorciatoia} many {# scorciatoie} other {# scorciatoie}}",
@@ -1889,7 +1885,6 @@
       "review": "Alcuni di questi dati sono già qui. Scegli cosa tenere.",
       "receiveTitle": "Ricevi i tuoi dati",
       "projectsKept": "I progetti già presenti qui non vengono mai sovrascritti. Se l'altro sito ha una versione più recente, viene aggiunta accanto alla tua come copia.",
-      "projectsNewest": "I progetti presenti su entrambi i siti mantengono la versione più recente.",
       "useSettings": "Usa il valore dell'altro sito per le impostazioni diverse",
       "useShortcuts": "Usa le scorciatoie dell'altro sito dove sono diverse",
       "useToken": "Usa il token Genius dell'altro sito",

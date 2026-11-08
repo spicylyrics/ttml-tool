@@ -1853,12 +1853,8 @@
   },
   "domainMigration": {
     "notice": {
-      "title": "TTML Toolilla on uusi osoite",
-      "description": "Siirrä projektisi ja asetuksesi sinne nyt. Tämä osoite alkaa pian uudelleenohjata, eivätkä selaimen tiedot seuraa uudelleenohjausta.",
-      "counts": "Tästä osoitteesta löytyi {projects, plural, one {# projekti} other {# projektia}} ja {settings, plural, one {# asetus} other {# asetusta}}.",
       "backup": "Lataa varmuuskopio",
-      "later": "Myöhemmin",
-      "move": "Siirrä tietoni"
+      "later": "Myöhemmin"
     },
     "transfer": {
       "counts": "{projects, plural, one {# projekti} other {# projektia}}, {settings, plural, one {# asetus} other {# asetusta}}, {shortcuts, plural, one {# pikanäppäin} other {# pikanäppäintä}}",
@@ -1889,7 +1885,6 @@
       "review": "Osa näistä tiedoista on jo täällä. Valitse, mitä säilytetään.",
       "receiveTitle": "Vastaanota tietosi",
       "projectsKept": "Täällä jo olevia projekteja ei koskaan korvata. Jos toisella sivustolla on uudempi versio, se lisätään omasi viereen kopiona.",
-      "projectsNewest": "Molemmilla sivustoilla olevista projekteista säilyy uudempi versio.",
       "useSettings": "Käytä toisen sivuston arvoa niissä asetuksissa, jotka eroavat",
       "useShortcuts": "Käytä toisen sivuston pikanäppäimiä, kun ne eroavat",
       "useToken": "Käytä toisen sivuston Genius-tunnusta",

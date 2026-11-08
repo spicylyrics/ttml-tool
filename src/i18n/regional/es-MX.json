@@ -186,8 +186,6 @@
 	},
 	"domainMigration": {
 		"notice": {
-			"description": "Mueve allí tus proyectos y tu configuración ahora. Esta dirección pronto empezará a redirigir y los datos del navegador no pueden seguir una redirección.",
-			"counts": "Se encontraron {projects, plural, one {# proyecto} many {# proyectos} other {# proyectos}} y {settings, plural, one {# opción de configuración} many {# opciones de configuración} other {# opciones de configuración}} en esta dirección.",
 			"backup": "Descargar respaldo"
 		}
 	}

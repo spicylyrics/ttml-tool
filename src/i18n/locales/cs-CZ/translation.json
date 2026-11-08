@@ -1853,12 +1853,8 @@
   },
   "domainMigration": {
     "notice": {
-      "title": "TTML Tool má novou adresu",
-      "description": "Přesuňte tam své projekty a nastavení hned teď. Tato adresa brzy začne přesměrovávat a data prohlížeče přesměrování nenásledují.",
-      "counts": "Na této adrese: {projects, plural, one {# projekt} few {# projekty} many {# projektu} other {# projektů}} a {settings, plural, one {# nastavení} few {# nastavení} many {# nastavení} other {# nastavení}}.",
       "backup": "Stáhnout zálohu",
-      "later": "Později",
-      "move": "Přesunout moje data"
+      "later": "Později"
     },
     "transfer": {
       "counts": "{projects, plural, one {# projekt} few {# projekty} many {# projektu} other {# projektů}}, {settings, plural, one {# nastavení} few {# nastavení} many {# nastavení} other {# nastavení}}, {shortcuts, plural, one {# zkratka} few {# zkratky} many {# zkratky} other {# zkratek}}",
@@ -1889,7 +1885,6 @@
       "review": "Část těchto dat už tu je. Vyberte, co ponechat.",
       "receiveTitle": "Přijmout data",
       "projectsKept": "Projekty, které tu už jsou, se nikdy nepřepíší. Pokud má druhý web novější verzi, přidá se vedle té vaší jako kopie.",
-      "projectsNewest": "U projektů na obou webech zůstane novější verze.",
       "useSettings": "Použít hodnoty z druhého webu u nastavení, která se liší",
       "useShortcuts": "Použít zkratky z druhého webu tam, kde se liší",
       "useToken": "Použít token Genius z druhého webu",

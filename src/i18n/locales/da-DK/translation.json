@@ -1853,12 +1853,8 @@
   },
   "domainMigration": {
     "notice": {
-      "title": "TTML Tool har fået en ny adresse",
-      "description": "Flyt dine projekter og indstillinger dertil nu. Denne adresse begynder snart at omdirigere, og browserdata kan ikke følge med en omdirigering.",
-      "counts": "Fandt {projects, plural, one {# projekt} other {# projekter}} og {settings, plural, one {# indstilling} other {# indstillinger}} på denne adresse.",
       "backup": "Download sikkerhedskopi",
-      "later": "Senere",
-      "move": "Flyt mine data"
+      "later": "Senere"
     },
     "transfer": {
       "counts": "{projects, plural, one {# projekt} other {# projekter}}, {settings, plural, one {# indstilling} other {# indstillinger}}, {shortcuts, plural, one {# genvej} other {# genveje}}",
@@ -1889,7 +1885,6 @@
       "review": "Noget af disse data er her allerede. Vælg, hvad der skal beholdes.",
       "receiveTitle": "Modtag dine data",
       "projectsKept": "Projekter, der allerede er her, bliver aldrig overskrevet. Hvis det andet websted har en nyere version, tilføjes den ved siden af din som en kopi.",
-      "projectsNewest": "Projekter på begge websteder beholder den nyeste version.",
       "useSettings": "Brug det andet websteds værdi for indstillinger, der er forskellige",
       "useShortcuts": "Brug det andet websteds genveje, hvor de er forskellige",
       "useToken": "Brug det andet websteds Genius-token",

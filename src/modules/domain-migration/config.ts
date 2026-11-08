@@ -1,21 +1,14 @@
 // Browser storage is per-origin, so one site hands its data to another through
-// the pages in MigrationRouteApp. Two transfers exist: the old address moves to
-// tool.spicylyrics.org before it becomes a redirect, and the stable site copies
-// to the beta site. The env overrides exist for local two-origin tests.
+// the pages in MigrationRouteApp. The stable site copies to the beta site. The
+// env overrides exist for local two-origin tests.
 export const OFFICIAL_TOOL_ORIGIN: string =
 	import.meta.env.VITE_MIGRATION_OFFICIAL_ORIGIN ||
 	"https://tool.spicylyrics.org";
-
-export const LEGACY_TOOL_ORIGINS: readonly string[] = import.meta.env
-	.VITE_MIGRATION_LEGACY_ORIGIN
-	? [import.meta.env.VITE_MIGRATION_LEGACY_ORIGIN]
-	: ["https://tool.community.spicylyrics.org"];
 
 export const BETA_TOOL_ORIGIN: string =
 	import.meta.env.VITE_MIGRATION_BETA_ORIGIN ||
 	"https://beta.tool.spicylyrics.org";
 
-export const MIGRATION_COMPLETED_KEY = "domainMigrationCompleted:v2";
 /** Set on the beta site once data has been copied there. */
 export const BETA_COPY_COMPLETED_KEY = "betaDataCopied";
 export const MIGRATION_PROTOCOL_VERSION = 2;
@@ -25,14 +18,13 @@ export const MIGRATION_CHUNK_SIZE = 1024 * 1024;
 export const MIGRATION_SEND_PATH = "/migration-send";
 export const MIGRATION_RECEIVE_PATH = "/migration-receive";
 
+/**
+ * A one-way copy. It never overwrites what the destination has, because both
+ * sites stay in use.
+ */
 export interface TransferRoute {
 	source: string;
 	destination: string;
-	/**
-	 * "move" replaces a matching project with its newer copy. "copy" never
-	 * overwrites what the destination has, because both sites stay in use.
-	 */
-	kind: "move" | "copy";
 	/** Written on both ends when the transfer finishes. */
 	completedKey: string;
 }
@@ -47,18 +39,9 @@ export interface TransferRoute {
  * have no way back from a newer format.
  */
 export const TRANSFER_ROUTES: readonly TransferRoute[] = [
-	...LEGACY_TOOL_ORIGINS.map(
-		(source): TransferRoute => ({
-			source,
-			destination: OFFICIAL_TOOL_ORIGIN,
-			kind: "move",
-			completedKey: MIGRATION_COMPLETED_KEY,
-		}),
-	),
 	{
 		source: OFFICIAL_TOOL_ORIGIN,
 		destination: BETA_TOOL_ORIGIN,
-		kind: "copy",
 		completedKey: BETA_COPY_COMPLETED_KEY,
 	},
 ];
@@ -75,7 +58,7 @@ export const transferRoutesTo = (origin: string, isTauri = false) =>
 		? []
 		: TRANSFER_ROUTES.filter((route) => route.destination === origin);
 
-export type MigrationHostKind = "official" | "legacy" | "beta" | "other";
+export type MigrationHostKind = "official" | "beta" | "other";
 
 export function classifyMigrationOrigin(
 	origin: string,
@@ -83,7 +66,6 @@ export function classifyMigrationOrigin(
 ): MigrationHostKind {
 	if (isTauri) return "other";
 	if (origin === OFFICIAL_TOOL_ORIGIN) return "official";
-	if (LEGACY_TOOL_ORIGINS.includes(origin)) return "legacy";
 	if (origin === BETA_TOOL_ORIGIN) return "beta";
 	return "other";
 }
