@@ -29,6 +29,7 @@ import "./utils/pwa.tsx";
 import { isMigrationPath } from "$/modules/domain-migration/config";
 import { MigrationRouteApp } from "$/modules/domain-migration/MigrationRouteApp";
 import { globalStore } from "./states/store.ts";
+import { startErrorLog } from "./utils/errorLog.ts";
 
 async function startApp() {
 	const rootEl = document.getElementById("root");
@@ -58,6 +59,7 @@ async function startApp() {
 	}
 
 	enableMapSet();
+	startErrorLog();
 
 	Sentry.init({
 		dsn: import.meta.env.SENTRY_DSN,

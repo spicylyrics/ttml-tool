@@ -1,12 +1,27 @@
+import { useAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getContributors } from "$/modules/settings/utils/contributor-count";
+import {
+	betaUpdatesAtom,
+	canSelfUpdateAtom,
+	installKindAtom,
+} from "$/states/update";
 import { clearWebsiteCache, forceWebsiteRefresh } from "$/utils/pwa";
 import { useAppUpdate } from "$/utils/useAppUpdate";
 export function useAboutSettings() {
 	const { t } = useTranslation();
-	const { status, update, progress, installUpdate, restartApp } =
+	const { status, update, progress, installUpdate, restartApp, checkUpdate } =
 		useAppUpdate();
+	const [betaUpdates, saveBetaUpdates] = useAtom(betaUpdatesAtom);
+	const canSelfUpdate = useAtomValue(canSelfUpdateAtom);
+	const installKind = useAtomValue(installKindAtom);
+	// Turning beta on offers the newest beta right away; turning it off finds
+	// nothing older to offer, so the current version stays until stable passes it.
+	const setBetaUpdates = (enabled: boolean) => {
+		saveBetaUpdates(enabled);
+		void checkUpdate(true);
+	};
 	const [cacheConfirmationOpen, setCacheConfirmationOpen] = useState(false);
 	const [recoveryAction, setRecoveryAction] = useState<
 		"refresh" | "clear" | null
@@ -38,6 +53,11 @@ export function useAboutSettings() {
 		progress,
 		installUpdate,
 		restartApp,
+		checkUpdate,
+		betaUpdates,
+		setBetaUpdates,
+		canSelfUpdate,
+		installKind,
 		cacheConfirmationOpen,
 		setCacheConfirmationOpen,
 		recoveryAction,

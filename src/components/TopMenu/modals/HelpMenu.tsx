@@ -27,6 +27,9 @@ const HelpMenuItems = () => {
 			{item(MENU_ACTIONS.github)}
 			{item(MENU_ACTIONS.guides)}
 			<DropdownMenu.Separator />
+			{item(MENU_ACTIONS.reportProblem)}
+			{item(MENU_ACTIONS.suggestSomething)}
+			<DropdownMenu.Separator />
 			{item(MENU_ACTIONS.changelog)}
 			<DropdownMenu.Separator />
 			{item(MENU_ACTIONS.about)}

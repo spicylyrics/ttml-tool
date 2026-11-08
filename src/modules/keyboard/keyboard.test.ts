@@ -284,6 +284,42 @@ describe("rolled sync keys", () => {
 	});
 });
 
+describe("held keys", () => {
+	it("repeats only bindings that ask for it", () => {
+		const seek = vi.fn();
+		const once = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings(["ArrowRight"], seek, true));
+		cleanups.push(keyboard.registerKeyBindings(["ArrowRight"], once));
+		key("keydown", "ArrowRight", 0);
+		const repeat = key("keydown", "ArrowRight", 500, { repeat: true });
+		key("keydown", "ArrowRight", 530, { repeat: true });
+		key("keyup", "ArrowRight", 560);
+		expect(once).toHaveBeenCalledOnce();
+		expect(seek).toHaveBeenCalledTimes(3);
+		expect(seek).toHaveBeenLastCalledWith(
+			expect.objectContaining({ repeat: true, triggerTime: 530 }),
+		);
+		expect(repeat.defaultPrevented).toBe(true);
+	});
+
+	it("ignores repeats of keys that went down while typing", () => {
+		const seek = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings(["ArrowRight"], seek, true));
+		Object.assign(document, { activeElement: { tagName: "INPUT" } });
+		key("keydown", "ArrowRight", 0);
+		Object.assign(document, { activeElement: null });
+		key("keydown", "ArrowRight", 500, { repeat: true });
+		expect(seek).not.toHaveBeenCalled();
+	});
+
+	it("doesn't block repeats when nothing repeats", () => {
+		cleanups.push(keyboard.registerKeyBindings(["ArrowDown"], vi.fn()));
+		key("keydown", "ArrowDown", 0);
+		const repeat = key("keydown", "ArrowDown", 500, { repeat: true });
+		expect(repeat.defaultPrevented).toBe(false);
+	});
+});
+
 describe("shortcut recording and storage", () => {
 	it("unbinding a shortcut keeps its on-screen timing action available", async () => {
 		const store = createStore();

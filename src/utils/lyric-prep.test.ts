@@ -90,4 +90,34 @@ describe("prepareLyricLine", () => {
 		// Without it, one character at a time as before.
 		expect(prepareLyricLine("名前", {})).toBe("名\\前");
 	});
+
+	it("lowercases ad-libs joined from between words and reports the line", () => {
+		const joined: string[] = [];
+		const report = (suggestion: string) => joined.push(suggestion);
+		expect(
+			prepareLyricLine(
+				"It go in (When you), out (Ride it), do it real slow (Slide)",
+				{ splitWords: false },
+				undefined,
+				report,
+			),
+		).toBe("It go in, out, do it real slow\n<When you, ride it, slide");
+		expect(joined).toEqual([
+			"It go in, out, do it real slow (When you, ride it, slide)",
+		]);
+		// "I" and words in capitals keep their case.
+		expect(
+			prepareLyricLine("Go (Oh) now (I'm here) (OK)", { splitWords: false }),
+		).toBe("Go now\n<Oh, I'm here, OK");
+		// One ad-lib is nothing to review.
+		prepareLyricLine("Hello (Oh)", {}, undefined, report);
+		expect(joined).toHaveLength(1);
+		// With capitalizing off, the source case stays.
+		expect(
+			prepareLyricLine("a (Oh) b (Yeah)", {
+				splitWords: false,
+				capitalizeBackground: false,
+			}),
+		).toBe("a b\n<Oh, Yeah");
+	});
 });

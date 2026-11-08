@@ -8,6 +8,8 @@ export interface KeyBindingEvent {
 	downTime: number;
 	downTimeOffset: number;
 	triggerTime: number;
+	/** True for the OS key repeats of a held key (only sent to repeating bindings). */
+	repeat?: boolean;
 }
 export type KeyBindingCallback = (evt: KeyBindingEvent) => void;
 
@@ -185,6 +187,8 @@ const registeredAtomBindings = new Map<
 	ReturnType<typeof atomWithKeybindingStorage>,
 	Set<KeyBindingCallback>
 >();
+/** Callbacks that keep running while their key is held. */
+const repeatingCallbacks = new WeakSet<KeyBindingCallback>();
 let downTime = 0;
 
 const MODIFIER_ORDER = ["Control", "Meta", "Alt", "Shift"];
@@ -215,10 +219,14 @@ function clearPressingKeys() {
  * the press into an unbound "G + H" and drop it, so fall back to the pressed key
  * with only the held modifiers.
  */
-function dispatchPressingKeys(code: string, evt: KeyboardEvent) {
+function dispatchPressingKeys(
+	code: string,
+	evt: KeyboardEvent,
+	repeat = false,
+) {
 	const joined = getShortcutKey(pressingKeys);
 	if (registeredKeyBindings.has(joined) || MODIFIER_ORDER.includes(code)) {
-		triggerCallbacks(joined, evt, downTime);
+		triggerCallbacks(joined, evt, downTime, repeat);
 		return;
 	}
 	const modifiers = [...pressingKeys].filter((key) =>
@@ -228,6 +236,7 @@ function dispatchPressingKeys(code: string, evt: KeyboardEvent) {
 		getShortcutKey([...modifiers, code]),
 		evt,
 		keyDownTimes.get(code) ?? evt.timeStamp,
+		repeat,
 	);
 }
 
@@ -235,14 +244,19 @@ function triggerCallbacks(
 	joinedKey: string,
 	evt: KeyboardEvent,
 	targetTime: number,
+	repeat = false,
 ) {
-	const callbacks = registeredKeyBindings.get(joinedKey);
-	if (callbacks) {
+	const registered = registeredKeyBindings.get(joinedKey);
+	const callbacks = [...(registered ?? [])].filter(
+		(cb) => !repeat || repeatingCallbacks.has(cb),
+	);
+	if (callbacks.length > 0) {
 		const downTimeOffset = evt.timeStamp - targetTime;
 		const e: KeyBindingEvent = {
 			downTime: targetTime,
 			downTimeOffset,
 			triggerTime: evt.timeStamp,
+			...(repeat ? { repeat: true } : {}),
 		};
 		for (const cb of callbacks) {
 			try {
@@ -259,7 +273,13 @@ function triggerCallbacks(
 
 window.addEventListener("keydown", (evt) => {
 	// IME keystrokes belong to the composition, not to shortcuts.
-	if (evt.repeat || evt.isComposing || evt.key === "Process") return;
+	if (evt.isComposing || evt.key === "Process") return;
+	if (evt.repeat) {
+		// A held key re-runs only the bindings that asked for it.
+		const code = heldKeyCodes.get(evt.code);
+		if (code && !isEditing(evt)) dispatchPressingKeys(code, evt, true);
+		return;
+	}
 	if (isEditing(evt)) {
 		clearPressingKeys();
 		return;
@@ -363,10 +383,12 @@ export function isEditing(event: KeyboardEvent | MouseEvent) {
 export function registerKeyBindings(
 	cfg: KeyBindingsConfig,
 	callback: KeyBindingCallback,
+	repeat = false,
 ) {
 	if (cfg.length === 0) {
 		return () => {};
 	}
+	if (repeat) repeatingCallbacks.add(callback);
 	const joined = getShortcutKey(cfg);
 	let set = registeredKeyBindings.get(joined);
 	if (!set) {
@@ -400,6 +422,7 @@ export function registerKeyBindingAtom(
 	cfg: KeyBindingsConfig,
 	callback: KeyBindingCallback,
 	doublePress = false,
+	repeat = false,
 ) {
 	// On-screen timing controls invoke an action even when its shortcut is unbound.
 	let callbacks = registeredAtomBindings.get(thisAtom);
@@ -408,9 +431,9 @@ export function registerKeyBindingAtom(
 		registeredAtomBindings.set(thisAtom, callbacks);
 	}
 	callbacks.add(callback);
-	const unregisterShortcut = (
-		doublePress ? registerDoubleKeyBindings : registerKeyBindings
-	)(cfg, callback);
+	const unregisterShortcut = doublePress
+		? registerDoubleKeyBindings(cfg, callback)
+		: registerKeyBindings(cfg, callback, repeat);
 	return () => {
 		unregisterShortcut();
 		callbacks?.delete(callback);
@@ -470,10 +493,12 @@ export function registerExtraKeyBindings(
 	extras: readonly KeyBindingsConfig[],
 	callback: KeyBindingCallback,
 	doublePress = false,
+	repeat = false,
 ) {
-	const register = doublePress
-		? registerDoubleKeyBindings
-		: registerKeyBindings;
+	const register = (keys: KeyBindingsConfig, cb: KeyBindingCallback) =>
+		doublePress
+			? registerDoubleKeyBindings(keys, cb)
+			: registerKeyBindings(keys, cb, repeat);
 	const seen = new Set([getShortcutKey(primary)]);
 	const unregister: Array<() => void> = [];
 	for (const extra of extras) {
@@ -487,26 +512,35 @@ export function registerExtraKeyBindings(
 	};
 }
 
+/**
+ * Runs `callback` on the action's shortcuts. With `repeat`, holding the key
+ * keeps calling it on every OS key repeat (marked `repeat: true`); "Press
+ * twice to run" turns that off.
+ */
 export function useKeyBindingAtom(
 	thisAtom: ReturnType<typeof atomWithKeybindingStorage>,
 	callback: KeyBindingCallback,
 	deps?: DependencyList,
+	options?: { repeat?: boolean },
 ): KeyBindingsConfig {
 	const keyBindings = useAtomValue(thisAtom);
 	const extraKeyBindings = useExtraKeyBindings(thisAtom);
 	const doublePress = useDoublePress(thisAtom);
+	const repeat = options?.repeat ?? false;
 	useEffect(() => {
 		const unregister = registerKeyBindingAtom(
 			thisAtom,
 			keyBindings,
 			callback,
 			doublePress,
+			repeat,
 		);
 		const unregisterExtras = registerExtraKeyBindings(
 			keyBindings,
 			extraKeyBindings,
 			callback,
 			doublePress,
+			repeat,
 		);
 		return () => {
 			unregister();
@@ -518,6 +552,7 @@ export function useKeyBindingAtom(
 		extraKeyBindings,
 		callback,
 		doublePress,
+		repeat,
 		...(deps || []),
 	]);
 	return keyBindings;

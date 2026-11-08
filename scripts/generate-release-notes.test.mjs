@@ -63,6 +63,20 @@ describe("generateDiscordPost", () => {
 			].join("\n"),
 		);
 	});
+	it("titles betas by number, links the previous beta and pings nobody", () => {
+		const betas = [
+			{
+				version: "0.18.0-2",
+				prerelease: true,
+				entries: [{ type: "fix", title: "Crash", body: "Gone", impact: 3 }],
+			},
+			{ version: "0.18.0-1", prerelease: true, entries: [] },
+		];
+		const post = generateDiscordPost(betas, "0.18.0-2");
+		expect(post.split("\n")[0]).toBe("# 📝 TTML Tool v0.18.0 Beta 2");
+		expect(post).toContain("compare/v0.18.0-1...v0.18.0-2>");
+		expect(post).not.toContain("@");
+	});
 	it("links the tag's commits when there is no earlier release", () => {
 		expect(generateDiscordPost(changelog, "0.16.0")).toContain(
 			"<https://github.com/spicylyrics/ttml-tool/commits/v0.16.0>",

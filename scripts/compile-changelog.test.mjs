@@ -132,6 +132,83 @@ describe("change note compilation", () => {
 			"No change notes",
 		);
 	});
+	it("compiles past old releases whose versions aren't SemVer", () => {
+		const releases = [...previous, { version: "0.7", entries: [] }];
+		const notes = [parseChangeNote(note())];
+		expect(createRelease(releases, notes, "0.10.4", "Test").version).toBe(
+			"0.10.4",
+		);
+	});
+	it("compiles betas with impact kept, then folds them into the stable release", () => {
+		const beta1 = createRelease(
+			previous,
+			[
+				parseChangeNote(note("feature", 2, false, "Small")),
+				parseChangeNote(note("fix", 4, false, "Old crash")),
+			],
+			"0.11.0-1",
+			"First beta",
+		);
+		expect(beta1.prerelease).toBe(true);
+		expect(beta1.entries[0]).toMatchObject({ title: "Small", impact: 2 });
+		const fixOfBeta = parseChangeNote(
+			note("fix", 5, false, "Beta crash").replace(
+				"highlight: false",
+				"highlight: false\nbeta-only: true",
+			),
+		);
+		expect(fixOfBeta.betaOnly).toBe(true);
+		const beta2 = createRelease(
+			[beta1, ...previous],
+			[parseChangeNote(note("feature", 5, true, "Big")), fixOfBeta],
+			"0.11.0-2",
+			"Second beta",
+		);
+		expect(beta2.entries.map((entry) => entry.title)).toEqual([
+			"Big",
+			"Beta crash",
+		]);
+		expect(beta2.entries[1].betaOnly).toBe(true);
+		const releases = [beta2, beta1, ...previous];
+		expect(() => createRelease(releases, [], "0.11.0-2", "Again")).toThrow(
+			"already contains",
+		);
+		expect(() => createRelease(releases, [], "0.10.9", "Older")).toThrow(
+			"newer",
+		);
+		const stable = createRelease(releases, [], "0.11.0", "Stable");
+		expect(stable).not.toHaveProperty("prerelease");
+		expect(stable.entries.map((entry) => entry.title)).toEqual([
+			"Big",
+			"Small",
+			"Old crash",
+		]);
+		expect(stable.entries[0]).not.toHaveProperty("impact");
+		expect(stable.color).toBe(RELEASE_COLORS[1]);
+		expect(() =>
+			createRelease([beta1, ...previous], [], "0.12.0", "X"),
+		).toThrow("beta of another version");
+	});
+	it("drops the folded betas from the changelog file", () => {
+		const root = fixture();
+		const output = join(root, "src/data/changelog.json");
+		compileChangelog(root, { version: "0.11.0-1", summary: "Beta" });
+		writeFileSync(
+			join(root, "changes/more.md"),
+			note("feature", 3, false, "More"),
+		);
+		const stable = compileChangelog(root, {
+			version: "0.11.0",
+			summary: "Done",
+		});
+		expect(stable.entries.map((entry) => entry.title)).toEqual([
+			"More",
+			"A change",
+		]);
+		expect(
+			JSON.parse(readFileSync(output, "utf8")).map((item) => item.version),
+		).toEqual(["0.11.0", "0.10.3"]);
+	});
 	it("dry runs leave data and notes untouched; compilation consumes only notes", () => {
 		const root = fixture();
 		const output = join(root, "src/data/changelog.json");

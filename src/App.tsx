@@ -21,6 +21,7 @@ import {
 import SuspensePlaceHolder from "$/components/SuspensePlaceHolder";
 import { TouchSyncPanel } from "$/modules/lyric-editor/components/TouchSyncPanel/index.tsx";
 import { log } from "$/utils/logging.ts";
+import { translatedVersionLabel } from "$/utils/version-label.ts";
 // Installs second-key dispatch.
 import "$/modules/keyboard/binding-list";
 import "@radix-ui/themes/styles.css";
@@ -98,6 +99,7 @@ import {
 } from "$/modules/settings/states/index.ts";
 import { lazy } from "$/utils/lazy.ts";
 import styles from "./App.module.css";
+import { BringDataFromStableOffer } from "./components/BringDataFromStable";
 import DarkThemeDetector from "./components/DarkThemeDetector";
 import { ResizablePanel } from "./components/ResizablePanel";
 import RibbonBar from "./components/RibbonBar";
@@ -106,7 +108,6 @@ import { useFileOpener } from "./hooks/useFileOpener.ts";
 import AudioControls from "./modules/audio/components/index.tsx";
 import { useAudioFeedback } from "./modules/audio/hooks/useAudioFeedback.ts";
 import { DiscordPresence } from "./modules/discord-presence/DiscordPresence";
-import { MigrationNotice } from "./modules/domain-migration/MigrationNotice";
 import { LogoColorStyle } from "./modules/logo-color/LogoColorStyle";
 import { SyncKeyBinding } from "./modules/lyric-editor/components/sync-keybinding.tsx";
 import { UrbanDictionaryKeybinding } from "./modules/lyric-editor/components/urban-dictionary-keybinding.tsx";
@@ -519,10 +520,9 @@ function App() {
 
 	useEffect(() => {
 		if (!import.meta.env.TAURI_ENV_PLATFORM) return;
-		// Flatpak and package-manager installs on Linux update elsewhere.
-		invoke<boolean>("can_self_update").then((supported) => {
-			if (supported) checkUpdate(true);
-		});
+		// Flatpak and package-manager installs check too, then download the
+		// new version from the release page instead of installing it.
+		checkUpdate(true);
 	}, [checkUpdate]);
 
 	useEffect(() => {
@@ -533,7 +533,7 @@ function App() {
 				<div>
 					<div style={{ fontWeight: "bold" }}>
 						{t("app.update.updateAvailable", "发现新版本: {version}", {
-							version: update.version,
+							version: translatedVersionLabel(update.version, t),
 						})}
 					</div>
 				</div>,
@@ -705,7 +705,7 @@ function App() {
 			    pointer leaves its control instead of staying up while hovered. */}
 			<TooltipPrimitive.Provider delayDuration={200} disableHoverableContent>
 				{import.meta.env.TAURI_ENV_PLATFORM && <InterfaceScaleManager />}
-				<MigrationNotice />
+				<BringDataFromStableOffer />
 				<DiscordPresence />
 				<BeginnerGuide />
 				<DidYouKnowHints />
