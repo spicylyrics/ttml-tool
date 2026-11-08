@@ -4,7 +4,7 @@
 export class SpectrogramConfig {
     free(): void;
     [Symbol.dispose](): void;
-    constructor(sample_rate: number, fft_size: number, hop_length: number, img_width: number, img_height: number, gain: number, frequency_scale: number);
+    constructor(sample_rate: number, fft_size: number, hop_length: number, img_width: number, img_height: number, gain: number, frequency_scale: number, max_freq: number);
     fft_size: number;
     /**
      * 0 = linear，1 = log，2 = mel。
@@ -14,6 +14,10 @@ export class SpectrogramConfig {
     hop_length: number;
     img_height: number;
     img_width: number;
+    /**
+     * Wanted top of the image in Hz (clamped to 20 kHz and Nyquist).
+     */
+    max_freq: number;
     sample_rate: number;
 }
 
@@ -43,6 +47,7 @@ export interface InitOutput {
     readonly __wbg_get_spectrogramconfig_hop_length: (a: number) => number;
     readonly __wbg_get_spectrogramconfig_img_height: (a: number) => number;
     readonly __wbg_get_spectrogramconfig_img_width: (a: number) => number;
+    readonly __wbg_get_spectrogramconfig_max_freq: (a: number) => number;
     readonly __wbg_get_spectrogramconfig_sample_rate: (a: number) => number;
     readonly __wbg_set_spectrogramconfig_fft_size: (a: number, b: number) => void;
     readonly __wbg_set_spectrogramconfig_frequency_scale: (a: number, b: number) => void;
@@ -50,13 +55,14 @@ export interface InitOutput {
     readonly __wbg_set_spectrogramconfig_hop_length: (a: number, b: number) => void;
     readonly __wbg_set_spectrogramconfig_img_height: (a: number, b: number) => void;
     readonly __wbg_set_spectrogramconfig_img_width: (a: number, b: number) => void;
+    readonly __wbg_set_spectrogramconfig_max_freq: (a: number, b: number) => void;
     readonly __wbg_set_spectrogramconfig_sample_rate: (a: number, b: number) => void;
     readonly __wbg_spectrogramconfig_free: (a: number, b: number) => void;
     readonly __wbg_wbg_rayon_poolbuilder_free: (a: number, b: number) => void;
     readonly generate_spectrogram_image: (a: number, b: number, c: number, d: number, e: number) => [number, number, number, number];
     readonly initThreadPool: (a: number) => any;
     readonly init_thread_pool: (a: number) => any;
-    readonly spectrogramconfig_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
+    readonly spectrogramconfig_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
     readonly wbg_rayon_poolbuilder_build: (a: number) => void;
     readonly wbg_rayon_poolbuilder_numThreads: (a: number) => number;
     readonly wbg_rayon_poolbuilder_receiver: (a: number) => number;

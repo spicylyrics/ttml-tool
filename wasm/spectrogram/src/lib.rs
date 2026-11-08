@@ -16,6 +16,30 @@ pub mod core {
         pub img_height: usize,
         pub gain: f32,
         pub frequency_scale: FrequencyScale,
+        /// Wanted top of the image in Hz, clamped to [`MAX_RENDER_FREQ`] and
+        /// Nyquist. The top lands on a whole number of bins, as before.
+        pub max_freq: f32,
+    }
+
+    /// The highest frequency the renderer draws, whatever the sample rate.
+    pub const MAX_RENDER_FREQ: f32 = 20000.0;
+
+    /// Log and mel rows above this frequency get [`TREBLE_TILT_DB_PER_OCTAVE`].
+    pub const TREBLE_TILT_START_FREQ: f32 = 500.0;
+
+    /// Treble lift for log and mel: music falls off with frequency, so without
+    /// it the upper half of a log or mel view stays dark.
+    pub const TREBLE_TILT_DB_PER_OCTAVE: f32 = 1.5;
+
+    /// The lift in dB at `freq` Hz: 0 at or below 500 Hz, then
+    /// [`TREBLE_TILT_DB_PER_OCTAVE`] per octave.
+    #[must_use]
+    pub fn treble_tilt_db(freq: f32) -> f32 {
+        if freq > TREBLE_TILT_START_FREQ {
+            TREBLE_TILT_DB_PER_OCTAVE * (freq / TREBLE_TILT_START_FREQ).log2()
+        } else {
+            0.0
+        }
     }
 
     #[derive(Error, Debug, Clone, PartialEq, Eq)]
@@ -89,6 +113,13 @@ pub mod core {
                     mel_to_hz(mel_bottom + pos * (hz_to_mel(top_freq) - mel_bottom))
                 }
             }
+        }
+
+        /// Log and mel lift the treble by [`treble_tilt_db`]; linear keeps its
+        /// familiar look.
+        #[must_use]
+        pub const fn has_treble_tilt(self) -> bool {
+            matches!(self, Self::Log | Self::Mel)
         }
 
         /// 第 `y` 行（0 = 底部）下边缘和上边缘对应的频率（Hz）。
@@ -234,6 +265,37 @@ pub mod core {
         }
     }
 
+    /// Multiplies each bin's magnitude by its [`treble_tilt_db`] lift, before
+    /// [`apply_gain_mapping`].
+    ///
+    /// The lift has to go on the magnitude. The mapped value is
+    /// `log10(mag * scale + 1) * gain`, which only behaves like dB for loud
+    /// bins: adding a fixed amount there would also lift silence (value 0) and
+    /// paint the quiet treble grey. On the magnitude, silence stays black and
+    /// loud bins gain about `0.075 * gain` per octave, as 1.5 dB should.
+    ///
+    /// Each bin uses its own centre frequency. A log or mel row is a few
+    /// percent of an octave tall, so this is within 0.1 dB of the row centre.
+    pub fn apply_treble_tilt(spectrogram: &mut [f32], num_freq_bins: usize, freq_resolution: f32) {
+        let factors: Vec<f32> = (0..num_freq_bins)
+            .map(|bin| 10f32.powf(treble_tilt_db(bin as f32 * freq_resolution) / 20.0))
+            .collect();
+        let tilt_frame = |frame: &mut [f32]| {
+            for (value, factor) in frame.iter_mut().zip(&factors) {
+                *value *= factor;
+            }
+        };
+
+        cfg_if! {
+            if #[cfg(feature = "parallel")] {
+                use rayon::prelude::*;
+                spectrogram.par_chunks_mut(num_freq_bins).for_each(tilt_frame);
+            } else {
+                spectrogram.chunks_mut(num_freq_bins).for_each(tilt_frame);
+            }
+        }
+    }
+
     pub struct RenderableSpectrogram {
         pub values: Vec<f32>,
         pub num_time_bins: usize,
@@ -250,19 +312,35 @@ pub mod core {
         }
     }
 
+    /// How many FFT bins to draw for a top of `max_freq` Hz.
+    ///
+    /// `max_freq` is clamped to [`MAX_RENDER_FREQ`] and Nyquist (a NaN means
+    /// the full range). The count is `max_freq / bin width` rounded, as the
+    /// renderer always did, so the top drawn bin centre is under `max_freq`.
+    #[must_use]
+    pub fn num_freq_bins_for(sample_rate: u32, fft_size: usize, max_freq: f32) -> usize {
+        let max_freq = if max_freq.is_nan() {
+            MAX_RENDER_FREQ
+        } else {
+            max_freq.clamp(0.0, MAX_RENDER_FREQ)
+        };
+        let freq_resolution = sample_rate as f32 / fft_size as f32;
+        ((max_freq / freq_resolution).round() as usize).min(fft_size / 2)
+    }
+
     pub fn process_audio_to_spectrogram(
         audio_data: &[f32],
         sample_rate: u32,
         fft_size: usize,
         hop_length: usize,
         gain: f32,
+        max_freq: f32,
+        scale: FrequencyScale,
     ) -> Result<RenderableSpectrogram, SpectrogramError> {
         let mut planner = RealFftPlanner::new();
         let fft = planner.plan_fft_forward(fft_size);
-        let max_freq = 20000.0;
         let freq_resolution = sample_rate as f32 / fft_size as f32;
-        let num_freq_bins = (max_freq / freq_resolution).round() as usize;
-        let num_freq_bins = num_freq_bins.min(fft_size / 2);
+        let num_freq_bins = num_freq_bins_for(sample_rate, fft_size, max_freq);
 
         if num_freq_bins == 0 {
             return Err(SpectrogramError::NoFrequencyBins);
@@ -275,6 +353,9 @@ pub mod core {
             return Err(SpectrogramError::AudioTooShort);
         }
 
+        if scale.has_treble_tilt() {
+            apply_treble_tilt(&mut values, num_freq_bins, freq_resolution);
+        }
         apply_gain_mapping(&mut values, fft_size, gain);
 
         Ok(RenderableSpectrogram {
@@ -375,23 +456,40 @@ pub mod core {
         }
     }
 
+    /// The STFT frames each pixel column draws from, as `start..end` ranges.
+    ///
+    /// Column `x` is centred on frame `x * ratio` and takes every frame whose
+    /// time falls in its width. Zoomed out, several frames share a column, and
+    /// sampling only one of them dropped short peaks (detail flickered while
+    /// scrolling). Each range always holds the frame the old renderer sampled,
+    /// so with one frame per column or fewer, the output is the same as before.
+    #[must_use]
+    pub fn column_frame_ranges(num_time_bins: usize, img_width: usize) -> Vec<(usize, usize)> {
+        let ratio = (num_time_bins - 1) as f32 / img_width as f32;
+        (0..img_width)
+            .map(|x| {
+                let x = x as f32;
+                let sampled = (x * ratio + 0.5) as usize;
+                let start = ((x - 0.5) * ratio).ceil().max(0.0) as usize;
+                let end = ((x + 0.5) * ratio).ceil() as usize;
+                (start.min(sampled), end.max(sampled + 1).min(num_time_bins))
+            })
+            .collect()
+    }
+
     pub fn render_pixel_row(
         span: RowSpan,
         spectrogram: &RenderableSpectrogram,
         row_buffer: &mut [MaybeUninit<u8>],
         palette: &[u8],
-        time_indices: &[u32],
+        column_frames: &[(usize, usize)],
     ) {
         let (pixel_chunks, _) = row_buffer.as_chunks_mut::<4>();
         let num_freq_bins = spectrogram.num_freq_bins;
-        let time_bins = || {
-            time_indices.iter().map(|&time_index| {
-                let start = time_index as usize * num_freq_bins;
-                &spectrogram.values[start..start + num_freq_bins]
-            })
-        };
+        let values = spectrogram.values.as_slice();
 
         // 每种取值方式各自一个循环，避免在每个像素上分支。
+        // Each pixel takes the loudest of its column's frames.
         match span {
             RowSpan::Blank => {
                 let color = &palette[0..4];
@@ -400,18 +498,30 @@ pub mod core {
                 }
             }
             RowSpan::Max { start, end } => {
-                for (time_bin, pixel_chunk) in time_bins().zip(pixel_chunks.iter_mut()) {
-                    let final_value = time_bin[start..end]
-                        .iter()
-                        .copied()
-                        .fold(f32::NEG_INFINITY, |a, b| if a > b { a } else { b });
+                for (&(first, last), pixel_chunk) in column_frames.iter().zip(pixel_chunks) {
+                    let mut final_value = f32::NEG_INFINITY;
+                    for frame in first..last {
+                        let offset = frame * num_freq_bins;
+                        for &value in &values[offset + start..offset + end] {
+                            if value > final_value {
+                                final_value = value;
+                            }
+                        }
+                    }
                     write_color(pixel_chunk, palette_color(palette, final_value));
                 }
             }
             RowSpan::Lerp { lower, upper, t } => {
-                for (time_bin, pixel_chunk) in time_bins().zip(pixel_chunks.iter_mut()) {
-                    let low = time_bin[lower];
-                    let final_value = low + (time_bin[upper] - low) * t;
+                for (&(first, last), pixel_chunk) in column_frames.iter().zip(pixel_chunks) {
+                    let mut final_value = f32::NEG_INFINITY;
+                    for frame in first..last {
+                        let offset = frame * num_freq_bins;
+                        let low = values[offset + lower];
+                        let value = low + (values[offset + upper] - low) * t;
+                        if value > final_value {
+                            final_value = value;
+                        }
+                    }
                     write_color(pixel_chunk, palette_color(palette, final_value));
                 }
             }
@@ -452,10 +562,7 @@ pub mod core {
             return Vec::new();
         }
 
-        let time_ratio = (spectrogram.num_time_bins - 1) as f32 / img_width as f32;
-        let time_indices: Vec<u32> = (0..img_width)
-            .map(|x| ((x as f32) * time_ratio + 0.5) as u32)
-            .collect();
+        let column_frames = column_frame_ranges(spectrogram.num_time_bins, img_width);
         let span_for_pixel_row = |y_pixel: usize| {
             row_span(
                 img_height - 1 - y_pixel,
@@ -480,7 +587,7 @@ pub mod core {
                             spectrogram,
                             row_slice,
                             palette,
-                            &time_indices,
+                            &column_frames,
                         );
                     });
             } else {
@@ -490,7 +597,7 @@ pub mod core {
                         spectrogram,
                         row_buffer,
                         palette,
-                        &time_indices,
+                        &column_frames,
                     );
                 }
             }
@@ -563,13 +670,15 @@ pub mod wasm_api {
         pub gain: f32,
         /// 0 = linear，1 = log，2 = mel。
         pub frequency_scale: u32,
+        /// Wanted top of the image in Hz (clamped to 20 kHz and Nyquist).
+        pub max_freq: f32,
     }
 
     #[wasm_bindgen]
     impl SpectrogramConfig {
         #[wasm_bindgen(constructor)]
         #[must_use]
-        #[allow(clippy::missing_const_for_fn)]
+        #[allow(clippy::missing_const_for_fn, clippy::too_many_arguments)]
         pub fn new(
             sample_rate: u32,
             fft_size: usize,
@@ -578,6 +687,7 @@ pub mod wasm_api {
             img_height: usize,
             gain: f32,
             frequency_scale: u32,
+            max_freq: f32,
         ) -> Self {
             Self {
                 sample_rate,
@@ -587,6 +697,7 @@ pub mod wasm_api {
                 img_height,
                 gain,
                 frequency_scale,
+                max_freq,
             }
         }
     }
@@ -604,6 +715,8 @@ pub mod wasm_api {
             config.fft_size,
             config.hop_length,
             config.gain,
+            config.max_freq,
+            frequency_scale,
         )?;
 
         let log_ratio = core::calculate_log_ratio(
@@ -639,6 +752,8 @@ pub mod native_api {
             config.fft_size,
             config.hop_length,
             config.gain,
+            config.max_freq,
+            config.frequency_scale,
         )?;
 
         let log_ratio = core::calculate_log_ratio(
@@ -703,7 +818,21 @@ mod tests {
             img_height,
             gain,
             frequency_scale,
+            max_freq: core::MAX_RENDER_FREQ,
         }
+    }
+
+    fn spectrogram_of(audio: &[f32], scale: FrequencyScale) -> core::RenderableSpectrogram {
+        core::process_audio_to_spectrogram(
+            audio,
+            SAMPLE_RATE,
+            FFT_SIZE,
+            HOP_LENGTH,
+            GAIN,
+            core::MAX_RENDER_FREQ,
+            scale,
+        )
+        .unwrap()
     }
 
     /// 加入频率刻度之前（提交 0abbbdb）的渲染逻辑原样保留，用来逐字节核对线性路径。
@@ -955,30 +1084,38 @@ mod tests {
         let palette = grey_palette();
         for (freq, img_height) in [(440.0, IMG_HEIGHT), (1000.0, 512), (3000.0, 97)] {
             let audio = generate_tone(freq);
-            let spectrogram =
-                core::process_audio_to_spectrogram(&audio, SAMPLE_RATE, FFT_SIZE, HOP_LENGTH, GAIN)
-                    .unwrap();
+            let spectrogram = spectrogram_of(&audio, FrequencyScale::Linear);
             let log_ratio = core::calculate_log_ratio(
                 SAMPLE_RATE,
                 FFT_SIZE,
                 img_height,
                 spectrogram.num_freq_bins,
             );
-            for ratio in [log_ratio, 0.0, 1.0] {
-                let expected =
-                    reference_linear_render(&spectrogram, IMG_WIDTH, img_height, ratio, &palette);
-                let actual = core::render_pixels(
-                    &spectrogram,
-                    IMG_WIDTH,
-                    img_height,
-                    FrequencyScale::Linear,
-                    ratio,
-                    &palette,
-                );
-                assert!(
-                    expected == actual,
-                    "linear output changed: {freq} Hz, h={img_height}, ratio={ratio}"
-                );
+            // Taking the loudest frame per column only changes columns that
+            // hold several frames. 1024 px is under one frame per column;
+            // num_time_bins - 1 px is exactly one.
+            for img_width in [IMG_WIDTH, spectrogram.num_time_bins - 1] {
+                for ratio in [log_ratio, 0.0, 1.0] {
+                    let expected = reference_linear_render(
+                        &spectrogram,
+                        img_width,
+                        img_height,
+                        ratio,
+                        &palette,
+                    );
+                    let actual = core::render_pixels(
+                        &spectrogram,
+                        img_width,
+                        img_height,
+                        FrequencyScale::Linear,
+                        ratio,
+                        &palette,
+                    );
+                    assert!(
+                        expected == actual,
+                        "linear output changed: {freq} Hz, w={img_width}, h={img_height}, ratio={ratio}"
+                    );
+                }
             }
 
             let via_api = native_api::generate_spectrogram_image_native(
@@ -1046,5 +1183,207 @@ mod tests {
         );
         // 对数刻度下 1 kHz 在图像中部附近（线性下会在约 5% 高度处）。
         assert!(expected_row > img_height / 3);
+    }
+
+    #[test]
+    fn column_frame_ranges_tile_the_frames_and_keep_the_sampled_frame() {
+        for (num_time_bins, img_width) in [(368, 16), (368, 1024), (368, 367), (3751, 512), (2, 1)]
+        {
+            let ratio = (num_time_bins - 1) as f32 / img_width as f32;
+            let ranges = core::column_frame_ranges(num_time_bins, img_width);
+            assert_eq!(ranges.len(), img_width);
+            assert_eq!(ranges[0].0, 0);
+            for (x, &(start, end)) in ranges.iter().enumerate() {
+                let sampled = (x as f32 * ratio + 0.5) as usize;
+                assert!(start <= sampled && sampled < end && end <= num_time_bins);
+                if ratio >= 1.0 {
+                    if let Some(&(next_start, _)) = ranges.get(x + 1) {
+                        assert_eq!(end, next_start, "gap or overlap after column {x}");
+                    }
+                } else {
+                    assert_eq!(end - start, 1, "one frame per column when zoomed in");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn loudest_frame_per_column_keeps_short_bursts() {
+        // Silence with a 100-sample burst at 4600..4700. Frames are 1024
+        // samples every 128, so only frames 28..=36 hear it.
+        let mut audio = vec![0.0; SAMPLE_RATE as usize];
+        for (i, sample) in audio.iter_mut().enumerate().take(4700).skip(4600) {
+            let t = i as f32 / SAMPLE_RATE as f32;
+            *sample = (t * 2000.0 * 2.0 * std::f32::consts::PI).sin() * 0.5;
+        }
+        let spectrogram = spectrogram_of(&audio, FrequencyScale::Linear);
+        let img_width = 16;
+        let palette = grey_palette();
+        let log_ratio =
+            core::calculate_log_ratio(SAMPLE_RATE, FFT_SIZE, IMG_HEIGHT, spectrogram.num_freq_bins);
+
+        // The old renderer sampled frames 0, 23, 46, ... and missed the burst.
+        let ratio = (spectrogram.num_time_bins - 1) as f32 / img_width as f32;
+        let sampled: Vec<usize> = (0..3).map(|x| (x as f32 * ratio + 0.5) as usize).collect();
+        assert_eq!(sampled, [0, 23, 46]);
+        let old = reference_linear_render(&spectrogram, img_width, IMG_HEIGHT, log_ratio, &palette);
+
+        let pixels = core::render_pixels(
+            &spectrogram,
+            img_width,
+            IMG_HEIGHT,
+            FrequencyScale::Linear,
+            log_ratio,
+            &palette,
+        );
+        let column_max = |pixels: &[u8], x: usize| {
+            (0..IMG_HEIGHT)
+                .map(|y| pixels[(y * img_width + x) * 4])
+                .max()
+                .unwrap()
+        };
+        assert_eq!(column_max(&old, 1), 0, "the old renderer missed the burst");
+        assert!(
+            column_max(&pixels, 1) > 200,
+            "the burst must show in column 1"
+        );
+        for x in [0, 3, 8, 15] {
+            assert_eq!(column_max(&pixels, x), 0, "column {x} is silent");
+        }
+    }
+
+    #[test]
+    fn treble_tilt_is_1_5_db_per_octave_above_500_hz() {
+        for (freq, expected) in [
+            (0.0, 0.0),
+            (250.0, 0.0),
+            (500.0, 0.0),
+            (1000.0, 1.5),
+            (4000.0, 4.5),
+        ] {
+            assert!(
+                (core::treble_tilt_db(freq) - expected).abs() < 1e-5,
+                "{freq} Hz: {}",
+                core::treble_tilt_db(freq)
+            );
+        }
+        assert!(!FrequencyScale::Linear.has_treble_tilt());
+        assert!(FrequencyScale::Log.has_treble_tilt());
+        assert!(FrequencyScale::Mel.has_treble_tilt());
+    }
+
+    #[test]
+    fn treble_tilt_lifts_loud_bins_and_leaves_silence_and_linear_alone() {
+        let resolution = SAMPLE_RATE as f32 / FFT_SIZE as f32;
+        let peak_bin = |spectrogram: &core::RenderableSpectrogram, frame: usize| {
+            let bins = spectrogram.num_freq_bins;
+            let row = &spectrogram.values[frame * bins..(frame + 1) * bins];
+            (0..bins)
+                .max_by(|&a, &b| row[a].total_cmp(&row[b]))
+                .unwrap()
+        };
+        for tone in [1000.0, 4000.0] {
+            let audio = generate_tone(tone);
+            let flat = spectrogram_of(&audio, FrequencyScale::Linear);
+            let frame = flat.num_time_bins / 2;
+            let bin = peak_bin(&flat, frame);
+            for scale in [FrequencyScale::Log, FrequencyScale::Mel] {
+                let tilted = spectrogram_of(&audio, scale);
+                let index = frame * flat.num_freq_bins + bin;
+                let lift = tilted.values[index] - flat.values[index];
+                // In the value domain, 1.5 dB is 0.075 * gain for a loud bin.
+                let expected = core::treble_tilt_db(bin as f32 * resolution) / 20.0 * GAIN;
+                assert!(
+                    (lift - expected).abs() < expected * 0.05,
+                    "{scale:?} {tone} Hz: lift {lift}, expected {expected}"
+                );
+                // Bins at or under 500 Hz are untouched.
+                let low_bins = (500.0 / resolution) as usize;
+                for (a, b) in tilted.values[frame * flat.num_freq_bins..][..=low_bins]
+                    .iter()
+                    .zip(&flat.values[frame * flat.num_freq_bins..][..=low_bins])
+                {
+                    assert_eq!(a.to_bits(), b.to_bits());
+                }
+            }
+        }
+        // Silence stays black on every scale.
+        let silence = vec![0.0; SAMPLE_RATE as usize];
+        for scale in [FrequencyScale::Log, FrequencyScale::Mel] {
+            assert!(
+                spectrogram_of(&silence, scale)
+                    .values
+                    .iter()
+                    .all(|&v| v == 0.0)
+            );
+        }
+    }
+
+    #[test]
+    fn max_freq_sets_the_top_bin() {
+        let resolution = SAMPLE_RATE as f32 / FFT_SIZE as f32;
+        let voice_bins = core::num_freq_bins_for(SAMPLE_RATE, FFT_SIZE, 8000.0);
+        assert_eq!(voice_bins, 171);
+        // The top row draws bin 170 (7968.75 Hz), the last bin under 8 kHz.
+        let last_bin = (voice_bins - 1) as f32 * resolution;
+        assert!(last_bin < 8000.0 && last_bin + resolution > 8000.0);
+
+        let spectrogram = core::process_audio_to_spectrogram(
+            &generate_test_audio(),
+            SAMPLE_RATE,
+            FFT_SIZE,
+            HOP_LENGTH,
+            GAIN,
+            8000.0,
+            FrequencyScale::Log,
+        )
+        .unwrap();
+        assert_eq!(spectrogram.num_freq_bins, voice_bins);
+        assert!((spectrogram.top_freq() - 171.0 * resolution).abs() < 1e-3);
+        for scale in [
+            FrequencyScale::Linear,
+            FrequencyScale::Log,
+            FrequencyScale::Mel,
+        ] {
+            let top = core::row_span(
+                IMG_HEIGHT - 1,
+                IMG_HEIGHT,
+                voice_bins,
+                resolution,
+                scale,
+                0.0,
+            );
+            assert!(
+                matches!(top, RowSpan::Max { end, .. } if end == voice_bins),
+                "{scale:?}: {top:?}"
+            );
+        }
+
+        // Full stays as before, and the renderer's limits still apply.
+        let full = core::num_freq_bins_for(SAMPLE_RATE, FFT_SIZE, core::MAX_RENDER_FREQ);
+        assert_eq!(full, 427);
+        assert_eq!(
+            core::num_freq_bins_for(SAMPLE_RATE, FFT_SIZE, 30000.0),
+            full
+        );
+        assert_eq!(
+            core::num_freq_bins_for(SAMPLE_RATE, FFT_SIZE, f32::NAN),
+            full
+        );
+        assert_eq!(
+            core::num_freq_bins_for(16000, FFT_SIZE, 20000.0),
+            FFT_SIZE / 2
+        );
+
+        let pixels = native_api::generate_spectrogram_image_native(
+            &generate_test_audio(),
+            &grey_palette(),
+            SpectrogramConfig {
+                max_freq: 8000.0,
+                ..config(IMG_HEIGHT, GAIN, FrequencyScale::Mel)
+            },
+        )
+        .unwrap();
+        assert_eq!(pixels.len(), IMG_WIDTH * IMG_HEIGHT * 4);
     }
 }

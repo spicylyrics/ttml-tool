@@ -55,6 +55,14 @@ export class SpectrogramConfig {
         return ret >>> 0;
     }
     /**
+     * Wanted top of the image in Hz (clamped to 20 kHz and Nyquist).
+     * @returns {number}
+     */
+    get max_freq() {
+        const ret = wasm.__wbg_get_spectrogramconfig_max_freq(this.__wbg_ptr);
+        return ret;
+    }
+    /**
      * @returns {number}
      */
     get sample_rate() {
@@ -99,6 +107,13 @@ export class SpectrogramConfig {
         wasm.__wbg_set_spectrogramconfig_img_width(this.__wbg_ptr, arg0);
     }
     /**
+     * Wanted top of the image in Hz (clamped to 20 kHz and Nyquist).
+     * @param {number} arg0
+     */
+    set max_freq(arg0) {
+        wasm.__wbg_set_spectrogramconfig_max_freq(this.__wbg_ptr, arg0);
+    }
+    /**
      * @param {number} arg0
      */
     set sample_rate(arg0) {
@@ -112,9 +127,10 @@ export class SpectrogramConfig {
      * @param {number} img_height
      * @param {number} gain
      * @param {number} frequency_scale
+     * @param {number} max_freq
      */
-    constructor(sample_rate, fft_size, hop_length, img_width, img_height, gain, frequency_scale) {
-        const ret = wasm.spectrogramconfig_new(sample_rate, fft_size, hop_length, img_width, img_height, gain, frequency_scale);
+    constructor(sample_rate, fft_size, hop_length, img_width, img_height, gain, frequency_scale, max_freq) {
+        const ret = wasm.spectrogramconfig_new(sample_rate, fft_size, hop_length, img_width, img_height, gain, frequency_scale, max_freq);
         this.__wbg_ptr = ret;
         SpectrogramConfigFinalization.register(this, this.__wbg_ptr, this);
         return this;

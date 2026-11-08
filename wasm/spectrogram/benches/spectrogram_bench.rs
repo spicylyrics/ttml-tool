@@ -44,6 +44,7 @@ fn bench_generation(c: &mut Criterion) {
         img_height: IMG_HEIGHT,
         gain: GAIN,
         frequency_scale: FrequencyScale::Linear,
+        max_freq: 20000.0,
     };
 
     let mut group = c.benchmark_group("Spectrogram");
