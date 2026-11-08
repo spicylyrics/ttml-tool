@@ -24,24 +24,6 @@ pub mod core {
     /// The highest frequency the renderer draws, whatever the sample rate.
     pub const MAX_RENDER_FREQ: f32 = 20000.0;
 
-    /// Log and mel rows above this frequency get [`TREBLE_TILT_DB_PER_OCTAVE`].
-    pub const TREBLE_TILT_START_FREQ: f32 = 500.0;
-
-    /// Treble lift for log and mel: music falls off with frequency, so without
-    /// it the upper half of a log or mel view stays dark.
-    pub const TREBLE_TILT_DB_PER_OCTAVE: f32 = 1.5;
-
-    /// The lift in dB at `freq` Hz: 0 at or below 500 Hz, then
-    /// [`TREBLE_TILT_DB_PER_OCTAVE`] per octave.
-    #[must_use]
-    pub fn treble_tilt_db(freq: f32) -> f32 {
-        if freq > TREBLE_TILT_START_FREQ {
-            TREBLE_TILT_DB_PER_OCTAVE * (freq / TREBLE_TILT_START_FREQ).log2()
-        } else {
-            0.0
-        }
-    }
-
     #[derive(Error, Debug, Clone, PartialEq, Eq)]
     pub enum SpectrogramError {
         #[error("Audio data is too short to produce a spectrogram.")]
@@ -113,13 +95,6 @@ pub mod core {
                     mel_to_hz(mel_bottom + pos * (hz_to_mel(top_freq) - mel_bottom))
                 }
             }
-        }
-
-        /// Log and mel lift the treble by [`treble_tilt_db`]; linear keeps its
-        /// familiar look.
-        #[must_use]
-        pub const fn has_treble_tilt(self) -> bool {
-            matches!(self, Self::Log | Self::Mel)
         }
 
         /// 第 `y` 行（0 = 底部）下边缘和上边缘对应的频率（Hz）。
@@ -265,37 +240,6 @@ pub mod core {
         }
     }
 
-    /// Multiplies each bin's magnitude by its [`treble_tilt_db`] lift, before
-    /// [`apply_gain_mapping`].
-    ///
-    /// The lift has to go on the magnitude. The mapped value is
-    /// `log10(mag * scale + 1) * gain`, which only behaves like dB for loud
-    /// bins: adding a fixed amount there would also lift silence (value 0) and
-    /// paint the quiet treble grey. On the magnitude, silence stays black and
-    /// loud bins gain about `0.075 * gain` per octave, as 1.5 dB should.
-    ///
-    /// Each bin uses its own centre frequency. A log or mel row is a few
-    /// percent of an octave tall, so this is within 0.1 dB of the row centre.
-    pub fn apply_treble_tilt(spectrogram: &mut [f32], num_freq_bins: usize, freq_resolution: f32) {
-        let factors: Vec<f32> = (0..num_freq_bins)
-            .map(|bin| 10f32.powf(treble_tilt_db(bin as f32 * freq_resolution) / 20.0))
-            .collect();
-        let tilt_frame = |frame: &mut [f32]| {
-            for (value, factor) in frame.iter_mut().zip(&factors) {
-                *value *= factor;
-            }
-        };
-
-        cfg_if! {
-            if #[cfg(feature = "parallel")] {
-                use rayon::prelude::*;
-                spectrogram.par_chunks_mut(num_freq_bins).for_each(tilt_frame);
-            } else {
-                spectrogram.chunks_mut(num_freq_bins).for_each(tilt_frame);
-            }
-        }
-    }
-
     pub struct RenderableSpectrogram {
         pub values: Vec<f32>,
         pub num_time_bins: usize,
@@ -335,7 +279,6 @@ pub mod core {
         hop_length: usize,
         gain: f32,
         max_freq: f32,
-        scale: FrequencyScale,
     ) -> Result<RenderableSpectrogram, SpectrogramError> {
         let mut planner = RealFftPlanner::new();
         let fft = planner.plan_fft_forward(fft_size);
@@ -353,9 +296,6 @@ pub mod core {
             return Err(SpectrogramError::AudioTooShort);
         }
 
-        if scale.has_treble_tilt() {
-            apply_treble_tilt(&mut values, num_freq_bins, freq_resolution);
-        }
         apply_gain_mapping(&mut values, fft_size, gain);
 
         Ok(RenderableSpectrogram {
@@ -716,7 +656,6 @@ pub mod wasm_api {
             config.hop_length,
             config.gain,
             config.max_freq,
-            frequency_scale,
         )?;
 
         let log_ratio = core::calculate_log_ratio(
@@ -753,7 +692,6 @@ pub mod native_api {
             config.hop_length,
             config.gain,
             config.max_freq,
-            config.frequency_scale,
         )?;
 
         let log_ratio = core::calculate_log_ratio(
@@ -822,7 +760,7 @@ mod tests {
         }
     }
 
-    fn spectrogram_of(audio: &[f32], scale: FrequencyScale) -> core::RenderableSpectrogram {
+    fn spectrogram_of(audio: &[f32]) -> core::RenderableSpectrogram {
         core::process_audio_to_spectrogram(
             audio,
             SAMPLE_RATE,
@@ -830,7 +768,6 @@ mod tests {
             HOP_LENGTH,
             GAIN,
             core::MAX_RENDER_FREQ,
-            scale,
         )
         .unwrap()
     }
@@ -1084,7 +1021,7 @@ mod tests {
         let palette = grey_palette();
         for (freq, img_height) in [(440.0, IMG_HEIGHT), (1000.0, 512), (3000.0, 97)] {
             let audio = generate_tone(freq);
-            let spectrogram = spectrogram_of(&audio, FrequencyScale::Linear);
+            let spectrogram = spectrogram_of(&audio);
             let log_ratio = core::calculate_log_ratio(
                 SAMPLE_RATE,
                 FFT_SIZE,
@@ -1216,7 +1153,7 @@ mod tests {
             let t = i as f32 / SAMPLE_RATE as f32;
             *sample = (t * 2000.0 * 2.0 * std::f32::consts::PI).sin() * 0.5;
         }
-        let spectrogram = spectrogram_of(&audio, FrequencyScale::Linear);
+        let spectrogram = spectrogram_of(&audio);
         let img_width = 16;
         let palette = grey_palette();
         let log_ratio =
@@ -1253,73 +1190,6 @@ mod tests {
     }
 
     #[test]
-    fn treble_tilt_is_1_5_db_per_octave_above_500_hz() {
-        for (freq, expected) in [
-            (0.0, 0.0),
-            (250.0, 0.0),
-            (500.0, 0.0),
-            (1000.0, 1.5),
-            (4000.0, 4.5),
-        ] {
-            assert!(
-                (core::treble_tilt_db(freq) - expected).abs() < 1e-5,
-                "{freq} Hz: {}",
-                core::treble_tilt_db(freq)
-            );
-        }
-        assert!(!FrequencyScale::Linear.has_treble_tilt());
-        assert!(FrequencyScale::Log.has_treble_tilt());
-        assert!(FrequencyScale::Mel.has_treble_tilt());
-    }
-
-    #[test]
-    fn treble_tilt_lifts_loud_bins_and_leaves_silence_and_linear_alone() {
-        let resolution = SAMPLE_RATE as f32 / FFT_SIZE as f32;
-        let peak_bin = |spectrogram: &core::RenderableSpectrogram, frame: usize| {
-            let bins = spectrogram.num_freq_bins;
-            let row = &spectrogram.values[frame * bins..(frame + 1) * bins];
-            (0..bins)
-                .max_by(|&a, &b| row[a].total_cmp(&row[b]))
-                .unwrap()
-        };
-        for tone in [1000.0, 4000.0] {
-            let audio = generate_tone(tone);
-            let flat = spectrogram_of(&audio, FrequencyScale::Linear);
-            let frame = flat.num_time_bins / 2;
-            let bin = peak_bin(&flat, frame);
-            for scale in [FrequencyScale::Log, FrequencyScale::Mel] {
-                let tilted = spectrogram_of(&audio, scale);
-                let index = frame * flat.num_freq_bins + bin;
-                let lift = tilted.values[index] - flat.values[index];
-                // In the value domain, 1.5 dB is 0.075 * gain for a loud bin.
-                let expected = core::treble_tilt_db(bin as f32 * resolution) / 20.0 * GAIN;
-                assert!(
-                    (lift - expected).abs() < expected * 0.05,
-                    "{scale:?} {tone} Hz: lift {lift}, expected {expected}"
-                );
-                // Bins at or under 500 Hz are untouched.
-                let low_bins = (500.0 / resolution) as usize;
-                for (a, b) in tilted.values[frame * flat.num_freq_bins..][..=low_bins]
-                    .iter()
-                    .zip(&flat.values[frame * flat.num_freq_bins..][..=low_bins])
-                {
-                    assert_eq!(a.to_bits(), b.to_bits());
-                }
-            }
-        }
-        // Silence stays black on every scale.
-        let silence = vec![0.0; SAMPLE_RATE as usize];
-        for scale in [FrequencyScale::Log, FrequencyScale::Mel] {
-            assert!(
-                spectrogram_of(&silence, scale)
-                    .values
-                    .iter()
-                    .all(|&v| v == 0.0)
-            );
-        }
-    }
-
-    #[test]
     fn max_freq_sets_the_top_bin() {
         let resolution = SAMPLE_RATE as f32 / FFT_SIZE as f32;
         let voice_bins = core::num_freq_bins_for(SAMPLE_RATE, FFT_SIZE, 8000.0);
@@ -1335,7 +1205,6 @@ mod tests {
             HOP_LENGTH,
             GAIN,
             8000.0,
-            FrequencyScale::Log,
         )
         .unwrap();
         assert_eq!(spectrogram.num_freq_bins, voice_bins);
