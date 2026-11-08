@@ -343,3 +343,104 @@ describe("PCM engine lifecycle", () => {
 		await replay;
 	});
 });
+
+describe("scrubbing", () => {
+	/** Scrub commands without their timestamps, which must be present. */
+	const scrubCommands = (node: FakeNode) =>
+		node.commands.flatMap((command) => {
+			if (command.type !== "scrub") return [];
+			const { time, ...rest } = command.state;
+			expect(time).toEqual(expect.any(Number));
+			return [rest];
+		});
+
+	it("holds playback while dragging, follows the pointer, then resumes there", async () => {
+		await engine.loadMusic(new Blob());
+		const play = engine.play();
+		await flush();
+		const node = FakeNode.nodes[0];
+		node.report();
+		await play;
+		const seeked = vi.fn();
+		engine.addEventListener("music-seeked", seeked);
+
+		engine.beginScrub();
+		expect(node.lastState.playing).toBe(false);
+		engine.scrubTo(0.25);
+		engine.scrubTo(0.4);
+		expect(engine.musicCurrentTime).toBeCloseTo(0.4);
+		expect(seeked).toHaveBeenCalledTimes(2);
+		expect(scrubCommands(node)).toEqual([
+			{ active: true, frame: 250, preservesPitch: true },
+			{ active: true, frame: 400, preservesPitch: true },
+		]);
+
+		engine.endScrub();
+		expect(scrubCommands(node).slice(-1)[0]).toEqual({
+			active: false,
+			frame: 400,
+			preservesPitch: true,
+		});
+		expect(node.lastState).toMatchObject({ frame: 400, playing: true });
+		expect(engine.musicPlaying).toBe(true);
+	});
+
+	it("stays paused after a scrub that started paused", async () => {
+		await engine.loadMusic(new Blob());
+		const node = FakeNode.nodes[0];
+		engine.beginScrub();
+		engine.scrubTo(0.6);
+		engine.endScrub();
+		expect(node.lastState).toMatchObject({ frame: 600, playing: false });
+		expect(engine.musicCurrentTime).toBeCloseTo(0.6);
+	});
+
+	it("drags silently when scrub audio is off and follows tape mode when pitch isn't kept", async () => {
+		await engine.loadMusic(new Blob());
+		const node = FakeNode.nodes[0];
+		engine.scrubAudio = false;
+		engine.beginScrub();
+		engine.scrubTo(0.3);
+		expect(scrubCommands(node)).toEqual([]);
+		engine.endScrub();
+		expect(node.lastState.frame).toBe(300);
+
+		engine.scrubAudio = true;
+		engine.preservesPitch = false;
+		engine.beginScrub();
+		engine.scrubTo(0.5);
+		expect(scrubCommands(node).slice(-1)[0]).toEqual({
+			active: true,
+			frame: 500,
+			preservesPitch: false,
+		});
+		engine.endScrub();
+	});
+
+	it("routes seeks during a drag to the scrub instead of restarting playback", async () => {
+		await engine.loadMusic(new Blob());
+		const node = FakeNode.nodes[0];
+		engine.beginScrub();
+		const voices = node.commands.filter((c) => c.type === "voice").length;
+		engine.seekMusic(0.7);
+		expect(node.commands.filter((c) => c.type === "voice")).toHaveLength(
+			voices,
+		);
+		expect(engine.musicCurrentTime).toBeCloseTo(0.7);
+		engine.endScrub();
+	});
+
+	it("shares the song with the worklet only when memory can be shared", async () => {
+		await engine.loadMusic(new Blob());
+		const isolated = FakeNode.nodes[0].commands.find((c) => c.type === "init");
+		expect(isolated?.type === "init" && isolated.scrub).toBeNull();
+
+		vi.stubGlobal("crossOriginIsolated", true);
+		await engine.loadMusic(new Blob());
+		const init = FakeNode.nodes[1].commands.find((c) => c.type === "init");
+		if (init?.type !== "init" || !init.scrub)
+			throw new Error("No scrub source");
+		expect(init.scrub.channels[0].buffer).toBeInstanceOf(SharedArrayBuffer);
+		expect(init.scrub.sampleRate).toBe(1000);
+	});
+});

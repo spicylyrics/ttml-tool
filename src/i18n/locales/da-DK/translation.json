@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Fortsætter afspilningen og centrerer den aktive linje, når du skifter mellem Redigering, Timing og Forhåndsvisning.",
       "volume": "Musiklydstyrke",
       "playbackRate": "Afspilningshastighed",
+      "scrubAudio": "Hør lyd mens du trækker",
+      "scrubAudioDesc": "Afspiller sangen under afspilningshovedet, mens du trækker det i lydlinjen eller spektrogrammet. Følger Bevar tonehøjde.",
       "autosave": {
         "enable": "Aktiver automatisk lagring",
         "enableDesc": "Gemmer dine sangtekster et par sekunder efter hver ændring og beholder øjebliksbilleder, du kan gendanne fra menuen Filer.",

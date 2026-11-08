@@ -17,6 +17,7 @@ import {
 	hasOverlappedStart,
 } from "$/modules/spectrogram/utils/timeline-mutations.ts";
 import { editingTimeFieldAtom, selectedLinesAtom } from "$/states/main.ts";
+import { WORD_DETAIL_MIN_ZOOM } from "../utils/zoom";
 import { DividerSegment, type LineEndRole } from "./DividerSegment.tsx";
 import { GapSegment } from "./GapSegment.tsx";
 import styles from "./LyricLineSegment.module.css";
@@ -33,6 +34,8 @@ interface LyricLineSegmentProps {
 	isGhost?: boolean;
 	offset?: number;
 	lineEndLabels?: LineEndLabels;
+	/** The editor's line number to show on the bar when zoomed out, if any. */
+	lineNumber?: number;
 }
 
 const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
@@ -42,6 +45,7 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 	isGhost = false,
 	offset = 0,
 	lineEndLabels,
+	lineNumber,
 }) => {
 	const previewLine = useAtomValue(previewLineAtom);
 	const setSelectedLines = useSetAtom(selectedLinesAtom);
@@ -133,9 +137,11 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 		cursor: isGhost ? "default" : "auto",
 	};
 
-	const lineEnd = isGhost
-		? null
-		: getLineEndDividers(segments, displayLine.endTime, zoom, isTouchingEnd);
+	const compact = zoom < WORD_DETAIL_MIN_ZOOM;
+	const lineEnd =
+		isGhost || compact
+			? null
+			: getLineEndDividers(segments, displayLine.endTime, zoom, isTouchingEnd);
 
 	return (
 		<div
@@ -151,7 +157,12 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 			role={isGhost ? "presentation" : "button"}
 			aria-label={isGhost ? "Ghost Lyric Line" : "Lyric Line"}
 		>
-			{!isGhost && (
+			{compact && !isGhost && !!lineNumber && (
+				<span className={styles.lineNumber} aria-hidden>
+					{lineNumber}
+				</span>
+			)}
+			{!isGhost && !compact && (
 				<DividerSegment
 					key="divider-start"
 					lineId={displayLine.id}
@@ -163,51 +174,54 @@ const LyricLineSegmentImpl: FC<LyricLineSegmentProps> = ({
 				/>
 			)}
 
-			{segments.map((segment, index) => (
-				<React.Fragment key={segment.id}>
-					{!isGhost && hasOverlappedStart(segments, index) && (
-						<DividerSegment
-							key={`divider-start-${segment.id}`}
-							lineId={displayLine.id}
-							segmentIndex={index - 1}
-							timeMs={segment.startTime}
-							lineStartTime={startTime}
-							segmentsLength={segmentsLength}
-							isTouching={false}
-							edge="start"
-						/>
-					)}
-					{segment.type === "word" ? (
-						<LyricWordSegment
-							lineId={displayLine.id}
-							segment={segment}
-							lineStartTime={startTime}
-							offset={offset}
-							isGhost={isGhost}
-						/>
-					) : (
-						<GapSegment
-							segment={segment}
-							lineStartTime={startTime}
-							offset={offset}
-							isGhost={isGhost}
-						/>
-					)}
-					{!isGhost && !lineEnd?.hidden.has(index) && (
-						<DividerSegment
-							key={`divider-${segment.id}`}
-							lineId={displayLine.id}
-							segmentIndex={index}
-							timeMs={segment.endTime}
-							lineStartTime={startTime}
-							segmentsLength={segmentsLength}
-							isTouching={index === segmentsLength - 1 ? isTouchingEnd : false}
-							edge={getDividerEdge(segments, index, displayLine.endTime)}
-							{...lineEndProps(lineEnd?.props.get(index), lineEndLabels)}
-						/>
-					)}
-				</React.Fragment>
-			))}
+			{!compact &&
+				segments.map((segment, index) => (
+					<React.Fragment key={segment.id}>
+						{!isGhost && hasOverlappedStart(segments, index) && (
+							<DividerSegment
+								key={`divider-start-${segment.id}`}
+								lineId={displayLine.id}
+								segmentIndex={index - 1}
+								timeMs={segment.startTime}
+								lineStartTime={startTime}
+								segmentsLength={segmentsLength}
+								isTouching={false}
+								edge="start"
+							/>
+						)}
+						{segment.type === "word" ? (
+							<LyricWordSegment
+								lineId={displayLine.id}
+								segment={segment}
+								lineStartTime={startTime}
+								offset={offset}
+								isGhost={isGhost}
+							/>
+						) : (
+							<GapSegment
+								segment={segment}
+								lineStartTime={startTime}
+								offset={offset}
+								isGhost={isGhost}
+							/>
+						)}
+						{!isGhost && !lineEnd?.hidden.has(index) && (
+							<DividerSegment
+								key={`divider-${segment.id}`}
+								lineId={displayLine.id}
+								segmentIndex={index}
+								timeMs={segment.endTime}
+								lineStartTime={startTime}
+								segmentsLength={segmentsLength}
+								isTouching={
+									index === segmentsLength - 1 ? isTouchingEnd : false
+								}
+								edge={getDividerEdge(segments, index, displayLine.endTime)}
+								{...lineEndProps(lineEnd?.props.get(index), lineEndLabels)}
+							/>
+						)}
+					</React.Fragment>
+				))}
 		</div>
 	);
 };

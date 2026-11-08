@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Zachová přehrávání a vycentruje aktivní řádek při přepínání mezi kartami Úpravy, Časování a Náhled.",
       "volume": "Hlasitost hudby",
       "playbackRate": "Rychlost přehrávání",
+      "scrubAudio": "Přehrávat zvuk při přetahování",
+      "scrubAudioDesc": "Při přetahování přehrávací hlavy v zvukové liště nebo spektrogramu přehrává skladbu pod ní. Řídí se volbou Zachovat výšku tónu.",
       "autosave": {
         "enable": "Povolit automatické ukládání",
         "enableDesc": "Uloží text pár sekund po každé změně a uchovává snímky, které obnovíte z nabídky Soubor.",

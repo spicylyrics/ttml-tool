@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Mantiene la riproduzione e centra il verso attivo passando tra Modifica, Sincronizzazione e Anteprima.",
       "volume": "Volume della musica",
       "playbackRate": "Velocità di riproduzione",
+      "scrubAudio": "Ascolta l'audio durante il trascinamento",
+      "scrubAudioDesc": "Riproduce il brano sotto la testina mentre la trascini nella barra audio o nello spettrogramma. Segue Mantieni l’intonazione.",
       "autosave": {
         "enable": "Abilita salvataggio automatico",
         "enableDesc": "Salva il testo qualche secondo dopo ogni modifica e conserva istantanee che puoi ripristinare dal menu File.",

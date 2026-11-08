@@ -37,3 +37,24 @@
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
+
+/* Zoomed out, the bar shows its line number in place of its words, on a
+   solid chip so it stays readable over a busy spectrogram. */
+.lineNumber {
+	position: absolute;
+	top: 4px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 1px 3px;
+	/* May spill past a narrow bar; stay above the neighbouring bar. */
+	z-index: 1;
+	border-radius: var(--radius-2);
+	background-color: var(--color-panel-solid);
+	pointer-events: none;
+	color: var(--accent-11);
+	font-size: var(--font-size-1);
+	font-weight: 500;
+	font-variant-numeric: tabular-nums;
+	line-height: 1.2;
+	white-space: nowrap;
+}

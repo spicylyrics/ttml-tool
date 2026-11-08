@@ -293,6 +293,16 @@ export const AudioSlider = memo(() => {
 			interact: true,
 		});
 		ws.on("interaction", (time) => audioEngine.seekMusic(time));
+		// A click seeks; a drag scrubs, so the song sounds under the pointer.
+		ws.on("dragstart", (x) => {
+			audioEngine.beginScrub();
+			audioEngine.scrubTo(x * duration);
+		});
+		ws.on("drag", (x) => audioEngine.scrubTo(x * duration));
+		ws.on("dragend", (x) => {
+			audioEngine.scrubTo(x * duration);
+			audioEngine.endScrub();
+		});
 		waveSurferRef.current = ws;
 		ws.setTime(playbackClock.getSnapshot());
 		return ws;

@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Pertahankan pemutaran dan pusatkan baris aktif saat beralih antara tab Edit, Sinkronisasi, dan Pratinjau.",
       "volume": "Volume musik",
       "playbackRate": "Kecepatan putar",
+      "scrubAudio": "Dengar audio saat menyeret",
+      "scrubAudioDesc": "Memutar lagu di bawah playhead saat kamu menyeretnya di bilah audio atau spektrogram. Mengikuti Pertahankan nada.",
       "autosave": {
         "enable": "Aktifkan simpan otomatis",
         "enableDesc": "Menyimpan lirik beberapa detik setelah setiap perubahan dan menyimpan snapshot yang bisa dipulihkan lewat menu File.",

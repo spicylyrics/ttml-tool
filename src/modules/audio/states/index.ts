@@ -48,6 +48,8 @@ export const playbackRateAtom = atom(
 	},
 );
 export const preservesPitchAtom = atomWithStorage("preservesPitch", true);
+/** Dragging the playhead plays the song under it. */
+export const scrubAudioAtom = atomWithStorage("scrubAudio", true);
 /** Seconds the seek forward and backward shortcuts jump. */
 export const seekStepAtom = atomWithMigratedStorage<number>(
 	"seekStep",

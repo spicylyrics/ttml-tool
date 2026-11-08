@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Utrzymuje odtwarzanie i centruje aktywny wers przy przełączaniu między kartami Edycja, Synchronizacja i Podgląd.",
       "volume": "Głośność muzyki",
       "playbackRate": "Prędkość odtwarzania",
+      "scrubAudio": "Słysz dźwięk podczas przeciągania",
+      "scrubAudioDesc": "Odtwarza utwór pod głowicą, gdy przeciągasz ją na pasku audio lub spektrogramie. Działa zgodnie z Zachowaj wysokość dźwięku.",
       "autosave": {
         "enable": "Włącz automatyczny zapis",
         "enableDesc": "Zapisuje tekst kilka sekund po każdej zmianie i przechowuje migawki, które przywrócisz z menu Plik.",

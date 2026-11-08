@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Mantiene la reproducción y centra la línea activa al cambiar entre Edición, Sincronización y Vista previa.",
       "volume": "Volumen de música",
       "playbackRate": "Velocidad de reproducción",
+      "scrubAudio": "Escuchar el audio al arrastrar",
+      "scrubAudioDesc": "Reproduce la canción bajo el cabezal mientras lo arrastras en la barra de audio o el espectrograma. Sigue Mantener el tono.",
       "autosave": {
         "enable": "Habilitar guardado automático",
         "enableDesc": "Guarda tus letras unos segundos después de cada cambio y conserva instantáneas que puedes restaurar desde el menú Archivo.",

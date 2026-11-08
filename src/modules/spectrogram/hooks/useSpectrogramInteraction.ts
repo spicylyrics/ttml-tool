@@ -7,8 +7,9 @@ import {
 	spectrogramZoomAtom,
 } from "$/modules/spectrogram/states";
 import { spectrogramFollowEngagedAtom } from "../states/follow-playhead";
+import { clampZoom } from "../utils/zoom";
 
-const clampZoom = (z: number) => Math.max(50, Math.min(z, 10000));
+const MAX_ZOOM = 10000;
 const initializedBuffers = new WeakMap<
 	ReturnType<typeof useStore>,
 	WeakSet<AudioBuffer>
@@ -43,14 +44,16 @@ export function useSpectrogramInteraction(
 
 		const lerpFactor = 0.35;
 		const nextZoom = (1 - lerpFactor) * currentZoom + lerpFactor * targetZoom;
-		const zoomDiff = Math.abs(nextZoom - targetZoom);
+		// Close enough relative to the zoom itself. A fixed 2 px/s was 1% at the
+		// default zoom but a 26% jump at the end of zooming out to a whole song.
+		const zoomSettled = Math.abs(nextZoom - targetZoom) < targetZoom * 0.005;
 
 		const anchor = playheadAnchorRef.current;
 		if (anchor !== null) {
 			// Zooming while following: keep the live playhead at its spot every
 			// frame, so the view zooms and follows in one motion instead of
 			// aiming at where the playhead was when the wheel turned.
-			const done = zoomDiff < 2;
+			const done = zoomSettled;
 			const z = done ? targetZoom : nextZoom;
 			const { duration, width } = viewRef.current;
 			const maxScroll = Math.max(0, duration * z - width);
@@ -75,7 +78,7 @@ export function useSpectrogramInteraction(
 			(1 - lerpFactor) * currentScroll + lerpFactor * targetScroll;
 		const scrollDiff = Math.abs(nextScroll - targetScroll);
 
-		if (scrollDiff < 1 && zoomDiff < 2) {
+		if (scrollDiff < 1 && zoomSettled) {
 			setScrollLeft(targetScroll);
 			setZoom(targetZoom);
 			animationFrameRef.current = null;
@@ -120,7 +123,12 @@ export function useSpectrogramInteraction(
 				playheadAnchorRef.current = following ? anchorX : null;
 				const timeAtAnchor = (currentScroll + anchorX) / currentZoom;
 				const zoomFactor = event.deltaY < 0 ? 1.15 : 0.85;
-				const newZoom = clampZoom(currentZoom * zoomFactor);
+				const newZoom = clampZoom(
+					currentZoom * zoomFactor,
+					audioBuffer.duration,
+					containerWidth,
+					MAX_ZOOM,
+				);
 				if (newZoom === currentZoom) return;
 
 				const newScrollLeft = timeAtAnchor * newZoom - anchorX;

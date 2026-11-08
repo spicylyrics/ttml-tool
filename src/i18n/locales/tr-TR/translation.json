@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Düzenle, Zamanla ve Önizleme sekmeleri arasında geçerken oynatmayı sürdürür ve etkin satırı ortalar.",
       "volume": "Müzik ses düzeyi",
       "playbackRate": "Oynatma hızı",
+      "scrubAudio": "Sürüklerken sesi duy",
+      "scrubAudioDesc": "Oynatma imlecini ses çubuğunda veya spektrogramda sürüklerken altındaki şarkıyı çalar. Ses perdesini koru ayarına uyar.",
       "autosave": {
         "enable": "Otomatik kaydı etkinleştir",
         "enableDesc": "Şarkı sözlerinizi her değişiklikten birkaç saniye sonra kaydeder ve Dosya menüsünden geri yükleyebileceğiniz anlık görüntüler tutar.",

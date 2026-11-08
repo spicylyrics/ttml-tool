@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Keeps playback going and the active line centered when you switch between Edit, Time and Preview.",
       "volume": "Music volume",
       "playbackRate": "Playback speed",
+      "scrubAudio": "Hear audio while dragging",
+      "scrubAudioDesc": "Plays the song under the playhead as you drag it in the audio bar or spectrogram. Follows Preserve pitch.",
       "autosave": {
         "enable": "Enable autosave",
         "enableDesc": "Saves your lyrics a few seconds after each change and keeps snapshots you can restore from the File menu.",

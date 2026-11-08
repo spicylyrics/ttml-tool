@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Laat de muziek doorspelen en houdt de actieve regel in het midden wanneer je wisselt tussen Bewerken, Timing en Voorbeeld.",
       "volume": "Muziekvolume",
       "playbackRate": "Afspeelsnelheid",
+      "scrubAudio": "Audio horen tijdens slepen",
+      "scrubAudioDesc": "Speelt het nummer onder de afspeelkop af terwijl je die versleept in de audiobalk of het spectrogram. Volgt Toonhoogte behouden.",
       "autosave": {
         "enable": "Automatisch opslaan inschakelen",
         "enableDesc": "Slaat je songtekst een paar seconden na elke wijziging op en bewaart momentopnamen die je via het menu Bestand kunt herstellen.",

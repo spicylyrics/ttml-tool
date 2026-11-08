@@ -25,6 +25,7 @@ import type {
 	RenderReport,
 	VoiceId,
 } from "./worklet/protocol";
+import signalsmithWasmUrl from "./worklet/vendor/signalsmith-stretch.wasm?url";
 import wasmUrl from "./worklet/vendor/soundtouch_bg.wasm?url";
 
 interface PendingStart {
@@ -162,6 +163,7 @@ export class AudioEngine extends EventTarget {
 	private loadAbort: AbortController | null = null;
 	private workletReady: Promise<void> | null = null;
 	private wasmBytes: Promise<ArrayBuffer> | null = null;
+	private signalsmithBytes: Promise<ArrayBuffer | null> | null = null;
 	private musicClock = new PcmClock();
 	private auditionClock = new PcmClock();
 	private musicGeneration = 0;
@@ -175,6 +177,9 @@ export class AudioEngine extends EventTarget {
 	private pendingStarts = new Map<VoiceId, PendingStart>();
 	private _musicPlayBackRate = 1;
 	private _preservesPitch = true;
+	private _scrubAudio = true;
+	/** Where the dragged playhead is while scrubbing, otherwise null. */
+	private scrubFrame: number | null = null;
 
 	get musicLoaded() {
 		return this.musicBuffer !== null;
@@ -187,6 +192,8 @@ export class AudioEngine extends EventTarget {
 	}
 	get musicCurrentTime() {
 		if (!this.musicBuffer) return 0;
+		if (this.scrubFrame !== null)
+			return this.scrubFrame / this.musicBuffer.sampleRate;
 		return (
 			this.musicClock.frameAt(
 				this.audibleContextTime,
@@ -313,6 +320,10 @@ export class AudioEngine extends EventTarget {
 	}
 	seekMusic(offset: number) {
 		if (!this.musicBuffer) return;
+		if (this.scrubFrame !== null) {
+			this.scrubTo(offset);
+			return;
+		}
 		const frame = seekFrame(
 			offset,
 			this.musicBuffer.sampleRate,
@@ -320,6 +331,70 @@ export class AudioEngine extends EventTarget {
 		);
 		this.setVoice("music", frame, this.playing);
 		this.dispatchEvent(new Event("music-seeked"));
+	}
+
+	/**
+	 * Start dragging the playhead. Normal playback holds still while the
+	 * worklet's scrub voice follows the pointer; `endScrub` seeks once and
+	 * carries on playing if it was.
+	 */
+	beginScrub() {
+		if (!this.musicBuffer || this.scrubFrame !== null) return;
+		const frame = seekFrame(
+			this.musicCurrentTime,
+			this.musicBuffer.sampleRate,
+			this.musicBuffer.length,
+		);
+		this.scrubFrame = frame;
+		if (this.playing) this.setVoice("music", frame, false);
+		this.stopAudition();
+		// The pointer press is a user gesture, so a never-started context may resume.
+		void this.resumeContext().catch(() => {});
+	}
+	scrubTo(seconds: number) {
+		if (!this.musicBuffer) return;
+		if (this.scrubFrame === null) {
+			this.seekMusic(seconds);
+			return;
+		}
+		this.scrubFrame = seekFrame(
+			seconds,
+			this.musicBuffer.sampleRate,
+			this.musicBuffer.length,
+		);
+		if (this._scrubAudio)
+			this.post({
+				type: "scrub",
+				state: {
+					active: true,
+					frame: this.scrubFrame,
+					preservesPitch: this._preservesPitch,
+					time: performance.now(),
+				},
+			});
+		this.dispatchEvent(new Event("music-seeked"));
+	}
+	endScrub() {
+		const frame = this.scrubFrame;
+		if (frame === null) return;
+		this.scrubFrame = null;
+		this.post({
+			type: "scrub",
+			state: {
+				active: false,
+				frame,
+				preservesPitch: this._preservesPitch,
+				time: performance.now(),
+			},
+		});
+		this.setVoice("music", frame, this.playing);
+		this.dispatchEvent(new Event("music-seeked"));
+	}
+	get scrubAudio() {
+		return this._scrubAudio;
+	}
+	set scrubAudio(value: boolean) {
+		this._scrubAudio = value;
 	}
 
 	private async resumeContext() {
@@ -526,6 +601,7 @@ export class AudioEngine extends EventTarget {
 		this.loadAbort?.abort();
 		this.loadAbort = null;
 		this.workerClient.cancelPending();
+		this.scrubFrame = null;
 		this.pauseMusic();
 		this.post({ type: "destroy" });
 		this.node?.disconnect();
@@ -579,6 +655,17 @@ export class AudioEngine extends EventTarget {
 			});
 		const [, wasm] = await Promise.all([this.workletReady, this.wasmBytes]);
 		return wasm;
+	}
+	/** Scrub audio is optional: a failed download leaves dragging silent. */
+	private scrubWasm() {
+		this.signalsmithBytes ??= fetch(signalsmithWasmUrl)
+			.then((response) => (response.ok ? response.arrayBuffer() : null))
+			.catch(() => null)
+			.then((bytes) => {
+				if (!bytes) this.signalsmithBytes = null;
+				return bytes;
+			});
+		return this.signalsmithBytes;
 	}
 	async loadMusic(src: Blob): Promise<AudioBuffer> {
 		this.unloadMusic();
@@ -665,10 +752,21 @@ export class AudioEngine extends EventTarget {
 				() => abort.signal.removeEventListener("abort", cancelReady),
 			);
 			ownedNode.connect(this.eqEntryPoint);
+			// With cross-origin isolation (web and desktop) the song sits in shared
+			// memory, so the worklet can scrub it without a second copy.
+			const shared = globalThis.crossOriginIsolated === true;
 			const channels = Array.from(
 				{ length: buffer.numberOfChannels },
-				(_, channel) => buffer.getChannelData(channel).slice(),
+				(_, channel) => {
+					const data = buffer.getChannelData(channel);
+					if (!shared) return data.slice();
+					const copy = new Float32Array(new SharedArrayBuffer(data.byteLength));
+					copy.set(data);
+					return copy;
+				},
 			);
+			const signalsmithWasm = shared ? await this.scrubWasm() : null;
+			assertCurrent();
 			renderer = new Worker(
 				new URL("./workers/pcm-render.worker.ts", import.meta.url),
 				{ type: "module" },
@@ -688,10 +786,16 @@ export class AudioEngine extends EventTarget {
 			};
 			renderer.postMessage(command, [
 				channel.port1,
-				...channels.map((channel) => channel.buffer),
+				...(shared ? [] : channels.map((channel) => channel.buffer)),
 			]);
 			ownedNode.port.postMessage(
-				{ type: "init", port: channel.port2 } satisfies PlayerCommand,
+				{
+					type: "init",
+					port: channel.port2,
+					scrub: signalsmithWasm
+						? { channels, sampleRate: buffer.sampleRate, signalsmithWasm }
+						: null,
+				} satisfies PlayerCommand,
 				[channel.port2],
 			);
 			if (this.ctx.state === "running") {
