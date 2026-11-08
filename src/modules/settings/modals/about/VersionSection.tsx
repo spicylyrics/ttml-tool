@@ -1,7 +1,7 @@
 import { BUILD_TIME, GIT_COMMIT } from "virtual:buildmeta";
-import { Card, Flex, Heading, Link, Text } from "@radix-ui/themes";
+import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { Children, Fragment, type ReactNode } from "react";
-import { openExternal } from "./externalLinks";
+import { ExternalLink } from "./externalLinks";
 import type { AboutSettings } from "./useAboutSettings";
 
 /**
@@ -37,21 +37,11 @@ export const VersionSection = ({ t }: Pick<AboutSettings, "t">) => (
 								GIT_COMMIT === "unknown" ? (
 									t("aboutModal.unknown", "Unknown")
 								) : (
-									<Link
+									<ExternalLink
 										href={`https://github.com/spicylyrics/ttml-tool/commit/${GIT_COMMIT}`}
-										target="_blank"
-										rel="noreferrer"
-										onClick={(event) => {
-											if (import.meta.env.TAURI_ENV_PLATFORM) {
-												event.preventDefault();
-												openExternal(
-													`https://github.com/spicylyrics/ttml-tool/commit/${GIT_COMMIT}`,
-												);
-											}
-										}}
 									>
 										{GIT_COMMIT}
-									</Link>
+									</ExternalLink>
 								),
 						}),
 					)}
