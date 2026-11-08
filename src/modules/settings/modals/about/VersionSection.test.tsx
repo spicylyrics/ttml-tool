@@ -8,6 +8,7 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("virtual:buildmeta", () => ({
 	BUILD_TIME: "2026-10-11",
 	GIT_COMMIT: "abc1234",
+	APP_VERSION: "0.23.0-2",
 }));
 
 import { VersionSection } from "./VersionSection";
@@ -29,6 +30,7 @@ describe("VersionSection", () => {
 		const root = createRoot(container);
 		act(() => root.render(<VersionSection t={t} />));
 
+		expect(container.textContent).toContain("Version: 0.23.0 Beta 2");
 		expect(container.textContent).toContain("Git commit: abc1234");
 		expect(container.querySelector("a")?.textContent).toBe("abc1234");
 		expect(errors).not.toHaveBeenCalled();

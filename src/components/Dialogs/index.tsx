@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { ReportDialog } from "$/components/ReportProblem";
 import { LatencyTestDialog } from "$/modules/audio/modals/LatencyTest.tsx";
 import { CommandPalette } from "$/modules/command-palette/CommandPalette.tsx";
 import { EditAsTextDialog } from "$/modules/edit-as-text/modals/EditAsTextDialog.tsx";
@@ -64,6 +65,7 @@ export const Dialogs = () => {
 			<SuggestedSplitsDialog />
 			<CommandPalette />
 			<EditAsTextDialog />
+			<ReportDialog />
 		</>
 	);
 };

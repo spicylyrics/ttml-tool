@@ -11,8 +11,8 @@ body:
     id: version
     attributes:
       label: Version
-      description: Shown in Preferences, on the About tab.
-      placeholder: "0.16.0"
+      description: Shown in Preferences, on the About tab. Betas look like 0.23.0-2.
+      placeholder: "0.22.0"
     validations:
       required: true
   - type: dropdown
@@ -71,3 +71,9 @@ body:
       label: TTML file
       description: If the bug involves a specific song, paste the TTML here. GitHub doesn't accept .ttml attachments, so paste the text, or rename the file to .txt or zip it and attach that.
       render: xml
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Details from the app
+      description: Filled in for you when you use Help › Report a problem in the app. Keys and tokens are already hidden.
+      render: text

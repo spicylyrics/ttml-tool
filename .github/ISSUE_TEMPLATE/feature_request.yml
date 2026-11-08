@@ -34,3 +34,9 @@ body:
       options:
         - Website
         - Desktop app
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Details from the app
+      description: Filled in for you when you use Help › Suggest something in the app.
+      render: text
