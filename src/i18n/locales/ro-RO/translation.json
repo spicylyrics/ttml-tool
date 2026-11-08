@@ -1582,6 +1582,12 @@
     "bgLyricPrefix": "Prefixul versurilor de fundal",
     "duetLyricPrefix": "Prefixul versurilor de duet"
   },
+  "joinedBackground": {
+    "title": "Verifică ad-liburile unite",
+    "description": "{count, plural, one {# vers avea ad-liburi între cuvinte.} few {# versuri aveau ad-liburi între cuvinte.} other {# de versuri aveau ad-liburi între cuvinte.}} Au fost unite într-un singur vers de fundal, iar fiecare parte de după prima e scrisă cu literă mică. Corectează numele, majusculele și virgulele în plus. Parantezele de la final devin versul de fundal.",
+    "keep": "Păstrează varianta procesată",
+    "apply": "Aplică modificările"
+  },
   "sectionImportReview": {
     "title": "Verifică secțiunile detectate",
     "lineCount": "{count, plural, one {# vers} few {# versuri} other {# de versuri}}"

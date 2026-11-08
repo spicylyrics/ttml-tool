@@ -1582,6 +1582,12 @@
     "bgLyricPrefix": "背景人声行前缀",
     "duetLyricPrefix": "对唱行前缀"
   },
+  "joinedBackground": {
+    "title": "检查合并的和声",
+    "description": "{count, plural, other {有 # 行的词语之间夹着和声。}}这些和声已合并为一行背景歌词，第一段之后的每段都改成了小写开头。请修正人名、大小写和多余的逗号。末尾括号里的内容会成为背景歌词行。",
+    "keep": "保留处理结果",
+    "apply": "应用修改"
+  },
   "sectionImportReview": {
     "title": "检查识别出的分段",
     "lineCount": "{count, plural, other {# 行歌词}}"

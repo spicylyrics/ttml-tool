@@ -1582,6 +1582,12 @@
     "bgLyricPrefix": "Prefiks baris vokal latar",
     "duetLyricPrefix": "Prefiks baris duet"
   },
+  "joinedBackground": {
+    "title": "Periksa ad-lib yang digabung",
+    "description": "{count, plural, other {# baris punya ad-lib di antara kata-katanya.}} Ad-lib itu digabung menjadi satu baris latar, dan setiap bagian setelah yang pertama ditulis dengan huruf kecil. Perbaiki nama, huruf kapital, dan koma yang berlebih. Tanda kurung di akhir menjadi baris latar.",
+    "keep": "Biarkan seperti hasil proses",
+    "apply": "Terapkan suntingan"
+  },
   "sectionImportReview": {
     "title": "Tinjau bagian yang terdeteksi",
     "lineCount": "{count, plural, other {# baris lirik}}"

@@ -1582,6 +1582,12 @@
     "bgLyricPrefix": "Předpona doprovodného řádku",
     "duetLyricPrefix": "Předpona duetového řádku"
   },
+  "joinedBackground": {
+    "title": "Zkontrolujte spojené ad-liby",
+    "description": "{count, plural, one {# řádek měl ad-liby mezi slovy.} few {# řádky měly ad-liby mezi slovy.} many {# řádku mělo ad-liby mezi slovy.} other {# řádků mělo ad-liby mezi slovy.}} Byly spojeny do jednoho řádku v pozadí a každá část po první začíná malým písmenem. Opravte jména, velká písmena a nadbytečné čárky. Závorky na konci se stanou řádkem v pozadí.",
+    "keep": "Ponechat zpracované",
+    "apply": "Použít úpravy"
+  },
   "sectionImportReview": {
     "title": "Kontrola nalezených sekcí",
     "lineCount": "{count, plural, one {# řádek textu} few {# řádky textu} many {# řádku textu} other {# řádků textu}}"

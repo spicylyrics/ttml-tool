@@ -138,6 +138,27 @@ const capitalize = (text: string, options: LyricPrepOptions) =>
 		: text;
 
 /**
+ * Lowercases the first letter of a background part that joins an earlier one,
+ * so `(When you) ... (Ride it)` reads "When you, ride it". "I" and words in
+ * capitals (`OK`, `NYC`) keep their case.
+ */
+const lowercaseJoined = (text: string) => {
+	const first = text.match(/^[^\s,]+/u)?.[0] ?? "";
+	if (/^I(?![\p{L}])/u.test(first)) return text;
+	const letters = first.replace(/[^\p{L}]/gu, "");
+	if (letters.length > 1 && letters === letters.toUpperCase()) return text;
+	return text.charAt(0).toLowerCase() + text.slice(1);
+};
+
+/**
+ * Called when a line had more than one background part and they were joined
+ * into one background line. `suggestion` is the line as plain text with the
+ * joined parts in brackets at the end, ready for the user to correct and run
+ * through Process lyrics again.
+ */
+export type JoinedBackgroundHandler = (suggestion: string) => void;
+
+/**
  * Process one lyric line into the plain-text import representation.
  * Running it on its own output gives the same output: escaped spaces are read
  * back as spaces and existing split marks are kept.
@@ -146,6 +167,7 @@ export const prepareLyricLine = (
 	line: string,
 	steps: Partial<LyricPrepOptions> = {},
 	japaneseWords?: JapaneseWordFinder,
+	onJoinedBackground?: JoinedBackgroundHandler,
 ) => {
 	const options = { ...DEFAULT_LYRIC_PREP_OPTIONS, ...steps };
 	const backgroundVocals: string[] = [];
@@ -175,10 +197,17 @@ export const prepareLyricLine = (
 	}
 
 	const main = normalize(mainLine, options, japaneseWords);
-	const background = backgroundVocals
+	const parts = backgroundVocals
 		.map((vocal) => normalize(vocal, options, japaneseWords))
 		.filter(Boolean)
-		.join(", ");
+		.map((part, index) =>
+			index > 0 && options.capitalizeBackground ? lowercaseJoined(part) : part,
+		);
+	const background = parts.join(", ");
+	if (parts.length > 1)
+		onJoinedBackground?.(
+			[main, `(${capitalize(background, options)})`].filter(Boolean).join(" "),
+		);
 	const output = background
 		? main
 			? `${main}\n<${capitalize(background, options)}`

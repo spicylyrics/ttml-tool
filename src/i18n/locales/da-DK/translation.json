@@ -1582,6 +1582,12 @@
     "bgLyricPrefix": "Præfiks for baggrundslinjer",
     "duetLyricPrefix": "Præfiks for duetlinjer"
   },
+  "joinedBackground": {
+    "title": "Tjek samlede ad-libs",
+    "description": "{count, plural, one {# linje havde ad-libs mellem ordene.} other {# linjer havde ad-libs mellem ordene.}} De blev samlet i én baggrundslinje, og hver del efter den første står med små bogstaver. Ret navne, store bogstaver og overflødige kommaer. Parenteser til sidst bliver baggrundslinjen.",
+    "keep": "Behold som behandlet",
+    "apply": "Anvend rettelser"
+  },
   "sectionImportReview": {
     "title": "Gennemgå opdagede sektioner",
     "lineCount": "{count, plural, one {# sangtekstlinje} other {# sangtekstlinjer}}"

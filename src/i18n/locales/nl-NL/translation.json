@@ -1582,6 +1582,12 @@
     "bgLyricPrefix": "Voorvoegsel achtergrondregel",
     "duetLyricPrefix": "Voorvoegsel duetregel"
   },
+  "joinedBackground": {
+    "title": "Samengevoegde ad-libs controleren",
+    "description": "{count, plural, one {# regel had ad-libs tussen de woorden.} other {# regels hadden ad-libs tussen de woorden.}} Ze zijn samengevoegd tot één achtergrondregel, met elk deel na het eerste in kleine letters. Verbeter namen, hoofdletters en overbodige komma's. Haakjes aan het eind worden de achtergrondregel.",
+    "keep": "Laten zoals verwerkt",
+    "apply": "Wijzigingen toepassen"
+  },
   "sectionImportReview": {
     "title": "Controleer gedetecteerde secties",
     "lineCount": "{count, plural, one {# songtekstregel} other {# songtekstregels}}"

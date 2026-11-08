@@ -1582,6 +1582,12 @@
     "bgLyricPrefix": "Prefiks wersu wokalu w tle",
     "duetLyricPrefix": "Prefiks wersu duetu"
   },
+  "joinedBackground": {
+    "title": "Sprawdź połączone ad-liby",
+    "description": "{count, plural, one {# wers miał ad-liby między słowami.} few {# wersy miały ad-liby między słowami.} many {# wersów miało ad-liby między słowami.} other {# wersu miało ad-liby między słowami.}} Zostały połączone w jeden wers w tle, a każda część po pierwszej zaczyna się małą literą. Popraw imiona, wielkie litery i zbędne przecinki. Nawiasy na końcu stają się wersem w tle.",
+    "keep": "Zostaw po przetworzeniu",
+    "apply": "Zastosuj poprawki"
+  },
   "sectionImportReview": {
     "title": "Przejrzyj wykryte sekcje",
     "lineCount": "{count, plural, one {# wers tekstu} few {# wersy tekstu} many {# wersów tekstu} other {# wersu tekstu}}"

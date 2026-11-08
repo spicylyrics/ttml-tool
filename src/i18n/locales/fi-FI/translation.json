@@ -1582,6 +1582,12 @@
     "bgLyricPrefix": "Taustalaulurivin etuliite",
     "duetLyricPrefix": "Duettorivin etuliite"
   },
+  "joinedBackground": {
+    "title": "Tarkista yhdistetyt ad-libit",
+    "description": "{count, plural, one {# rivillä oli ad-libejä sanojen välissä.} other {# rivillä oli ad-libejä sanojen välissä.}} Ne yhdistettiin yhdeksi taustariviksi, ja jokainen osa ensimmäisen jälkeen alkaa pienellä kirjaimella. Korjaa nimet, isot kirjaimet ja ylimääräiset pilkut. Lopun sulkeista tulee taustarivi.",
+    "keep": "Pidä käsiteltynä",
+    "apply": "Käytä muutokset"
+  },
   "sectionImportReview": {
     "title": "Tarkista havaitut osiot",
     "lineCount": "{count, plural, one {# sanoitusrivi} other {# sanoitusriviä}}"
