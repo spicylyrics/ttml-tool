@@ -2,20 +2,25 @@ import { Text } from "@radix-ui/themes";
 import { useAtomValue } from "jotai";
 import type { FC } from "react";
 import { audioBufferAtom } from "$/modules/audio/states";
-import { spectrogramFrequencyScaleAtom } from "../states";
+import {
+	spectrogramFftSizeAtom,
+	spectrogramFrequencyScaleAtom,
+} from "../states";
 import {
 	frequencyRulerLabels,
 	ratioAtFrequency,
+	spectrogramTopFrequency,
 } from "../utils/frequency-scale";
 
 export const FrequencyRuler: FC = () => {
 	const audioBuffer = useAtomValue(audioBufferAtom);
 	const scale = useAtomValue(spectrogramFrequencyScaleAtom);
+	const fftSize = useAtomValue(spectrogramFftSizeAtom);
 
 	if (!audioBuffer) return null;
 
-	const nyquist = audioBuffer.sampleRate / 2;
-	const uniqueLabels = frequencyRulerLabels(scale, nyquist);
+	const top = spectrogramTopFrequency(audioBuffer.sampleRate, fftSize);
+	const uniqueLabels = frequencyRulerLabels(scale, top);
 
 	return (
 		<div
@@ -34,7 +39,7 @@ export const FrequencyRuler: FC = () => {
 			}}
 		>
 			{uniqueLabels.map((freq) => {
-				const yPercent = (1 - ratioAtFrequency(scale, freq, nyquist)) * 100;
+				const yPercent = (1 - ratioAtFrequency(scale, freq, top)) * 100;
 				return (
 					<div
 						key={freq}

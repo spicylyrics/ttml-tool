@@ -1,4 +1,4 @@
-import { remapSpectrogramRows } from "$/modules/spectrogram/utils/frequency-scale";
+import { FREQUENCY_SCALE_CODES } from "$/modules/spectrogram/utils/frequency-scale";
 import initThreaded, {
 	generate_spectrogram_image as generateThreadedSpectrogramImage,
 	initThreadPool,
@@ -9,9 +9,6 @@ import initSerial, {
 	SpectrogramConfig as SerialSpectrogramConfig,
 } from "$/modules/spectrogram/vendor/serial/wasm_spectrogram";
 import type { SpectrogramWorkerScope } from "$/modules/spectrogram/workers/types";
-
-/** Tallest linear image drawn before resampling to log or mel. */
-const MAX_RENDER_HEIGHT = 2048;
 
 const ctx: SpectrogramWorkerScope = self as SpectrogramWorkerScope;
 
@@ -103,8 +100,10 @@ ctx.onmessage = async (event) => {
 
 			const FFT_SIZE = fftSize || 1024;
 			const HOP_LENGTH = 64;
-			const palette = currentPalette;
-			const render = (fft: number, hop: number, rows: number) => {
+
+			try {
+				// The renderer maps rows to the scale itself, interpolating loudness
+				// before the palette, so stretched low bins don't turn into rings.
 				const Config = useSerialRenderer
 					? SerialSpectrogramConfig
 					: ThreadedSpectrogramConfig;
@@ -113,38 +112,19 @@ ctx.onmessage = async (event) => {
 					: generateThreadedSpectrogramImage;
 				const config = new Config(
 					audioSampleRate,
-					fft,
-					hop,
+					FFT_SIZE,
+					HOP_LENGTH,
 					tileWidthPx,
-					rows,
+					height,
 					gain,
+					FREQUENCY_SCALE_CODES[scale],
 				);
+				let pixelData: Uint8Array;
 				try {
-					return generate(audioSlice, palette, config);
+					pixelData = generate(audioSlice, currentPalette, config);
 				} finally {
 					config.free();
 				}
-			};
-			// The renderer draws a linear axis. For log or mel, draw it at least one
-			// row per FFT bin, then resample the rows onto the chosen scale.
-			const rowsFor = (fft: number) =>
-				Math.max(height, Math.min(MAX_RENDER_HEIGHT, fft / 2));
-
-			try {
-				// A second, longer FFT for the low end was tried and dropped: its
-				// ~93 ms window turns vocal vibrato into rows of ovals, and syncing
-				// needs timing more than bass detail.
-				const pixelData =
-					scale === "linear"
-						? render(FFT_SIZE, HOP_LENGTH, height)
-						: remapSpectrogramRows(
-								render(FFT_SIZE, HOP_LENGTH, rowsFor(FFT_SIZE)),
-								tileWidthPx,
-								rowsFor(FFT_SIZE),
-								height,
-								scale,
-								audioSampleRate / 2,
-							);
 
 				scratchCanvas ??= new OffscreenCanvas(tileWidthPx, height);
 				const canvas = scratchCanvas;

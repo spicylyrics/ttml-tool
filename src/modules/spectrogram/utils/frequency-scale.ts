@@ -2,7 +2,8 @@
  * How the spectrogram spreads frequencies over its height. Linear gives every
  * Hz the same room, so voices (roughly 80 Hz to 4 kHz) end up squeezed into
  * the bottom fifth. Log and mel stretch the low end out, like most audio
- * editors do.
+ * editors do. The renderer draws the chosen scale itself; this module holds
+ * the same math for the ruler and the hover readout.
  */
 export type FrequencyScale = "linear" | "log" | "mel";
 
@@ -12,15 +13,41 @@ export const FREQUENCY_SCALES: readonly FrequencyScale[] = [
 	"mel",
 ];
 
+/** The renderer's code for each scale (its `frequency_scale` argument). */
+export const FREQUENCY_SCALE_CODES: Record<FrequencyScale, number> = {
+	linear: 0,
+	log: 1,
+	mel: 2,
+};
+
 /**
  * The bottom of the log scale (log can't start at 0 Hz). Nobody sings below
  * about 80 Hz, and starting lower hands a fifth of the height to a few
- * stretched-out FFT bins of rumble.
+ * stretched-out FFT bins of rumble. Must match the renderer.
  */
 export const LOG_MIN_FREQUENCY = 60;
 
+/** The renderer stops at this frequency, whatever the sample rate. */
+const RENDER_MAX_FREQUENCY = 20000;
+
 export function isFrequencyScale(value: unknown): value is FrequencyScale {
 	return FREQUENCY_SCALES.includes(value as FrequencyScale);
+}
+
+/**
+ * The frequency at the top edge of the image: the renderer keeps whole FFT
+ * bins up to 20 kHz (or Nyquist, if lower).
+ */
+export function spectrogramTopFrequency(
+	sampleRate: number,
+	fftSize: number,
+): number {
+	const binWidth = sampleRate / fftSize;
+	const bins = Math.min(
+		Math.round(RENDER_MAX_FREQUENCY / binWidth),
+		fftSize / 2,
+	);
+	return bins * binWidth;
 }
 
 const hzToMel = (hz: number) => 2595 * Math.log10(1 + hz / 700);
@@ -28,23 +55,23 @@ const melToHz = (mel: number) => 700 * (10 ** (mel / 2595) - 1);
 
 /**
  * The frequency at height `ratio` (0 = bottom edge, 1 = top edge, which is
- * the Nyquist frequency).
+ * `top`, see {@link spectrogramTopFrequency}).
  */
 export function frequencyAtRatio(
 	scale: FrequencyScale,
 	ratio: number,
-	nyquist: number,
+	top: number,
 ): number {
 	const r = Math.max(0, Math.min(1, ratio));
 	switch (scale) {
 		case "log": {
-			const min = Math.min(LOG_MIN_FREQUENCY, nyquist);
-			return min * (nyquist / min) ** r;
+			const min = Math.min(LOG_MIN_FREQUENCY, top);
+			return min * (top / min) ** r;
 		}
 		case "mel":
-			return melToHz(r * hzToMel(nyquist));
+			return melToHz(r * hzToMel(top));
 		default:
-			return r * nyquist;
+			return r * top;
 	}
 }
 
@@ -52,77 +79,36 @@ export function frequencyAtRatio(
 export function ratioAtFrequency(
 	scale: FrequencyScale,
 	frequency: number,
-	nyquist: number,
+	top: number,
 ): number {
-	const f = Math.max(0, Math.min(nyquist, frequency));
+	const f = Math.max(0, Math.min(top, frequency));
 	let ratio: number;
 	switch (scale) {
 		case "log": {
-			const min = Math.min(LOG_MIN_FREQUENCY, nyquist);
-			ratio = f <= min ? 0 : Math.log(f / min) / Math.log(nyquist / min);
+			const min = Math.min(LOG_MIN_FREQUENCY, top);
+			ratio = f <= min ? 0 : Math.log(f / min) / Math.log(top / min);
 			break;
 		}
 		case "mel":
-			ratio = hzToMel(f) / hzToMel(nyquist);
+			ratio = hzToMel(f) / hzToMel(top);
 			break;
 		default:
-			ratio = f / nyquist;
+			ratio = f / top;
 	}
 	return Math.max(0, Math.min(1, ratio));
 }
 
-/** Ruler labels that stay readable on each scale. */
+/** Ruler labels that stay readable on each scale, top first. */
 export function frequencyRulerLabels(
 	scale: FrequencyScale,
-	nyquist: number,
+	top: number,
 ): number[] {
 	const labels =
 		scale === "log"
 			? [100, 200, 500, 1000, 2000, 5000, 10000]
 			: scale === "mel"
 				? [200, 500, 1000, 2000, 4000, 8000, 16000]
-				: [0, 500, 1000, 2000, 5000, 10000, 20000, nyquist];
-	return [...new Set(labels.filter((f) => f <= nyquist))].sort((a, b) => b - a);
-}
-
-/**
- * Resamples a linear spectrogram image (RGBA rows, top row = Nyquist, bottom
- * row = 0 Hz) onto another scale. The source should be at least as tall as
- * the FFT has bins, so the stretched low end blends real bins instead of
- * repeating one row.
- */
-export function remapSpectrogramRows(
-	source: Uint8Array,
-	width: number,
-	sourceHeight: number,
-	targetHeight: number,
-	scale: FrequencyScale,
-	nyquist: number,
-): Uint8Array {
-	const rowBytes = width * 4;
-	const target = new Uint8Array(rowBytes * targetHeight);
-	for (let y = 0; y < targetHeight; y++) {
-		const ratio = 1 - (y + 0.5) / targetHeight;
-		const frequency = frequencyAtRatio(scale, ratio, nyquist);
-		const position = Math.max(
-			0,
-			Math.min(
-				sourceHeight - 1,
-				(1 - frequency / nyquist) * sourceHeight - 0.5,
-			),
-		);
-		const upper = Math.floor(position);
-		const lower = Math.min(sourceHeight - 1, upper + 1);
-		const weight = position - upper;
-		const upperOffset = upper * rowBytes;
-		const lowerOffset = lower * rowBytes;
-		const offset = y * rowBytes;
-		for (let i = 0; i < rowBytes; i++) {
-			target[offset + i] = Math.round(
-				source[upperOffset + i] * (1 - weight) +
-					source[lowerOffset + i] * weight,
-			);
-		}
-	}
-	return target;
+				: [0, 500, 1000, 2000, 5000, 10000, 20000];
+	// The top is a whole number of bins, a hair under 20 kHz; keep that label.
+	return labels.filter((f) => f <= top * 1.01).sort((a, b) => b - a);
 }

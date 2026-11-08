@@ -13,6 +13,7 @@ import {
 	type FrequencyScale,
 	frequencyAtRatio,
 	isFrequencyScale,
+	spectrogramTopFrequency,
 } from "$/modules/spectrogram/utils/frequency-scale";
 
 export const spectrogramGainAtom = atomWithStorage(
@@ -139,9 +140,12 @@ export const spectrogramHoverFrequencyAtom = atom((get) => {
 
 	if (!audioBuffer || height <= 0) return 0;
 
-	const nyquist = audioBuffer.sampleRate / 2;
+	const top = spectrogramTopFrequency(
+		audioBuffer.sampleRate,
+		get(spectrogramFftSizeAtom),
+	);
 	const ratio = 1 - Math.max(0, Math.min(hoverPy, height)) / height;
-	return frequencyAtRatio(get(spectrogramFrequencyScaleAtom), ratio, nyquist);
+	return frequencyAtRatio(get(spectrogramFrequencyScaleAtom), ratio, top);
 });
 
 export const spectrogramSelectionAtom = atom<{
