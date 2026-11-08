@@ -58,6 +58,10 @@ export function SpectrogramView({
 	setPreviewActive,
 	fftSize,
 	setFftSize,
+	frequencyScale,
+	setFrequencyScale,
+	topFrequency,
+	setTopFrequency,
 	dynamicMaxHeight,
 	dataHeight,
 	setDataHeight,
@@ -206,6 +210,10 @@ export function SpectrogramView({
 					setPreviewActive={setPreviewActive}
 					fftSize={fftSize}
 					setFftSize={setFftSize}
+					frequencyScale={frequencyScale}
+					setFrequencyScale={setFrequencyScale}
+					topFrequency={topFrequency}
+					setTopFrequency={setTopFrequency}
 					dynamicMaxHeight={dynamicMaxHeight}
 					dataHeight={dataHeight}
 					setDataHeight={setDataHeight}

@@ -1847,7 +1847,18 @@
     "settings": "频谱图设置",
     "fftSize": "FFT 尺寸",
     "resolution": "FFT 分辨率",
-    "height": "显示高度"
+    "height": "显示高度",
+    "frequencyScale": "频率刻度",
+    "scale": {
+      "linear": "线性",
+      "log": "对数",
+      "mel": "梅尔"
+    },
+    "topFrequency": "最高频率",
+    "top": {
+      "full": "完整",
+      "voice": "人声"
+    }
   },
   "spectrogramFollow": {
     "toggle": "跟随播放头",

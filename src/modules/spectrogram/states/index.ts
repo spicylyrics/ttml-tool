@@ -9,6 +9,15 @@ import {
 	getGreenColor,
 	getIcyBlueColor,
 } from "$/modules/spectrogram/utils/colors";
+import {
+	type FrequencyScale,
+	frequencyAtRatio,
+	isFrequencyScale,
+	isTopFrequency,
+	spectrogramTopFrequency,
+	TOP_FREQUENCY_LIMITS,
+	type TopFrequency,
+} from "$/modules/spectrogram/utils/frequency-scale";
 
 export const spectrogramGainAtom = atomWithStorage(
 	"settings_spectrogramGain",
@@ -29,6 +38,44 @@ export const spectrogramFftSizeAtom = atomWithStorage<number>(
 	"settings_spectrogramFftSize",
 	1024,
 );
+const storedFrequencyScaleAtom = atomWithStorage<FrequencyScale>(
+	"settings_spectrogramFrequencyScale",
+	"linear",
+	undefined,
+	{ getOnInit: true },
+);
+/** Linear, log or mel frequency axis; an unknown stored value reads as linear. */
+export const spectrogramFrequencyScaleAtom = atom(
+	(get) => {
+		const value = get(storedFrequencyScaleAtom);
+		return isFrequencyScale(value) ? value : "linear";
+	},
+	(_get, set, next: FrequencyScale) => set(storedFrequencyScaleAtom, next),
+);
+const storedTopFrequencyAtom = atomWithStorage<TopFrequency>(
+	"settings_spectrogramTopFrequency",
+	"full",
+	undefined,
+	{ getOnInit: true },
+);
+/** Full (20 kHz) or Voice (8 kHz) top; an unknown stored value reads as full. */
+export const spectrogramTopFrequencyAtom = atom(
+	(get) => {
+		const value = get(storedTopFrequencyAtom);
+		return isTopFrequency(value) ? value : "full";
+	},
+	(_get, set, next: TopFrequency) => set(storedTopFrequencyAtom, next),
+);
+/** The frequency at the top edge of the image, for the ruler and hover readout. */
+export const spectrogramTopHzAtom = atom((get) => {
+	const audioBuffer = get(audioBufferAtom);
+	if (!audioBuffer) return 0;
+	return spectrogramTopFrequency(
+		audioBuffer.sampleRate,
+		get(spectrogramFftSizeAtom),
+		TOP_FREQUENCY_LIMITS[get(spectrogramTopFrequencyAtom)],
+	);
+});
 
 const icyBluePalette = {
 	id: "icy_blue",
@@ -116,13 +163,12 @@ export const idleHoverTimeMsAtom = atom(0);
 export const spectrogramHoverFrequencyAtom = atom((get) => {
 	const hoverPy = get(spectrogramHoverPyAtom);
 	const height = get(spectrogramHeightAtom);
-	const audioBuffer = get(audioBufferAtom);
+	const top = get(spectrogramTopHzAtom);
 
-	if (!audioBuffer || height <= 0) return 0;
+	if (top <= 0 || height <= 0) return 0;
 
-	const nyquist = audioBuffer.sampleRate / 2;
 	const ratio = 1 - Math.max(0, Math.min(hoverPy, height)) / height;
-	return ratio * nyquist;
+	return frequencyAtRatio(get(spectrogramFrequencyScaleAtom), ratio, top);
 });
 
 export const spectrogramSelectionAtom = atom<{

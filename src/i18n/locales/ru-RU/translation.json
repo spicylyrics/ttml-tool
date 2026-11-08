@@ -1847,7 +1847,18 @@
     "settings": "Параметры спектрограммы",
     "fftSize": "Размер FFT",
     "resolution": "Разрешение FFT",
-    "height": "Высота отображения"
+    "height": "Высота отображения",
+    "frequencyScale": "Шкала частот",
+    "scale": {
+      "linear": "Линейная",
+      "log": "Лог.",
+      "mel": "Мел"
+    },
+    "topFrequency": "Верхняя частота",
+    "top": {
+      "full": "Полная",
+      "voice": "Голос"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Следовать за курсором воспроизведения",

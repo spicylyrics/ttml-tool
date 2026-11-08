@@ -1847,7 +1847,18 @@
     "settings": "Nastavenia spektrogramu",
     "fftSize": "Veľkosť FFT",
     "resolution": "Rozlíšenie FFT",
-    "height": "Výška zobrazenia"
+    "height": "Výška zobrazenia",
+    "frequencyScale": "Frekvenčná os",
+    "scale": {
+      "linear": "Lineárna",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Horná frekvencia",
+    "top": {
+      "full": "Plná",
+      "voice": "Hlas"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Sledovať prehrávaciu hlavu",

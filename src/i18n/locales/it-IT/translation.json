@@ -1847,7 +1847,18 @@
     "settings": "Impostazioni dello spettrogramma",
     "fftSize": "Dimensione FFT",
     "resolution": "Risoluzione FFT",
-    "height": "Altezza di visualizzazione"
+    "height": "Altezza di visualizzazione",
+    "frequencyScale": "Scala delle frequenze",
+    "scale": {
+      "linear": "Lineare",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Frequenza massima",
+    "top": {
+      "full": "Completa",
+      "voice": "Voce"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Segui la testina",

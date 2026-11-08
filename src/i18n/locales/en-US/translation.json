@@ -1847,7 +1847,18 @@
     "settings": "Spectrogram settings",
     "fftSize": "FFT size",
     "resolution": "FFT resolution",
-    "height": "Display height"
+    "height": "Display height",
+    "frequencyScale": "Frequency scale",
+    "scale": {
+      "linear": "Linear",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Top frequency",
+    "top": {
+      "full": "Full",
+      "voice": "Voice"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Follow playhead",
