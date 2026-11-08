@@ -12,10 +12,6 @@ import type { SpectrogramWorkerScope } from "$/modules/spectrogram/workers/types
 
 /** Tallest linear image drawn before resampling to log or mel. */
 const MAX_RENDER_HEIGHT = 2048;
-/** FFT for the low end of log and mel views (about 11 Hz bins at 44.1 kHz). */
-const LOW_BAND_FFT = 4096;
-/** Below `fromHz` the low-end image is used alone; up to `toHz` it fades out. */
-const LOW_BAND_CROSSOVER = { fromHz: 500, toHz: 1000 };
 
 const ctx: SpectrogramWorkerScope = self as SpectrogramWorkerScope;
 
@@ -135,37 +131,20 @@ ctx.onmessage = async (event) => {
 				Math.max(height, Math.min(MAX_RENDER_HEIGHT, fft / 2));
 
 			try {
-				let pixelData: Uint8Array;
-				if (scale === "linear") {
-					pixelData = render(FFT_SIZE, HOP_LENGTH, height);
-				} else {
-					const nyquist = audioSampleRate / 2;
-					const main = render(FFT_SIZE, HOP_LENGTH, rowsFor(FFT_SIZE));
-					// Log and mel give the bottom octaves most of the height, where a
-					// small FFT has only a few bins. Draw the low end again with a long
-					// FFT (bass notes are slow, so its coarser timing doesn't show).
-					const lowBand =
-						FFT_SIZE < LOW_BAND_FFT
-							? {
-									source: render(
-										LOW_BAND_FFT,
-										LOW_BAND_FFT / 16,
-										rowsFor(LOW_BAND_FFT),
-									),
-									height: rowsFor(LOW_BAND_FFT),
-									...LOW_BAND_CROSSOVER,
-								}
-							: undefined;
-					pixelData = remapSpectrogramRows(
-						main,
-						tileWidthPx,
-						rowsFor(FFT_SIZE),
-						height,
-						scale,
-						nyquist,
-						lowBand,
-					);
-				}
+				// A second, longer FFT for the low end was tried and dropped: its
+				// ~93 ms window turns vocal vibrato into rows of ovals, and syncing
+				// needs timing more than bass detail.
+				const pixelData =
+					scale === "linear"
+						? render(FFT_SIZE, HOP_LENGTH, height)
+						: remapSpectrogramRows(
+								render(FFT_SIZE, HOP_LENGTH, rowsFor(FFT_SIZE)),
+								tileWidthPx,
+								rowsFor(FFT_SIZE),
+								height,
+								scale,
+								audioSampleRate / 2,
+							);
 
 				scratchCanvas ??= new OffscreenCanvas(tileWidthPx, height);
 				const canvas = scratchCanvas;

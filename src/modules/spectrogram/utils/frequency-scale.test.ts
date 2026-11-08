@@ -5,7 +5,6 @@ import {
 	frequencyRulerLabels,
 	isFrequencyScale,
 	LOG_MIN_FREQUENCY,
-	lowBandWeight,
 	ratioAtFrequency,
 	remapSpectrogramRows,
 } from "./frequency-scale";
@@ -49,17 +48,6 @@ describe("frequency scales", () => {
 	});
 });
 
-describe("lowBandWeight", () => {
-	const band = { fromHz: 500, toHz: 1000 };
-	it("uses the low band below the crossover and fades out across it", () => {
-		expect(lowBandWeight(100, band)).toBe(1);
-		expect(lowBandWeight(500, band)).toBe(1);
-		expect(lowBandWeight(Math.SQRT2 * 500, band)).toBeCloseTo(0.5, 6);
-		expect(lowBandWeight(1000, band)).toBe(0);
-		expect(lowBandWeight(5000, band)).toBe(0);
-	});
-});
-
 describe("remapSpectrogramRows", () => {
 	// One pixel wide: each row's red channel holds its source row index.
 	const source = (height: number) => {
@@ -78,27 +66,11 @@ describe("remapSpectrogramRows", () => {
 	it("pulls the bottom half of a log view from the lowest source rows", () => {
 		const out = remapSpectrogramRows(source(200), 1, 200, 10, "log", NYQUIST);
 		const rows = [...out].filter((_, i) => i % 4 === 0);
-		// Bottom output row maps near 20 Hz, the last source row.
+		// Bottom output row maps near the log floor, the last source rows.
 		expect(rows[9]).toBeGreaterThan(195);
 		// The middle of a log axis is still well below 1 kHz, so deep in the
 		// bottom of the linear source.
 		expect(rows[5]).toBeGreaterThan(190);
 		expect(rows).toEqual([...rows].sort((a, b) => a - b));
-	});
-
-	it("takes the low end from the low band and the top from the main image", () => {
-		const main = new Uint8Array(100 * 4).fill(10);
-		const low = new Uint8Array(400 * 4).fill(200);
-		const out = remapSpectrogramRows(main, 1, 100, 20, "log", NYQUIST, {
-			source: low,
-			height: 400,
-			fromHz: 500,
-			toHz: 1000,
-		});
-		const red = [...out].filter((_, i) => i % 4 === 0);
-		expect(red[0]).toBe(10); // top row, near Nyquist
-		expect(red[19]).toBe(200); // bottom row, near 20 Hz
-		// Somewhere in the crossover there's a blend of both.
-		expect(red.some((value) => value > 10 && value < 200)).toBe(true);
 	});
 });
