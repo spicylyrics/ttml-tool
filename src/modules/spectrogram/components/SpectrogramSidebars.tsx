@@ -152,7 +152,7 @@ function SettingsSidebar({
 						<SettingsFilled />
 					</IconButton>
 				</Popover.Trigger>
-				<Popover.Content side="left" align="end" style={{ width: 220 }}>
+				<Popover.Content side="left" align="end" style={{ width: 260 }}>
 					<Flex direction="column" gap="3">
 						<Text size="2" weight="bold">
 							{t("spectrogram.settings", "Spectrogram settings")}
@@ -171,6 +171,8 @@ function SettingsSidebar({
 									value: size,
 									label: size,
 								}))}
+								variant="segmented"
+								fullWidth
 							/>
 						</Flex>
 
@@ -188,6 +190,8 @@ function SettingsSidebar({
 									value: scale,
 									label: t(`spectrogram.scale.${scale}`, scale),
 								}))}
+								variant="segmented"
+								fullWidth
 							/>
 						</Flex>
 
