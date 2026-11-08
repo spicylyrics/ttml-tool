@@ -217,23 +217,11 @@ pub mod core {
         let n = fft_size as f32;
         let scale_factor = 9.0 / (2.0 * n).sqrt();
 
-        const LOG2_10_INV: f32 = std::f32::consts::LOG10_2;
-
-        const MANTISSA_BITS: u32 = 23;
-        const EXPONENT_BIAS: f32 = 127.0;
-
-        const SIGMA: f32 = 0.058_145;
-
-        const M_FACTOR: f32 = (1 << MANTISSA_BITS) as f32;
-        const MULTIPLIER: f32 = 1.0 / M_FACTOR;
-        const MAGIC_SUB: f32 = M_FACTOR * (EXPONENT_BIAS - SIGMA);
-
+        // A real log10. The old bit-trick log2 was exact only at powers of two
+        // and linear in between, so its slope doubled and halved every 6 dB,
+        // which drew contour rings inside smooth bright areas.
         let mapping_op = |v: &mut f32| {
-            let scaled_mag = *v * scale_factor;
-            let x = scaled_mag + 1.0;
-            let i = x.to_bits();
-            let fast_log2 = (i as f32 - MAGIC_SUB) * MULTIPLIER;
-            *v = fast_log2 * LOG2_10_INV * gain;
+            *v = (*v * scale_factor + 1.0).log10() * gain;
         };
 
         cfg_if! {
@@ -798,6 +786,31 @@ mod tests {
             FrequencyScale::from_u32(3),
             Err(SpectrogramError::InvalidFrequencyScale(3))
         );
+    }
+
+    /// Brightness must change smoothly with loudness. The old bit-trick log
+    /// had slope jumps every doubling, which showed up as contour rings.
+    #[test]
+    fn gain_mapping_has_no_slope_jumps() {
+        let fft_size = 1024;
+        let gain = 1.0;
+        // Magnitudes spaced evenly in log, over about 100 dB.
+        let mags: Vec<f32> = (0..2000).map(|i| 10f32.powf(i as f32 * 0.0025)).collect();
+        let mut mapped = mags.clone();
+        core::apply_gain_mapping(&mut mapped, fft_size, gain);
+        let scale_factor = 9.0 / (2.0 * fft_size as f32).sqrt();
+        for (m, v) in mags.iter().zip(&mapped) {
+            let exact = (m * scale_factor + 1.0).log10() * gain;
+            assert!((v - exact).abs() < 1e-5, "{m}: {v} vs {exact}");
+        }
+        // Slope against log-magnitude only ever changes gradually.
+        let slopes: Vec<f32> = mapped.windows(2).map(|w| w[1] - w[0]).collect();
+        for pair in slopes.windows(2) {
+            if pair[0] > 1e-4 {
+                let ratio = pair[1] / pair[0];
+                assert!((0.9..1.1).contains(&ratio), "slope jump: {ratio}");
+            }
+        }
     }
 
     #[test]
