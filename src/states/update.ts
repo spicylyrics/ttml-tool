@@ -11,7 +11,10 @@ export type UpdateStatus =
 	| "available"
 	| "downloading"
 	| "ready"
-	| "error";
+	/** The check failed. */
+	| "error"
+	/** The check found an update but installing it failed. */
+	| "install-failed";
 
 export const updateStatusAtom = atom<UpdateStatus>("idle");
 export const updateInfoAtom = atom<Update | null>(null);

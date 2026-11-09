@@ -11,8 +11,15 @@ import { clearWebsiteCache, forceWebsiteRefresh } from "$/utils/pwa";
 import { useAppUpdate } from "$/utils/useAppUpdate";
 export function useAboutSettings() {
 	const { t } = useTranslation();
-	const { status, update, progress, installUpdate, restartApp, checkUpdate } =
-		useAppUpdate();
+	const {
+		status,
+		update,
+		progress,
+		errorMsg,
+		installUpdate,
+		restartApp,
+		checkUpdate,
+	} = useAppUpdate();
 	const [betaUpdates, saveBetaUpdates] = useAtom(betaUpdatesAtom);
 	const canSelfUpdate = useAtomValue(canSelfUpdateAtom);
 	const installKind = useAtomValue(installKindAtom);
@@ -27,7 +34,12 @@ export function useAboutSettings() {
 		"refresh" | "clear" | null
 	>(null);
 	const contributors = getContributors();
-	const showUpdateCard = ["available", "downloading", "ready"].includes(status);
+	const showUpdateCard = [
+		"available",
+		"downloading",
+		"ready",
+		"install-failed",
+	].includes(status);
 	const isWebsite = !import.meta.env.TAURI_ENV_PLATFORM;
 	const handleForceRefresh = async () => {
 		setRecoveryAction("refresh");
@@ -51,6 +63,7 @@ export function useAboutSettings() {
 		status,
 		update,
 		progress,
+		errorMsg,
 		installUpdate,
 		restartApp,
 		checkUpdate,

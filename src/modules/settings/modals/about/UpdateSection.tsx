@@ -1,4 +1,5 @@
 import {
+	ArrowClockwiseRegular,
 	ArrowSyncRegular,
 	BeakerRegular,
 	CheckmarkCircle24Regular,
@@ -102,10 +103,15 @@ const DownloadInstead = ({
 	) : (
 		<Flex direction="column" gap="2" align="start">
 			<Text size="2" color="gray">
-				{t(
-					"settings.about.downloadUpdateHint",
-					"This copy can't update itself. Download the new version for your system from the release page.",
-				)}
+				{installKind === "app-read-only"
+					? t(
+							"settings.about.readOnlyUpdateHint",
+							"macOS is running this copy from a read-only place, like the disk image, so it can't update itself. In Finder, move the app to your Applications folder and open it from there.",
+						)
+					: t(
+							"settings.about.downloadUpdateHint",
+							"This copy can't update itself. Download the new version for your system from the release page.",
+						)}
 			</Text>
 			<Button
 				onClick={() => void openExternal(`${RELEASES}/tag/v${update.version}`)}
@@ -161,6 +167,7 @@ export const UpdateSection = ({
 	status,
 	update,
 	progress,
+	errorMsg,
 	installUpdate,
 	restartApp,
 	checkUpdate,
@@ -176,6 +183,7 @@ export const UpdateSection = ({
 	| "status"
 	| "update"
 	| "progress"
+	| "errorMsg"
 	| "installUpdate"
 	| "restartApp"
 	| "checkUpdate"
@@ -248,6 +256,51 @@ export const UpdateSection = ({
 									<Text size="2">{progress.toFixed(0)}%</Text>
 								</Flex>
 								<Progress value={progress} />
+							</Flex>
+						)}
+
+						{status === "install-failed" && update && (
+							<Flex direction="column" gap="3" align="start">
+								<Flex gap="2" role="alert">
+									<ErrorCircleRegular
+										color="var(--red-11)"
+										aria-hidden
+										className={styles.errorIcon}
+									/>
+									<Flex direction="column" gap="1">
+										<Text size="2" color="red">
+											{t(
+												"settings.about.installFailed",
+												"Couldn't install the update. Try again, or download it from the release page.",
+											)}
+										</Text>
+										{errorMsg && (
+											<Text
+												size="1"
+												color="gray"
+												className={styles.errorReason}
+											>
+												{errorMsg}
+											</Text>
+										)}
+									</Flex>
+								</Flex>
+								<Flex gap="3" wrap="wrap">
+									<Button onClick={installUpdate}>
+										<ArrowClockwiseRegular />
+										{t("settings.about.retryUpdate", "Try again")}
+									</Button>
+									<Button
+										variant="soft"
+										color="gray"
+										onClick={() =>
+											void openExternal(`${RELEASES}/tag/v${update.version}`)
+										}
+									>
+										<OpenRegular />
+										{t("settings.about.openDownloadPage", "Open download page")}
+									</Button>
+								</Flex>
 							</Flex>
 						)}
 
