@@ -71,6 +71,28 @@ export function getGreenColor(value: number): [number, number, number] {
 	return hslToRgb(h, s, l);
 }
 
+/** Matplotlib's Inferno colormap (CC0), sampled at ten even steps. */
+const INFERNO_STOPS = [
+	0x000004, 0x1b0c41, 0x4a0c6b, 0x781c6d, 0xa52c60, 0xcf4446, 0xed6925,
+	0xfb9b06, 0xf7d13d, 0xfcffa4,
+];
+
+/**
+ * Black through purple and orange to pale yellow. Brightness rises evenly
+ * across the whole range, so loud harmonics stay distinct instead of all
+ * reaching white.
+ */
+export function getInfernoColor(value: number): [number, number, number] {
+	const position = Math.max(0, Math.min(value, 1)) * (INFERNO_STOPS.length - 1);
+	const index = Math.min(Math.floor(position), INFERNO_STOPS.length - 2);
+	const t = position - index;
+	const from = INFERNO_STOPS[index];
+	const to = INFERNO_STOPS[index + 1];
+	const channel = (shift: number) =>
+		Math.round(lerp((from >> shift) & 0xff, (to >> shift) & 0xff, t));
+	return [channel(16), channel(8), channel(0)];
+}
+
 export function generatePalette(
 	colorFn: (value: number) => [number, number, number],
 ): Uint8Array {

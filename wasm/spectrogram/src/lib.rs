@@ -127,6 +127,25 @@ pub mod core {
         unsafe { Vec::from_raw_parts(pointer, length, capacity) }
     }
 
+    /// A periodic Hann window, scaled by 2 so a steady sine peaks as high as it
+    /// did through the old rectangular (unwindowed) frames.
+    ///
+    /// Without a window every frame is cut off hard at both ends, and a loud
+    /// harmonic leaks into every other bin (sidelobes only 13 dB down). That
+    /// filled the gaps between harmonics and drew a bright streak at every
+    /// onset. Hann's sidelobes fall to -31 dB and keep dropping, so harmonics
+    /// stay thin lines with dark gaps between them.
+    #[must_use]
+    pub fn hann_window(fft_size: usize) -> Vec<f32> {
+        let n = fft_size as f32;
+        (0..fft_size)
+            .map(|i| {
+                let phase = std::f32::consts::TAU * i as f32 / n;
+                1.0 - phase.cos()
+            })
+            .collect()
+    }
+
     pub fn calculate_spectrogram(
         audio_data: &[f32],
         fft: &dyn RealToComplex<f32>,
@@ -146,6 +165,7 @@ pub mod core {
         struct SpectrogramProcessor<'a> {
             fft: &'a dyn RealToComplex<f32>,
             audio_data: &'a [f32],
+            window: &'a [f32],
             fft_size: usize,
             hop_length: usize,
             num_freq_bins_to_render: usize,
@@ -162,7 +182,11 @@ pub mod core {
                 let current_pos = time_index * self.hop_length;
                 let audio_chunk = &self.audio_data[current_pos..current_pos + self.fft_size];
 
-                real_input.copy_from_slice(audio_chunk);
+                for ((slot, &sample), &weight) in
+                    real_input.iter_mut().zip(audio_chunk).zip(self.window)
+                {
+                    *slot = sample * weight;
+                }
                 self.fft.process(real_input, complex_output).unwrap();
 
                 #[expect(clippy::imprecise_flops)]
@@ -178,9 +202,11 @@ pub mod core {
             }
         }
 
+        let window = hann_window(fft_size);
         let processor = SpectrogramProcessor {
             fft,
             audio_data,
+            window: &window,
             fft_size,
             hop_length,
             num_freq_bins_to_render,
@@ -219,15 +245,39 @@ pub mod core {
         (flat_spectrogram, num_time_bins)
     }
 
-    pub fn apply_gain_mapping(spectrogram: &mut [f32], fft_size: usize, gain: f32) {
-        let n = fft_size as f32;
-        let scale_factor = 9.0 / (2.0 * n).sqrt();
+    /// The gain the app ships with; at this gain the palette spans
+    /// [`FLOOR_DB`]..[`CEILING_DB`].
+    pub const DEFAULT_GAIN: f32 = 3.0;
+    /// Loudness (dB, 0 = a full-scale sine) drawn as the top palette colour.
+    /// Measured on mastered pop: the loudest 1% of bins sit around -10 to
+    /// -15 dB, so they land near the top.
+    pub const CEILING_DB: f32 = -6.0;
+    /// Loudness drawn as the bottom palette colour. The median bin of a mix
+    /// sits around -40 to -50 dB, so the background stays dark and voiced
+    /// harmonics stand out against it.
+    pub const FLOOR_DB: f32 = -60.0;
 
-        // A real log10. The old bit-trick log2 was exact only at powers of two
-        // and linear in between, so its slope doubled and halved every 6 dB,
-        // which drew contour rings inside smooth bright areas.
+    /// Turns magnitudes into palette positions (0 = floor, 1 = ceiling) on a
+    /// decibel scale.
+    ///
+    /// `gain` is a plain amplitude multiplier relative to [`DEFAULT_GAIN`]:
+    /// doubling it brightens everything by 6 dB. The old mapping,
+    /// `log10(1 + mag) * gain`, was only logarithmic for loud bins; anything
+    /// loud sat past the top of the palette, so the lower half of a mix was
+    /// solid white and edges inside it disappeared.
+    pub fn apply_gain_mapping(spectrogram: &mut [f32], fft_size: usize, gain: f32) {
+        // The window sums to fft_size, so a full-scale sine peaks at
+        // fft_size / 2; this brings it to 1.0 (0 dB).
+        let to_full_scale = 2.0 / fft_size as f32;
+        let gain_db = 20.0 * (gain.max(1e-3) / DEFAULT_GAIN).log10();
+        let offset = gain_db - FLOOR_DB;
+        let inv_range = 1.0 / (CEILING_DB - FLOOR_DB);
+
+        // A real log10, so the curve has no slope kinks (they drew contour
+        // rings inside smooth bright areas).
         let mapping_op = |v: &mut f32| {
-            *v = (*v * scale_factor + 1.0).log10() * gain;
+            let db = 20.0 * (*v * to_full_scale).max(1e-10).log10();
+            *v = (db + offset) * inv_range;
         };
 
         cfg_if! {
@@ -348,7 +398,7 @@ pub mod core {
         }
     }
 
-    /// 原有的线性映射，保持与改动前逐字节一致。
+    /// The Aegisub-style linear axis (blended toward log by `log_ratio`).
     fn linear_row_span(
         y_logical: usize,
         img_height: usize,
@@ -366,14 +416,14 @@ pub mod core {
             log_ratio * (b_log - b_lin) + b_lin
         };
 
-        let start = (map_y_to_bin(y_logical).floor() as usize).min(num_freq_bins - 1);
-        let end = (map_y_to_bin(y_logical + 1).floor() as usize).min(num_freq_bins);
-
-        // 不足一个频点时取 start 处的单个频点。
-        RowSpan::Max {
-            start,
-            end: end.max(start + 1),
-        }
+        // Same rules as log and mel: max over whole bins, and interpolation
+        // between neighbouring bins where a row is narrower than one bin.
+        // Repeating the nearest bin there drew the low end as stair steps.
+        scaled_row_span(
+            map_y_to_bin(y_logical),
+            map_y_to_bin(y_logical + 1),
+            num_freq_bins,
+        )
     }
 
     /// 对数 / mel 刻度：行的上下边缘已换算成小数频点 `low_bin..high_bin`。
@@ -864,10 +914,12 @@ mod tests {
         let mags: Vec<f32> = (0..2000).map(|i| 10f32.powf(i as f32 * 0.0025)).collect();
         let mut mapped = mags.clone();
         core::apply_gain_mapping(&mut mapped, fft_size, gain);
-        let scale_factor = 9.0 / (2.0 * fft_size as f32).sqrt();
+        let range = core::CEILING_DB - core::FLOOR_DB;
         for (m, v) in mags.iter().zip(&mapped) {
-            let exact = (m * scale_factor + 1.0).log10() * gain;
-            assert!((v - exact).abs() < 1e-5, "{m}: {v} vs {exact}");
+            let db = 20.0 * (m * 2.0 / fft_size as f32).log10()
+                + 20.0 * (gain / core::DEFAULT_GAIN).log10();
+            let exact = (db - core::FLOOR_DB) / range;
+            assert!((v - exact).abs() < 1e-4, "{m}: {v} vs {exact}");
         }
         // Slope against log-magnitude only ever changes gradually.
         let slopes: Vec<f32> = mapped.windows(2).map(|w| w[1] - w[0]).collect();
@@ -942,23 +994,63 @@ mod tests {
                     )
                 })
                 .collect();
-            let RowSpan::Max { start: first, .. } = spans[0] else {
-                panic!("linear rows always take a max");
-            };
-            let RowSpan::Max { end: last, .. } = spans[IMG_HEIGHT - 1] else {
-                panic!("linear rows always take a max");
-            };
-            assert_eq!(first, 1, "linear skips the DC bin");
-            assert_eq!(last, num_freq_bins);
-            let starts: Vec<usize> = spans
+            // Where each row starts reading, as a fractional bin.
+            let starts: Vec<f32> = spans
                 .iter()
-                .map(|span| match span {
-                    RowSpan::Max { start, .. } => *start,
-                    _ => unreachable!(),
+                .map(|span| match *span {
+                    RowSpan::Max { start, .. } => start as f32,
+                    RowSpan::Lerp { lower, t, .. } => lower as f32 + t,
+                    RowSpan::Blank => unreachable!(),
                 })
                 .collect();
+            assert!(
+                (1.0..2.0).contains(&starts[0]),
+                "linear skips the DC bin: {}",
+                starts[0]
+            );
             assert!(starts.windows(2).all(|w| w[0] <= w[1]));
+            match spans[IMG_HEIGHT - 1] {
+                RowSpan::Max { end, .. } => assert_eq!(end, num_freq_bins),
+                RowSpan::Lerp { upper, .. } => assert_eq!(upper, num_freq_bins - 1),
+                RowSpan::Blank => unreachable!(),
+            }
         }
+    }
+
+    /// Rows narrower than one bin interpolate, so a tall view of a few bins
+    /// shades smoothly instead of repeating each bin as a block.
+    #[test]
+    fn linear_rows_narrower_than_a_bin_interpolate() {
+        let num_freq_bins = 171;
+        let img_height = 1024;
+        let spans: Vec<_> = (0..img_height)
+            .map(|y| {
+                core::row_span(
+                    y,
+                    img_height,
+                    num_freq_bins,
+                    46.875,
+                    FrequencyScale::Linear,
+                    0.0,
+                )
+            })
+            .collect();
+        assert!(
+            spans
+                .iter()
+                .all(|span| matches!(span, RowSpan::Lerp { .. })),
+            "every row is under a bin tall here"
+        );
+        let centres: Vec<f32> = spans
+            .iter()
+            .map(|span| match *span {
+                RowSpan::Lerp { lower, t, .. } => lower as f32 + t,
+                _ => unreachable!(),
+            })
+            .collect();
+        // Strictly rising (bar the top row, which clamps to the last bin).
+        let rising = &centres[..img_height - 1];
+        assert!(rising.windows(2).all(|w| w[1] > w[0]), "rows repeat a bin");
     }
 
     #[test]
@@ -1016,55 +1108,31 @@ mod tests {
         }
     }
 
+    /// A tone between two bins must stay a thin line. Unwindowed frames leaked
+    /// it into every bin (only about 30 dB down eight bins away), which filled
+    /// the gaps between a voice's harmonics.
     #[test]
-    fn linear_output_matches_pre_change_renderer() {
-        let palette = grey_palette();
-        for (freq, img_height) in [(440.0, IMG_HEIGHT), (1000.0, 512), (3000.0, 97)] {
-            let audio = generate_tone(freq);
-            let spectrogram = spectrogram_of(&audio);
-            let log_ratio = core::calculate_log_ratio(
-                SAMPLE_RATE,
-                FFT_SIZE,
-                img_height,
-                spectrogram.num_freq_bins,
+    fn windowed_tone_does_not_leak_into_far_bins() {
+        let resolution = SAMPLE_RATE as f32 / FFT_SIZE as f32;
+        let range = core::CEILING_DB - core::FLOOR_DB;
+        // 1 kHz sits at bin 21.33, the worst case for leakage.
+        let spectrogram = spectrogram_of(&generate_tone(1000.0));
+        let frame = spectrogram.num_time_bins / 2;
+        let bins = &spectrogram.values
+            [frame * spectrogram.num_freq_bins..(frame + 1) * spectrogram.num_freq_bins];
+        let peak_bin = (1000.0 / resolution).round() as usize;
+        let peak = bins[peak_bin];
+        for offset in [8, 16, 40] {
+            let down_db = (peak - bins[peak_bin + offset]) * range;
+            assert!(
+                down_db > 50.0,
+                "{offset} bins away only {down_db:.1} dB down"
             );
-            // Taking the loudest frame per column only changes columns that
-            // hold several frames. 1024 px is under one frame per column;
-            // num_time_bins - 1 px is exactly one.
-            for img_width in [IMG_WIDTH, spectrogram.num_time_bins - 1] {
-                for ratio in [log_ratio, 0.0, 1.0] {
-                    let expected = reference_linear_render(
-                        &spectrogram,
-                        img_width,
-                        img_height,
-                        ratio,
-                        &palette,
-                    );
-                    let actual = core::render_pixels(
-                        &spectrogram,
-                        img_width,
-                        img_height,
-                        FrequencyScale::Linear,
-                        ratio,
-                        &palette,
-                    );
-                    assert!(
-                        expected == actual,
-                        "linear output changed: {freq} Hz, w={img_width}, h={img_height}, ratio={ratio}"
-                    );
-                }
-            }
-
-            let via_api = native_api::generate_spectrogram_image_native(
-                &audio,
-                &palette,
-                config(img_height, GAIN, FrequencyScale::Linear),
-            )
-            .unwrap();
-            let expected =
-                reference_linear_render(&spectrogram, IMG_WIDTH, img_height, log_ratio, &palette);
-            assert!(via_api == expected);
         }
+        // generate_tone is a 0.5 amplitude sine: -6 dB, less up to 1.4 dB of
+        // Hann scalloping between bins. Remove the test gain's boost first.
+        let peak_db = peak * range + core::FLOOR_DB - 20.0 * (GAIN / core::DEFAULT_GAIN).log10();
+        assert!((-8.0..-5.5).contains(&peak_db), "peak at {peak_db:.1} dB");
     }
 
     /// 图像某一列从下到上（0 = 底部）每行的灰度值。
@@ -1222,8 +1290,11 @@ mod tests {
                 scale,
                 0.0,
             );
+            // Linear rows are under a bin tall here, so the top row
+            // interpolates up to the last bin instead of taking a max.
             assert!(
-                matches!(top, RowSpan::Max { end, .. } if end == voice_bins),
+                matches!(top, RowSpan::Max { end, .. } if end == voice_bins)
+                    || matches!(top, RowSpan::Lerp { upper, .. } if upper == voice_bins - 1),
                 "{scale:?}: {top:?}"
             );
         }

@@ -38,7 +38,7 @@ jobs:
       - name: Validate change notes
         run: |
           if ls changes/*.md | grep -qv README.md; then
-            node scripts/compile-changelog.mjs --version 999.0.0 --summary "CI check" --dry-run > /dev/null
+            node scripts/compile-changelog.mjs --check > /dev/null
           fi
   check:
     name: check
