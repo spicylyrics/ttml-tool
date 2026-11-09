@@ -220,9 +220,45 @@ fn clear_discord_connection(
 
 /// On Linux the updater can only replace an `AppImage`. Flatpak, AUR and other
 /// package-manager installs update through their package manager instead.
+/// On macOS a bundle on a read-only volume can't be replaced either.
 #[tauri::command]
 fn can_self_update() -> bool {
+    if cfg!(target_os = "macos") {
+        return !macos_bundle_is_read_only();
+    }
     !cfg!(target_os = "linux") || std::env::var_os("APPIMAGE").is_some()
+}
+
+/// Whether the running `.app` sits on a read-only volume, where the updater
+/// fails with "Read-only file system (os error 30)". That's a copy opened
+/// straight from the disk image, or one macOS runs from a read-only mirror
+/// (App Translocation) because it was never moved out of its download folder
+/// in Finder. Moving the app to Applications fixes both.
+fn macos_bundle_is_read_only() -> bool {
+    let Ok(exe) = std::env::current_exe() else {
+        return false;
+    };
+    let Some(folder) = exe
+        .ancestors()
+        .find(|path| path.extension().is_some_and(|ext| ext == "app"))
+        .and_then(|bundle| bundle.parent())
+    else {
+        return false;
+    };
+    // The updater writes next to the bundle, so try the same. A permission
+    // error is fine: the updater asks for an admin password then.
+    let probe = folder.join(format!(".ttml-tool-update-check-{}", std::process::id()));
+    match fs::OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(&probe)
+    {
+        Ok(_) => {
+            let _ = fs::remove_file(&probe);
+            false
+        }
+        Err(error) => error.kind() == std::io::ErrorKind::ReadOnlyFilesystem,
+    }
 }
 
 const STABLE_UPDATE_FEED: &str =
@@ -290,7 +326,11 @@ fn install_kind() -> &'static str {
         return if nsis { "nsis" } else { "msi" };
     }
     if cfg!(target_os = "macos") {
-        return "app";
+        return if macos_bundle_is_read_only() {
+            "app-read-only"
+        } else {
+            "app"
+        };
     }
     if Path::new("/.flatpak-info").exists() {
         return "flatpak";
