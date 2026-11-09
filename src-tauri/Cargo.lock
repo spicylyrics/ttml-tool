@@ -53,8 +53,13 @@ dependencies = [
 name = "amll-ttml-tool"
 version = "0.24.0-1"
 dependencies = [
+ "ashpd",
+ "block2",
  "discord-rich-presence",
+ "futures-util",
  "log",
+ "objc2-app-kit",
+ "objc2-foundation",
  "resvg",
  "serde",
  "serde_json",
@@ -72,6 +77,7 @@ dependencies = [
  "tauri-plugin-single-instance",
  "tauri-plugin-updater",
  "tauri-plugin-window-state",
+ "tokio",
  "webview2-com",
  "window-vibrancy 0.7.1",
  "windows 0.61.3",

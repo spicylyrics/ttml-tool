@@ -41,12 +41,26 @@ tauri-plugin-window-state = "2"
 # Opening a .ttml while the app runs hands it to the open window.
 tauri-plugin-single-instance = "2"
 
+# System accent color (src/system_accent.rs). Both already come in through Tauri.
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2-app-kit = { version = "0.3", default-features = false, features = ["std", "NSColor", "NSColorSpace", "objc2-core-foundation"] }
+objc2-foundation = { version = "0.3", default-features = false, features = ["std", "NSNotification", "NSString", "NSOperation", "block2"] }
+block2 = "0.6"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+ashpd = { version = "0.11", default-features = false, features = ["tokio"] }
+futures-util = { version = "0.3", default-features = false }
+tokio = { version = "1", features = ["time"] }
+
 [target.'cfg(windows)'.dependencies]
 webview2-com = "0.38"
 windows = { version = "0.61", features = [
     "Win32_Storage_FileSystem",
     "Win32_System_Com",
     "Win32_UI_Shell",
+    "Foundation",
+    "UI",
+    "UI_ViewManagement",
 ] }
 
 [lints.clippy]
