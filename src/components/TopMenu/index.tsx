@@ -1,7 +1,9 @@
 import { Box, Flex } from "@radix-ui/themes";
+import { useStore } from "jotai";
 import { Toolbar } from "radix-ui";
 import { type FC, useEffect, useState } from "react";
 import {
+	cmdAutoSegment,
 	cmdAutoSegmentDialog,
 	cmdRedoAlternate,
 } from "$/modules/keyboard/commands";
@@ -17,6 +19,7 @@ import {
 	keyUndoAtom,
 	keyUnselectAllAtom,
 } from "$/states/keybindings";
+import { toolModeAtom } from "$/states/main";
 import { useKeyBindingAtom } from "$/utils/keybindings";
 import { HeaderFileInfo } from "./HeaderFileInfo";
 import { EditMenu } from "./modals/EditMenu";
@@ -53,6 +56,7 @@ export const TopMenu: FC = () => {
 	const { width } = useWindowSize();
 	const showHomeButton = width < 800;
 	const menu = useTopMenuActions();
+	const store = useStore();
 
 	useKeyBindingAtom(keyNewFileAtom, menu.onNewFile, [menu.onNewFile]);
 	useKeyBindingAtom(keyOpenFileAtom, menu.onOpenFile, [menu.onOpenFile]);
@@ -68,9 +72,12 @@ export const TopMenu: FC = () => {
 		menu.onDeleteSelection,
 	]);
 	// Waits for a second press when Auto segment is set to "Press twice to run".
-	useKeyBindingAtom(keyAutoSegmentAtom, menu.onQuickAutoSegment, [
-		menu.onQuickAutoSegment,
-	]);
+	// Only in its command's modes: Sync mode uses E for "next word and play".
+	useKeyBindingAtom(keyAutoSegmentAtom, () => {
+		const mode: string = store.get(toolModeAtom);
+		if ((cmdAutoSegment.modes as readonly string[]).includes(mode))
+			menu.onQuickAutoSegment();
+	}, [menu.onQuickAutoSegment, store]);
 	useKeyBindingAtom(cmdAutoSegmentDialog.atom, menu.onAutoSegment, [
 		menu.onAutoSegment,
 	]);
