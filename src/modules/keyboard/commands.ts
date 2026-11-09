@@ -363,28 +363,29 @@ export const cmdDuplicatePaste = registerCommand(
 );
 
 // =========================================================================================
-//  频谱图/试听
+//  试听 (Audio) / 频谱图
 // =========================================================================================
 
+// Play selection works on words picked in the editor or the spectrogram.
 export const cmdAuditionSelectionBefore = registerCommand(
 	"auditionSelectionBefore",
 	["KeyZ"],
 	t("settingsDialog.keybindings.auditionSelectionBefore"),
-	"Spectrogram",
+	"Audio",
 );
 
 export const cmdAuditionSelection = registerCommand(
 	"auditionSelection",
 	["KeyX"],
 	t("settingsDialog.keybindings.auditionSelection"),
-	"Spectrogram",
+	"Audio",
 );
 
 export const cmdAuditionSelectionAfter = registerCommand(
 	"auditionSelectionAfter",
 	["KeyC"],
 	t("settingsDialog.keybindings.auditionSelectionAfter"),
-	"Spectrogram",
+	"Audio",
 );
 
 export const cmdCancelTimelineEditing = registerCommand(
