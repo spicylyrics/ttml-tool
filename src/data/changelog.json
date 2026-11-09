@@ -1,5 +1,49 @@
 [
 	{
+		"version": "0.24.0-2",
+		"summary": "Sharper spectrogram, system accent",
+		"color": "ruby",
+		"date": "2026-11-09",
+		"prerelease": true,
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Follow your system accent color",
+				"body": "Turn on **Follow the system accent** in Appearance and the app changes color with Windows, macOS or your Linux desktop",
+				"highlight": true,
+				"impact": 3
+			},
+			{
+				"type": "change",
+				"title": "Play selection works on any selected word",
+				"body": "The play selection shortcuts now play words picked in the editor too, and several selected words play as one stretch",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "change",
+				"title": "New default keys for playing words",
+				"body": "New installs play selections with `Z` `X` `C` and step and play with `Q` `E`; your current keys stay as they are",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Sharper spectrogram with readable harmonics",
+				"body": "Loud parts no longer wash out to white, and the new default Inferno colors show each harmonic as its own line",
+				"highlight": true,
+				"impact": 4
+			},
+			{
+				"type": "fix",
+				"title": "Clearer failed updates on macOS",
+				"body": "A Mac copy opened from the disk image now says to move it to Applications, and a failed update shows why",
+				"highlight": false,
+				"impact": 3
+			}
+		]
+	},
+	{
 		"version": "0.24.0-1",
 		"summary": "Scrubbing and spectrogram scales",
 		"color": "teal",
