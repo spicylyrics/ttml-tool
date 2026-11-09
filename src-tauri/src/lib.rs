@@ -1,4 +1,5 @@
 mod app_icon;
+mod system_accent;
 
 use std::fs;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
@@ -780,6 +781,7 @@ pub fn run() {
                     }
                 }
             }
+            system_accent::watch_system_accent(app.handle());
             show_main_window_if_frontend_stalls(app);
             Ok(())
         })
@@ -796,6 +798,7 @@ pub fn run() {
             open_linked_project_dir,
             allow_dropped_file,
             app_icon::apply_app_icon,
+            system_accent::system_accent,
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application")
