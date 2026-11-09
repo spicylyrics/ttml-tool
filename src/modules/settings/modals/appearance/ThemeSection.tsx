@@ -42,13 +42,13 @@ export const ThemeSection = ({
 	| "isDarkTheme"
 	| "t"
 >) => {
-	// The shade the app uses: Windows' own control color for the current theme.
-	const windowsAccent = systemAccent
+	// The shade the app uses for the current theme.
+	const systemShade = systemAccent
 		? isDarkTheme
 			? systemAccent.onDark
 			: systemAccent.onLight
 		: null;
-	const followingWindows = !useCustomAccent && useSystemAccent && windowsAccent;
+	const followingSystem = !useCustomAccent && useSystemAccent && systemShade;
 	return (
 		<Flex direction="column" gap="2">
 			<Heading size="4">{t("settings.appearance.theme", "Theme")}</Heading>
@@ -63,13 +63,13 @@ export const ThemeSection = ({
 									<Text>
 										{t(
 											"settings.appearance.useSystemAccent",
-											"Follow the Windows accent",
+											"Follow the system accent",
 										)}
 									</Text>
 									<Text size="1" color="gray">
 										{t(
 											"settings.appearance.useSystemAccentDesc",
-											"Use the accent color from Windows Settings and change along with it. A custom accent color still takes priority.",
+											"Use the accent color from your system settings and change along with it. A custom accent color still takes priority.",
 										)}
 									</Text>
 								</Flex>
@@ -78,7 +78,7 @@ export const ThemeSection = ({
 									onCheckedChange={setUseSystemAccent}
 									aria-label={t(
 										"settings.appearance.useSystemAccent",
-										"Follow the Windows accent",
+										"Follow the system accent",
 									)}
 								/>
 							</Flex>
@@ -146,7 +146,7 @@ export const ThemeSection = ({
 											))}
 										</Grid>
 									</Flex>
-								) : followingWindows ? (
+								) : followingSystem ? (
 									<Flex align="center" gap="3">
 										<Box
 											style={{
@@ -154,17 +154,17 @@ export const ThemeSection = ({
 												height: "40px",
 												borderRadius: "var(--radius-2)",
 												boxShadow: "inset 0 0 0 1px var(--gray-a6)",
-												backgroundColor: windowsAccent,
+												backgroundColor: systemShade,
 											}}
 										/>
 										<Flex direction="column" gap="1">
 											<Text size="2" weight="bold">
-												{windowsAccent}
+												{systemShade}
 											</Text>
 											<Text size="1" color="gray">
 												{t(
 													"settings.appearance.systemAccentActive",
-													"From Windows Settings",
+													"From your system settings",
 												)}
 											</Text>
 										</Flex>

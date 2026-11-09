@@ -11,18 +11,18 @@ const base = {
 };
 
 describe("resolveAccentOverride", () => {
-	it("uses the shade Windows uses for controls on the current theme", () => {
+	it("uses the system's shade for the current theme", () => {
 		expect(resolveAccentOverride(base)).toBe("#60CDFF");
 		expect(resolveAccentOverride({ ...base, dark: false })).toBe("#005FB8");
 	});
 
-	it("lets a custom accent win over the Windows one", () => {
+	it("lets a custom accent win over the system one", () => {
 		expect(resolveAccentOverride({ ...base, useCustomAccent: true })).toBe(
 			"#e5484d",
 		);
 	});
 
-	it("keeps the built-in accent when off or when Windows has none", () => {
+	it("keeps the built-in accent when off or when the system has none", () => {
 		expect(resolveAccentOverride({ ...base, useSystemAccent: false })).toBe(
 			null,
 		);

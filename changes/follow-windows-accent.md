@@ -3,6 +3,6 @@ type: feature
 impact: 3
 highlight: true
 ---
-Follow the Windows accent color
+Follow your system accent color
 
-Turn on **Follow the Windows accent** in Appearance and the app changes color whenever you change it in Windows
+Turn on **Follow the system accent** in Appearance and the app changes color with Windows, macOS or your Linux desktop

@@ -2,20 +2,26 @@ import { atom, useSetAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { useEffect } from "react";
 
-/** The Windows accent and the shades Windows uses for controls on each theme. */
+/**
+ * The system accent and the shades to use on each theme (Windows has its own
+ * control shades; macOS and Linux give one color for both).
+ */
 export interface SystemAccent {
 	accent: string;
 	onDark: string;
 	onLight: string;
 }
 
-/** "Follow the Windows accent" in Preferences › Appearance. Off by default. */
+/** "Follow the system accent" in Preferences › Appearance. Off by default. */
 export const useSystemAccentAtom = atomWithStorage<boolean>(
 	"useSystemAccent",
 	false,
 );
 
-/** The current Windows accent; null on the website, macOS, Linux or a read error. */
+/**
+ * The current system accent; null on the website, on Linux desktops without
+ * one, or after a read error.
+ */
 export const systemAccentAtom = atom<SystemAccent | null>(null);
 
 /**
@@ -46,14 +52,15 @@ const sameAccent = (a: SystemAccent | null, b: SystemAccent | null) =>
 	a?.onDark === b?.onDark &&
 	a?.onLight === b?.onLight;
 
-/** Reads the Windows accent once and keeps it current while the app runs. */
+/** Reads the system accent once and keeps it current while the app runs. */
 export function useSystemAccentWatcher() {
 	const setSystemAccent = useSetAtom(systemAccentAtom);
 	useEffect(() => {
 		if (!import.meta.env.TAURI_ENV_PLATFORM) return;
 		let disposed = false;
 		let unlisten: (() => void) | undefined;
-		// Windows fires its change event several times per change; skip repeats.
+		// Windows and macOS fire for any system color change, often several
+		// times per change; skip repeats of the same accent.
 		const update = (next: SystemAccent | null) =>
 			setSystemAccent((previous) =>
 				sameAccent(previous, next) ? previous : next,
@@ -63,7 +70,8 @@ export function useSystemAccentWatcher() {
 				import("@tauri-apps/api/core"),
 				import("@tauri-apps/api/event"),
 			]);
-			const stop = await listen<SystemAccent>(
+			// Null when the desktop drops its accent (Linux).
+			const stop = await listen<SystemAccent | null>(
 				"system-accent-changed",
 				(event) => update(event.payload),
 			);
