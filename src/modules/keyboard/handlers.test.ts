@@ -104,6 +104,8 @@ import {
 	lyricLinesAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
+	ToolMode,
+	toolModeAtom,
 } from "$/states/main";
 import { newLyricLine, newLyricWord } from "$/types/ttml";
 import {
@@ -168,6 +170,14 @@ describe("menu shortcut wiring", () => {
 		expect(menuActions.onQuickAutoSegment).toHaveBeenCalledOnce();
 		invoke("Shift + KeyE");
 		expect(menuActions.onAutoSegment).toHaveBeenCalledOnce();
+	});
+
+	it("quick segmentation leaves E to Sync mode's next word and play", () => {
+		const store = createStore();
+		store.set(toolModeAtom, ToolMode.Sync);
+		mount(TopMenu, store);
+		invoke("KeyE");
+		expect(menuActions.onQuickAutoSegment).not.toHaveBeenCalled();
 	});
 
 	it("quick segmentation waits for a double press by default, and only it", () => {
@@ -264,8 +274,8 @@ describe("move to word and play handlers", () => {
 	};
 
 	it.each([
-		["KeyR", "first", 0],
-		["KeyY", "last", 1],
+		["KeyQ", "first", 0],
+		["KeyE", "last", 1],
 		["Home", "first", 0],
 		["End", "last", 1],
 	] as const)("%s selects the word and starts playback", (shortcut, id, seconds) => {
@@ -291,7 +301,7 @@ describe("move to word and play handlers", () => {
 		}));
 		store.set(selectedLinesAtom, new Set([nextLine.id]));
 		store.set(selectedWordsAtom, new Set([next.id]));
-		invoke("KeyR");
+		invoke("KeyQ");
 		expect(store.get(selectedWordsAtom)).toEqual(new Set(["last"]));
 		expect(store.get(selectedLinesAtom)).toEqual(new Set(["line"]));
 		expect(audioEngine.resumeOrSeekMusic).toHaveBeenCalledWith(1);
@@ -306,9 +316,9 @@ describe("move to word and play handlers", () => {
 
 describe("audition handlers", () => {
 	it.each([
-		["KeyQ", -0.5, 0],
-		["KeyB", 0, 0.5],
-		["KeyN", 0.5, 1],
+		["KeyZ", -0.5, 0],
+		["KeyX", 0, 0.5],
+		["KeyC", 0.5, 1],
 	] as const)("%s auditions a word starting at zero", (shortcut, start, end) => {
 		const store = createStore();
 		store.set(selectedWordIdAtom, "zero");
@@ -319,7 +329,7 @@ describe("audition handlers", () => {
 
 	it("does nothing without a selected word", () => {
 		mount(AuditionKeyBinding, createStore());
-		invoke("KeyB");
+		invoke("KeyX");
 		expect(audioEngine.auditionRange).not.toHaveBeenCalled();
 	});
 
@@ -351,9 +361,9 @@ describe("audition handlers", () => {
 	};
 
 	it.each([
-		["KeyQ", 2.5, 3],
-		["KeyB", 3, 3.6],
-		["KeyN", 3.6, 4.1],
+		["KeyZ", 2.5, 3],
+		["KeyX", 3, 3.6],
+		["KeyC", 3.6, 4.1],
 	] as const)("%s auditions a word selected in the editor", (shortcut, start, end) => {
 		const store = editorStore();
 		store.set(selectedWordsAtom, new Set(["w3"]));

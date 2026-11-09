@@ -1,5 +1,14 @@
+import { migrateKeyBindingDefaults } from "./default-migrations";
 import { t } from "./i18n-helper";
 import { registerCommand } from "./registry";
+
+// Before any shortcut is read, so regulars keep defaults that changed.
+try {
+	if (typeof localStorage !== "undefined")
+		migrateKeyBindingDefaults(localStorage);
+} catch {
+	// Storage can be blocked; the shipped defaults still apply.
+}
 
 const IS_MAC = navigator.userAgent.includes("Mac");
 const CONTROL_KEY = IS_MAC ? "Meta" : "Control";
@@ -97,6 +106,8 @@ export const cmdAutoSegment = registerCommand(
 	["KeyE"],
 	t("settingsDialog.keybindings.autoSegment"),
 	"Edit",
+	// Sync mode uses E for "next word and play".
+	["edit"],
 );
 
 export const cmdAutoSegmentDialog = registerCommand(
@@ -215,14 +226,14 @@ export const cmdMovePrevLine = registerCommand(
 
 export const cmdMovePrevWordAndPlay = registerCommand(
 	"movePrevWordAndPlay",
-	["KeyR"],
+	["KeyQ"],
 	t("settingsDialog.keybindings.movePrevWordAndPlay"),
 	"Sync",
 );
 
 export const cmdMoveNextWordAndPlay = registerCommand(
 	"moveNextWordAndPlay",
-	["KeyY"],
+	["KeyE"],
 	t("settingsDialog.keybindings.moveNextWordAndPlay"),
 	"Sync",
 );
@@ -357,21 +368,21 @@ export const cmdDuplicatePaste = registerCommand(
 
 export const cmdAuditionSelectionBefore = registerCommand(
 	"auditionSelectionBefore",
-	["KeyQ"],
+	["KeyZ"],
 	t("settingsDialog.keybindings.auditionSelectionBefore"),
 	"Spectrogram",
 );
 
 export const cmdAuditionSelection = registerCommand(
 	"auditionSelection",
-	["KeyB"],
+	["KeyX"],
 	t("settingsDialog.keybindings.auditionSelection"),
 	"Spectrogram",
 );
 
 export const cmdAuditionSelectionAfter = registerCommand(
 	"auditionSelectionAfter",
-	["KeyN"],
+	["KeyC"],
 	t("settingsDialog.keybindings.auditionSelectionAfter"),
 	"Spectrogram",
 );
