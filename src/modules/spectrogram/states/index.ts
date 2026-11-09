@@ -8,6 +8,7 @@ import {
 	getGrayscaleColor,
 	getGreenColor,
 	getIcyBlueColor,
+	getInfernoColor,
 } from "$/modules/spectrogram/utils/colors";
 import {
 	type FrequencyScale,
@@ -77,6 +78,12 @@ export const spectrogramTopHzAtom = atom((get) => {
 	);
 });
 
+const infernoPalette = {
+	id: "inferno",
+	name: "Inferno",
+	data: generatePalette(getInfernoColor),
+};
+
 const icyBluePalette = {
 	id: "icy_blue",
 	name: "Icy Blue",
@@ -96,6 +103,7 @@ const aegisubGreenPalette = {
 };
 
 export const predefinedPalettes = [
+	infernoPalette,
 	icyBluePalette,
 	aegisubGreenPalette,
 	grayscalePalette,
@@ -103,7 +111,7 @@ export const predefinedPalettes = [
 
 export const selectedPaletteIdAtom = atomWithStorage<string>(
 	"settings_selectedPaletteId",
-	"icy_blue",
+	"inferno",
 );
 
 export const customPaletteStopsAtom = atomWithStorage<ColorStop[]>(
@@ -135,7 +143,7 @@ export const currentPaletteAtom = atom((get) => {
 		return predefined;
 	}
 
-	return icyBluePalette;
+	return infernoPalette;
 });
 
 export const spectrogramHoverPxAtom = atom(0);
