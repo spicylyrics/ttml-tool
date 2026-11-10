@@ -543,6 +543,13 @@
 	:is(.line, .lineSynced, .word, .letter, .dot) {
 	text-shadow: none;
 }
+/* Lite effects: the top and bottom fade is a mask over the whole lyric area.
+   WebKitGTK draws a masked element offscreen again whenever anything in it
+   moves, which during playback is every frame. Lines just cut off instead. */
+:global(:root[data-effects="lite"]) .viewport {
+	mask-image: none;
+	-webkit-mask-image: none;
+}
 @media (prefers-contrast: more) {
 	.line .timingProblem,
 	.line .problemGroup {
