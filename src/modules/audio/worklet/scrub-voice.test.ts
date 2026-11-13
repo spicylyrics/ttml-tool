@@ -185,6 +185,38 @@ describe("scrub voice", () => {
 			).toBeGreaterThan(floor);
 	});
 
+	it.each([
+		true,
+		false,
+	])("keeps sounding through uneven pixel gaps on a slow drag (pitch kept: %s)", (preservesPitch) => {
+		// A real mouse crawling a pixel at a time reports at uneven times; the
+		// quick gap used to set a hold timeout that the slow one then outlasted.
+		const gaps = [0.06, 0.2, 0.08, 0.18, 0.05, 0.22, 0.1, 0.16];
+		const scrub = voice();
+		let at = 0;
+		let index = 0;
+		let frame = sampleRate;
+		scrub.set({ active: true, frame, preservesPitch, time: 0 });
+		// Peak level per 50 ms; the old timeout let it fall to 0.00 to 0.06.
+		const floor = preservesPitch ? 0.015 : 0.07;
+		const heard = play(scrub, 2, (time) => {
+			if (time < at) return;
+			at = time + gaps[index++ % gaps.length];
+			frame = sampleRate + time * 0.12 * sampleRate;
+			scrub.set({ active: true, frame, preservesPitch, time: time * 1000 });
+		});
+		const window = Math.round(sampleRate * 0.05);
+		for (
+			let from = sampleRate * 0.6;
+			from + window < heard.length;
+			from += window
+		)
+			expect(
+				Math.max(...heard.subarray(from, from + window).map(Math.abs)),
+				`at ${(from / sampleRate).toFixed(3)}s`,
+			).toBeGreaterThan(floor);
+	});
+
 	it("goes quiet when the pointer stops in tape mode", () => {
 		const scrub = voice();
 		const move = pointer(scrub, sampleRate, 1, false, 0.016);

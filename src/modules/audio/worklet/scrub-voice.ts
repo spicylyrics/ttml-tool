@@ -21,6 +21,12 @@ const SPEED_SECONDS = 0.05;
  */
 const HOLD_SECONDS = 0.06;
 const MAX_HOLD_SECONDS = 0.25;
+/**
+ * "Held" waits for 1.5x the longest gap in this much history. Going by the
+ * last gap alone, uneven pixel steps (60 ms, then 200 ms) timed out inside the
+ * long gap and chopped a slow drag into grains.
+ */
+const HISTORY_SECONDS = 0.6;
 /** How gently the heard position is pulled onto the dragged one. */
 const CORRECT_SECONDS = 0.15;
 /** Faster pull once the pointer is held, so the sound lands on the playhead. */
@@ -61,6 +67,8 @@ export class ScrubVoice {
 	private lastTime = 0;
 	private framesSinceInput = 0;
 	private inputInterval = 0;
+	/** Recent pointer reports, oldest first; `time` in ms. */
+	private samples: { time: number; frame: number }[] = [];
 	private readonly scratch: Float32Array[];
 
 	constructor(
@@ -87,16 +95,33 @@ export class ScrubVoice {
 			this.speed = 0;
 			this.targetSpeed = 0;
 			this.inputInterval = 0;
+			this.samples = [{ time: state.time, frame }];
 			this.stretcher.reset(this.position, 0, length);
 		} else if (state.active && state.time > this.lastTime) {
-			const elapsed = ((state.time - this.lastTime) / 1000) * this.sampleRate;
-			// A real pause isn't a report interval; keep the last one.
-			if (elapsed <= MAX_HOLD_SECONDS * this.sampleRate)
-				this.inputInterval = elapsed;
+			// After a real pause, history from before it says nothing about this drag.
+			if (state.time - this.lastTime > MAX_HOLD_SECONDS * 1000)
+				this.samples = this.samples.slice(-1);
+			const samples = this.samples;
+			samples.push({ time: state.time, frame });
+			// Keep the newest report from before the history as its start.
+			while (
+				samples.length > 2 &&
+				samples[1].time <= state.time - HISTORY_SECONDS * 1000
+			)
+				samples.shift();
+			const first = samples[samples.length - 2];
+			const span = ((state.time - first.time) / 1000) * this.sampleRate;
 			this.targetSpeed = Math.max(
 				-MAX_RATE,
-				Math.min(MAX_RATE, (frame - this.target) / elapsed),
+				Math.min(MAX_RATE, (frame - first.frame) / span),
 			);
+			// The longest gap between reports, ignoring real pauses.
+			let gap = 0;
+			for (let i = 1; i < samples.length; i++) {
+				const seconds = (samples[i].time - samples[i - 1].time) / 1000;
+				if (seconds <= MAX_HOLD_SECONDS) gap = Math.max(gap, seconds);
+			}
+			if (gap > 0) this.inputInterval = gap * this.sampleRate;
 		}
 		if (state.active) {
 			this.lastTime = state.time;
