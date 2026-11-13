@@ -1,5 +1,42 @@
 [
 	{
+		"version": "0.24.0-3",
+		"summary": "Smoother scrubbing, lighter playhead",
+		"color": "green",
+		"date": "2026-11-13",
+		"prerelease": true,
+		"entries": [
+			{
+				"type": "fix",
+				"title": "AppImage runs natively on Wayland",
+				"body": "On Wayland desktops it no longer goes through XWayland, which made it slow on NVIDIA and scaled screens",
+				"highlight": true,
+				"impact": 4
+			},
+			{
+				"type": "fix",
+				"title": "Smoother Spicy preview with lighter effects",
+				"body": "Lighter effects drops the preview's top and bottom fade, which Linux redrew every frame",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Smoother sound when dragging the playhead slowly",
+				"body": "A slow, pixel-by-pixel drag no longer chops the sound into grains between steps",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Lighter playhead during playback",
+				"body": "The spectrogram playhead moves without redrawing the page each frame, which helps most on Linux",
+				"highlight": false,
+				"impact": 2
+			}
+		]
+	},
+	{
 		"version": "0.24.0-2",
 		"summary": "Sharper spectrogram, system accent",
 		"color": "ruby",
