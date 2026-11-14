@@ -55,13 +55,13 @@ import {
 const getUnitStartTime = (unit: { word: LyricWord }) => unit.word.startTime;
 
 /**
- * Plays from a word's start. A word with no start yet (0) would seek to the
- * beginning of the song, so the playhead stays where it is instead.
+ * Plays from a word's start. A word with no time yet (start and end both 0)
+ * would seek to the beginning of the song, so the playhead stays where it is.
  */
 const playFromUnit = (unit: { word: LyricWord }) => {
-	const start = getUnitStartTime(unit);
-	if (start > 0) {
-		void audioEngine.resumeOrSeekMusic(start / 1000);
+	const { startTime, endTime } = unit.word;
+	if (startTime > 0 || endTime > 0) {
+		void audioEngine.resumeOrSeekMusic(getUnitStartTime(unit) / 1000);
 	} else if (!audioEngine.musicPlaying) {
 		void audioEngine.resumeOrSeekMusic();
 	}
