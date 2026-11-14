@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Aloitetaanko uusi sanoitus?",
-      "description": "Sinulla on tallentamattomia muutoksia. Jos jatkat, ne menetetään. Haluatko varmasti luoda uuden tiedoston?"
+      "description": "Sinulla on tallentamattomia muutoksia. Jos jatkat, ne menetetään. Haluatko varmasti luoda uuden tiedoston?",
+      "descriptionLoaded": "Avoinna olevat sanoitukset suljetaan. Aloitetaanko uudet sanoitukset?"
     },
     "untimedLyrics": {
       "title": "Sanoituksista puuttuu ajoitus",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Ei tuettu tiedostomuoto: {ext}",
     "openFileFailed": "Tiedoston avaaminen epäonnistui",
+    "noLyricsInFile": "Tiedostosta {name} ei löytynyt sanoituksia",
     "linkedProjectInvalidPath": "Valittuja tiedostoja ei voi linkittää. Valitse paikalliselta asemalta .ttml-tiedosto ja äänitiedosto. Verkkojakoja ei tueta.",
     "linkedProjectBackupFailed": "Alkuperäistä TTML-tiedostoa ei voitu varmuuskopioida, joten sitä ei kirjoitettu päälle",
     "linkedProjectNoBackup": "Tälle projektille ei löytynyt varmuuskopiota",

@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Start ny sangtekst?",
-      "description": "Du har ikke-gemte ændringer. Hvis du fortsætter, vil disse ændringer gå tabt. Er du sikker på, at du vil oprette en ny fil?"
+      "description": "Du har ikke-gemte ændringer. Hvis du fortsætter, vil disse ændringer gå tabt. Er du sikker på, at du vil oprette en ny fil?",
+      "descriptionLoaded": "De åbne tekster lukkes. Start nye tekster?"
     },
     "untimedLyrics": {
       "title": "Sangtekst uden timing",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Ikke-understøttet filformat: {ext}",
     "openFileFailed": "Kunne ikke åbne fil",
+    "noLyricsInFile": "Ingen tekster fundet i {name}",
     "linkedProjectInvalidPath": "De valgte filer kan ikke linkes. Vælg en .ttml-fil og en lydfil på et lokalt drev. Netværksshares understøttes ikke.",
     "linkedProjectBackupFailed": "Kunne ikke sikkerhedskopiere den originale TTML-fil, så den blev ikke overskrevet",
     "linkedProjectNoBackup": "Ingen sikkerhedskopi fundet for dette projekt",

@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Start new lyrics?",
-      "description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to create a new file?"
+      "description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to create a new file?",
+      "descriptionLoaded": "This closes the lyrics that are open. Start new lyrics?"
     },
     "untimedLyrics": {
       "title": "Untimed lyrics found",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Unsupported file format: {ext}",
     "openFileFailed": "Failed to open file",
+    "noLyricsInFile": "No lyrics found in {name}",
     "linkedProjectInvalidPath": "The selected files cannot be linked. Choose a .ttml file and an audio file on a local drive. Network shares are not supported.",
     "linkedProjectBackupFailed": "Could not back up the original TTML file, so it was not overwritten",
     "linkedProjectNoBackup": "No backup found for this project",

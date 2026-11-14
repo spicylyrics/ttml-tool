@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Começar uma nova letra?",
-      "description": "Você tem alterações não salvas. Se continuar, essas alterações serão perdidas. Tem certeza de que deseja criar um novo arquivo?"
+      "description": "Você tem alterações não salvas. Se continuar, essas alterações serão perdidas. Tem certeza de que deseja criar um novo arquivo?",
+      "descriptionLoaded": "A letra aberta será fechada. Começar uma nova letra?"
     },
     "untimedLyrics": {
       "title": "Letra sem sincronização",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Formato de arquivo não suportado: {ext}",
     "openFileFailed": "Falha ao abrir arquivo",
+    "noLyricsInFile": "Nenhuma letra encontrada em {name}",
     "linkedProjectInvalidPath": "Os arquivos selecionados não podem ser vinculados. Escolha um arquivo .ttml e um arquivo de áudio em uma unidade local. Os compartilhamentos de rede não são suportados.",
     "linkedProjectBackupFailed": "Não foi possível fazer backup do arquivo TTML original, portanto ele não foi substituído",
     "linkedProjectNoBackup": "Nenhum backup encontrado para este projeto",

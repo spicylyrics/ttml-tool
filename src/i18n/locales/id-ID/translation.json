@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Mulai lirik baru?",
-      "description": "File saat ini memiliki perubahan yang belum disimpan. Jika dilanjutkan, perubahan ini akan hilang. Anda yakin ingin membuat file baru?"
+      "description": "File saat ini memiliki perubahan yang belum disimpan. Jika dilanjutkan, perubahan ini akan hilang. Anda yakin ingin membuat file baru?",
+      "descriptionLoaded": "Lirik yang terbuka akan ditutup. Mulai lirik baru?"
     },
     "untimedLyrics": {
       "title": "Lirik belum diberi waktu",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Format file tidak didukung: {ext}",
     "openFileFailed": "Gagal membuka file",
+    "noLyricsInFile": "Tidak ada lirik di {name}",
     "linkedProjectInvalidPath": "File yang dipilih tidak dapat ditautkan. Pilih file .ttml dan file audio di drive lokal. Berbagi jaringan tidak didukung.",
     "linkedProjectBackupFailed": "Tidak dapat mencadangkan file TTML asli, sehingga tidak ditimpa",
     "linkedProjectNoBackup": "Tidak ada cadangan yang ditemukan untuk proyek ini",

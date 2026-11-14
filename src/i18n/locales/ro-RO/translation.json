@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Începi versuri noi?",
-      "description": "Ai modificări nesalvate. Dacă continui, se vor pierde. Sigur vrei să creezi un fișier nou?"
+      "description": "Ai modificări nesalvate. Dacă continui, se vor pierde. Sigur vrei să creezi un fișier nou?",
+      "descriptionLoaded": "Versurile deschise vor fi închise. Începi versuri noi?"
     },
     "untimedLyrics": {
       "title": "Versuri fără timpi",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Format de fișier nesuportat: {ext}",
     "openFileFailed": "Nu s-a putut deschide fișierul",
+    "noLyricsInFile": "Nu s-au găsit versuri în {name}",
     "linkedProjectInvalidPath": "Fișierele selectate nu pot fi asociate. Alege un fișier .ttml și un fișier audio de pe o unitate locală. Locațiile partajate în rețea nu sunt acceptate.",
     "linkedProjectBackupFailed": "Nu s-a putut face backup pentru fișierul original TTML, așa că nu a fost suprascris",
     "linkedProjectNoBackup": "Nu a fost găsită nicio copie de rezervă pentru acest proiect",

@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Začať nový text piesne?",
-      "description": "Máte neuložené zmeny. Ak budete pokračovať, tieto zmeny budú stratené. Naozaj chcete vytvoriť nový súbor?"
+      "description": "Máte neuložené zmeny. Ak budete pokračovať, tieto zmeny budú stratené. Naozaj chcete vytvoriť nový súbor?",
+      "descriptionLoaded": "Otvorený text sa zatvorí. Začať nový text?"
     },
     "untimedLyrics": {
       "title": "Chýbajúce časovanie",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Nepodporovaný formát súboru: {ext}",
     "openFileFailed": "Nepodarilo sa otvoriť súbor",
+    "noLyricsInFile": "V súbore {name} sa nenašiel žiadny text",
     "linkedProjectInvalidPath": "Vybrané súbory nie je možné prepojiť. Vyberte súbor .ttml a zvukový súbor na lokálnom disku. Sieťové zdieľania nie sú podporované.",
     "linkedProjectBackupFailed": "Pôvodný súbor TTML sa nepodarilo zálohovať, takže nebol prepísaný",
     "linkedProjectNoBackup": "Pre tento projekt sa nenašla žiadna záloha",

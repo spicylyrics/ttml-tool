@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Iniziare un nuovo testo?",
-      "description": "Ci sono modifiche non salvate. Se procedi, queste modifiche andranno perse. Sei sicuro di voler creare un nuovo file?"
+      "description": "Ci sono modifiche non salvate. Se procedi, queste modifiche andranno perse. Sei sicuro di voler creare un nuovo file?",
+      "descriptionLoaded": "Il testo aperto verrà chiuso. Iniziare un nuovo testo?"
     },
     "untimedLyrics": {
       "title": "Testo senza tempi",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Formato file non supportato: {ext}",
     "openFileFailed": "Apertura del file non riuscita",
+    "noLyricsInFile": "Nessun testo trovato in {name}",
     "linkedProjectInvalidPath": "I file selezionati non possono essere collegati. Scegli un file .ttml e un file audio su un'unità locale. Le condivisioni di rete non sono supportate.",
     "linkedProjectBackupFailed": "Impossibile eseguire il backup del file TTML originale, quindi non è stato sovrascritto",
     "linkedProjectNoBackup": "Nessun backup trovato per questo progetto",

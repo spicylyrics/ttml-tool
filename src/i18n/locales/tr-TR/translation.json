@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Yeni şarkı sözlerine başlansın mı?",
-      "description": "Kaydedilmemiş değişiklikleriniz var. Eğer devam ederseniz, bunlar kaybolacak. Yeni bir dosya oluşturmak istediğinize emin misiniz?"
+      "description": "Kaydedilmemiş değişiklikleriniz var. Eğer devam ederseniz, bunlar kaybolacak. Yeni bir dosya oluşturmak istediğinize emin misiniz?",
+      "descriptionLoaded": "Açık olan sözler kapatılacak. Yeni söz başlatılsın mı?"
     },
     "untimedLyrics": {
       "title": "Zamanlanmamış sözler bulundu",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Desteklenmeyen dosya biçimi: {ext}",
     "openFileFailed": "Dosya açılamadı",
+    "noLyricsInFile": "{name} içinde söz bulunamadı",
     "linkedProjectInvalidPath": "Seçilen dosyalar bağlanamıyor. Yerel sürücüde bir .ttml dosyası ve bir ses dosyası seçin. Ağ paylaşımları desteklenmez.",
     "linkedProjectBackupFailed": "Orijinal TTML dosyası yedeklenemediği için üzerine yazılmadı",
     "linkedProjectNoBackup": "Bu proje için yedek bulunamadı",

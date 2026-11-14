@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Rozpocząć nowy tekst?",
-      "description": "Masz niezapisane zmiany. Jeśli kontynuujesz, te zmiany zostaną utracone. Czy na pewno chcesz utworzyć nowy plik?"
+      "description": "Masz niezapisane zmiany. Jeśli kontynuujesz, te zmiany zostaną utracone. Czy na pewno chcesz utworzyć nowy plik?",
+      "descriptionLoaded": "Otwarty tekst zostanie zamknięty. Zacząć nowy tekst?"
     },
     "untimedLyrics": {
       "title": "Tekst bez synchronizacji",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Nieobsługiwany format pliku: {ext}",
     "openFileFailed": "Nie udało się otworzyć pliku",
+    "noLyricsInFile": "Nie znaleziono tekstu w pliku {name}",
     "linkedProjectInvalidPath": "Nie można połączyć wybranych plików. Wybierz plik .ttml i plik audio na dysku lokalnym. Udziały sieciowe nie są obsługiwane.",
     "linkedProjectBackupFailed": "Nie można utworzyć kopii zapasowej oryginalnego pliku TTML, więc nie został on nadpisany",
     "linkedProjectNoBackup": "Nie znaleziono kopii zapasowej dla tego projektu",

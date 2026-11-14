@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Commencer de nouvelles paroles ?",
-      "description": "Vous avez des modifications non enregistrées. Si vous continuez, ces modifications seront perdues. Êtes-vous sûr de vouloir créer un nouveau fichier ?"
+      "description": "Vous avez des modifications non enregistrées. Si vous continuez, ces modifications seront perdues. Êtes-vous sûr de vouloir créer un nouveau fichier ?",
+      "descriptionLoaded": "Les paroles ouvertes seront fermées. Commencer de nouvelles paroles ?"
     },
     "untimedLyrics": {
       "title": "Paroles non minutées",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Format de fichier non pris en charge : {ext}",
     "openFileFailed": "Échec de l'ouverture du fichier",
+    "noLyricsInFile": "Aucune parole trouvée dans {name}",
     "linkedProjectInvalidPath": "Les fichiers sélectionnés ne peuvent pas être liés. Choisissez un fichier .ttml et un fichier audio sur un lecteur local. Les partages réseau ne sont pas pris en charge.",
     "linkedProjectBackupFailed": "Impossible de sauvegarder le fichier TTML d'origine, il n'a donc pas été écrasé",
     "linkedProjectNoBackup": "Aucune sauvegarde trouvée pour ce projet",

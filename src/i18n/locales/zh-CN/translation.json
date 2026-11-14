@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "开始制作新歌词？",
-      "description": "当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要新建文件吗？"
+      "description": "当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要新建文件吗？",
+      "descriptionLoaded": "当前打开的歌词将被关闭。要新建歌词吗？"
     },
     "untimedLyrics": {
       "title": "检测到未打轴歌词",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "不支持的文件格式: {ext}",
     "openFileFailed": "打开文件失败",
+    "noLyricsInFile": "在 {name} 中未找到歌词",
     "linkedProjectInvalidPath": "无法链接所选文件。选择本地驱动器上的 .ttml 文件和音频文件。不支持网络共享。",
     "linkedProjectBackupFailed": "无法备份原始 TTML 文件，因此未被覆盖",
     "linkedProjectNoBackup": "找不到该项目的备份",

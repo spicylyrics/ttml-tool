@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Nieuwe songtekst beginnen?",
-      "description": "Je hebt niet-opgeslagen wijzigingen. Als je doorgaat, zullen deze wijzigingen verloren gaan. Weet je zeker dat je een nieuw bestand wilt aanmaken?"
+      "description": "Je hebt niet-opgeslagen wijzigingen. Als je doorgaat, zullen deze wijzigingen verloren gaan. Weet je zeker dat je een nieuw bestand wilt aanmaken?",
+      "descriptionLoaded": "De geopende songtekst wordt gesloten. Nieuwe songtekst beginnen?"
     },
     "untimedLyrics": {
       "title": "Songtekst zonder timing",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Niet-ondersteunde bestandsindeling: {ext}",
     "openFileFailed": "Kan bestand niet openen",
+    "noLyricsInFile": "Geen songtekst gevonden in {name}",
     "linkedProjectInvalidPath": "De geselecteerde bestanden kunnen niet worden gekoppeld. Kies een .ttml-bestand en een audiobestand op een lokaal station. Netwerkshares worden niet ondersteund.",
     "linkedProjectBackupFailed": "Er kon geen back-up worden gemaakt van het originele TTML-bestand, dus het werd niet overschreven",
     "linkedProjectNoBackup": "Er is geen back-up gevonden voor dit project",
