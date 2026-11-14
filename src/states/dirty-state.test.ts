@@ -99,7 +99,7 @@ describe("dirty state", () => {
 });
 
 describe("undo history", () => {
-	it("keeps far more than ten steps, enough for a song of sync presses", () => {
+	it("keeps far more than the old ten steps", () => {
 		const store = mountedStore();
 		store.set(lyricLinesAtom, lyric("start"));
 		for (let i = 0; i < 100; i++) store.set(lyricLinesAtom, lyric(`edit ${i}`));

@@ -5,4 +5,4 @@ highlight: false
 ---
 Undo goes back 200 steps
 
-Every sync key press is one step, so a song no longer runs out of undo, and Undo and Redo grey out when empty
+Undo used to stop after 9 steps; now it covers a long stretch of syncing, and Undo and Redo grey out when empty

@@ -147,7 +147,12 @@ export const saveStatusAtom = atom<SaveStatus>(SaveStatus.Saved);
  */
 export const lastSavedTimeAtom = atom<number | null>(null);
 
-/** Steps of undo. Every sync key press is one step, so this has to cover a song. */
+/**
+ * Steps of undo. Every sync key press is one step, so this covers roughly 100
+ * to 200 synced words. A normal edit shares all but one line with its
+ * neighbours, so 200 of them cost well under a megabyte; only whole-document
+ * rewrites (segmentation, Edit as text) are heavy.
+ */
 export const LYRIC_HISTORY_LIMIT = 200;
 export const undoableLyricLinesAtom = withHistory(
 	lyricLinesAtom,
