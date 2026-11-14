@@ -222,6 +222,23 @@ export function commitUpdatedLine(updatedLine: ProcessedLyricLine) {
 		updatedWordsMap.set(segment.id, segment);
 
 	globalStore.set(lyricLinesAtom, (prev) => {
+		// A drag that ends where it started must not add an undo step.
+		const current = prev.lyricLines.find((line) => line.id === updatedLine.id);
+		if (
+			current &&
+			current.startTime === updatedLine.startTime &&
+			current.endTime === updatedLine.endTime &&
+			current.words.every((word) => {
+				const updated = updatedWordsMap.get(word.id);
+				return (
+					!updated ||
+					(updated.startTime === word.startTime &&
+						updated.endTime === word.endTime)
+				);
+			})
+		)
+			return prev;
+
 		const newLines = prev.lyricLines.map((line) => {
 			if (line.id !== updatedLine.id) {
 				return line;

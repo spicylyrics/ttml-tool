@@ -20,6 +20,7 @@ import {
 	pendingTimelineStartTimeAtom,
 	spectrogramHoverTimeMsAtom,
 } from "../states";
+import { timelineDragAtom } from "../states/dnd";
 
 export function useTimelineEditing(scrollLeft: number, zoom: number) {
 	const editingTimeField = useAtomValue(editingTimeFieldAtom);
@@ -58,14 +59,22 @@ export function useTimelineEditing(scrollLeft: number, zoom: number) {
 		return 0;
 	}, [pendingStartTime, editingTimeField, rawLyricLines, selectedLines]);
 
+	const [timelineDrag, setTimelineDrag] = useAtom(timelineDragAtom);
+
 	useCommand(cmdCancelTimelineEditing, () => {
+		// Escape mid-drag drops the drag: clearing it removes the mouse-up
+		// listener, so nothing is committed.
+		if (timelineDrag) {
+			setTimelineDrag(null);
+			return;
+		}
 		if (pendingStartTime !== null || editingTimeField) {
 			setPendingStartTime(null);
 			if (document.activeElement instanceof HTMLElement) {
 				document.activeElement.blur();
 			}
 		}
-	}, [pendingStartTime, editingTimeField]);
+	}, [pendingStartTime, editingTimeField, timelineDrag, setTimelineDrag]);
 
 	const handleContainerMouseDown = useCallback(
 		(event: React.MouseEvent<HTMLDivElement>) => {
