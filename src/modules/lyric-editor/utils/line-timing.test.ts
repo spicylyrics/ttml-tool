@@ -109,23 +109,6 @@ describe("line timing transfer", () => {
 		expect(lines.map(({ startTime }) => startTime)).toEqual([100, 100, 200]);
 	});
 
-	it("clears stale destination end-time links", () => {
-		const source = line("source", 100);
-		const target = line("target", 900);
-		target.endTimeLink = {
-			originalEndTime: 1_000,
-			originalNextStartTime: 1_000,
-		};
-
-		applyLineTimingSnapshots(
-			[target],
-			0,
-			createLineTimingSnapshots([source], new Set([source.id])),
-		);
-
-		expect(target.endTimeLink).toBeUndefined();
-	});
-
 	it("snaps selected line and word timings with one shared offset", () => {
 		const lines = [line("one", 100, 2), line("skip", 200), line("two", 400, 2)];
 		const selected = new Set([lines[0].id, lines[2].id]);

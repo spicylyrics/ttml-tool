@@ -73,8 +73,6 @@ export const LyricLineView: FC<{
 		enableInsert,
 		disableInsert,
 		toggleInsert,
-		endTimeLinked,
-		onToggleEndTimeLink,
 	} = useLineView(lineAtom, lineIndex);
 	const { onPointerDown, onPointerUp, onClick } = useLineInteractions({
 		line,
@@ -217,8 +215,6 @@ export const LyricLineView: FC<{
 								endTimeRef={endTimeRef}
 								enableInsert={enableInsert}
 								toggleInsert={toggleInsert}
-								endTimeLinked={endTimeLinked}
-								onToggleEndTimeLink={onToggleEndTimeLink}
 							/>
 						</div>
 					</Flex>

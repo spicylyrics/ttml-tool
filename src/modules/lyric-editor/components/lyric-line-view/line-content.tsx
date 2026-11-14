@@ -45,8 +45,6 @@ export function LineContent({
 	endTimeRef,
 	enableInsert,
 	toggleInsert,
-	endTimeLinked,
-	onToggleEndTimeLink,
 }: Pick<
 	LyricLineViewState,
 	| "lineAtom"
@@ -73,8 +71,6 @@ export function LineContent({
 	| "endTimeRef"
 	| "enableInsert"
 	| "toggleInsert"
-	| "endTimeLinked"
-	| "onToggleEndTimeLink"
 >) {
 	return (
 		<>
@@ -178,8 +174,6 @@ export function LineContent({
 					showEndTimeAsDuration={showEndTimeAsDuration}
 					startTimeRef={startTimeRef}
 					endTimeRef={endTimeRef}
-					endTimeLinked={endTimeLinked}
-					onToggleEndTimeLink={onToggleEndTimeLink}
 				/>
 			}
 		</>

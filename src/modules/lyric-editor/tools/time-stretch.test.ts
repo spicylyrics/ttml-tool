@@ -33,10 +33,6 @@ describe("scaleTTMLTimings", () => {
 					isDuet: false,
 					translatedLyric: "",
 					romanLyric: "",
-					endTimeLink: {
-						originalEndTime: 2_101,
-						originalNextStartTime: 2_201,
-					},
 					words: [
 						{
 							id: "word-1",
@@ -57,15 +53,11 @@ describe("scaleTTMLTimings", () => {
 		expect(lyrics.lyricLines[0].endTime).toBe(1_001);
 		expect(lyrics.lyricLines[0].words[0].startTime).toBe(551);
 		expect(lyrics.lyricLines[0].words[0].endTime).toBe(951);
-		expect(lyrics.lyricLines[0].endTimeLink).toEqual({
-			originalEndTime: 1_051,
-			originalNextStartTime: 1_101,
-		});
 		expect(lyrics.marks?.[0]).toEqual({ timeMs: 251, label: "Verse" });
 		expect(lyrics.metadata).toEqual([{ key: "ttml:language", value: ["en"] }]);
 	});
 
-	it("preserves zero and nullable linked timestamps", () => {
+	it("keeps a zero start at zero", () => {
 		const lyrics: TTMLLyric = {
 			metadata: [],
 			lyricLines: [
@@ -79,10 +71,6 @@ describe("scaleTTMLTimings", () => {
 					translatedLyric: "",
 					romanLyric: "",
 					words: [],
-					endTimeLink: {
-						originalEndTime: 100,
-						originalNextStartTime: null,
-					},
 				},
 			],
 		};
@@ -91,7 +79,6 @@ describe("scaleTTMLTimings", () => {
 
 		expect(lyrics.lyricLines[0].startTime).toBe(0);
 		expect(lyrics.lyricLines[0].endTime).toBe(200);
-		expect(lyrics.lyricLines[0].endTimeLink?.originalNextStartTime).toBeNull();
 	});
 
 	it("scales only the requested lines and leaves marks unchanged", () => {

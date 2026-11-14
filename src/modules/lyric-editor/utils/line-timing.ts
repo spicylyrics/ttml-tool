@@ -63,7 +63,6 @@ export function applyLineTimingSnapshots(
 		const snapshot = snapshots[offset];
 		target.startTime = snapshot.startTime;
 		target.endTime = snapshot.endTime;
-		if (target.endTimeLink) delete target.endTimeLink;
 
 		if (target.words.length !== snapshot.words.length) {
 			wordCountMismatchCount++;

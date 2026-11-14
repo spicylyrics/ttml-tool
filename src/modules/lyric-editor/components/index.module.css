@@ -253,9 +253,7 @@
 	color: #fff;
 }
 
-.endTimeButton {
-	border: none;
-	cursor: pointer;
+.endTimeLabel {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
