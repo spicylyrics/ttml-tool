@@ -1,3 +1,5 @@
+import { prefersReducedMotion } from "$/utils/reduced-motion";
+
 export interface PreviewScrollTarget {
 	id: string;
 	getNode: () => HTMLElement | null | undefined;
@@ -11,10 +13,6 @@ export interface PreviewScrollTarget {
 	/** Not ready to follow yet; ask again next frame. Seeks still jump. */
 	deferred?: boolean;
 }
-
-const prefersReducedMotion = () =>
-	typeof matchMedia === "function" &&
-	matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export function previewScrollTop(
 	currentTop: number,

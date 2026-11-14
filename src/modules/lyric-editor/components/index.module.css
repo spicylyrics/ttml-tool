@@ -47,14 +47,6 @@
 		align-items: center;
 
 		border-right: solid 1px var(--gray-a5);
-
-		transition:
-			box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-			background-color 0.2s ease,
-			transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-			opacity 0.2s ease,
-			padding 0.2s ease;
-		animation: laneItemFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	/* Drawn in the gap rather than as a border: dark themes reset the chip
@@ -85,17 +77,6 @@
 	}
 }
 
-@keyframes laneItemFadeIn {
-	from {
-		opacity: 0;
-		transform: scale(0.95) translateY(-3px);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1) translateY(0);
-	}
-}
-
 .wordGroup {
 	display: flex;
 	flex-direction: column;
@@ -103,13 +84,6 @@
 	flex-grow: 0;
 	flex-shrink: 0;
 	text-align: left;
-	transition:
-		width 0.2s ease-in-out,
-		margin 0.2s ease-in-out,
-		opacity 0.2s ease-in-out,
-		transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-		flex-basis 0.2s ease-in-out;
-	animation: laneItemFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
 	&.spaceGroup {
 		align-self: center;
@@ -292,13 +266,6 @@
 	user-select: none;
 	display: flex;
 
-	transition:
-		opacity 0.15s ease-in-out,
-		background-color 0.15s ease,
-		box-shadow 0.15s ease,
-		height 0.2s ease-in-out,
-		padding 0.2s ease-in-out;
-
 	&.dropTop {
 		border-top: solid 3px var(--accent-a11);
 	}
@@ -401,9 +368,6 @@
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-	transition:
-		padding 0.2s ease-in-out,
-		height 0.2s ease-in-out;
 
 	&.sync {
 		padding: 0 var(--space-3);
@@ -417,10 +381,6 @@
 	flex-wrap: wrap;
 	align-items: baseline;
 	gap: var(--chip-gap, var(--space-2));
-	transition:
-		gap 0.2s ease-in-out,
-		padding 0.2s ease-in-out,
-		row-gap 0.2s ease-in-out;
 
 	&.edit {
 		margin-bottom: var(--space-2);
@@ -442,10 +402,6 @@
 			flex-wrap: wrap;
 			overflow: visible;
 			row-gap: var(--space-2);
-			transition:
-				row-gap 0.2s ease-in-out,
-				gap 0.2s ease-in-out,
-				padding 0.2s ease-in-out;
 		}
 
 		&.hideTimestamps {
@@ -573,19 +529,6 @@
 :global(
 		.radix-themes:is(.dark, .dark-theme):not([data-legacy-dark-theme="true"])
 	)
-	.lyricLine::before {
-	position: absolute;
-	inset: 0 auto 0 0;
-	width: var(--selected-line-rail-width);
-	background: var(--accent-9);
-	content: "";
-	opacity: 0;
-	transition: opacity 0.1s ease;
-}
-
-:global(
-		.radix-themes:is(.dark, .dark-theme):not([data-legacy-dark-theme="true"])
-	)
 	.lyricLine:not(.error):hover {
 	box-shadow: var(--editor-line-hover-shadow);
 	background-color: var(--editor-line-hover);
@@ -597,13 +540,8 @@
 	.lyricLine.selected:not(.error) {
 	border-color: var(--editor-selected-line-border);
 	box-shadow: var(--editor-selected-line-shadow);
-}
-
-:global(
-		.radix-themes:is(.dark, .dark-theme):not([data-legacy-dark-theme="true"])
-	)
-	.lyricLine.selected:not(.error)::before {
-	opacity: 1;
+	/* A fill, not a side stripe: a stripe bends around the rounded corner. */
+	background-color: var(--editor-selected-line-bg);
 }
 
 :global(
@@ -741,25 +679,12 @@
 	visibility: hidden;
 }
 
+/* The word that is playing is a plain fill: nothing fades, glows or moves on
+   the sync surface. */
 .lyricWord.sync.active {
 	background-color: var(--accent-a9);
-	transition: background-color 0s;
 	position: relative;
 	z-index: 2;
-
-	&.animated {
-		transition:
-			opacity 0.1s ease-in-out,
-			box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-
-		animation: highlightBurst 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 0 0 35px var(--accent-a9);
-
-		.displayWord {
-			transition: text-shadow 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-			text-shadow: 0 0 20px var(--accent-a11);
-		}
-	}
 
 	.displayWord {
 		color: #fff;
@@ -772,32 +697,9 @@
 	}
 }
 
-/* Follow active styles so instant fade wins equal-specificity overrides. */
-.lyricWord.sync.hasInstantFade {
-	transition: none;
-	animation: none;
-
-	&.active,
-	&.animated {
-		transition: none;
-		animation: none;
-		box-shadow: none;
-
-		.displayWord {
-			text-shadow: none;
-		}
-	}
-}
-
-/* Lite effects: keep the fills, drop the glows and the burst while syncing. */
-:global(:root[data-effects="lite"])
-	.lyricWord.sync.active:is(.animated, .selected) {
-	animation: none;
+/* Lite effects: keep the fills, drop the selection glow while syncing. */
+:global(:root[data-effects="lite"]) .lyricWord.sync.active.selected {
 	box-shadow: none;
-
-	.displayWord {
-		text-shadow: none;
-	}
 }
 
 /* The translation or romanization icon before a line's sub-line label. */
@@ -860,17 +762,6 @@
 	bottom: var(--space-3);
 	z-index: 5;
 	box-shadow: var(--base-card-surface-box-shadow);
-}
-
-@keyframes highlightBurst {
-	0% {
-		box-shadow: 0 0 5px var(--accent-a7);
-		background-color: var(--accent-a9);
-	}
-	100% {
-		box-shadow: 0 0 35px var(--accent-a9);
-		background-color: var(--accent-a9);
-	}
 }
 
 /* Empty-state actions in a 2x2 grid: long translations wrap inside the button

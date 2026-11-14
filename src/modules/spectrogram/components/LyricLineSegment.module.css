@@ -6,10 +6,6 @@
 	position: absolute;
 	box-sizing: border-box;
 	pointer-events: auto;
-	transition:
-		filter 0.05s ease-in-out,
-		background-color 0.05s ease-in-out,
-		border-color 0.05s ease-in-out;
 }
 
 .desaturated {

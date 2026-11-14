@@ -9,9 +9,10 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { ToolMode } from "$/states/main.ts";
 import type { LyricLine } from "$/types/ttml.ts";
+import { useFlashOnChange } from "../use-flash-on-change";
 
 export function useLineTiming({
 	line,
@@ -28,27 +29,7 @@ export function useLineTiming({
 	toolMode: ToolMode;
 	disableInsert: () => void;
 }) {
-	// biome-ignore lint/correctness/useExhaustiveDependencies: 用于呈现时间戳更新效果
-	useEffect(() => {
-		if (!visualizeTimestampUpdate) return;
-		const animation = startTimeRef.current?.animate(
-			[
-				{
-					backgroundColor: "var(--accent-a8)",
-				},
-				{
-					backgroundColor: "var(--accent-a4)",
-				},
-			],
-			{
-				duration: 500,
-			},
-		);
-
-		return () => {
-			animation?.cancel();
-		};
-	}, [line.startTime, visualizeTimestampUpdate]);
+	useFlashOnChange(startTimeRef, line.startTime, visualizeTimestampUpdate);
 
 	useLayoutEffect(() => {
 		if (toolMode !== ToolMode.Edit) {
@@ -56,25 +37,5 @@ export function useLineTiming({
 		}
 	}, [toolMode, disableInsert]);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: 用于呈现时间戳更新效果
-	useEffect(() => {
-		if (!visualizeTimestampUpdate) return;
-		const animation = endTimeRef.current?.animate(
-			[
-				{
-					backgroundColor: "var(--accent-a8)",
-				},
-				{
-					backgroundColor: "var(--accent-a4)",
-				},
-			],
-			{
-				duration: 500,
-			},
-		);
-
-		return () => {
-			animation?.cancel();
-		};
-	}, [line.endTime, visualizeTimestampUpdate]);
+	useFlashOnChange(endTimeRef, line.endTime, visualizeTimestampUpdate);
 }

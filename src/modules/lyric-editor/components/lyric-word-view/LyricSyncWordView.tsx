@@ -15,12 +15,10 @@ import { useSetImmerAtom } from "jotai-immer";
 import { type FC, useMemo } from "react";
 import {
 	enableManualTimestampEditAtom,
-	enableSyncGlowAnimationAtom,
 	highlightActiveWordAtom,
 	highlightErrorsAtom,
 	showTimestampsAtom,
 } from "$/modules/settings/states/index.ts";
-import { instantHighlightFadeAtom } from "$/modules/settings/states/preview";
 import {
 	enableTimeModeDoubleClickEditAtom,
 	visualizeTimestampUpdateAtom,
@@ -81,7 +79,6 @@ export const LyricSyncWordView: FC<{
 	const highlightActiveWord = useAtomValue(highlightActiveWordAtom);
 	const toolMode = useAtomValue(toolModeAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
-	const enableSyncGlowAnimation = useAtomValue(enableSyncGlowAnimationAtom);
 	const enableManualTimestampEdit = useAtomValue(enableManualTimestampEditAtom);
 	const enableTimeModeDoubleClickEdit = useAtomValue(
 		enableTimeModeDoubleClickEditAtom,
@@ -99,7 +96,6 @@ export const LyricSyncWordView: FC<{
 		startTime,
 		endTime,
 		highlightActiveWord,
-		enableSyncGlowAnimation,
 		visualizeTimestampUpdate,
 		editLyricLines,
 		line,
@@ -137,18 +133,16 @@ export const LyricSyncWordView: FC<{
 		msToTimestamp(endTime)
 	);
 
-	const instantFade = useAtomValue(instantHighlightFadeAtom);
 	const hasError = useMemo(() => startTime > endTime, [startTime, endTime]);
 	const setOpenSplitWordDialog = useSetAtom(splitWordDialogAtom);
 	const setEditingWordState = useSetAtom(editingWordStateAtom);
 
-	// active/animated classes are applied imperatively by the store.sub effect above
+	// The active class is applied imperatively by the store.sub effect above
 	const className = useMemo(
 		() =>
 			classNames(
 				styles.lyricWord,
 				styles.sync,
-				instantFade && styles.hasInstantFade,
 				isWordSelected && styles.selected,
 				isWordBlank && styles.blank,
 				hasError &&
@@ -159,7 +153,6 @@ export const LyricSyncWordView: FC<{
 					styles.error,
 			),
 		[
-			instantFade,
 			isWordBlank,
 			isWordSelected,
 			hasError,

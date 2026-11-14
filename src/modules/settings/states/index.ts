@@ -96,11 +96,6 @@ export const highlightActiveWordAtom = atomWithStorage(
 	true,
 );
 
-export const enableSyncGlowAnimationAtom = atomWithStorage(
-	"enableSyncGlowAnimation",
-	false,
-);
-
 export const highlightErrorsAtom = atomWithStorage("highlightErrors", true);
 
 export const smartLastWordAtom = atomWithStorage("smartLastWord", false);
