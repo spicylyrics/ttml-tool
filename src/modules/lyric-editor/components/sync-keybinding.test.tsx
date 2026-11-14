@@ -23,8 +23,11 @@ import {
 } from "$/states/keybindings";
 import {
 	lyricLinesAtom,
+	redoLyricLinesAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
+	undoableLyricLinesAtom,
+	undoLyricLinesAtom,
 } from "$/states/main";
 import { newLyricLine, newLyricWord } from "$/types/ttml";
 import type { KeyBindingCallback } from "$/utils/keybindings";
@@ -351,5 +354,56 @@ describe("move and play", () => {
 		for (const call of audio.resumeOrSeekMusic.mock.calls)
 			expect(call).toEqual([]);
 		view.cleanup();
+	});
+});
+
+describe("undo and redo put the sync cursor back", () => {
+	it("undoing a G returns to the word it stamped, redo moves on again", () => {
+		const view = mount();
+		view.store.sub(undoableLyricLinesAtom, () => {});
+		try {
+			press(keySyncStartAtom, 1);
+			press(keySyncNextAtom, 2);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[2].id]),
+			);
+			view.store.set(undoLyricLinesAtom);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[0].id]),
+			);
+			view.store.set(undoLyricLinesAtom);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[0].id]),
+			);
+			view.store.set(redoLyricLinesAtom);
+			view.store.set(redoLyricLinesAtom);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[2].id]),
+			);
+		} finally {
+			view.cleanup();
+		}
+	});
+
+	it("undoing across a line change goes back to the earlier line", () => {
+		const view = mount();
+		view.store.sub(undoableLyricLinesAtom, () => {});
+		try {
+			press(keySyncStartAtom, 1);
+			press(keySyncNextAtom, 2);
+			press(keySyncEndAtom, 3);
+			expect(view.store.get(selectedLinesAtom)).toEqual(
+				new Set([view.second.id]),
+			);
+			view.store.set(undoLyricLinesAtom);
+			expect(view.store.get(selectedLinesAtom)).toEqual(
+				new Set([view.first.id]),
+			);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[2].id]),
+			);
+		} finally {
+			view.cleanup();
+		}
 	});
 });

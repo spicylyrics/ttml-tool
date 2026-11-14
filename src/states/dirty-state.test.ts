@@ -1,5 +1,6 @@
 import { createStore } from "jotai";
 import { describe, expect, it } from "vitest";
+import { getCurrentLocation } from "$/modules/lyric-editor/utils/lyric-states";
 import { newLyricLine, newLyricWord, type TTMLLyric } from "$/types/ttml";
 import {
 	canUndoLyricLinesAtom,
@@ -7,8 +8,13 @@ import {
 	LYRIC_HISTORY_LIMIT,
 	lyricLinesAtom,
 	markLyricsSavedAtom,
+	repairSelection,
 	saveFileNameAtom,
+	selectedLinesAtom,
+	selectedWordsAtom,
 	startFreshLyricDocumentAtom,
+	ToolMode,
+	toolModeAtom,
 	undoableLyricLinesAtom,
 	undoLyricLinesAtom,
 } from "./main";
@@ -117,5 +123,53 @@ describe("undo history", () => {
 		}
 		expect(undone).toBeLessThanOrEqual(LYRIC_HISTORY_LIMIT);
 		expect(undone).toBeGreaterThan(LYRIC_HISTORY_LIMIT - 5);
+	});
+});
+
+describe("repairSelection", () => {
+	const doc = lyric("one");
+	const line = doc.lyricLines[0];
+
+	it("drops ids that no longer exist", () => {
+		const repaired = repairSelection(
+			doc,
+			{ lines: new Set([line.id, "gone"]), words: new Set(["missing"]) },
+			false,
+		);
+		expect(repaired.lines).toEqual(new Set([line.id]));
+		expect(repaired.words.size).toBe(0);
+	});
+
+	it("falls back to the line's first word for keyboard sync", () => {
+		const repaired = repairSelection(
+			doc,
+			{ lines: new Set([line.id]), words: new Set(["missing"]) },
+			true,
+		);
+		expect(repaired.words).toEqual(new Set([line.words[0].id]));
+	});
+});
+
+describe("undo after a split", () => {
+	it("re-selects the word that was split, so sync keys keep working", () => {
+		const store = mountedStore();
+		store.set(toolModeAtom, ToolMode.Sync);
+		const whole = { ...newLyricWord(), word: "whole" };
+		const line = { ...newLyricLine(), words: [whole] };
+		store.set(lyricLinesAtom, { lyricLines: [line], metadata: [] });
+		store.set(selectedLinesAtom, new Set([line.id]));
+		store.set(selectedWordsAtom, new Set([whole.id]));
+		const parts = [
+			{ ...newLyricWord(), word: "who" },
+			{ ...newLyricWord(), word: "le" },
+		];
+		store.set(lyricLinesAtom, {
+			lyricLines: [{ ...line, words: parts }],
+			metadata: [],
+		});
+		store.set(selectedWordsAtom, new Set([parts[0].id]));
+		store.set(undoLyricLinesAtom);
+		expect(store.get(selectedWordsAtom)).toEqual(new Set([whole.id]));
+		expect(getCurrentLocation(store)?.word.id).toBe(whole.id);
 	});
 });

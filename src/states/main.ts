@@ -9,7 +9,7 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import { atom } from "jotai";
+import { atom, type Getter, type SetStateAction, type Setter } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { REDO, RESET, UNDO, withHistory } from "jotai-history";
 import { uid } from "uid";
@@ -35,12 +35,70 @@ export const previewPanelWidthAtom = atomWithStorage("previewPanelWidth", 400);
 
 export const isDarkThemeAtom = atom(true);
 
-export const lyricLinesAtom = atom({
+const lyricDocumentAtom = atom({
 	lyricLines: [],
 	metadata: [],
 	marks: [],
 	sections: [],
 } as TTMLLyric);
+
+interface CursorSnapshot {
+	lines: Set<string>;
+	words: Set<string>;
+}
+
+/**
+ * The sync cursor (selected line and word) as it was when each document
+ * snapshot was replaced. Undo and redo put it back, so the next key press
+ * lands on the word you just took back instead of the one after it.
+ */
+const cursorBeforeEdit = new WeakMap<TTMLLyric, CursorSnapshot>();
+
+/**
+ * The lyric document. Every write remembers the cursor that went with the
+ * document it replaces; callers use it like a plain atom.
+ */
+export const lyricLinesAtom = atom(
+	(get) => get(lyricDocumentAtom),
+	(get, set, update: SetStateAction<TTMLLyric>) => {
+		const prev = get(lyricDocumentAtom);
+		const next = typeof update === "function" ? update(prev) : update;
+		if (next !== prev)
+			cursorBeforeEdit.set(prev, {
+				lines: get(selectedLinesAtom),
+				words: get(selectedWordsAtom),
+			});
+		set(lyricDocumentAtom, next);
+	},
+);
+
+/**
+ * Drops selected ids that no longer exist in `doc`. When a kept line lost its
+ * word and `pickFirstWord` is set, selects that line's first word so keyboard
+ * sync still has somewhere to start.
+ */
+export function repairSelection(
+	doc: TTMLLyric,
+	selection: CursorSnapshot,
+	pickFirstWord: boolean,
+): CursorSnapshot {
+	const lineIds = new Set(doc.lyricLines.map((line) => line.id));
+	const lines = new Set([...selection.lines].filter((id) => lineIds.has(id)));
+	const wordsInKeptLines = new Set(
+		doc.lyricLines
+			.filter((line) => lines.has(line.id))
+			.flatMap((line) => line.words.map((word) => word.id)),
+	);
+	const words = new Set(
+		[...selection.words].filter((id) => wordsInKeptLines.has(id)),
+	);
+	if (pickFirstWord && words.size === 0 && lines.size === 1) {
+		const line = doc.lyricLines.find((candidate) => lines.has(candidate.id));
+		const first = line?.words.find((word) => word.word.trim().length > 0);
+		if (first) words.add(first.id);
+	}
+	return { lines, words };
+}
 
 /** Keeps its identity through word and line edits, unlike the whole document. */
 export const lyricMetadataAtom = atom((get) => get(lyricLinesAtom).metadata);
@@ -128,12 +186,32 @@ export const startFreshLyricDocumentAtom = atom(null, (get, set) => {
 	set(undoableLyricLinesAtom, RESET);
 	set(savedLyricLinesAtom, get(lyricLinesAtom));
 });
-export const undoLyricLinesAtom = atom(null, (_get, set) => {
-	set(undoableLyricLinesAtom, UNDO);
-});
-export const redoLyricLinesAtom = atom(null, (_get, set) => {
-	set(undoableLyricLinesAtom, REDO);
-});
+/** Moves through history, then puts the cursor back where that document had it. */
+const stepHistory = (
+	get: Getter,
+	set: Setter,
+	direction: typeof UNDO | typeof REDO,
+) => {
+	set(undoableLyricLinesAtom, direction);
+	const doc = get(lyricLinesAtom);
+	const remembered = cursorBeforeEdit.get(doc) ?? {
+		lines: get(selectedLinesAtom),
+		words: get(selectedWordsAtom),
+	};
+	const repaired = repairSelection(
+		doc,
+		remembered,
+		get(toolModeAtom) !== ToolMode.Edit,
+	);
+	set(selectedLinesAtom, repaired.lines);
+	set(selectedWordsAtom, repaired.words);
+};
+export const undoLyricLinesAtom = atom(null, (get, set) =>
+	stepHistory(get, set, UNDO),
+);
+export const redoLyricLinesAtom = atom(null, (get, set) =>
+	stepHistory(get, set, REDO),
+);
 export const editingWordStateAtom = atom({
 	wordIndex: -1,
 	lineIndex: -1,
