@@ -174,6 +174,24 @@ describe("menu actions as keyboard commands", () => {
 });
 
 describe("enabled rules", () => {
+	it("greys out Undo and Redo until there is something to undo or redo", () => {
+		const { undo, redo } = actions.MENU_ACTIONS;
+		const store = createStore();
+		// The app keeps history mounted through useTopMenuActions.
+		store.sub(main.undoableLyricLinesAtom, () => {});
+		expect(isEnabled(undo, store)).toBe(false);
+		expect(isEnabled(redo, store)).toBe(false);
+		store.set(main.lyricLinesAtom, {
+			lyricLines: [lineWithWords(1)],
+			metadata: [],
+		});
+		expect(isEnabled(undo, store)).toBe(true);
+		expect(isEnabled(redo, store)).toBe(false);
+		store.set(main.undoLyricLinesAtom);
+		expect(isEnabled(undo, store)).toBe(false);
+		expect(isEnabled(redo, store)).toBe(true);
+	});
+
 	it("greys out Swap main and duet lines with no lines", () => {
 		const { swapDuetAll } = actions.MENU_ACTIONS;
 		expect(isEnabled(swapDuetAll, storeWithLines([]))).toBe(false);

@@ -89,7 +89,12 @@ export const saveStatusAtom = atom<SaveStatus>(SaveStatus.Saved);
  */
 export const lastSavedTimeAtom = atom<number | null>(null);
 
-export const undoableLyricLinesAtom = withHistory(lyricLinesAtom, 10);
+/** Steps of undo. Every sync key press is one step, so this has to cover a song. */
+export const LYRIC_HISTORY_LIMIT = 200;
+export const undoableLyricLinesAtom = withHistory(
+	lyricLinesAtom,
+	LYRIC_HISTORY_LIMIT,
+);
 // The history object changes on every edit; menus only need these flags.
 export const canUndoLyricLinesAtom = atom(
 	(get) => get(undoableLyricLinesAtom).canUndo,

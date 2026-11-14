@@ -2,7 +2,9 @@ import { createStore } from "jotai";
 import { describe, expect, it } from "vitest";
 import { newLyricLine, newLyricWord, type TTMLLyric } from "$/types/ttml";
 import {
+	canUndoLyricLinesAtom,
 	isDirtyAtom,
+	LYRIC_HISTORY_LIMIT,
 	lyricLinesAtom,
 	markLyricsSavedAtom,
 	saveFileNameAtom,
@@ -87,5 +89,33 @@ describe("dirty state", () => {
 		store.set(startFreshLyricDocumentAtom);
 		expect(store.get(isDirtyAtom)).toBe(false);
 		expect(store.get(undoableLyricLinesAtom).canUndo).toBe(false);
+	});
+});
+
+describe("undo history", () => {
+	it("keeps far more than ten steps, enough for a song of sync presses", () => {
+		const store = mountedStore();
+		store.set(lyricLinesAtom, lyric("start"));
+		for (let i = 0; i < 100; i++) store.set(lyricLinesAtom, lyric(`edit ${i}`));
+		let undone = 0;
+		while (store.get(canUndoLyricLinesAtom)) {
+			store.set(undoLyricLinesAtom);
+			undone++;
+		}
+		expect(undone).toBe(101);
+		expect(store.get(lyricLinesAtom).lyricLines).toHaveLength(0);
+	});
+
+	it("caps history at the limit instead of growing forever", () => {
+		const store = mountedStore();
+		for (let i = 0; i < LYRIC_HISTORY_LIMIT + 50; i++)
+			store.set(lyricLinesAtom, lyric(`edit ${i}`));
+		let undone = 0;
+		while (store.get(canUndoLyricLinesAtom)) {
+			store.set(undoLyricLinesAtom);
+			undone++;
+		}
+		expect(undone).toBeLessThanOrEqual(LYRIC_HISTORY_LIMIT);
+		expect(undone).toBeGreaterThan(LYRIC_HISTORY_LIMIT - 5);
 	});
 });
