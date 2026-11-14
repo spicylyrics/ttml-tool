@@ -13,6 +13,10 @@ import {
 	syncTimeOffsetAtom,
 } from "$/modules/settings/states/sync";
 import {
+	keyMoveFirstWordAndPlayAtom,
+	keyMoveLastWordAndPlayAtom,
+	keyMoveNextWordAndPlayAtom,
+	keyMovePrevWordAndPlayAtom,
 	keySyncEndAtom,
 	keySyncNextAtom,
 	keySyncStartAtom,
@@ -287,5 +291,65 @@ describe("background lines while syncing", () => {
 		} finally {
 			view.cleanup();
 		}
+	});
+});
+
+describe("move and play", () => {
+	function reset() {
+		audio.resumeOrSeekMusic.mockClear();
+		audio.musicPlaying = false;
+	}
+
+	it("keeps the playhead when End lands on a word with no time yet", () => {
+		const view = mount();
+		reset();
+		press(keyMoveLastWordAndPlayAtom, 1);
+		expect(audio.resumeOrSeekMusic).toHaveBeenCalledTimes(1);
+		expect(audio.resumeOrSeekMusic).toHaveBeenCalledWith();
+		view.cleanup();
+	});
+
+	it("does not touch playback when End lands on an untimed word during playback", () => {
+		const view = mount();
+		reset();
+		audio.musicPlaying = true;
+		press(keyMoveLastWordAndPlayAtom, 1);
+		expect(audio.resumeOrSeekMusic).not.toHaveBeenCalled();
+		view.cleanup();
+	});
+
+	it("seeks to the start of a timed last word", () => {
+		const view = mount();
+		view.store.set(lyricLinesAtom, (prev) => ({
+			...prev,
+			lyricLines: prev.lyricLines.map((line) =>
+				line.id === view.first.id
+					? {
+							...line,
+							words: line.words.map((word, index) =>
+								index === 2
+									? { ...word, startTime: 8000, endTime: 9000 }
+									: word,
+							),
+						}
+					: line,
+			),
+		}));
+		reset();
+		press(keyMoveLastWordAndPlayAtom, 1);
+		expect(audio.resumeOrSeekMusic).toHaveBeenCalledWith(8);
+		view.cleanup();
+	});
+
+	it("applies the same rule to Home and to next and previous word", () => {
+		const view = mount();
+		reset();
+		press(keyMoveFirstWordAndPlayAtom, 1);
+		press(keyMoveNextWordAndPlayAtom, 1);
+		press(keyMovePrevWordAndPlayAtom, 1);
+		expect(audio.resumeOrSeekMusic).toHaveBeenCalledTimes(3);
+		for (const call of audio.resumeOrSeekMusic.mock.calls)
+			expect(call).toEqual([]);
+		view.cleanup();
 	});
 });

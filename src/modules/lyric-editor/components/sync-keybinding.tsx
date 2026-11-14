@@ -54,6 +54,19 @@ import {
 
 const getUnitStartTime = (unit: { word: LyricWord }) => unit.word.startTime;
 
+/**
+ * Plays from a word's start. A word with no start yet (0) would seek to the
+ * beginning of the song, so the playhead stays where it is instead.
+ */
+const playFromUnit = (unit: { word: LyricWord }) => {
+	const start = getUnitStartTime(unit);
+	if (start > 0) {
+		void audioEngine.resumeOrSeekMusic(start / 1000);
+	} else if (!audioEngine.musicPlaying) {
+		void audioEngine.resumeOrSeekMusic();
+	}
+};
+
 type LyricsState = TTMLLyric;
 
 function cloneLineWithWords(line: LyricLine): LyricLine {
@@ -130,10 +143,7 @@ export const SyncKeyBinding: FC = () => {
 			if (!nextWord) return false;
 			store.set(selectedWordsAtom, new Set([nextWord.unit.id]));
 			store.set(selectedLinesAtom, new Set([nextWord.line.id]));
-			if (play)
-				void audioEngine.resumeOrSeekMusic(
-					getUnitStartTime(nextWord.unit) / 1000,
-				);
+			if (play) playFromUnit(nextWord.unit);
 			return true;
 		},
 		[store],
@@ -175,18 +185,14 @@ export const SyncKeyBinding: FC = () => {
 					store.set(selectedWordsAtom, new Set());
 				} else {
 					store.set(selectedWordsAtom, new Set([lastUnit.id]));
-					if (play)
-						void audioEngine.resumeOrSeekMusic(
-							getUnitStartTime(lastUnit) / 1000,
-						);
+					if (play) playFromUnit(lastUnit);
 				}
 			} else {
 				const lineUnits = getSynchronizableUnits(location.line);
 				const prevUnit = lineUnits[location.syncIndex - 1];
 				if (!prevUnit) return false;
 				store.set(selectedWordsAtom, new Set([prevUnit.id]));
-				if (play)
-					void audioEngine.resumeOrSeekMusic(getUnitStartTime(prevUnit) / 1000);
+				if (play) playFromUnit(prevUnit);
 			}
 			return true;
 		},
@@ -248,7 +254,7 @@ export const SyncKeyBinding: FC = () => {
 		if (!lastUnit) return;
 		store.set(selectedWordsAtom, new Set([lastUnit.id]));
 		store.set(selectedLinesAtom, new Set([location.line.id]));
-		void audioEngine.resumeOrSeekMusic(getUnitStartTime(lastUnit) / 1000);
+		playFromUnit(lastUnit);
 	}, [store]);
 
 	useKeyBindingAtom(keyMoveFirstWordAndPlayAtom, () => {
@@ -258,7 +264,7 @@ export const SyncKeyBinding: FC = () => {
 		if (!firstUnit) return;
 		store.set(selectedWordsAtom, new Set([firstUnit.id]));
 		store.set(selectedLinesAtom, new Set([location.line.id]));
-		void audioEngine.resumeOrSeekMusic(getUnitStartTime(firstUnit) / 1000);
+		playFromUnit(firstUnit);
 	}, [store]);
 
 	// 记录时间戳（主要打轴按键）
