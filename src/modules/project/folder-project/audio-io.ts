@@ -2,6 +2,7 @@ import { isTauri } from "@tauri-apps/api/core";
 import { exists, readFile, stat, writeFile } from "@tauri-apps/plugin-fs";
 import {
 	assertSafePath,
+	isSafeLinkedPath,
 	getFileExtension,
 } from "$/modules/project/folder-project/manifest";
 
@@ -78,4 +79,26 @@ export async function writeProjectAudioFile(
 	const safePath = assertSafePath(baseDir, relativeFileName);
 	await writeFile(safePath, audioBytes);
 	return safePath;
+}
+
+/**
+ * Reopens audio from an absolute path picked earlier. Returns null when the
+ * file moved or the app has no access to it any more.
+ */
+export async function readAudioFileAt(path: string): Promise<File | null> {
+	if (!isTauri() || !isSafeLinkedPath(path)) return null;
+	try {
+		if (!(await exists(path))) return null;
+		await checkAudioFileSize(path);
+		const bytes = await readFile(path);
+		const name = path.split(/[\\/]/).pop() ?? "audio";
+		const ext = getFileExtension(name);
+		const file = new File([bytes as BlobPart], name, {
+			type: AUDIO_MIME_BY_EXT[ext] ?? "application/octet-stream",
+		});
+		Object.defineProperty(file, "path", { value: path });
+		return file;
+	} catch {
+		return null;
+	}
 }

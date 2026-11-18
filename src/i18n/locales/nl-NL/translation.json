@@ -600,7 +600,9 @@
         "interval": "Opslaan om de (minuten)",
         "intervalDesc": "Minimale tijd tussen momentopnamen. Je laatste wijzigingen worden nog steeds na elke bewerking opgeslagen.",
         "limit": "Aantal te bewaren momentopnamen",
-        "limitDesc": "Hoeveel momentopnamen per nummer bewaard blijven. De oudste worden eerst verwijderd."
+        "limitDesc": "Hoeveel momentopnamen per nummer bewaard blijven. De oudste worden eerst verwijderd.",
+        "restoreAutomatically": "Niet-opgeslagen werk automatisch herstellen",
+        "restoreAutomaticallyDesc": "Sla de vraag bij het opstarten over en open wat je had bij de laatste keer afsluiten met niet-opgeslagen wijzigingen."
       },
       "customBackground": "Aangepaste achtergrond",
       "customBackgroundDesc": "Kies een afbeelding om als achtergrond te gebruiken.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Loslaten om te laden"
+  },
+  "sessionRestore": {
+    "title": "Verdergaan waar je gebleven was?",
+    "note": "Je laatst automatisch opgeslagen songtekst staat er nog: {name}.",
+    "restore": "Herstellen",
+    "dismiss": "Opnieuw beginnen",
+    "always": "Altijd automatisch herstellen",
+    "audioNamed": "Je songtekst is terug. Laad {name} opnieuw om verder te synchroniseren.",
+    "audio": "Je songtekst is terug. Laad de audio opnieuw om verder te synchroniseren.",
+    "chooseAudio": "Audio kiezen",
+    "later": "Later",
+    "auto": "Je niet-opgeslagen werk van de vorige keer is hersteld."
   },
   "historyRestoreDialog": {
     "loadError": "Kon geschiedenis niet laden",

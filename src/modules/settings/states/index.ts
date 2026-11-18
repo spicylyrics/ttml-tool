@@ -42,6 +42,11 @@ export const showLineRomanizationAtom = atomWithStorage(
 
 export const autosaveEnabledAtom = atomWithStorage("autosaveEnabled", true);
 export const autosaveIntervalAtom = atomWithStorage("autosaveInterval", 10);
+/** Desktop: skip the restore prompt and reopen the unsaved session on launch. */
+export const restoreSessionAutomaticallyAtom = atomWithStorage(
+	"restoreSessionAutomatically",
+	false,
+);
 export const autosaveLimitAtom = atomWithStorage("autosaveLimit", 10);
 export const folderProjectsEnabledAtom = atomWithStorage(
 	"folderProjectsEnabled",

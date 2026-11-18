@@ -600,7 +600,9 @@
         "interval": "Tallennusväli (minuuttia)",
         "intervalDesc": "Lyhin aika tilannekuvien välillä. Viimeisimmät muutokset tallennetaan silti jokaisen muokkauksen jälkeen.",
         "limit": "Säilytettävät tilannekuvat",
-        "limitDesc": "Montako tilannekuvaa säilytetään kutakin kappaletta kohden. Vanhimmat poistetaan ensin."
+        "limitDesc": "Montako tilannekuvaa säilytetään kutakin kappaletta kohden. Vanhimmat poistetaan ensin.",
+        "restoreAutomatically": "Palauta tallentamaton työ automaattisesti",
+        "restoreAutomaticallyDesc": "Ohita kysymys käynnistyksessä ja avaa se, mitä sinulla oli viimeksi suljettaessa tallentamattomin muutoksin."
       },
       "customBackground": "Mukautettu tausta",
       "customBackgroundDesc": "Valitse taustana käytettävä kuva.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Vapauta ladataksesi"
+  },
+  "sessionRestore": {
+    "title": "Jatketaanko siitä, mihin jäit?",
+    "note": "Viimeksi automaattisesti tallennetut sanoitukset ovat yhä tallessa: {name}.",
+    "restore": "Palauta",
+    "dismiss": "Aloita alusta",
+    "always": "Palauta aina automaattisesti",
+    "audioNamed": "Sanoitukset ovat takaisin. Lataa {name} uudelleen jatkaaksesi synkronointia.",
+    "audio": "Sanoitukset ovat takaisin. Lataa ääni uudelleen jatkaaksesi synkronointia.",
+    "chooseAudio": "Valitse ääni",
+    "later": "Myöhemmin",
+    "auto": "Tallentamaton työsi viime kerralta palautettiin."
   },
   "historyRestoreDialog": {
     "loadError": "Historian lataaminen epäonnistui",

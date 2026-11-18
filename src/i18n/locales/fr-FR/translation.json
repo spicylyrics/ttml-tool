@@ -600,7 +600,9 @@
         "interval": "Sauvegarder toutes les (minutes)",
         "intervalDesc": "Durée minimale entre deux instantanés. Vos dernières modifications sont quand même enregistrées après chaque changement.",
         "limit": "Instantanés à conserver",
-        "limitDesc": "Nombre d'instantanés conservés par chanson. Les plus anciens sont supprimés en premier."
+        "limitDesc": "Nombre d'instantanés conservés par chanson. Les plus anciens sont supprimés en premier.",
+        "restoreAutomatically": "Restaurer automatiquement le travail non enregistré",
+        "restoreAutomaticallyDesc": "Ignore la question au lancement et rouvre ce que vous aviez à la dernière fermeture avec des modifications non enregistrées."
       },
       "customBackground": "Arrière-plan personnalisé",
       "customBackgroundDesc": "Choisissez une image à utiliser comme arrière-plan.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Relâchez pour charger"
+  },
+  "sessionRestore": {
+    "title": "Reprendre là où vous en étiez ?",
+    "note": "Vos dernières paroles enregistrées automatiquement sont toujours là : {name}.",
+    "restore": "Restaurer",
+    "dismiss": "Repartir de zéro",
+    "always": "Toujours restaurer automatiquement",
+    "audioNamed": "Vos paroles sont de retour. Rechargez {name} pour continuer à synchroniser.",
+    "audio": "Vos paroles sont de retour. Rechargez l'audio pour continuer à synchroniser.",
+    "chooseAudio": "Choisir l'audio",
+    "later": "Plus tard",
+    "auto": "Votre travail non enregistré de la dernière fois a été restauré."
   },
   "historyRestoreDialog": {
     "loadError": "Échec du chargement de l'historique",

@@ -600,7 +600,9 @@
         "interval": "Ukládat každých (minuty)",
         "intervalDesc": "Nejkratší doba mezi snímky. Poslední změny se i tak ukládají po každé úpravě.",
         "limit": "Počet snímků k uchování",
-        "limitDesc": "Kolik snímků uchovat pro každou skladbu. Nejstarší se mažou jako první."
+        "limitDesc": "Kolik snímků uchovat pro každou skladbu. Nejstarší se mažou jako první.",
+        "restoreAutomatically": "Obnovit neuloženou práci automaticky",
+        "restoreAutomaticallyDesc": "Přeskočí dotaz při spuštění a znovu otevře, co jste měli při posledním zavření s neuloženými změnami."
       },
       "customBackground": "Vlastní pozadí",
       "customBackgroundDesc": "Vyberte obrázek, který chcete použít jako pozadí.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Uvolněte pro načtení"
+  },
+  "sessionRestore": {
+    "title": "Navázat, kde jste skončili?",
+    "note": "Vaše poslední automaticky uložené texty jsou stále tady: {name}.",
+    "restore": "Obnovit",
+    "dismiss": "Začít od nuly",
+    "always": "Vždy obnovit automaticky",
+    "audioNamed": "Texty jsou zpět. Načtěte {name} znovu a pokračujte v synchronizaci.",
+    "audio": "Texty jsou zpět. Načtěte zvuk znovu a pokračujte v synchronizaci.",
+    "chooseAudio": "Vybrat zvuk",
+    "later": "Později",
+    "auto": "Neuložená práce z minula byla obnovena."
   },
   "historyRestoreDialog": {
     "loadError": "Nepodařilo se načíst historii",

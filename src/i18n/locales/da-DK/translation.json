@@ -600,7 +600,9 @@
         "interval": "Gem hvert (minutter)",
         "intervalDesc": "Mindste tid mellem øjebliksbilleder. Dine seneste ændringer gemmes stadig efter hver redigering.",
         "limit": "Antal øjebliksbilleder at beholde",
-        "limitDesc": "Hvor mange øjebliksbilleder der beholdes for hver sang. De ældste slettes først."
+        "limitDesc": "Hvor mange øjebliksbilleder der beholdes for hver sang. De ældste slettes først.",
+        "restoreAutomatically": "Gendan ugemt arbejde automatisk",
+        "restoreAutomaticallyDesc": "Spring spørgsmålet over ved start og åbn det, du havde, da du sidst lukkede med ugemte ændringer."
       },
       "customBackground": "Brugerdefineret baggrund",
       "customBackgroundDesc": "Vælg et billede, der skal bruges som baggrund.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Slip for at indlæse"
+  },
+  "sessionRestore": {
+    "title": "Fortsæt, hvor du slap?",
+    "note": "Dine sidst autogemte tekster er her stadig: {name}.",
+    "restore": "Gendan",
+    "dismiss": "Start forfra",
+    "always": "Gendan altid automatisk",
+    "audioNamed": "Dine tekster er tilbage. Indlæs {name} igen for at fortsætte med at synkronisere.",
+    "audio": "Dine tekster er tilbage. Indlæs lyden igen for at fortsætte med at synkronisere.",
+    "chooseAudio": "Vælg lyd",
+    "later": "Senere",
+    "auto": "Dit ugemte arbejde fra sidst er gendannet."
   },
   "historyRestoreDialog": {
     "loadError": "Kunne ikke indlæse historik",

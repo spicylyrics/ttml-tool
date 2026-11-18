@@ -600,7 +600,9 @@
         "interval": "Salvar a cada (minutos)",
         "intervalDesc": "Tempo mínimo entre instantâneos. Suas alterações mais recentes continuam sendo salvas após cada edição.",
         "limit": "Instantâneos a manter",
-        "limitDesc": "Quantos instantâneos manter para cada música. Os mais antigos são excluídos primeiro."
+        "limitDesc": "Quantos instantâneos manter para cada música. Os mais antigos são excluídos primeiro.",
+        "restoreAutomatically": "Restaurar automaticamente o trabalho não salvo",
+        "restoreAutomaticallyDesc": "Pula a pergunta ao abrir e reabre o que você tinha na última vez que fechou com alterações não salvas."
       },
       "customBackground": "Plano de fundo personalizado",
       "customBackgroundDesc": "Escolha uma imagem para usar como plano de fundo.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Solte para carregar"
+  },
+  "sessionRestore": {
+    "title": "Continuar de onde parou?",
+    "note": "Sua última letra salva automaticamente ainda está aqui: {name}.",
+    "restore": "Restaurar",
+    "dismiss": "Começar do zero",
+    "always": "Sempre restaurar automaticamente",
+    "audioNamed": "Sua letra voltou. Carregue {name} de novo para continuar sincronizando.",
+    "audio": "Sua letra voltou. Carregue o áudio de novo para continuar sincronizando.",
+    "chooseAudio": "Escolher áudio",
+    "later": "Mais tarde",
+    "auto": "Seu trabalho não salvo da última vez foi restaurado."
   },
   "historyRestoreDialog": {
     "loadError": "Falha ao carregar histórico",

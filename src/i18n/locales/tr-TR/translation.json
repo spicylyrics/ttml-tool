@@ -600,7 +600,9 @@
         "interval": "Kayıt aralığı (dakika)",
         "intervalDesc": "Anlık görüntüler arasındaki en kısa süre. Son değişiklikleriniz yine de her düzenlemeden sonra kaydedilir.",
         "limit": "Tutulacak anlık görüntü sayısı",
-        "limitDesc": "Her şarkı için tutulacak anlık görüntü sayısı. En eskiler önce silinir."
+        "limitDesc": "Her şarkı için tutulacak anlık görüntü sayısı. En eskiler önce silinir.",
+        "restoreAutomatically": "Kaydedilmemiş çalışmayı otomatik geri yükle",
+        "restoreAutomaticallyDesc": "Açılışta soruyu atlar ve kaydedilmemiş değişikliklerle en son kapattığında elindekini yeniden açar."
       },
       "customBackground": "Özel arka plan",
       "customBackgroundDesc": "Arka plan olarak kullanılacak bir resim seçin.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Yüklemek için bırakın"
+  },
+  "sessionRestore": {
+    "title": "Kaldığın yerden devam edilsin mi?",
+    "note": "Son otomatik kaydedilen söz metni hâlâ burada: {name}.",
+    "restore": "Geri yükle",
+    "dismiss": "Sıfırdan başla",
+    "always": "Her zaman otomatik geri yükle",
+    "audioNamed": "Söz metni geri geldi. Senkronize etmeye devam etmek için {name} dosyasını yeniden yükle.",
+    "audio": "Söz metni geri geldi. Senkronize etmeye devam etmek için sesi yeniden yükle.",
+    "chooseAudio": "Ses seç",
+    "later": "Sonra",
+    "auto": "Geçen seferki kaydedilmemiş çalışman geri yüklendi."
   },
   "historyRestoreDialog": {
     "loadError": "Geçmiş yüklenemedi",

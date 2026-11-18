@@ -600,7 +600,9 @@
         "interval": "Salva ogni (minuti)",
         "intervalDesc": "Tempo minimo tra un'istantanea e l'altra. Le ultime modifiche vengono comunque salvate dopo ogni cambiamento.",
         "limit": "Istantanee da conservare",
-        "limitDesc": "Quante istantanee conservare per ogni brano. Le più vecchie vengono eliminate per prime."
+        "limitDesc": "Quante istantanee conservare per ogni brano. Le più vecchie vengono eliminate per prime.",
+        "restoreAutomatically": "Ripristina automaticamente il lavoro non salvato",
+        "restoreAutomaticallyDesc": "Salta la richiesta all'avvio e riapre ciò che avevi all'ultima chiusura con modifiche non salvate."
       },
       "customBackground": "Sfondo personalizzato",
       "customBackgroundDesc": "Scegli un'immagine da usare come sfondo.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Rilascia per caricare"
+  },
+  "sessionRestore": {
+    "title": "Riprendere da dove avevi lasciato?",
+    "note": "I tuoi ultimi testi salvati automaticamente sono ancora qui: {name}.",
+    "restore": "Ripristina",
+    "dismiss": "Ricomincia da capo",
+    "always": "Ripristina sempre automaticamente",
+    "audioNamed": "I tuoi testi sono tornati. Ricarica {name} per continuare a sincronizzare.",
+    "audio": "I tuoi testi sono tornati. Ricarica l'audio per continuare a sincronizzare.",
+    "chooseAudio": "Scegli audio",
+    "later": "Più tardi",
+    "auto": "Il lavoro non salvato dell'ultima volta è stato ripristinato."
   },
   "historyRestoreDialog": {
     "loadError": "Impossibile caricare la cronologia",

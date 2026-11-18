@@ -600,7 +600,9 @@
         "interval": "Save every (minutes)",
         "intervalDesc": "Minimum time between snapshots. Your latest changes are still saved after every edit.",
         "limit": "Snapshots to keep",
-        "limitDesc": "How many snapshots to keep for each song. The oldest are deleted first."
+        "limitDesc": "How many snapshots to keep for each song. The oldest are deleted first.",
+        "restoreAutomatically": "Restore unsaved work automatically",
+        "restoreAutomaticallyDesc": "Skip the prompt on launch and reopen what you had when you last closed with unsaved changes."
       },
       "customBackground": "Custom background",
       "customBackgroundDesc": "Choose an image to use as the background.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Release to load"
+  },
+  "sessionRestore": {
+    "title": "Pick up where you left off?",
+    "note": "Your last autosaved lyrics are still here: {name}.",
+    "restore": "Restore",
+    "dismiss": "Start fresh",
+    "always": "Always restore automatically",
+    "audioNamed": "Your lyrics are back. Load {name} again to keep syncing.",
+    "audio": "Your lyrics are back. Load the audio again to keep syncing.",
+    "chooseAudio": "Choose audio",
+    "later": "Later",
+    "auto": "Restored your unsaved work from last time."
   },
   "historyRestoreDialog": {
     "loadError": "Failed to load history",

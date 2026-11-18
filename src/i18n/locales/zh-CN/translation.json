@@ -600,7 +600,9 @@
         "interval": "保存间隔（分钟）",
         "intervalDesc": "两次快照之间的最短间隔。最新的修改仍会在每次编辑后保存。",
         "limit": "保留快照数量",
-        "limitDesc": "每首歌保留的快照数量。超出时会先删除最早的快照。"
+        "limitDesc": "每首歌保留的快照数量。超出时会先删除最早的快照。",
+        "restoreAutomatically": "自动恢复未保存的工作",
+        "restoreAutomaticallyDesc": "启动时跳过提示，直接重新打开上次带着未保存更改关闭时的内容。"
       },
       "customBackground": "自定义背景",
       "customBackgroundDesc": "选择一张图片作为背景。",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "松开以加载"
+  },
+  "sessionRestore": {
+    "title": "从上次中断的地方继续？",
+    "note": "上次自动保存的歌词仍然保留：{name}。",
+    "restore": "恢复",
+    "dismiss": "重新开始",
+    "always": "始终自动恢复",
+    "audioNamed": "歌词已恢复。请重新加载 {name} 以继续同步。",
+    "audio": "歌词已恢复。请重新加载音频以继续同步。",
+    "chooseAudio": "选择音频",
+    "later": "稍后",
+    "auto": "已恢复上次未保存的工作。"
   },
   "historyRestoreDialog": {
     "loadError": "加载历史记录失败",

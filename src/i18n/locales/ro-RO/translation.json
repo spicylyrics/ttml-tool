@@ -600,7 +600,9 @@
         "interval": "Salvează la fiecare (minute)",
         "intervalDesc": "Timpul minim între versiuni. Ultimele modificări sunt salvate oricum după fiecare editare.",
         "limit": "Versiuni de păstrat",
-        "limitDesc": "Câte versiuni se păstrează pentru fiecare melodie. Cele mai vechi se șterg primele."
+        "limitDesc": "Câte versiuni se păstrează pentru fiecare melodie. Cele mai vechi se șterg primele.",
+        "restoreAutomatically": "Restaurează automat munca nesalvată",
+        "restoreAutomaticallyDesc": "Sari peste întrebare la pornire și redeschide ce aveai la ultima închidere cu modificări nesalvate."
       },
       "customBackground": "Imagine de fundal personalizată",
       "customBackgroundDesc": "Alege o imagine pentru a fi folosită ca fundal.",
@@ -1607,6 +1609,18 @@
   },
   "globalDragOverlay": {
     "title": "Eliberează pentru a încărca"
+  },
+  "sessionRestore": {
+    "title": "Continui de unde ai rămas?",
+    "note": "Ultimele versuri salvate automat sunt încă aici: {name}.",
+    "restore": "Restaurează",
+    "dismiss": "Începe de la zero",
+    "always": "Restaurează mereu automat",
+    "audioNamed": "Versurile tale sunt înapoi. Încarcă din nou {name} ca să continui sincronizarea.",
+    "audio": "Versurile tale sunt înapoi. Încarcă din nou audio ca să continui sincronizarea.",
+    "chooseAudio": "Alege audio",
+    "later": "Mai târziu",
+    "auto": "Munca nesalvată de data trecută a fost restaurată."
   },
   "historyRestoreDialog": {
     "loadError": "Nu s-a putut încărca istoricul",

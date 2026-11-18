@@ -8,6 +8,7 @@ import {
 	autosaveEnabledAtom,
 	autosaveIntervalAtom,
 	autosaveLimitAtom,
+	restoreSessionAutomaticallyAtom,
 	compactBGInSyncAtom,
 	folderProjectsAutosaveAtom,
 	folderProjectsEnabledAtom,
@@ -38,6 +39,9 @@ export function useCommonSettings() {
 	const [autosaveEnabled, setAutosaveEnabled] = useAtom(autosaveEnabledAtom);
 	const [autosaveInterval, setAutosaveInterval] = useAtom(autosaveIntervalAtom);
 	const [autosaveLimit, setAutosaveLimit] = useAtom(autosaveLimitAtom);
+	const [restoreAutomatically, setRestoreAutomatically] = useAtom(
+		restoreSessionAutomaticallyAtom,
+	);
 	const [folderProjectsAutosave, setFolderProjectsAutosave] = useAtom(
 		folderProjectsAutosaveAtom,
 	);
@@ -90,6 +94,8 @@ export function useCommonSettings() {
 		setAutosaveInterval,
 		autosaveLimit,
 		setAutosaveLimit,
+		restoreAutomatically,
+		setRestoreAutomatically,
 		folderProjectsAutosave,
 		setFolderProjectsAutosave,
 		folderProjectsEnabled,
