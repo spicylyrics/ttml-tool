@@ -10,6 +10,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
+	checkVersion,
 	compileChangelog,
 	createRelease,
 	parseChangeNote,
@@ -188,6 +189,19 @@ describe("change note compilation", () => {
 		expect(() =>
 			createRelease([beta1, ...previous], [], "0.12.0", "X"),
 		).toThrow("beta of another version");
+	});
+	it("checks pending notes as the next beta while a beta cycle is open", () => {
+		expect(checkVersion(previous)).toBe("999.0.0");
+		expect(checkVersion([])).toBe("999.0.0");
+		const root = fixture();
+		const output = join(root, "src/data/changelog.json");
+		compileChangelog(root, { version: "0.11.0-1", summary: "Beta" });
+		writeFileSync(join(root, "changes/next.md"), note());
+		const before = readFileSync(output, "utf8");
+		const checked = compileChangelog(root, { check: true });
+		expect(checked.version).toBe("0.11.0-2");
+		expect(readFileSync(output, "utf8")).toBe(before);
+		expect(readdirSync(join(root, "changes"))).toContain("next.md");
 	});
 	it("drops the folded betas from the changelog file", () => {
 		const root = fixture();

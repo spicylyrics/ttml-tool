@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Menține redarea și centrează versul activ când treci între Editare, Sincronizare și Previzualizare.",
       "volume": "Volumul muzicii",
       "playbackRate": "Viteză de redare",
+      "scrubAudio": "Auzi sunetul când tragi",
+      "scrubAudioDesc": "Redă melodia de sub capul de redare în timp ce îl tragi în bara audio sau în spectrogramă. Urmează Păstrează înălțimea sunetului.",
       "autosave": {
         "enable": "Activează salvarea automată",
         "enableDesc": "Salvează versurile la câteva secunde după fiecare modificare și păstrează versiuni pe care le poți restaura din meniul Fișier.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "Această copie nu se poate actualiza singură. Descarcă versiunea nouă pentru sistemul tău de pe pagina versiunii.",
       "openDownloadPage": "Deschide pagina de descărcare",
       "aurUpdateHint": "Această copie a fost compilată din AUR, așa că actualizeaz-o cu asistentul tău AUR.",
+      "readOnlyUpdateHint": "macOS rulează această copie dintr-o locație doar pentru citire, cum ar fi imaginea de disc, așa că nu se poate actualiza singură. În Finder, mută aplicația în dosarul Aplicații și deschide-o de acolo.",
+      "installFailed": "Actualizarea nu a putut fi instalată. Încearcă din nou sau descarc-o de pe pagina versiunii.",
+      "retryUpdate": "Încearcă din nou",
       "websiteUpdate": "Actualizare site",
       "websiteUpdateDescription": "Reîncarcă site-ul pentru a obține ultima versiune.",
       "forceRefresh": "Forțează reîncărcarea",
@@ -703,6 +708,9 @@
       "theme": "Tema",
       "useCustomAccent": "Culoare personalizată de accent",
       "useCustomAccentDesc": "Alege propria culoare de accent.",
+      "useSystemAccent": "Urmează culoarea de accent a sistemului",
+      "useSystemAccentDesc": "Folosește culoarea de accent din setările sistemului și se schimbă odată cu ea. O culoare de accent personalizată are în continuare prioritate.",
+      "systemAccentActive": "Din setările sistemului",
       "glass": "Efect de sticlă",
       "glassBlur": "Intensitatea efectului de sticlă",
       "glassBlurDesc": "Reglează estomparea fundalului elementelor cu efect de sticlă.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Sincronizare - Treci la primul cuvânt și redă",
       "moveLastWordAndPlay": "Sincronizare - Treci la ultimul cuvânt și redă",
       "playPause": "Redare - Redare/pauză",
-      "seekForward": "Redare - Avansează 5 s",
-      "seekBackward": "Redare - Revino cu 5 s",
+      "seekForward": "Redare - Avansează",
+      "seekBackward": "Redare - Derulează înapoi",
       "volumeUp": "Redare - Mărește volumul",
       "volumeDown": "Redare - Redu volumul",
       "playbackRateUp": "Redare - Mărește viteza",
       "playbackRateDown": "Redare - Redu viteza",
       "playbackRateReset": "Redare - Resetează viteza",
       "duplicatePaste": "Editare - Duplică la cursorul de redare",
-      "auditionSelectionBefore": "Spectrogramă - Redă selecția (+0,5 s înainte)",
-      "auditionSelection": "Spectrogramă - Redă selecția",
-      "auditionSelectionAfter": "Spectrogramă - Redă selecția (+0,5 s după)",
+      "auditionSelectionBefore": "Redă selecția (+0,5 s înainte)",
+      "auditionSelection": "Redă selecția",
+      "auditionSelectionAfter": "Redă selecția (+0,5 s după)",
       "cancelTimelineEditing": "Spectrogramă - Anulează editarea cronologiei",
       "exportTtml": "Exportă versuri: TTML",
       "exportLrc": "Exportă versuri: LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "Tasta aceasta este deja setată pentru această acțiune.",
     "doublePress": "Apasă de două ori pentru a rula",
     "doublePressDesc": "Rulează doar când apeși tasta de două ori rapid.",
+    "seekStep": "Salt de",
+    "seekStepDesc": "Cât de departe sare fiecare apăsare. Ține tasta apăsată pentru a continua.",
+    "seekStepUnit": "s",
     "otherLayers": "Tot pe această tastă",
     "closePanel": "Închide"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "Niciun rezultat găsit. Încearcă cuvinte cheie diferite.",
     "noResult": "Introdu un nume de melodie sau un artist pentru a începe.",
     "howToGetKey": "Cum obții un token de acces Genius",
-    "changeKey": "Schimbă tokenul de acces"
+    "changeKey": "Schimbă tokenul de acces",
+    "lyricsBlocked": "Genius a blocat această cerere de versuri, probabil printr-o verificare Cloudflare. Încearcă din nou peste câteva momente sau copiază versurile de pe pagina piesei.",
+    "openOnGenius": "Deschide pe Genius"
   },
   "textImportDialog": {
     "processLyrics": "Procesează versurile",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Folosește prefixe de vers",
     "bgLyricPrefix": "Prefixul versurilor de fundal",
     "duetLyricPrefix": "Prefixul versurilor de duet"
+  },
+  "joinedBackground": {
+    "title": "Verifică ad-liburile unite",
+    "description": "{count, plural, one {# vers avea ad-liburi între cuvinte.} few {# versuri aveau ad-liburi între cuvinte.} other {# de versuri aveau ad-liburi între cuvinte.}} Au fost unite într-un singur vers de fundal, iar fiecare parte de după prima e scrisă cu literă mică. Corectează numele, majusculele și virgulele în plus. Parantezele de la final devin versul de fundal.",
+    "keep": "Păstrează varianta procesată",
+    "apply": "Aplică modificările"
   },
   "sectionImportReview": {
     "title": "Verifică secțiunile detectate",
@@ -1834,7 +1853,18 @@
     "settings": "Setările spectrogramei",
     "fftSize": "Dimensiune FFT",
     "resolution": "Rezoluție FFT",
-    "height": "Înălțimea afișajului"
+    "height": "Înălțimea afișajului",
+    "frequencyScale": "Scară de frecvență",
+    "scale": {
+      "linear": "Liniară",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Frecvența maximă",
+    "top": {
+      "full": "Completă",
+      "voice": "Voce"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Urmărește cursorul de redare",

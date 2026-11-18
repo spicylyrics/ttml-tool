@@ -30,6 +30,8 @@ function setup() {
 		zoom: 200,
 		scrollLeft: 0,
 		fftSize: 1024,
+		frequencyScale: "linear" as const,
+		topFrequency: "full" as const,
 		setVisibleTiles,
 	};
 	return {
@@ -72,6 +74,7 @@ describe("spectrogram tile preparation", () => {
 			gain: 2,
 			paletteId: "test",
 			fftSize: 1024,
+			frequencyScale: "linear",
 		});
 		updateVisibleSpectrogramTiles(context);
 		expect(getTiles()).not.toBe(initial);
@@ -85,6 +88,7 @@ describe("spectrogram tile preparation", () => {
 			gain: 2,
 			paletteId: "test",
 			fftSize: 1024,
+			frequencyScale: "linear",
 		});
 		updateVisibleSpectrogramTiles(context);
 		expect(getTiles()).not.toBe(loaded);
@@ -127,6 +131,8 @@ describe("spectrogram tile preparation", () => {
 			tileWidthPx: 1024,
 			paletteId: "test",
 			fftSize: 1024,
+			frequencyScale: "linear",
+			topFrequency: "full",
 		});
 		expect(getTiles().map((tile) => [tile.left, tile.width])).toEqual([
 			[0, 1000],

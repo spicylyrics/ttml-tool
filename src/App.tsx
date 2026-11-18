@@ -97,6 +97,12 @@ import {
 	useCustomAccentAtom,
 	useCustomGradientAtom,
 } from "$/modules/settings/states/index.ts";
+import {
+	resolveAccentOverride,
+	systemAccentAtom,
+	useSystemAccentAtom,
+	useSystemAccentWatcher,
+} from "$/modules/settings/system-accent";
 import { lazy } from "$/utils/lazy.ts";
 import styles from "./App.module.css";
 import { BringDataFromStableOffer } from "./components/BringDataFromStable";
@@ -242,6 +248,9 @@ function App() {
 	const accentColor = useAtomValue(accentColorAtom);
 	const useCustomAccent = useAtomValue(useCustomAccentAtom);
 	const customAccentColor = useAtomValue(customAccentColorAtom);
+	const useSystemAccent = useAtomValue(useSystemAccentAtom);
+	const systemAccent = useAtomValue(systemAccentAtom);
+	useSystemAccentWatcher();
 
 	const useCustomGradient = useAtomValue(useCustomGradientAtom);
 	const customGradientColors = useAtomValue(customGradientColorsAtom);
@@ -316,6 +325,13 @@ function App() {
 	const [hasBackground, setHasBackground] = useState(false);
 	// The Spicy Lyrics design is dark-only; the OS theme applies with it off.
 	const effectiveTheme = spicyLyricsDesign || isDarkTheme ? "dark" : "light";
+	const accentOverride = resolveAccentOverride({
+		useCustomAccent,
+		customAccentColor,
+		useSystemAccent,
+		systemAccent,
+		dark: effectiveTheme === "dark",
+	});
 
 	// On <html> rather than the Theme root, so Radix's portalled menus and
 	// dialogs pick the design up too.
@@ -328,11 +344,11 @@ function App() {
 			return;
 		}
 		root.design = "spicy-lyrics";
-		if (useCustomAccent) delete root.designAccent;
+		if (accentOverride) delete root.designAccent;
 		else root.designAccent = "brand";
 		if (hasBackground) root.designBackdrop = "";
 		else delete root.designBackdrop;
-	}, [spicyLyricsDesign, useCustomAccent, hasBackground]);
+	}, [spicyLyricsDesign, accentOverride, hasBackground]);
 
 	// Read by src/styles/lite-effects.css, with the design on or off.
 	useLayoutEffect(() => {
@@ -341,8 +357,8 @@ function App() {
 		else delete root.effects;
 	}, [liteEffects]);
 
-	const customThemeStyles = useCustomAccent
-		? generateRadixScale(customAccentColor, effectiveTheme === "dark")
+	const customThemeStyles = accentOverride
+		? generateRadixScale(accentOverride, effectiveTheme === "dark")
 		: null;
 	const uiFont =
 		spicyLyricsDesign && appFont === DEFAULT_APP_FONT

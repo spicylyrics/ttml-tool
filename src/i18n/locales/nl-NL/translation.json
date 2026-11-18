@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Laat de muziek doorspelen en houdt de actieve regel in het midden wanneer je wisselt tussen Bewerken, Timing en Voorbeeld.",
       "volume": "Muziekvolume",
       "playbackRate": "Afspeelsnelheid",
+      "scrubAudio": "Audio horen tijdens slepen",
+      "scrubAudioDesc": "Speelt het nummer onder de afspeelkop af terwijl je die versleept in de audiobalk of het spectrogram. Volgt Toonhoogte behouden.",
       "autosave": {
         "enable": "Automatisch opslaan inschakelen",
         "enableDesc": "Slaat je songtekst een paar seconden na elke wijziging op en bewaart momentopnamen die je via het menu Bestand kunt herstellen.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "Deze kopie kan zichzelf niet bijwerken. Download de nieuwe versie voor je systeem van de releasepagina.",
       "openDownloadPage": "Downloadpagina openen",
       "aurUpdateHint": "Deze kopie is gebouwd vanuit de AUR, dus werk hem bij met je AUR-helper.",
+      "readOnlyUpdateHint": "macOS draait deze kopie vanaf een alleen-lezen plek, zoals de schijfkopie, dus hij kan zichzelf niet bijwerken. Verplaats de app in de Finder naar de map Apps en open hem van daaruit.",
+      "installFailed": "De update kon niet worden geïnstalleerd. Probeer het opnieuw of download hem van de releasepagina.",
+      "retryUpdate": "Opnieuw proberen",
       "websiteUpdate": "Website-update",
       "websiteUpdateDescription": "Laad de website opnieuw om de nieuwste versie te krijgen.",
       "forceRefresh": "Forceer vernieuwing",
@@ -703,6 +708,9 @@
       "theme": "Thema",
       "useCustomAccent": "Aangepaste accentkleur",
       "useCustomAccentDesc": "Kies je eigen accentkleur.",
+      "useSystemAccent": "Systeemaccentkleur volgen",
+      "useSystemAccentDesc": "Gebruik de accentkleur uit je systeeminstellingen en verander mee. Een eigen accentkleur gaat nog steeds voor.",
+      "systemAccentActive": "Uit je systeeminstellingen",
       "glass": "Glaseffect",
       "glassBlur": "Sterkte glaseffect",
       "glassBlurDesc": "Pas de achtergrondvervaging van glaselementen aan.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Timing - Naar eerste woord en afspelen",
       "moveLastWordAndPlay": "Timing - Naar laatste woord en afspelen",
       "playPause": "Afspelen - Afspelen/pauzeren",
-      "seekForward": "Afspelen - 5 s vooruit",
-      "seekBackward": "Afspelen - 5 s achteruit",
+      "seekForward": "Afspelen - Vooruit",
+      "seekBackward": "Afspelen - Achteruit",
       "volumeUp": "Afspelen - Volume omhoog",
       "volumeDown": "Afspelen - Volume omlaag",
       "playbackRateUp": "Afspelen - Snelheid verhogen",
       "playbackRateDown": "Afspelen - Snelheid verlagen",
       "playbackRateReset": "Afspelen - Snelheid herstellen",
       "duplicatePaste": "Bewerken - Dupliceren bij afspeelkop",
-      "auditionSelectionBefore": "Spectrogram - Selectie afspelen (+0,5 s ervoor)",
-      "auditionSelection": "Spectrogram - Selectie afspelen",
-      "auditionSelectionAfter": "Spectrogram - Selectie afspelen (+0,5 s erna)",
+      "auditionSelectionBefore": "Selectie afspelen (+0,5 s ervoor)",
+      "auditionSelection": "Selectie afspelen",
+      "auditionSelectionAfter": "Selectie afspelen (+0,5 s erna)",
       "cancelTimelineEditing": "Spectrogram - Tijdlijnbewerking annuleren",
       "exportTtml": "Songtekst exporteren: TTML",
       "exportLrc": "Songtekst exporteren: LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "Die toets is al ingesteld voor deze actie.",
     "doublePress": "Twee keer drukken om uit te voeren",
     "doublePressDesc": "Wordt alleen uitgevoerd als je de toets twee keer snel indrukt.",
+    "seekStep": "Springen met",
+    "seekStepDesc": "Hoe ver elke druk springt. Houd de toets ingedrukt om door te gaan.",
+    "seekStepUnit": "s",
     "otherLayers": "Ook op deze toets",
     "closePanel": "Sluiten"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "Geen resultaten gevonden. Probeer andere trefwoorden.",
     "noResult": "Voer de naam van het nummer of de artiest in om te starten.",
     "howToGetKey": "Een Genius-toegangstoken verkrijgen",
-    "changeKey": "Toegangstoken wijzigen"
+    "changeKey": "Toegangstoken wijzigen",
+    "lyricsBlocked": "Genius heeft dit songtekstverzoek geblokkeerd, waarschijnlijk door een Cloudflare-controle. Probeer het zo opnieuw of kopieer de songtekst van de nummerpagina.",
+    "openOnGenius": "Openen op Genius"
   },
   "textImportDialog": {
     "processLyrics": "Songteksten verwerken",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Regelvoorvoegsels gebruiken",
     "bgLyricPrefix": "Voorvoegsel achtergrondregel",
     "duetLyricPrefix": "Voorvoegsel duetregel"
+  },
+  "joinedBackground": {
+    "title": "Samengevoegde ad-libs controleren",
+    "description": "{count, plural, one {# regel had ad-libs tussen de woorden.} other {# regels hadden ad-libs tussen de woorden.}} Ze zijn samengevoegd tot één achtergrondregel, met elk deel na het eerste in kleine letters. Verbeter namen, hoofdletters en overbodige komma's. Haakjes aan het eind worden de achtergrondregel.",
+    "keep": "Laten zoals verwerkt",
+    "apply": "Wijzigingen toepassen"
   },
   "sectionImportReview": {
     "title": "Controleer gedetecteerde secties",
@@ -1834,7 +1853,18 @@
     "settings": "Spectrogram-instellingen",
     "fftSize": "FFT-grootte",
     "resolution": "FFT-resolutie",
-    "height": "Weergavehoogte"
+    "height": "Weergavehoogte",
+    "frequencyScale": "Frequentieschaal",
+    "scale": {
+      "linear": "Lineair",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Hoogste frequentie",
+    "top": {
+      "full": "Volledig",
+      "voice": "Stem"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Afspeelkop volgen",

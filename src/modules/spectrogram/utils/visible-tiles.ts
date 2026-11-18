@@ -1,9 +1,12 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { useSpectrogramWorker } from "$/modules/spectrogram/hooks/useSpectrogramWorker.ts";
 import type { TileComponentProps } from "../components/TileComponent.tsx";
+import type { FrequencyScale, TopFrequency } from "./frequency-scale";
 
 const TILE_DURATION_S = 5;
-const LOD_WIDTHS = [512, 1024, 2048, 4096, 8192];
+// The small sizes serve a zoomed-out view, where a whole song's tiles show
+// at once and each covers only a few dozen pixels.
+const LOD_WIDTHS = [128, 256, 512, 1024, 2048, 4096, 8192];
 
 export function updateVisibleSpectrogramTiles({
 	audioBuffer,
@@ -17,6 +20,8 @@ export function updateVisibleSpectrogramTiles({
 	zoom,
 	scrollLeft,
 	fftSize,
+	frequencyScale,
+	topFrequency,
 	setVisibleTiles,
 }: {
 	audioBuffer: AudioBuffer | null;
@@ -32,6 +37,8 @@ export function updateVisibleSpectrogramTiles({
 	zoom: number;
 	scrollLeft: number;
 	fftSize: number;
+	frequencyScale: FrequencyScale;
+	topFrequency: TopFrequency;
 	setVisibleTiles: Dispatch<SetStateAction<TileComponentProps[]>>;
 }) {
 	if (!audioBuffer || !scrollContainerRef.current || containerWidth <= 0) {
@@ -77,6 +84,8 @@ export function updateVisibleSpectrogramTiles({
 			tileWidthPx: targetLodWidth,
 			paletteId: currentPaletteId,
 			fftSize,
+			frequencyScale,
+			topFrequency,
 		});
 	}
 

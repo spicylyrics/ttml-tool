@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Zachová přehrávání a vycentruje aktivní řádek při přepínání mezi kartami Úpravy, Časování a Náhled.",
       "volume": "Hlasitost hudby",
       "playbackRate": "Rychlost přehrávání",
+      "scrubAudio": "Přehrávat zvuk při přetahování",
+      "scrubAudioDesc": "Při přetahování přehrávací hlavy v zvukové liště nebo spektrogramu přehrává skladbu pod ní. Řídí se volbou Zachovat výšku tónu.",
       "autosave": {
         "enable": "Povolit automatické ukládání",
         "enableDesc": "Uloží text pár sekund po každé změně a uchovává snímky, které obnovíte z nabídky Soubor.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "Tato kopie se nemůže aktualizovat sama. Stáhněte novou verzi pro svůj systém ze stránky vydání.",
       "openDownloadPage": "Otevřít stránku ke stažení",
       "aurUpdateHint": "Tato kopie byla sestavena z AUR, aktualizujte ji svým pomocníkem pro AUR.",
+      "readOnlyUpdateHint": "macOS spouští tuto kopii z místa jen pro čtení, například z obrazu disku, takže se nemůže sama aktualizovat. Ve Finderu přesuňte aplikaci do složky Aplikace a otevřete ji odtud.",
+      "installFailed": "Aktualizaci se nepodařilo nainstalovat. Zkuste to znovu nebo ji stáhněte ze stránky vydání.",
+      "retryUpdate": "Zkusit znovu",
       "websiteUpdate": "Aktualizace webu",
       "websiteUpdateDescription": "Znovu načtěte web a získejte nejnovější verzi.",
       "forceRefresh": "Vynutit obnovení",
@@ -703,6 +708,9 @@
       "theme": "Motiv",
       "useCustomAccent": "Vlastní barva zvýraznění",
       "useCustomAccentDesc": "Vyberte vlastní barvu zvýraznění.",
+      "useSystemAccent": "Řídit se systémovou barvou zvýraznění",
+      "useSystemAccentDesc": "Použije barvu zvýraznění z nastavení systému a změní se spolu s ní. Vlastní barva zvýraznění má stále přednost.",
+      "systemAccentActive": "Z nastavení systému",
       "glass": "Efekt skla",
       "glassBlur": "Intenzita efektu skla",
       "glassBlurDesc": "Upravte rozostření pozadí prvků s efektem skla.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Časování – přejít na první slovo a přehrát",
       "moveLastWordAndPlay": "Časování – přejít na poslední slovo a přehrát",
       "playPause": "Přehrávání – přehrát/pozastavit",
-      "seekForward": "Přehrávání – přetočit vpřed o 5 s",
-      "seekBackward": "Přehrávání – přetočit zpět o 5 s",
+      "seekForward": "Přehrávání – přetočit vpřed",
+      "seekBackward": "Přehrávání – přetočit zpět",
       "volumeUp": "Přehrávání – zvýšit hlasitost",
       "volumeDown": "Přehrávání – snížit hlasitost",
       "playbackRateUp": "Přehrávání – zvýšit rychlost",
       "playbackRateDown": "Přehrávání – snížit rychlost",
       "playbackRateReset": "Přehrávání – obnovit rychlost",
       "duplicatePaste": "Úpravy – duplikovat na pozici přehrávání",
-      "auditionSelectionBefore": "Spektrogram – přehrát výběr (+0,5 s před)",
-      "auditionSelection": "Spektrogram – přehrát výběr",
-      "auditionSelectionAfter": "Spektrogram – přehrát výběr (+0,5 s po)",
+      "auditionSelectionBefore": "Přehrát výběr (+0,5 s před)",
+      "auditionSelection": "Přehrát výběr",
+      "auditionSelectionAfter": "Přehrát výběr (+0,5 s po)",
       "cancelTimelineEditing": "Spektrogram – zrušit úpravu časové osy",
       "exportTtml": "Exportovat text písně: TTML",
       "exportLrc": "Exportovat text písně: LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "Tato klávesa je už pro tuto akci nastavena.",
     "doublePress": "Spustit dvojím stiskem",
     "doublePressDesc": "Spustí se jen po dvojím rychlém stisku klávesy.",
+    "seekStep": "Přetáčet o",
+    "seekStepDesc": "Jak daleko skočí jedno stisknutí. Podržením klávesy přetáčíte dál.",
+    "seekStepUnit": "s",
     "otherLayers": "Také na této klávese",
     "closePanel": "Zavřít"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "Nebyly nalezeny žádné výsledky. Zkuste jiná klíčová slova.",
     "noResult": "Začněte zadáním názvu skladby nebo interpreta.",
     "howToGetKey": "Jak získat přístupový token Genius",
-    "changeKey": "Změnit přístupový token"
+    "changeKey": "Změnit přístupový token",
+    "lyricsBlocked": "Genius zablokoval tento požadavek na text, pravděpodobně kontrolou Cloudflare. Zkuste to za chvíli znovu nebo zkopírujte text ze stránky skladby.",
+    "openOnGenius": "Otevřít na Genius"
   },
   "textImportDialog": {
     "processLyrics": "Zpracovat text",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Použít předpony řádků",
     "bgLyricPrefix": "Předpona doprovodného řádku",
     "duetLyricPrefix": "Předpona duetového řádku"
+  },
+  "joinedBackground": {
+    "title": "Zkontrolujte spojené ad-liby",
+    "description": "{count, plural, one {# řádek měl ad-liby mezi slovy.} few {# řádky měly ad-liby mezi slovy.} many {# řádku mělo ad-liby mezi slovy.} other {# řádků mělo ad-liby mezi slovy.}} Byly spojeny do jednoho řádku v pozadí a každá část po první začíná malým písmenem. Opravte jména, velká písmena a nadbytečné čárky. Závorky na konci se stanou řádkem v pozadí.",
+    "keep": "Ponechat zpracované",
+    "apply": "Použít úpravy"
   },
   "sectionImportReview": {
     "title": "Kontrola nalezených sekcí",
@@ -1834,7 +1853,18 @@
     "settings": "Nastavení spektrogramu",
     "fftSize": "Velikost FFT",
     "resolution": "Rozlišení FFT",
-    "height": "Výška zobrazení"
+    "height": "Výška zobrazení",
+    "frequencyScale": "Frekvenční osa",
+    "scale": {
+      "linear": "Lineární",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Horní frekvence",
+    "top": {
+      "full": "Plná",
+      "voice": "Hlas"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Sledovat přehrávací hlavu",

@@ -59,6 +59,10 @@ import {
 	useCustomAccentAtom,
 	useCustomGradientAtom,
 } from "$/modules/settings/states/index.ts";
+import {
+	systemAccentAtom,
+	useSystemAccentAtom,
+} from "$/modules/settings/system-accent";
 import { fontSelectionDialogAtom } from "$/states/dialogs.ts";
 import { isDarkThemeAtom } from "$/states/main.ts";
 import { generateRadixScale } from "$/utils/colorScale";
@@ -76,6 +80,8 @@ export function useAppearanceSettings() {
 	const [customAccentColor, setCustomAccentColor] = useAtom(
 		customAccentColorAtom,
 	);
+	const [useSystemAccent, setUseSystemAccent] = useAtom(useSystemAccentAtom);
+	const systemAccent = useAtomValue(systemAccentAtom);
 	const [spicyLyricsDesign, setSpicyLyricsDesign] = useAtom(
 		spicyLyricsDesignAtom,
 	);
@@ -196,6 +202,9 @@ export function useAppearanceSettings() {
 		setUseCustomAccent,
 		customAccentColor,
 		setCustomAccentColor,
+		useSystemAccent,
+		setUseSystemAccent,
+		systemAccent,
 		isDarkTheme,
 		customScale,
 		backgroundMode,

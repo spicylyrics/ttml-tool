@@ -29,8 +29,7 @@ const NAVIGATION_IDS = new Set([
 export function viewCategoryOf(command: KeyBindingCommand): ViewCategory {
 	if (command.id.startsWith("move") || NAVIGATION_IDS.has(command.id))
 		return "navigation";
-	if (command.category === "Audio" || command.id.startsWith("audition"))
-		return "playback";
+	if (command.category === "Audio") return "playback";
 	if (command.category === "Sync") return "sync";
 	return "edit";
 }

@@ -1,3 +1,7 @@
+import {
+	FREQUENCY_SCALE_CODES,
+	TOP_FREQUENCY_LIMITS,
+} from "$/modules/spectrogram/utils/frequency-scale";
 import initThreaded, {
 	generate_spectrogram_image as generateThreadedSpectrogramImage,
 	initThreadPool,
@@ -79,6 +83,8 @@ ctx.onmessage = async (event) => {
 			}
 
 			const { startTime, endTime, gain, tileWidthPx, height, fftSize } = params;
+			const scale = params.frequencyScale ?? "linear";
+			const maxFrequency = TOP_FREQUENCY_LIMITS[params.topFrequency ?? "full"];
 
 			const startSample = Math.floor(startTime * audioSampleRate);
 			const endSample = Math.ceil(endTime * audioSampleRate);
@@ -100,36 +106,28 @@ ctx.onmessage = async (event) => {
 			const HOP_LENGTH = 64;
 
 			try {
+				// The renderer maps rows to the scale itself, interpolating loudness
+				// before the palette, so stretched low bins don't turn into rings.
+				const Config = useSerialRenderer
+					? SerialSpectrogramConfig
+					: ThreadedSpectrogramConfig;
+				const generate = useSerialRenderer
+					? generateSerialSpectrogramImage
+					: generateThreadedSpectrogramImage;
+				const config = new Config(
+					audioSampleRate,
+					FFT_SIZE,
+					HOP_LENGTH,
+					tileWidthPx,
+					height,
+					gain,
+					FREQUENCY_SCALE_CODES[scale],
+					maxFrequency,
+				);
 				let pixelData: Uint8Array;
-				if (useSerialRenderer) {
-					const config = new SerialSpectrogramConfig(
-						audioSampleRate,
-						FFT_SIZE,
-						HOP_LENGTH,
-						tileWidthPx,
-						height,
-						gain,
-					);
-					pixelData = generateSerialSpectrogramImage(
-						audioSlice,
-						currentPalette,
-						config,
-					);
-					config.free();
-				} else {
-					const config = new ThreadedSpectrogramConfig(
-						audioSampleRate,
-						FFT_SIZE,
-						HOP_LENGTH,
-						tileWidthPx,
-						height,
-						gain,
-					);
-					pixelData = generateThreadedSpectrogramImage(
-						audioSlice,
-						currentPalette,
-						config,
-					);
+				try {
+					pixelData = generate(audioSlice, currentPalette, config);
+				} finally {
 					config.free();
 				}
 

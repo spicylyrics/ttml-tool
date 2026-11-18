@@ -462,8 +462,10 @@ jobs:
 
   submit-winget:
     name: Submit Winget manifest
-    # Winget only gets stable releases.
-    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
+    # Winget only gets stable releases. finalize-release waits on the beta .rpm
+    # repack, which stable skips, and a skipped job upstream skips this one too
+    # unless the condition checks the result itself.
+    if: ${{ !cancelled() && needs.finalize-release.result == 'success' && startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-') }}
     needs: finalize-release
     runs-on: ubuntu-latest
     steps:

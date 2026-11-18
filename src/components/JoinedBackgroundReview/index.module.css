@@ -1,0 +1,40 @@
+.scroll {
+	max-height: min(60vh, 520px);
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	padding: var(--space-3);
+	border-radius: var(--radius-4);
+	background: var(--gray-a2);
+}
+
+.source {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	min-width: 0;
+}
+
+.number {
+	flex: none;
+	min-width: 2ch;
+	font-variant-numeric: tabular-nums;
+	text-align: end;
+}
+
+.sourceText {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}

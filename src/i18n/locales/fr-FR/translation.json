@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Maintient la lecture et centre la ligne active quand vous passez entre Édition, Synchronisation et Aperçu.",
       "volume": "Volume de la musique",
       "playbackRate": "Vitesse de lecture",
+      "scrubAudio": "Entendre l'audio en faisant glisser",
+      "scrubAudioDesc": "Joue le morceau sous la tête de lecture pendant que vous la faites glisser dans la barre audio ou le spectrogramme. Suit Conserver la hauteur.",
       "autosave": {
         "enable": "Activer la sauvegarde automatique",
         "enableDesc": "Enregistre vos paroles quelques secondes après chaque modification et conserve des instantanés que vous pouvez restaurer depuis le menu Fichier.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "Cette copie ne peut pas se mettre à jour seule. Téléchargez la nouvelle version pour votre système depuis la page de la version.",
       "openDownloadPage": "Ouvrir la page de téléchargement",
       "aurUpdateHint": "Cette copie a été compilée depuis l'AUR, mettez-la à jour avec votre assistant AUR.",
+      "readOnlyUpdateHint": "macOS exécute cette copie depuis un emplacement en lecture seule, comme l'image disque, elle ne peut donc pas se mettre à jour. Dans le Finder, déplacez l'app dans le dossier Applications et ouvrez-la depuis là.",
+      "installFailed": "Impossible d'installer la mise à jour. Réessayez ou téléchargez-la depuis la page de la version.",
+      "retryUpdate": "Réessayer",
       "websiteUpdate": "Mise à jour du site Web",
       "websiteUpdateDescription": "Rechargez le site pour obtenir la dernière version.",
       "forceRefresh": "Forcer l'actualisation",
@@ -703,6 +708,9 @@
       "theme": "Thème",
       "useCustomAccent": "Couleur d'accent personnalisée",
       "useCustomAccentDesc": "Choisissez votre propre couleur d’accentuation.",
+      "useSystemAccent": "Suivre la couleur d’accentuation du système",
+      "useSystemAccentDesc": "Utilise la couleur d’accentuation des réglages du système et la suit quand elle change. Une couleur personnalisée reste prioritaire.",
+      "systemAccentActive": "Depuis les réglages du système",
       "glass": "Effet de verre",
       "glassBlur": "Intensité de l’effet de verre",
       "glassBlurDesc": "Règle le flou de l’arrière-plan des éléments à effet de verre.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Synchronisation - Aller au premier mot et lire",
       "moveLastWordAndPlay": "Synchronisation - Aller au dernier mot et lire",
       "playPause": "Lecture - Lecture/Pause",
-      "seekForward": "Lecture - Avancer de 5s",
-      "seekBackward": "Lecture - Reculer de 5s",
+      "seekForward": "Lecture - Avancer",
+      "seekBackward": "Lecture - Reculer",
       "volumeUp": "Lecture - Augmenter le volume",
       "volumeDown": "Lecture - Diminuer le volume",
       "playbackRateUp": "Lecture - Augmenter la vitesse",
       "playbackRateDown": "Lecture - Diminuer la vitesse",
       "playbackRateReset": "Lecture - Réinitialiser la vitesse",
       "duplicatePaste": "Édition - Dupliquer à la tête de lecture",
-      "auditionSelectionBefore": "Spectrogramme - Lire la sélection (+0,5 s avant)",
-      "auditionSelection": "Spectrogramme - Lire la sélection",
-      "auditionSelectionAfter": "Spectrogramme - Lire la sélection (+0,5 s après)",
+      "auditionSelectionBefore": "Lire la sélection (+0,5 s avant)",
+      "auditionSelection": "Lire la sélection",
+      "auditionSelectionAfter": "Lire la sélection (+0,5 s après)",
       "cancelTimelineEditing": "Spectrogramme - Annuler la modification de la chronologie",
       "exportTtml": "Exporter les paroles : TTML",
       "exportLrc": "Exporter les paroles : LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "Cette touche est déjà définie pour cette action.",
     "doublePress": "Appuyer deux fois pour lancer",
     "doublePressDesc": "Ne se lance qu’après deux appuis rapides sur sa touche.",
+    "seekStep": "Saut de",
+    "seekStepDesc": "Distance de chaque appui. Maintenez la touche pour continuer.",
+    "seekStepUnit": "s",
     "otherLayers": "Aussi sur cette touche",
     "closePanel": "Fermer"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "Aucun résultat trouvé. Essayez différents mots-clés.",
     "noResult": "Entrez un nom de chanson ou un artiste pour commencer.",
     "howToGetKey": "Comment obtenir un jeton d’accès Genius",
-    "changeKey": "Changer le jeton d’accès"
+    "changeKey": "Changer le jeton d’accès",
+    "lyricsBlocked": "Genius a bloqué cette demande de paroles, probablement à cause d’une vérification Cloudflare. Réessayez dans un instant ou copiez les paroles depuis la page du titre.",
+    "openOnGenius": "Ouvrir sur Genius"
   },
   "textImportDialog": {
     "processLyrics": "Préparer les paroles",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Utiliser des préfixes de ligne",
     "bgLyricPrefix": "Préfixe des lignes de chœurs",
     "duetLyricPrefix": "Préfixe des lignes de duo"
+  },
+  "joinedBackground": {
+    "title": "Vérifier les ad-libs regroupés",
+    "description": "{count, plural, one {# ligne avait des ad-libs entre ses mots.} many {# lignes avaient des ad-libs entre leurs mots.} other {# lignes avaient des ad-libs entre leurs mots.}} Ils ont été regroupés en une seule ligne de fond, chaque partie après la première en minuscule. Corrigez les noms, les majuscules et les virgules en trop. Les parenthèses à la fin deviennent la ligne de fond.",
+    "keep": "Garder tel quel",
+    "apply": "Appliquer les modifications"
   },
   "sectionImportReview": {
     "title": "Examiner les sections détectées",
@@ -1834,7 +1853,18 @@
     "settings": "Paramètres du spectrogramme",
     "fftSize": "Taille FFT",
     "resolution": "Résolution FFT",
-    "height": "Hauteur d'affichage"
+    "height": "Hauteur d'affichage",
+    "frequencyScale": "Échelle de fréquence",
+    "scale": {
+      "linear": "Linéaire",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Fréquence maximale",
+    "top": {
+      "full": "Complète",
+      "voice": "Voix"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Suivre la tête de lecture",

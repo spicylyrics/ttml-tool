@@ -26,6 +26,7 @@ import { shortcutSearchAtom, shortcutShowAllAtom } from "../states";
 import type { KeyBindingCommand } from "../types";
 import { matchShortcutSearch } from "../view/key-index";
 import { COMMAND_CATEGORY_ICONS } from "./command-category-icons";
+import { SEEK_COMMANDS, SeekStepField } from "./SeekStepField";
 import styles from "./SettingsPanel.module.css";
 
 const KeyBindingsEdit = ({
@@ -247,6 +248,14 @@ export const AutoKeyBindingSettingsPanel = () => {
 								conflicts={conflicts.get(cmd.id)}
 							/>
 						))}
+						{/* The seek length sits with the seek shortcuts it changes. */}
+						{cmds.some((cmd) => SEEK_COMMANDS.has(cmd.id)) && (
+							<Box className={styles.row}>
+								<Box flexGrow="1">
+									<SeekStepField />
+								</Box>
+							</Box>
+						)}
 					</div>
 				</details>
 			))}

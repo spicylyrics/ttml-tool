@@ -9,9 +9,25 @@ export interface VoiceState {
 	preservesPitch: boolean;
 }
 
+export interface ScrubState {
+	active: boolean;
+	frame: number;
+	preservesPitch: boolean;
+	/** performance.now() when the pointer was there, to measure its speed. */
+	time: number;
+}
+
+/** The decoded song in shared memory, so the worklet can scrub it directly. */
+export interface ScrubSource {
+	channels: Float32Array[];
+	sampleRate: number;
+	signalsmithWasm: ArrayBuffer;
+}
+
 export type PlayerCommand =
-	| { type: "init"; port: MessagePort }
+	| { type: "init"; port: MessagePort; scrub: ScrubSource | null }
 	| { type: "voice"; voice: VoiceId; state: VoiceState }
+	| { type: "scrub"; state: ScrubState }
 	| { type: "destroy" };
 
 export interface RenderReport {

@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Fortsætter afspilningen og centrerer den aktive linje, når du skifter mellem Redigering, Timing og Forhåndsvisning.",
       "volume": "Musiklydstyrke",
       "playbackRate": "Afspilningshastighed",
+      "scrubAudio": "Hør lyd mens du trækker",
+      "scrubAudioDesc": "Afspiller sangen under afspilningshovedet, mens du trækker det i lydlinjen eller spektrogrammet. Følger Bevar tonehøjde.",
       "autosave": {
         "enable": "Aktiver automatisk lagring",
         "enableDesc": "Gemmer dine sangtekster et par sekunder efter hver ændring og beholder øjebliksbilleder, du kan gendanne fra menuen Filer.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "Denne kopi kan ikke opdatere sig selv. Hent den nye version til dit system fra udgivelsessiden.",
       "openDownloadPage": "Åbn downloadsiden",
       "aurUpdateHint": "Denne kopi er bygget fra AUR, så opdater den med din AUR-hjælper.",
+      "readOnlyUpdateHint": "macOS kører denne kopi fra et skrivebeskyttet sted, f.eks. diskbilledet, så den kan ikke opdatere sig selv. Flyt appen til mappen Programmer i Finder, og åbn den derfra.",
+      "installFailed": "Opdateringen kunne ikke installeres. Prøv igen, eller hent den fra udgivelsessiden.",
+      "retryUpdate": "Prøv igen",
       "websiteUpdate": "Hjemmesideopdatering",
       "websiteUpdateDescription": "Genindlæs webstedet for at få den nyeste version.",
       "forceRefresh": "Tving opdatering",
@@ -703,6 +708,9 @@
       "theme": "Tema",
       "useCustomAccent": "Brugerdefineret accentfarve",
       "useCustomAccentDesc": "Vælg din egen accentfarve.",
+      "useSystemAccent": "Følg systemets accentfarve",
+      "useSystemAccentDesc": "Brug accentfarven fra dine systemindstillinger, og skift med den. En brugerdefineret accentfarve har stadig forrang.",
+      "systemAccentActive": "Fra dine systemindstillinger",
       "glass": "Glaseffekt",
       "glassBlur": "Glaseffektens styrke",
       "glassBlurDesc": "Juster baggrundssløring for elementer med glaseffekt.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Timing - Flyt til første ord og afspil",
       "moveLastWordAndPlay": "Timing - Flyt til sidste ord og afspil",
       "playPause": "Afspilning - Afspil/pause",
-      "seekForward": "Afspilning - Spol 5 s frem",
-      "seekBackward": "Afspilning - Spol 5 s tilbage",
+      "seekForward": "Afspilning - Spol frem",
+      "seekBackward": "Afspilning - Spol tilbage",
       "volumeUp": "Afspilning - Skru op",
       "volumeDown": "Afspilning - Skru ned",
       "playbackRateUp": "Afspilning - Øg hastighed",
       "playbackRateDown": "Afspilning - Reducer hastighed",
       "playbackRateReset": "Afspilning - Nulstil hastighed",
       "duplicatePaste": "Rediger - Duplikér ved afspilningsmarkør",
-      "auditionSelectionBefore": "Spektrogram - Afspil markering (+0,5 s før)",
-      "auditionSelection": "Spektrogram - Afspil markering",
-      "auditionSelectionAfter": "Spektrogram - Afspil markering (+0,5 s efter)",
+      "auditionSelectionBefore": "Afspil markering (+0,5 s før)",
+      "auditionSelection": "Afspil markering",
+      "auditionSelectionAfter": "Afspil markering (+0,5 s efter)",
       "cancelTimelineEditing": "Spektrogram - Annuller redigering af tidslinje",
       "exportTtml": "Eksportér sangtekster: TTML",
       "exportLrc": "Eksportér sangtekster: LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "Den tast er allerede sat til denne handling.",
     "doublePress": "Tryk to gange for at køre",
     "doublePressDesc": "Kører kun, når du trykker på tasten to gange hurtigt.",
+    "seekStep": "Spol med",
+    "seekStepDesc": "Hvor langt hvert tryk springer. Hold tasten nede for at blive ved.",
+    "seekStepUnit": "s",
     "otherLayers": "Også på denne tast",
     "closePanel": "Luk"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "Ingen resultater fundet. Prøv forskellige søgeord.",
     "noResult": "Indtast et sangnavn eller en kunstner for at starte.",
     "howToGetKey": "Sådan får du et Genius-adgangstoken",
-    "changeKey": "Skift adgangstoken"
+    "changeKey": "Skift adgangstoken",
+    "lyricsBlocked": "Genius blokerede denne anmodning om sangtekst, sandsynligvis med et Cloudflare-tjek. Prøv igen om et øjeblik, eller kopiér sangteksten fra sangens side.",
+    "openOnGenius": "Åbn på Genius"
   },
   "textImportDialog": {
     "processLyrics": "Behandl sangtekster",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Brug linjepræfikser",
     "bgLyricPrefix": "Præfiks for baggrundslinjer",
     "duetLyricPrefix": "Præfiks for duetlinjer"
+  },
+  "joinedBackground": {
+    "title": "Tjek samlede ad-libs",
+    "description": "{count, plural, one {# linje havde ad-libs mellem ordene.} other {# linjer havde ad-libs mellem ordene.}} De blev samlet i én baggrundslinje, og hver del efter den første står med små bogstaver. Ret navne, store bogstaver og overflødige kommaer. Parenteser til sidst bliver baggrundslinjen.",
+    "keep": "Behold som behandlet",
+    "apply": "Anvend rettelser"
   },
   "sectionImportReview": {
     "title": "Gennemgå opdagede sektioner",
@@ -1834,7 +1853,18 @@
     "settings": "Spektrogramindstillinger",
     "fftSize": "FFT-størrelse",
     "resolution": "FFT-opløsning",
-    "height": "Visningshøjde"
+    "height": "Visningshøjde",
+    "frequencyScale": "Frekvensskala",
+    "scale": {
+      "linear": "Lineær",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Øverste frekvens",
+    "top": {
+      "full": "Fuld",
+      "voice": "Stemme"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Følg afspilningshovedet",

@@ -18,9 +18,11 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { JoinedBackgroundReview } from "$/components/JoinedBackgroundReview";
 import { LyricMarkupEditor } from "$/components/LyricMarkupEditor";
 import { OptionPicker } from "$/components/OptionPicker";
 import { currentDurationAtom, loadedAudioAtom } from "$/modules/audio/states";
+import { GeniusLyricsBlockedError } from "$/modules/genius/api/client";
 import { applyReviewedSections } from "$/modules/lyric-editor/utils/section-system.ts";
 import type { ImportSourceId } from "$/modules/lyrics-import/components/ImportSourceCards";
 import {
@@ -28,7 +30,11 @@ import {
 	setMetadataValues,
 } from "$/modules/project/logic/metadata-fields";
 import { getAudioSearchQuery } from "$/modules/project/logic/song-metadata";
-import { prepareTextImport } from "$/modules/project/logic/text-to-lines";
+import {
+	type JoinedBackgroundRow,
+	prepareTextImport,
+	replaceTextRows,
+} from "$/modules/project/logic/text-to-lines";
 import {
 	applyConfirmedImportMetadataAtom,
 	loadedAudioSongAtom,
@@ -88,6 +94,7 @@ import styles from "./ImportLyricsDialog.module.css";
 const importTextAtom = atom("");
 const originalTextAtom = atom<string | null>(null);
 const pickedTrackAtom = atom<ImportTrack | null>(null);
+const NO_JOINED_ROWS: JoinedBackgroundRow[] = [];
 
 /**
  * The one import screen. Online sources only fill the text area and the song
@@ -104,6 +111,11 @@ export const ImportLyricsDialog = () => {
 	const format = useAtomValue(importTextFormatAtom);
 	// Starts from the Genius sections preference each time the screen opens.
 	const [makeSections, setMakeSections] = useState(true);
+	// Lines Process lyrics joined ad-libs on, with the text from before it ran.
+	const [joined, setJoined] = useState<{
+		source: string;
+		rows: JoinedBackgroundRow[];
+	} | null>(null);
 	const geniusApiKey = useAtomValue(geniusApiKeyAtom);
 	const setWordSeparator = useSetAtom(wordSeparatorAtom);
 	const setEnableSpecialPrefix = useSetAtom(enableSpecialPrefixAtom);
@@ -134,6 +146,7 @@ export const ImportLyricsDialog = () => {
 	const [hasSearched, setHasSearched] = useState(false);
 	const [showResults, setShowResults] = useState(false);
 	const [loadingId, setLoadingId] = useState<ImportTrack["id"] | null>(null);
+	const [blockedSongUrl, setBlockedSongUrl] = useState<string | null>(null);
 	const sortedResults = useMemo(
 		() => prioritizeMatchingTracks(results, audioDuration),
 		[results, audioDuration],
@@ -160,6 +173,7 @@ export const ImportLyricsDialog = () => {
 	const changeSource = (next: ImportSourceId) => {
 		setSource(next);
 		setResults([]);
+		setBlockedSongUrl(null);
 		setHasSearched(false);
 		setShowResults(next !== "plainText" && !text.trim());
 	};
@@ -170,6 +184,7 @@ export const ImportLyricsDialog = () => {
 		setHasSearched(true);
 		setShowResults(true);
 		setResults([]);
+		setBlockedSongUrl(null);
 		try {
 			setResults(await searchOnlineLyrics(onlineSource, query, geniusApiKey));
 		} catch (e) {
@@ -188,6 +203,7 @@ export const ImportLyricsDialog = () => {
 	const handlePick = useCallback(
 		async (track: ImportTrack) => {
 			setLoadingId(track.id);
+			setBlockedSongUrl(null);
 			try {
 				const lyrics =
 					track.lyrics?.trim() ||
@@ -207,6 +223,10 @@ export const ImportLyricsDialog = () => {
 				setShowResults(false);
 				setStep("edit");
 			} catch (e) {
+				if (e instanceof GeniusLyricsBlockedError) {
+					setBlockedSongUrl(e.songUrl);
+					return;
+				}
 				toast.error(
 					t(
 						"metadataDialog.fetchSongwriters.fetchError",
@@ -230,7 +250,11 @@ export const ImportLyricsDialog = () => {
 	};
 
 	const handleProcess = () => {
-		transformText(prepareTextImport(text, true, store.get(processStepsAtom)));
+		const rows: JoinedBackgroundRow[] = [];
+		transformText(
+			prepareTextImport(text, true, store.get(processStepsAtom), rows),
+		);
+		if (rows.length) setJoined({ source: text, rows });
 		// Process lyrics writes this format.
 		setWordSeparator("\\");
 		setEnableSpecialPrefix(true);
@@ -497,6 +521,7 @@ export const ImportLyricsDialog = () => {
 									hasSearched={hasSearched}
 									audioDuration={audioDuration}
 									loadingId={loadingId}
+									blockedSongUrl={blockedSongUrl}
 									onPick={handlePick}
 								/>
 								{text.trim() && (
@@ -631,6 +656,21 @@ export const ImportLyricsDialog = () => {
 						</Button>
 					</Flex>
 				</Flex>
+				<JoinedBackgroundReview
+					rows={joined?.rows ?? NO_JOINED_ROWS}
+					onKeep={() => setJoined(null)}
+					onApply={(edits) => {
+						if (joined)
+							setText(
+								prepareTextImport(
+									replaceTextRows(joined.source, edits),
+									true,
+									store.get(processStepsAtom),
+								),
+							);
+						setJoined(null);
+					}}
+				/>
 			</Dialog.Content>
 		</Dialog.Root>
 	);

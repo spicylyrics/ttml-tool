@@ -133,6 +133,8 @@
 	border-right: 10px solid transparent;
 	border-top: 15px solid var(--accent-9);
 
+	/* Playhead.tsx moves it with transform and centers the tip with -45%. */
+	left: 0;
 	transform: translateX(-45%);
 }
 
@@ -143,6 +145,8 @@
 .playheadCursor {
 	position: absolute;
 	top: 0;
+	/* Playhead.tsx moves it with transform. */
+	left: 0;
 	width: 2px;
 	height: 100%;
 	background-color: var(--accent-9);

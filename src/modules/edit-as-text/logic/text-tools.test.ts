@@ -1,5 +1,9 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from "vitest";
+import {
+	type JoinedBackgroundRow,
+	replaceTextRows,
+} from "$/modules/project/logic/text-to-lines";
 import { parseLyric } from "$/modules/project/logic/ttml-parser";
 import { newLyricLine, newLyricWord, type TTMLLyric } from "$/types/ttml";
 import { DEFAULT_LYRIC_PREP_OPTIONS } from "$/utils/lyric-prep";
@@ -104,6 +108,30 @@ describe("processTextRows", () => {
 		const format = editTextFormat(lyrics);
 		const text = `[Chorus]\n${format.wordSeparator}\n${format.bgLyricPrefix}${format.wordSeparator}`;
 		expect(processTextRows(text, format, STEPS, null)).toBe(text);
+	});
+
+	it("reports lines with joined ad-libs so an edited row can run again", () => {
+		const lyrics = lyricsOf([{ words: [] }]);
+		const format = editTextFormat(lyrics);
+		const text = "Intro\nCome and (Put that), put that (On my), on my (Titi)";
+		const joined: JoinedBackgroundRow[] = [];
+		const rows = processTextRows(text, format, STEPS, null, joined).split("\n");
+		expect(rows[2]).toContain("titi");
+		expect(joined).toEqual([
+			{
+				row: 1,
+				source: "Come and (Put that), put that (On my), on my (Titi)",
+				suggestion: "Come and, put that, on my (Put that, on my, titi)",
+			},
+		]);
+		const edited = replaceTextRows(
+			text,
+			new Map([[1, "Come and put that on my (Put that, on my, Titi)"]]),
+		);
+		const fixed = processTextRows(edited, format, STEPS, null).split("\n");
+		expect(fixed).toHaveLength(3);
+		expect(fixed[2]).toContain("Titi");
+		expect(fixed[1]).not.toContain(",");
 	});
 });
 

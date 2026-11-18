@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Mantiene la riproduzione e centra il verso attivo passando tra Modifica, Sincronizzazione e Anteprima.",
       "volume": "Volume della musica",
       "playbackRate": "Velocità di riproduzione",
+      "scrubAudio": "Ascolta l'audio durante il trascinamento",
+      "scrubAudioDesc": "Riproduce il brano sotto la testina mentre la trascini nella barra audio o nello spettrogramma. Segue Mantieni l’intonazione.",
       "autosave": {
         "enable": "Abilita salvataggio automatico",
         "enableDesc": "Salva il testo qualche secondo dopo ogni modifica e conserva istantanee che puoi ripristinare dal menu File.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "Questa copia non può aggiornarsi da sola. Scarica la nuova versione per il tuo sistema dalla pagina della release.",
       "openDownloadPage": "Apri la pagina di download",
       "aurUpdateHint": "Questa copia è stata compilata da AUR, quindi aggiornala con il tuo helper AUR.",
+      "readOnlyUpdateHint": "macOS sta eseguendo questa copia da una posizione di sola lettura, come l'immagine disco, quindi non può aggiornarsi da sola. Nel Finder, sposta l'app nella cartella Applicazioni e aprila da lì.",
+      "installFailed": "Impossibile installare l'aggiornamento. Riprova o scaricalo dalla pagina della versione.",
+      "retryUpdate": "Riprova",
       "websiteUpdate": "Aggiornamento del sito web",
       "websiteUpdateDescription": "Ricarica il sito per ottenere la versione più recente.",
       "forceRefresh": "Forza l'aggiornamento",
@@ -703,6 +708,9 @@
       "theme": "Tema",
       "useCustomAccent": "Colore di risalto personalizzato",
       "useCustomAccentDesc": "Scegli il tuo colore di risalto.",
+      "useSystemAccent": "Segui il colore di risalto del sistema",
+      "useSystemAccentDesc": "Usa il colore di risalto delle impostazioni di sistema e cambia insieme a esso. Un colore di risalto personalizzato ha comunque la precedenza.",
+      "systemAccentActive": "Dalle impostazioni di sistema",
       "glass": "Effetto vetro",
       "glassBlur": "Intensità dell’effetto vetro",
       "glassBlurDesc": "Regola la sfocatura dello sfondo degli elementi con effetto vetro.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Sincronizzazione - Vai alla prima parola e riproduci",
       "moveLastWordAndPlay": "Sincronizzazione - Vai all’ultima parola e riproduci",
       "playPause": "Riproduzione - Riproduci/pausa",
-      "seekForward": "Riproduzione - Vai avanti 5s",
-      "seekBackward": "Riproduzione - Vai indietro 5s",
+      "seekForward": "Riproduzione - Vai avanti",
+      "seekBackward": "Riproduzione - Vai indietro",
       "volumeUp": "Riproduzione - Alza volume",
       "volumeDown": "Riproduzione - Abbassa volume",
       "playbackRateUp": "Riproduzione - Aumenta la velocità",
       "playbackRateDown": "Riproduzione - Diminuisci velocità",
       "playbackRateReset": "Riproduzione - Ripristina velocità",
       "duplicatePaste": "Modifica - Duplica al cursore di riproduzione",
-      "auditionSelectionBefore": "Spettrogramma - Riproduci selezione (+0,5 s prima)",
-      "auditionSelection": "Spettrogramma - Riproduci selezione",
-      "auditionSelectionAfter": "Spettrogramma - Riproduci selezione (+0,5 s dopo)",
+      "auditionSelectionBefore": "Riproduci selezione (+0,5 s prima)",
+      "auditionSelection": "Riproduci selezione",
+      "auditionSelectionAfter": "Riproduci selezione (+0,5 s dopo)",
       "cancelTimelineEditing": "Spettrogramma: annulla la modifica della timeline",
       "exportTtml": "Esporta testo: TTML",
       "exportLrc": "Esporta testo: LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "Questo tasto è già impostato per questa azione.",
     "doublePress": "Premi due volte per eseguire",
     "doublePressDesc": "Si esegue solo premendo due volte rapidamente il tasto.",
+    "seekStep": "Salta di",
+    "seekStepDesc": "Quanto salta ogni pressione. Tieni premuto il tasto per continuare.",
+    "seekStepUnit": "s",
     "otherLayers": "Anche su questo tasto",
     "closePanel": "Chiudi"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "Nessun risultato trovato. Prova con parole chiave diverse.",
     "noResult": "Inserisci il titolo di un brano o un artista per iniziare.",
     "howToGetKey": "Come ottenere un token di accesso Genius",
-    "changeKey": "Cambia token di accesso"
+    "changeKey": "Cambia token di accesso",
+    "lyricsBlocked": "Genius ha bloccato questa richiesta di testo, probabilmente con un controllo Cloudflare. Riprova tra un momento o copia il testo dalla pagina del brano.",
+    "openOnGenius": "Apri su Genius"
   },
   "textImportDialog": {
     "processLyrics": "Elabora testo",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Usa prefissi dei versi",
     "bgLyricPrefix": "Prefisso dei versi dei cori",
     "duetLyricPrefix": "Prefisso dei versi del duetto"
+  },
+  "joinedBackground": {
+    "title": "Controlla gli ad-lib uniti",
+    "description": "{count, plural, one {# verso aveva ad-lib tra le parole.} many {# versi avevano ad-lib tra le parole.} other {# versi avevano ad-lib tra le parole.}} Sono stati uniti in un solo verso di sottofondo, con ogni parte dopo la prima in minuscolo. Correggi nomi, maiuscole e virgole in più. Le parentesi alla fine diventano il verso di sottofondo.",
+    "keep": "Lascia com'è",
+    "apply": "Applica modifiche"
   },
   "sectionImportReview": {
     "title": "Esamina le sezioni rilevate",
@@ -1834,7 +1853,18 @@
     "settings": "Impostazioni dello spettrogramma",
     "fftSize": "Dimensione FFT",
     "resolution": "Risoluzione FFT",
-    "height": "Altezza di visualizzazione"
+    "height": "Altezza di visualizzazione",
+    "frequencyScale": "Scala delle frequenze",
+    "scale": {
+      "linear": "Lineare",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Frequenza massima",
+    "top": {
+      "full": "Completa",
+      "voice": "Voce"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Segui la testina",

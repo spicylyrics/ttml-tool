@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Mantiene la reproducción y centra la línea activa al cambiar entre Edición, Sincronización y Vista previa.",
       "volume": "Volumen de música",
       "playbackRate": "Velocidad de reproducción",
+      "scrubAudio": "Escuchar el audio al arrastrar",
+      "scrubAudioDesc": "Reproduce la canción bajo el cabezal mientras lo arrastras en la barra de audio o el espectrograma. Sigue Mantener el tono.",
       "autosave": {
         "enable": "Habilitar guardado automático",
         "enableDesc": "Guarda tus letras unos segundos después de cada cambio y conserva instantáneas que puedes restaurar desde el menú Archivo.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "Esta copia no puede actualizarse sola. Descarga la nueva versión para tu sistema desde la página de la versión.",
       "openDownloadPage": "Abrir la página de descarga",
       "aurUpdateHint": "Esta copia se compiló desde AUR, así que actualízala con tu ayudante de AUR.",
+      "readOnlyUpdateHint": "macOS está ejecutando esta copia desde un lugar de solo lectura, como la imagen de disco, así que no puede actualizarse sola. En Finder, mueve la app a la carpeta Aplicaciones y ábrela desde ahí.",
+      "installFailed": "No se pudo instalar la actualización. Vuelve a intentarlo o descárgala desde la página de la versión.",
+      "retryUpdate": "Reintentar",
       "websiteUpdate": "Actualización del sitio web",
       "websiteUpdateDescription": "Recarga el sitio web para obtener la última versión.",
       "forceRefresh": "Forzar actualización",
@@ -703,6 +708,9 @@
       "theme": "Tema",
       "useCustomAccent": "Color de acento personalizado",
       "useCustomAccentDesc": "Elige tu propio color de acento.",
+      "useSystemAccent": "Seguir el color de acento del sistema",
+      "useSystemAccentDesc": "Usa el color de acento de la configuración del sistema y cambia con él. Un color de acento personalizado sigue teniendo prioridad.",
+      "systemAccentActive": "De la configuración del sistema",
       "glass": "Efecto de cristal",
       "glassBlur": "Intensidad del efecto de cristal",
       "glassBlurDesc": "Ajusta el desenfoque del fondo de los elementos con efecto de cristal.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Sincronización - Ir a la primera palabra y reproducir",
       "moveLastWordAndPlay": "Sincronización - Ir a la última palabra y reproducir",
       "playPause": "Reproducción - Reproducir/pausar",
-      "seekForward": "Reproducción - Avanzar 5 s",
-      "seekBackward": "Reproducción - Retroceder 5 s",
+      "seekForward": "Reproducción - Avanzar",
+      "seekBackward": "Reproducción - Retroceder",
       "volumeUp": "Reproducción - Subir volumen",
       "volumeDown": "Reproducción - Bajar volumen",
       "playbackRateUp": "Reproducción: aumentar la velocidad",
       "playbackRateDown": "Reproducción - Disminuir velocidad",
       "playbackRateReset": "Reproducción - Restablecer velocidad",
       "duplicatePaste": "Edición - Duplicar en el cabezal de reproducción",
-      "auditionSelectionBefore": "Espectrograma - Reproducir selección (+0,5 s antes)",
-      "auditionSelection": "Espectrograma - Reproducir selección",
-      "auditionSelectionAfter": "Espectrograma - Reproducir selección (+0,5 s después)",
+      "auditionSelectionBefore": "Reproducir selección (+0,5 s antes)",
+      "auditionSelection": "Reproducir selección",
+      "auditionSelectionAfter": "Reproducir selección (+0,5 s después)",
       "cancelTimelineEditing": "Espectrograma: cancelar la edición de la línea de tiempo",
       "exportTtml": "Exportar letras: TTML",
       "exportLrc": "Exportar letras: LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "Esa tecla ya está asignada a esta acción.",
     "doublePress": "Pulsar dos veces para ejecutar",
     "doublePressDesc": "Solo se ejecuta al pulsar su tecla dos veces seguidas.",
+    "seekStep": "Saltar",
+    "seekStepDesc": "Cuánto salta cada pulsación. Mantén la tecla para seguir avanzando.",
+    "seekStepUnit": "s",
     "otherLayers": "También en esta tecla",
     "closePanel": "Cerrar"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "Sin resultados. Prueba con otras palabras clave.",
     "noResult": "Introduce una canción o un artista para empezar.",
     "howToGetKey": "Cómo obtener un token de acceso de Genius",
-    "changeKey": "Cambiar token de acceso"
+    "changeKey": "Cambiar token de acceso",
+    "lyricsBlocked": "Genius bloqueó esta solicitud de letra, probablemente por una comprobación de Cloudflare. Inténtalo de nuevo en un momento o copia la letra desde la página de la canción.",
+    "openOnGenius": "Abrir en Genius"
   },
   "textImportDialog": {
     "processLyrics": "Procesar letra",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Usar prefijos de línea",
     "bgLyricPrefix": "Prefijo de líneas de voces de fondo",
     "duetLyricPrefix": "Prefijo de líneas de dúo"
+  },
+  "joinedBackground": {
+    "title": "Revisa los ad-libs unidos",
+    "description": "{count, plural, one {# línea tenía ad-libs entre sus palabras.} many {# líneas tenían ad-libs entre sus palabras.} other {# líneas tenían ad-libs entre sus palabras.}} Se unieron en una sola línea de fondo, con cada parte después de la primera en minúscula. Corrige nombres, mayúsculas y comas de más. Los paréntesis del final pasan a ser la línea de fondo.",
+    "keep": "Dejar como está",
+    "apply": "Aplicar cambios"
   },
   "sectionImportReview": {
     "title": "Revisar secciones detectadas",
@@ -1834,7 +1853,18 @@
     "settings": "Configuración del espectrograma",
     "fftSize": "Tamaño FFT",
     "resolution": "Resolución FFT",
-    "height": "Altura de visualización"
+    "height": "Altura de visualización",
+    "frequencyScale": "Escala de frecuencia",
+    "scale": {
+      "linear": "Lineal",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Frecuencia máxima",
+    "top": {
+      "full": "Completa",
+      "voice": "Voz"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Seguir el cabezal",

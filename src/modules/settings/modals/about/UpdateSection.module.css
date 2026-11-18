@@ -14,3 +14,15 @@
 .plainNotes {
 	white-space: pre-wrap;
 }
+
+/* Lines the icon up with the first line of the message. */
+.errorIcon {
+	flex-shrink: 0;
+	margin-top: 0.15em;
+}
+
+/* The updater's own words, selectable so people can paste them in a report. */
+.errorReason {
+	overflow-wrap: anywhere;
+	user-select: text;
+}

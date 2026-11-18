@@ -83,6 +83,20 @@ export function betasOf(releases, version) {
 }
 
 /**
+ * The version CI validates pending notes as: the next beta while a beta cycle
+ * is open (a stable compile would refuse to skip it), otherwise a far-future
+ * stable version.
+ */
+export function checkVersion(releases) {
+	const newest = releases[0]?.version;
+	if (newest && isBetaRelease(releases[0])) {
+		const { base, beta } = parseReleaseVersion(newest);
+		return `${base}-${beta + 1}`;
+	}
+	return "999.0.0";
+}
+
+/**
  * One release built from the pending notes. A beta (X.Y.Z-N) keeps each
  * entry's impact so the stable release can sort them again; the stable
  * X.Y.Z takes in every entry from its betas except beta-only fixes, and
@@ -157,7 +171,7 @@ export function createRelease(
 
 export function compileChangelog(
 	root,
-	{ version, summary, dryRun = false, date },
+	{ version, summary, dryRun = false, check = false, date },
 ) {
 	const directory = join(root, "changes");
 	const files = readdirSync(directory)
@@ -171,6 +185,11 @@ export function compileChangelog(
 	);
 	const output = join(root, "src/data/changelog.json");
 	const releases = JSON.parse(readFileSync(output, "utf8"));
+	if (check) {
+		version = checkVersion(releases);
+		summary = "CI check";
+		dryRun = true;
+	}
 	const release = createRelease(releases, notes, version, summary, date);
 	const merged = betasOf(releases, version);
 	const kept = releases.filter((item) => !merged.includes(item));
@@ -193,6 +212,7 @@ if (
 		const options = { dryRun: false };
 		for (let i = 0; i < args.length; i++) {
 			if (args[i] === "--dry-run") options.dryRun = true;
+			else if (args[i] === "--check") options.check = true;
 			else if (
 				["--version", "--summary"].includes(args[i]) &&
 				args[i + 1] &&
@@ -201,12 +221,12 @@ if (
 				options[args[i].slice(2)] = args[++i];
 			else
 				throw new Error(
-					'Usage: pnpm changelog:compile --version <X.Y.Z|X.Y.Z-N> --summary "Short summary" [--dry-run]',
+					'Usage: pnpm changelog:compile --version <X.Y.Z|X.Y.Z-N> --summary "Short summary" [--dry-run]\n       pnpm changelog:compile --check   (validate pending notes as the next release, writes nothing)',
 				);
 		}
 		const release = compileChangelog(process.cwd(), options);
 		console.log(JSON.stringify(release, null, "\t"));
-		if (!options.dryRun)
+		if (!options.dryRun && !options.check)
 			console.log(`Compiled v${release.version} and removed its change notes.`);
 	} catch (error) {
 		console.error(error.message);

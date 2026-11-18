@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Keeps playback going and the active line centered when you switch between Edit, Time and Preview.",
       "volume": "Music volume",
       "playbackRate": "Playback speed",
+      "scrubAudio": "Hear audio while dragging",
+      "scrubAudioDesc": "Plays the song under the playhead as you drag it in the audio bar or spectrogram. Follows Preserve pitch.",
       "autosave": {
         "enable": "Enable autosave",
         "enableDesc": "Saves your lyrics a few seconds after each change and keeps snapshots you can restore from the File menu.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "This copy can't update itself. Download the new version for your system from the release page.",
       "openDownloadPage": "Open download page",
       "aurUpdateHint": "This copy was built from the AUR, so update it with your AUR helper.",
+      "readOnlyUpdateHint": "macOS is running this copy from a read-only place, like the disk image, so it can't update itself. In Finder, move the app to your Applications folder and open it from there.",
+      "installFailed": "Couldn't install the update. Try again, or download it from the release page.",
+      "retryUpdate": "Try again",
       "websiteUpdate": "Website update",
       "websiteUpdateDescription": "Reload the website to get the latest version.",
       "forceRefresh": "Force refresh",
@@ -703,6 +708,9 @@
       "theme": "Theme",
       "useCustomAccent": "Custom accent color",
       "useCustomAccentDesc": "Pick your own accent color.",
+      "useSystemAccent": "Follow the system accent",
+      "useSystemAccentDesc": "Use the accent color from your system settings and change along with it. A custom accent color still takes priority.",
+      "systemAccentActive": "From your system settings",
       "glass": "Glassmorphism",
       "glassBlur": "Glass intensity",
       "glassBlurDesc": "Adjust the background blur effect for glassmorphic elements.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Timing - Move to first word and play",
       "moveLastWordAndPlay": "Timing - Move to last word and play",
       "playPause": "Playback - Play/pause",
-      "seekForward": "Playback - Seek forward 5s",
-      "seekBackward": "Playback - Seek backward 5s",
+      "seekForward": "Playback - Seek forward",
+      "seekBackward": "Playback - Seek backward",
       "volumeUp": "Playback - Volume up",
       "volumeDown": "Playback - Volume down",
       "playbackRateUp": "Playback - Increase speed",
       "playbackRateDown": "Playback - Decrease speed",
       "playbackRateReset": "Playback - Reset speed",
       "duplicatePaste": "Edit - Duplicate at playhead",
-      "auditionSelectionBefore": "Spectrogram - Play selection (+0.5 s before)",
-      "auditionSelection": "Spectrogram - Play selection",
-      "auditionSelectionAfter": "Spectrogram - Play selection (+0.5 s after)",
+      "auditionSelectionBefore": "Play selection (+0.5 s before)",
+      "auditionSelection": "Play selection",
+      "auditionSelectionAfter": "Play selection (+0.5 s after)",
       "cancelTimelineEditing": "Spectrogram - Cancel timeline editing",
       "exportTtml": "Export lyrics: TTML",
       "exportLrc": "Export lyrics: LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "That key is already set for this action.",
     "doublePress": "Press twice to run",
     "doublePressDesc": "Runs only when you press its key twice quickly.",
+    "seekStep": "Seek by",
+    "seekStepDesc": "How far each press jumps. Hold the key to keep seeking.",
+    "seekStepUnit": "s",
     "otherLayers": "Also on this key",
     "closePanel": "Close"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "No results found. Try different keywords.",
     "noResult": "Enter a song name or artist to start.",
     "howToGetKey": "How to get a Genius access token",
-    "changeKey": "Change access token"
+    "changeKey": "Change access token",
+    "lyricsBlocked": "Genius blocked this lyrics request, likely a Cloudflare check. Try again in a moment, or copy the lyrics from the song page.",
+    "openOnGenius": "Open on Genius"
   },
   "textImportDialog": {
     "processLyrics": "Process lyrics",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Use line prefixes",
     "bgLyricPrefix": "Background line prefix",
     "duetLyricPrefix": "Duet line prefix"
+  },
+  "joinedBackground": {
+    "title": "Check joined ad-libs",
+    "description": "{count, plural, one {# line had ad-libs between its words.} other {# lines had ad-libs between their words.}} They were joined into one background line, with every part after the first in lowercase. Fix names, capitals and extra commas. Brackets at the end become the background line.",
+    "keep": "Keep as processed",
+    "apply": "Apply edits"
   },
   "sectionImportReview": {
     "title": "Review detected sections",
@@ -1834,7 +1853,18 @@
     "settings": "Spectrogram settings",
     "fftSize": "FFT size",
     "resolution": "FFT resolution",
-    "height": "Display height"
+    "height": "Display height",
+    "frequencyScale": "Frequency scale",
+    "scale": {
+      "linear": "Linear",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Top frequency",
+    "top": {
+      "full": "Full",
+      "voice": "Voice"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Follow playhead",

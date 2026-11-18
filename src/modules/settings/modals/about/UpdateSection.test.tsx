@@ -45,6 +45,7 @@ async function render(
 					status="available"
 					update={update}
 					progress={0}
+					errorMsg=""
 					installUpdate={async () => {}}
 					restartApp={async () => {}}
 					checkUpdate={async () => {}}
@@ -81,6 +82,30 @@ describe("UpdateSection", () => {
 		const aur = await render({ canSelfUpdate: false, installKind: "aur" });
 		expect(aur).toContain("AUR helper");
 		expect(aur).not.toContain("Open download page");
+	});
+
+	it("tells a Mac copy on a read-only volume to move to Applications", async () => {
+		const text = await render({
+			canSelfUpdate: false,
+			installKind: "app-read-only",
+		});
+		expect(text).toContain("Applications folder");
+		expect(text).toContain("Open download page");
+		expect(text).not.toContain("Update Now");
+	});
+
+	it("shows why an install failed, with retry and download", async () => {
+		const text = await render({
+			canSelfUpdate: true,
+			installKind: "app",
+			status: "install-failed",
+			errorMsg: "Read-only file system (os error 30)",
+		});
+		expect(text).toContain("Couldn't install the update");
+		expect(text).toContain("Read-only file system (os error 30)");
+		expect(text).toContain("Try again");
+		expect(text).toContain("Open download page");
+		expect(text).not.toContain("Check your connection");
 	});
 
 	it("shows the check button, the result and the beta switch with no update", async () => {

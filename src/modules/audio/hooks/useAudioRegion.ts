@@ -62,7 +62,11 @@ export const useAudioRegion = (
 				const newViewDurationMs = newEndTimeMs - startTimeMs;
 				if (newViewDurationMs <= 0) return;
 
-				const newZoom = clampZoom(containerWidth / (newViewDurationMs / 1000));
+				const newZoom = clampZoom(
+					containerWidth / (newViewDurationMs / 1000),
+					currentDuration / 1000,
+					containerWidth,
+				);
 				const newScrollLeft = clampScroll(
 					startTimeS * newZoom,
 					newZoom,
@@ -78,7 +82,11 @@ export const useAudioRegion = (
 				const newViewDurationMs = endTimeMs - newStartTimeMs;
 				if (newViewDurationMs <= 0) return;
 
-				const newZoom = clampZoom(containerWidth / (newViewDurationMs / 1000));
+				const newZoom = clampZoom(
+					containerWidth / (newViewDurationMs / 1000),
+					currentDuration / 1000,
+					containerWidth,
+				);
 				const newViewDurationS = containerWidth / newZoom;
 				const newStartTimeS = endTimeS - newViewDurationS;
 

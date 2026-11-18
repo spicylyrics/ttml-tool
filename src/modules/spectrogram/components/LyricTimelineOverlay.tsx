@@ -3,6 +3,7 @@ import type { FC, ReactNode } from "react";
 import { memo, useContext, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
+import { lineDisplayNumbersAtom } from "$/modules/lyric-editor/states/document-structure.ts";
 import {
 	type ProcessedLyricLine,
 	processedLyricLinesAtom,
@@ -28,12 +29,14 @@ import {
 	type SpectrogramLaneKind,
 } from "$/modules/spectrogram/utils/lanes.ts";
 import { getUpdatedLineForMergedEnd } from "$/modules/spectrogram/utils/line-end-handles.ts";
+import { pickNumberedLines } from "$/modules/spectrogram/utils/line-number-labels.ts";
 import {
 	commitUpdatedLine,
 	getUpdatedLineForDivider,
 	getUpdatedLineForLinePan,
 	getUpdatedLineForWordPan,
 } from "$/modules/spectrogram/utils/timeline-mutations.ts";
+import { WORD_DETAIL_MIN_ZOOM } from "$/modules/spectrogram/utils/zoom.ts";
 import {
 	timeShiftPreviewActiveAtom,
 	timeShiftPreviewCustomRangeAtom,
@@ -59,6 +62,15 @@ const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 	hiddenLineIds,
 }) => {
 	const processedLines = useAtomValue(processedLyricLinesAtom);
+	const displayNumbers = useAtomValue(lineDisplayNumbersAtom);
+	// Same numbers as the editor's line list; both follow the lyric line order.
+	const lineNumbers = useMemo(
+		() =>
+			new Map(
+				processedLines.map((line, index) => [line.id, displayNumbers[index]]),
+			),
+		[processedLines, displayNumbers],
+	);
 	const previewLine = useAtomValue(previewLineAtom);
 	const { t } = useTranslation();
 	const lineEndLabels = useMemo<LineEndLabels>(
@@ -370,6 +382,28 @@ const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 		linesToRender = linesToRender.filter((line) => selectedLines.has(line.id));
 	}
 
+	// Zoomed out, bars show line numbers that fit without colliding.
+	const numbered =
+		zoom < WORD_DETAIL_MIN_ZOOM
+			? pickNumberedLines(
+					linesToRender.flatMap((line) =>
+						line.startTime == null || line.endTime == null
+							? []
+							: [
+									{
+										id: line.id,
+										startTime: line.startTime,
+										endTime: line.endTime,
+									},
+								],
+					),
+					zoom,
+					(id) => lineNumbers.get(id),
+				)
+			: null;
+	const lineNumberOf = (id: string) =>
+		numbered?.has(id) ? lineNumbers.get(id) : undefined;
+
 	const ghostLines: ProcessedLyricLine[] = [];
 	if (previewActive && previewOffset !== 0) {
 		for (const line of processedLines) {
@@ -434,6 +468,7 @@ const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 						isTouchingStart={isTouchingLaneStart(lane, shown)}
 						isTouchingEnd={isTouchingLaneEnd(lane, shown)}
 						lineEndLabels={lineEndLabels}
+						lineNumber={lineNumberOf(line.id)}
 					/>,
 				);
 		}
@@ -482,6 +517,7 @@ const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 						previewLine?.id === line.id ? previewLine : line,
 					)}
 					lineEndLabels={lineEndLabels}
+					lineNumber={lineNumberOf(line.id)}
 				/>
 			))}
 			{ghostLines.map((line) => (

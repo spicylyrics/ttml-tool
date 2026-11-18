@@ -13,6 +13,7 @@ type ResetThemeProps = AdvancedOverrideSetters &
 		| "setAccentColor"
 		| "setUseCustomAccent"
 		| "setCustomAccentColor"
+		| "setUseSystemAccent"
 		| "setBackgroundMode"
 		| "setSelectedGradient"
 		| "setUseCustomGradient"
@@ -53,6 +54,7 @@ export const ResetThemeSection = (props: ResetThemeProps) => {
 							props.setAccentColor("red");
 							props.setUseCustomAccent(false);
 							props.setCustomAccentColor("#e5484d");
+							props.setUseSystemAccent(false);
 							props.setBackgroundMode("none");
 							props.setSelectedGradient("sunset");
 							props.setUseCustomGradient(false);

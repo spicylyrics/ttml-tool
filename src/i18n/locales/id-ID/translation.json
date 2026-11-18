@@ -592,6 +592,8 @@
       "syncTabPositionDesc": "Pertahankan pemutaran dan pusatkan baris aktif saat beralih antara tab Edit, Sinkronisasi, dan Pratinjau.",
       "volume": "Volume musik",
       "playbackRate": "Kecepatan putar",
+      "scrubAudio": "Dengar audio saat menyeret",
+      "scrubAudioDesc": "Memutar lagu di bawah playhead saat kamu menyeretnya di bilah audio atau spektrogram. Mengikuti Pertahankan nada.",
       "autosave": {
         "enable": "Aktifkan simpan otomatis",
         "enableDesc": "Menyimpan lirik beberapa detik setelah setiap perubahan dan menyimpan snapshot yang bisa dipulihkan lewat menu File.",
@@ -657,6 +659,9 @@
       "downloadUpdateHint": "Salinan ini tidak bisa memperbarui dirinya sendiri. Unduh versi baru untuk sistem Anda dari halaman rilis.",
       "openDownloadPage": "Buka halaman unduhan",
       "aurUpdateHint": "Salinan ini dibangun dari AUR, jadi perbarui dengan AUR helper Anda.",
+      "readOnlyUpdateHint": "macOS menjalankan salinan ini dari lokasi hanya-baca, seperti image disk, sehingga tidak bisa memperbarui dirinya sendiri. Di Finder, pindahkan aplikasi ke folder Aplikasi dan buka dari sana.",
+      "installFailed": "Gagal memasang pembaruan. Coba lagi, atau unduh dari halaman rilis.",
+      "retryUpdate": "Coba lagi",
       "websiteUpdate": "Pembaruan situs web",
       "websiteUpdateDescription": "Muat ulang situs web untuk mendapatkan versi terbaru.",
       "forceRefresh": "Paksa penyegaran",
@@ -703,6 +708,9 @@
       "theme": "Tema",
       "useCustomAccent": "Warna aksen kustom",
       "useCustomAccentDesc": "Pilih warna aksen Anda sendiri.",
+      "useSystemAccent": "Ikuti warna aksen sistem",
+      "useSystemAccentDesc": "Gunakan warna aksen dari pengaturan sistem dan ikut berubah bersamanya. Warna aksen kustom tetap diutamakan.",
+      "systemAccentActive": "Dari pengaturan sistem",
       "glass": "Efek kaca",
       "glassBlur": "Intensitas efek kaca",
       "glassBlurDesc": "Sesuaikan pemburaman latar belakang elemen berefek kaca.",
@@ -1095,17 +1103,17 @@
       "moveFirstWordAndPlay": "Sinkronisasi - Pindah ke kata pertama dan putar",
       "moveLastWordAndPlay": "Sinkronisasi - Pindah ke kata terakhir dan putar",
       "playPause": "Pemutaran - Putar/jeda",
-      "seekForward": "Pemutaran - Maju 5 detik",
-      "seekBackward": "Pemutaran - Mundur 5 detik",
+      "seekForward": "Pemutaran - Maju",
+      "seekBackward": "Pemutaran - Mundur",
       "volumeUp": "Pemutaran - Naikkan volume",
       "volumeDown": "Pemutaran - Turunkan volume",
       "playbackRateUp": "Pemutaran - Tingkatkan kecepatan",
       "playbackRateDown": "Pemutaran - Kurangi kecepatan",
       "playbackRateReset": "Pemutaran - Setel ulang kecepatan",
       "duplicatePaste": "Edit - Gandakan di penunjuk putar",
-      "auditionSelectionBefore": "Spektrogram - Putar pilihan (+0,5 dtk sebelum)",
-      "auditionSelection": "Spektrogram - Putar pilihan",
-      "auditionSelectionAfter": "Spektrogram - Putar pilihan (+0,5 dtk sesudah)",
+      "auditionSelectionBefore": "Putar pilihan (+0,5 dtk sebelum)",
+      "auditionSelection": "Putar pilihan",
+      "auditionSelectionAfter": "Putar pilihan (+0,5 dtk sesudah)",
       "cancelTimelineEditing": "Spektrogram - Batalkan pengeditan linimasa",
       "exportTtml": "Ekspor lirik: TTML",
       "exportLrc": "Ekspor lirik: LRC",
@@ -1176,6 +1184,9 @@
     "duplicateKey": "Tombol itu sudah dipakai untuk aksi ini.",
     "doublePress": "Tekan dua kali untuk menjalankan",
     "doublePressDesc": "Hanya berjalan saat tombolnya ditekan dua kali dengan cepat.",
+    "seekStep": "Lompat sejauh",
+    "seekStepDesc": "Seberapa jauh setiap tekanan melompat. Tahan tombol untuk terus melompat.",
+    "seekStepUnit": "dtk",
     "otherLayers": "Juga di tombol ini",
     "closePanel": "Tutup"
   },
@@ -1558,7 +1569,9 @@
     "notFound": "Tidak ada hasil yang ditemukan. Coba kata kunci yang berbeda.",
     "noResult": "Masukkan nama lagu atau artis untuk memulai.",
     "howToGetKey": "Cara mendapatkan token akses Genius",
-    "changeKey": "Ubah token akses"
+    "changeKey": "Ubah token akses",
+    "lyricsBlocked": "Genius memblokir permintaan lirik ini, kemungkinan karena pemeriksaan Cloudflare. Coba lagi sebentar lagi atau salin lirik dari halaman lagu.",
+    "openOnGenius": "Buka di Genius"
   },
   "textImportDialog": {
     "processLyrics": "Proses lirik",
@@ -1581,6 +1594,12 @@
     "enableSpecialPrefix": "Gunakan prefiks baris",
     "bgLyricPrefix": "Prefiks baris vokal latar",
     "duetLyricPrefix": "Prefiks baris duet"
+  },
+  "joinedBackground": {
+    "title": "Periksa ad-lib yang digabung",
+    "description": "{count, plural, other {# baris punya ad-lib di antara kata-katanya.}} Ad-lib itu digabung menjadi satu baris latar, dan setiap bagian setelah yang pertama ditulis dengan huruf kecil. Perbaiki nama, huruf kapital, dan koma yang berlebih. Tanda kurung di akhir menjadi baris latar.",
+    "keep": "Biarkan seperti hasil proses",
+    "apply": "Terapkan suntingan"
   },
   "sectionImportReview": {
     "title": "Tinjau bagian yang terdeteksi",
@@ -1834,7 +1853,18 @@
     "settings": "Pengaturan spektrogram",
     "fftSize": "Ukuran FFT",
     "resolution": "Resolusi FFT",
-    "height": "Tinggi tampilan"
+    "height": "Tinggi tampilan",
+    "frequencyScale": "Skala frekuensi",
+    "scale": {
+      "linear": "Linear",
+      "log": "Log",
+      "mel": "Mel"
+    },
+    "topFrequency": "Frekuensi atas",
+    "top": {
+      "full": "Penuh",
+      "voice": "Vokal"
+    }
   },
   "spectrogramFollow": {
     "toggle": "Ikuti playhead",

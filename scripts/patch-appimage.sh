@@ -52,6 +52,15 @@ trap 'rm -rf "$work_dir"' EXIT
 	sed -i '/apprun-hooks\/"linuxdeploy-plugin-gtk.sh"/a source "$this_dir"/apprun-hooks/"host-gstreamer.sh"' \
 		squashfs-root/AppRun
 
+	# The GTK hook forces GDK_BACKEND=x11 (XWayland). Save the launch value
+	# before it runs, then let native-wayland.sh pick the backend after it.
+	cp "$script_dir/appimage/native-wayland.sh" \
+		squashfs-root/apprun-hooks/native-wayland.sh
+	sed -i '/apprun-hooks\/"linuxdeploy-plugin-gtk.sh"/i export APPIMAGE_LAUNCH_GDK_BACKEND="${GDK_BACKEND:-}"' \
+		squashfs-root/AppRun
+	sed -i '/apprun-hooks\/"host-gstreamer.sh"/a source "$this_dir"/apprun-hooks/"native-wayland.sh"' \
+		squashfs-root/AppRun
+
 	# The extracted tree keeps owner-only modes on some folders, and
 	# appimagetool refuses to pack anything other users can't read or run.
 	chmod -R a+rX squashfs-root

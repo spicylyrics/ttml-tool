@@ -15,6 +15,12 @@ import {
 import { memo } from "react";
 import { OptionPicker } from "$/components/OptionPicker";
 import type { useAudioSpectrogram } from "../hooks/useAudioSpectrogram";
+import {
+	FREQUENCY_SCALES,
+	isFrequencyScale,
+	isTopFrequency,
+	TOP_FREQUENCIES,
+} from "../utils/frequency-scale";
 import styles from "./AudioSpectrogram.module.css";
 import { FollowPlayheadButton } from "./FollowPlayheadButton.tsx";
 import { FrequencyRuler } from "./FrequencyRuler.tsx";
@@ -89,6 +95,10 @@ function SettingsSidebar({
 	setPreviewActive,
 	fftSize,
 	setFftSize,
+	frequencyScale,
+	setFrequencyScale,
+	topFrequency,
+	setTopFrequency,
 	dynamicMaxHeight,
 	dataHeight,
 	setDataHeight,
@@ -100,6 +110,10 @@ function SettingsSidebar({
 	| "setPreviewActive"
 	| "fftSize"
 	| "setFftSize"
+	| "frequencyScale"
+	| "setFrequencyScale"
+	| "topFrequency"
+	| "setTopFrequency"
 	| "dynamicMaxHeight"
 	| "dataHeight"
 	| "setDataHeight"
@@ -147,7 +161,7 @@ function SettingsSidebar({
 						<SettingsFilled />
 					</IconButton>
 				</Popover.Trigger>
-				<Popover.Content side="left" align="end" style={{ width: 220 }}>
+				<Popover.Content side="left" align="end" style={{ width: 260 }}>
 					<Flex direction="column" gap="3">
 						<Text size="2" weight="bold">
 							{t("spectrogram.settings", "Spectrogram settings")}
@@ -166,6 +180,46 @@ function SettingsSidebar({
 									value: size,
 									label: size,
 								}))}
+								variant="segmented"
+								fullWidth
+							/>
+						</Flex>
+
+						<Flex direction="column" gap="2">
+							<Text size="1" color="gray">
+								{t("spectrogram.frequencyScale", "Frequency scale")}
+							</Text>
+							<OptionPicker
+								value={frequencyScale}
+								onValueChange={(v) => {
+									if (isFrequencyScale(v)) setFrequencyScale(v);
+								}}
+								label={t("spectrogram.frequencyScale", "Frequency scale")}
+								options={FREQUENCY_SCALES.map((scale) => ({
+									value: scale,
+									label: t(`spectrogram.scale.${scale}`, scale),
+								}))}
+								variant="segmented"
+								fullWidth
+							/>
+						</Flex>
+
+						<Flex direction="column" gap="2">
+							<Text size="1" color="gray">
+								{t("spectrogram.topFrequency", "Top frequency")}
+							</Text>
+							<OptionPicker
+								value={topFrequency}
+								onValueChange={(v) => {
+									if (isTopFrequency(v)) setTopFrequency(v);
+								}}
+								label={t("spectrogram.topFrequency", "Top frequency")}
+								options={TOP_FREQUENCIES.map((top) => ({
+									value: top,
+									label: t(`spectrogram.top.${top}`, top),
+								}))}
+								variant="segmented"
+								fullWidth
 							/>
 						</Flex>
 

@@ -87,7 +87,7 @@ describe("keyboard view", () => {
 		expect(cap(container, "KeyF")?.dataset.category).toBe("sync");
 		expect(cap(container, "Space")?.dataset.category).toBe("playback");
 		expect(cap(container, "KeyD")?.dataset.category).toBe("navigation");
-		expect(cap(container, "KeyZ")?.dataset.category).toBeUndefined();
+		expect(cap(container, "KeyB")?.dataset.category).toBeUndefined();
 	});
 
 	it("switches to the Shift layer from the Shift cap", () => {
@@ -107,14 +107,14 @@ describe("keyboard view", () => {
 		act(() => cap(container, "KeyF")?.click());
 		expect(cap(container, "KeyF")?.dataset.selected).toBe("true");
 		act(() => buttonWithText(container, "keyboardView.addKey")?.click());
-		key("keydown", "KeyZ");
-		key("keyup", "KeyZ");
+		key("keydown", "KeyB");
+		key("keyup", "KeyB");
 		await act(async () => {});
 		expect(store.get(keyBindingListAtom(cmdSyncStart))).toEqual([
 			["KeyF"],
-			["KeyZ"],
+			["KeyB"],
 		]);
-		expect(cap(container, "KeyZ")?.dataset.category).toBe("sync");
+		expect(cap(container, "KeyB")?.dataset.category).toBe("sync");
 	});
 
 	it("stops recording when another key is picked mid-recording", async () => {
@@ -122,11 +122,11 @@ describe("keyboard view", () => {
 		act(() => cap(container, "KeyF")?.click());
 		act(() => buttonWithText(container, "keyboardView.addKey")?.click());
 		act(() => cap(container, "KeyG")?.click());
-		key("keydown", "KeyX");
-		key("keyup", "KeyX");
+		key("keydown", "KeyN");
+		key("keyup", "KeyN");
 		await act(async () => {});
 		expect(store.get(keyBindingListAtom(cmdSyncStart))).toEqual([["KeyF"]]);
-		expect(cap(container, "KeyX")?.dataset.category).toBeUndefined();
+		expect(cap(container, "KeyN")?.dataset.category).toBeUndefined();
 	});
 
 	it("refuses a key the action already has", async () => {

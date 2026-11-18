@@ -104,6 +104,8 @@ import {
 	lyricLinesAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
+	ToolMode,
+	toolModeAtom,
 } from "$/states/main";
 import { newLyricLine, newLyricWord } from "$/types/ttml";
 import {
@@ -112,7 +114,10 @@ import {
 	cmdRedo,
 	cmdRedoAlternate,
 } from "./commands";
-import { AuditionKeyBinding } from "./components/AuditionKeyBinding";
+import {
+	AuditionKeyBinding,
+	getAuditionRange,
+} from "./components/AuditionKeyBinding";
 import { doublePressAtom } from "./states";
 // Installs the second-key and double-press resolvers, as App does.
 import "./binding-list";
@@ -165,6 +170,14 @@ describe("menu shortcut wiring", () => {
 		expect(menuActions.onQuickAutoSegment).toHaveBeenCalledOnce();
 		invoke("Shift + KeyE");
 		expect(menuActions.onAutoSegment).toHaveBeenCalledOnce();
+	});
+
+	it("quick segmentation leaves E to Sync mode's next word and play", () => {
+		const store = createStore();
+		store.set(toolModeAtom, ToolMode.Sync);
+		mount(TopMenu, store);
+		invoke("KeyE");
+		expect(menuActions.onQuickAutoSegment).not.toHaveBeenCalled();
 	});
 
 	it("quick segmentation waits for a double press by default, and only it", () => {
@@ -261,8 +274,8 @@ describe("move to word and play handlers", () => {
 	};
 
 	it.each([
-		["KeyR", "first", 0],
-		["KeyY", "last", 1],
+		["KeyQ", "first", 0],
+		["KeyE", "last", 1],
 		["Home", "first", 0],
 		["End", "last", 1],
 	] as const)("%s selects the word and starts playback", (shortcut, id, seconds) => {
@@ -288,7 +301,7 @@ describe("move to word and play handlers", () => {
 		}));
 		store.set(selectedLinesAtom, new Set([nextLine.id]));
 		store.set(selectedWordsAtom, new Set([next.id]));
-		invoke("KeyR");
+		invoke("KeyQ");
 		expect(store.get(selectedWordsAtom)).toEqual(new Set(["last"]));
 		expect(store.get(selectedLinesAtom)).toEqual(new Set(["line"]));
 		expect(audioEngine.resumeOrSeekMusic).toHaveBeenCalledWith(1);
@@ -303,9 +316,9 @@ describe("move to word and play handlers", () => {
 
 describe("audition handlers", () => {
 	it.each([
-		["KeyQ", -0.5, 0],
-		["KeyB", 0, 0.5],
-		["KeyN", 0.5, 1],
+		["KeyZ", -0.5, 0],
+		["KeyX", 0, 0.5],
+		["KeyC", 0.5, 1],
 	] as const)("%s auditions a word starting at zero", (shortcut, start, end) => {
 		const store = createStore();
 		store.set(selectedWordIdAtom, "zero");
@@ -316,7 +329,76 @@ describe("audition handlers", () => {
 
 	it("does nothing without a selected word", () => {
 		mount(AuditionKeyBinding, createStore());
-		invoke("KeyB");
+		invoke("KeyX");
 		expect(audioEngine.auditionRange).not.toHaveBeenCalled();
+	});
+
+	const editorStore = () => {
+		const store = createStore();
+		const word = (id: string, startTime: number, endTime: number) => ({
+			...newLyricWord(),
+			id,
+			word: id,
+			startTime,
+			endTime,
+		});
+		store.set(lyricLinesAtom, (lyrics) => ({
+			...lyrics,
+			lyricLines: [
+				{
+					...newLyricLine(),
+					id: "a",
+					words: [word("w1", 1000, 1400), word("w2", 1400, 1800)],
+				},
+				{
+					...newLyricLine(),
+					id: "b",
+					words: [word("w3", 3000, 3600), word("untimed", 0, 0)],
+				},
+			],
+		}));
+		return store;
+	};
+
+	it.each([
+		["KeyZ", 2.5, 3],
+		["KeyX", 3, 3.6],
+		["KeyC", 3.6, 4.1],
+	] as const)("%s auditions a word selected in the editor", (shortcut, start, end) => {
+		const store = editorStore();
+		store.set(selectedWordsAtom, new Set(["w3"]));
+		mount(AuditionKeyBinding, store);
+		invoke(shortcut);
+		expect(audioEngine.auditionRange).toHaveBeenCalledWith(start, end);
+	});
+
+	it("spans several editor words and skips untimed ones", () => {
+		const store = editorStore();
+		store.set(selectedWordsAtom, new Set(["w2", "w3", "untimed"]));
+		expect(getAuditionRange(store, "editor")).toEqual({
+			startTime: 1400,
+			endTime: 3600,
+		});
+		store.set(selectedWordsAtom, new Set(["untimed"]));
+		expect(getAuditionRange(store, "editor")).toBeNull();
+	});
+
+	it("prefers the last-touched selection and falls back to the other", () => {
+		const store = editorStore();
+		store.set(selectedWordIdAtom, "zero");
+		store.set(selectedWordsAtom, new Set(["w1"]));
+		expect(getAuditionRange(store, "editor")).toEqual({
+			startTime: 1000,
+			endTime: 1400,
+		});
+		expect(getAuditionRange(store, "spectrogram")).toEqual({
+			startTime: 0,
+			endTime: 500,
+		});
+		store.set(selectedWordsAtom, new Set());
+		expect(getAuditionRange(store, "editor")).toEqual({
+			startTime: 0,
+			endTime: 500,
+		});
 	});
 });

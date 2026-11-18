@@ -1,8 +1,40 @@
 import { describe, expect, it } from "vitest";
-import { prepareTextImport, textToLines } from "./text-to-lines";
+import {
+	type JoinedBackgroundRow,
+	prepareTextImport,
+	replaceTextRows,
+	textToLines,
+} from "./text-to-lines";
 
 const words = (text: string, options = {}) =>
 	textToLines(text, options).map((line) => line.words.map((word) => word.word));
+
+describe("joined ad-libs", () => {
+	it("reports source rows, and an edited row processes cleanly", () => {
+		const text = "[Verse]\n'Rari (Red), crown (Stack)\nPlain line";
+		const joined: JoinedBackgroundRow[] = [];
+		expect(prepareTextImport(text, true, {}, joined)).toContain(
+			"<Red,\\ \\stack",
+		);
+		expect(joined).toEqual([
+			{
+				row: 1,
+				source: "'Rari (Red), crown (Stack)",
+				suggestion: "'Rari, crown (Red, stack)",
+			},
+		]);
+		const edited = replaceTextRows(
+			text,
+			new Map([[1, "'Rari, crown (Red, Stack)"]]),
+		);
+		expect(prepareTextImport(edited, true).split("\n")).toEqual([
+			"[Verse]",
+			"'Rari,\\ \\crown",
+			"<Red,\\ \\Stack",
+			"Plain\\ \\line",
+		]);
+	});
+});
 
 describe("shared text import", () => {
 	it("trims edges, discards blank/header rows by default and splits hyphens", () => {

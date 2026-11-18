@@ -6,6 +6,48 @@ import type {
 
 const BASE_URL = "https://api.genius.com";
 
+const LYRICS_ATTEMPTS = 3;
+const LYRICS_RETRY_DELAY_MS = 800;
+
+/**
+ * Genius stopped serving the lyrics after every attempt. Cloudflare challenges
+ * a share of embed requests at random, and the challenge has no CORS headers,
+ * so the browser reports it as a network error rather than a 403.
+ */
+export class GeniusLyricsBlockedError extends Error {
+	readonly songUrl: string;
+
+	constructor(songId: number) {
+		super("Genius blocked the lyrics request.");
+		this.name = "GeniusLyricsBlockedError";
+		this.songUrl = `https://genius.com/songs/${songId}`;
+	}
+}
+
+const isBlockedStatus = (status: number) =>
+	status === 403 || status === 429 || status >= 500;
+
+const fetchLyricsEmbed = async (songId: number): Promise<string> => {
+	for (let attempt = 1; ; attempt++) {
+		let response: Response | undefined;
+		try {
+			response = await fetch(`https://genius.com/songs/${songId}/embed.js`);
+		} catch (error) {
+			if (globalThis.navigator?.onLine === false) throw error;
+		}
+		if (response?.ok) return response.text();
+		if (response && !isBlockedStatus(response.status)) {
+			throw new Error(
+				`Genius lyrics request failed: ${response.status} ${response.statusText}`,
+			);
+		}
+		if (attempt === LYRICS_ATTEMPTS) throw new GeniusLyricsBlockedError(songId);
+		await new Promise((resolve) =>
+			setTimeout(resolve, LYRICS_RETRY_DELAY_MS * attempt),
+		);
+	}
+};
+
 /**
  * The Genius page itself is not CORS-enabled. Its public embed endpoint is,
  * and returns the lyrics as an escaped HTML string inside `document.write`.
@@ -174,16 +216,7 @@ export const GeniusApi = {
 	 */
 	async getLyrics(songId: number): Promise<string> {
 		try {
-			const response = await fetch(
-				`https://genius.com/songs/${songId}/embed.js`,
-			);
-			if (!response.ok) {
-				throw new Error(
-					`Genius lyrics request failed: ${response.status} ${response.statusText}`,
-				);
-			}
-
-			return extractLyricsFromEmbed(await response.text());
+			return extractLyricsFromEmbed(await fetchLyricsEmbed(songId));
 		} catch (error) {
 			console.error("Genius Scraper Error:", error);
 			throw error;
