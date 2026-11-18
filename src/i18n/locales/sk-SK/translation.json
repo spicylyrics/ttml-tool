@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Odtiaľto použiť {applied} z {total} časovaní",
     "timingsApplied": "Časovanie použité na {count, plural, one {# riadok} few {# riadky} many {# riadka} other {# riadkov}}.",
     "partialTimingCopy": "Pred koniec textu sa zmestí len {applied} z {total} zdrojových časovaní.",
+    "timingCopyOriginalTimes": "Nad tým nemá nič čas, preto skopírované riadky zachovali pôvodné časy.",
     "wordTimingMismatch": "{count, plural, one {# riadok mal} few {# riadky mali} many {# riadka malo} other {# riadkov malo}} iný počet slov. Skopírované boli len zodpovedajúce pozície slov.",
     "insertLine": "Vložiť nový riadok tu",
     "insertWord": "Vložiť slovo tu…"

@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Применить отсюда {applied} из {total} наборов меток",
     "timingsApplied": "Заданы временные метки: {count, plural, one {# строка} few {# строки} many {# строк} other {# строки}}.",
     "partialTimingCopy": "До конца текста помещается только {applied} из {total} исходных наборов меток.",
+    "timingCopyOriginalTimes": "Выше нет строк с таймингом, поэтому скопированные строки сохранили исходное время.",
     "wordTimingMismatch": "Разное число слов: {count, plural, one {# строка} few {# строки} many {# строк} other {# строки}}. Скопированы только совпадающие позиции слов.",
     "insertLine": "Вставить новую строку здесь",
     "insertWord": "Вставить слово здесь…"

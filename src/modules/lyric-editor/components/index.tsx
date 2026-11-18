@@ -71,6 +71,17 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 		}
 	}, [store, toolMode]);
 
+	// Escape backs out of choosing where to paste copied timings.
+	useEffect(() => {
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key !== "Escape" || !store.get(timingCopyPlacementAtom)) return;
+			store.set(timingCopyPlacementAtom, null);
+			event.preventDefault();
+		};
+		window.addEventListener("keydown", onKeyDown);
+		return () => window.removeEventListener("keydown", onKeyDown);
+	}, [store]);
+
 	useLineDragDrop({ viewElRef, editLyric, toolMode, store, editLyricLines });
 
 	// A new view first draws the top of the song, then jumps to its saved line

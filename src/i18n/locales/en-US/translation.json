@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Apply {applied} of {total} timings starting here",
     "timingsApplied": "{count, plural, one {Applied timing to # line.} other {Applied timing to # lines.}}",
     "partialTimingCopy": "Only {applied} of {total} source timings fit before the end of the lyrics.",
+    "timingCopyOriginalTimes": "Nothing above is timed, so the copied lines kept their original times.",
     "wordTimingMismatch": "{count, plural, one {# line had a different word count, so only matching word positions were copied.} other {# lines had different word counts, so only matching word positions were copied.}}",
     "insertLine": "Insert new line here",
     "insertWord": "Insert word here…"

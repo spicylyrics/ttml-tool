@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Zastosuj od tego miejsca {applied} z {total} zestawów czasów",
     "timingsApplied": "Zastosowano czasy do {count, plural, one {# wersu} few {# wersów} many {# wersów} other {# wersu}}.",
     "partialTimingCopy": "Do końca tekstu mieści się tylko {applied} z {total} źródłowych zestawów czasów.",
+    "timingCopyOriginalTimes": "Powyżej nic nie ma czasu, więc skopiowane wiersze zachowały oryginalne czasy.",
     "wordTimingMismatch": "{count, plural, one {# wers miał} few {# wersy miały} many {# wersów miało} other {# wersu miało}} inną liczbę słów. Skopiowano tylko pasujące pozycje słów.",
     "insertLine": "Wstaw tutaj nowy wers",
     "insertWord": "Wstaw słowo tutaj…"

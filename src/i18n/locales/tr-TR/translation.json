@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Buradan başlayarak {total} zamanlamadan {applied} tanesini uygula",
     "timingsApplied": "{count, plural, one {# satıra} other {# satıra}} zamanlama uygulandı.",
     "partialTimingCopy": "Şarkı sözlerinin sonuna kadar {total} kaynak zamanlamasından yalnızca {applied} tanesi sığıyor.",
+    "timingCopyOriginalTimes": "Yukarıda zamanlanmış satır yok, bu yüzden kopyalanan satırlar özgün zamanlarını korudu.",
     "wordTimingMismatch": "{count, plural, one {# satırda kelime sayısı farklıydı; yalnızca eşleşen kelime konumları kopyalandı.} other {# satırda kelime sayısı farklıydı; yalnızca eşleşen kelime konumları kopyalandı.}}",
     "insertLine": "Buraya yeni satır ekle",
     "insertWord": "Buraya kelime ekle…"

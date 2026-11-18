@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Vanaf hier {applied} van {total} timings toepassen",
     "timingsApplied": "{count, plural, one {Timing toegepast op # regel.} other {Timing toegepast op # regels.}}",
     "partialTimingCopy": "Slechts {applied} van {total} brontimings passen vóór het einde van de songtekst.",
+    "timingCopyOriginalTimes": "Erboven is niets getimed, dus de gekopieerde regels hielden hun oorspronkelijke tijden.",
     "wordTimingMismatch": "{count, plural, one {# regel had een ander aantal woorden; alleen overeenkomende woordposities zijn gekopieerd.} other {# regels hadden een ander aantal woorden; alleen overeenkomende woordposities zijn gekopieerd.}}",
     "insertLine": "Voeg hier een nieuwe regel in",
     "insertWord": "Woord hier invoegen…"

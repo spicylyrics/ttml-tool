@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "从此处开始应用 {total} 组时间中的 {applied} 组",
     "timingsApplied": "{count, plural, other {已为 # 行应用时间。}}",
     "partialTimingCopy": "到歌词结尾只能容纳 {total} 组源时间中的 {applied} 组。",
+    "timingCopyOriginalTimes": "上方没有已打轴的行，因此复制的行保留了原来的时间。",
     "wordTimingMismatch": "{count, plural, other {# 行的字数不同，因此只复制了对应位置的字时间。}}",
     "insertLine": "在此处插入新行",
     "insertWord": "在此处插入字…"

@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Terapkan {applied} dari {total} set waktu dari sini",
     "timingsApplied": "{count, plural, other {Waktu diterapkan ke # baris.}}",
     "partialTimingCopy": "Hanya {applied} dari {total} waktu sumber yang muat sebelum akhir lirik.",
+    "timingCopyOriginalTimes": "Tidak ada baris bertiming di atasnya, jadi baris yang disalin mempertahankan waktu aslinya.",
     "wordTimingMismatch": "{count, plural, other {# baris memiliki jumlah kata berbeda; hanya posisi kata yang cocok yang disalin.}}",
     "insertLine": "Sisipkan baris baru di sini",
     "insertWord": "Sisipkan kata di sini…"

@@ -74,6 +74,14 @@ export function LineTimingPlacement({
 							}),
 						);
 					}
+					if (result.usedOriginalTimes) {
+						warnings.push(
+							t(
+								"lyricLineView.timingCopyOriginalTimes",
+								"Nothing above is timed, so the copied lines kept their original times.",
+							),
+						);
+					}
 					if (result.wordCountMismatchCount > 0) {
 						warnings.push(
 							t("lyricLineView.wordTimingMismatch", {

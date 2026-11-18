@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Aplicar {applied} de {total} tiempos comenzando aquí",
     "timingsApplied": "{count, plural, one {Tiempos aplicados a # línea.} many {Tiempos aplicados a # líneas.} other {Tiempos aplicados a # líneas.}}",
     "partialTimingCopy": "Solo {applied} de {total} tiempos de origen encajan antes del final de la letra.",
+    "timingCopyOriginalTimes": "No hay nada con tiempo por encima, así que las líneas copiadas conservaron sus tiempos originales.",
     "wordTimingMismatch": "{count, plural, one {# línea tenía un número distinto de palabras; solo se copiaron las posiciones coincidentes.} many {# líneas tenían un número distinto de palabras; solo se copiaron las posiciones coincidentes.} other {# líneas tenían un número distinto de palabras; solo se copiaron las posiciones coincidentes.}}",
     "insertLine": "Insertar nueva línea aquí",
     "insertWord": "Insertar palabra aquí…"

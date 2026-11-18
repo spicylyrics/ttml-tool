@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Aplică {applied} din {total} sincronizări de aici",
     "timingsApplied": "{count, plural, one {Timpi aplicați pentru # vers.} few {Timpi aplicați pentru # versuri.} other {Timpi aplicați pentru # de versuri.}}",
     "partialTimingCopy": "Doar {applied} din {total} sincronizări sursă încap înainte de sfârșitul versurilor.",
+    "timingCopyOriginalTimes": "Nimic deasupra nu are timp, așa că rândurile copiate și-au păstrat timpii originali.",
     "wordTimingMismatch": "{count, plural, one {# vers avea un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.} few {# versuri aveau un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.} other {# de versuri aveau un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.}}",
     "insertLine": "Inserează un vers aici",
     "insertWord": "Introdu un cuvânt aici…"

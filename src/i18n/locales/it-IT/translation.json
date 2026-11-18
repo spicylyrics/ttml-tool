@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Applica {applied} sincronizzazioni su {total} da qui",
     "timingsApplied": "{count, plural, one {Tempi applicati a # verso.} many {Tempi applicati a # versi.} other {Tempi applicati a # versi.}}",
     "partialTimingCopy": "Solo {applied} dei {total} tempi di origine rientrano prima della fine del testo.",
+    "timingCopyOriginalTimes": "Sopra non c'è nulla di temporizzato, quindi le righe copiate hanno mantenuto i tempi originali.",
     "wordTimingMismatch": "{count, plural, one {# verso aveva un numero diverso di parole; sono state copiate solo le posizioni corrispondenti.} many {# versi avevano un numero diverso di parole; sono state copiate solo le posizioni corrispondenti.} other {# versi avevano un numero diverso di parole; sono state copiate solo le posizioni corrispondenti.}}",
     "insertLine": "Inserisci un nuovo verso qui",
     "insertWord": "Inserisci una parola qui…"

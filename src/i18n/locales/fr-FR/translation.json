@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Appliquer {applied} synchronisations sur {total} à partir d’ici",
     "timingsApplied": "{count, plural, one {Temps appliqués à # ligne.} many {Temps appliqués à # lignes.} other {Temps appliqués à # lignes.}}",
     "partialTimingCopy": "Seules {applied} synchronisations sources sur {total} tiennent avant la fin des paroles.",
+    "timingCopyOriginalTimes": "Aucune ligne synchronisée au-dessus, les lignes copiées ont donc gardé leurs temps d'origine.",
     "wordTimingMismatch": "{count, plural, one {# ligne avait un nombre de mots différent ; seules les positions correspondantes ont été copiées.} many {# lignes avaient un nombre de mots différent ; seules les positions correspondantes ont été copiées.} other {# lignes avaient un nombre de mots différent ; seules les positions correspondantes ont été copiées.}}",
     "insertLine": "Insérer une nouvelle ligne ici",
     "insertWord": "Insérer un mot ici…"

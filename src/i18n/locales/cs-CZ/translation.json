@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Odtud použít {applied} z {total} časování",
     "timingsApplied": "Časování použito na {count, plural, one {# řádek} few {# řádky} many {# řádku} other {# řádků}}.",
     "partialTimingCopy": "Před konec textu se vejde jen {applied} z {total} zdrojových časování.",
+    "timingCopyOriginalTimes": "Nad tímto nic nemá čas, proto zkopírované řádky zachovaly původní časy.",
     "wordTimingMismatch": "{count, plural, one {# řádek měl} few {# řádky měly} many {# řádku mělo} other {# řádků mělo}} jiný počet slov. Zkopírovány byly jen odpovídající pozice slov.",
     "insertLine": "Vložit nový řádek zde",
     "insertWord": "Vložit slovo zde…"

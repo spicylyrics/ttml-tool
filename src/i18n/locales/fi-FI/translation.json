@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Käytä {applied} ajoitusta {total} ajoituksesta tästä alkaen",
     "timingsApplied": "{count, plural, one {Ajoitus asetettu # riville.} other {Ajoitus asetettu # riville.}}",
     "partialTimingCopy": "Vain {applied} ajoitusta {total} lähdeajoituksesta mahtuu ennen sanoitusten loppua.",
+    "timingCopyOriginalTimes": "Yläpuolella ei ole ajoitettua riviä, joten kopioidut rivit säilyttivät alkuperäiset aikansa.",
     "wordTimingMismatch": "{count, plural, one {# rivillä oli eri sanamäärä; vain vastaavat sanapaikat kopioitiin.} other {# rivillä oli eri sanamäärä; vain vastaavat sanapaikat kopioitiin.}}",
     "insertLine": "Lisää uusi rivi tähän",
     "insertWord": "Lisää sana tähän…"

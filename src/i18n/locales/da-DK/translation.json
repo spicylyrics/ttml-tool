@@ -1377,6 +1377,7 @@
     "applyPartialTimingsHere": "Anvend {applied} af {total} timinger fra denne linje",
     "timingsApplied": "{count, plural, one {Timing anvendt på # linje.} other {Timing anvendt på # linjer.}}",
     "partialTimingCopy": "Kun {applied} af {total} kildetiminger kan indsættes før sangtekstens slutning.",
+    "timingCopyOriginalTimes": "Intet ovenfor har tid, så de kopierede linjer beholdt deres oprindelige tider.",
     "wordTimingMismatch": "{count, plural, one {# linje havde et andet antal ord, så kun tilsvarende ordpositioner blev kopieret.} other {# linjer havde et andet antal ord, så kun tilsvarende ordpositioner blev kopieret.}}",
     "insertLine": "Indsæt ny linje her",
     "insertWord": "Indsæt ord her…"
