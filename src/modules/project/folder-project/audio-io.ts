@@ -2,8 +2,8 @@ import { isTauri } from "@tauri-apps/api/core";
 import { exists, readFile, stat, writeFile } from "@tauri-apps/plugin-fs";
 import {
 	assertSafePath,
-	isSafeLinkedPath,
 	getFileExtension,
+	isSafeLinkedPath,
 } from "$/modules/project/folder-project/manifest";
 
 export const AUDIO_MIME_BY_EXT: Record<string, string> = {

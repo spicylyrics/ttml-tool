@@ -23,8 +23,8 @@ import {
 	lyricLinesAtom,
 	projectIdAtom,
 	SaveStatus,
-	saveFileNameAtom,
 	savedLyricLinesAtom,
+	saveFileNameAtom,
 	saveStatusAtom,
 } from "$/states/main";
 import { log, error as logError } from "$/utils/logging";

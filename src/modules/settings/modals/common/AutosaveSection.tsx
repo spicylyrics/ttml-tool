@@ -1,4 +1,3 @@
-import { isTauri } from "@tauri-apps/api/core";
 import {
 	ArrowUndo24Regular,
 	History24Regular,
@@ -15,6 +14,7 @@ import {
 	Text,
 	TextField,
 } from "@radix-ui/themes";
+import { isTauri } from "@tauri-apps/api/core";
 import type { CommonSettings } from "./useCommonSettings";
 export const AutosaveSection = ({
 	autosaveEnabled,

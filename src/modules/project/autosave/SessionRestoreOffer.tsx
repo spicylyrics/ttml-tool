@@ -1,10 +1,10 @@
-import { isTauri } from "@tauri-apps/api/core";
 import {
 	ArrowUndoRegular,
 	DismissRegular,
 	MusicNote2Regular,
 } from "@fluentui/react-icons";
 import { Button, Checkbox, Flex, Text } from "@radix-ui/themes";
+import { isTauri } from "@tauri-apps/api/core";
 import { useAtom, useStore } from "jotai";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,8 +24,8 @@ import {
 	lyricLinesAtom,
 	newLyricLinesAtom,
 	projectIdAtom,
-	saveFileNameAtom,
 	savedLyricLinesAtom,
+	saveFileNameAtom,
 } from "$/states/main";
 import { error as logError } from "$/utils/logging";
 

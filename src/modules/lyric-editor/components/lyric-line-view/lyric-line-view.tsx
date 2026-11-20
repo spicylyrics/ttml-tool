@@ -27,8 +27,8 @@ import { LineTimingPlacement } from "./line-timing-placement.tsx";
 import { LineTrailingInsert } from "./line-trailing-insert.tsx";
 import { LyricLineScroller } from "./lyric-line-scroller";
 import { SectionDivider } from "./section-divider.tsx";
-import { useLineInteractions } from "./use-line-interactions";
 import { useKeepPositionOnSelect } from "./use-keep-position-on-select";
+import { useLineInteractions } from "./use-line-interactions";
 import { useLineView } from "./use-line-view";
 
 export const LyricLineView: FC<{

@@ -8,12 +8,12 @@ import {
 	autosaveEnabledAtom,
 	autosaveIntervalAtom,
 	autosaveLimitAtom,
-	restoreSessionAutomaticallyAtom,
 	compactBGInSyncAtom,
 	folderProjectsAutosaveAtom,
 	folderProjectsEnabledAtom,
 	normalizeApostrophesOnImportAtom,
 	normalizeCyrillicEsOnImportAtom,
+	restoreSessionAutomaticallyAtom,
 	smartLastWordAtom,
 	syncJudgeModeAtom,
 } from "$/modules/settings/states";
