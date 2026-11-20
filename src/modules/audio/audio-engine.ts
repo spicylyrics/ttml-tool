@@ -752,9 +752,12 @@ export class AudioEngine extends EventTarget {
 				() => abort.signal.removeEventListener("abort", cancelReady),
 			);
 			ownedNode.connect(this.eqEntryPoint);
-			// With cross-origin isolation (web and desktop) the song sits in shared
-			// memory, so the worklet can scrub it without a second copy.
-			const shared = globalThis.crossOriginIsolated === true;
+			// With cross-origin isolation the song sits in shared memory, so the
+			// worklet can scrub it without a second copy. WebKit (Linux and macOS
+			// desktop) reports isolation but has no SharedArrayBuffer.
+			const shared =
+				globalThis.crossOriginIsolated === true &&
+				typeof SharedArrayBuffer === "function";
 			const channels = Array.from(
 				{ length: buffer.numberOfChannels },
 				(_, channel) => {

@@ -443,4 +443,12 @@ describe("scrubbing", () => {
 		expect(init.scrub.channels[0].buffer).toBeInstanceOf(SharedArrayBuffer);
 		expect(init.scrub.sampleRate).toBe(1000);
 	});
+
+	it("loads without shared memory when isolation is reported but unsupported", async () => {
+		vi.stubGlobal("crossOriginIsolated", true);
+		vi.stubGlobal("SharedArrayBuffer", undefined);
+		await engine.loadMusic(new Blob());
+		const init = FakeNode.nodes[0].commands.find((c) => c.type === "init");
+		expect(init?.type === "init" && init.scrub).toBeNull();
+	});
 });

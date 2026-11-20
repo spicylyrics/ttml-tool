@@ -1,5 +1,19 @@
 [
 	{
+		"version": "0.24.1",
+		"summary": "WebKit audio fix",
+		"color": "ruby",
+		"date": "2026-11-20",
+		"entries": [
+			{
+				"type": "fix",
+				"title": "Project audio loads again on Linux and macOS",
+				"body": "The desktop app no longer fails with a SharedArrayBuffer error when opening a song",
+				"highlight": true
+			}
+		]
+	},
+	{
 		"version": "0.24.0",
 		"summary": "Scrub by ear, system accent",
 		"color": "teal",
