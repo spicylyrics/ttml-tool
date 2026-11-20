@@ -144,6 +144,7 @@ import {
 } from "./states/main.ts";
 import { generateGradient, generateRadixScale } from "./utils/colorScale.ts";
 import { attachDroppedFilePath } from "./utils/droppedFilePath.ts";
+import { listenNativeFileDrop } from "./utils/nativeFileDrop.ts";
 import { useAppUpdate } from "./utils/useAppUpdate.ts";
 
 const LyricLinesView = lazy(() => import("./modules/lyric-editor/components"));
@@ -702,6 +703,14 @@ function App() {
 			window.removeEventListener("dragleave", handleDragLeave);
 			window.removeEventListener("drop", handleDrop);
 		};
+	}, [setIsGlobalDragging, openFiles]);
+
+	useEffect(() => {
+		if (!import.meta.env.TAURI_ENV_PLATFORM) return;
+		return listenNativeFileDrop({
+			onDragging: setIsGlobalDragging,
+			onFiles: openFiles,
+		});
 	}, [setIsGlobalDragging, openFiles]);
 
 	return (
