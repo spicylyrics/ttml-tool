@@ -1,7 +1,7 @@
 [
 	{
 		"version": "0.24.1",
-		"summary": "WebKit audio fix",
+		"summary": "Linux and macOS fixes",
 		"color": "ruby",
 		"date": "2026-11-20",
 		"entries": [
@@ -10,6 +10,24 @@
 				"title": "Project audio loads again on Linux and macOS",
 				"body": "The desktop app no longer fails with a SharedArrayBuffer error when opening a song",
 				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Dropping files on the window works on Linux",
+				"body": "Dropped audio and lyric files open instead of replacing the app with the file's text",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Play waits while you drag the playhead",
+				"body": "Pressing play mid-drag starts playback from where you let go instead of playing under the pointer",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Scrub audio plays on Linux and macOS",
+				"body": "Dragging the playhead now plays the song on the desktop app there too",
+				"highlight": false
 			}
 		]
 	},

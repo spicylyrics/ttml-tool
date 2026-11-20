@@ -395,6 +395,36 @@ describe("scrubbing", () => {
 		expect(engine.musicCurrentTime).toBeCloseTo(0.6);
 	});
 
+	it("holds play pressed mid-drag until release, then starts there", async () => {
+		await engine.loadMusic(new Blob());
+		const node = FakeNode.nodes[0];
+		engine.beginScrub();
+		engine.scrubTo(0.3);
+		const voices = node.commands.filter((c) => c.type === "voice").length;
+		await engine.resumeOrSeekMusic();
+		expect(node.commands.filter((c) => c.type === "voice")).toHaveLength(
+			voices,
+		);
+		expect(engine.musicPlaying).toBe(true);
+		engine.scrubTo(0.6);
+		engine.endScrub();
+		await flush();
+		expect(node.lastState).toMatchObject({ frame: 600, playing: true });
+	});
+
+	it("cancels a held play when paused again mid-drag", async () => {
+		await engine.loadMusic(new Blob());
+		const node = FakeNode.nodes[0];
+		engine.beginScrub();
+		await engine.resumeOrSeekMusic();
+		engine.pauseMusic();
+		expect(engine.musicPlaying).toBe(false);
+		engine.scrubTo(0.6);
+		engine.endScrub();
+		await flush();
+		expect(node.lastState).toMatchObject({ frame: 600, playing: false });
+	});
+
 	it("drags silently when scrub audio is off and follows tape mode when pitch isn't kept", async () => {
 		await engine.loadMusic(new Blob());
 		const node = FakeNode.nodes[0];
@@ -432,8 +462,12 @@ describe("scrubbing", () => {
 
 	it("shares the song with the worklet only when memory can be shared", async () => {
 		await engine.loadMusic(new Blob());
-		const isolated = FakeNode.nodes[0].commands.find((c) => c.type === "init");
-		expect(isolated?.type === "init" && isolated.scrub).toBeNull();
+		const copied = FakeNode.nodes[0].commands.find((c) => c.type === "init");
+		if (copied?.type !== "init" || !copied.scrub)
+			throw new Error("No scrub source");
+		expect(copied.scrub.channels[0].buffer).not.toBeInstanceOf(
+			SharedArrayBuffer,
+		);
 
 		vi.stubGlobal("crossOriginIsolated", true);
 		await engine.loadMusic(new Blob());
@@ -444,11 +478,14 @@ describe("scrubbing", () => {
 		expect(init.scrub.sampleRate).toBe(1000);
 	});
 
-	it("loads without shared memory when isolation is reported but unsupported", async () => {
+	it("scrubs its own copy when isolation is reported but SharedArrayBuffer is missing", async () => {
 		vi.stubGlobal("crossOriginIsolated", true);
 		vi.stubGlobal("SharedArrayBuffer", undefined);
 		await engine.loadMusic(new Blob());
 		const init = FakeNode.nodes[0].commands.find((c) => c.type === "init");
-		expect(init?.type === "init" && init.scrub).toBeNull();
+		if (init?.type !== "init" || !init.scrub)
+			throw new Error("No scrub source");
+		expect(init.scrub.channels[0]).toBeInstanceOf(Float32Array);
+		expect(init.scrub.channels[0].length).toBeGreaterThan(0);
 	});
 });

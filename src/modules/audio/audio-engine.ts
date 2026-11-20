@@ -180,12 +180,16 @@ export class AudioEngine extends EventTarget {
 	private _scrubAudio = true;
 	/** Where the dragged playhead is while scrubbing, otherwise null. */
 	private scrubFrame: number | null = null;
+	/** Play was pressed mid-drag while paused; start from where it's released. */
+	private playAfterScrub = false;
 
 	get musicLoaded() {
 		return this.musicBuffer !== null;
 	}
 	get musicPlaying() {
-		return this.playing && this.ctx.state === "running";
+		return (
+			this.playAfterScrub || (this.playing && this.ctx.state === "running")
+		);
 	}
 	get musicDuration() {
 		return this.musicBuffer?.duration ?? 0;
@@ -389,6 +393,11 @@ export class AudioEngine extends EventTarget {
 		});
 		this.setVoice("music", frame, this.playing);
 		this.dispatchEvent(new Event("music-seeked"));
+		if (this.playAfterScrub) {
+			this.playAfterScrub = false;
+			if (this.musicBuffer)
+				void this.resumeOrSeekMusic(frame / this.musicBuffer.sampleRate);
+		}
 	}
 	get scrubAudio() {
 		return this._scrubAudio;
@@ -408,6 +417,15 @@ export class AudioEngine extends EventTarget {
 			throw new Error(audioErrorMessage("contextStart"));
 	}
 	resumeOrSeekMusic(offset = this.musicCurrentTime) {
+		// Mid-drag the music voice must stay put, or it plays on under the
+		// pointer. Hold the start until the drag ends.
+		if (this.scrubFrame !== null) {
+			if (!this.playing && !this.playAfterScrub) {
+				this.playAfterScrub = true;
+				this.dispatchEvent(new Event("music-resume"));
+			}
+			return Promise.resolve();
+		}
 		return this.observePlayback(this.startMusic(offset), "music");
 	}
 	private async startMusic(offset: number) {
@@ -484,6 +502,7 @@ export class AudioEngine extends EventTarget {
 			this.setVoice("music", frame, false);
 		} else this.cancelStart("music");
 		this.playing = false;
+		this.playAfterScrub = false;
 		this.stopAudition();
 		this.stopUpdates();
 		this.dispatchEvent(new Event("music-timeupdate"));
@@ -753,8 +772,9 @@ export class AudioEngine extends EventTarget {
 			);
 			ownedNode.connect(this.eqEntryPoint);
 			// With cross-origin isolation the song sits in shared memory, so the
-			// worklet can scrub it without a second copy. WebKit (Linux and macOS
-			// desktop) reports isolation but has no SharedArrayBuffer.
+			// renderer and the worklet's scrubber read one copy. WebKit (Linux and
+			// macOS desktop) reports isolation but has no SharedArrayBuffer, so
+			// there each gets its own copy.
 			const shared =
 				globalThis.crossOriginIsolated === true &&
 				typeof SharedArrayBuffer === "function";
@@ -768,7 +788,11 @@ export class AudioEngine extends EventTarget {
 					return copy;
 				},
 			);
-			const signalsmithWasm = shared ? await this.scrubWasm() : null;
+			// Copied before `channels` is transferred to the renderer below.
+			const scrubChannels = shared
+				? channels
+				: channels.map((data) => data.slice());
+			const signalsmithWasm = await this.scrubWasm();
 			assertCurrent();
 			renderer = new Worker(
 				new URL("./workers/pcm-render.worker.ts", import.meta.url),
@@ -796,10 +820,19 @@ export class AudioEngine extends EventTarget {
 					type: "init",
 					port: channel.port2,
 					scrub: signalsmithWasm
-						? { channels, sampleRate: buffer.sampleRate, signalsmithWasm }
+						? {
+								channels: scrubChannels,
+								sampleRate: buffer.sampleRate,
+								signalsmithWasm,
+							}
 						: null,
 				} satisfies PlayerCommand,
-				[channel.port2],
+				[
+					channel.port2,
+					...(shared || !signalsmithWasm
+						? []
+						: scrubChannels.map((data) => data.buffer)),
+				],
 			);
 			if (this.ctx.state === "running") {
 				await this.withTimeout(ready, audioErrorMessage("workletInit"));

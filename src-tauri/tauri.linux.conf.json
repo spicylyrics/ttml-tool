@@ -23,7 +23,7 @@
 				"resizable": true,
 				"devtools": true,
 				"fullscreen": false,
-				"dragDropEnabled": false,
+				"dragDropEnabled": true,
 				"visible": false,
 				"decorations": true
 			}
