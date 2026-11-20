@@ -732,7 +732,14 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_persisted_scope::init())
-        .plugin(tauri_plugin_process::init());
+        .plugin(tauri_plugin_process::init())
+        // A file drop the page doesn't take makes the webview load the file
+        // as a page, replacing the app. Never leave the app for a local file.
+        .plugin(
+            tauri::plugin::Builder::<tauri::Wry>::new("navigation-guard")
+                .on_navigation(|_, url| url.scheme() != "file")
+                .build(),
+        );
 
     // Registered on every install so Flatpak and package-manager installs can
     // check for updates too; only can_self_update installs download them.

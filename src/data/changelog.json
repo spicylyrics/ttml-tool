@@ -1,140 +1,137 @@
 [
 	{
-		"version": "0.24.0-3",
-		"summary": "Smoother scrubbing, lighter playhead",
-		"color": "green",
-		"date": "2026-11-13",
-		"prerelease": true,
-		"entries": [
-			{
-				"type": "fix",
-				"title": "AppImage runs natively on Wayland",
-				"body": "On Wayland desktops it no longer goes through XWayland, which made it slow on NVIDIA and scaled screens",
-				"highlight": true,
-				"impact": 4
-			},
-			{
-				"type": "fix",
-				"title": "Smoother Spicy preview with lighter effects",
-				"body": "Lighter effects drops the preview's top and bottom fade, which Linux redrew every frame",
-				"highlight": false,
-				"impact": 3
-			},
-			{
-				"type": "fix",
-				"title": "Smoother sound when dragging the playhead slowly",
-				"body": "A slow, pixel-by-pixel drag no longer chops the sound into grains between steps",
-				"highlight": false,
-				"impact": 3
-			},
-			{
-				"type": "fix",
-				"title": "Lighter playhead during playback",
-				"body": "The spectrogram playhead moves without redrawing the page each frame, which helps most on Linux",
-				"highlight": false,
-				"impact": 2
-			}
-		]
-	},
-	{
-		"version": "0.24.0-2",
-		"summary": "Sharper spectrogram, system accent",
+		"version": "0.24.1",
+		"summary": "Linux and macOS fixes",
 		"color": "ruby",
-		"date": "2026-11-09",
-		"prerelease": true,
+		"date": "2026-11-20",
 		"entries": [
 			{
-				"type": "feature",
-				"title": "Follow your system accent color",
-				"body": "Turn on **Follow the system accent** in Appearance and the app changes color with Windows, macOS or your Linux desktop",
-				"highlight": true,
-				"impact": 3
-			},
-			{
-				"type": "change",
-				"title": "Play selection works on any selected word",
-				"body": "The play selection shortcuts now play words picked in the editor too, and several selected words play as one stretch",
-				"highlight": false,
-				"impact": 3
-			},
-			{
-				"type": "change",
-				"title": "New default keys for playing words",
-				"body": "New installs play selections with `Z` `X` `C` and step and play with `Q` `E`; your current keys stay as they are",
-				"highlight": false,
-				"impact": 3
+				"type": "fix",
+				"title": "Project audio loads again on Linux and macOS",
+				"body": "The desktop app no longer fails with a SharedArrayBuffer error when opening a song",
+				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Sharper spectrogram with readable harmonics",
-				"body": "Loud parts no longer wash out to white, and the new default Inferno colors show each harmonic as its own line",
-				"highlight": true,
-				"impact": 4
+				"title": "Dropping files on the window works on Linux",
+				"body": "Dropped audio and lyric files open instead of replacing the app with the file's text",
+				"highlight": true
 			},
 			{
 				"type": "fix",
-				"title": "Clearer failed updates on macOS",
-				"body": "A Mac copy opened from the disk image now says to move it to Applications, and a failed update shows why",
-				"highlight": false,
-				"impact": 3
+				"title": "Play waits while you drag the playhead",
+				"body": "Pressing play mid-drag starts playback from where you let go instead of playing under the pointer",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Scrub audio plays on Linux and macOS",
+				"body": "Dragging the playhead now plays the song on the desktop app there too",
+				"highlight": false
 			}
 		]
 	},
 	{
-		"version": "0.24.0-1",
-		"summary": "Scrubbing and spectrogram scales",
+		"version": "0.24.0",
+		"summary": "Scrub by ear, system accent",
 		"color": "teal",
-		"date": "2026-11-08",
-		"prerelease": true,
+		"date": "2026-11-18",
 		"entries": [
 			{
 				"type": "feature",
 				"title": "Hear the song while you drag the playhead",
 				"body": "Drag in the audio bar or spectrogram to find a syllable by ear, even while paused, or turn it off in Preferences",
-				"highlight": true,
-				"impact": 4
+				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Set how far the arrow keys seek",
 				"body": "Pick the jump length next to the seek shortcuts in **Shortcuts**, and hold `←` or `→` to keep seeking",
-				"highlight": true,
-				"impact": 3
+				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Log and mel frequency scales for the spectrogram",
 				"body": "Pick **Frequency scale** in the spectrogram settings to stretch out the low end where voices sit",
-				"highlight": true,
-				"impact": 3
+				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Zoom the spectrogram out to the whole song",
 				"body": "Ctrl+scroll out until the whole song fits, with line numbers on the bars, so far-away parts are one zoom away",
-				"highlight": false,
-				"impact": 3
+				"highlight": false
+			},
+			{
+				"type": "feature",
+				"title": "Follow your system accent color",
+				"body": "Turn on **Follow the system accent** in Appearance and the app changes color with Windows, macOS or your Linux desktop",
+				"highlight": true
 			},
 			{
 				"type": "feature",
 				"title": "Voice range and steadier detail in the spectrogram",
 				"body": "Pick Voice under **Top frequency** to show up to 8 kHz, and zoomed-out views now keep short peaks while you scroll",
-				"highlight": false,
-				"impact": 2
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "Play selection works on any selected word",
+				"body": "The play selection shortcuts now play words picked in the editor too, and several selected words play as one stretch",
+				"highlight": false
+			},
+			{
+				"type": "change",
+				"title": "New default keys for playing words",
+				"body": "New installs play selections with `Z` `X` `C` and step and play with `Q` `E`; your current keys stay as they are",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Sharper spectrogram with readable harmonics",
+				"body": "Loud parts no longer wash out to white, and the new default Inferno colors show each harmonic as its own line",
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "AppImage runs natively on Wayland",
+				"body": "On Wayland desktops it no longer goes through XWayland, which made it slow on NVIDIA and scaled screens",
+				"highlight": true
 			},
 			{
 				"type": "fix",
 				"title": "Genius lyrics retry when Cloudflare blocks them",
 				"body": "Imports and romanized lookups try again on their own, then link to the song page if Genius keeps blocking the request",
-				"highlight": false,
-				"impact": 3
+				"highlight": false
 			},
 			{
 				"type": "fix",
 				"title": "Process lyrics asks you to check joined ad-libs",
 				"body": "Ad-libs from between words now continue in lowercase, and a dialog lets you fix names, capitals and commas",
-				"highlight": true,
-				"impact": 3
+				"highlight": true
+			},
+			{
+				"type": "fix",
+				"title": "Clearer failed updates on macOS",
+				"body": "A Mac copy opened from the disk image now says to move it to Applications, and a failed update shows why",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Smoother Spicy preview with lighter effects",
+				"body": "Lighter effects drops the preview's top and bottom fade, which Linux redrew every frame",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Smoother sound when dragging the playhead slowly",
+				"body": "A slow, pixel-by-pixel drag no longer chops the sound into grains between steps",
+				"highlight": false
+			},
+			{
+				"type": "fix",
+				"title": "Lighter playhead during playback",
+				"body": "The spectrogram playhead moves without redrawing the page each frame, which helps most on Linux",
+				"highlight": false
 			}
 		]
 	},

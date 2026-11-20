@@ -36,16 +36,16 @@
 		"contributions": 5
 	},
 	{
+		"login": "claude",
+		"avatarUrl": "https://avatars.githubusercontent.com/u/81847?v=4",
+		"profileUrl": "https://github.com/claude",
+		"contributions": 5
+	},
+	{
 		"login": "Stormanzanii",
 		"avatarUrl": "https://avatars.githubusercontent.com/u/145221345?v=4",
 		"profileUrl": "https://github.com/Stormanzanii",
 		"contributions": 4
-	},
-	{
-		"login": "claude",
-		"avatarUrl": "https://avatars.githubusercontent.com/u/81847?v=4",
-		"profileUrl": "https://github.com/claude",
-		"contributions": 2
 	},
 	{
 		"login": "0xEAF",
