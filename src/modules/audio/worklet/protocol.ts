@@ -17,7 +17,7 @@ export interface ScrubState {
 	time: number;
 }
 
-/** The decoded song in shared memory, so the worklet can scrub it directly. */
+/** The decoded song for the scrubber: shared memory where available, else its own copy. */
 export interface ScrubSource {
 	channels: Float32Array[];
 	sampleRate: number;
