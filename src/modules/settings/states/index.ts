@@ -40,12 +40,22 @@ export const showLineRomanizationAtom = atomWithStorage(
 	true,
 );
 
-export const autosaveEnabledAtom = atomWithStorage("autosaveEnabled", true);
+export const autosaveEnabledAtom = atomWithStorage(
+	"autosaveEnabled",
+	true,
+	undefined,
+	{
+		getOnInit: true,
+	},
+);
 export const autosaveIntervalAtom = atomWithStorage("autosaveInterval", 10);
 /** Desktop: skip the restore prompt and reopen the unsaved session on launch. */
 export const restoreSessionAutomaticallyAtom = atomWithStorage(
 	"restoreSessionAutomatically",
 	false,
+	undefined,
+	// Read once at launch before anything subscribes, so it must not start at the default.
+	{ getOnInit: true },
 );
 export const autosaveLimitAtom = atomWithStorage("autosaveLimit", 10);
 export const folderProjectsEnabledAtom = atomWithStorage(
