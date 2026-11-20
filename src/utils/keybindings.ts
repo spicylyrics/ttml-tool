@@ -672,6 +672,12 @@ export function recordShortcut(): Promise<KeyBindingsConfig> {
 		const stack = new Set<string>();
 		const onKeyDown = (evt: KeyboardEvent) => {
 			if (evt.isComposing || evt.key === "Process") return;
+			// A modifier held before recording started (or whose own keydown was
+			// missed) still shows on the event, so Ctrl+P can't be stored as P.
+			if (evt.ctrlKey) recorded.add("Control");
+			if (evt.metaKey) recorded.add("Meta");
+			if (evt.altKey) recorded.add("Alt");
+			if (evt.shiftKey) recorded.add("Shift");
 			recorded.add(shortcutKeyFromEvent(evt));
 			stack.add(evt.code);
 			evt.preventDefault();

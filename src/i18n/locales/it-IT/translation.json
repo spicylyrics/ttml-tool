@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Iniziare un nuovo testo?",
-      "description": "Ci sono modifiche non salvate. Se procedi, queste modifiche andranno perse. Sei sicuro di voler creare un nuovo file?"
+      "description": "Ci sono modifiche non salvate. Se procedi, queste modifiche andranno perse. Sei sicuro di voler creare un nuovo file?",
+      "descriptionLoaded": "Il testo aperto verrà chiuso. Iniziare un nuovo testo?"
     },
     "untimedLyrics": {
       "title": "Testo senza tempi",
@@ -540,7 +541,6 @@
       "displayOptions": "Opzioni di visualizzazione",
       "showTimestamps": "Mostra riferimenti temporali",
       "highlightActiveWord": "Evidenzia la parola attiva",
-      "enableGlowAnimation": "Abilita animazione luminosa",
       "highlightErrors": "Evidenzia gli errori",
       "showPerWordRomanization": "Mostra romanizzazione per parola",
       "startSync": "Inizia",
@@ -600,7 +600,9 @@
         "interval": "Salva ogni (minuti)",
         "intervalDesc": "Tempo minimo tra un'istantanea e l'altra. Le ultime modifiche vengono comunque salvate dopo ogni cambiamento.",
         "limit": "Istantanee da conservare",
-        "limitDesc": "Quante istantanee conservare per ogni brano. Le più vecchie vengono eliminate per prime."
+        "limitDesc": "Quante istantanee conservare per ogni brano. Le più vecchie vengono eliminate per prime.",
+        "restoreAutomatically": "Ripristina automaticamente il lavoro non salvato",
+        "restoreAutomaticallyDesc": "Salta la richiesta all'avvio e riapre ciò che avevi all'ultima chiusura con modifiche non salvate."
       },
       "customBackground": "Sfondo personalizzato",
       "customBackgroundDesc": "Scegli un'immagine da usare come sfondo.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Mostra un campo di romanizzazione su ogni parola.",
       "showTimestampsDesc": "Mostra il tempo di inizio e di fine su ogni parola.",
       "highlightActiveWordDesc": "Evidenzia la parola in riproduzione.",
-      "enableGlowAnimationDesc": "Riempie ogni parola con un bagliore mentre viene riprodotta.",
       "showPerWordRomanizationDesc": "Mostra la romanizzazione di ogni parola sotto di essa.",
       "previewPanelDesc": "Mostra un’anteprima del testo in tempo reale accanto all’elenco delle parole.",
       "bgLyricSyncDesc": "Come G e H gestiscono i versi dei cori durante la sincronizzazione.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Formato file non supportato: {ext}",
     "openFileFailed": "Apertura del file non riuscita",
+    "noLyricsInFile": "Nessun testo trovato in {name}",
     "linkedProjectInvalidPath": "I file selezionati non possono essere collegati. Scegli un file .ttml e un file audio su un'unità locale. Le condivisioni di rete non sono supportate.",
     "linkedProjectBackupFailed": "Impossibile eseguire il backup del file TTML originale, quindi non è stato sovrascritto",
     "linkedProjectNoBackup": "Nessun backup trovato per questo progetto",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Applica {applied} sincronizzazioni su {total} da qui",
     "timingsApplied": "{count, plural, one {Tempi applicati a # verso.} many {Tempi applicati a # versi.} other {Tempi applicati a # versi.}}",
     "partialTimingCopy": "Solo {applied} dei {total} tempi di origine rientrano prima della fine del testo.",
+    "timingCopyOriginalTimes": "Sopra non c'è nulla di temporizzato, quindi le righe copiate hanno mantenuto i tempi originali.",
     "wordTimingMismatch": "{count, plural, one {# verso aveva un numero diverso di parole; sono state copiate solo le posizioni corrispondenti.} many {# versi avevano un numero diverso di parole; sono state copiate solo le posizioni corrispondenti.} other {# versi avevano un numero diverso di parole; sono state copiate solo le posizioni corrispondenti.}}",
     "insertLine": "Inserisci un nuovo verso qui",
     "insertWord": "Inserisci una parola qui…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Rilascia per caricare"
+  },
+  "sessionRestore": {
+    "title": "Riprendere da dove avevi lasciato?",
+    "note": "I tuoi ultimi testi salvati automaticamente sono ancora qui: {name}.",
+    "restore": "Ripristina",
+    "dismiss": "Ricomincia da capo",
+    "always": "Ripristina sempre automaticamente",
+    "audioNamed": "I tuoi testi sono tornati. Ricarica {name} per continuare a sincronizzare.",
+    "audio": "I tuoi testi sono tornati. Ricarica l'audio per continuare a sincronizzare.",
+    "chooseAudio": "Scegli audio",
+    "later": "Più tardi",
+    "auto": "Il lavoro non salvato dell'ultima volta è stato ripristinato."
   },
   "historyRestoreDialog": {
     "loadError": "Impossibile caricare la cronologia",

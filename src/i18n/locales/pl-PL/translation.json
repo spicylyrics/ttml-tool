@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Rozpocząć nowy tekst?",
-      "description": "Masz niezapisane zmiany. Jeśli kontynuujesz, te zmiany zostaną utracone. Czy na pewno chcesz utworzyć nowy plik?"
+      "description": "Masz niezapisane zmiany. Jeśli kontynuujesz, te zmiany zostaną utracone. Czy na pewno chcesz utworzyć nowy plik?",
+      "descriptionLoaded": "Otwarty tekst zostanie zamknięty. Zacząć nowy tekst?"
     },
     "untimedLyrics": {
       "title": "Tekst bez synchronizacji",
@@ -540,7 +541,6 @@
       "displayOptions": "Opcje wyświetlania",
       "showTimestamps": "Pokaż znaczniki czasu",
       "highlightActiveWord": "Podświetl aktywne słowo",
-      "enableGlowAnimation": "Włącz animację blasku",
       "highlightErrors": "Podświetl błędy",
       "showPerWordRomanization": "Pokaż transkrypcję łacińską słów",
       "startSync": "Początek",
@@ -600,7 +600,9 @@
         "interval": "Zapisuj co (minuty)",
         "intervalDesc": "Najkrótszy czas między migawkami. Ostatnie zmiany i tak są zapisywane po każdej edycji.",
         "limit": "Liczba migawek do zachowania",
-        "limitDesc": "Ile migawek przechowywać dla każdego utworu. Najstarsze są usuwane jako pierwsze."
+        "limitDesc": "Ile migawek przechowywać dla każdego utworu. Najstarsze są usuwane jako pierwsze.",
+        "restoreAutomatically": "Automatycznie przywracaj niezapisaną pracę",
+        "restoreAutomaticallyDesc": "Pomija pytanie przy uruchomieniu i otwiera to, co miałeś przy ostatnim zamknięciu z niezapisanymi zmianami."
       },
       "customBackground": "Niestandardowe tło",
       "customBackgroundDesc": "Wybierz obraz, który ma zostać użyty jako tło.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Pokaż pole transkrypcji łacińskiej przy każdym słowie.",
       "showTimestampsDesc": "Pokaż czas początku i końca przy każdym słowie.",
       "highlightActiveWordDesc": "Wyróżnij słowo, które jest teraz odtwarzane.",
-      "enableGlowAnimationDesc": "Wypełniaj każde słowo poświatą podczas odtwarzania.",
       "showPerWordRomanizationDesc": "Pokaż transkrypcję łacińską pod każdym słowem.",
       "previewPanelDesc": "Pokaż podgląd tekstu na żywo obok listy słów.",
       "bgLyricSyncDesc": "Jak G i H traktują wersy wokalu w tle podczas synchronizacji.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Nieobsługiwany format pliku: {ext}",
     "openFileFailed": "Nie udało się otworzyć pliku",
+    "noLyricsInFile": "Nie znaleziono tekstu w pliku {name}",
     "linkedProjectInvalidPath": "Nie można połączyć wybranych plików. Wybierz plik .ttml i plik audio na dysku lokalnym. Udziały sieciowe nie są obsługiwane.",
     "linkedProjectBackupFailed": "Nie można utworzyć kopii zapasowej oryginalnego pliku TTML, więc nie został on nadpisany",
     "linkedProjectNoBackup": "Nie znaleziono kopii zapasowej dla tego projektu",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Zastosuj od tego miejsca {applied} z {total} zestawów czasów",
     "timingsApplied": "Zastosowano czasy do {count, plural, one {# wersu} few {# wersów} many {# wersów} other {# wersu}}.",
     "partialTimingCopy": "Do końca tekstu mieści się tylko {applied} z {total} źródłowych zestawów czasów.",
+    "timingCopyOriginalTimes": "Powyżej nic nie ma czasu, więc skopiowane wiersze zachowały oryginalne czasy.",
     "wordTimingMismatch": "{count, plural, one {# wers miał} few {# wersy miały} many {# wersów miało} other {# wersu miało}} inną liczbę słów. Skopiowano tylko pasujące pozycje słów.",
     "insertLine": "Wstaw tutaj nowy wers",
     "insertWord": "Wstaw słowo tutaj…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Upuść, aby załadować"
+  },
+  "sessionRestore": {
+    "title": "Wrócić do poprzedniej pracy?",
+    "note": "Ostatnio zapisany automatycznie tekst nadal tu jest: {name}.",
+    "restore": "Przywróć",
+    "dismiss": "Zacznij od nowa",
+    "always": "Zawsze przywracaj automatycznie",
+    "audioNamed": "Tekst wrócił. Wczytaj ponownie {name}, aby kontynuować synchronizację.",
+    "audio": "Tekst wrócił. Wczytaj ponownie dźwięk, aby kontynuować synchronizację.",
+    "chooseAudio": "Wybierz dźwięk",
+    "later": "Później",
+    "auto": "Przywrócono niezapisaną pracę z poprzedniego razu."
   },
   "historyRestoreDialog": {
     "loadError": "Nie udało się załadować historii",

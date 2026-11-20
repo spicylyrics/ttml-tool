@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Start new lyrics?",
-      "description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to create a new file?"
+      "description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to create a new file?",
+      "descriptionLoaded": "This closes the lyrics that are open. Start new lyrics?"
     },
     "untimedLyrics": {
       "title": "Untimed lyrics found",
@@ -540,7 +541,6 @@
       "displayOptions": "Display options",
       "showTimestamps": "Show timestamps",
       "highlightActiveWord": "Highlight active word",
-      "enableGlowAnimation": "Enable glow animation",
       "highlightErrors": "Highlight errors",
       "showPerWordRomanization": "Show per-word romanization",
       "startSync": "Start",
@@ -600,7 +600,9 @@
         "interval": "Save every (minutes)",
         "intervalDesc": "Minimum time between snapshots. Your latest changes are still saved after every edit.",
         "limit": "Snapshots to keep",
-        "limitDesc": "How many snapshots to keep for each song. The oldest are deleted first."
+        "limitDesc": "How many snapshots to keep for each song. The oldest are deleted first.",
+        "restoreAutomatically": "Restore unsaved work automatically",
+        "restoreAutomaticallyDesc": "Skip the prompt on launch and reopen what you had when you last closed with unsaved changes."
       },
       "customBackground": "Custom background",
       "customBackgroundDesc": "Choose an image to use as the background.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Show a romanization field on each word.",
       "showTimestampsDesc": "Show start and end times on each word.",
       "highlightActiveWordDesc": "Highlight the word that is playing right now.",
-      "enableGlowAnimationDesc": "Fill each word with a glow as it plays.",
       "showPerWordRomanizationDesc": "Show each word's romanization under it.",
       "previewPanelDesc": "Show a live lyric preview next to the word list.",
       "bgLyricSyncDesc": "How G and H treat background lines while syncing.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Unsupported file format: {ext}",
     "openFileFailed": "Failed to open file",
+    "noLyricsInFile": "No lyrics found in {name}",
     "linkedProjectInvalidPath": "The selected files cannot be linked. Choose a .ttml file and an audio file on a local drive. Network shares are not supported.",
     "linkedProjectBackupFailed": "Could not back up the original TTML file, so it was not overwritten",
     "linkedProjectNoBackup": "No backup found for this project",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Apply {applied} of {total} timings starting here",
     "timingsApplied": "{count, plural, one {Applied timing to # line.} other {Applied timing to # lines.}}",
     "partialTimingCopy": "Only {applied} of {total} source timings fit before the end of the lyrics.",
+    "timingCopyOriginalTimes": "Nothing above is timed, so the copied lines kept their original times.",
     "wordTimingMismatch": "{count, plural, one {# line had a different word count, so only matching word positions were copied.} other {# lines had different word counts, so only matching word positions were copied.}}",
     "insertLine": "Insert new line here",
     "insertWord": "Insert word here…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Release to load"
+  },
+  "sessionRestore": {
+    "title": "Pick up where you left off?",
+    "note": "Your last autosaved lyrics are still here: {name}.",
+    "restore": "Restore",
+    "dismiss": "Start fresh",
+    "always": "Always restore automatically",
+    "audioNamed": "Your lyrics are back. Load {name} again to keep syncing.",
+    "audio": "Your lyrics are back. Load the audio again to keep syncing.",
+    "chooseAudio": "Choose audio",
+    "later": "Later",
+    "auto": "Restored your unsaved work from last time."
   },
   "historyRestoreDialog": {
     "loadError": "Failed to load history",

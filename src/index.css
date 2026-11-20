@@ -78,7 +78,7 @@
 	--editor-selected-line-border: var(--accent-a5);
 	--editor-selected-line-hover-border: var(--accent-a6);
 	--editor-selected-line-shadow: none;
-	--selected-line-rail-width: 3px;
+	--editor-selected-line-bg: var(--accent-a3);
 	--ribbon-label-color: var(--gray-10);
 }
 

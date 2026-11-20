@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Začať nový text piesne?",
-      "description": "Máte neuložené zmeny. Ak budete pokračovať, tieto zmeny budú stratené. Naozaj chcete vytvoriť nový súbor?"
+      "description": "Máte neuložené zmeny. Ak budete pokračovať, tieto zmeny budú stratené. Naozaj chcete vytvoriť nový súbor?",
+      "descriptionLoaded": "Otvorený text sa zatvorí. Začať nový text?"
     },
     "untimedLyrics": {
       "title": "Chýbajúce časovanie",
@@ -540,7 +541,6 @@
       "displayOptions": "Možnosti zobrazenia",
       "showTimestamps": "Zobraziť časové značky",
       "highlightActiveWord": "Zvýrazniť aktívne slovo",
-      "enableGlowAnimation": "Povoliť animáciu žiary",
       "highlightErrors": "Zvýrazniť chyby",
       "showPerWordRomanization": "Zobraziť prepis slov do latinky",
       "startSync": "Začiatok",
@@ -600,7 +600,9 @@
         "interval": "Ukladať každých (minúty)",
         "intervalDesc": "Najkratší čas medzi snímkami. Posledné zmeny sa aj tak ukladajú po každej úprave.",
         "limit": "Počet snímok na uchovanie",
-        "limitDesc": "Koľko snímok uchovať pre každú skladbu. Najstaršie sa mažú ako prvé."
+        "limitDesc": "Koľko snímok uchovať pre každú skladbu. Najstaršie sa mažú ako prvé.",
+        "restoreAutomatically": "Obnoviť neuloženú prácu automaticky",
+        "restoreAutomaticallyDesc": "Preskočí otázku pri spustení a znova otvorí, čo ste mali pri poslednom zatvorení s neuloženými zmenami."
       },
       "customBackground": "Vlastné pozadie",
       "customBackgroundDesc": "Vyberte obrázok, ktorý sa použije ako pozadie.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Zobraziť pole prepisu do latinky pri každom slove.",
       "showTimestampsDesc": "Zobraziť pri každom slove čas začiatku a konca.",
       "highlightActiveWordDesc": "Zvýrazniť slovo, ktoré práve hrá.",
-      "enableGlowAnimationDesc": "Počas prehrávania postupne rozžiariť každé slovo.",
       "showPerWordRomanizationDesc": "Zobraziť pod každým slovom jeho prepis do latinky.",
       "previewPanelDesc": "Zobraziť živý náhľad textu vedľa zoznamu slov.",
       "bgLyricSyncDesc": "Ako G a H zaobchádzajú so sprievodnými riadkami pri synchronizácii.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Nepodporovaný formát súboru: {ext}",
     "openFileFailed": "Nepodarilo sa otvoriť súbor",
+    "noLyricsInFile": "V súbore {name} sa nenašiel žiadny text",
     "linkedProjectInvalidPath": "Vybrané súbory nie je možné prepojiť. Vyberte súbor .ttml a zvukový súbor na lokálnom disku. Sieťové zdieľania nie sú podporované.",
     "linkedProjectBackupFailed": "Pôvodný súbor TTML sa nepodarilo zálohovať, takže nebol prepísaný",
     "linkedProjectNoBackup": "Pre tento projekt sa nenašla žiadna záloha",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Odtiaľto použiť {applied} z {total} časovaní",
     "timingsApplied": "Časovanie použité na {count, plural, one {# riadok} few {# riadky} many {# riadka} other {# riadkov}}.",
     "partialTimingCopy": "Pred koniec textu sa zmestí len {applied} z {total} zdrojových časovaní.",
+    "timingCopyOriginalTimes": "Nad tým nemá nič čas, preto skopírované riadky zachovali pôvodné časy.",
     "wordTimingMismatch": "{count, plural, one {# riadok mal} few {# riadky mali} many {# riadka malo} other {# riadkov malo}} iný počet slov. Skopírované boli len zodpovedajúce pozície slov.",
     "insertLine": "Vložiť nový riadok tu",
     "insertWord": "Vložiť slovo tu…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Uvoľnite pre načítanie"
+  },
+  "sessionRestore": {
+    "title": "Pokračovať tam, kde ste skončili?",
+    "note": "Vaše posledné automaticky uložené texty sú stále tu: {name}.",
+    "restore": "Obnoviť",
+    "dismiss": "Začať odznova",
+    "always": "Vždy obnoviť automaticky",
+    "audioNamed": "Texty sú späť. Načítajte {name} znova a pokračujte v synchronizácii.",
+    "audio": "Texty sú späť. Načítajte zvuk znova a pokračujte v synchronizácii.",
+    "chooseAudio": "Vybrať zvuk",
+    "later": "Neskôr",
+    "auto": "Neuložená práca z minulého razu bola obnovená."
   },
   "historyRestoreDialog": {
     "loadError": "Nepodarilo sa načítať históriu",

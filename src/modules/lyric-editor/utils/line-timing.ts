@@ -16,6 +16,28 @@ export interface ApplyLineTimingsResult {
 	appliedLineCount: number;
 	partial: boolean;
 	wordCountMismatchCount: number;
+	/**
+	 * No timed line at or above the target to line up with, so the copied
+	 * timings keep the times they had at the source.
+	 */
+	usedOriginalTimes?: boolean;
+}
+
+// An untimed line or word is 0/0; a real timing never ends at 0.
+const isTimed = (item: { startTime: number; endTime: number }) =>
+	item.startTime > 0 || item.endTime > 0;
+
+/**
+ * Where the copy should start: the target's own start when it is timed,
+ * otherwise the end of the nearest timed line above it, or null when nothing
+ * above is timed.
+ */
+function findPasteAnchor(lines: LyricLine[], targetIndex: number) {
+	if (isTimed(lines[targetIndex])) return lines[targetIndex].startTime;
+	for (let i = targetIndex - 1; i >= 0; i--) {
+		if (isTimed(lines[i])) return lines[i].endTime;
+	}
+	return null;
 }
 
 export function createLineTimingSnapshots(
@@ -58,12 +80,25 @@ export function applyLineTimingSnapshots(
 	);
 	let wordCountMismatchCount = 0;
 
+	// Move the whole copy so its first timed line starts at the anchor; the gaps
+	// between the copied lines stay as they were.
+	const firstTimed = snapshots.find(isTimed);
+	const anchor = findPasteAnchor(lines, targetStartIndex);
+	const usedOriginalTimes = anchor === null && firstTimed !== undefined;
+	const shift =
+		anchor === null || !firstTimed ? 0 : anchor - firstTimed.startTime;
+	const moved = (time: { startTime: number; endTime: number }) =>
+		isTimed(time)
+			? {
+					startTime: Math.max(0, time.startTime + shift),
+					endTime: Math.max(0, time.endTime + shift),
+				}
+			: { startTime: 0, endTime: 0 };
+
 	for (let offset = 0; offset < appliedLineCount; offset++) {
 		const target = lines[targetStartIndex + offset];
 		const snapshot = snapshots[offset];
-		target.startTime = snapshot.startTime;
-		target.endTime = snapshot.endTime;
-		if (target.endTimeLink) delete target.endTimeLink;
+		Object.assign(target, moved(snapshot));
 
 		if (target.words.length !== snapshot.words.length) {
 			wordCountMismatchCount++;
@@ -73,8 +108,7 @@ export function applyLineTimingSnapshots(
 			snapshot.words.length,
 		);
 		for (let wordIndex = 0; wordIndex < copiedWordCount; wordIndex++) {
-			target.words[wordIndex].startTime = snapshot.words[wordIndex].startTime;
-			target.words[wordIndex].endTime = snapshot.words[wordIndex].endTime;
+			Object.assign(target.words[wordIndex], moved(snapshot.words[wordIndex]));
 		}
 	}
 
@@ -82,6 +116,7 @@ export function applyLineTimingSnapshots(
 		appliedLineCount,
 		partial: appliedLineCount < snapshots.length,
 		wordCountMismatchCount,
+		usedOriginalTimes,
 	};
 }
 

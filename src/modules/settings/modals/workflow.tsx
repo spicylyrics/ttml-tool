@@ -15,7 +15,6 @@ import {
 	Options24Regular,
 	PanelRight24Regular,
 	Rename24Regular,
-	Sparkle24Regular,
 	TapSingle24Regular,
 	TextDescription24Regular,
 	TextEditStyle24Regular,
@@ -43,7 +42,6 @@ import {
 import {
 	displayRomanizationInSyncAtom,
 	enableManualTimestampEditAtom,
-	enableSyncGlowAnimationAtom,
 	highlightActiveWordAtom,
 	highlightErrorsAtom,
 	showLineRomanizationAtom,
@@ -147,14 +145,6 @@ const timeModeDisplayToggles: readonly ToggleRow[] = [
 		"Highlight the word that is playing right now.",
 		<Highlight24Regular key="icon" />,
 		highlightActiveWordAtom,
-	],
-	[
-		"ribbonBar.syncMode.enableGlowAnimation",
-		"Enable glow animation",
-		"settings.workflow.enableGlowAnimationDesc",
-		"Fill each word with a glow as it plays.",
-		<Sparkle24Regular key="icon" />,
-		enableSyncGlowAnimationAtom,
 	],
 	[
 		"settings.assistant.highlightErrors",

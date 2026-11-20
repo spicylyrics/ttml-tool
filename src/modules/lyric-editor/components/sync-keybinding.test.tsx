@@ -13,14 +13,21 @@ import {
 	syncTimeOffsetAtom,
 } from "$/modules/settings/states/sync";
 import {
+	keyMoveFirstWordAndPlayAtom,
+	keyMoveLastWordAndPlayAtom,
+	keyMoveNextWordAndPlayAtom,
+	keyMovePrevWordAndPlayAtom,
 	keySyncEndAtom,
 	keySyncNextAtom,
 	keySyncStartAtom,
 } from "$/states/keybindings";
 import {
 	lyricLinesAtom,
+	redoLyricLinesAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
+	undoableLyricLinesAtom,
+	undoLyricLinesAtom,
 } from "$/states/main";
 import { newLyricLine, newLyricWord } from "$/types/ttml";
 import type { KeyBindingCallback } from "$/utils/keybindings";
@@ -284,6 +291,117 @@ describe("background lines while syncing", () => {
 				startTime: 0,
 				endTime: 0,
 			});
+		} finally {
+			view.cleanup();
+		}
+	});
+});
+
+describe("move and play", () => {
+	function reset() {
+		audio.resumeOrSeekMusic.mockClear();
+		audio.musicPlaying = false;
+	}
+
+	it("keeps the playhead when End lands on a word with no time yet", () => {
+		const view = mount();
+		reset();
+		press(keyMoveLastWordAndPlayAtom, 1);
+		expect(audio.resumeOrSeekMusic).toHaveBeenCalledTimes(1);
+		expect(audio.resumeOrSeekMusic).toHaveBeenCalledWith();
+		view.cleanup();
+	});
+
+	it("does not touch playback when End lands on an untimed word during playback", () => {
+		const view = mount();
+		reset();
+		audio.musicPlaying = true;
+		press(keyMoveLastWordAndPlayAtom, 1);
+		expect(audio.resumeOrSeekMusic).not.toHaveBeenCalled();
+		view.cleanup();
+	});
+
+	it("seeks to the start of a timed last word", () => {
+		const view = mount();
+		view.store.set(lyricLinesAtom, (prev) => ({
+			...prev,
+			lyricLines: prev.lyricLines.map((line) =>
+				line.id === view.first.id
+					? {
+							...line,
+							words: line.words.map((word, index) =>
+								index === 2
+									? { ...word, startTime: 8000, endTime: 9000 }
+									: word,
+							),
+						}
+					: line,
+			),
+		}));
+		reset();
+		press(keyMoveLastWordAndPlayAtom, 1);
+		expect(audio.resumeOrSeekMusic).toHaveBeenCalledWith(8);
+		view.cleanup();
+	});
+
+	it("applies the same rule to Home and to next and previous word", () => {
+		const view = mount();
+		reset();
+		press(keyMoveFirstWordAndPlayAtom, 1);
+		press(keyMoveNextWordAndPlayAtom, 1);
+		press(keyMovePrevWordAndPlayAtom, 1);
+		expect(audio.resumeOrSeekMusic).toHaveBeenCalledTimes(3);
+		for (const call of audio.resumeOrSeekMusic.mock.calls)
+			expect(call).toEqual([]);
+		view.cleanup();
+	});
+});
+
+describe("undo and redo put the sync cursor back", () => {
+	it("undoing a G returns to the word it stamped, redo moves on again", () => {
+		const view = mount();
+		view.store.sub(undoableLyricLinesAtom, () => {});
+		try {
+			press(keySyncStartAtom, 1);
+			press(keySyncNextAtom, 2);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[2].id]),
+			);
+			view.store.set(undoLyricLinesAtom);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[0].id]),
+			);
+			view.store.set(undoLyricLinesAtom);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[0].id]),
+			);
+			view.store.set(redoLyricLinesAtom);
+			view.store.set(redoLyricLinesAtom);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[2].id]),
+			);
+		} finally {
+			view.cleanup();
+		}
+	});
+
+	it("undoing across a line change goes back to the earlier line", () => {
+		const view = mount();
+		view.store.sub(undoableLyricLinesAtom, () => {});
+		try {
+			press(keySyncStartAtom, 1);
+			press(keySyncNextAtom, 2);
+			press(keySyncEndAtom, 3);
+			expect(view.store.get(selectedLinesAtom)).toEqual(
+				new Set([view.second.id]),
+			);
+			view.store.set(undoLyricLinesAtom);
+			expect(view.store.get(selectedLinesAtom)).toEqual(
+				new Set([view.first.id]),
+			);
+			expect(view.store.get(selectedWordsAtom)).toEqual(
+				new Set([view.words[2].id]),
+			);
 		} finally {
 			view.cleanup();
 		}

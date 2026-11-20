@@ -120,6 +120,7 @@ import { UrbanDictionaryKeybinding } from "./modules/lyric-editor/components/urb
 import { BeginnerGuide } from "./modules/onboarding/BeginnerGuide";
 import { AudioMetadataPrefill } from "./modules/project/audio-metadata";
 import { AutosaveManager } from "./modules/project/autosave/AutosaveManager.tsx";
+import { SessionRestoreOffer } from "./modules/project/autosave/SessionRestoreOffer.tsx";
 import { GlobalDragOverlay } from "./modules/project/modals/GlobalDragOverlay.tsx";
 import { type ExportTranslation, saveTTML } from "./modules/project/ttml-save";
 import { InterfaceScaleManager } from "./modules/settings/components/InterfaceScaleManager";
@@ -779,6 +780,7 @@ function App() {
 					)}
 					<div className={styles.appContent}>
 						<AutosaveManager />
+						<SessionRestoreOffer />
 						<GlobalDragOverlay />
 						{toolMode === ToolMode.Sync && <SyncKeyBinding />}
 						<UrbanDictionaryKeybinding />

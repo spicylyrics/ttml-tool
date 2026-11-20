@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Mulai lirik baru?",
-      "description": "File saat ini memiliki perubahan yang belum disimpan. Jika dilanjutkan, perubahan ini akan hilang. Anda yakin ingin membuat file baru?"
+      "description": "File saat ini memiliki perubahan yang belum disimpan. Jika dilanjutkan, perubahan ini akan hilang. Anda yakin ingin membuat file baru?",
+      "descriptionLoaded": "Lirik yang terbuka akan ditutup. Mulai lirik baru?"
     },
     "untimedLyrics": {
       "title": "Lirik belum diberi waktu",
@@ -540,7 +541,6 @@
       "displayOptions": "Opsi tampilan",
       "showTimestamps": "Tampilkan penanda waktu",
       "highlightActiveWord": "Sorot kata aktif",
-      "enableGlowAnimation": "Aktifkan animasi cahaya",
       "highlightErrors": "Sorot kesalahan",
       "showPerWordRomanization": "Tampilkan romanisasi per kata",
       "startSync": "Mulai",
@@ -600,7 +600,9 @@
         "interval": "Simpan setiap (menit)",
         "intervalDesc": "Jeda minimum antar-snapshot. Perubahan terbaru tetap disimpan setelah setiap edit.",
         "limit": "Jumlah snapshot yang disimpan",
-        "limitDesc": "Jumlah snapshot yang disimpan untuk setiap lagu. Yang paling lama dihapus lebih dulu."
+        "limitDesc": "Jumlah snapshot yang disimpan untuk setiap lagu. Yang paling lama dihapus lebih dulu.",
+        "restoreAutomatically": "Pulihkan pekerjaan yang belum disimpan secara otomatis",
+        "restoreAutomaticallyDesc": "Lewati pertanyaan saat peluncuran dan buka kembali apa yang Anda miliki saat terakhir menutup dengan perubahan yang belum disimpan."
       },
       "customBackground": "Latar belakang kustom",
       "customBackgroundDesc": "Pilih gambar sebagai latar belakang.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Tampilkan kolom romanisasi pada setiap kata.",
       "showTimestampsDesc": "Tampilkan waktu mulai dan akhir pada setiap kata.",
       "highlightActiveWordDesc": "Sorot kata yang sedang diputar.",
-      "enableGlowAnimationDesc": "Isi setiap kata dengan cahaya saat diputar.",
       "showPerWordRomanizationDesc": "Tampilkan romanisasi setiap kata di bawahnya.",
       "previewPanelDesc": "Tampilkan pratinjau lirik langsung di samping daftar kata.",
       "bgLyricSyncDesc": "Cara G dan H menangani baris vokal latar saat sinkronisasi.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Format file tidak didukung: {ext}",
     "openFileFailed": "Gagal membuka file",
+    "noLyricsInFile": "Tidak ada lirik di {name}",
     "linkedProjectInvalidPath": "File yang dipilih tidak dapat ditautkan. Pilih file .ttml dan file audio di drive lokal. Berbagi jaringan tidak didukung.",
     "linkedProjectBackupFailed": "Tidak dapat mencadangkan file TTML asli, sehingga tidak ditimpa",
     "linkedProjectNoBackup": "Tidak ada cadangan yang ditemukan untuk proyek ini",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Terapkan {applied} dari {total} set waktu dari sini",
     "timingsApplied": "{count, plural, other {Waktu diterapkan ke # baris.}}",
     "partialTimingCopy": "Hanya {applied} dari {total} waktu sumber yang muat sebelum akhir lirik.",
+    "timingCopyOriginalTimes": "Tidak ada baris bertiming di atasnya, jadi baris yang disalin mempertahankan waktu aslinya.",
     "wordTimingMismatch": "{count, plural, other {# baris memiliki jumlah kata berbeda; hanya posisi kata yang cocok yang disalin.}}",
     "insertLine": "Sisipkan baris baru di sini",
     "insertWord": "Sisipkan kata di sini…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Lepaskan di sini untuk memuat"
+  },
+  "sessionRestore": {
+    "title": "Lanjutkan dari terakhir?",
+    "note": "Lirik tersimpan otomatis terakhir Anda masih ada: {name}.",
+    "restore": "Pulihkan",
+    "dismiss": "Mulai baru",
+    "always": "Selalu pulihkan otomatis",
+    "audioNamed": "Lirik Anda sudah kembali. Muat {name} lagi untuk melanjutkan sinkronisasi.",
+    "audio": "Lirik Anda sudah kembali. Muat audio lagi untuk melanjutkan sinkronisasi.",
+    "chooseAudio": "Pilih audio",
+    "later": "Nanti",
+    "auto": "Pekerjaan Anda yang belum disimpan dari terakhir kali telah dipulihkan."
   },
   "historyRestoreDialog": {
     "loadError": "Gagal memuat riwayat",

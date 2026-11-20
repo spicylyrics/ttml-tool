@@ -141,7 +141,7 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 	const syncWordWrap = useAtomValue(syncWordWrapAtom);
 
 	const startTimeRef = useRef<HTMLDivElement>(null);
-	const endTimeRef = useRef<HTMLButtonElement>(null);
+	const endTimeRef = useRef<HTMLDivElement>(null);
 	const [enableInsertLocal, setEnableInsertLocal] = useState(false);
 	const [globalEnableInsert, setGlobalEnableInsert] = useAtom(
 		globalEnableInsertAtom,
@@ -161,16 +161,13 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 		else setEnableInsertLocal(true);
 	}, [enableInsert, disableInsert]);
 
-	const { endTimeLinked, onToggleEndTimeLink } = useLineTiming({
+	useLineTiming({
 		line,
-		lineIndex,
 		visualizeTimestampUpdate,
 		startTimeRef,
 		endTimeRef,
 		toolMode,
 		disableInsert,
-		store,
-		editLyricLines,
 	});
 
 	return {
@@ -214,8 +211,6 @@ export function useLineView(lineAtom: Atom<LyricLine>, lineIndex: number) {
 		enableInsert,
 		disableInsert,
 		toggleInsert,
-		endTimeLinked,
-		onToggleEndTimeLink,
 		visualizeTimestampUpdate,
 	};
 }

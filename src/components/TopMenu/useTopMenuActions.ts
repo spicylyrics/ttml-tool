@@ -126,14 +126,22 @@ export const useTopMenuActions = () => {
 			setSaveFileName("lyric.ttml");
 		};
 
-		if (isDirty) {
+		// Starting over clears the undo history too, so ask whenever lyrics are
+		// loaded, not only when they have unsaved changes.
+		const hasLyrics = store.get(lyricLinesAtom).lyricLines.length > 0;
+		if (isDirty || hasLyrics) {
 			setConfirmDialog({
 				open: true,
 				title: t("confirmDialog.newFile.title", "Start new lyrics?"),
-				description: t(
-					"confirmDialog.newFile.description",
-					"当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要新建文件吗？",
-				),
+				description: isDirty
+					? t(
+							"confirmDialog.newFile.description",
+							"当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要新建文件吗？",
+						)
+					: t(
+							"confirmDialog.newFile.descriptionLoaded",
+							"This closes the lyrics that are open. Start new lyrics?",
+						),
 				onConfirm: action,
 			});
 		} else {

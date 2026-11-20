@@ -31,6 +31,31 @@ export interface ProjectInfo {
 	 * @description 项目的最新版本
 	 */
 	latestState: TTMLLyric;
+	/**
+	 * @description Whether `latestState` holds edits that were never saved to a
+	 * file. Missing on records from before this flag existed.
+	 */
+	unsaved?: boolean;
+	/**
+	 * @description Save-as name shown in the header, so a restore keeps it.
+	 */
+	fileName?: string;
+	/**
+	 * @description Absolute audio path from a native dialog (desktop only).
+	 */
+	audioPath?: string;
+	/**
+	 * @description Name of the loaded audio, to ask for it again when the file
+	 * can't be reopened (web, or the file moved).
+	 */
+	audioName?: string;
+}
+
+/** What autosave remembers about the session besides the lyrics. */
+export interface SessionExtras {
+	fileName?: string;
+	audioPath?: string | null;
+	audioName?: string;
 }
 
 /**
@@ -137,12 +162,14 @@ function getDB() {
  * @param lyrics 当前编辑器中的歌词数据
  * @param limit 每个项目保留的历史版本数量上限
  * @param saveInterval 创建历史版本的时间间隔阈值 (毫秒)
+ * @param extras file name and audio of the session
  */
 export async function autoSaveProject(
 	projectId: string,
 	lyrics: TTMLLyric,
 	limit: number,
 	saveInterval: number,
+	extras: SessionExtras = {},
 ) {
 	lyrics = normalizeDocumentWords(lyrics);
 	void requestPersistentStorage();
@@ -160,6 +187,10 @@ export async function autoSaveProject(
 		name: identity.displayName,
 		lastModified: now,
 		latestState: lyrics,
+		unsaved: true,
+		fileName: extras.fileName,
+		audioPath: extras.audioPath ?? undefined,
+		audioName: extras.audioName,
 		preview: lyrics.lyricLines[0]?.words.map((w) => w.word).join("") || "",
 	});
 
@@ -189,6 +220,20 @@ export async function autoSaveProject(
 		}
 	}
 
+	await tx.done;
+}
+
+/**
+ * @description Records that the project's latest state is safely in a saved file
+ * (or was deliberately discarded), so the next launch has nothing to offer.
+ */
+export async function markProjectSaved(projectId: string): Promise<void> {
+	const db = await getDB();
+	const tx = db.transaction("projects", "readwrite");
+	const project = await tx.store.get(projectId);
+	if (project && project.unsaved !== false) {
+		await tx.store.put({ ...project, unsaved: false });
+	}
 	await tx.done;
 }
 

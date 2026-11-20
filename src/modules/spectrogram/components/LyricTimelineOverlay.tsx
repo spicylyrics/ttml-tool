@@ -56,6 +56,8 @@ interface LyricTimelineOverlayProps {
 }
 
 const SNAP_THRESHOLD_PX = 7;
+/** A press has to travel this far before it counts as a drag, so a shaky click edits nothing. */
+const DRAG_THRESHOLD_PX = 4;
 
 const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 	clientWidth,
@@ -159,6 +161,21 @@ const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 			timelineDrag.type === "divider"
 				? mouseTimeMs(timelineDrag.startX, timelineDrag.zoom)
 				: null;
+
+		// Where the press began. Dividers record it; words and lines are
+		// recovered from the time under the pointer when they were grabbed.
+		const dragStartClientX = (() => {
+			if (timelineDrag.type === "divider") return timelineDrag.startX;
+			const container = scrollContainerRef.current;
+			if (!container) return null;
+			return (
+				container.getBoundingClientRect().left +
+				(timelineDrag.initialMouseTimeMS / 1000) *
+					globalStore.get(spectrogramZoomAtom) -
+				globalStore.get(spectrogramScrollLeftAtom)
+			);
+		})();
+		let armed = false;
 
 		let lastPointer: { clientX: number; shiftKey: boolean } | null = null;
 
@@ -264,6 +281,14 @@ const LyricTimelineOverlayImpl: FC<LyricTimelineOverlayProps> = ({
 
 		const handleGlobalMouseMove = (event: MouseEvent) => {
 			event.preventDefault();
+			if (!armed) {
+				if (
+					dragStartClientX !== null &&
+					Math.abs(event.clientX - dragStartClientX) < DRAG_THRESHOLD_PX
+				)
+					return;
+				armed = true;
+			}
 			lastPointer = { clientX: event.clientX, shiftKey: event.shiftKey };
 			updatePreview(event.clientX, event.shiftKey);
 		};

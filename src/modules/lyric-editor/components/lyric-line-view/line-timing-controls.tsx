@@ -9,7 +9,6 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import { LinkMultiple20Regular } from "@fluentui/react-icons";
 import { Flex } from "@radix-ui/themes";
 import classNames from "classnames";
 import { ToolMode } from "$/states/main.ts";
@@ -26,8 +25,6 @@ export function LineTimingControls({
 	showEndTimeAsDuration,
 	startTimeRef,
 	endTimeRef,
-	endTimeLinked,
-	onToggleEndTimeLink,
 }: Pick<
 	LyricLineViewState,
 	| "line"
@@ -36,8 +33,6 @@ export function LineTimingControls({
 	| "showEndTimeAsDuration"
 	| "startTimeRef"
 	| "endTimeRef"
-	| "endTimeLinked"
-	| "onToggleEndTimeLink"
 >) {
 	return (
 		toolMode === ToolMode.Sync &&
@@ -56,15 +51,13 @@ export function LineTimingControls({
 						msToTimestamp(line.startTime)
 					)}
 				</div>
-				<button
-					type="button"
+				<div
 					className={classNames(
 						styles.endTime,
-						styles.endTimeButton,
+						styles.endTimeLabel,
 						line.endTime === 0 && styles.untimedTimestamp,
 					)}
 					ref={endTimeRef}
-					onClick={onToggleEndTimeLink}
 				>
 					<span
 						style={{
@@ -74,15 +67,13 @@ export function LineTimingControls({
 					>
 						{line.endTime === 0 ? (
 							<UntimedTimestamp />
-						) : endTimeLinked ? (
-							<LinkMultiple20Regular />
 						) : showEndTimeAsDuration ? (
 							`+${line.endTime - line.startTime}ms`
 						) : (
 							msToTimestamp(line.endTime)
 						)}
 					</span>
-				</button>
+				</div>
 			</Flex>
 		)
 	);
