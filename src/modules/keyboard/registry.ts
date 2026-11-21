@@ -1,3 +1,4 @@
+import { isTauri } from "@tauri-apps/api/core";
 import { atomWithKeybindingStorage } from "$/utils/keybindings";
 import type {
 	I18nKey,
@@ -48,8 +49,19 @@ export function registerCommand(
 	return command;
 }
 
+/** Actions the browser build can't perform, so its shortcut lists leave them out. */
+const DESKTOP_ONLY_COMMANDS: ReadonlySet<string> = new Set([
+	"interfaceScaleUp",
+	"interfaceScaleUpAlternate",
+	"interfaceScaleDown",
+	"interfaceScaleReset",
+]);
+
 export function getAllCommands(): KeyBindingCommand[] {
-	return Array.from(commandsMap.values());
+	const desktop = isTauri();
+	return Array.from(commandsMap.values()).filter(
+		(command) => desktop || !DESKTOP_ONLY_COMMANDS.has(command.id),
+	);
 }
 
 export function getCommandById(id: string): KeyBindingCommand | undefined {

@@ -408,6 +408,15 @@ describe("shortcut recording and storage", () => {
 		expect(await recording).toEqual(["Control", "KeyP"]);
 	});
 
+	it("keeps listening after a modifier alone, so it can't be saved by itself", async () => {
+		const recording = keyboard.recordShortcut();
+		key("keydown", "ShiftLeft");
+		key("keyup", "ShiftLeft");
+		key("keydown", "KeyK");
+		key("keyup", "KeyK");
+		expect(await recording).toEqual(["KeyK"]);
+	});
+
 	it("ignores the key release that opened the recorder", async () => {
 		const recording = keyboard.recordShortcut();
 		key("keyup", "Enter");
