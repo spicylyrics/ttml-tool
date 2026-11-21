@@ -88,7 +88,9 @@ export function OnlineSearchBar({
 				aria-label={t("common.search", "Search")}
 				value={query}
 				onChange={(event) => onQueryChange(event.target.value)}
-				onKeyDown={(event) => event.key === "Enter" && onSearch()}
+				onKeyDown={(event) => {
+					if (event.key === "Enter" && !searching && query.trim()) onSearch();
+				}}
 			>
 				<TextField.Slot>
 					<Search16Regular />
@@ -114,6 +116,7 @@ export function OnlineResults({
 	results,
 	searching,
 	hasSearched,
+	searchError,
 	audioDuration,
 	loadingId,
 	blockedSongUrl,
@@ -122,6 +125,7 @@ export function OnlineResults({
 	results: ImportTrack[];
 	searching: boolean;
 	hasSearched: boolean;
+	searchError: string | null;
 	audioDuration: number;
 	loadingId: ImportTrack["id"] | null;
 	blockedSongUrl: string | null;
@@ -132,6 +136,18 @@ export function OnlineResults({
 		return (
 			<Flex align="center" justify="center" className={styles.empty}>
 				<Spinner size="3" />
+			</Flex>
+		);
+	if (searchError !== null)
+		return (
+			<Flex align="center" justify="center" className={styles.empty}>
+				<Text size="2" color="red" role="alert">
+					{t(
+						"metadataDialog.fetchSongwriters.searchError",
+						"Search failed: {error}",
+						{ error: searchError },
+					)}
+				</Text>
 			</Flex>
 		);
 	if (results.length === 0)

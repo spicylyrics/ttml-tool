@@ -144,6 +144,9 @@ export const ImportLyricsDialog = () => {
 	const [results, setResults] = useState<ImportTrack[]>([]);
 	const [searching, setSearching] = useState(false);
 	const [hasSearched, setHasSearched] = useState(false);
+	const [searchError, setSearchError] = useState<string | null>(null);
+	// Only the newest search may fill the list; an older one finishing late is dropped.
+	const searchRun = useRef(0);
 	const [showResults, setShowResults] = useState(false);
 	const [loadingId, setLoadingId] = useState<ImportTrack["id"] | null>(null);
 	const [blockedSongUrl, setBlockedSongUrl] = useState<string | null>(null);
@@ -173,6 +176,9 @@ export const ImportLyricsDialog = () => {
 	const changeSource = (next: ImportSourceId) => {
 		setSource(next);
 		setResults([]);
+		setSearchError(null);
+		searchRun.current += 1;
+		setSearching(false);
 		setBlockedSongUrl(null);
 		setHasSearched(false);
 		setShowResults(next !== "plainText" && !text.trim());
@@ -180,25 +186,32 @@ export const ImportLyricsDialog = () => {
 
 	const handleSearch = useCallback(async () => {
 		if (!onlineSource || !query.trim()) return;
+		const run = ++searchRun.current;
 		setSearching(true);
 		setHasSearched(true);
 		setShowResults(true);
 		setResults([]);
+		setSearchError(null);
 		setBlockedSongUrl(null);
 		try {
-			setResults(await searchOnlineLyrics(onlineSource, query, geniusApiKey));
+			const found = await searchOnlineLyrics(onlineSource, query, geniusApiKey);
+			if (run === searchRun.current) setResults(found);
 		} catch (e) {
-			toast.error(
-				t(
-					"metadataDialog.fetchSongwriters.searchError",
-					"Search failed: {error}",
-					{ error: e instanceof Error ? e.message : String(e) },
-				),
-			);
+			if (run === searchRun.current)
+				setSearchError(e instanceof Error ? e.message : String(e));
 		} finally {
-			setSearching(false);
+			if (run === searchRun.current) setSearching(false);
 		}
-	}, [geniusApiKey, onlineSource, query, t]);
+	}, [geniusApiKey, onlineSource, query]);
+
+	// Saving a Genius token in the middle of a search runs that search again.
+	const hadGeniusKey = useRef(!!geniusApiKey);
+	useEffect(() => {
+		const hadKey = hadGeniusKey.current;
+		hadGeniusKey.current = !!geniusApiKey;
+		if (!hadKey && geniusApiKey && onlineSource === "genius" && query.trim())
+			void handleSearch();
+	}, [geniusApiKey, handleSearch, onlineSource, query]);
 
 	const handlePick = useCallback(
 		async (track: ImportTrack) => {
@@ -519,6 +532,7 @@ export const ImportLyricsDialog = () => {
 									results={sortedResults}
 									searching={searching}
 									hasSearched={hasSearched}
+									searchError={searchError}
 									audioDuration={audioDuration}
 									loadingId={loadingId}
 									blockedSongUrl={blockedSongUrl}
