@@ -897,7 +897,8 @@
       "palette": "Paleta de colores",
       "paletteCustom": "Personalizada",
       "gradientEditorDesc": "La posición 0,0 representa el sonido más tenue y 1,0 el más fuerte. Los colores más claros en posiciones altas suelen facilitar la lectura.",
-      "addStop": "Añadir punto de color"
+      "addStop": "Añadir punto de color",
+      "stopPosition": "Posición de la parada"
     },
     "preview": {
       "vsync": "Vista previa fluida (cada fotograma)"

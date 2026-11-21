@@ -897,7 +897,8 @@
       "palette": "调色板",
       "paletteCustom": "自定义",
       "gradientEditorDesc": "位置 0.0 对应最轻的声音，1.0 对应最响的声音。较高位置使用更亮的颜色通常更易辨认。",
-      "addStop": "添加色标"
+      "addStop": "添加色标",
+      "stopPosition": "色标位置"
     },
     "preview": {
       "vsync": "流畅预览（每帧更新）"

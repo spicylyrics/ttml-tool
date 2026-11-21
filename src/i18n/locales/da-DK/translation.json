@@ -897,7 +897,8 @@
       "palette": "Farvepalet",
       "paletteCustom": "Brugerdefineret",
       "gradientEditorDesc": "Position 0.0 svarer til den svageste lyd og 1.0 til den kraftigste. Lysere farver ved højere positioner er typisk lettest at aflæse.",
-      "addStop": "Tilføj farvepunkt"
+      "addStop": "Tilføj farvepunkt",
+      "stopPosition": "Stopposition"
     },
     "preview": {
       "vsync": "Flydende forhåndsvisning (hvert billede)"

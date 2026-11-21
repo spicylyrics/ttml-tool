@@ -897,7 +897,8 @@
       "palette": "Paleta kolorów",
       "paletteCustom": "Niestandardowa",
       "gradientEditorDesc": "Pozycja 0.0 odpowiada najcichszej części, a 1.0 najgłośniejszej. Przy wyższych wartościach zwykle najlepiej sprawdzają się jaśniejsze kolory.",
-      "addStop": "Dodaj punkt koloru"
+      "addStop": "Dodaj punkt koloru",
+      "stopPosition": "Pozycja punktu"
     },
     "preview": {
       "vsync": "Płynny podgląd (każda klatka)"

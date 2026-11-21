@@ -897,7 +897,8 @@
       "palette": "Color palette",
       "paletteCustom": "Custom",
       "gradientEditorDesc": "A position of 0.0 is the quietest part and 1.0 the loudest. Brighter colors at higher positions usually read best.",
-      "addStop": "Add color stop"
+      "addStop": "Add color stop",
+      "stopPosition": "Stop position"
     },
     "preview": {
       "vsync": "Smooth preview (every frame)"

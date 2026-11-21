@@ -897,7 +897,8 @@
       "palette": "Paletă de culori",
       "paletteCustom": "Personalizată",
       "gradientEditorDesc": "Poziția 0,0 reprezintă sunetul cel mai slab, iar 1,0 pe cel mai puternic. Culorile mai luminoase la pozițiile înalte sunt de obicei mai lizibile.",
-      "addStop": "Adaugă un punct de culoare"
+      "addStop": "Adaugă un punct de culoare",
+      "stopPosition": "Poziția opririi"
     },
     "preview": {
       "vsync": "Previzualizare fluidă (fiecare cadru)"

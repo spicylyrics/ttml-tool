@@ -897,7 +897,8 @@
       "palette": "Tavolozza dei colori",
       "paletteCustom": "Personalizzata",
       "gradientEditorDesc": "La posizione 0,0 indica il suono più debole e 1,0 il più forte. I colori più chiari nelle posizioni alte di solito facilitano la lettura.",
-      "addStop": "Aggiungi punto di colore"
+      "addStop": "Aggiungi punto di colore",
+      "stopPosition": "Posizione del punto"
     },
     "preview": {
       "vsync": "Anteprima fluida (ogni fotogramma)"

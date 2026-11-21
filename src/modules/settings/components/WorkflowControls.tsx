@@ -1,6 +1,7 @@
-import { Checkbox, Switch, TextField } from "@radix-ui/themes";
+import { Checkbox, Switch } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import { useTranslation } from "react-i18next";
+import { DraftNumberField } from "$/components/DraftNumberField";
 import {
 	OptionPicker,
 	type OptionPickerVariant,
@@ -50,13 +51,13 @@ export function SyncOffsetControl({
 		commit ? syncCommitOffsetAtom : syncTimeOffsetAtom,
 	);
 	return (
-		<TextField.Root
-			type="number"
+		<DraftNumberField
 			step={1}
+			integer
 			size={compact ? "1" : "2"}
 			style={compact ? { width: "8em" } : undefined}
 			value={value}
-			onChange={(event) => setValue(parseSyncOffset(event.target.value))}
+			onCommit={setValue}
 		/>
 	);
 }

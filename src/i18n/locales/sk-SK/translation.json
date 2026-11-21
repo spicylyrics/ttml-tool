@@ -897,7 +897,8 @@
       "palette": "Farebná paleta",
       "paletteCustom": "Vlastná",
       "gradientEditorDesc": "Pozícia 0.0 zodpovedá najtichšej časti a 1.0 najhlasnejšej. Pri vyšších hodnotách bývajú najčitateľnejšie jasnejšie farby.",
-      "addStop": "Pridať farebný bod"
+      "addStop": "Pridať farebný bod",
+      "stopPosition": "Pozícia zarážky"
     },
     "preview": {
       "vsync": "Plynulý náhľad (každá snímka)"

@@ -897,7 +897,8 @@
       "palette": "Väripaletti",
       "paletteCustom": "Mukautettu",
       "gradientEditorDesc": "Kohta 0.0 vastaa hiljaisinta ja 1.0 voimakkainta ääntä. Kirkkaammat värit korkeammissa kohdissa erottuvat yleensä parhaiten.",
-      "addStop": "Lisää väripiste"
+      "addStop": "Lisää väripiste",
+      "stopPosition": "Pysäytyksen sijainti"
     },
     "preview": {
       "vsync": "Sulava esikatselu (joka ruutu)"

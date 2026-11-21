@@ -897,7 +897,8 @@
       "palette": "Paleta de cores",
       "paletteCustom": "Personalizada",
       "gradientEditorDesc": "A posição 0,0 representa o som mais baixo e 1,0 o mais alto. Cores mais claras nas posições altas costumam facilitar a leitura.",
-      "addStop": "Adicionar ponto de cor"
+      "addStop": "Adicionar ponto de cor",
+      "stopPosition": "Posição da parada"
     },
     "preview": {
       "vsync": "Prévia fluida (a cada quadro)"

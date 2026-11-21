@@ -897,7 +897,8 @@
       "palette": "Palet warna",
       "paletteCustom": "Kustom",
       "gradientEditorDesc": "Posisi 0.0 menunjukkan bagian paling pelan, dan 1.0 paling keras. Warna lebih cerah di posisi lebih tinggi biasanya paling jelas.",
-      "addStop": "Tambah titik warna"
+      "addStop": "Tambah titik warna",
+      "stopPosition": "Posisi titik warna"
     },
     "preview": {
       "vsync": "Pratinjau mulus (setiap frame)"

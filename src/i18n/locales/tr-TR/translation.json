@@ -897,7 +897,8 @@
       "palette": "Renk paleti",
       "paletteCustom": "Özel",
       "gradientEditorDesc": "0.0 konumu en sessiz, 1.0 en yüksek sesli kısımdır. Yüksek konumlarda daha parlak renkler genellikle daha okunaklıdır.",
-      "addStop": "Renk noktası ekle"
+      "addStop": "Renk noktası ekle",
+      "stopPosition": "Durak konumu"
     },
     "preview": {
       "vsync": "Akıcı önizleme (her kare)"

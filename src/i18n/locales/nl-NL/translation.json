@@ -897,7 +897,8 @@
       "palette": "Kleurenpalet",
       "paletteCustom": "Aangepast",
       "gradientEditorDesc": "Positie 0.0 is het zachtste deel en 1.0 het luidste. Heldere kleuren op hogere posities zijn meestal het duidelijkst.",
-      "addStop": "Kleurstop toevoegen"
+      "addStop": "Kleurstop toevoegen",
+      "stopPosition": "Positie van het kleurpunt"
     },
     "preview": {
       "vsync": "Vloeiend voorbeeld (elk frame)"

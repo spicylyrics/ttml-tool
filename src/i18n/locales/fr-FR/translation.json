@@ -897,7 +897,8 @@
       "palette": "Palette de couleurs",
       "paletteCustom": "Personnalisée",
       "gradientEditorDesc": "La position 0,0 correspond au son le plus faible et 1,0 au plus fort. Des couleurs plus claires aux positions élevées facilitent la lecture.",
-      "addStop": "Ajouter un point de couleur"
+      "addStop": "Ajouter un point de couleur",
+      "stopPosition": "Position de l'arrêt"
     },
     "preview": {
       "vsync": "Aperçu fluide (chaque image)"
