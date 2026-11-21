@@ -32,9 +32,12 @@ export const RomanWordView = ({
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const isEditing = editingIndex === wordIndex;
+	// Escape unmounts the input, and the resulting blur must not commit.
+	const cancelledRef = useRef(false);
 
 	const saveAndStopEditing = useCallback(
 		(newValue: string) => {
+			if (cancelledRef.current) return;
 			if (newValue !== word.romanWord) {
 				editLyricLines((draft) => {
 					for (const line of draft.lyricLines) {
@@ -59,22 +62,33 @@ export const RomanWordView = ({
 
 	useEffect(() => {
 		if (isEditing) {
+			cancelledRef.current = false;
 			inputRef.current?.focus();
 			inputRef.current?.select();
 		}
 	}, [isEditing]);
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+		if (e.nativeEvent.isComposing) return;
 		const value = e.currentTarget.value;
 		switch (e.key) {
 			case "Enter":
 			case "Tab":
 				e.preventDefault();
 				saveAndStopEditing(value);
-				setEditingIndex(wordIndex + 1);
+				// Shift+Tab goes back; the first word has nowhere earlier to go.
+				setEditingIndex(
+					e.shiftKey && e.key === "Tab"
+						? wordIndex > 0
+							? wordIndex - 1
+							: null
+						: wordIndex + 1,
+				);
 				break;
 			case "Escape":
 				e.preventDefault();
+				e.stopPropagation();
+				cancelledRef.current = true;
 				setEditingIndex(null);
 				break;
 			case "Backspace":

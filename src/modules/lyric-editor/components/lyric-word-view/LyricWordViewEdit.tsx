@@ -131,6 +131,7 @@ export const LyricWordViewEdit = ({
 					onChange={(evt) => setEditingValue(evt.currentTarget.value)}
 					onBlur={onEnter}
 					onKeyDown={(evt) => {
+						if (evt.nativeEvent.isComposing) return;
 						if (evt.key === "Enter") onEnter(evt);
 						if (evt.key === "Escape") {
 							evt.preventDefault();

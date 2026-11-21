@@ -77,7 +77,8 @@ export const ReplaceRomanizationDialog = memo(() => {
 							"New romanization",
 						)}
 						onKeyDown={(event) => {
-							if (event.key === "Enter") handleConfirm();
+							if (event.key === "Enter" && !event.nativeEvent.isComposing)
+								handleConfirm();
 						}}
 						autoFocus
 					/>

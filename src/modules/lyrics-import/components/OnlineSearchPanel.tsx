@@ -89,6 +89,7 @@ export function OnlineSearchBar({
 				value={query}
 				onChange={(event) => onQueryChange(event.target.value)}
 				onKeyDown={(event) => {
+					if (event.nativeEvent.isComposing) return;
 					if (event.key === "Enter" && !searching && query.trim()) onSearch();
 				}}
 			>
