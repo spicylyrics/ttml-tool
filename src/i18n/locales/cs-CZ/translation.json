@@ -167,6 +167,7 @@
     "splitHint": "Označí slabiky oddělovačem slov podle vašeho nastavení dělení a naučených dělení. Před importem opravte značky přímo v textu.",
     "splitDone": "Slabiky označeny. Před importem je zkontrolujte.",
     "splitNothing": "Není co rozdělit.",
+    "processNothing": "Není co měnit.",
     "restoreOriginal": "Obnovit původní text",
     "sectionsTitle": "Záhlaví sekcí",
     "sectionsFound": "{count, plural, one {Nalezeno # záhlaví} few {Nalezena # záhlaví} many {Nalezeno # záhlaví} other {Nalezeno # záhlaví}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Zrušit",
     "confirm": "Potvrdit",
+    "delete": {
+      "title": "Smazat „{name}“?",
+      "description": "Tuto akci nelze vrátit zpět.",
+      "confirm": "Smazat"
+    },
     "useMetadataName": {
       "title": "Použít název z metadat?",
       "description": "Použít jako název souboru \"{name}\"?"

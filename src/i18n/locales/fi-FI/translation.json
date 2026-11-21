@@ -167,6 +167,7 @@
     "splitHint": "Merkitsee tavut sanaerottimella jakoasetustesi ja opittujen jakojen mukaan. Korjaa merkinnät tekstiin ennen tuontia.",
     "splitDone": "Tavut merkitty. Tarkista ne ennen tuontia.",
     "splitNothing": "Ei jaettavaa.",
+    "processNothing": "Ei muutettavaa.",
     "restoreOriginal": "Palauta alkuperäinen teksti",
     "sectionsTitle": "Osioiden otsikot",
     "sectionsFound": "{count, plural, one {# otsikko löytyi} other {# otsikkoa löytyi}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Peruuta",
     "confirm": "Vahvista",
+    "delete": {
+      "title": "Poistetaanko \"{name}\"?",
+      "description": "Tätä ei voi perua.",
+      "confirm": "Poista"
+    },
     "useMetadataName": {
       "title": "Käytetäänkö metatiedoista saatua nimeä?",
       "description": "Käytetäänkö tiedostonimenä nimeä ”{name}”?"

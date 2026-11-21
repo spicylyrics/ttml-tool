@@ -16,7 +16,7 @@ import {
 	Text,
 	TextField,
 } from "@radix-ui/themes";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { audioEngine } from "$/modules/audio/audio-engine";
@@ -28,9 +28,11 @@ import {
 	equalizerGainsAtom,
 	equalizerPresetAtom,
 } from "$/modules/audio/states/index.ts";
+import { confirmDialogAtom } from "$/states/dialogs";
 
 export const AudioSettingsTab = () => {
 	const { t } = useTranslation();
+	const setConfirmDialog = useSetAtom(confirmDialogAtom);
 	const [enabled, setEnabled] = useAtom(equalizerEnabledAtom);
 	const [gains, setGains] = useAtom(equalizerGainsAtom);
 	const [preset, setPreset] = useAtom(equalizerPresetAtom);
@@ -173,7 +175,22 @@ export const AudioSettingsTab = () => {
 							variant="ghost"
 							color="red"
 							size="1"
-							onClick={() => handleDeletePreset(preset)}
+							onClick={() =>
+								setConfirmDialog({
+									open: true,
+									title: t("confirmDialog.delete.title", {
+										name: preset,
+										defaultValue: 'Delete "{name}"?',
+									}),
+									description: t(
+										"confirmDialog.delete.description",
+										"This can't be undone.",
+									),
+									confirmText: t("confirmDialog.delete.confirm", "Delete"),
+									destructive: true,
+									onConfirm: () => handleDeletePreset(preset),
+								})
+							}
 						>
 							<DeleteRegular />
 						</IconButton>

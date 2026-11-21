@@ -264,9 +264,14 @@ export const ImportLyricsDialog = () => {
 
 	const handleProcess = () => {
 		const rows: JoinedBackgroundRow[] = [];
-		transformText(
+		const changed = transformText(
 			prepareTextImport(text, true, store.get(processStepsAtom), rows),
 		);
+		if (!changed) {
+			// Nothing was rewritten, so the user's own format settings stay as they are.
+			toast.info(t("importLyrics.processNothing", "Nothing to change."));
+			return;
+		}
 		if (rows.length) setJoined({ source: text, rows });
 		// Process lyrics writes this format.
 		setWordSeparator("\\");

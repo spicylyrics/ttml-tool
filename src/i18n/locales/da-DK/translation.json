@@ -167,6 +167,7 @@
     "splitHint": "Markerer stavelser med ordseparatoren ud fra dine opdelingsindstillinger og indlærte opdelinger. Ret markeringerne i teksten før import.",
     "splitDone": "Stavelser markeret. Tjek dem før import.",
     "splitNothing": "Intet at opdele.",
+    "processNothing": "Intet at ændre.",
     "restoreOriginal": "Gendan oprindelig tekst",
     "sectionsTitle": "Sektionsoverskrifter",
     "sectionsFound": "{count, plural, one {# overskrift fundet} other {# overskrifter fundet}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Annuller",
     "confirm": "Bekræft",
+    "delete": {
+      "title": "Slet \"{name}\"?",
+      "description": "Dette kan ikke fortrydes.",
+      "confirm": "Slet"
+    },
     "useMetadataName": {
       "title": "Brug navn fra metadata?",
       "description": "Brug \"{name}\" som filnavn?"

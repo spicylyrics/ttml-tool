@@ -167,6 +167,7 @@
     "splitHint": "Oznacza sylaby separatorem słów według ustawień podziału i zapamiętanych podziałów. Popraw oznaczenia w tekście przed importem.",
     "splitDone": "Sylaby oznaczone. Sprawdź je przed importem.",
     "splitNothing": "Nie ma czego dzielić.",
+    "processNothing": "Nie ma nic do zmiany.",
     "restoreOriginal": "Przywróć oryginalny tekst",
     "sectionsTitle": "Nagłówki sekcji",
     "sectionsFound": "{count, plural, one {Znaleziono # nagłówek} few {Znaleziono # nagłówki} many {Znaleziono # nagłówków} other {Znaleziono # nagłówka}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Anuluj",
     "confirm": "Potwierdź",
+    "delete": {
+      "title": "Usunąć „{name}”?",
+      "description": "Tej operacji nie można cofnąć.",
+      "confirm": "Usuń"
+    },
     "useMetadataName": {
       "title": "Użyć nazwy z metadanych?",
       "description": "Użyć „{name}” jako nazwy pliku?"

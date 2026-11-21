@@ -167,6 +167,7 @@
     "splitHint": "Heceleri, bölme ayarlarınıza ve öğrenilen bölmelere göre kelime ayırıcıyla işaretler. İçe aktarmadan önce işaretleri metinde düzeltin.",
     "splitDone": "Heceler işaretlendi. İçe aktarmadan önce kontrol edin.",
     "splitNothing": "Bölünecek bir şey yok.",
+    "processNothing": "Değiştirilecek bir şey yok.",
     "restoreOriginal": "Orijinal metni geri yükle",
     "sectionsTitle": "Bölüm başlıkları",
     "sectionsFound": "{count, plural, one {# başlık bulundu} other {# başlık bulundu}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "İptal",
     "confirm": "Onayla",
+    "delete": {
+      "title": "\"{name}\" silinsin mi?",
+      "description": "Bu işlem geri alınamaz.",
+      "confirm": "Sil"
+    },
     "useMetadataName": {
       "title": "Meta verilerdeki ad kullanılsın mı?",
       "description": "Dosya ismi \"{name}\" olarak kullanılsın mı?"
