@@ -251,8 +251,11 @@ export class AudioEngine extends EventTarget {
 		// getOutputTimestamp supplies the device's audible context time, including graph/device latency.
 		const stamp = this.ctx.getOutputTimestamp?.();
 		if (stamp?.performanceTime && stamp.contextTime !== undefined) {
+			// Firefox reports outputLatency but leaves it out of the stamp (contextTime
+			// tracks currentTime), so the playhead ran ~40ms ahead of the sound there.
+			// Chromium's stamp already includes it, so the min() leaves that unchanged.
 			return Math.min(
-				this.ctx.currentTime,
+				this.ctx.currentTime - this.ctxOutputLatency,
 				stamp.contextTime +
 					Math.max(0, performance.now() - stamp.performanceTime) / 1000,
 			);
