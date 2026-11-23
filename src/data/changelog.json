@@ -1,5 +1,147 @@
 [
 	{
+		"version": "0.25.0-1",
+		"summary": "Undo, restore and fixes",
+		"color": "green",
+		"date": "2026-11-23",
+		"prerelease": true,
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Pick up unsaved work after reopening",
+				"body": "A prompt brings back your lyrics, file name and audio; desktop can restore it automatically",
+				"highlight": true,
+				"impact": 4
+			},
+			{
+				"type": "change",
+				"title": "Removed the hidden end-time link",
+				"body": "Clicking a line's end time in Time mode no longer ties it to the next line's start, which also fixes its double undo",
+				"highlight": false,
+				"impact": 2
+			},
+			{
+				"type": "change",
+				"title": "Removed the glow animation setting",
+				"body": "The word that is playing now shows a plain highlight, and selected lines use a fill instead of a side stripe",
+				"highlight": false,
+				"impact": 1
+			},
+			{
+				"type": "fix",
+				"title": "Copy timings lands where you paste it",
+				"body": "Copied timings start at the target line and keep their gaps; Escape cancels the paste",
+				"highlight": false,
+				"impact": 4
+			},
+			{
+				"type": "fix",
+				"title": "Undo goes back 200 steps",
+				"body": "Undo used to stop after 9 steps; now it covers a long stretch of syncing, and Undo and Redo grey out when empty",
+				"highlight": false,
+				"impact": 4
+			},
+			{
+				"type": "fix",
+				"title": "Undo puts the sync cursor back",
+				"body": "After Undo or Redo the cursor returns to the word you took back, so the next key press lands where you expect",
+				"highlight": true,
+				"impact": 4
+			},
+			{
+				"type": "fix",
+				"title": "Confirm before permanent resets and deletes",
+				"body": "Reset theme and deleting appearance or EQ presets ask first, and Process lyrics keeps settings when nothing changes",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "End no longer jumps to the start of the song",
+				"body": "When the word has no time yet, `End`, `Home` and the move-and-play keys keep the playhead where it is",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Import search reports real errors",
+				"body": "A failed search says why instead of \"No results\", Enter can't start a second search, and saving a Genius token runs it",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Inline editors cancel and commit consistently",
+				"body": "Escape now cancels timestamp and romanization edits, IME confirm no longer commits early, and empty words aren't added",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Number fields let you finish typing",
+				"body": "Autosave interval, sync offset and spectrogram stops no longer snap to a value while you type",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Opening a file with no lyrics keeps your work",
+				"body": "A broken or empty file now shows an error before anything is replaced, and New asks first when lyrics are loaded",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Selecting a line no longer moves it away",
+				"body": "The line you click stays under the cursor instead of sliding up when the previous line closes its extra rows",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Shortcuts behave around dialogs and the recorder",
+				"body": "Space and arrows stay in open dialogs, the recorder skips lone modifiers and stops on blur",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Clicking the spectrogram no longer nudges timing",
+				"body": "Words, lines and edges move only after a short drag, and `Escape` cancels a drag in progress, in the list too",
+				"highlight": true,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Line selection follows normal rules",
+				"body": "Shift-click selects a range that can shrink, Cmd-click toggles on macOS, and deleting lines clears their selection",
+				"highlight": false,
+				"impact": 2
+			},
+			{
+				"type": "fix",
+				"title": "Shortcut recorder keeps a modifier you already hold",
+				"body": "Pressing Ctrl before the recorder starts listening no longer saves Ctrl+P as plain P",
+				"highlight": false,
+				"impact": 2
+			},
+			{
+				"type": "fix",
+				"title": "Syncing no longer animates lines and words",
+				"body": "Selection and highlights change at once while you sync, and the line list jumps instead of gliding with reduced motion",
+				"highlight": false,
+				"impact": 2
+			},
+			{
+				"type": "fix",
+				"title": "Timing overview keeps every word visible",
+				"body": "Long word groups now wrap inside narrow timing panels instead of hiding their last words",
+				"highlight": false,
+				"impact": 2
+			}
+		]
+	},
+	{
 		"version": "0.24.1",
 		"summary": "Linux and macOS fixes",
 		"color": "ruby",
