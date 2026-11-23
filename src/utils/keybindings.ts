@@ -189,6 +189,10 @@ const registeredAtomBindings = new Map<
 >();
 /** Callbacks that keep running while their key is held. */
 const repeatingCallbacks = new WeakSet<KeyBindingCallback>();
+/** Callbacks that still run while a dialog is open (the latency test's taps). */
+const dialogCallbacks = new WeakSet<KeyBindingCallback>();
+/** Keys that went down behind a dialog, so their release can't reach the editor after it closes. */
+const dialogDownCodes = new Set<string>();
 let downTime = 0;
 
 const MODIFIER_ORDER = ["Control", "Meta", "Alt", "Shift"];
@@ -209,6 +213,7 @@ const keyDownTimes = new Map<string, number>();
 const heldKeyCodes = new Map<string, string>();
 
 function clearPressingKeys() {
+	dialogDownCodes.clear();
 	pressingKeys.clear();
 	keyDownTimes.clear();
 	heldKeyCodes.clear();
@@ -223,10 +228,11 @@ function dispatchPressingKeys(
 	code: string,
 	evt: KeyboardEvent,
 	repeat = false,
+	dialogOnly = false,
 ) {
 	const joined = getShortcutKey(pressingKeys);
 	if (registeredKeyBindings.has(joined) || MODIFIER_ORDER.includes(code)) {
-		triggerCallbacks(joined, evt, downTime, repeat);
+		triggerCallbacks(joined, evt, downTime, repeat, dialogOnly);
 		return;
 	}
 	const modifiers = [...pressingKeys].filter((key) =>
@@ -237,6 +243,7 @@ function dispatchPressingKeys(
 		evt,
 		keyDownTimes.get(code) ?? evt.timeStamp,
 		repeat,
+		dialogOnly,
 	);
 }
 
@@ -245,10 +252,13 @@ function triggerCallbacks(
 	evt: KeyboardEvent,
 	targetTime: number,
 	repeat = false,
+	dialogOnly = false,
 ) {
 	const registered = registeredKeyBindings.get(joinedKey);
 	const callbacks = [...(registered ?? [])].filter(
-		(cb) => !repeat || repeatingCallbacks.has(cb),
+		(cb) =>
+			(!repeat || repeatingCallbacks.has(cb)) &&
+			(!dialogOnly || dialogCallbacks.has(cb)),
 	);
 	if (callbacks.length > 0) {
 		const downTimeOffset = evt.timeStamp - targetTime;
@@ -277,13 +287,18 @@ window.addEventListener("keydown", (evt) => {
 	if (evt.repeat) {
 		// A held key re-runs only the bindings that asked for it.
 		const code = heldKeyCodes.get(evt.code);
-		if (code && !isEditing(evt)) dispatchPressingKeys(code, evt, true);
+		if (code && !isEditingElement(evt))
+			dispatchPressingKeys(code, evt, true, isBehindOpenDialog(evt));
 		return;
 	}
-	if (isEditing(evt)) {
+	if (isEditingElement(evt)) {
 		clearPressingKeys();
 		return;
 	}
+	// Behind a dialog only bindings that opted in run; the editor stays quiet.
+	const inDialog = isBehindOpenDialog(evt);
+	if (inDialog) dialogDownCodes.add(evt.code);
+	else dialogDownCodes.delete(evt.code);
 	if (pressingKeys.size === 0) {
 		downTime = evt.timeStamp;
 	}
@@ -304,21 +319,23 @@ window.addEventListener("keydown", (evt) => {
 	pressingKeys.add(code);
 
 	if (currentTriggerMode === KeyBindingTriggerMode.KeyDown) {
-		dispatchPressingKeys(code, evt);
+		dispatchPressingKeys(code, evt, false, inDialog);
 	}
 });
 
 window.addEventListener("keyup", (evt) => {
-	if (isEditing(evt)) {
+	if (isEditingElement(evt)) {
 		clearPressingKeys();
 		return;
 	}
 	if (!heldKeyCodes.has(evt.code)) return;
+	const inDialog = isBehindOpenDialog(evt) || dialogDownCodes.has(evt.code);
+	dialogDownCodes.delete(evt.code);
 
 	const code = heldKeyCodes.get(evt.code) ?? shortcutKeyFromEvent(evt);
 
 	if (currentTriggerMode === KeyBindingTriggerMode.KeyUp) {
-		dispatchPressingKeys(code, evt);
+		dispatchPressingKeys(code, evt, false, inDialog);
 	}
 
 	pressingKeys.delete(code);
@@ -361,6 +378,10 @@ export function forceInvokeKeyBindingAtom(
 
 // From https://wangchujiang.com/hotkeys-js/
 export function isEditing(event: KeyboardEvent | MouseEvent) {
+	return isEditingElement(event) || isBehindOpenDialog(event);
+}
+
+function isEditingElement(event: KeyboardEvent | MouseEvent) {
 	const checkElement = (target: HTMLElement | null) => {
 		const tagName = target?.tagName;
 		return (
@@ -376,8 +397,7 @@ export function isEditing(event: KeyboardEvent | MouseEvent) {
 	};
 	return (
 		checkElement((event.target || event.srcElement) as HTMLElement | null) ||
-		checkElement(document.activeElement as HTMLElement | null) ||
-		isBehindOpenDialog(event)
+		checkElement(document.activeElement as HTMLElement | null)
 	);
 }
 
@@ -396,11 +416,14 @@ export function registerKeyBindings(
 	cfg: KeyBindingsConfig,
 	callback: KeyBindingCallback,
 	repeat = false,
+	/** Keep running while a dialog is open, when plain keys otherwise stay with the dialog. */
+	allowInDialogs = false,
 ) {
 	if (cfg.length === 0) {
 		return () => {};
 	}
 	if (repeat) repeatingCallbacks.add(callback);
+	if (allowInDialogs) dialogCallbacks.add(callback);
 	const joined = getShortcutKey(cfg);
 	let set = registeredKeyBindings.get(joined);
 	if (!set) {

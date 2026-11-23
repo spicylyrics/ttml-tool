@@ -165,7 +165,7 @@ export const LatencyTestDialog = memo(() => {
 		};
 		return subscribeLatencyTestTaps(
 			dialogOpen && start,
-			(callback) => registerKeyBindings(syncNextBinding, callback),
+			(callback) => registerKeyBindings(syncNextBinding, callback, false, true),
 			onTap,
 		);
 	}, [dialogOpen, start, syncJudgeMode, syncNextBinding]);
