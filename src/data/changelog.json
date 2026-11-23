@@ -1,5 +1,36 @@
 [
 	{
+		"version": "0.25.0-2",
+		"summary": "Firefox sync, preview offset",
+		"color": "blue",
+		"date": "2026-11-23",
+		"prerelease": true,
+		"entries": [
+			{
+				"type": "feature",
+				"title": "Spicy preview offset",
+				"body": "Match the preview to how the Spicy Lyrics extension draws it, in Preferences",
+				"highlight": false,
+				"impact": 2
+			},
+			{
+				"type": "fix",
+				"title": "Sync offset is right in Firefox",
+				"body": "The playhead ran about 40 ms ahead of the sound there because the output delay was left out",
+				"highlight": false,
+				"impact": 3
+			},
+			{
+				"type": "fix",
+				"title": "Latency test counts your taps again",
+				"body": "Pressing the sync key in the test dialog was ignored since the last beta",
+				"highlight": false,
+				"impact": 3,
+				"betaOnly": true
+			}
+		]
+	},
+	{
 		"version": "0.25.0-1",
 		"summary": "Undo, restore and fixes",
 		"color": "green",
