@@ -12,9 +12,9 @@ import {
 	Slider,
 	Switch,
 	Text,
-	TextField,
 } from "@radix-ui/themes";
 import { isTauri } from "@tauri-apps/api/core";
+import { DraftNumberField } from "$/components/DraftNumberField";
 import type { CommonSettings } from "./useCommonSettings";
 export const AutosaveSection = ({
 	autosaveEnabled,
@@ -121,15 +121,12 @@ export const AutosaveSection = ({
 									)}
 								</Text>
 							</Flex>
-							<TextField.Root
-								type="number"
+							<DraftNumberField
 								disabled={!autosaveEnabled}
 								value={autosaveInterval}
-								onChange={(e) =>
-									setAutosaveInterval(
-										Math.max(1, Number.parseInt(e.target.value, 10) || 1),
-									)
-								}
+								min={1}
+								integer
+								onCommit={setAutosaveInterval}
 							/>
 						</Flex>
 					</Box>

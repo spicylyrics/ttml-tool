@@ -1,6 +1,8 @@
 import { History24Regular } from "@fluentui/react-icons";
 import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { useSetAtom } from "jotai";
 import { DEFAULT_CUSTOM_LOGO_COLOR } from "$/modules/logo-color/presets";
+import { confirmDialogAtom } from "$/states/dialogs";
 import {
 	type AdvancedOverrideSetters,
 	resetAdvancedOverrides,
@@ -31,6 +33,26 @@ type ResetThemeProps = AdvancedOverrideSetters &
 
 export const ResetThemeSection = (props: ResetThemeProps) => {
 	const { t } = props;
+	const setConfirmDialog = useSetAtom(confirmDialogAtom);
+	const resetTheme = () => {
+		props.setAccentColor("red");
+		props.setUseCustomAccent(false);
+		props.setCustomAccentColor("#e5484d");
+		props.setUseSystemAccent(false);
+		props.setBackgroundMode("none");
+		props.setSelectedGradient("sunset");
+		props.setUseCustomGradient(false);
+		props.setCustomGradientColors(["#7028e4"]);
+		props.setCustomGradientType("linear");
+		props.setCustomGradientOpacity(1);
+		props.setCustomGradientCenter([50, 50]);
+		props.setCustomGradientAngle(45);
+		props.setCustomGradientSize(1);
+		props.setSpicyLyricsDesign(true);
+		props.setLogoColorPreset("default");
+		props.setLogoColorCustom(DEFAULT_CUSTOM_LOGO_COLOR);
+		resetAdvancedOverrides(props);
+	};
 	return (
 		<Flex direction="column" gap="3">
 			<Heading size="4">
@@ -50,25 +72,22 @@ export const ResetThemeSection = (props: ResetThemeProps) => {
 					<Button
 						variant="soft"
 						color="red"
-						onClick={() => {
-							props.setAccentColor("red");
-							props.setUseCustomAccent(false);
-							props.setCustomAccentColor("#e5484d");
-							props.setUseSystemAccent(false);
-							props.setBackgroundMode("none");
-							props.setSelectedGradient("sunset");
-							props.setUseCustomGradient(false);
-							props.setCustomGradientColors(["#7028e4"]);
-							props.setCustomGradientType("linear");
-							props.setCustomGradientOpacity(1);
-							props.setCustomGradientCenter([50, 50]);
-							props.setCustomGradientAngle(45);
-							props.setCustomGradientSize(1);
-							props.setSpicyLyricsDesign(true);
-							props.setLogoColorPreset("default");
-							props.setLogoColorCustom(DEFAULT_CUSTOM_LOGO_COLOR);
-							resetAdvancedOverrides(props);
-						}}
+						onClick={() =>
+							setConfirmDialog({
+								open: true,
+								title: t("settings.appearance.resetTitle", "Reset theme"),
+								description: t(
+									"settings.appearance.resetDesc",
+									"Reset all colors, backgrounds, gradients, and custom overrides back to the default theme.",
+								),
+								confirmText: t(
+									"settings.appearance.resetTheme",
+									"Reset theme to default",
+								),
+								destructive: true,
+								onConfirm: resetTheme,
+							})
+						}
 					>
 						<History24Regular />
 						{t("settings.appearance.resetTheme", "Reset theme to default")}

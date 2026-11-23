@@ -17,6 +17,7 @@ import {
 	useCallback,
 	useLayoutEffect,
 	useMemo,
+	useRef,
 	useState,
 } from "react";
 import { lyricLinesAtom } from "$/states/main.ts";
@@ -43,6 +44,8 @@ export function WordEditField<
 >) {
 	const [fieldInput, setFieldInput] = useState<string | undefined>(undefined);
 	const [fieldPlaceholder, setFieldPlaceholder] = useState<string>("");
+	// Escape blurs the field, and that blur must not commit what was typed.
+	const cancelledRef = useRef(false);
 
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 
@@ -93,10 +96,22 @@ export function WordEditField<
 			disabled={fieldInput === undefined}
 			onChange={(evt) => setFieldInput(evt.currentTarget.value)}
 			onKeyDown={(evt) => {
+				if (evt.nativeEvent.isComposing) return;
+				if (evt.key === "Escape") {
+					evt.stopPropagation();
+					cancelledRef.current = true;
+					setFieldInput(currentValue);
+					evt.currentTarget.blur();
+					return;
+				}
 				if (evt.key !== "Enter") return;
 				onInputFinished(evt.currentTarget.value);
 			}}
+			onFocus={() => {
+				cancelledRef.current = false;
+			}}
 			onBlur={(evt) => {
+				if (cancelledRef.current) return;
 				if (evt.currentTarget.value === currentValue) return;
 				onInputFinished(evt.currentTarget.value);
 			}}

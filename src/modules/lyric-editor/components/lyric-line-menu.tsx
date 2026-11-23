@@ -5,7 +5,11 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { MenuIconRow } from "$/components/MenuIconRow";
 import { ROLE_COLORS, SlIcon } from "$/components/SlIcon";
-import { lyricLinesAtom, selectedLinesAtom } from "$/states/main";
+import {
+	lyricLinesAtom,
+	selectedLinesAtom,
+	selectedWordsAtom,
+} from "$/states/main";
 
 import { type LyricLine, newLyricLine, newLyricWord } from "$/types/ttml";
 import { insertLinesInSection } from "../utils/section-system";
@@ -95,6 +99,8 @@ export const LineRoleMenuRow = ({ lineIndex }: { lineIndex: number }) => {
 
 export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 	const { t } = useTranslation();
+	const setSelectedLines = useSetImmerAtom(selectedLinesAtom);
+	const setSelectedWords = useSetImmerAtom(selectedWordsAtom);
 	const setGlobalEnableInsert = useSetAtom(globalEnableInsertAtom);
 	const setTimingCopyPlacement = useSetAtom(timingCopyPlacementAtom);
 
@@ -175,6 +181,14 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 								(line) => !selectedLines.has(line.id),
 							);
 						}
+					});
+					// Ids of deleted lines and words must not stay selected, or
+					// auto-scroll keeps waiting on something that no longer exists.
+					setSelectedLines((state) => {
+						state.clear();
+					});
+					setSelectedWords((state) => {
+						state.clear();
 					});
 				}}
 			>

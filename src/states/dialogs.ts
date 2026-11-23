@@ -33,6 +33,8 @@ export const confirmDialogAtom = atom<{
 	description: string;
 	confirmText?: string;
 	cancelText?: string;
+	/** Red confirm button, for deletes and resets that can't be undone. */
+	destructive?: boolean;
 	onConfirm?: () => void;
 	onCancel?: () => void;
 }>({

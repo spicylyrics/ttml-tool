@@ -167,6 +167,7 @@
     "splitHint": "Markeert lettergrepen met het woordscheidingsteken, volgens je segmentatie-instellingen en geleerde splitsingen. Corrigeer de markeringen in de tekst voordat je importeert.",
     "splitDone": "Lettergrepen gemarkeerd. Controleer ze voordat je importeert.",
     "splitNothing": "Niets om te splitsen.",
+    "processNothing": "Niets te wijzigen.",
     "restoreOriginal": "Oorspronkelijke tekst herstellen",
     "sectionsTitle": "Sectiekoppen",
     "sectionsFound": "{count, plural, one {# kop gevonden} other {# koppen gevonden}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Annuleren",
     "confirm": "Bevestigen",
+    "delete": {
+      "title": "\"{name}\" verwijderen?",
+      "description": "Dit kan niet ongedaan worden gemaakt.",
+      "confirm": "Verwijderen"
+    },
     "useMetadataName": {
       "title": "Naam uit metagegevens gebruiken?",
       "description": "\"{name}\" als bestandsnaam gebruiken?"
@@ -897,7 +903,8 @@
       "palette": "Kleurenpalet",
       "paletteCustom": "Aangepast",
       "gradientEditorDesc": "Positie 0.0 is het zachtste deel en 1.0 het luidste. Heldere kleuren op hogere posities zijn meestal het duidelijkst.",
-      "addStop": "Kleurstop toevoegen"
+      "addStop": "Kleurstop toevoegen",
+      "stopPosition": "Positie van het kleurpunt"
     },
     "preview": {
       "vsync": "Vloeiend voorbeeld (elk frame)"

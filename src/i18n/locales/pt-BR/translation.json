@@ -167,6 +167,7 @@
     "splitHint": "Marca as sílabas com o separador de palavras, usando suas configurações de segmentação e divisões aprendidas. Corrija as marcas no texto antes de importar.",
     "splitDone": "Sílabas marcadas. Confira antes de importar.",
     "splitNothing": "Nada para dividir.",
+    "processNothing": "Nada para alterar.",
     "restoreOriginal": "Restaurar texto original",
     "sectionsTitle": "Cabeçalhos de seção",
     "sectionsFound": "{count, plural, one {# cabeçalho encontrado} many {# cabeçalhos encontrados} other {# cabeçalhos encontrados}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Cancelar",
     "confirm": "Confirmar",
+    "delete": {
+      "title": "Excluir \"{name}\"?",
+      "description": "Isso não pode ser desfeito.",
+      "confirm": "Excluir"
+    },
     "useMetadataName": {
       "title": "Usar nome de metadados?",
       "description": "Usar \"{name}\" como nome do arquivo?"
@@ -897,7 +903,8 @@
       "palette": "Paleta de cores",
       "paletteCustom": "Personalizada",
       "gradientEditorDesc": "A posição 0,0 representa o som mais baixo e 1,0 o mais alto. Cores mais claras nas posições altas costumam facilitar a leitura.",
-      "addStop": "Adicionar ponto de cor"
+      "addStop": "Adicionar ponto de cor",
+      "stopPosition": "Posição da parada"
     },
     "preview": {
       "vsync": "Prévia fluida (a cada quadro)"

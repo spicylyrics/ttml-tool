@@ -167,6 +167,7 @@
     "splitHint": "Marque les syllabes avec le séparateur de mots, selon vos réglages de découpage et vos découpages appris. Corrigez les marques dans le texte avant d'importer.",
     "splitDone": "Syllabes marquées. Vérifiez-les avant d'importer.",
     "splitNothing": "Rien à découper.",
+    "processNothing": "Rien à modifier.",
     "restoreOriginal": "Restaurer le texte d'origine",
     "sectionsTitle": "En-têtes de section",
     "sectionsFound": "{count, plural, one {# en-tête trouvé} many {# en-têtes trouvés} other {# en-têtes trouvés}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Annuler",
     "confirm": "Confirmer",
+    "delete": {
+      "title": "Supprimer « {name} » ?",
+      "description": "Cette action est irréversible.",
+      "confirm": "Supprimer"
+    },
     "useMetadataName": {
       "title": "Utiliser le nom des métadonnées ?",
       "description": "Utiliser « {name} » comme nom de fichier ?"
@@ -897,7 +903,8 @@
       "palette": "Palette de couleurs",
       "paletteCustom": "Personnalisée",
       "gradientEditorDesc": "La position 0,0 correspond au son le plus faible et 1,0 au plus fort. Des couleurs plus claires aux positions élevées facilitent la lecture.",
-      "addStop": "Ajouter un point de couleur"
+      "addStop": "Ajouter un point de couleur",
+      "stopPosition": "Position de l'arrêt"
     },
     "preview": {
       "vsync": "Aperçu fluide (chaque image)"

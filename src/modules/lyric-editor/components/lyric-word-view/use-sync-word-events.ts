@@ -61,6 +61,7 @@ export const useSyncWordEvents = ({
 		setEditingTextValue,
 		editingTextValueRef,
 		commitTimeEdit,
+		cancelTimeEdit,
 		commitTextEdit,
 		cancelTextEdit,
 	} = editing;
@@ -110,15 +111,17 @@ export const useSyncWordEvents = ({
 		setEditingTime("start");
 	};
 	const onStartTimeKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") commitTimeEdit("start", editingInput);
-		if (e.key === "Escape") setEditingTime(null);
 		e.stopPropagation();
+		if (e.nativeEvent.isComposing) return;
+		if (e.key === "Enter") commitTimeEdit("start", editingInput);
+		if (e.key === "Escape") cancelTimeEdit();
 	};
 	const onTextKeyDown = (
 		event: KeyboardEvent<HTMLInputElement>,
 		editingTextField: "word" | "romanWord",
 	) => {
 		event.stopPropagation();
+		if (event.nativeEvent.isComposing) return;
 		if (event.key === "Enter") {
 			event.preventDefault();
 			commitTextEdit(editingTextField, event.currentTarget.value);
@@ -135,9 +138,10 @@ export const useSyncWordEvents = ({
 		setEditingTime("end");
 	};
 	const onEndTimeKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") commitTimeEdit("end", editingInput);
-		if (e.key === "Escape") setEditingTime(null);
 		e.stopPropagation();
+		if (e.nativeEvent.isComposing) return;
+		if (e.key === "Enter") commitTimeEdit("end", editingInput);
+		if (e.key === "Escape") cancelTimeEdit();
 	};
 	return {
 		onWordPointerDown,

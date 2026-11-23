@@ -1,8 +1,9 @@
 import { Add20Regular, Delete20Regular } from "@fluentui/react-icons";
-import { Button, Flex, Select, Text, TextField } from "@radix-ui/themes";
+import { Button, Flex, Select, Text } from "@radix-ui/themes";
 import { useAtom } from "jotai";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { DraftNumberField } from "$/components/DraftNumberField";
 import { FollowPlayheadSettings } from "$/modules/spectrogram/components/FollowPlayheadSettings";
 import {
 	customPaletteStopsAtom,
@@ -37,18 +38,16 @@ export const SettingsSpectrogramTab = () => {
 		);
 	};
 
-	const handleStopPosChange = (index: number, pos: number) => {
-		const newPos = Number.isNaN(pos) ? 0 : Math.max(0, Math.min(1, pos));
-
-		setLocalStops(
-			localStops.map((stop, i) =>
-				i === index ? { ...stop, pos: newPos } : stop,
-			),
-		);
-	};
-
 	const commitLocalChanges = () => {
 		const sortedStops = [...localStops].sort((a, b) => a.pos - b.pos);
+		setGlobalStops(sortedStops);
+		setLocalStops(sortedStops);
+	};
+
+	const commitStopPosition = (index: number, pos: number) => {
+		const sortedStops = localStops
+			.map((stop, i) => (i === index ? { ...stop, pos } : stop))
+			.sort((a, b) => a.pos - b.pos);
 		setGlobalStops(sortedStops);
 		setLocalStops(sortedStops);
 	};
@@ -155,24 +154,18 @@ export const SettingsSpectrogramTab = () => {
 											height: "28px",
 										}}
 									/>
-									<TextField.Root
-										type="number"
+									<DraftNumberField
+										aria-label={t(
+											"settings.spectrogram.stopPosition",
+											"Stop position",
+										)}
 										min={0}
 										max={1}
 										step={0.01}
 										value={stop.pos}
-										onChange={(e) =>
-											handleStopPosChange(
-												index,
-												e.target.value === ""
-													? NaN
-													: Number.parseFloat(e.target.value),
-											)
-										}
-										onBlur={commitLocalChanges}
+										onCommit={(pos) => commitStopPosition(index, pos)}
 										style={{ maxWidth: "80px" }}
 									/>
-									<Text size="1">Pos: {stop.pos.toFixed(2)}</Text>
 									<Button
 										variant="soft"
 										color="red"

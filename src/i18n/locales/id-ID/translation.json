@@ -167,6 +167,7 @@
     "splitHint": "Menandai suku kata dengan pemisah kata, memakai pengaturan segmentasi dan pemisahan yang dipelajari. Perbaiki tanda di teks sebelum mengimpor.",
     "splitDone": "Suku kata ditandai. Periksa sebelum mengimpor.",
     "splitNothing": "Tidak ada yang perlu dipisahkan.",
+    "processNothing": "Tidak ada yang perlu diubah.",
     "restoreOriginal": "Pulihkan teks asli",
     "sectionsTitle": "Judul bagian",
     "sectionsFound": "{count, plural, other {# judul ditemukan}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Batal",
     "confirm": "Konfirmasi",
+    "delete": {
+      "title": "Hapus \"{name}\"?",
+      "description": "Tindakan ini tidak dapat dibatalkan.",
+      "confirm": "Hapus"
+    },
     "useMetadataName": {
       "title": "Gunakan nama dari metadata?",
       "description": "Gunakan \"{name}\" sebagai nama file?"
@@ -897,7 +903,8 @@
       "palette": "Palet warna",
       "paletteCustom": "Kustom",
       "gradientEditorDesc": "Posisi 0.0 menunjukkan bagian paling pelan, dan 1.0 paling keras. Warna lebih cerah di posisi lebih tinggi biasanya paling jelas.",
-      "addStop": "Tambah titik warna"
+      "addStop": "Tambah titik warna",
+      "stopPosition": "Posisi titik warna"
     },
     "preview": {
       "vsync": "Pratinjau mulus (setiap frame)"

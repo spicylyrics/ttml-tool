@@ -167,6 +167,7 @@
     "splitHint": "Marks syllables with the word separator, using your segmentation settings and learned splits. Fix any marks in the text before importing.",
     "splitDone": "Syllables marked. Check them before importing.",
     "splitNothing": "Nothing to split.",
+    "processNothing": "Nothing to change.",
     "restoreOriginal": "Restore original text",
     "sectionsTitle": "Section headers",
     "sectionsFound": "{count, plural, one {# header found} other {# headers found}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "delete": {
+      "title": "Delete \"{name}\"?",
+      "description": "This can't be undone.",
+      "confirm": "Delete"
+    },
     "useMetadataName": {
       "title": "Use metadata name?",
       "description": "Use \"{name}\" as the file name?"
@@ -897,7 +903,8 @@
       "palette": "Color palette",
       "paletteCustom": "Custom",
       "gradientEditorDesc": "A position of 0.0 is the quietest part and 1.0 the loudest. Brighter colors at higher positions usually read best.",
-      "addStop": "Add color stop"
+      "addStop": "Add color stop",
+      "stopPosition": "Stop position"
     },
     "preview": {
       "vsync": "Smooth preview (every frame)"

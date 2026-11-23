@@ -167,10 +167,12 @@ export function LineWordRow({
 						alignSelf: "center",
 					}}
 					onKeyDown={(evt) => {
+						if (evt.nativeEvent.isComposing) return;
 						if (evt.key === "Enter") {
 							evt.preventDefault();
 							evt.stopPropagation();
 							const word = evt.currentTarget.value;
+							if (word === "") return;
 							editLyricLines((state) => {
 								const typed = splitTypedLine
 									? typedLineToWords(word, learnedRules)

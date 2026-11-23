@@ -26,7 +26,10 @@ export const ConfirmationDialog = () => {
 					<Button variant="soft" color="gray" onClick={handleCancel}>
 						{dialogState.cancelText || t("confirmDialog.cancel", "取消")}
 					</Button>
-					<Button onClick={handleConfirm}>
+					<Button
+						color={dialogState.destructive ? "red" : undefined}
+						onClick={handleConfirm}
+					>
 						{dialogState.confirmText || t("confirmDialog.confirm", "确认")}
 					</Button>
 				</Flex>

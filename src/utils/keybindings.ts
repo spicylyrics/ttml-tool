@@ -376,7 +376,19 @@ export function isEditing(event: KeyboardEvent | MouseEvent) {
 	};
 	return (
 		checkElement((event.target || event.srcElement) as HTMLElement | null) ||
-		checkElement(document.activeElement as HTMLElement | null)
+		checkElement(document.activeElement as HTMLElement | null) ||
+		isBehindOpenDialog(event)
+	);
+}
+
+/**
+ * Plain keys (Space, arrows, letters) belong to an open dialog, not to the
+ * editor behind it. Chords with Ctrl, Cmd or Alt still reach their actions.
+ */
+function isBehindOpenDialog(event: KeyboardEvent | MouseEvent) {
+	if (event.ctrlKey || event.metaKey || event.altKey) return false;
+	return !!document.querySelector?.(
+		'[role="dialog"][data-state="open"], [role="alertdialog"][data-state="open"]',
 	);
 }
 
@@ -650,6 +662,7 @@ let currentKeyUpEvent: ((evt: KeyboardEvent) => void) | undefined;
 let currentRecordingReject: ((reason: Error) => void) | undefined;
 
 export function stopRecordingShortcut() {
+	window.removeEventListener("blur", stopRecordingShortcut);
 	if (currentKeyDownEvent) {
 		window.removeEventListener("keydown", currentKeyDownEvent, {
 			capture: true,
@@ -688,6 +701,14 @@ export function recordShortcut(): Promise<KeyBindingsConfig> {
 			if (!stack.has(evt.code)) return;
 			stack.delete(evt.code);
 			if (stack.size === 0) {
+				// Only modifiers so far: keep listening for the key they go with.
+				if (![...recorded].some((key) => !MODIFIER_ORDER.includes(key))) {
+					recorded.clear();
+					evt.preventDefault();
+					evt.stopPropagation();
+					evt.stopImmediatePropagation();
+					return;
+				}
 				currentRecordingReject = undefined;
 				stopRecordingShortcut();
 				if (recorded.size === 1 && recorded.has("Escape")) {
@@ -703,6 +724,8 @@ export function recordShortcut(): Promise<KeyBindingsConfig> {
 		currentKeyDownEvent = onKeyDown;
 		currentKeyUpEvent = onKeyUp;
 		currentRecordingReject = reject;
+		// Switching window or app mid-recording would otherwise leave it eating keys.
+		window.addEventListener("blur", stopRecordingShortcut, { once: true });
 		// Capture before dialog Escape handlers so canceling keeps Preferences open.
 		window.addEventListener("keydown", onKeyDown, { capture: true });
 		window.addEventListener("keyup", onKeyUp, { capture: true });

@@ -167,6 +167,7 @@
     "splitHint": "Označí slabiky oddeľovačom slov podľa vašich nastavení delenia a naučených delení. Pred importom opravte značky priamo v texte.",
     "splitDone": "Slabiky označené. Pred importom ich skontrolujte.",
     "splitNothing": "Nie je čo rozdeliť.",
+    "processNothing": "Nie je čo meniť.",
     "restoreOriginal": "Obnoviť pôvodný text",
     "sectionsTitle": "Hlavičky sekcií",
     "sectionsFound": "{count, plural, one {Nájdená # hlavička} few {Nájdené # hlavičky} many {Nájdenej # hlavičky} other {Nájdených # hlavičiek}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Zrušiť",
     "confirm": "Potvrdiť",
+    "delete": {
+      "title": "Odstrániť „{name}“?",
+      "description": "Túto akciu nie je možné vrátiť späť.",
+      "confirm": "Odstrániť"
+    },
     "useMetadataName": {
       "title": "Použiť názov z metadát?",
       "description": "Chcete použiť \"{name}\" ako názov súboru?"
@@ -897,7 +903,8 @@
       "palette": "Farebná paleta",
       "paletteCustom": "Vlastná",
       "gradientEditorDesc": "Pozícia 0.0 zodpovedá najtichšej časti a 1.0 najhlasnejšej. Pri vyšších hodnotách bývajú najčitateľnejšie jasnejšie farby.",
-      "addStop": "Pridať farebný bod"
+      "addStop": "Pridať farebný bod",
+      "stopPosition": "Pozícia zarážky"
     },
     "preview": {
       "vsync": "Plynulý náhľad (každá snímka)"

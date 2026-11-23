@@ -167,6 +167,7 @@
     "splitHint": "Marchează silabele cu separatorul de cuvinte, după setările de segmentare și despărțirile învățate. Corectează marcajele în text înainte de import.",
     "splitDone": "Silabe marcate. Verifică-le înainte de import.",
     "splitNothing": "Nimic de despărțit.",
+    "processNothing": "Nimic de modificat.",
     "restoreOriginal": "Restaurează textul original",
     "sectionsTitle": "Antete de secțiune",
     "sectionsFound": "{count, plural, one {# antet găsit} few {# antete găsite} other {# de antete găsite}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Anulează",
     "confirm": "Confirmă",
+    "delete": {
+      "title": "Ștergi „{name}”?",
+      "description": "Această acțiune nu poate fi anulată.",
+      "confirm": "Șterge"
+    },
     "useMetadataName": {
       "title": "Folosește numele metadatei?",
       "description": "Folosești „{name}” ca nume de fișier?"
@@ -897,7 +903,8 @@
       "palette": "Paletă de culori",
       "paletteCustom": "Personalizată",
       "gradientEditorDesc": "Poziția 0,0 reprezintă sunetul cel mai slab, iar 1,0 pe cel mai puternic. Culorile mai luminoase la pozițiile înalte sunt de obicei mai lizibile.",
-      "addStop": "Adaugă un punct de culoare"
+      "addStop": "Adaugă un punct de culoare",
+      "stopPosition": "Poziția opririi"
     },
     "preview": {
       "vsync": "Previzualizare fluidă (fiecare cadru)"

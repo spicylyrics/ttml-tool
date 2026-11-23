@@ -81,7 +81,8 @@ export const ReplaceWordDialog = memo(() => {
 						onChange={(e) => setReplacementText(e.target.value)}
 						placeholder={t("replaceWordDialog.placeholder", "新单词")}
 						onKeyDown={(e) => {
-							if (e.key === "Enter") handleConfirm();
+							if (e.key === "Enter" && !e.nativeEvent.isComposing)
+								handleConfirm();
 						}}
 						autoFocus
 					/>

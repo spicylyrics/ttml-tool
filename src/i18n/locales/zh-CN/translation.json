@@ -167,6 +167,7 @@
     "splitHint": "根据你的分词设置和已学习的拆分，用单词分隔符标记音节。导入前请在文本中修正标记。",
     "splitDone": "已标记音节。导入前请检查。",
     "splitNothing": "没有可拆分的内容。",
+    "processNothing": "没有需要更改的内容。",
     "restoreOriginal": "恢复原始文本",
     "sectionsTitle": "分段标题",
     "sectionsFound": "{count, plural, other {找到 # 个标题}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "取消",
     "confirm": "确定",
+    "delete": {
+      "title": "删除“{name}”？",
+      "description": "此操作无法撤销。",
+      "confirm": "删除"
+    },
     "useMetadataName": {
       "title": "使用元数据命名？",
       "description": "是否使用“{name}”作为文件名？"
@@ -897,7 +903,8 @@
       "palette": "调色板",
       "paletteCustom": "自定义",
       "gradientEditorDesc": "位置 0.0 对应最轻的声音，1.0 对应最响的声音。较高位置使用更亮的颜色通常更易辨认。",
-      "addStop": "添加色标"
+      "addStop": "添加色标",
+      "stopPosition": "色标位置"
     },
     "preview": {
       "vsync": "流畅预览（每帧更新）"

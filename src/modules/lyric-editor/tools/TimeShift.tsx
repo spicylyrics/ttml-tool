@@ -190,7 +190,7 @@ export const TimeShiftDialog = () => {
 							</Flex>
 							<TextField.Root
 								type="number"
-								min="0"
+								inputMode="numeric"
 								value={offsetStr}
 								onChange={(e) => setOffsetStr(e.target.value)}
 								placeholder="0"

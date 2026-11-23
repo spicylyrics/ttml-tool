@@ -70,7 +70,7 @@ export function useLineInteractions({
 
 		const now = Date.now();
 		if (now - store.get(lastLineDragEndAtom) < 250) return;
-		if (evt.ctrlKey) {
+		if (evt.ctrlKey || evt.metaKey) {
 			setSelectedLines((v) => {
 				if (v.has(line.id)) {
 					v.delete(line.id);
@@ -79,26 +79,19 @@ export function useLineInteractions({
 				}
 			});
 		} else if (evt.shiftKey) {
+			// The range runs from the first selected line to this one, so it can
+			// shrink as well as grow.
 			setSelectedLines((v) => {
-				if (v.size > 0) {
-					let minBoundry = Number.NaN;
-					let maxBoundry = Number.NaN;
-					const lyricLines = store.get(lyricLinesAtom).lyricLines;
-					lyricLines.forEach((line, i) => {
-						if (v.has(line.id)) {
-							if (Number.isNaN(minBoundry)) minBoundry = i;
-							if (Number.isNaN(maxBoundry)) maxBoundry = i;
-
-							minBoundry = Math.min(minBoundry, i, lineIndex);
-							maxBoundry = Math.max(maxBoundry, i, lineIndex);
-						}
-					});
-					for (let i = minBoundry; i <= maxBoundry; i++) {
-						v.add(lyricLines[i].id);
-					}
-				} else {
+				const lyricLines = store.get(lyricLinesAtom).lyricLines;
+				const anchor = lyricLines.findIndex((candidate) => v.has(candidate.id));
+				if (anchor === -1) {
 					v.add(line.id);
+					return;
 				}
+				v.clear();
+				const from = Math.min(anchor, lineIndex);
+				const to = Math.max(anchor, lineIndex);
+				for (let i = from; i <= to; i++) v.add(lyricLines[i].id);
 			});
 		} else {
 			if (

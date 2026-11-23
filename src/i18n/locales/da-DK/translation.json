@@ -167,6 +167,7 @@
     "splitHint": "Markerer stavelser med ordseparatoren ud fra dine opdelingsindstillinger og indlærte opdelinger. Ret markeringerne i teksten før import.",
     "splitDone": "Stavelser markeret. Tjek dem før import.",
     "splitNothing": "Intet at opdele.",
+    "processNothing": "Intet at ændre.",
     "restoreOriginal": "Gendan oprindelig tekst",
     "sectionsTitle": "Sektionsoverskrifter",
     "sectionsFound": "{count, plural, one {# overskrift fundet} other {# overskrifter fundet}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Annuller",
     "confirm": "Bekræft",
+    "delete": {
+      "title": "Slet \"{name}\"?",
+      "description": "Dette kan ikke fortrydes.",
+      "confirm": "Slet"
+    },
     "useMetadataName": {
       "title": "Brug navn fra metadata?",
       "description": "Brug \"{name}\" som filnavn?"
@@ -897,7 +903,8 @@
       "palette": "Farvepalet",
       "paletteCustom": "Brugerdefineret",
       "gradientEditorDesc": "Position 0.0 svarer til den svageste lyd og 1.0 til den kraftigste. Lysere farver ved højere positioner er typisk lettest at aflæse.",
-      "addStop": "Tilføj farvepunkt"
+      "addStop": "Tilføj farvepunkt",
+      "stopPosition": "Stopposition"
     },
     "preview": {
       "vsync": "Flydende forhåndsvisning (hvert billede)"

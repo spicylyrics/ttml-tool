@@ -99,8 +99,19 @@ export const useSyncWordEditing = ({
 		setEditingTextField(null);
 	}, []);
 
+	// Escape unmounts the timestamp input, and the resulting blur must not commit.
+	const timeEditCancelledRef = useRef(false);
+	useEffect(() => {
+		if (editingTime) timeEditCancelledRef.current = false;
+	}, [editingTime]);
+	const cancelTimeEdit = useCallback(() => {
+		timeEditCancelledRef.current = true;
+		setEditingTime(null);
+	}, []);
+
 	const commitTimeEdit = useCallback(
 		(field: "start" | "end", rawValue: string) => {
+			if (timeEditCancelledRef.current) return;
 			try {
 				const newMs = parseTimespan(rawValue);
 				editLyricLines((state) => {
@@ -136,5 +147,6 @@ export const useSyncWordEditing = ({
 		commitTextEdit,
 		cancelTextEdit,
 		commitTimeEdit,
+		cancelTimeEdit,
 	};
 };

@@ -167,6 +167,7 @@
     "splitHint": "Segna le sillabe con il separatore di parole, secondo le impostazioni di segmentazione e le divisioni apprese. Correggi i segni nel testo prima di importare.",
     "splitDone": "Sillabe segnate. Controllale prima di importare.",
     "splitNothing": "Niente da dividere.",
+    "processNothing": "Niente da modificare.",
     "restoreOriginal": "Ripristina testo originale",
     "sectionsTitle": "Intestazioni di sezione",
     "sectionsFound": "{count, plural, one {# intestazione trovata} many {# intestazioni trovate} other {# intestazioni trovate}}",
@@ -297,6 +298,11 @@
   "confirmDialog": {
     "cancel": "Annulla",
     "confirm": "Conferma",
+    "delete": {
+      "title": "Eliminare \"{name}\"?",
+      "description": "Questa azione non può essere annullata.",
+      "confirm": "Elimina"
+    },
     "useMetadataName": {
       "title": "Usare il nome dei metadati?",
       "description": "Usare \"{name}\" come nome del file?"
@@ -897,7 +903,8 @@
       "palette": "Tavolozza dei colori",
       "paletteCustom": "Personalizzata",
       "gradientEditorDesc": "La posizione 0,0 indica il suono più debole e 1,0 il più forte. I colori più chiari nelle posizioni alte di solito facilitano la lettura.",
-      "addStop": "Aggiungi punto di colore"
+      "addStop": "Aggiungi punto di colore",
+      "stopPosition": "Posizione del punto"
     },
     "preview": {
       "vsync": "Anteprima fluida (ogni fotogramma)"
