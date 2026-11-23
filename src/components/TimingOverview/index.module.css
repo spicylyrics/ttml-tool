@@ -122,6 +122,8 @@
 
 .wordGroup {
 	display: flex;
+	flex-wrap: wrap;
+	max-width: 100%;
 	background-color: var(--gray-3);
 	border: 1px solid var(--gray-5);
 	border-radius: 4px;
