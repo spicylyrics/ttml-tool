@@ -44,6 +44,7 @@ vi.mock("$/modules/settings/states/preview", async () => {
 		showTranslationLinesAtom: atom(false),
 		spicyBackgroundModeAtom: atom("static"),
 		spicyJoinSplitWordsAtom: atom(false),
+		spicyPreviewOffsetAtom: atom(0),
 		spicySimpleLyricsModeAtom: atom(false),
 	};
 });
@@ -51,7 +52,10 @@ vi.mock("$/modules/settings/states/preview", async () => {
 import { Provider } from "jotai";
 import { currentTimeAtom } from "$/modules/audio/states";
 import { playbackClock } from "$/modules/playback-clock";
-import { spicySimpleLyricsModeAtom } from "$/modules/settings/states/preview";
+import {
+	spicyPreviewOffsetAtom,
+	spicySimpleLyricsModeAtom,
+} from "$/modules/settings/states/preview";
 import { lyricLinesAtom } from "$/states/main";
 import { globalStore } from "$/states/store";
 import { newLyricLine, newLyricWord } from "$/types/ttml";
@@ -226,6 +230,50 @@ describe("Spicy shared-clock rendering", () => {
 			});
 			expect(line?.getAttribute("data-state")).toBe("not-sung");
 		} finally {
+			await act(async () => root.unmount());
+		}
+	});
+
+	it("draws the preview ahead of the editor position by the preview offset", async () => {
+		vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
+		vi.stubGlobal("requestAnimationFrame", () => 1);
+		vi.stubGlobal("cancelAnimationFrame", vi.fn());
+		vi.stubGlobal("scrollTo", vi.fn());
+		stubLayout();
+		const word = {
+			...newLyricWord(),
+			word: "Hi",
+			startTime: 1000,
+			endTime: 2000,
+		};
+		globalStore.set(lyricLinesAtom, {
+			lyricLines: [
+				{ ...newLyricLine(), startTime: 1000, endTime: 2000, words: [word] },
+			],
+			metadata: [],
+		});
+		globalStore.set(spicySimpleLyricsModeAtom, false);
+		globalStore.set(spicyPreviewOffsetAtom, 0);
+		testEngine.interpolatedCurrentTime = 0.95;
+		testEngine.dispatchEvent(new Event("music-seeked"));
+		const container = document.createElement("div");
+		const root = createRoot(container);
+		try {
+			await act(async () =>
+				root.render(
+					<Provider store={globalStore}>
+						<SpicyLyrics />
+					</Provider>,
+				),
+			);
+			const line = container.querySelector("[data-state]");
+			expect(line?.getAttribute("data-state")).toBe("not-sung");
+			// 950ms + 100ms is past the line's 1000ms start, even while paused.
+			await act(async () => globalStore.set(spicyPreviewOffsetAtom, 100));
+			expect(line?.getAttribute("data-state")).toBe("active");
+			expect(globalStore.get(currentTimeAtom)).toBe(950);
+		} finally {
+			globalStore.set(spicyPreviewOffsetAtom, 0);
 			await act(async () => root.unmount());
 		}
 	});

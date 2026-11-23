@@ -936,7 +936,9 @@
       "showFpsDesc": "在预览上显示帧率计数器。",
       "previewModeDesc": "选择预览标签页显示哪种预览。",
       "spicyBackgroundDesc": "Spicy 预览背后显示的内容。",
-      "fadeWidthDesc": "Standard 和 Toxi 预览中字高亮填充边缘的柔和程度。"
+      "fadeWidthDesc": "Standard 和 Toxi 预览中字高亮填充边缘的柔和程度。",
+      "spicyPreviewOffset": "Spicy 预览偏移",
+      "spicyPreviewOffsetDesc": "Spicy 预览比声音提前的毫秒数。Spicy Lyrics 扩展大约提前 100 毫秒，设为 100 即可让预览与其一致。"
     }
   },
   "timingOverview": {

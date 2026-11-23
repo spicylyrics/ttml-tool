@@ -30,6 +30,8 @@ interface AnimationContext {
 	setFps: Dispatch<SetStateAction<number>>;
 	fpsRef: RefObject<{ frames: number; lastTime: number }>;
 	showFpsRef: RefObject<boolean>;
+	/** Preview offset in ms, read every frame so it applies while playing. */
+	previewOffsetMs?: RefObject<number>;
 }
 
 const settled = (set: SpringSet | undefined) =>
@@ -56,6 +58,7 @@ export function createSpicyAnimator({
 	setFps,
 	fpsRef,
 	showFpsRef,
+	previewOffsetMs,
 }: AnimationContext) {
 	// Animation bookkeeping lives here, outside React, and is rebuilt with the
 	// lines. Only active rows and rows whose springs are still settling after a
@@ -205,7 +208,10 @@ export function createSpicyAnimator({
 		lastTime.current = now;
 		// Spicy draws Simple Lyrics mode 33.5ms behind the playhead; its
 		// scrolling still follows the playhead itself.
-		const time = seconds * 1000 - (simple ? SIMPLE_LYRICS_LAG : 0);
+		const time =
+			seconds * 1000 +
+			(previewOffsetMs?.current ?? 0) -
+			(simple ? SIMPLE_LYRICS_LAG : 0);
 		const anchor = findSpicyBlurAnchor(lines, time, blurAnchor);
 		const anchorMoved = anchor !== blurAnchor;
 		blurAnchor = anchor;

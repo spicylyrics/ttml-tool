@@ -936,7 +936,9 @@
       "showFpsDesc": "Zobrazit v náhledu počítadlo snímků za sekundu.",
       "previewModeDesc": "Vyberte, který náhled se zobrazí na kartě Náhled.",
       "spicyBackgroundDesc": "Co se zobrazuje za náhledem Spicy.",
-      "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi."
+      "fadeWidthDesc": "Jak měkký je okraj zvýraznění při vyplňování slova v náhledech Standard a Toxi.",
+      "spicyPreviewOffset": "Posun náhledu Spicy",
+      "spicyPreviewOffsetDesc": "Počet milisekund, o které náhled Spicy předbíhá zvuk. Rozšíření Spicy Lyrics předbíhá asi o 100 ms, takže hodnota 100 náhled přiblíží jeho vzhledu."
     }
   },
   "timingOverview": {

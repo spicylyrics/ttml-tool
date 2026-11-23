@@ -936,7 +936,9 @@
       "showFpsDesc": "Show a frame rate counter on the preview.",
       "previewModeDesc": "Choose which preview the Preview tab shows.",
       "spicyBackgroundDesc": "What shows behind the Spicy preview.",
-      "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews."
+      "fadeWidthDesc": "How soft the edge of the highlight is as a word fills in the Standard and Toxi previews.",
+      "spicyPreviewOffset": "Spicy preview offset",
+      "spicyPreviewOffsetDesc": "Milliseconds the Spicy preview runs ahead of the sound. The Spicy Lyrics extension runs about 100 ms ahead, so 100 makes the preview look like it."
     }
   },
   "timingOverview": {

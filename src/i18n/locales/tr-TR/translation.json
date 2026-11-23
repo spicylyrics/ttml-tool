@@ -936,7 +936,9 @@
       "showFpsDesc": "Önizlemede kare hızı sayacı gösterir.",
       "previewModeDesc": "Önizleme sekmesinin hangi önizlemeyi göstereceğini seçin.",
       "spicyBackgroundDesc": "Spicy önizlemesinin arkasında ne görüneceği.",
-      "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı."
+      "fadeWidthDesc": "Standard ve Toxi önizlemelerinde bir kelime dolarken vurgunun kenarının ne kadar yumuşak olacağı.",
+      "spicyPreviewOffset": "Spicy önizleme kaydırması",
+      "spicyPreviewOffsetDesc": "Spicy önizlemesinin sesin kaç milisaniye önünde çalıştığı. Spicy Lyrics uzantısı yaklaşık 100 ms öndedir, bu yüzden 100 önizlemeyi ona benzetir."
     }
   },
   "timingOverview": {

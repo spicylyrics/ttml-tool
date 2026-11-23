@@ -936,7 +936,9 @@
       "showFpsDesc": "Affiche un compteur d'images par seconde sur l'aperçu.",
       "previewModeDesc": "Choisissez l'aperçu affiché dans l'onglet Aperçu.",
       "spicyBackgroundDesc": "Ce qui s'affiche derrière l'aperçu Spicy.",
-      "fadeWidthDesc": "Douceur du bord du surlignage lorsqu'un mot se remplit dans les aperçus Standard et Toxi."
+      "fadeWidthDesc": "Douceur du bord du surlignage lorsqu'un mot se remplit dans les aperçus Standard et Toxi.",
+      "spicyPreviewOffset": "Décalage de l'aperçu Spicy",
+      "spicyPreviewOffsetDesc": "Millisecondes d'avance de l'aperçu Spicy sur le son. L'extension Spicy Lyrics a environ 100 ms d'avance, donc 100 donne le même rendu."
     }
   },
   "timingOverview": {

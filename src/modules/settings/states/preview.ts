@@ -41,6 +41,13 @@ export const lyricWordFadeWidthAtom = atomWithStorage(
 	"lyricWordFadeWidth",
 	0.5,
 );
+/**
+ * Draws the Spicy preview this many ms ahead of the sound (negative: behind).
+ * The Spicy Lyrics extension runs about 100ms ahead of the player position, so
+ * +100 makes the preview look like it. Only the preview moves; audio, the
+ * spectrogram and exported timings do not.
+ */
+export const spicyPreviewOffsetAtom = atomWithStorage("spicyPreviewOffset", 0);
 export const vsyncAtom = atomWithStorage("vsync", false);
 export const showFpsCounterAtom = atomWithStorage("showFpsCounter", false);
 export const instantHighlightFadeAtom = atomWithStorage(

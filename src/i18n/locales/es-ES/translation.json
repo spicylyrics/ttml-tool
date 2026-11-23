@@ -936,7 +936,9 @@
       "showFpsDesc": "Muestra un contador de fotogramas por segundo en la vista previa.",
       "previewModeDesc": "Elige qué vista previa muestra la pestaña Vista previa.",
       "spicyBackgroundDesc": "Lo que se muestra detrás de la vista previa de Spicy.",
-      "fadeWidthDesc": "Qué tan suave es el borde del resaltado mientras se llena una palabra en las vistas previas Standard y Toxi."
+      "fadeWidthDesc": "Qué tan suave es el borde del resaltado mientras se llena una palabra en las vistas previas Standard y Toxi.",
+      "spicyPreviewOffset": "Desfase de la vista previa de Spicy",
+      "spicyPreviewOffsetDesc": "Milisegundos que la vista previa de Spicy se adelanta al sonido. La extensión de Spicy Lyrics se adelanta unos 100 ms, así que 100 hace que la vista previa se vea igual."
     }
   },
   "timingOverview": {

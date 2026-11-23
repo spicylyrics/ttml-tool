@@ -214,6 +214,24 @@ describe("shortcut normalization and dispatch", () => {
 		expect(callback).toHaveBeenCalledOnce();
 	});
 
+	it("behind an open dialog only bindings that opt in run", () => {
+		const editor = vi.fn();
+		const tap = vi.fn();
+		cleanups.push(keyboard.registerKeyBindings(["KeyG"], editor));
+		cleanups.push(keyboard.registerKeyBindings(["KeyG"], tap, false, true));
+		Object.assign(document, { querySelector: () => ({}) });
+		cleanups.push(() => Reflect.deleteProperty(document, "querySelector"));
+		key("keydown", "KeyG");
+		key("keyup", "KeyG");
+		expect(tap).toHaveBeenCalledOnce();
+		expect(editor).not.toHaveBeenCalled();
+		Reflect.deleteProperty(document, "querySelector");
+		key("keydown", "KeyG");
+		key("keyup", "KeyG");
+		expect(editor).toHaveBeenCalledOnce();
+		expect(tap).toHaveBeenCalledTimes(2);
+	});
+
 	it.each([
 		"INPUT",
 		"TEXTAREA",

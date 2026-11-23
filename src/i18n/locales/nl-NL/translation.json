@@ -936,7 +936,9 @@
       "showFpsDesc": "Toon een framerateteller op het voorbeeld.",
       "previewModeDesc": "Kies welk voorbeeld het tabblad Voorbeeld toont.",
       "spicyBackgroundDesc": "Wat er achter het Spicy-voorbeeld te zien is.",
-      "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden."
+      "fadeWidthDesc": "Hoe zacht de rand van de markering is terwijl een woord vult in de Standard- en Toxi-voorbeelden.",
+      "spicyPreviewOffset": "Spicy-voorbeeldverschuiving",
+      "spicyPreviewOffsetDesc": "Milliseconden dat het Spicy-voorbeeld voorloopt op het geluid. De Spicy Lyrics-extensie loopt ongeveer 100 ms voor, dus met 100 ziet het voorbeeld er hetzelfde uit."
     }
   },
   "timingOverview": {

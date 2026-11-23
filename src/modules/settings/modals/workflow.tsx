@@ -25,6 +25,7 @@ import { Box, Card, Flex, Heading, Text, TextField } from "@radix-ui/themes";
 import { useAtom, type WritableAtom } from "jotai";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { DraftNumberField } from "$/components/DraftNumberField";
 import { SlIcon } from "$/components/SlIcon";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
 import { showPreviewPanelAtom } from "$/states/main";
@@ -55,6 +56,7 @@ import {
 	showFpsCounterAtom,
 	showRomanLinesAtom,
 	showTranslationLinesAtom,
+	spicyPreviewOffsetAtom,
 	spicySimpleLyricsModeAtom,
 	vsyncAtom,
 } from "../states/preview";
@@ -324,6 +326,7 @@ export const WorkflowSettings = ({
 }) => {
 	const { t } = useTranslation();
 	const [fadeWidth, setFadeWidth] = useAtom(lyricWordFadeWidthAtom);
+	const [previewOffset, setPreviewOffset] = useAtom(spicyPreviewOffsetAtom);
 	const toggles = (rows: readonly ToggleRow[]) =>
 		rows.map(([titleKey, title, descKey, desc, icon, setting]) => (
 			<SettingRow
@@ -398,6 +401,27 @@ export const WorkflowSettings = ({
 						<SpicyBackgroundControl variant="segmented" />
 					</SettingRow>
 					{toggles(previewToggles)}
+					<SettingRow
+						icon={<Clock24Regular />}
+						title={t(
+							"settings.workflow.spicyPreviewOffset",
+							"Spicy preview offset",
+						)}
+						description={t(
+							"settings.workflow.spicyPreviewOffsetDesc",
+							"Milliseconds the Spicy preview runs ahead of the sound. The Spicy Lyrics extension runs about 100 ms ahead, so 100 makes the preview look like it.",
+						)}
+					>
+						<DraftNumberField
+							integer
+							step={10}
+							min={-1000}
+							max={1000}
+							value={previewOffset}
+							onCommit={setPreviewOffset}
+							style={{ width: 80 }}
+						/>
+					</SettingRow>
 					<SettingRow
 						icon={<ArrowAutofitWidth24Regular />}
 						title={t("ribbonBar.previewMode.fadeWidth", "Fade width")}

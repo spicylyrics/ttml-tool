@@ -323,6 +323,28 @@ describe("PCM engine lifecycle", () => {
 		await expect(engine.play()).rejects.toThrow("Autoplay blocked");
 		expect(engine.musicPlaying).toBe(false);
 	});
+	it("subtracts outputLatency when the output timestamp omits it (Firefox)", async () => {
+		const ctx = context as unknown as {
+			getOutputTimestamp: () => AudioTimestamp;
+		};
+		ctx.getOutputTimestamp = () => ({
+			contextTime: context.currentTime,
+			performanceTime: 1,
+		});
+		await engine.loadMusic(new Blob());
+		expect(engine.audibleContextTime).toBeCloseTo(10 - 0.03, 6);
+	});
+	it("keeps the timestamp when it already includes the latency (Chromium)", async () => {
+		const ctx = context as unknown as {
+			getOutputTimestamp: () => AudioTimestamp;
+		};
+		ctx.getOutputTimestamp = () => ({
+			contextTime: context.currentTime - 0.06,
+			performanceTime: 1,
+		});
+		await engine.loadMusic(new Blob());
+		expect(engine.audibleContextTime).toBeCloseTo(10 - 0.06, 6);
+	});
 	it("publishes final time after output latency and restarts from zero at EOF", async () => {
 		await engine.loadMusic(new Blob());
 		const play = engine.resumeOrSeekMusic(0.8);
