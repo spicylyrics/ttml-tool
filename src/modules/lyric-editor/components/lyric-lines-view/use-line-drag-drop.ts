@@ -299,17 +299,19 @@ export function useLineDragDrop({
 			ensureScrolling();
 		};
 
-		const finishDragging = (event?: PointerEvent) => {
+		/** `commit: false` drops the drag where it started instead of moving the lines. */
+		const finishDragging = (event?: PointerEvent, commit = true) => {
 			const drag = store.get(lineDragAtom);
 			if (!drag || (event && drag.pointerId !== event.pointerId)) return;
 			const sectionId = drag.sectionId;
 			const slot = sectionSlot;
-			if (drag.isDragging && sectionId) {
+			const apply = commit && drag.isDragging;
+			if (apply && sectionId) {
 				if (slot)
 					editLyricLines((state) => {
 						moveSectionTo(state, sectionId, slot);
 					});
-			} else if (drag.isDragging && dropTarget) {
+			} else if (apply && dropTarget) {
 				const targetId = dropTarget.element.dataset.lyricLineId;
 				const insertAfter = dropTarget.insertAfter;
 				const selectedLines = store.get(selectedLinesAtom);
@@ -364,12 +366,25 @@ export function useLineDragDrop({
 			viewEl.scrollTop = clampScrollTop(viewEl.scrollTop, delta, maxScrollTop);
 			event.preventDefault();
 		};
-		const handleWindowBlur = () => finishDragging();
+		// Losing the window or the pointer, or pressing Escape, cancels the drag;
+		// only letting go of the pointer drops the lines.
+		const handleWindowBlur = () => finishDragging(undefined, false);
+		const handlePointerUp = (event: PointerEvent) => finishDragging(event);
+		const handlePointerCancel = (event: PointerEvent) =>
+			finishDragging(event, false);
+		const handleEscape = (event: KeyboardEvent) => {
+			if (event.key !== "Escape" || !store.get(lineDragAtom)?.isDragging)
+				return;
+			event.preventDefault();
+			event.stopPropagation();
+			finishDragging(undefined, false);
+		};
 
 		window.addEventListener("pointerdown", startPointerDrag, true);
 		window.addEventListener("pointermove", updatePointer, true);
-		window.addEventListener("pointerup", finishDragging, true);
-		window.addEventListener("pointercancel", finishDragging, true);
+		window.addEventListener("pointerup", handlePointerUp, true);
+		window.addEventListener("pointercancel", handlePointerCancel, true);
+		window.addEventListener("keydown", handleEscape, true);
 		window.addEventListener("wheel", scrollWithWheel, {
 			capture: true,
 			passive: false,
@@ -377,11 +392,12 @@ export function useLineDragDrop({
 		window.addEventListener("blur", handleWindowBlur);
 
 		return () => {
-			finishDragging();
+			finishDragging(undefined, false);
 			window.removeEventListener("pointerdown", startPointerDrag, true);
 			window.removeEventListener("pointermove", updatePointer, true);
-			window.removeEventListener("pointerup", finishDragging, true);
-			window.removeEventListener("pointercancel", finishDragging, true);
+			window.removeEventListener("pointerup", handlePointerUp, true);
+			window.removeEventListener("pointercancel", handlePointerCancel, true);
+			window.removeEventListener("keydown", handleEscape, true);
 			window.removeEventListener("wheel", scrollWithWheel, true);
 			window.removeEventListener("blur", handleWindowBlur);
 		};

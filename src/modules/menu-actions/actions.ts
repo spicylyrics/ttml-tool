@@ -41,6 +41,8 @@ import {
 	songwriterFinderDialogAtom,
 } from "$/states/dialogs.ts";
 import {
+	canRedoLyricLinesAtom,
+	canUndoLyricLinesAtom,
 	lyricLinesAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
@@ -241,12 +243,14 @@ export const MENU_ACTIONS = {
 		command: cmdUndo,
 		boundElsewhere: true,
 		label: (t) => t("topBar.menu.undo", "Undo"),
+		enabledAtom: canUndoLyricLinesAtom,
 		run: ({ menu }) => menu.onUndo(),
 	},
 	redo: {
 		command: cmdRedo,
 		boundElsewhere: true,
 		label: (t) => t("topBar.menu.redo", "Redo"),
+		enabledAtom: canRedoLyricLinesAtom,
 		run: ({ menu }) => menu.onRedo(),
 	},
 	selectAll: {

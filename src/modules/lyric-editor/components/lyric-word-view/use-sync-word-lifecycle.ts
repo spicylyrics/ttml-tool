@@ -15,6 +15,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { currentTimeAtom } from "$/modules/audio/states/index.ts";
 import type { LyricLine, TTMLLyric } from "$/types/ttml.ts";
 import styles from "../index.module.css";
+import { useFlashOnChange } from "../use-flash-on-change";
 import { useSyncWordEditing } from "./use-sync-word-editing";
 
 export const useSyncWordLifecycle = ({
@@ -22,7 +23,6 @@ export const useSyncWordLifecycle = ({
 	startTime,
 	endTime,
 	highlightActiveWord,
-	enableSyncGlowAnimation,
 	visualizeTimestampUpdate,
 	editLyricLines,
 	line,
@@ -32,7 +32,6 @@ export const useSyncWordLifecycle = ({
 	startTime: number;
 	endTime: number;
 	highlightActiveWord: boolean;
-	enableSyncGlowAnimation: boolean;
 	visualizeTimestampUpdate: boolean;
 	editLyricLines: (recipe: (state: Draft<TTMLLyric>) => void) => void;
 	line: LyricLine;
@@ -45,9 +44,8 @@ export const useSyncWordLifecycle = ({
 
 	// Keep mutable refs for active-highlight settings to avoid re-subscribing on every settings change
 	const highlightActiveWordRef = useRef(highlightActiveWord);
-	const enableSyncGlowAnimationRef = useRef(enableSyncGlowAnimation);
 
-	const activeStateRef = useRef({ active: false, animated: false });
+	const activeStateRef = useRef({ active: false });
 	const updateActive = useCallback(
 		(force = false) => {
 			const el = wordContainerRef.current;
@@ -55,12 +53,9 @@ export const useSyncWordLifecycle = ({
 			const time = store.get(currentTimeAtom);
 			const active =
 				highlightActiveWordRef.current && time >= startTime && time < endTime;
-			const animated = active && enableSyncGlowAnimationRef.current;
 			if (force || active !== activeStateRef.current.active)
 				el.classList.toggle(styles.active, active);
-			if (force || animated !== activeStateRef.current.animated)
-				el.classList.toggle(styles.animated, animated);
-			activeStateRef.current = { active, animated };
+			activeStateRef.current = { active };
 		},
 		[store, startTime, endTime],
 	);
@@ -70,12 +65,7 @@ export const useSyncWordLifecycle = ({
 		updateActive();
 	}, [highlightActiveWord, updateActive]);
 
-	useEffect(() => {
-		enableSyncGlowAnimationRef.current = enableSyncGlowAnimation;
-		updateActive();
-	}, [enableSyncGlowAnimation, updateActive]);
-
-	// Re-apply active/animated classes synchronously on every React reconciliation
+	// Re-apply the active class synchronously on every React reconciliation
 	// pass so React updating className on the DOM element does not wipe out imperative classes.
 	useLayoutEffect(() => {
 		updateActive(true);
@@ -97,49 +87,9 @@ export const useSyncWordLifecycle = ({
 		wordIndex,
 	});
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: 用于呈现时间戳更新效果
-	useEffect(() => {
-		if (!visualizeTimestampUpdate) return;
-		const animation = startTimeRef.current?.animate(
-			[
-				{
-					backgroundColor: "var(--accent-a8)",
-				},
-				{
-					backgroundColor: "var(--accent-a4)",
-				},
-			],
-			{
-				duration: 500,
-			},
-		);
+	useFlashOnChange(startTimeRef, startTime, visualizeTimestampUpdate);
 
-		return () => {
-			animation?.cancel();
-		};
-	}, [startTime, visualizeTimestampUpdate]);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: 用于呈现时间戳更新效果
-	useEffect(() => {
-		if (!visualizeTimestampUpdate) return;
-		const animation = endTimeRef.current?.animate(
-			[
-				{
-					backgroundColor: "var(--accent-a8)",
-				},
-				{
-					backgroundColor: "var(--accent-a4)",
-				},
-			],
-			{
-				duration: 500,
-			},
-		);
-
-		return () => {
-			animation?.cancel();
-		};
-	}, [endTime, visualizeTimestampUpdate]);
+	useFlashOnChange(endTimeRef, endTime, visualizeTimestampUpdate);
 	return {
 		startTimeRef,
 		endTimeRef,

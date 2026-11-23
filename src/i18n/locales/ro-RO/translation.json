@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Începi versuri noi?",
-      "description": "Ai modificări nesalvate. Dacă continui, se vor pierde. Sigur vrei să creezi un fișier nou?"
+      "description": "Ai modificări nesalvate. Dacă continui, se vor pierde. Sigur vrei să creezi un fișier nou?",
+      "descriptionLoaded": "Versurile deschise vor fi închise. Începi versuri noi?"
     },
     "untimedLyrics": {
       "title": "Versuri fără timpi",
@@ -540,7 +541,6 @@
       "displayOptions": "Opțiuni de afișare",
       "showTimestamps": "Arată marcajele temporale",
       "highlightActiveWord": "Evidențiază cuvântul activ",
-      "enableGlowAnimation": "Activează animația de strălucire",
       "highlightErrors": "Evidențiază erorile",
       "showPerWordRomanization": "Arată romanizarea fiecărui cuvânt",
       "startSync": "Începe",
@@ -600,7 +600,9 @@
         "interval": "Salvează la fiecare (minute)",
         "intervalDesc": "Timpul minim între versiuni. Ultimele modificări sunt salvate oricum după fiecare editare.",
         "limit": "Versiuni de păstrat",
-        "limitDesc": "Câte versiuni se păstrează pentru fiecare melodie. Cele mai vechi se șterg primele."
+        "limitDesc": "Câte versiuni se păstrează pentru fiecare melodie. Cele mai vechi se șterg primele.",
+        "restoreAutomatically": "Restaurează automat munca nesalvată",
+        "restoreAutomaticallyDesc": "Sari peste întrebare la pornire și redeschide ce aveai la ultima închidere cu modificări nesalvate."
       },
       "customBackground": "Imagine de fundal personalizată",
       "customBackgroundDesc": "Alege o imagine pentru a fi folosită ca fundal.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Afișează un câmp de romanizare pe fiecare cuvânt.",
       "showTimestampsDesc": "Afișează timpul de început și de sfârșit pe fiecare cuvânt.",
       "highlightActiveWordDesc": "Evidențiază cuvântul care se redă acum.",
-      "enableGlowAnimationDesc": "Umple fiecare cuvânt cu o strălucire în timp ce se redă.",
       "showPerWordRomanizationDesc": "Afișează romanizarea fiecărui cuvânt sub el.",
       "previewPanelDesc": "Arată o previzualizare în timp real a versurilor lângă lista de cuvinte.",
       "bgLyricSyncDesc": "Cum tratează G și H versurile vocilor de fundal la sincronizare.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Format de fișier nesuportat: {ext}",
     "openFileFailed": "Nu s-a putut deschide fișierul",
+    "noLyricsInFile": "Nu s-au găsit versuri în {name}",
     "linkedProjectInvalidPath": "Fișierele selectate nu pot fi asociate. Alege un fișier .ttml și un fișier audio de pe o unitate locală. Locațiile partajate în rețea nu sunt acceptate.",
     "linkedProjectBackupFailed": "Nu s-a putut face backup pentru fișierul original TTML, așa că nu a fost suprascris",
     "linkedProjectNoBackup": "Nu a fost găsită nicio copie de rezervă pentru acest proiect",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Aplică {applied} din {total} sincronizări de aici",
     "timingsApplied": "{count, plural, one {Timpi aplicați pentru # vers.} few {Timpi aplicați pentru # versuri.} other {Timpi aplicați pentru # de versuri.}}",
     "partialTimingCopy": "Doar {applied} din {total} sincronizări sursă încap înainte de sfârșitul versurilor.",
+    "timingCopyOriginalTimes": "Nimic deasupra nu are timp, așa că rândurile copiate și-au păstrat timpii originali.",
     "wordTimingMismatch": "{count, plural, one {# vers avea un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.} few {# versuri aveau un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.} other {# de versuri aveau un număr diferit de cuvinte; s-au copiat doar pozițiile corespunzătoare.}}",
     "insertLine": "Inserează un vers aici",
     "insertWord": "Introdu un cuvânt aici…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Eliberează pentru a încărca"
+  },
+  "sessionRestore": {
+    "title": "Continui de unde ai rămas?",
+    "note": "Ultimele versuri salvate automat sunt încă aici: {name}.",
+    "restore": "Restaurează",
+    "dismiss": "Începe de la zero",
+    "always": "Restaurează mereu automat",
+    "audioNamed": "Versurile tale sunt înapoi. Încarcă din nou {name} ca să continui sincronizarea.",
+    "audio": "Versurile tale sunt înapoi. Încarcă din nou audio ca să continui sincronizarea.",
+    "chooseAudio": "Alege audio",
+    "later": "Mai târziu",
+    "auto": "Munca nesalvată de data trecută a fost restaurată."
   },
   "historyRestoreDialog": {
     "loadError": "Nu s-a putut încărca istoricul",

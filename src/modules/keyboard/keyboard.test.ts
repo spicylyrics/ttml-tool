@@ -400,6 +400,14 @@ describe("shortcut recording and storage", () => {
 		expect(await recording).toEqual(["Control", "Escape"]);
 	});
 
+	it("keeps a modifier that was already held when recording began", async () => {
+		const recording = keyboard.recordShortcut();
+		// No ControlLeft keydown reaches the recorder, only the flag on the event.
+		key("keydown", "KeyP", 0, { ctrlKey: true });
+		key("keyup", "KeyP", 0, { ctrlKey: true });
+		expect(await recording).toEqual(["Control", "KeyP"]);
+	});
+
 	it("ignores the key release that opened the recorder", async () => {
 		const recording = keyboard.recordShortcut();
 		key("keyup", "Enter");

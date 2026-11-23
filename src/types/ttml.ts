@@ -109,19 +109,6 @@ export interface LyricLine extends AMLLLyricLine {
 	isLineSynced?: boolean;
 	language?: string;
 	agent?: string;
-	/**
-	 * @description 用于记录时间链接前的原始时间值，便于取消链接时恢复
-	 */
-	endTimeLink?: {
-		/**
-		 * @description 该行原始的结束时间
-		 */
-		originalEndTime: number;
-		/**
-		 * @description 下一行原始的开始时间，没有则为 null
-		 */
-		originalNextStartTime: number | null;
-	};
 	sectionId?: string;
 	/** @deprecated Migrated to TTMLLyric.sections + sectionId. */
 	geniusHeader?: string;

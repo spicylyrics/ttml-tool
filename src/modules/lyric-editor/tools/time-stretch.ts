@@ -36,19 +36,6 @@ export const scaleTTMLTimings = (
 		line.startTime = scaleTimestamp(line.startTime, factor);
 		line.endTime = scaleTimestamp(line.endTime, factor);
 
-		if (line.endTimeLink) {
-			line.endTimeLink.originalEndTime = scaleTimestamp(
-				line.endTimeLink.originalEndTime,
-				factor,
-			);
-			if (line.endTimeLink.originalNextStartTime !== null) {
-				line.endTimeLink.originalNextStartTime = scaleTimestamp(
-					line.endTimeLink.originalNextStartTime,
-					factor,
-				);
-			}
-		}
-
 		for (const word of line.words) {
 			word.startTime = scaleTimestamp(word.startTime, factor);
 			word.endTime = scaleTimestamp(word.endTime, factor);

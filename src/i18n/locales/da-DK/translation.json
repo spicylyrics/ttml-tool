@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Start ny sangtekst?",
-      "description": "Du har ikke-gemte ændringer. Hvis du fortsætter, vil disse ændringer gå tabt. Er du sikker på, at du vil oprette en ny fil?"
+      "description": "Du har ikke-gemte ændringer. Hvis du fortsætter, vil disse ændringer gå tabt. Er du sikker på, at du vil oprette en ny fil?",
+      "descriptionLoaded": "De åbne tekster lukkes. Start nye tekster?"
     },
     "untimedLyrics": {
       "title": "Sangtekst uden timing",
@@ -540,7 +541,6 @@
       "displayOptions": "Visningsmuligheder",
       "showTimestamps": "Vis tidsstempler",
       "highlightActiveWord": "Fremhæv aktivt ord",
-      "enableGlowAnimation": "Aktiver glødeanimation",
       "highlightErrors": "Fremhæv fejl",
       "showPerWordRomanization": "Vis romanisering pr. ord",
       "startSync": "Start",
@@ -600,7 +600,9 @@
         "interval": "Gem hvert (minutter)",
         "intervalDesc": "Mindste tid mellem øjebliksbilleder. Dine seneste ændringer gemmes stadig efter hver redigering.",
         "limit": "Antal øjebliksbilleder at beholde",
-        "limitDesc": "Hvor mange øjebliksbilleder der beholdes for hver sang. De ældste slettes først."
+        "limitDesc": "Hvor mange øjebliksbilleder der beholdes for hver sang. De ældste slettes først.",
+        "restoreAutomatically": "Gendan ugemt arbejde automatisk",
+        "restoreAutomaticallyDesc": "Spring spørgsmålet over ved start og åbn det, du havde, da du sidst lukkede med ugemte ændringer."
       },
       "customBackground": "Brugerdefineret baggrund",
       "customBackgroundDesc": "Vælg et billede, der skal bruges som baggrund.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Vis et romaniseringsfelt på hvert ord.",
       "showTimestampsDesc": "Vis start- og sluttid på hvert ord.",
       "highlightActiveWordDesc": "Fremhæv det ord, der spilles lige nu.",
-      "enableGlowAnimationDesc": "Fyld hvert ord med en glød, mens det spilles.",
       "showPerWordRomanizationDesc": "Vis hvert ords romanisering under det.",
       "previewPanelDesc": "Vis en live forhåndsvisning af teksten ved siden af ordlisten.",
       "bgLyricSyncDesc": "Hvordan G og H håndterer baggrundslinjer under synkronisering.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Ikke-understøttet filformat: {ext}",
     "openFileFailed": "Kunne ikke åbne fil",
+    "noLyricsInFile": "Ingen tekster fundet i {name}",
     "linkedProjectInvalidPath": "De valgte filer kan ikke linkes. Vælg en .ttml-fil og en lydfil på et lokalt drev. Netværksshares understøttes ikke.",
     "linkedProjectBackupFailed": "Kunne ikke sikkerhedskopiere den originale TTML-fil, så den blev ikke overskrevet",
     "linkedProjectNoBackup": "Ingen sikkerhedskopi fundet for dette projekt",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Anvend {applied} af {total} timinger fra denne linje",
     "timingsApplied": "{count, plural, one {Timing anvendt på # linje.} other {Timing anvendt på # linjer.}}",
     "partialTimingCopy": "Kun {applied} af {total} kildetiminger kan indsættes før sangtekstens slutning.",
+    "timingCopyOriginalTimes": "Intet ovenfor har tid, så de kopierede linjer beholdt deres oprindelige tider.",
     "wordTimingMismatch": "{count, plural, one {# linje havde et andet antal ord, så kun tilsvarende ordpositioner blev kopieret.} other {# linjer havde et andet antal ord, så kun tilsvarende ordpositioner blev kopieret.}}",
     "insertLine": "Indsæt ny linje her",
     "insertWord": "Indsæt ord her…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Slip for at indlæse"
+  },
+  "sessionRestore": {
+    "title": "Fortsæt, hvor du slap?",
+    "note": "Dine sidst autogemte tekster er her stadig: {name}.",
+    "restore": "Gendan",
+    "dismiss": "Start forfra",
+    "always": "Gendan altid automatisk",
+    "audioNamed": "Dine tekster er tilbage. Indlæs {name} igen for at fortsætte med at synkronisere.",
+    "audio": "Dine tekster er tilbage. Indlæs lyden igen for at fortsætte med at synkronisere.",
+    "chooseAudio": "Vælg lyd",
+    "later": "Senere",
+    "auto": "Dit ugemte arbejde fra sidst er gendannet."
   },
   "historyRestoreDialog": {
     "loadError": "Kunne ikke indlæse historik",

@@ -104,9 +104,6 @@
 	gap: 1px;
 	cursor: pointer;
 	user-select: none;
-	transition:
-		border-color 0.15s ease,
-		background-color 0.15s ease;
 }
 
 .wordPill:hover {
@@ -130,9 +127,6 @@
 	border-radius: 4px;
 	overflow: hidden;
 	cursor: pointer;
-	transition:
-		border-color 0.15s ease,
-		box-shadow 0.15s ease;
 }
 
 .wordGroup:hover {

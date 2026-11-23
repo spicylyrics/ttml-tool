@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Commencer de nouvelles paroles ?",
-      "description": "Vous avez des modifications non enregistrées. Si vous continuez, ces modifications seront perdues. Êtes-vous sûr de vouloir créer un nouveau fichier ?"
+      "description": "Vous avez des modifications non enregistrées. Si vous continuez, ces modifications seront perdues. Êtes-vous sûr de vouloir créer un nouveau fichier ?",
+      "descriptionLoaded": "Les paroles ouvertes seront fermées. Commencer de nouvelles paroles ?"
     },
     "untimedLyrics": {
       "title": "Paroles non minutées",
@@ -540,7 +541,6 @@
       "displayOptions": "Options d'affichage",
       "showTimestamps": "Afficher les horodatages",
       "highlightActiveWord": "Surligner le mot actif",
-      "enableGlowAnimation": "Activer l'animation lumineuse",
       "highlightErrors": "Surligner les erreurs",
       "showPerWordRomanization": "Afficher la romanisation par mot",
       "startSync": "Démarrer",
@@ -600,7 +600,9 @@
         "interval": "Sauvegarder toutes les (minutes)",
         "intervalDesc": "Durée minimale entre deux instantanés. Vos dernières modifications sont quand même enregistrées après chaque changement.",
         "limit": "Instantanés à conserver",
-        "limitDesc": "Nombre d'instantanés conservés par chanson. Les plus anciens sont supprimés en premier."
+        "limitDesc": "Nombre d'instantanés conservés par chanson. Les plus anciens sont supprimés en premier.",
+        "restoreAutomatically": "Restaurer automatiquement le travail non enregistré",
+        "restoreAutomaticallyDesc": "Ignore la question au lancement et rouvre ce que vous aviez à la dernière fermeture avec des modifications non enregistrées."
       },
       "customBackground": "Arrière-plan personnalisé",
       "customBackgroundDesc": "Choisissez une image à utiliser comme arrière-plan.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Affiche un champ de romanisation sur chaque mot.",
       "showTimestampsDesc": "Affiche les temps de début et de fin sur chaque mot.",
       "highlightActiveWordDesc": "Surligne le mot en cours de lecture.",
-      "enableGlowAnimationDesc": "Remplit chaque mot d'une lueur pendant sa lecture.",
       "showPerWordRomanizationDesc": "Affiche la romanisation de chaque mot en dessous.",
       "previewPanelDesc": "Affiche un aperçu en direct des paroles à côté de la liste des mots.",
       "bgLyricSyncDesc": "Comment G et H traitent les lignes de chœurs pendant la synchronisation.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Format de fichier non pris en charge : {ext}",
     "openFileFailed": "Échec de l'ouverture du fichier",
+    "noLyricsInFile": "Aucune parole trouvée dans {name}",
     "linkedProjectInvalidPath": "Les fichiers sélectionnés ne peuvent pas être liés. Choisissez un fichier .ttml et un fichier audio sur un lecteur local. Les partages réseau ne sont pas pris en charge.",
     "linkedProjectBackupFailed": "Impossible de sauvegarder le fichier TTML d'origine, il n'a donc pas été écrasé",
     "linkedProjectNoBackup": "Aucune sauvegarde trouvée pour ce projet",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Appliquer {applied} synchronisations sur {total} à partir d’ici",
     "timingsApplied": "{count, plural, one {Temps appliqués à # ligne.} many {Temps appliqués à # lignes.} other {Temps appliqués à # lignes.}}",
     "partialTimingCopy": "Seules {applied} synchronisations sources sur {total} tiennent avant la fin des paroles.",
+    "timingCopyOriginalTimes": "Aucune ligne synchronisée au-dessus, les lignes copiées ont donc gardé leurs temps d'origine.",
     "wordTimingMismatch": "{count, plural, one {# ligne avait un nombre de mots différent ; seules les positions correspondantes ont été copiées.} many {# lignes avaient un nombre de mots différent ; seules les positions correspondantes ont été copiées.} other {# lignes avaient un nombre de mots différent ; seules les positions correspondantes ont été copiées.}}",
     "insertLine": "Insérer une nouvelle ligne ici",
     "insertWord": "Insérer un mot ici…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Relâchez pour charger"
+  },
+  "sessionRestore": {
+    "title": "Reprendre là où vous en étiez ?",
+    "note": "Vos dernières paroles enregistrées automatiquement sont toujours là : {name}.",
+    "restore": "Restaurer",
+    "dismiss": "Repartir de zéro",
+    "always": "Toujours restaurer automatiquement",
+    "audioNamed": "Vos paroles sont de retour. Rechargez {name} pour continuer à synchroniser.",
+    "audio": "Vos paroles sont de retour. Rechargez l'audio pour continuer à synchroniser.",
+    "chooseAudio": "Choisir l'audio",
+    "later": "Plus tard",
+    "auto": "Votre travail non enregistré de la dernière fois a été restauré."
   },
   "historyRestoreDialog": {
     "loadError": "Échec du chargement de l'historique",

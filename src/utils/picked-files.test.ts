@@ -32,3 +32,22 @@ describe("sortPickedFiles", () => {
 		expect(sortPickedFiles([file("x.yrc")]).audio).toBeUndefined();
 	});
 });
+
+describe("sortPickedFiles with stray files", () => {
+	it("prefers a real lyric file over other files", () => {
+		const picked = sortPickedFiles([
+			file("package.json"),
+			file("song.mp3"),
+			file("song.ttml"),
+		]);
+		expect(picked.lyric?.name).toBe("song.ttml");
+		expect(picked.audio?.name).toBe("song.mp3");
+		expect(picked.ignored).toBe(1);
+	});
+
+	it("still hands a lone unknown file on so it gets a clear refusal", () => {
+		const picked = sortPickedFiles([file("package.json"), file("song.mp3")]);
+		expect(picked.lyric?.name).toBe("package.json");
+		expect(picked.audio?.name).toBe("song.mp3");
+	});
+});

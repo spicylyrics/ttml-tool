@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "¿Empezar una letra nueva?",
-      "description": "Tienes cambios sin guardar. Si continúas, se perderán. ¿Seguro que quieres crear un archivo nuevo?"
+      "description": "Tienes cambios sin guardar. Si continúas, se perderán. ¿Seguro que quieres crear un archivo nuevo?",
+      "descriptionLoaded": "Se cerrará la letra abierta. ¿Empezar una letra nueva?"
     },
     "untimedLyrics": {
       "title": "Letra sin sincronizar",
@@ -540,7 +541,6 @@
       "displayOptions": "Opciones de visualización",
       "showTimestamps": "Mostrar marcas de tiempo",
       "highlightActiveWord": "Resaltar palabra activa",
-      "enableGlowAnimation": "Habilitar animación luminosa",
       "highlightErrors": "Resaltar errores",
       "showPerWordRomanization": "Mostrar romanización por palabra",
       "startSync": "Iniciar",
@@ -600,7 +600,9 @@
         "interval": "Guardar cada (minutos)",
         "intervalDesc": "Tiempo mínimo entre instantáneas. Tus últimos cambios se siguen guardando tras cada edición.",
         "limit": "Instantáneas para conservar",
-        "limitDesc": "Cuántas instantáneas conservar por canción. Las más antiguas se eliminan primero."
+        "limitDesc": "Cuántas instantáneas conservar por canción. Las más antiguas se eliminan primero.",
+        "restoreAutomatically": "Restaurar el trabajo sin guardar automáticamente",
+        "restoreAutomaticallyDesc": "Omite la pregunta al iniciar y reabre lo que tenías al cerrar por última vez con cambios sin guardar."
       },
       "customBackground": "Fondo personalizado",
       "customBackgroundDesc": "Elige una imagen para usarla como fondo.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Muestra un campo de romanización en cada palabra.",
       "showTimestampsDesc": "Muestra el tiempo de inicio y fin en cada palabra.",
       "highlightActiveWordDesc": "Resalta la palabra que se está reproduciendo.",
-      "enableGlowAnimationDesc": "Llena cada palabra con un brillo mientras suena.",
       "showPerWordRomanizationDesc": "Muestra la romanización de cada palabra debajo de ella.",
       "previewPanelDesc": "Muestra una vista previa en vivo de la letra junto a la lista de palabras.",
       "bgLyricSyncDesc": "Cómo tratan G y H las líneas de voces de fondo al sincronizar.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Formato de archivo no compatible: {ext}",
     "openFileFailed": "No se pudo abrir el archivo",
+    "noLyricsInFile": "No se encontró letra en {name}",
     "linkedProjectInvalidPath": "Los archivos seleccionados no se pueden vincular. Elige un archivo .ttml y un archivo de audio en una unidad local. Los recursos compartidos de red no son compatibles.",
     "linkedProjectBackupFailed": "No se pudo hacer una copia de seguridad del archivo TTML original, así que no se sobrescribió",
     "linkedProjectNoBackup": "No se encontró ninguna copia de seguridad de este proyecto",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Aplicar {applied} de {total} tiempos comenzando aquí",
     "timingsApplied": "{count, plural, one {Tiempos aplicados a # línea.} many {Tiempos aplicados a # líneas.} other {Tiempos aplicados a # líneas.}}",
     "partialTimingCopy": "Solo {applied} de {total} tiempos de origen encajan antes del final de la letra.",
+    "timingCopyOriginalTimes": "No hay nada con tiempo por encima, así que las líneas copiadas conservaron sus tiempos originales.",
     "wordTimingMismatch": "{count, plural, one {# línea tenía un número distinto de palabras; solo se copiaron las posiciones coincidentes.} many {# líneas tenían un número distinto de palabras; solo se copiaron las posiciones coincidentes.} other {# líneas tenían un número distinto de palabras; solo se copiaron las posiciones coincidentes.}}",
     "insertLine": "Insertar nueva línea aquí",
     "insertWord": "Insertar palabra aquí…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Soltar para cargar"
+  },
+  "sessionRestore": {
+    "title": "¿Continuar donde lo dejaste?",
+    "note": "Tu última letra autoguardada sigue aquí: {name}.",
+    "restore": "Restaurar",
+    "dismiss": "Empezar de cero",
+    "always": "Restaurar siempre automáticamente",
+    "audioNamed": "Tu letra ha vuelto. Carga {name} de nuevo para seguir sincronizando.",
+    "audio": "Tu letra ha vuelto. Carga el audio de nuevo para seguir sincronizando.",
+    "chooseAudio": "Elegir audio",
+    "later": "Más tarde",
+    "auto": "Se ha restaurado tu trabajo sin guardar de la última vez."
   },
   "historyRestoreDialog": {
     "loadError": "No se pudo cargar el historial",

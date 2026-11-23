@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "开始制作新歌词？",
-      "description": "当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要新建文件吗？"
+      "description": "当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要新建文件吗？",
+      "descriptionLoaded": "当前打开的歌词将被关闭。要新建歌词吗？"
     },
     "untimedLyrics": {
       "title": "检测到未打轴歌词",
@@ -540,7 +541,6 @@
       "displayOptions": "显示选项",
       "showTimestamps": "显示时间戳",
       "highlightActiveWord": "高亮当前字",
-      "enableGlowAnimation": "启用发光动画",
       "highlightErrors": "高亮错误",
       "showPerWordRomanization": "显示逐字罗马音",
       "startSync": "开始",
@@ -600,7 +600,9 @@
         "interval": "保存间隔（分钟）",
         "intervalDesc": "两次快照之间的最短间隔。最新的修改仍会在每次编辑后保存。",
         "limit": "保留快照数量",
-        "limitDesc": "每首歌保留的快照数量。超出时会先删除最早的快照。"
+        "limitDesc": "每首歌保留的快照数量。超出时会先删除最早的快照。",
+        "restoreAutomatically": "自动恢复未保存的工作",
+        "restoreAutomaticallyDesc": "启动时跳过提示，直接重新打开上次带着未保存更改关闭时的内容。"
       },
       "customBackground": "自定义背景",
       "customBackgroundDesc": "选择一张图片作为背景。",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "在每个字上显示罗马音输入框。",
       "showTimestampsDesc": "在每个字上显示开始和结束时间。",
       "highlightActiveWordDesc": "高亮当前正在播放的字。",
-      "enableGlowAnimationDesc": "字播放时以发光效果逐渐填充。",
       "showPerWordRomanizationDesc": "在每个字下方显示其罗马音。",
       "previewPanelDesc": "在字列表旁显示实时歌词预览。",
       "bgLyricSyncDesc": "打轴时 G 和 H 如何处理背景人声行。",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "不支持的文件格式: {ext}",
     "openFileFailed": "打开文件失败",
+    "noLyricsInFile": "在 {name} 中未找到歌词",
     "linkedProjectInvalidPath": "无法链接所选文件。选择本地驱动器上的 .ttml 文件和音频文件。不支持网络共享。",
     "linkedProjectBackupFailed": "无法备份原始 TTML 文件，因此未被覆盖",
     "linkedProjectNoBackup": "找不到该项目的备份",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "从此处开始应用 {total} 组时间中的 {applied} 组",
     "timingsApplied": "{count, plural, other {已为 # 行应用时间。}}",
     "partialTimingCopy": "到歌词结尾只能容纳 {total} 组源时间中的 {applied} 组。",
+    "timingCopyOriginalTimes": "上方没有已打轴的行，因此复制的行保留了原来的时间。",
     "wordTimingMismatch": "{count, plural, other {# 行的字数不同，因此只复制了对应位置的字时间。}}",
     "insertLine": "在此处插入新行",
     "insertWord": "在此处插入字…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "松开以加载"
+  },
+  "sessionRestore": {
+    "title": "从上次中断的地方继续？",
+    "note": "上次自动保存的歌词仍然保留：{name}。",
+    "restore": "恢复",
+    "dismiss": "重新开始",
+    "always": "始终自动恢复",
+    "audioNamed": "歌词已恢复。请重新加载 {name} 以继续同步。",
+    "audio": "歌词已恢复。请重新加载音频以继续同步。",
+    "chooseAudio": "选择音频",
+    "later": "稍后",
+    "auto": "已恢复上次未保存的工作。"
   },
   "historyRestoreDialog": {
     "loadError": "加载历史记录失败",

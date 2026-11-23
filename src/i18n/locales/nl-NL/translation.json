@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Nieuwe songtekst beginnen?",
-      "description": "Je hebt niet-opgeslagen wijzigingen. Als je doorgaat, zullen deze wijzigingen verloren gaan. Weet je zeker dat je een nieuw bestand wilt aanmaken?"
+      "description": "Je hebt niet-opgeslagen wijzigingen. Als je doorgaat, zullen deze wijzigingen verloren gaan. Weet je zeker dat je een nieuw bestand wilt aanmaken?",
+      "descriptionLoaded": "De geopende songtekst wordt gesloten. Nieuwe songtekst beginnen?"
     },
     "untimedLyrics": {
       "title": "Songtekst zonder timing",
@@ -540,7 +541,6 @@
       "displayOptions": "Weergaveopties",
       "showTimestamps": "Tijdstempels weergeven",
       "highlightActiveWord": "Actief woord markeren",
-      "enableGlowAnimation": "Gloedanimatie inschakelen",
       "highlightErrors": "Fouten markeren",
       "showPerWordRomanization": "Romanisatie per woord tonen",
       "startSync": "Start",
@@ -600,7 +600,9 @@
         "interval": "Opslaan om de (minuten)",
         "intervalDesc": "Minimale tijd tussen momentopnamen. Je laatste wijzigingen worden nog steeds na elke bewerking opgeslagen.",
         "limit": "Aantal te bewaren momentopnamen",
-        "limitDesc": "Hoeveel momentopnamen per nummer bewaard blijven. De oudste worden eerst verwijderd."
+        "limitDesc": "Hoeveel momentopnamen per nummer bewaard blijven. De oudste worden eerst verwijderd.",
+        "restoreAutomatically": "Niet-opgeslagen werk automatisch herstellen",
+        "restoreAutomaticallyDesc": "Sla de vraag bij het opstarten over en open wat je had bij de laatste keer afsluiten met niet-opgeslagen wijzigingen."
       },
       "customBackground": "Aangepaste achtergrond",
       "customBackgroundDesc": "Kies een afbeelding om als achtergrond te gebruiken.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Toon een romanisatieveld bij elk woord.",
       "showTimestampsDesc": "Toon begin- en eindtijden bij elk woord.",
       "highlightActiveWordDesc": "Markeer het woord dat nu speelt.",
-      "enableGlowAnimationDesc": "Vul elk woord met een gloed terwijl het speelt.",
       "showPerWordRomanizationDesc": "Toon de romanisatie van elk woord eronder.",
       "previewPanelDesc": "Toon een live voorbeeld van de tekst naast de woordenlijst.",
       "bgLyricSyncDesc": "Hoe G en H met achtergrondregels omgaan tijdens het synchroniseren.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Niet-ondersteunde bestandsindeling: {ext}",
     "openFileFailed": "Kan bestand niet openen",
+    "noLyricsInFile": "Geen songtekst gevonden in {name}",
     "linkedProjectInvalidPath": "De geselecteerde bestanden kunnen niet worden gekoppeld. Kies een .ttml-bestand en een audiobestand op een lokaal station. Netwerkshares worden niet ondersteund.",
     "linkedProjectBackupFailed": "Er kon geen back-up worden gemaakt van het originele TTML-bestand, dus het werd niet overschreven",
     "linkedProjectNoBackup": "Er is geen back-up gevonden voor dit project",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Vanaf hier {applied} van {total} timings toepassen",
     "timingsApplied": "{count, plural, one {Timing toegepast op # regel.} other {Timing toegepast op # regels.}}",
     "partialTimingCopy": "Slechts {applied} van {total} brontimings passen vóór het einde van de songtekst.",
+    "timingCopyOriginalTimes": "Erboven is niets getimed, dus de gekopieerde regels hielden hun oorspronkelijke tijden.",
     "wordTimingMismatch": "{count, plural, one {# regel had een ander aantal woorden; alleen overeenkomende woordposities zijn gekopieerd.} other {# regels hadden een ander aantal woorden; alleen overeenkomende woordposities zijn gekopieerd.}}",
     "insertLine": "Voeg hier een nieuwe regel in",
     "insertWord": "Woord hier invoegen…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Loslaten om te laden"
+  },
+  "sessionRestore": {
+    "title": "Verdergaan waar je gebleven was?",
+    "note": "Je laatst automatisch opgeslagen songtekst staat er nog: {name}.",
+    "restore": "Herstellen",
+    "dismiss": "Opnieuw beginnen",
+    "always": "Altijd automatisch herstellen",
+    "audioNamed": "Je songtekst is terug. Laad {name} opnieuw om verder te synchroniseren.",
+    "audio": "Je songtekst is terug. Laad de audio opnieuw om verder te synchroniseren.",
+    "chooseAudio": "Audio kiezen",
+    "later": "Later",
+    "auto": "Je niet-opgeslagen werk van de vorige keer is hersteld."
   },
   "historyRestoreDialog": {
     "loadError": "Kon geschiedenis niet laden",

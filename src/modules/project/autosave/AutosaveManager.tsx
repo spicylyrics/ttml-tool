@@ -1,7 +1,14 @@
 import { useAtomValue, useSetAtom, useStore } from "jotai";
 import { useEffect, useRef } from "react";
-import { autoSaveProject } from "$/modules/project/autosave/autosave";
-import { activeProjectDirAtom } from "$/modules/project/folder-project/state";
+import {
+	autoSaveProject,
+	markProjectSaved,
+} from "$/modules/project/autosave/autosave";
+import {
+	activeProjectDirAtom,
+	pendingAudioFileAtom,
+	pendingAudioPathAtom,
+} from "$/modules/project/folder-project/state";
 import { useFolderProject } from "$/modules/project/folder-project/useFolderProject";
 import {
 	autosaveEnabledAtom,
@@ -16,6 +23,8 @@ import {
 	lyricLinesAtom,
 	projectIdAtom,
 	SaveStatus,
+	savedLyricLinesAtom,
+	saveFileNameAtom,
 	saveStatusAtom,
 } from "$/states/main";
 import { log, error as logError } from "$/utils/logging";
@@ -32,6 +41,9 @@ export const AutosaveManager = () => {
 	const activeDir = useAtomValue(activeProjectDirAtom);
 	const folderProjectsEnabled = useAtomValue(folderProjectsEnabledAtom);
 	const folderProjectsAutosave = useAtomValue(folderProjectsAutosaveAtom);
+	const fileName = useAtomValue(saveFileNameAtom);
+	const audioPath = useAtomValue(pendingAudioPathAtom);
+	const audioName = useAtomValue(pendingAudioFileAtom)?.name;
 	const { saveLyricsOnly } = useFolderProject();
 
 	const setSaveStatus = useSetAtom(saveStatusAtom);
@@ -44,6 +56,14 @@ export const AutosaveManager = () => {
 
 		if (!isDirty) {
 			setSaveStatus(SaveStatus.Saved);
+			// Only a real save or open counts: a restored session has no baseline.
+			const baseline = store.get(savedLyricLinesAtom);
+			if (baseline !== null && baseline === lyricLines) {
+				writeQueue.current = writeQueue.current
+					.catch(() => {})
+					.then(() => markProjectSaved(projectId))
+					.catch((err) => logError("Failed to mark project saved", err));
+			}
 			return;
 		}
 
@@ -74,6 +94,7 @@ export const AutosaveManager = () => {
 							lyricLines,
 							limit,
 							intervalMinutes * 60 * 1000,
+							{ fileName, audioPath, audioName },
 						);
 						if (!isCurrent()) return;
 						if (activeDir && writeProjectFile) {
@@ -110,6 +131,9 @@ export const AutosaveManager = () => {
 		activeDir,
 		writeProjectFile,
 		saveLyricsOnly,
+		fileName,
+		audioPath,
+		audioName,
 	]);
 
 	return null;

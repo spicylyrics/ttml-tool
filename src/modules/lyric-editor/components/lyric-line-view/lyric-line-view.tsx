@@ -12,7 +12,7 @@
 import { ContextMenu, Flex } from "@radix-ui/themes";
 import classNames from "classnames";
 import { type Atom, atom, useAtomValue } from "jotai";
-import { type FC, memo, useMemo } from "react";
+import { type FC, memo, useMemo, useRef } from "react";
 import {
 	collapsedSectionIdsAtom,
 	selectedLinesAtom,
@@ -27,6 +27,7 @@ import { LineTimingPlacement } from "./line-timing-placement.tsx";
 import { LineTrailingInsert } from "./line-trailing-insert.tsx";
 import { LyricLineScroller } from "./lyric-line-scroller";
 import { SectionDivider } from "./section-divider.tsx";
+import { useKeepPositionOnSelect } from "./use-keep-position-on-select";
 import { useLineInteractions } from "./use-line-interactions";
 import { useLineView } from "./use-line-view";
 
@@ -73,8 +74,6 @@ export const LyricLineView: FC<{
 		enableInsert,
 		disableInsert,
 		toggleInsert,
-		endTimeLinked,
-		onToggleEndTimeLink,
 	} = useLineView(lineAtom, lineIndex);
 	const { onPointerDown, onPointerUp, onClick } = useLineInteractions({
 		line,
@@ -85,6 +84,12 @@ export const LyricLineView: FC<{
 		setSelectedLines,
 		setSelectedWords,
 	});
+	const rowRef = useRef<HTMLDivElement>(null);
+	const rememberPress = useKeepPositionOnSelect(
+		rowRef,
+		lineSelected,
+		toolMode === ToolMode.Edit,
+	);
 	// A stretch outside any section is keyed by its first line, and when it's
 	// collapsed only that line is in the list, so its own id is enough here.
 	const collapseKey = line.sectionId ?? `unsectioned:${line.id}`;
@@ -186,12 +191,13 @@ export const LyricLineView: FC<{
 						}
 						data-lyric-line-id={line.id}
 						data-lyric-line-index={lineIndex}
+						onPointerDownCapture={rememberPress}
 						onPointerDown={onPointerDown}
 						onPointerUp={onPointerUp}
 						onClick={onClick}
 						asChild
 					>
-						<div>
+						<div ref={rowRef}>
 							<LineContent
 								lineAtom={lineAtom}
 								lineIndex={lineIndex}
@@ -217,8 +223,6 @@ export const LyricLineView: FC<{
 								endTimeRef={endTimeRef}
 								enableInsert={enableInsert}
 								toggleInsert={toggleInsert}
-								endTimeLinked={endTimeLinked}
-								onToggleEndTimeLink={onToggleEndTimeLink}
 							/>
 						</div>
 					</Flex>

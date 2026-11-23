@@ -303,7 +303,8 @@
     },
     "newFile": {
       "title": "Yeni şarkı sözlerine başlansın mı?",
-      "description": "Kaydedilmemiş değişiklikleriniz var. Eğer devam ederseniz, bunlar kaybolacak. Yeni bir dosya oluşturmak istediğinize emin misiniz?"
+      "description": "Kaydedilmemiş değişiklikleriniz var. Eğer devam ederseniz, bunlar kaybolacak. Yeni bir dosya oluşturmak istediğinize emin misiniz?",
+      "descriptionLoaded": "Açık olan sözler kapatılacak. Yeni söz başlatılsın mı?"
     },
     "untimedLyrics": {
       "title": "Zamanlanmamış sözler bulundu",
@@ -540,7 +541,6 @@
       "displayOptions": "Görünüm seçenekleri",
       "showTimestamps": "Zaman damgalarını göster",
       "highlightActiveWord": "Etkin kelimeyi vurgula",
-      "enableGlowAnimation": "Parlama animasyonunu etkinleştir",
       "highlightErrors": "Hataları vurgula",
       "showPerWordRomanization": "Kelimelerin Latin harflerine çevirisini göster",
       "startSync": "Başlat",
@@ -600,7 +600,9 @@
         "interval": "Kayıt aralığı (dakika)",
         "intervalDesc": "Anlık görüntüler arasındaki en kısa süre. Son değişiklikleriniz yine de her düzenlemeden sonra kaydedilir.",
         "limit": "Tutulacak anlık görüntü sayısı",
-        "limitDesc": "Her şarkı için tutulacak anlık görüntü sayısı. En eskiler önce silinir."
+        "limitDesc": "Her şarkı için tutulacak anlık görüntü sayısı. En eskiler önce silinir.",
+        "restoreAutomatically": "Kaydedilmemiş çalışmayı otomatik geri yükle",
+        "restoreAutomaticallyDesc": "Açılışta soruyu atlar ve kaydedilmemiş değişikliklerle en son kapattığında elindekini yeniden açar."
       },
       "customBackground": "Özel arka plan",
       "customBackgroundDesc": "Arka plan olarak kullanılacak bir resim seçin.",
@@ -913,7 +915,6 @@
       "showWordRomanizationInputDesc": "Her kelimede Latin harflerine çeviri alanı gösterir.",
       "showTimestampsDesc": "Her kelimenin başlangıç ve bitiş zamanını gösterir.",
       "highlightActiveWordDesc": "O anda çalan kelimeyi vurgular.",
-      "enableGlowAnimationDesc": "Her kelimeyi çalarken parıltıyla doldurur.",
       "showPerWordRomanizationDesc": "Her kelimenin altında Latin harflerine çevirisini gösterir.",
       "previewPanelDesc": "Kelime listesinin yanında şarkı sözlerinin canlı önizlemesini gösterir.",
       "bgLyricSyncDesc": "G ve H'nin senkronizasyon sırasında arka vokal satırlarını nasıl ele aldığı.",
@@ -1194,6 +1195,7 @@
   "error": {
     "unsupportedFileFormat": "Desteklenmeyen dosya biçimi: {ext}",
     "openFileFailed": "Dosya açılamadı",
+    "noLyricsInFile": "{name} içinde söz bulunamadı",
     "linkedProjectInvalidPath": "Seçilen dosyalar bağlanamıyor. Yerel sürücüde bir .ttml dosyası ve bir ses dosyası seçin. Ağ paylaşımları desteklenmez.",
     "linkedProjectBackupFailed": "Orijinal TTML dosyası yedeklenemediği için üzerine yazılmadı",
     "linkedProjectNoBackup": "Bu proje için yedek bulunamadı",
@@ -1375,6 +1377,7 @@
     "applyPartialTimingsHere": "Buradan başlayarak {total} zamanlamadan {applied} tanesini uygula",
     "timingsApplied": "{count, plural, one {# satıra} other {# satıra}} zamanlama uygulandı.",
     "partialTimingCopy": "Şarkı sözlerinin sonuna kadar {total} kaynak zamanlamasından yalnızca {applied} tanesi sığıyor.",
+    "timingCopyOriginalTimes": "Yukarıda zamanlanmış satır yok, bu yüzden kopyalanan satırlar özgün zamanlarını korudu.",
     "wordTimingMismatch": "{count, plural, one {# satırda kelime sayısı farklıydı; yalnızca eşleşen kelime konumları kopyalandı.} other {# satırda kelime sayısı farklıydı; yalnızca eşleşen kelime konumları kopyalandı.}}",
     "insertLine": "Buraya yeni satır ekle",
     "insertWord": "Buraya kelime ekle…"
@@ -1607,6 +1610,18 @@
   },
   "globalDragOverlay": {
     "title": "Yüklemek için bırakın"
+  },
+  "sessionRestore": {
+    "title": "Kaldığın yerden devam edilsin mi?",
+    "note": "Son otomatik kaydedilen söz metni hâlâ burada: {name}.",
+    "restore": "Geri yükle",
+    "dismiss": "Sıfırdan başla",
+    "always": "Her zaman otomatik geri yükle",
+    "audioNamed": "Söz metni geri geldi. Senkronize etmeye devam etmek için {name} dosyasını yeniden yükle.",
+    "audio": "Söz metni geri geldi. Senkronize etmeye devam etmek için sesi yeniden yükle.",
+    "chooseAudio": "Ses seç",
+    "later": "Sonra",
+    "auto": "Geçen seferki kaydedilmemiş çalışman geri yüklendi."
   },
   "historyRestoreDialog": {
     "loadError": "Geçmiş yüklenemedi",

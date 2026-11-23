@@ -25,6 +25,7 @@ import {
 	ToolMode,
 	toolModeAtom,
 } from "$/states/main.ts";
+import { prefersReducedMotion } from "$/utils/reduced-motion";
 import {
 	calculateScrollDuration,
 	createScrollGlide,
@@ -118,6 +119,18 @@ export function useLineListScrolling({
 			const startTop = viewEl.scrollTop;
 			const distance = targetTop - startTop;
 			if (Math.abs(distance) < 2) return;
+
+			// With reduced motion the list jumps instead of gliding.
+			if (prefersReducedMotion()) {
+				isProgrammaticScrollRef.current = true;
+				lastProgrammaticScrollTimeRef.current = performance.now();
+				viewEl.scrollTop = targetTop;
+				requestAnimationFrame(() => {
+					isProgrammaticScrollRef.current = false;
+					updateEditorAnchor();
+				});
+				return;
+			}
 
 			const glide = createScrollGlide(
 				distance,
