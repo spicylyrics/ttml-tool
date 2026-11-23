@@ -22,6 +22,7 @@ import {
 	showTranslationLinesAtom,
 	spicyBackgroundModeAtom,
 	spicyJoinSplitWordsAtom,
+	spicyPreviewOffsetAtom,
 	spicySimpleLyricsModeAtom,
 } from "$/modules/settings/states/preview";
 import { lyricLinesAtom } from "$/states/main";
@@ -47,6 +48,8 @@ export function useSpicyLyrics() {
 	const romanized = useAtomValue(showRomanLinesAtom);
 	const showTranslation = useAtomValue(showTranslationLinesAtom);
 	const showFps = useAtomValue(showFpsCounterAtom);
+	const previewOffset = useAtomValue(spicyPreviewOffsetAtom);
+	const previewOffsetRef = useRef(previewOffset);
 	const chosenBackgroundMode = useAtomValue(spicyBackgroundModeAtom);
 	// The animated background is an 8-pass WebGL blur every frame; lite effects
 	// swap it for the cover's flat colors.
@@ -128,6 +131,11 @@ export function useSpicyLyrics() {
 	}, [showFps]);
 
 	const animator = useRef<ReturnType<typeof createSpicyAnimator>>(null);
+	// Redraw at once when the offset changes, so it also shows while paused.
+	useEffect(() => {
+		previewOffsetRef.current = previewOffset;
+		animator.current?.(playbackClock.getSnapshot(), performance.now(), true);
+	}, [previewOffset]);
 	const { rows, totalSize, measureRow, getTop } = useSpicyVirtualList(
 		lines,
 		viewportRef,
@@ -139,7 +147,10 @@ export function useSpicyLyrics() {
 	const interludeWait = useRef<{ id: string; until: number }>(null);
 	const getScrollTarget = useCallback(
 		(timeMs: number) => {
-			const index = findSpicyScrollIndex(lines, timeMs);
+			const index = findSpicyScrollIndex(
+				lines,
+				timeMs + previewOffsetRef.current,
+			);
 			if (index < 0) return undefined;
 			const line = lines[index];
 			let deferred = false;
@@ -174,6 +185,7 @@ export function useSpicyLyrics() {
 			setFps,
 			fpsRef,
 			showFpsRef,
+			previewOffsetMs: previewOffsetRef,
 		});
 		animator.current = animate;
 		animate(playbackClock.getSnapshot(), performance.now(), true);

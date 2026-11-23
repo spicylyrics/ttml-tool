@@ -936,7 +936,9 @@
       "showFpsDesc": "Näytä esikatselussa kuvataajuuslaskuri.",
       "previewModeDesc": "Valitse, mikä esikatselu näkyy Esikatselu-välilehdellä.",
       "spicyBackgroundDesc": "Mitä Spicy-esikatselun taustalla näkyy.",
-      "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa."
+      "fadeWidthDesc": "Kuinka pehmeä korostuksen reuna on, kun sana täyttyy Standard- ja Toxi-esikatseluissa.",
+      "spicyPreviewOffset": "Spicy-esikatselun siirtymä",
+      "spicyPreviewOffsetDesc": "Kuinka monta millisekuntia Spicy-esikatselu on äänen edellä. Spicy Lyrics -laajennus on noin 100 ms edellä, joten 100 saa esikatselun näyttämään samalta."
     }
   },
   "timingOverview": {

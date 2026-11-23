@@ -936,7 +936,9 @@
       "showFpsDesc": "Afișează un contor de cadre pe secundă pe previzualizare.",
       "previewModeDesc": "Alege ce previzualizare afișează fila Previzualizare.",
       "spicyBackgroundDesc": "Ce se afișează în spatele previzualizării Spicy.",
-      "fadeWidthDesc": "Cât de moale este marginea evidențierii când un cuvânt se umple în previzualizările Standard și Toxi."
+      "fadeWidthDesc": "Cât de moale este marginea evidențierii când un cuvânt se umple în previzualizările Standard și Toxi.",
+      "spicyPreviewOffset": "Decalajul previzualizării Spicy",
+      "spicyPreviewOffsetDesc": "Milisecundele cu care previzualizarea Spicy merge înaintea sunetului. Extensia Spicy Lyrics merge cu circa 100 ms înainte, deci 100 face previzualizarea să arate la fel."
     }
   },
   "timingOverview": {

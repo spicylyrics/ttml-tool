@@ -936,7 +936,9 @@
       "showFpsDesc": "Pokaż licznik klatek na sekundę w podglądzie.",
       "previewModeDesc": "Wybierz, który podgląd pokazuje karta Podgląd.",
       "spicyBackgroundDesc": "Co jest wyświetlane za podglądem Spicy.",
-      "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi."
+      "fadeWidthDesc": "Jak miękka jest krawędź wyróżnienia podczas wypełniania słowa w podglądach Standard i Toxi.",
+      "spicyPreviewOffset": "Przesunięcie podglądu Spicy",
+      "spicyPreviewOffsetDesc": "O ile milisekund podgląd Spicy wyprzedza dźwięk. Rozszerzenie Spicy Lyrics wyprzedza o około 100 ms, więc 100 daje taki sam wygląd."
     }
   },
   "timingOverview": {

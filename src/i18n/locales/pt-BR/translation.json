@@ -936,7 +936,9 @@
       "showFpsDesc": "Mostra um contador de quadros por segundo na prévia.",
       "previewModeDesc": "Escolha qual prévia a aba Prévia mostra.",
       "spicyBackgroundDesc": "O que aparece atrás da prévia do Spicy.",
-      "fadeWidthDesc": "Quão suave é a borda do destaque enquanto uma palavra é preenchida nas prévias Standard e Toxi."
+      "fadeWidthDesc": "Quão suave é a borda do destaque enquanto uma palavra é preenchida nas prévias Standard e Toxi.",
+      "spicyPreviewOffset": "Deslocamento da prévia do Spicy",
+      "spicyPreviewOffsetDesc": "Milissegundos que a prévia do Spicy se adianta ao som. A extensão Spicy Lyrics se adianta cerca de 100 ms, então 100 deixa a prévia igual a ela."
     }
   },
   "timingOverview": {

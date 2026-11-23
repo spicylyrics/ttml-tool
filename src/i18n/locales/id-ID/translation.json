@@ -936,7 +936,9 @@
       "showFpsDesc": "Tampilkan penghitung frame rate di pratinjau.",
       "previewModeDesc": "Pilih pratinjau yang ditampilkan tab Pratinjau.",
       "spicyBackgroundDesc": "Apa yang tampil di belakang pratinjau Spicy.",
-      "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi."
+      "fadeWidthDesc": "Seberapa lembut tepi sorotan saat kata terisi di pratinjau Standard dan Toxi.",
+      "spicyPreviewOffset": "Offset pratinjau Spicy",
+      "spicyPreviewOffsetDesc": "Milidetik pratinjau Spicy berjalan lebih cepat dari suara. Ekstensi Spicy Lyrics berjalan sekitar 100 ms lebih cepat, jadi 100 membuat pratinjau terlihat sama."
     }
   },
   "timingOverview": {
