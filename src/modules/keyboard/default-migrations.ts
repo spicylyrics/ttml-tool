@@ -1,3 +1,4 @@
+import { hasUsedApp, type KeyValueStorage } from "$/utils/has-used-app";
 import type { KeyBindingsConfig } from "./types";
 
 /**
@@ -30,26 +31,6 @@ export const KEYBINDING_DEFAULT_CHANGES: readonly KeyBindingDefaultChange[] = [
 		},
 	},
 ];
-
-/** Keys the app writes on its own before anyone does anything. */
-const WRITTEN_ON_START = new Set([
-	"i18nextLng",
-	KEYBINDING_DEFAULTS_VERSION_KEY,
-]);
-
-type KeyValueStorage = Pick<Storage, "getItem" | "setItem" | "key" | "length">;
-
-/**
- * Anything saved counts as having used the app. Guessing wrong this way only
- * gives a new user the old defaults; the other way would move a regular's keys.
- */
-function hasUsedApp(storage: KeyValueStorage) {
-	for (let i = 0; i < storage.length; i++) {
-		const name = storage.key(i);
-		if (name !== null && !WRITTEN_ON_START.has(name)) return true;
-	}
-	return false;
-}
 
 export function migrateKeyBindingDefaults(
 	storage: KeyValueStorage,

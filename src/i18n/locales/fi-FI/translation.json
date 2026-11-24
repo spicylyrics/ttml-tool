@@ -168,6 +168,9 @@
     "splitDone": "Tavut merkitty. Tarkista ne ennen tuontia.",
     "splitNothing": "Ei jaettavaa.",
     "processNothing": "Ei muutettavaa.",
+    "autoProcess": "Käsittele sanat, kun liität tai valitset ne",
+    "autoProcessed": "Sanat käsitelty.",
+    "undoProcess": "Kumoa",
     "restoreOriginal": "Palauta alkuperäinen teksti",
     "sectionsTitle": "Osioiden otsikot",
     "sectionsFound": "{count, plural, one {# otsikko löytyi} other {# otsikkoa löytyi}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Edistynyt jako…",
       "learnedSplits": "Opitut jaot…",
       "syncLineTimestamps": "Sovita rivit sanojen aikoihin",
-      "ttmlChecklist": "TTML-tarkistuslista",
+      "ttmlChecklist": "Ajoitettavat kappaleet",
       "tool": "Työkalut",
       "importLyric": {
         "import": "Tuo sanoituksia..."
@@ -1112,6 +1115,10 @@
       "urbanDictionarySync": "Ajoitus - Hae Urban Dictionarysta",
       "moveFirstWordAndPlay": "Ajoitus - Siirry ensimmäiseen sanaan ja toista",
       "moveLastWordAndPlay": "Ajoitus - Siirry viimeiseen sanaan ja toista",
+      "nudgeEarlier": "Ajoitus - Siirrä alkua aiemmaksi",
+      "nudgeLater": "Ajoitus - Siirrä alkua myöhemmäksi",
+      "nudgeEndEarlier": "Ajoitus - Siirrä loppua aiemmaksi",
+      "nudgeEndLater": "Ajoitus - Siirrä loppua myöhemmäksi",
       "playPause": "Toisto - Toista/Tauko",
       "seekForward": "Toisto - Siirry eteenpäin",
       "seekBackward": "Toisto - Siirry taaksepäin",
@@ -1197,6 +1204,9 @@
     "seekStep": "Siirtymä",
     "seekStepDesc": "Kuinka pitkälle yksi painallus siirtyy. Pidä näppäintä pohjassa jatkaaksesi.",
     "seekStepUnit": "s",
+    "nudgeStep": "Siirtoaskel",
+    "nudgeStepDesc": "Kuinka paljon kukin painallus siirtää valitun sanan alkua tai loppua, tai muokkaustilassa valittuja rivejä. Shift siirtää 10 kertaa enemmän, Alt 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Myös tässä näppäimessä",
     "closePanel": "Sulje"
   },
@@ -1751,12 +1761,12 @@
     }
   },
   "ttmlChecklist": {
-    "title": "TTML-tarkistuslista",
+    "title": "Ajoitettavat kappaleet",
     "description": "Pidä kirjaa kappaleista ja ideoista, jotka haluat synkronoida myöhemmin.",
     "songPlaceholder": "Kappaleen nimi *",
     "artistPlaceholder": "Artisti (valinnainen)",
     "notesPlaceholder": "Huomautukset, versio, lähde tai ajoitusidea (valinnainen)",
-    "add": "Lisää tarkistuslistaan",
+    "add": "Lisää kappale",
     "save": "Tallenna",
     "cancel": "Peruuta",
     "empty": "Ei vielä suunniteltuja TTML-tiedostoja. Lisää seuraava kappale ennen kuin idea unohtuu.",
@@ -1765,8 +1775,8 @@
     "hideCompleted": "Piilota valmiit",
     "markDone": "Valmis",
     "reopen": "Avaa uudelleen",
-    "edit": "Muokkaa tarkistuslistan kohdetta",
-    "delete": "Poista tarkistuslistan kohde"
+    "edit": "Muokkaa kappaletta",
+    "delete": "Poista kappale"
   },
   "autoSegmentDialog": {
     "title": "Automaattinen jako",

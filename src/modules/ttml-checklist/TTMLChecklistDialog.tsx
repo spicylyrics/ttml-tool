@@ -81,7 +81,7 @@ const EntryForm = ({ initial, onCancel, onSubmit }: EntryFormProps) => {
 					<Button type="submit" disabled={!valid}>
 						{t(
 							initial ? "ttmlChecklist.save" : "ttmlChecklist.add",
-							initial ? "Save" : "Add to checklist",
+							initial ? "Save" : "Add song",
 						)}
 					</Button>
 				</Flex>
@@ -170,7 +170,7 @@ const ChecklistEntryCard = ({
 							variant="soft"
 							color="gray"
 							onClick={() => setEditing(true)}
-							aria-label={t("ttmlChecklist.edit", "Edit checklist item")}
+							aria-label={t("ttmlChecklist.edit", "Edit song")}
 						>
 							<Edit16Regular />
 						</IconButton>
@@ -178,7 +178,7 @@ const ChecklistEntryCard = ({
 							variant="soft"
 							color="red"
 							onClick={onDelete}
-							aria-label={t("ttmlChecklist.delete", "Delete checklist item")}
+							aria-label={t("ttmlChecklist.delete", "Delete song")}
 						>
 							<Delete16Regular />
 						</IconButton>
@@ -208,9 +208,7 @@ export const TTMLChecklistDialog = () => {
 	return (
 		<Dialog.Root open={open} onOpenChange={setOpen}>
 			<Dialog.Content style={{ maxWidth: 620 }}>
-				<Dialog.Title>
-					{t("ttmlChecklist.title", "TTML checklist")}
-				</Dialog.Title>
+				<Dialog.Title>{t("ttmlChecklist.title", "Songs to sync")}</Dialog.Title>
 				<Dialog.Description size="2" color="gray" mb="4">
 					{t(
 						"ttmlChecklist.description",

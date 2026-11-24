@@ -168,6 +168,9 @@
     "splitDone": "Slabiky označeny. Před importem je zkontrolujte.",
     "splitNothing": "Není co rozdělit.",
     "processNothing": "Není co měnit.",
+    "autoProcess": "Zpracovat text po vložení nebo výběru",
+    "autoProcessed": "Text zpracován.",
+    "undoProcess": "Zpět",
     "restoreOriginal": "Obnovit původní text",
     "sectionsTitle": "Záhlaví sekcí",
     "sectionsFound": "{count, plural, one {Nalezeno # záhlaví} few {Nalezena # záhlaví} many {Nalezeno # záhlaví} other {Nalezeno # záhlaví}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Pokročilé dělení…",
       "learnedSplits": "Naučená dělení…",
       "syncLineTimestamps": "Přizpůsobit řádky jejich slovům",
-      "ttmlChecklist": "Seznam plánovaných TTML",
+      "ttmlChecklist": "Skladby k časování",
       "tool": "Nástroje",
       "importLyric": {
         "import": "Importovat text písně..."
@@ -1112,6 +1115,10 @@
       "urbanDictionarySync": "Časování – vyhledat v Urban Dictionary",
       "moveFirstWordAndPlay": "Časování – přejít na první slovo a přehrát",
       "moveLastWordAndPlay": "Časování – přejít na poslední slovo a přehrát",
+      "nudgeEarlier": "Časování – posunout začátek dřív",
+      "nudgeLater": "Časování – posunout začátek později",
+      "nudgeEndEarlier": "Časování – posunout konec dřív",
+      "nudgeEndLater": "Časování – posunout konec později",
       "playPause": "Přehrávání – přehrát/pozastavit",
       "seekForward": "Přehrávání – přetočit vpřed",
       "seekBackward": "Přehrávání – přetočit zpět",
@@ -1197,6 +1204,9 @@
     "seekStep": "Přetáčet o",
     "seekStepDesc": "Jak daleko skočí jedno stisknutí. Podržením klávesy přetáčíte dál.",
     "seekStepUnit": "s",
+    "nudgeStep": "Posunout o",
+    "nudgeStepDesc": "O kolik každé stisknutí posune začátek nebo konec vybraného slova, v režimu úprav vybrané řádky. Shift posune 10× dál, Alt o 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Také na této klávese",
     "closePanel": "Zavřít"
   },
@@ -1751,7 +1761,7 @@
     }
   },
   "ttmlChecklist": {
-    "title": "Seznam plánovaných TTML",
+    "title": "Skladby k časování",
     "description": "Sledujte skladby a nápady, které chcete později synchronizovat.",
     "songPlaceholder": "Název písně *",
     "artistPlaceholder": "Interpret (volitelné)",

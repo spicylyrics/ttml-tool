@@ -23,6 +23,7 @@ import type {
 	ImportLineSeparatorMode,
 } from "../logic/import-text";
 import {
+	autoProcessImportAtom,
 	bgLyricPrefixAtom,
 	duetLyricPrefixAtom,
 	enableSpecialPrefixAtom,
@@ -142,6 +143,7 @@ export function ImportOptionsPanel({
 	const [fetchSongwriters, setFetchSongwriters] = useAtom(
 		fetchImportedSongwritersAtom,
 	);
+	const [autoProcess, setAutoProcess] = useAtom(autoProcessImportAtom);
 	const [formatOpen, setFormatOpen] = useState(false);
 
 	return (
@@ -169,6 +171,18 @@ export function ImportOptionsPanel({
 						onClick={onProcess}
 					/>
 					<ProcessSteps />
+					<Text as="label" size="2" className={styles.autoProcess}>
+						<Flex gap="2" align="center">
+							<Checkbox
+								checked={autoProcess}
+								onCheckedChange={(checked) => setAutoProcess(checked === true)}
+							/>
+							{t(
+								"importLyrics.autoProcess",
+								"Process lyrics when you paste or pick them",
+							)}
+						</Flex>
+					</Text>
 					<ToolButton
 						icon={<TextWordCountRegular />}
 						label={t("importLyrics.splitSyllables", "Split syllables")}

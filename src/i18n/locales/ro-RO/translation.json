@@ -168,6 +168,9 @@
     "splitDone": "Silabe marcate. Verifică-le înainte de import.",
     "splitNothing": "Nimic de despărțit.",
     "processNothing": "Nimic de modificat.",
+    "autoProcess": "Procesează versurile când le lipești sau le alegi",
+    "autoProcessed": "Versuri procesate.",
+    "undoProcess": "Anulează",
     "restoreOriginal": "Restaurează textul original",
     "sectionsTitle": "Antete de secțiune",
     "sectionsFound": "{count, plural, one {# antet găsit} few {# antete găsite} other {# de antete găsite}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Segmentare avansată…",
       "learnedSplits": "Despărțiri învățate...",
       "syncLineTimestamps": "Potrivește versurile cu timpii cuvintelor",
-      "ttmlChecklist": "Listă de TTML de creat",
+      "ttmlChecklist": "Melodii de sincronizat",
       "tool": "Unelte",
       "importLyric": {
         "import": "Importă versuri..."
@@ -1112,6 +1115,10 @@
       "urbanDictionarySync": "Sincronizare - Caută în Urban Dictionary",
       "moveFirstWordAndPlay": "Sincronizare - Treci la primul cuvânt și redă",
       "moveLastWordAndPlay": "Sincronizare - Treci la ultimul cuvânt și redă",
+      "nudgeEarlier": "Sincronizare - Mută începutul mai devreme",
+      "nudgeLater": "Sincronizare - Mută începutul mai târziu",
+      "nudgeEndEarlier": "Sincronizare - Mută sfârșitul mai devreme",
+      "nudgeEndLater": "Sincronizare - Mută sfârșitul mai târziu",
       "playPause": "Redare - Redare/pauză",
       "seekForward": "Redare - Avansează",
       "seekBackward": "Redare - Derulează înapoi",
@@ -1197,6 +1204,9 @@
     "seekStep": "Salt de",
     "seekStepDesc": "Cât de departe sare fiecare apăsare. Ține tasta apăsată pentru a continua.",
     "seekStepUnit": "s",
+    "nudgeStep": "Mută cu",
+    "nudgeStepDesc": "Cât mută fiecare apăsare începutul sau sfârșitul cuvântului selectat, sau rândurile selectate în modul Editare. Shift mută de 10 ori mai mult, Alt cu 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Tot pe această tastă",
     "closePanel": "Închide"
   },
@@ -1751,7 +1761,7 @@
     }
   },
   "ttmlChecklist": {
-    "title": "Listă de TTML de creat",
+    "title": "Melodii de sincronizat",
     "description": "Ține evidența melodiilor și ideilor pe care vrei să le sincronizezi mai târziu.",
     "songPlaceholder": "Titlul melodiei *",
     "artistPlaceholder": "Artist (opțional)",

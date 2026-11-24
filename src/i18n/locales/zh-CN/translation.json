@@ -168,6 +168,9 @@
     "splitDone": "已标记音节。导入前请检查。",
     "splitNothing": "没有可拆分的内容。",
     "processNothing": "没有需要更改的内容。",
+    "autoProcess": "粘贴或选取歌词时自动处理",
+    "autoProcessed": "歌词已处理。",
+    "undoProcess": "撤销",
     "restoreOriginal": "恢复原始文本",
     "sectionsTitle": "分段标题",
     "sectionsFound": "{count, plural, other {找到 # 个标题}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "高级分词...",
       "learnedSplits": "已学习的拆分…",
       "syncLineTimestamps": "将行时间与字时间对齐",
-      "ttmlChecklist": "TTML 检查清单",
+      "ttmlChecklist": "待打轴歌曲",
       "tool": "工具",
       "importLyric": {
         "import": "导入歌词..."
@@ -1112,6 +1115,10 @@
       "urbanDictionarySync": "打轴 - 在 Urban Dictionary 中查找",
       "moveFirstWordAndPlay": "打轴 - 移至首字并播放",
       "moveLastWordAndPlay": "打轴 - 移至末字并播放",
+      "nudgeEarlier": "打轴 - 开始时间微调提前",
+      "nudgeLater": "打轴 - 开始时间微调延后",
+      "nudgeEndEarlier": "打轴 - 结束时间微调提前",
+      "nudgeEndLater": "打轴 - 结束时间微调延后",
       "playPause": "播放 - 播放/暂停",
       "seekForward": "播放 - 快进",
       "seekBackward": "播放 - 快退",
@@ -1197,6 +1204,9 @@
     "seekStep": "跳转幅度",
     "seekStepDesc": "每次按键跳转的时长。按住按键可持续跳转。",
     "seekStepUnit": "秒",
+    "nudgeStep": "微调步长",
+    "nudgeStepDesc": "每次按键移动所选字的开始或结束时间，编辑模式下移动所选行。按住 Shift 移动 10 倍，按住 Alt 移动 1 毫秒。",
+    "nudgeStepUnit": "毫秒",
     "otherLayers": "此按键上的其他快捷键",
     "closePanel": "关闭"
   },
@@ -1751,12 +1761,12 @@
     }
   },
   "ttmlChecklist": {
-    "title": "TTML 检查清单",
+    "title": "待打轴歌曲",
     "description": "记录以后想打轴的歌曲和想法。",
     "songPlaceholder": "歌曲名称 *",
     "artistPlaceholder": "歌手（可选）",
     "notesPlaceholder": "备注、版本、来源或打轴想法（可选）",
-    "add": "添加到清单",
+    "add": "添加歌曲",
     "save": "保存",
     "cancel": "取消",
     "empty": "尚无待制作的 TTML。趁还记得，先添加下一首歌吧。",
@@ -1765,8 +1775,8 @@
     "hideCompleted": "隐藏已完成项目",
     "markDone": "完成",
     "reopen": "重新打开",
-    "edit": "编辑清单项目",
-    "delete": "删除清单项目"
+    "edit": "编辑歌曲",
+    "delete": "删除歌曲"
   },
   "autoSegmentDialog": {
     "title": "自动分词",

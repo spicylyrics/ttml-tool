@@ -79,6 +79,7 @@ import {
 } from "../logic/import-text";
 import { type ImportTrack, searchOnlineLyrics } from "../logic/online-sources";
 import {
+	autoProcessImportAtom,
 	bgLyricPrefixAtom,
 	enableSpecialPrefixAtom,
 	fetchImportedSongwritersAtom,
@@ -125,6 +126,14 @@ export const ImportLyricsDialog = () => {
 		useSegmentationConfig();
 	// Process lyrics splits Japanese into words with the dictionary.
 	const japaneseDictionary = useJapaneseDictionary(text);
+	// Lyrics that just landed in an empty box, waiting for the Japanese dictionary.
+	const [autoPending, setAutoPending] = useState<string | null>(null);
+	const queueAutoProcess = useCallback(
+		(next: string) => {
+			if (store.get(autoProcessImportAtom)) setAutoPending(next);
+		},
+		[store],
+	);
 
 	const [step, setStep] = useState<"edit" | "review">("edit");
 	const [reviewed, setReviewed] = useState<ReviewedSection[]>([]);
@@ -235,6 +244,7 @@ export const ImportLyricsDialog = () => {
 				setPickedTrack(track);
 				setShowResults(false);
 				setStep("edit");
+				queueAutoProcess(lyrics);
 			} catch (e) {
 				if (e instanceof GeniusLyricsBlockedError) {
 					setBlockedSongUrl(e.songUrl);
@@ -251,7 +261,7 @@ export const ImportLyricsDialog = () => {
 				setLoadingId(null);
 			}
 		},
-		[setOriginalText, setPickedTrack, setText, t],
+		[queueAutoProcess, setOriginalText, setPickedTrack, setText, t],
 	);
 
 	// Text transforms keep the text from before the first one, to restore.
@@ -262,27 +272,89 @@ export const ImportLyricsDialog = () => {
 		return true;
 	};
 
-	const handleProcess = () => {
+	/** Runs Process lyrics on `source`, returning the format it replaced, or null if nothing changed. */
+	const processText = (source: string) => {
 		const rows: JoinedBackgroundRow[] = [];
-		const changed = transformText(
-			prepareTextImport(text, true, store.get(processStepsAtom), rows),
+		const processed = prepareTextImport(
+			source,
+			true,
+			store.get(processStepsAtom),
+			rows,
 		);
-		if (!changed) {
-			// Nothing was rewritten, so the user's own format settings stay as they are.
-			toast.info(t("importLyrics.processNothing", "Nothing to change."));
-			return;
-		}
-		if (rows.length) setJoined({ source: text, rows });
+		// Nothing was rewritten, so the user's own format settings stay as they are.
+		if (processed === source) return null;
+		const previous = {
+			text: source,
+			processed,
+			wordSeparator: store.get(wordSeparatorAtom),
+			enableSpecialPrefix: store.get(enableSpecialPrefixAtom),
+			bgLyricPrefix: store.get(bgLyricPrefixAtom),
+		};
+		setOriginalText((current) => current ?? source);
+		setText(processed);
+		if (rows.length) setJoined({ source, rows });
 		// Process lyrics writes this format.
 		setWordSeparator("\\");
 		setEnableSpecialPrefix(true);
 		setBgLyricPrefix("<");
+		return previous;
+	};
+
+	const handleProcess = () => {
+		if (!processText(text)) {
+			toast.info(t("importLyrics.processNothing", "Nothing to change."));
+			return;
+		}
 		toast.success(
 			t(
 				"textImportDialog.processedSuccess",
 				"Lyrics prepared for syllable syncing.",
 			),
 		);
+	};
+
+	// Runs once per arrival. processText and the setters are recreated every
+	// render, and listing them would process the text again on each one.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: see above
+	useEffect(() => {
+		if (autoPending === null || japaneseDictionary.loading) return;
+		setAutoPending(null);
+		// The user typed over it before the dictionary loaded.
+		if (store.get(importTextAtom) !== autoPending) return;
+		const previous = processText(autoPending);
+		if (!previous) return;
+		const undo = () => {
+			// Leave later edits alone; Restore original text is still there.
+			if (store.get(importTextAtom) !== previous.processed) return;
+			setText(previous.text);
+			setOriginalText(null);
+			setJoined(null);
+			setWordSeparator(previous.wordSeparator);
+			setEnableSpecialPrefix(previous.enableSpecialPrefix);
+			setBgLyricPrefix(previous.bgLyricPrefix);
+		};
+		toast.success(({ closeToast }) => (
+			<Flex align="center" justify="between" gap="3">
+				<span>{t("importLyrics.autoProcessed", "Lyrics processed.")}</span>
+				<Button
+					size="1"
+					variant="soft"
+					color="gray"
+					onClick={() => {
+						undo();
+						closeToast();
+					}}
+				>
+					{t("importLyrics.undoProcess", "Undo")}
+				</Button>
+			</Flex>
+		));
+	}, [autoPending, japaneseDictionary.loading]);
+
+	const handleTextChange = (next: string) => {
+		const arrived = !text.trim() && next.trim().includes("\n");
+		setText(next);
+		if (arrived) queueAutoProcess(next);
 	};
 
 	const handleSplit = () => {
@@ -569,7 +641,7 @@ export const ImportLyricsDialog = () => {
 								)}
 								<LyricMarkupEditor
 									value={text}
-									onChange={setText}
+									onChange={handleTextChange}
 									format={markupFormat}
 									ariaLabel={t("importLyrics.textLabel", "Lyrics text")}
 									placeholder={t(
