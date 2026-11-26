@@ -91,18 +91,58 @@ export function mergeLineRomanization(
 }
 
 /**
- * Genius style: the line's first letter is a capital, when the line starts
- * with a romanized word (not "Oh yeah ...").
+ * Ends a sentence: ! and ? (either width), 。, or a single full stop ("..."
+ * trails off, so the next word stays lowercase).
+ */
+const endsSentence = (chars: readonly string[], at: number) =>
+	"!?！？。".includes(chars[at]) ||
+	(chars[at] === "." && chars[at - 1] !== "." && chars[at + 1] !== ".");
+
+/**
+ * Genius style: the first romanized word of the line and of every sentence
+ * in it starts with a capital (sou kanzentai? AI? nante → Sou kanzentai? AI?
+ * Nante). Words already in Latin letters stay as written ("Oh yeah ...").
  */
 export function capitalizeLine(
 	romanized: readonly string[],
 	syllables: readonly string[],
 ): string[] {
-	const first = syllables.findIndex((text) => /\p{L}/u.test(text));
-	return romanized.map((text, index) =>
-		index === first
-			? text.replace(/\p{L}/u, (char) => char.toUpperCase())
-			: text,
+	let starts = true;
+	return romanized.map((text, index) => {
+		const original = syllables[index] ?? "";
+		// A word already in Latin letters is read for where sentences end, but
+		// left as written, whether or not it was copied in yet.
+		const latin = /^[^\p{L}]*\p{Script=Latin}/u.test(original);
+		const capitalizes = text !== original && !latin;
+		const chars = Array.from(latin ? original : text);
+		chars.forEach((char, at) => {
+			if (/\p{L}/u.test(char)) {
+				if (starts && capitalizes) chars[at] = char.toUpperCase();
+				starts = false;
+			} else if (endsSentence(chars, at)) {
+				starts = true;
+			}
+		});
+		return latin ? text : chars.join("");
+	});
+}
+
+/**
+ * One line's romanization, one entry per syllable, as it's written into the
+ * file. Words already in Latin letters ("Oh yeah") count as their own
+ * romanization, so the romanized line reads in full in Spicy Lyrics.
+ */
+export async function romanizeLine(
+	syllables: readonly string[],
+	language: SongLanguage,
+): Promise<string[]> {
+	return capitalizeLine(
+		(await romanizeSyllables(syllables, language)).map(
+			(text, index) =>
+				text ||
+				(/\p{Script=Latin}/u.test(syllables[index]) ? syllables[index] : ""),
+		),
+		syllables,
 	);
 }
 
@@ -121,16 +161,7 @@ export async function romanizeLines(
 		const syllables = line.words.map((word) => word.word);
 		const language = lineLanguage(syllables.join(""), songLanguage);
 		if (!language) continue;
-		// Words already in Latin letters ("Oh yeah") count as their own
-		// romanization, so the romanized line reads in full in Spicy Lyrics.
-		const romanized = capitalizeLine(
-			(await romanizeSyllables(syllables, language)).map(
-				(text, index) =>
-					text ||
-					(/\p{Script=Latin}/u.test(syllables[index]) ? syllables[index] : ""),
-			),
-			syllables,
-		);
+		const romanized = await romanizeLine(syllables, language);
 		const update = mergeLineRomanization(
 			line,
 			Object.fromEntries(

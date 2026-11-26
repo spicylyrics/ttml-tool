@@ -1,10 +1,10 @@
 import cyrillicToLatin from "cyrillic-romanization";
 import { transliterate as greekToLatin } from "greek-transliteration";
-import { Romanize as Hangul } from "hangul-romanize";
 import { pinyin } from "pinyin-pro";
 import { getJyutpingList } from "to-jyutping";
 import type { SongLanguage } from "../language";
 import { loadJapaneseTokenizer, romanizeJapaneseLine } from "./japanese";
+import { KoreanCharReadings } from "./korean";
 
 /**
  * Romanization on the device, nothing sent anywhere, covering the languages
@@ -27,16 +27,15 @@ export async function romanizeSyllables(
 				getJyutpingList(text).map(([char, reading]) => reading ?? char),
 			);
 		case "ko":
-			return bySyllable(syllables, HANGUL, (text) => Hangul.from(text));
-		case "cyrillic":
+			return korean(syllables);
+		case "cyrillic": {
+			const ukrainian = UKRAINIAN.test(syllables.join(""));
 			return bySyllable(syllables, CYRILLIC, (text) =>
-				cyrillicToLatin(
-					text,
-					UKRAINIAN.test(syllables.join("")) ? "ukr" : "rus",
-				),
+				cyrillic(text, ukrainian),
 			);
+		}
 		case "greek":
-			return bySyllable(syllables, GREEK, (text) => greekToLatin(text));
+			return bySyllable(syllables, GREEK, greek);
 	}
 }
 
@@ -46,6 +45,45 @@ const CYRILLIC = /\p{Script=Cyrillic}/u;
 const GREEK = /\p{Script=Greek}/u;
 /** Letters only Ukrainian uses, which read differently there. */
 const UKRAINIAN = /[ЄєІіЇїҐґ]/;
+
+/**
+ * Korean by sound, read over the whole line so a final consonant reads by the
+ * block after it even across a syllable seam (같|이 → ga|chi, 먹|는 →
+ * meong|neun). Each syllable gets the readings of its own characters.
+ */
+function korean(syllables: readonly string[]): string[] {
+	const readings = KoreanCharReadings(syllables.join(""));
+	let next = 0;
+	return syllables.map((syllable) => {
+		const own = readings.slice(next, next + syllable.length);
+		next += syllable.length;
+		if (!HANGUL.test(syllable)) return "";
+		const romanized = own.join("").trim();
+		return romanized && /\s$/.test(syllable) ? `${romanized} ` : romanized;
+	});
+}
+
+/**
+ * Cyrillic as romanized lyrics spell it: х is kh (the Russian table writes
+ * x), щ is shch, and the hard and soft signs aren't said on their own. х is
+ * swapped before converting, so a Latin x already in the text stays.
+ */
+function cyrillic(text: string, ukrainian: boolean): string {
+	const spelled = text
+		.replace(/Х(?=\p{Ll})/gu, "Kh")
+		.replace(/Х/g, "KH")
+		.replace(/х/g, "kh");
+	return cyrillicToLatin(spelled, ukrainian ? "ukr" : "rus")
+		.replace(/([Ss])hh/g, "$1hch")
+		.replace(/[ʺʹ]/g, "");
+}
+
+/** Greek, with a capital written as two letters capitalized once (Θεσ → Thes). */
+const greek = (text: string) =>
+	greekToLatin(text).replace(
+		/(TH|CH|PS)(?=\p{Ll})/gu,
+		(match) => match[0] + match[1].toLowerCase(),
+	);
 
 /**
  * Scripts written with spaces: each syllable romanizes on its own, and a
