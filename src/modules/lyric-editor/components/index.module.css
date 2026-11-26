@@ -266,12 +266,27 @@
 	user-select: none;
 	display: flex;
 
-	&.dropTop {
-		border-top: solid 3px var(--accent-a11);
+	position: relative;
+
+	/* An overlay bar, not a border, so the marker doesn't shift lines
+	   mid-drag. Inside the line, since the dark theme clips its overflow. */
+	&.dropTop::after,
+	&.dropBottom::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background-color: var(--accent-a11);
+		pointer-events: none;
 	}
 
-	&.dropBottom {
-		border-bottom: solid 3px var(--accent-a11);
+	&.dropTop::after {
+		top: 0;
+	}
+
+	&.dropBottom::after {
+		bottom: 0;
 	}
 
 	&.ignoreSync {

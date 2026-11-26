@@ -30,7 +30,11 @@ export const PreviewProblemsBanner = () => {
 			p="2"
 			wrap="wrap"
 			flexShrink="0"
-			style={{ background: "var(--red-a3)" }}
+			style={{
+				// Solid underneath: the banner sits over the moving preview.
+				background:
+					"linear-gradient(var(--red-a3), var(--red-a3)), var(--color-panel-solid)",
+			}}
 		>
 			<Flex align="center" gap="2">
 				<ErrorCircle20Regular

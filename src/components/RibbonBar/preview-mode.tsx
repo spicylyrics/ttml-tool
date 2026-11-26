@@ -39,7 +39,7 @@ export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
 		);
 
 		return (
-			<RibbonFrame ref={ref}>
+			<RibbonFrame ref={ref} reserveControlRows={3}>
 				<RibbonSection label={modeLabel}>
 					<ActionTooltip
 						label={modeLabel}
