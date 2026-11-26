@@ -242,6 +242,8 @@
 .Toastify__toast-container {
 	/* Radix modals disable pointer events on body; toast controls remain usable. */
 	pointer-events: auto;
+	/* Below the 49px title bar, so toasts don't cover the window controls. */
+	--toastify-toast-top: max(57px, env(safe-area-inset-top));
 }
 
 .Toastify__toast {
@@ -251,18 +253,18 @@
 	box-shadow:
 		0 14px 40px rgba(0, 0, 0, 0.5),
 		0 2px 8px rgba(0, 0, 0, 0.25) !important;
-	backdrop-filter: blur(var(--glass-blur, 20px)) saturate(160%) !important;
-	-webkit-backdrop-filter: blur(var(--glass-blur, 20px)) saturate(160%) !important;
 	overflow: hidden !important;
 }
 
+/* Solid: toasts are small and sit over busy content, so translucency only
+   costs legibility. */
 .Toastify__toast-theme--dark {
-	background-color: rgba(18, 24, 30, 0.75) !important;
+	background-color: var(--color-panel-solid, #18191b) !important;
 	color: var(--gray-12, #ffffff) !important;
 }
 
 .Toastify__toast-theme--light {
-	background-color: rgba(255, 255, 255, 0.8) !important;
+	background-color: var(--color-panel-solid, #ffffff) !important;
 	color: var(--gray-12, #111827) !important;
 }
 

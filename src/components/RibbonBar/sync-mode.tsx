@@ -44,7 +44,7 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 	);
 
 	return (
-		<RibbonFrame ref={ref}>
+		<RibbonFrame ref={ref} reserveControlRows={3}>
 			<RibbonSection label={t("ribbonBar.syncMode.syncAdjustment", "Offsets")}>
 				<Grid
 					columns="max-content auto"

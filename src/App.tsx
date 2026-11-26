@@ -39,6 +39,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { createPortal } from "react-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { useTranslation } from "react-i18next";
 import { Bounce, cssTransition, ToastContainer, toast } from "react-toastify";
@@ -115,6 +116,7 @@ import AudioControls from "./modules/audio/components/index.tsx";
 import { useAudioFeedback } from "./modules/audio/hooks/useAudioFeedback.ts";
 import { DiscordPresence } from "./modules/discord-presence/DiscordPresence";
 import { LogoColorStyle } from "./modules/logo-color/LogoColorStyle";
+import { NudgeKeyBinding } from "./modules/lyric-editor/components/nudge-keybinding.tsx";
 import { SyncKeyBinding } from "./modules/lyric-editor/components/sync-keybinding.tsx";
 import { UrbanDictionaryKeybinding } from "./modules/lyric-editor/components/urban-dictionary-keybinding.tsx";
 import { BeginnerGuide } from "./modules/onboarding/BeginnerGuide";
@@ -783,6 +785,7 @@ function App() {
 						<SessionRestoreOffer />
 						<GlobalDragOverlay />
 						{toolMode === ToolMode.Sync && <SyncKeyBinding />}
+						{toolMode !== ToolMode.Preview && <NudgeKeyBinding />}
 						<UrbanDictionaryKeybinding />
 						<DarkThemeDetector />
 						<LogoColorStyle />
@@ -850,14 +853,27 @@ function App() {
 						<Suspense fallback={null}>
 							<Dialogs />
 						</Suspense>
-						<ToastContainer
-							theme={effectiveTheme}
-							transition={
-								spicyLyricsDesign ? spicyLyricsToastTransition : Bounce
-							}
-						/>
 						<UpdatedToast />
 					</div>
+					{/*
+					 * In body like the dialogs, since the app root's stacking context
+					 * would keep toasts under an open dialog. A press inside a toast
+					 * mustn't count as a click outside the dialog, or a toast's Undo
+					 * would close it.
+					 */}
+					{createPortal(
+						<Theme asChild>
+							<div onPointerDown={(event) => event.stopPropagation()}>
+								<ToastContainer
+									theme={effectiveTheme}
+									transition={
+										spicyLyricsDesign ? spicyLyricsToastTransition : Bounce
+									}
+								/>
+							</div>
+						</Theme>,
+						document.body,
+					)}
 				</ErrorBoundary>
 			</TooltipPrimitive.Provider>
 		</Theme>

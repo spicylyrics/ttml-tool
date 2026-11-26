@@ -168,6 +168,9 @@
     "splitDone": "Slabiky označené. Pred importom ich skontrolujte.",
     "splitNothing": "Nie je čo rozdeliť.",
     "processNothing": "Nie je čo meniť.",
+    "autoProcess": "Spracovať text po vložení alebo výbere",
+    "autoProcessed": "Text spracovaný.",
+    "undoProcess": "Späť",
     "restoreOriginal": "Obnoviť pôvodný text",
     "sectionsTitle": "Hlavičky sekcií",
     "sectionsFound": "{count, plural, one {Nájdená # hlavička} few {Nájdené # hlavičky} many {Nájdenej # hlavičky} other {Nájdených # hlavičiek}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Pokročilé delenie…",
       "learnedSplits": "Naučené delenia…",
       "syncLineTimestamps": "Prispôsobiť riadky ich slovám",
-      "ttmlChecklist": "Zoznam plánovaných TTML",
+      "ttmlChecklist": "Skladby na časovanie",
       "tool": "Nástroje",
       "importLyric": {
         "import": "Importovať text piesne..."
@@ -1013,7 +1016,8 @@
       },
       "spectrogramHoverSync": "Synchronizovať na pozícii myši",
       "changelog": "Zoznam zmien a aktualizácie",
-      "projects": "Projekty"
+      "projects": "Projekty",
+      "keyboardShortcuts": "Klávesové skratky"
     }
   },
   "header": {
@@ -1105,13 +1109,17 @@
       "movePrevWordAndPlay": "Časovanie – prejsť na predchádzajúce slovo a prehrať",
       "moveNextWordAndPlay": "Časovanie – prejsť na ďalšie slovo a prehrať",
       "syncStart": "Časovanie – Začiatok",
-      "syncNext": "Časovanie – Ďalšie",
+      "syncNext": "Časovanie – Ukončiť slovo a začať ďalšie",
       "syncEnd": "Časovanie – Koniec",
       "toggleWordHighlight": "Časovanie – prepnúť zvýraznenie aktívneho slova",
       "urbanDictionary": "Úpravy – vyhľadať v Urban Dictionary",
       "urbanDictionarySync": "Časovanie – vyhľadať v Urban Dictionary",
       "moveFirstWordAndPlay": "Časovanie – prejsť na prvé slovo a prehrať",
       "moveLastWordAndPlay": "Časovanie – prejsť na posledné slovo a prehrať",
+      "nudgeEarlier": "Časovanie – posunúť začiatok skôr",
+      "nudgeLater": "Časovanie – posunúť začiatok neskôr",
+      "nudgeEndEarlier": "Časovanie – posunúť koniec skôr",
+      "nudgeEndLater": "Časovanie – posunúť koniec neskôr",
       "playPause": "Prehrávanie – prehrať/pozastaviť",
       "seekForward": "Prehrávanie – pretočiť vpred",
       "seekBackward": "Prehrávanie – pretočiť späť",
@@ -1197,6 +1205,9 @@
     "seekStep": "Pretáčať o",
     "seekStepDesc": "Ako ďaleko skočí jedno stlačenie. Podržaním klávesu pretáčate ďalej.",
     "seekStepUnit": "s",
+    "nudgeStep": "Posunúť o",
+    "nudgeStepDesc": "O koľko každé stlačenie posunie začiatok alebo koniec vybraného slova, v režime úprav vybrané riadky. Shift posunie 10× ďalej, Alt o 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Aj na tomto klávese",
     "closePanel": "Zavrieť"
   },
@@ -1751,7 +1762,7 @@
     }
   },
   "ttmlChecklist": {
-    "title": "Zoznam plánovaných TTML",
+    "title": "Skladby na časovanie",
     "description": "Majte prehľad o skladbách a nápadoch, ktoré chcete neskôr synchronizovať.",
     "songPlaceholder": "Názov piesne *",
     "artistPlaceholder": "Interpret (voliteľné)",

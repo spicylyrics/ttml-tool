@@ -20,7 +20,7 @@
 
 .wordSegment:hover,
 .wordSegment:focus-visible {
-	border-color: var(--accent-13);
+	border-color: var(--accent-8);
 	outline: none;
 }
 

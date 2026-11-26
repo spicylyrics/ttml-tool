@@ -168,6 +168,9 @@
     "splitDone": "Heceler işaretlendi. İçe aktarmadan önce kontrol edin.",
     "splitNothing": "Bölünecek bir şey yok.",
     "processNothing": "Değiştirilecek bir şey yok.",
+    "autoProcess": "Sözleri yapıştırınca veya seçince işle",
+    "autoProcessed": "Sözler işlendi.",
+    "undoProcess": "Geri al",
     "restoreOriginal": "Orijinal metni geri yükle",
     "sectionsTitle": "Bölüm başlıkları",
     "sectionsFound": "{count, plural, one {# başlık bulundu} other {# başlık bulundu}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Gelişmiş bölme…",
       "learnedSplits": "Öğrenilen bölmeler…",
       "syncLineTimestamps": "Satırları kelimelerine uydur",
-      "ttmlChecklist": "TTML yapılacaklar listesi",
+      "ttmlChecklist": "Zamanlanacak şarkılar",
       "tool": "Araçlar",
       "importLyric": {
         "import": "Şarkı sözlerini içe aktar..."
@@ -1013,7 +1016,8 @@
       },
       "spectrogramHoverSync": "Fare konumunda senkronize et",
       "changelog": "Değişiklik günlüğü ve güncellemeler",
-      "projects": "Projeler"
+      "projects": "Projeler",
+      "keyboardShortcuts": "Klavye kısayolları"
     }
   },
   "header": {
@@ -1105,13 +1109,17 @@
       "movePrevWordAndPlay": "Zamanlama - Önceki kelimeye geç ve oynat",
       "moveNextWordAndPlay": "Zamanlama - Sonraki kelimeye geç ve oynat",
       "syncStart": "Zamanlama - Başlat",
-      "syncNext": "Zamanlama - Sonraki",
+      "syncNext": "Zamanlama - Kelimeyi bitir ve sonrakini başlat",
       "syncEnd": "Zamanlama - Bitir",
       "toggleWordHighlight": "Zamanlama - Etkin kelime vurgusunu aç/kapat",
       "urbanDictionary": "Düzenle - Urban Dictionary'de ara",
       "urbanDictionarySync": "Zamanlama - Urban Dictionary'de ara",
       "moveFirstWordAndPlay": "Zamanlama - İlk kelimeye geç ve oynat",
       "moveLastWordAndPlay": "Zamanlama - Son kelimeye geç ve oynat",
+      "nudgeEarlier": "Zamanlama - Başlangıcı biraz öne al",
+      "nudgeLater": "Zamanlama - Başlangıcı biraz geri al",
+      "nudgeEndEarlier": "Zamanlama - Bitişi biraz öne al",
+      "nudgeEndLater": "Zamanlama - Bitişi biraz geri al",
       "playPause": "Oynatma - Oynat/duraklat",
       "seekForward": "Oynatma - İleri git",
       "seekBackward": "Oynatma - Geri git",
@@ -1197,6 +1205,9 @@
     "seekStep": "Atlama miktarı",
     "seekStepDesc": "Her basışta ne kadar atlanır. Devam etmek için tuşu basılı tutun.",
     "seekStepUnit": "sn",
+    "nudgeStep": "Kaydırma adımı",
+    "nudgeStepDesc": "Her basışın seçili kelimenin başlangıcını veya bitişini, Düzenleme modunda seçili satırları ne kadar kaydıracağı. Shift 10 kat daha fazla, Alt 1 ms kaydırır.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Bu tuşta ayrıca",
     "closePanel": "Kapat"
   },
@@ -1751,12 +1762,12 @@
     }
   },
   "ttmlChecklist": {
-    "title": "TTML yapılacaklar listesi",
+    "title": "Zamanlanacak şarkılar",
     "description": "Daha sonra senkronize etmek istediğiniz şarkıları ve fikirleri takip edin.",
     "songPlaceholder": "Şarkı adı *",
     "artistPlaceholder": "Sanatçı (isteğe bağlı)",
     "notesPlaceholder": "Notlar, sürüm, kaynak veya zamanlama fikri (isteğe bağlı)",
-    "add": "Yapılacaklar listesine ekle",
+    "add": "Şarkı ekle",
     "save": "Kaydet",
     "cancel": "İptal",
     "empty": "Henüz planlanan TTML yok. Fikir aklınızdan uçmadan sıradaki şarkıyı ekleyin.",
@@ -1765,8 +1776,8 @@
     "hideCompleted": "Tamamlananları gizle",
     "markDone": "Bitti",
     "reopen": "Yeniden aç",
-    "edit": "Yapılacaklar listesi öğesini düzenle",
-    "delete": "Yapılacaklar listesi öğesini sil"
+    "edit": "Şarkıyı düzenle",
+    "delete": "Şarkıyı sil"
   },
   "autoSegmentDialog": {
     "title": "Otomatik bölme",

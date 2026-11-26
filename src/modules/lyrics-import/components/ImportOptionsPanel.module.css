@@ -41,6 +41,12 @@
 	opacity: 0.5;
 }
 
+/* Level with the Process lyrics label, like its steps. */
+.autoProcess {
+	padding-left: calc(var(--space-3) + 18px + var(--space-3));
+	padding-bottom: var(--space-2);
+}
+
 /* Indented under Process lyrics, level with its label. */
 .steps {
 	padding-left: calc(var(--space-3) + 18px + var(--space-3));

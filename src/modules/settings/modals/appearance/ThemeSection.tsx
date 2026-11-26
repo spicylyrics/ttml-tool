@@ -76,6 +76,7 @@ export const ThemeSection = ({
 								<Switch
 									checked={useSystemAccent}
 									onCheckedChange={setUseSystemAccent}
+									disabled={useCustomAccent}
 									aria-label={t(
 										"settings.appearance.useSystemAccent",
 										"Follow the system accent",
@@ -106,6 +107,10 @@ export const ThemeSection = ({
 									<Switch
 										checked={useCustomAccent}
 										onCheckedChange={setUseCustomAccent}
+										aria-label={t(
+											"settings.appearance.useCustomAccent",
+											"Custom accent color",
+										)}
 									/>
 								</Flex>
 

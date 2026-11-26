@@ -168,6 +168,9 @@
     "splitDone": "Lettergrepen gemarkeerd. Controleer ze voordat je importeert.",
     "splitNothing": "Niets om te splitsen.",
     "processNothing": "Niets te wijzigen.",
+    "autoProcess": "Songtekst verwerken bij plakken of kiezen",
+    "autoProcessed": "Songtekst verwerkt.",
+    "undoProcess": "Ongedaan maken",
     "restoreOriginal": "Oorspronkelijke tekst herstellen",
     "sectionsTitle": "Sectiekoppen",
     "sectionsFound": "{count, plural, one {# kop gevonden} other {# koppen gevonden}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Geavanceerd splitsen…",
       "learnedSplits": "Geleerde splitsingen…",
       "syncLineTimestamps": "Regeltijden afstemmen op woorden",
-      "ttmlChecklist": "TTML-controlelijst",
+      "ttmlChecklist": "Nummers om te timen",
       "tool": "Hulpmiddelen",
       "importLyric": {
         "import": "Songteksten importeren..."
@@ -1013,7 +1016,8 @@
       },
       "spectrogramHoverSync": "Synchroniseren op muispositie",
       "changelog": "Wijzigingslogboek en updates",
-      "projects": "Projecten"
+      "projects": "Projecten",
+      "keyboardShortcuts": "Sneltoetsen"
     }
   },
   "header": {
@@ -1105,13 +1109,17 @@
       "movePrevWordAndPlay": "Timing - Naar vorig woord en afspelen",
       "moveNextWordAndPlay": "Timing - Naar volgend woord en afspelen",
       "syncStart": "Timing - Start",
-      "syncNext": "Timing - Volgende",
+      "syncNext": "Timing - Woord beëindigen en volgende starten",
       "syncEnd": "Timing - Einde",
       "toggleWordHighlight": "Timing - Markering actief woord aan/uit",
       "urbanDictionary": "Bewerken - Opzoeken in Urban Dictionary",
       "urbanDictionarySync": "Timing - Opzoeken in Urban Dictionary",
       "moveFirstWordAndPlay": "Timing - Naar eerste woord en afspelen",
       "moveLastWordAndPlay": "Timing - Naar laatste woord en afspelen",
+      "nudgeEarlier": "Timing - Begin iets eerder",
+      "nudgeLater": "Timing - Begin iets later",
+      "nudgeEndEarlier": "Timing - Einde iets eerder",
+      "nudgeEndLater": "Timing - Einde iets later",
       "playPause": "Afspelen - Afspelen/pauzeren",
       "seekForward": "Afspelen - Vooruit",
       "seekBackward": "Afspelen - Achteruit",
@@ -1197,6 +1205,9 @@
     "seekStep": "Springen met",
     "seekStepDesc": "Hoe ver elke druk springt. Houd de toets ingedrukt om door te gaan.",
     "seekStepUnit": "s",
+    "nudgeStep": "Verschuiven met",
+    "nudgeStepDesc": "Hoe ver elke druk het begin of einde van het geselecteerde woord verschuift, of de geselecteerde regels in de bewerkmodus. Shift verschuift 10 keer zo ver, Alt 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Ook op deze toets",
     "closePanel": "Sluiten"
   },
@@ -1751,12 +1762,12 @@
     }
   },
   "ttmlChecklist": {
-    "title": "TTML-controlelijst",
+    "title": "Nummers om te timen",
     "description": "Houd nummers en ideeën bij die je later wilt synchroniseren.",
     "songPlaceholder": "Titel van het nummer *",
     "artistPlaceholder": "Artiest (optioneel)",
     "notesPlaceholder": "Opmerkingen, versie, bron of timingidee (optioneel)",
-    "add": "Toevoegen aan controlelijst",
+    "add": "Nummer toevoegen",
     "save": "Opslaan",
     "cancel": "Annuleren",
     "empty": "Nog geen geplande TTML's. Voeg het volgende nummer toe voordat je het idee vergeet.",
@@ -1765,8 +1776,8 @@
     "hideCompleted": "Voltooide items verbergen",
     "markDone": "Klaar",
     "reopen": "Heropenen",
-    "edit": "Controlelijstitem bewerken",
-    "delete": "Controlelijstitem verwijderen"
+    "edit": "Nummer bewerken",
+    "delete": "Nummer verwijderen"
   },
   "autoSegmentDialog": {
     "title": "Automatisch splitsen",

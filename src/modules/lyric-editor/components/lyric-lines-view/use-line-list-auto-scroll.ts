@@ -25,6 +25,9 @@ import { AUTO_SCROLL_PAUSE_MS } from "../selection-scroll";
 import { findCurrentLineIndex } from "./current-line";
 import type { useLineListScrolling } from "./use-line-list-scrolling";
 
+/** How long after the pointer last moved over the list auto-scroll waits. */
+const POINTER_AIM_HOLD_MS = 1000;
+
 export function useLineListAutoScroll({
 	viewElRef,
 	toolMode,
@@ -72,6 +75,10 @@ export function useLineListAutoScroll({
 	const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const isPointerDownRef = useRef(false);
+	// A moving pointer is aiming at a line; scrolling then would move the line
+	// out from under the click. A resting pointer doesn't count, so keyboard
+	// syncing with the mouse parked over the list still follows playback.
+	const pointerMovedAtRef = useRef(0);
 
 	const isAutoScrollActive =
 		(toolMode === ToolMode.Sync || toolMode === ToolMode.Edit) &&
@@ -96,6 +103,9 @@ export function useLineListAutoScroll({
 				if (!store.get(audioPlayingAtom)) return;
 				if (store.get(selectedLinesAtom).size > 0) return;
 				if (isPointerDownRef.current) return;
+				// Still aiming; the playback tick follows again once it stops.
+				if (Date.now() - pointerMovedAtRef.current < POINTER_AIM_HOLD_MS)
+					return;
 
 				const currentTime = store.get(currentTimeAtom);
 				const lines = store.get(lyricLinesAtom).lyricLines;
@@ -226,6 +236,18 @@ export function useLineListAutoScroll({
 			}
 		};
 
+		// WebKit fires moves at the same spot when content scrolls under a
+		// resting mouse; only a real change of position counts as aiming.
+		let lastX = Number.NaN;
+		let lastY = Number.NaN;
+		const onPointerMove = (evt: PointerEvent) => {
+			if (evt.pointerType !== "mouse" && evt.pointerType !== "pen") return;
+			if (evt.clientX === lastX && evt.clientY === lastY) return;
+			lastX = evt.clientX;
+			lastY = evt.clientY;
+			pointerMovedAtRef.current = Date.now();
+		};
+
 		const onWheel = () => {
 			cancelScrollAnimation();
 			userScrolledAtRef.current = Date.now();
@@ -259,6 +281,10 @@ export function useLineListAutoScroll({
 			capture: true,
 			passive: true,
 		});
+		viewEl.addEventListener("pointermove", onPointerMove, {
+			capture: true,
+			passive: true,
+		});
 		viewEl.addEventListener("wheel", onWheel, { capture: true, passive: true });
 		viewEl.addEventListener("keydown", onKeyDown, {
 			capture: true,
@@ -274,6 +300,9 @@ export function useLineListAutoScroll({
 				capture: true,
 			});
 			viewEl.removeEventListener("touchmove", onPointerDown, { capture: true });
+			viewEl.removeEventListener("pointermove", onPointerMove, {
+				capture: true,
+			});
 			viewEl.removeEventListener("wheel", onWheel, { capture: true });
 			viewEl.removeEventListener("keydown", onKeyDown, { capture: true });
 			cancelResumeTimer();
@@ -322,6 +351,8 @@ export function useLineListAutoScroll({
 			if (!store.get(audioPlayingAtom)) return;
 			// Skip if pointer is currently held down (user dragging or holding scrollbar)
 			if (isPointerDownRef.current) return;
+			// Skip while the pointer is moving over the list (aiming at a line)
+			if (Date.now() - pointerMovedAtRef.current < POINTER_AIM_HOLD_MS) return;
 			// Skip if any line is selected (stays locked forever until deselected or locate triggered)
 			if (store.get(selectedLinesAtom).size > 0) return;
 			// Skip if user interacted/scrolled within last 3.5s

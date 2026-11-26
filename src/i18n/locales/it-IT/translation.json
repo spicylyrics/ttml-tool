@@ -168,6 +168,9 @@
     "splitDone": "Sillabe segnate. Controllale prima di importare.",
     "splitNothing": "Niente da dividere.",
     "processNothing": "Niente da modificare.",
+    "autoProcess": "Elabora il testo quando lo incolli o lo scegli",
+    "autoProcessed": "Testo elaborato.",
+    "undoProcess": "Annulla",
     "restoreOriginal": "Ripristina testo originale",
     "sectionsTitle": "Intestazioni di sezione",
     "sectionsFound": "{count, plural, one {# intestazione trovata} many {# intestazioni trovate} other {# intestazioni trovate}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Segmentazione avanzata…",
       "learnedSplits": "Divisioni apprese...",
       "syncLineTimestamps": "Adatta i versi alle parole",
-      "ttmlChecklist": "Lista di TTML da creare",
+      "ttmlChecklist": "Brani da sincronizzare",
       "tool": "Strumenti",
       "importLyric": {
         "import": "Importa testo..."
@@ -1013,7 +1016,8 @@
       },
       "spectrogramHoverSync": "Sincronizza alla posizione del mouse",
       "changelog": "Registro modifiche e aggiornamenti",
-      "projects": "Progetti"
+      "projects": "Progetti",
+      "keyboardShortcuts": "Scorciatoie da tastiera"
     }
   },
   "header": {
@@ -1105,13 +1109,17 @@
       "movePrevWordAndPlay": "Sincronizzazione - Vai alla parola precedente e riproduci",
       "moveNextWordAndPlay": "Sincronizzazione - Vai alla parola successiva e riproduci",
       "syncStart": "Sincronizzazione - Inizia",
-      "syncNext": "Sincronizzazione - Avanti",
+      "syncNext": "Sincronizzazione - Termina la parola e inizia la successiva",
       "syncEnd": "Sincronizzazione - Termina",
       "toggleWordHighlight": "Sincronizzazione - Attiva/disattiva evidenziazione della parola attiva",
       "urbanDictionary": "Modifica - Cerca in Urban Dictionary",
       "urbanDictionarySync": "Sincronizzazione - Cerca in Urban Dictionary",
       "moveFirstWordAndPlay": "Sincronizzazione - Vai alla prima parola e riproduci",
       "moveLastWordAndPlay": "Sincronizzazione - Vai all’ultima parola e riproduci",
+      "nudgeEarlier": "Sincronizzazione - Sposta l'inizio prima",
+      "nudgeLater": "Sincronizzazione - Sposta l'inizio dopo",
+      "nudgeEndEarlier": "Sincronizzazione - Sposta la fine prima",
+      "nudgeEndLater": "Sincronizzazione - Sposta la fine dopo",
       "playPause": "Riproduzione - Riproduci/pausa",
       "seekForward": "Riproduzione - Vai avanti",
       "seekBackward": "Riproduzione - Vai indietro",
@@ -1197,6 +1205,9 @@
     "seekStep": "Salta di",
     "seekStepDesc": "Quanto salta ogni pressione. Tieni premuto il tasto per continuare.",
     "seekStepUnit": "s",
+    "nudgeStep": "Sposta di",
+    "nudgeStepDesc": "Di quanto ogni pressione sposta l'inizio o la fine della parola selezionata, o le righe selezionate in modalità Modifica. Maiusc sposta 10 volte tanto, Alt di 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Anche su questo tasto",
     "closePanel": "Chiudi"
   },
@@ -1751,7 +1762,7 @@
     }
   },
   "ttmlChecklist": {
-    "title": "Lista di TTML da creare",
+    "title": "Brani da sincronizzare",
     "description": "Tieni traccia dei brani e delle idee che desideri sincronizzare in seguito.",
     "songPlaceholder": "Titolo della canzone *",
     "artistPlaceholder": "Artista (facoltativo)",

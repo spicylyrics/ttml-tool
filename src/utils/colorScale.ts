@@ -113,33 +113,23 @@ export function generateRadixScale(baseHex: string, isDark?: boolean) {
 		"--accent-9-contrast": getContrastColor(lightnesses[8]),
 		"--accent-surface": hslToCss(h, s, baseL > 50 ? 98 : 15),
 		"--accent-indicator": hslToCss(h, s, lightnesses[8]),
+		"--accent-track": hslToCss(h, s, lightnesses[8]),
 	};
 
-	// Generate Accent Scale
+	// Generate Accent Scale. Radix draws focus rings and focused-input tints
+	// from a parallel focus scale, so it follows the accent too; otherwise
+	// those keep the theme's built-in accent (red).
 	for (let i = 0; i < 12; i++) {
 		const step = i + 1;
 		const l = lightnesses[i];
 		variables[`--accent-${step}`] = hslToCss(h, s, l);
 		variables[`--accent-a${step}`] = hslToCss(h, s, l, alphaOpacities[i]);
+		variables[`--focus-${step}`] = variables[`--accent-${step}`];
+		variables[`--focus-a${step}`] = variables[`--accent-a${step}`];
 	}
 
-	// Generate Harmonious Gray Scale
-	const greyH = h;
-	const greyS = Math.max(5, Math.min(s, 50)); // Thematic saturation
-
-	variables["--gray-surface"] = hslToCss(
-		greyH,
-		greyS,
-		effectiveIsDark ? 10 : 99,
-	);
-
-	for (let i = 0; i < 12; i++) {
-		const step = i + 1;
-		const l = lightnesses[i];
-		variables[`--gray-${step}`] = hslToCss(greyH, greyS, l);
-		variables[`--gray-a${step}`] = hslToCss(greyH, greyS, l, alphaOpacities[i]);
-	}
-
+	// Only the accent scale: a custom accent must not tint the grays, or
+	// descriptions, placeholders and borders all turn the accent color.
 	return variables;
 }
 

@@ -168,6 +168,9 @@
     "splitDone": "Suku kata ditandai. Periksa sebelum mengimpor.",
     "splitNothing": "Tidak ada yang perlu dipisahkan.",
     "processNothing": "Tidak ada yang perlu diubah.",
+    "autoProcess": "Proses lirik saat ditempel atau dipilih",
+    "autoProcessed": "Lirik diproses.",
+    "undoProcess": "Urungkan",
     "restoreOriginal": "Pulihkan teks asli",
     "sectionsTitle": "Judul bagian",
     "sectionsFound": "{count, plural, other {# judul ditemukan}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Segmentasi lanjutan…",
       "learnedSplits": "Pemisahan yang dipelajari…",
       "syncLineTimestamps": "Sesuaikan baris dengan waktu katanya",
-      "ttmlChecklist": "Daftar periksa TTML",
+      "ttmlChecklist": "Lagu untuk disinkronkan",
       "tool": "Alat",
       "importLyric": {
         "import": "Impor lirik..."
@@ -1013,7 +1016,8 @@
       },
       "spectrogramHoverSync": "Sinkronkan di posisi mouse",
       "changelog": "Log perubahan & pembaruan",
-      "projects": "Proyek"
+      "projects": "Proyek",
+      "keyboardShortcuts": "Pintasan keyboard"
     }
   },
   "header": {
@@ -1105,13 +1109,17 @@
       "movePrevWordAndPlay": "Sinkronisasi - Pindah ke kata sebelumnya dan putar",
       "moveNextWordAndPlay": "Sinkronisasi - Pindah ke kata berikutnya dan putar",
       "syncStart": "Sinkronisasi - Mulai",
-      "syncNext": "Sinkronisasi - Berikutnya",
+      "syncNext": "Sinkronisasi - Akhiri kata dan mulai berikutnya",
       "syncEnd": "Sinkronisasi - Akhiri",
       "toggleWordHighlight": "Sinkronisasi - Alihkan sorotan kata aktif",
       "urbanDictionary": "Edit - Cari di Urban Dictionary",
       "urbanDictionarySync": "Sinkronisasi - Cari di Urban Dictionary",
       "moveFirstWordAndPlay": "Sinkronisasi - Pindah ke kata pertama dan putar",
       "moveLastWordAndPlay": "Sinkronisasi - Pindah ke kata terakhir dan putar",
+      "nudgeEarlier": "Sinkronisasi - Geser awal lebih awal",
+      "nudgeLater": "Sinkronisasi - Geser awal lebih lambat",
+      "nudgeEndEarlier": "Sinkronisasi - Geser akhir lebih awal",
+      "nudgeEndLater": "Sinkronisasi - Geser akhir lebih lambat",
       "playPause": "Pemutaran - Putar/jeda",
       "seekForward": "Pemutaran - Maju",
       "seekBackward": "Pemutaran - Mundur",
@@ -1197,6 +1205,9 @@
     "seekStep": "Lompat sejauh",
     "seekStepDesc": "Seberapa jauh setiap tekanan melompat. Tahan tombol untuk terus melompat.",
     "seekStepUnit": "dtk",
+    "nudgeStep": "Geser sebesar",
+    "nudgeStepDesc": "Seberapa jauh setiap tekanan menggeser awal atau akhir kata yang dipilih, atau baris yang dipilih di mode Edit. Shift menggeser 10 kali lebih jauh, Alt 1 md.",
+    "nudgeStepUnit": "md",
     "otherLayers": "Juga di tombol ini",
     "closePanel": "Tutup"
   },
@@ -1751,12 +1762,12 @@
     }
   },
   "ttmlChecklist": {
-    "title": "Daftar periksa TTML",
+    "title": "Lagu untuk disinkronkan",
     "description": "Lacak lagu dan ide yang ingin Anda sinkronkan nanti.",
     "songPlaceholder": "Judul lagu *",
     "artistPlaceholder": "Artis (opsional)",
     "notesPlaceholder": "Catatan, versi, sumber, atau ide waktu (opsional)",
-    "add": "Tambahkan ke daftar periksa",
+    "add": "Tambahkan lagu",
     "save": "Simpan",
     "cancel": "Batal",
     "empty": "Belum ada rencana TTML. Tambahkan lagu berikutnya sebelum idenya terlupakan.",
@@ -1765,8 +1776,8 @@
     "hideCompleted": "Sembunyikan yang selesai",
     "markDone": "Selesai",
     "reopen": "Buka kembali",
-    "edit": "Edit item daftar periksa",
-    "delete": "Hapus item daftar periksa"
+    "edit": "Edit lagu",
+    "delete": "Hapus lagu"
   },
   "autoSegmentDialog": {
     "title": "Segmentasi otomatis",

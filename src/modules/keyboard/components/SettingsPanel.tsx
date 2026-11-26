@@ -26,6 +26,7 @@ import { shortcutSearchAtom, shortcutShowAllAtom } from "../states";
 import type { KeyBindingCommand } from "../types";
 import { matchShortcutSearch } from "../view/key-index";
 import { COMMAND_CATEGORY_ICONS } from "./command-category-icons";
+import { NUDGE_COMMANDS, NudgeStepField } from "./NudgeStepField";
 import { SEEK_COMMANDS, SeekStepField } from "./SeekStepField";
 import styles from "./SettingsPanel.module.css";
 
@@ -253,6 +254,13 @@ export const AutoKeyBindingSettingsPanel = () => {
 							<Box className={styles.row}>
 								<Box flexGrow="1">
 									<SeekStepField />
+								</Box>
+							</Box>
+						)}
+						{cmds.some((cmd) => NUDGE_COMMANDS.has(cmd.id)) && (
+							<Box className={styles.row}>
+								<Box flexGrow="1">
+									<NudgeStepField />
 								</Box>
 							</Box>
 						)}

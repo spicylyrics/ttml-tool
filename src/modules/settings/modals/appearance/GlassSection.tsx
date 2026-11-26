@@ -32,7 +32,7 @@ export const GlassSection = ({
 								<Text
 									size="1"
 									weight="bold"
-									style={{ color: "var(--accent-9)" }}
+									style={{ color: "var(--accent-11)" }}
 								>
 									{glassBlur}px
 								</Text>

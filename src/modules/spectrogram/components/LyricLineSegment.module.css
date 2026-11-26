@@ -9,11 +9,11 @@
 }
 
 .desaturated {
-	background-color: var(--accent-a0);
+	background-color: transparent;
 }
 
 .lineMode:hover {
-	border-color: var(--accent-13);
+	border-color: var(--accent-8);
 }
 
 .ghost {

@@ -21,6 +21,7 @@ import {
 } from "$/utils/keybindings";
 import { type KeyBindingList, keyBindingListAtom } from "../binding-list";
 import { DoublePressToggle } from "../components/DoublePressToggle";
+import { NUDGE_COMMANDS, NudgeStepField } from "../components/NudgeStepField";
 import { SEEK_COMMANDS, SeekStepField } from "../components/SeekStepField";
 import { findShortcutOwners } from "../conflicts";
 import type { KeyBindingCommand, KeyBindingsConfig } from "../types";
@@ -204,6 +205,11 @@ const ActionRow: FC<{
 			{SEEK_COMMANDS.has(command.id) && (
 				<Box mt="3">
 					<SeekStepField />
+				</Box>
+			)}
+			{NUDGE_COMMANDS.has(command.id) && (
+				<Box mt="3">
+					<NudgeStepField />
 				</Box>
 			)}
 			{duplicate && (

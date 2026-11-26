@@ -295,6 +295,38 @@ export const cmdMoveLastWordAndPlay = registerCommand(
 	"Sync",
 );
 
+// Shift moves 10 times as far and Alt by 1 ms; Edit mode moves whole lines.
+export const cmdNudgeEarlier = registerCommand(
+	"nudgeEarlier",
+	["Comma"],
+	t("settingsDialog.keybindings.nudgeEarlier"),
+	"Sync",
+	["edit", "sync"],
+);
+
+export const cmdNudgeLater = registerCommand(
+	"nudgeLater",
+	["Period"],
+	t("settingsDialog.keybindings.nudgeLater"),
+	"Sync",
+	["edit", "sync"],
+);
+
+// The word's end, in Time mode; a pair of its own, away from the start keys.
+export const cmdNudgeEndEarlier = registerCommand(
+	"nudgeEndEarlier",
+	["Minus"],
+	t("settingsDialog.keybindings.nudgeEndEarlier"),
+	"Sync",
+);
+
+export const cmdNudgeEndLater = registerCommand(
+	"nudgeEndLater",
+	["Equal"],
+	t("settingsDialog.keybindings.nudgeEndLater"),
+	"Sync",
+);
+
 // =========================================================================================
 //  音频控制
 // =========================================================================================

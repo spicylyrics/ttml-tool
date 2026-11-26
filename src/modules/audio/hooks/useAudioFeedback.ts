@@ -56,6 +56,15 @@ export const useAudioFeedback = () => {
 
 	useEffect(() => {
 		if (errorMsg) {
+			// A missing file isn't a processing error; say what to do instead.
+			if (
+				errorMsg ===
+				t("audio.error.noAudio", "Please load an audio file first.")
+			) {
+				toast.info(errorMsg, { toastId: "no-audio", autoClose: 4000 });
+				setErrorMsg(null);
+				return;
+			}
 			toast.error(
 				`${t("audio.error.workerError", "处理音频时出错")}: ${errorMsg}`,
 				{

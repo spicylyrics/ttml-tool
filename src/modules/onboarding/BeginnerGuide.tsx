@@ -156,6 +156,9 @@ export const BeginnerGuide = () => {
 		(event: ReactPointerEvent<HTMLElement>) => {
 			if ((event.target as HTMLElement).closest("button, a")) return;
 			event.preventDefault();
+			// Capture, so a release outside the window still ends the drag.
+			const handle = event.currentTarget;
+			handle.setPointerCapture(event.pointerId);
 			dragOffset.current = {
 				x: event.clientX - position.x,
 				y: event.clientY - position.y,
@@ -173,11 +176,15 @@ export const BeginnerGuide = () => {
 				});
 			};
 			const stop = () => {
-				window.removeEventListener("pointermove", move);
-				window.removeEventListener("pointerup", stop);
+				handle.removeEventListener("pointermove", move);
+				handle.removeEventListener("pointerup", stop);
+				handle.removeEventListener("pointercancel", stop);
+				handle.removeEventListener("lostpointercapture", stop);
 			};
-			window.addEventListener("pointermove", move);
-			window.addEventListener("pointerup", stop, { once: true });
+			handle.addEventListener("pointermove", move);
+			handle.addEventListener("pointerup", stop);
+			handle.addEventListener("pointercancel", stop);
+			handle.addEventListener("lostpointercapture", stop);
 		},
 		[position.x, position.y],
 	);

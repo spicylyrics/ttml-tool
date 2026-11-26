@@ -60,7 +60,7 @@ flatpak override --user --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 io.github.spicyl
 - **Header-Free Timing Tools** — Copy line and word timings onto existing lyrics or snap any selected timing block to the playhead without relying on imported Genius headers.
 - **Remembered Desktop Window** — Restore the previous window size, maximized state, and fullscreen state across desktop app launches without persisting its position or visibility.
 - **Inline Time-Tab Editing** — Double-click a synced word to edit it directly in Time mode, or edit per-word romanizations inline when displayed.
-- **TTML Checklist** — Maintain a persistent local queue of songs to sync with notes, progress tracking, and completed history.
+- **Songs to sync** — Maintain a persistent local queue of songs to sync with notes, progress tracking, and completed history.
 - **Smarter Lyrics Splitting** — Choose dedicated syllabification engines for English, Polish, Spanish, French, German, Indonesian, Italian, Portuguese, Russian, Japanese, and CJK lyrics; Auto Segment suggests an engine from the lyric language, while legacy fallbacks remain available.
 - **Learned Word Splits** — Remember manual split boundaries and automatically reuse them for future occurrences of the same word.
 - **Persistent Split Options** — The Split Word dialog remembers its last-used options, reducing repeated setup while correcting multiple words.

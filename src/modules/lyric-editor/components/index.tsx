@@ -228,10 +228,10 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 			<Box
 				flexGrow="1"
 				style={{
-					padding:
-						toolMode === ToolMode.Sync
-							? "clamp(24px, 12vh, 80px) 0"
-							: undefined,
+					// Bottom only: top padding left an empty band above line 1 and
+					// moved the list on every switch into Time mode.
+					paddingBottom:
+						toolMode === ToolMode.Sync ? "clamp(24px, 12vh, 80px)" : undefined,
 					height: "100%",
 					maxHeight: "100%",
 					overflowY: "auto",

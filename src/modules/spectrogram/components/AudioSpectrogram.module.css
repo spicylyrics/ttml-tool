@@ -90,8 +90,8 @@
 	position: absolute;
 	left: 33px;
 	transform: translateY(50%);
-	background-color: var(--accent-10);
-	color: white;
+	background-color: var(--accent-9);
+	color: var(--accent-contrast);
 	padding: 2px 6px;
 	border-radius: var(--radius-2);
 	font-size: 11px;
@@ -115,7 +115,7 @@
 	transform: translateY(-50%);
 	border-width: 4px 4px 4px 0;
 	border-style: solid;
-	border-color: transparent var(--accent-10) transparent transparent;
+	border-color: transparent var(--accent-9) transparent transparent;
 }
 
 .playheadScrubHandle {
@@ -139,7 +139,7 @@
 }
 
 .playheadScrubHandle:hover {
-	border-top-color: var(--red-11);
+	border-top-color: var(--accent-11);
 }
 
 .playheadCursor {
@@ -167,8 +167,8 @@
 	transform: translateX(-50%);
 	z-index: 12;
 	pointer-events: none;
-	background-color: var(--accent-a10);
-	color: var(--gray-1);
+	background-color: var(--accent-9);
+	color: var(--accent-contrast);
 	padding: 2px 6px;
 	border-radius: var(--radius-1);
 	font-size: 11px;

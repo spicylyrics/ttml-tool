@@ -168,6 +168,9 @@
     "splitDone": "Syllables marked. Check them before importing.",
     "splitNothing": "Nothing to split.",
     "processNothing": "Nothing to change.",
+    "autoProcess": "Process lyrics when you paste or pick them",
+    "autoProcessed": "Lyrics processed.",
+    "undoProcess": "Undo",
     "restoreOriginal": "Restore original text",
     "sectionsTitle": "Section headers",
     "sectionsFound": "{count, plural, one {# header found} other {# headers found}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Advanced segmentation…",
       "learnedSplits": "Learned splits…",
       "syncLineTimestamps": "Fit lines to their words",
-      "ttmlChecklist": "TTML checklist",
+      "ttmlChecklist": "Songs to sync",
       "tool": "Tools",
       "importLyric": {
         "import": "Import lyrics..."
@@ -1013,7 +1016,8 @@
       },
       "spectrogramHoverSync": "Sync at mouse position",
       "changelog": "Changelog & updates",
-      "projects": "Projects"
+      "projects": "Projects",
+      "keyboardShortcuts": "Keyboard shortcuts"
     }
   },
   "header": {
@@ -1105,13 +1109,17 @@
       "movePrevWordAndPlay": "Timing - Move to previous word and play",
       "moveNextWordAndPlay": "Timing - Move to next word and play",
       "syncStart": "Timing - Start",
-      "syncNext": "Timing - Next",
+      "syncNext": "Timing - End word and start the next",
       "syncEnd": "Timing - End",
       "toggleWordHighlight": "Timing - Toggle active word highlight",
       "urbanDictionary": "Edit - Look up in Urban Dictionary",
       "urbanDictionarySync": "Timing - Look up in Urban Dictionary",
       "moveFirstWordAndPlay": "Timing - Move to first word and play",
       "moveLastWordAndPlay": "Timing - Move to last word and play",
+      "nudgeEarlier": "Timing - Nudge start earlier",
+      "nudgeLater": "Timing - Nudge start later",
+      "nudgeEndEarlier": "Timing - Nudge end earlier",
+      "nudgeEndLater": "Timing - Nudge end later",
       "playPause": "Playback - Play/pause",
       "seekForward": "Playback - Seek forward",
       "seekBackward": "Playback - Seek backward",
@@ -1197,6 +1205,9 @@
     "seekStep": "Seek by",
     "seekStepDesc": "How far each press jumps. Hold the key to keep seeking.",
     "seekStepUnit": "s",
+    "nudgeStep": "Nudge by",
+    "nudgeStepDesc": "How far each press moves the selected word's start or end, or the selected lines in Edit mode. Shift moves 10 times as far, Alt 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Also on this key",
     "closePanel": "Close"
   },
@@ -1751,12 +1762,12 @@
     }
   },
   "ttmlChecklist": {
-    "title": "TTML checklist",
+    "title": "Songs to sync",
     "description": "Keep track of songs and ideas you want to sync later.",
     "songPlaceholder": "Song title *",
     "artistPlaceholder": "Artist (optional)",
     "notesPlaceholder": "Notes, version, source, or timing idea (optional)",
-    "add": "Add to checklist",
+    "add": "Add song",
     "save": "Save",
     "cancel": "Cancel",
     "empty": "No future TTMLs yet. Add the next song before the idea disappears.",
@@ -1765,8 +1776,8 @@
     "hideCompleted": "Hide completed",
     "markDone": "Done",
     "reopen": "Reopen",
-    "edit": "Edit checklist item",
-    "delete": "Delete checklist item"
+    "edit": "Edit song",
+    "delete": "Delete song"
   },
   "autoSegmentDialog": {
     "title": "Auto segment",

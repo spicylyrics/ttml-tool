@@ -168,6 +168,9 @@
     "splitDone": "Stavelser markeret. Tjek dem før import.",
     "splitNothing": "Intet at opdele.",
     "processNothing": "Intet at ændre.",
+    "autoProcess": "Behandl teksten, når du indsætter eller vælger den",
+    "autoProcessed": "Teksten er behandlet.",
+    "undoProcess": "Fortryd",
     "restoreOriginal": "Gendan oprindelig tekst",
     "sectionsTitle": "Sektionsoverskrifter",
     "sectionsFound": "{count, plural, one {# overskrift fundet} other {# overskrifter fundet}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Avanceret opdeling…",
       "learnedSplits": "Indlærte opdelinger…",
       "syncLineTimestamps": "Tilpas linjer til deres ord",
-      "ttmlChecklist": "TTML-tjekliste",
+      "ttmlChecklist": "Sange at time",
       "tool": "Værktøjer",
       "importLyric": {
         "import": "Importér sangtekster..."
@@ -1013,7 +1016,8 @@
       },
       "spectrogramHoverSync": "Synkronisér ved musens position",
       "changelog": "Ændringslog og opdateringer",
-      "projects": "Projekter"
+      "projects": "Projekter",
+      "keyboardShortcuts": "Tastaturgenveje"
     }
   },
   "header": {
@@ -1105,13 +1109,17 @@
       "movePrevWordAndPlay": "Timing - Flyt til forrige ord og afspil",
       "moveNextWordAndPlay": "Timing - Flyt til næste ord og afspil",
       "syncStart": "Timing - Start",
-      "syncNext": "Timing - Næste",
+      "syncNext": "Timing - Afslut ord og start det næste",
       "syncEnd": "Timing - Slut",
       "toggleWordHighlight": "Timing - Slå fremhævning af aktivt ord til/fra",
       "urbanDictionary": "Rediger - Slå op i Urban Dictionary",
       "urbanDictionarySync": "Timing - Slå op i Urban Dictionary",
       "moveFirstWordAndPlay": "Timing - Flyt til første ord og afspil",
       "moveLastWordAndPlay": "Timing - Flyt til sidste ord og afspil",
+      "nudgeEarlier": "Timing - Skub start tidligere",
+      "nudgeLater": "Timing - Skub start senere",
+      "nudgeEndEarlier": "Timing - Skub slut tidligere",
+      "nudgeEndLater": "Timing - Skub slut senere",
       "playPause": "Afspilning - Afspil/pause",
       "seekForward": "Afspilning - Spol frem",
       "seekBackward": "Afspilning - Spol tilbage",
@@ -1197,6 +1205,9 @@
     "seekStep": "Spol med",
     "seekStepDesc": "Hvor langt hvert tryk springer. Hold tasten nede for at blive ved.",
     "seekStepUnit": "s",
+    "nudgeStep": "Skub med",
+    "nudgeStepDesc": "Hvor langt hvert tryk flytter starten eller slutningen af det valgte ord, eller de valgte linjer i redigeringstilstand. Shift flytter 10 gange så langt, Alt 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Også på denne tast",
     "closePanel": "Luk"
   },
@@ -1751,12 +1762,12 @@
     }
   },
   "ttmlChecklist": {
-    "title": "TTML-tjekliste",
+    "title": "Sange at time",
     "description": "Hold styr på sange og idéer, du vil synkronisere senere.",
     "songPlaceholder": "Sangtitel *",
     "artistPlaceholder": "Kunstner (valgfrit)",
     "notesPlaceholder": "Noter, version, kilde eller timingidé (valgfrit)",
-    "add": "Tilføj til tjekliste",
+    "add": "Tilføj sang",
     "save": "Gem",
     "cancel": "Annuller",
     "empty": "Ingen planlagte TTML-filer endnu. Tilføj den næste sang, før du glemmer idéen.",
@@ -1765,8 +1776,8 @@
     "hideCompleted": "Skjul fuldførte",
     "markDone": "Færdig",
     "reopen": "Åbn igen",
-    "edit": "Rediger tjeklisteelement",
-    "delete": "Slet punkt på tjeklisten"
+    "edit": "Rediger sang",
+    "delete": "Slet sang"
   },
   "autoSegmentDialog": {
     "title": "Automatisk opdeling",

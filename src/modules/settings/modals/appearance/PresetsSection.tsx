@@ -101,7 +101,7 @@ export const PresetsSection = ({
 														weight="medium"
 														style={{
 															display: "block",
-															color: "var(--accent-9)",
+															color: "var(--accent-11)",
 														}}
 													>
 														{t("settings.appearance.presets.active", "Active")}

@@ -168,6 +168,9 @@
     "splitDone": "Sílabas marcadas. Revísalas antes de importar.",
     "splitNothing": "No hay nada que dividir.",
     "processNothing": "No hay nada que cambiar.",
+    "autoProcess": "Procesar la letra al pegarla o elegirla",
+    "autoProcessed": "Letra procesada.",
+    "undoProcess": "Deshacer",
     "restoreOriginal": "Restaurar texto original",
     "sectionsTitle": "Encabezados de sección",
     "sectionsFound": "{count, plural, one {# encabezado encontrado} many {# encabezados encontrados} other {# encabezados encontrados}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Segmentación avanzada…",
       "learnedSplits": "Divisiones aprendidas...",
       "syncLineTimestamps": "Ajustar las líneas a sus palabras",
-      "ttmlChecklist": "Lista de verificación TTML",
+      "ttmlChecklist": "Canciones por sincronizar",
       "tool": "Herramientas",
       "importLyric": {
         "import": "Importar letras..."
@@ -1013,7 +1016,8 @@
       },
       "spectrogramHoverSync": "Sincronizar en la posición del ratón",
       "changelog": "Registro de cambios y actualizaciones",
-      "projects": "Proyectos"
+      "projects": "Proyectos",
+      "keyboardShortcuts": "Atajos de teclado"
     }
   },
   "header": {
@@ -1105,13 +1109,17 @@
       "movePrevWordAndPlay": "Sincronización: pasar a la palabra anterior y reproducir",
       "moveNextWordAndPlay": "Sincronización: pasar a la siguiente palabra y reproducir",
       "syncStart": "Sincronización - Iniciar",
-      "syncNext": "Sincronización - Siguiente",
+      "syncNext": "Sincronización - Terminar palabra e iniciar la siguiente",
       "syncEnd": "Sincronización - Finalizar",
       "toggleWordHighlight": "Sincronización: alternar resaltado de palabra activa",
       "urbanDictionary": "Editar - Buscar en Urban Dictionary",
       "urbanDictionarySync": "Sincronización: buscar en Urban Dictionary",
       "moveFirstWordAndPlay": "Sincronización - Ir a la primera palabra y reproducir",
       "moveLastWordAndPlay": "Sincronización - Ir a la última palabra y reproducir",
+      "nudgeEarlier": "Sincronización - Adelantar el inicio",
+      "nudgeLater": "Sincronización - Retrasar el inicio",
+      "nudgeEndEarlier": "Sincronización - Adelantar el final",
+      "nudgeEndLater": "Sincronización - Retrasar el final",
       "playPause": "Reproducción - Reproducir/pausar",
       "seekForward": "Reproducción - Avanzar",
       "seekBackward": "Reproducción - Retroceder",
@@ -1197,6 +1205,9 @@
     "seekStep": "Saltar",
     "seekStepDesc": "Cuánto salta cada pulsación. Mantén la tecla para seguir avanzando.",
     "seekStepUnit": "s",
+    "nudgeStep": "Mover en",
+    "nudgeStepDesc": "Cuánto mueve cada pulsación el inicio o el final de la palabra seleccionada, o las líneas seleccionadas en el modo Edición. Shift mueve 10 veces más, Alt 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "También en esta tecla",
     "closePanel": "Cerrar"
   },
@@ -1751,7 +1762,7 @@
     }
   },
   "ttmlChecklist": {
-    "title": "Lista de verificación TTML",
+    "title": "Canciones por sincronizar",
     "description": "Apunta canciones e ideas que quieras sincronizar más adelante.",
     "songPlaceholder": "Título de la canción *",
     "artistPlaceholder": "Artista (opcional)",

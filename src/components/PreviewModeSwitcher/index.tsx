@@ -28,32 +28,54 @@ export const PreviewModeSwitcher = () => {
 			width="100%"
 			style={{ minHeight: 0 }}
 		>
-			{untimedLines.length > 0 && (
-				<Flex
-					align="center"
-					justify="between"
-					gap="2"
-					p="2"
-					wrap="wrap"
-					flexShrink="0"
-					style={{ background: "var(--gray-a3)" }}
-				>
-					<Text size="2" role="status">
-						{t("preview.untimedLines", "{count} lines have no timing yet", {
-							count: untimedLines.length,
-						})}
-					</Text>
-					<Button size="1" variant="soft" onClick={jumpToUntimed}>
-						{t("preview.jumpToUntimed", "Time the first untimed line")}
-					</Button>
-				</Flex>
-			)}
-			<PreviewProblemsBanner />
 			<Flex
 				flexGrow="1"
 				direction="column"
 				style={{ minHeight: 0, position: "relative" }}
 			>
+				{/* Over the Spicy preview, whose top is empty space, so it doesn't
+				    jump as banners come and go while lines get timed. The list
+				    previews start at the top, so there they stay in flow. */}
+				<Flex
+					direction="column"
+					flexShrink="0"
+					style={
+						previewModeType === PreviewModeType.Spicy
+							? {
+									position: "absolute",
+									top: 0,
+									left: 0,
+									right: 0,
+									zIndex: 1,
+								}
+							: undefined
+					}
+				>
+					{untimedLines.length > 0 && (
+						<Flex
+							align="center"
+							justify="between"
+							gap="2"
+							p="2"
+							wrap="wrap"
+							flexShrink="0"
+							style={{
+								background:
+									"linear-gradient(var(--gray-a3), var(--gray-a3)), var(--color-panel-solid)",
+							}}
+						>
+							<Text size="2" role="status">
+								{t("preview.untimedLines", "{count} lines have no timing yet", {
+									count: untimedLines.length,
+								})}
+							</Text>
+							<Button size="1" variant="soft" onClick={jumpToUntimed}>
+								{t("preview.jumpToUntimed", "Time the first untimed line")}
+							</Button>
+						</Flex>
+					)}
+					<PreviewProblemsBanner />
+				</Flex>
 				<Suspense fallback={<SuspensePlaceHolder />}>
 					{previewModeType === PreviewModeType.Standard && (
 						<AMLLWrapper variant="standard" />

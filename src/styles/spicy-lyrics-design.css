@@ -408,7 +408,7 @@
 	border: 1px solid var(--sl-border);
 	border-radius: var(--radius-4);
 	background-color: var(--sl-sunken);
-	color: var(--accent-9);
+	color: var(--accent-11);
 }
 
 :root[data-design="spicy-lyrics"] .sl-empty-title {
@@ -439,7 +439,7 @@
 	background-color: var(--sl-popover) !important;
 	color: var(--sl-foreground) !important;
 	border-color: var(--sl-border) !important;
-	border-radius: calc(14px * var(--radius-factor, 1)) !important;
+	border-radius: var(--radius-4) !important;
 	backdrop-filter: none !important;
 	-webkit-backdrop-filter: none !important;
 	box-shadow: var(--sl-shadow-float) !important;
