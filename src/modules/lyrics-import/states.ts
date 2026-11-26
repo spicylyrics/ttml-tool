@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import type { ImportSourceId } from "$/modules/lyrics-import/components/ImportSourceCards";
 import { importLyricsDialogAtom } from "$/states/dialogs.ts";
+import { startedAsNewInstall } from "$/utils/has-used-app";
 import {
 	DEFAULT_LYRIC_PREP_OPTIONS,
 	type LyricPrepOptions,
@@ -16,6 +17,39 @@ import {
 export const fetchImportedSongwritersAtom = atomWithStorage(
 	"importLyrics.fetchSongwriters",
 	false,
+	undefined,
+	{ getOnInit: true },
+);
+
+const AUTO_PROCESS_KEY = "importLyrics.autoProcess";
+
+/**
+ * On for new installs, off for people who already used the app, so their
+ * import keeps working the way they know. Decided once, on the first start
+ * with this setting.
+ */
+export function initialAutoProcess(
+	storage: Pick<Storage, "getItem" | "setItem">,
+	isNewInstall = startedAsNewInstall,
+): boolean {
+	const stored = storage.getItem(AUTO_PROCESS_KEY);
+	if (stored !== null) return stored === "true";
+	storage.setItem(AUTO_PROCESS_KEY, JSON.stringify(isNewInstall));
+	return isNewInstall;
+}
+
+let autoProcessDefault = true;
+try {
+	if (typeof localStorage !== "undefined")
+		autoProcessDefault = initialAutoProcess(localStorage);
+} catch {
+	// Storage can be blocked; new-user behavior applies.
+}
+
+/** Runs Process lyrics on lyrics pasted or fetched into the import box. */
+export const autoProcessImportAtom = atomWithStorage(
+	AUTO_PROCESS_KEY,
+	autoProcessDefault,
 	undefined,
 	{ getOnInit: true },
 );

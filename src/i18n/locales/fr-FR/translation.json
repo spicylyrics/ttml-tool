@@ -168,6 +168,9 @@
     "splitDone": "Syllabes marquées. Vérifiez-les avant d'importer.",
     "splitNothing": "Rien à découper.",
     "processNothing": "Rien à modifier.",
+    "autoProcess": "Traiter les paroles quand vous les collez ou les choisissez",
+    "autoProcessed": "Paroles traitées.",
+    "undoProcess": "Annuler",
     "restoreOriginal": "Restaurer le texte d'origine",
     "sectionsTitle": "En-têtes de section",
     "sectionsFound": "{count, plural, one {# en-tête trouvé} many {# en-têtes trouvés} other {# en-têtes trouvés}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Segmentation avancée...",
       "learnedSplits": "Découpages appris…",
       "syncLineTimestamps": "Ajuster les lignes à leurs mots",
-      "ttmlChecklist": "Liste de contrôle TTML",
+      "ttmlChecklist": "Chansons à synchroniser",
       "tool": "Outils",
       "importLyric": {
         "import": "Importer des paroles..."
@@ -1112,6 +1115,10 @@
       "urbanDictionarySync": "Synchronisation – Rechercher dans Urban Dictionary",
       "moveFirstWordAndPlay": "Synchronisation - Aller au premier mot et lire",
       "moveLastWordAndPlay": "Synchronisation - Aller au dernier mot et lire",
+      "nudgeEarlier": "Synchronisation - Décaler le début plus tôt",
+      "nudgeLater": "Synchronisation - Décaler le début plus tard",
+      "nudgeEndEarlier": "Synchronisation - Décaler la fin plus tôt",
+      "nudgeEndLater": "Synchronisation - Décaler la fin plus tard",
       "playPause": "Lecture - Lecture/Pause",
       "seekForward": "Lecture - Avancer",
       "seekBackward": "Lecture - Reculer",
@@ -1197,6 +1204,9 @@
     "seekStep": "Saut de",
     "seekStepDesc": "Distance de chaque appui. Maintenez la touche pour continuer.",
     "seekStepUnit": "s",
+    "nudgeStep": "Décaler de",
+    "nudgeStepDesc": "De combien chaque appui décale le début ou la fin du mot sélectionné, ou les lignes sélectionnées en mode Édition. Maj décale 10 fois plus, Alt de 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Aussi sur cette touche",
     "closePanel": "Fermer"
   },
@@ -1751,7 +1761,7 @@
     }
   },
   "ttmlChecklist": {
-    "title": "Liste de contrôle TTML",
+    "title": "Chansons à synchroniser",
     "description": "Gardez une trace des chansons et des idées que vous souhaitez synchroniser plus tard.",
     "songPlaceholder": "Titre de la chanson *",
     "artistPlaceholder": "Artiste (facultatif)",

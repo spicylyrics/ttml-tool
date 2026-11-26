@@ -183,7 +183,9 @@ const PaletteSearch = ({
 					kind: "command",
 					icon: COMMAND_CATEGORY_ICONS[command.category],
 					label: t(command.description),
-					keywords: command.category,
+					keywords: [command.category, action?.keywords]
+						.filter(Boolean)
+						.join(" "),
 					command,
 					disabled: action?.enabledAtom
 						? !store.get(action.enabledAtom)

@@ -9,6 +9,8 @@
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
+// First, before any settings module writes to storage: notes whether this is a new install.
+import "./utils/has-used-app.ts";
 import * as AMLLLyric from "@applemusic-like-lyrics/lyric";
 import * as Sentry from "@sentry/react";
 import { enableMapSet } from "immer";

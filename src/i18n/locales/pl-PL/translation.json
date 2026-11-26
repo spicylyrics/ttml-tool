@@ -168,6 +168,9 @@
     "splitDone": "Sylaby oznaczone. Sprawdź je przed importem.",
     "splitNothing": "Nie ma czego dzielić.",
     "processNothing": "Nie ma nic do zmiany.",
+    "autoProcess": "Przetwarzaj tekst po wklejeniu lub wybraniu",
+    "autoProcessed": "Tekst przetworzony.",
+    "undoProcess": "Cofnij",
     "restoreOriginal": "Przywróć oryginalny tekst",
     "sectionsTitle": "Nagłówki sekcji",
     "sectionsFound": "{count, plural, one {Znaleziono # nagłówek} few {Znaleziono # nagłówki} many {Znaleziono # nagłówków} other {Znaleziono # nagłówka}}",
@@ -996,7 +999,7 @@
       "advancedSegment": "Zaawansowany podział…",
       "learnedSplits": "Zapamiętane podziały…",
       "syncLineTimestamps": "Dopasuj wersy do ich słów",
-      "ttmlChecklist": "Lista planowanych TTML",
+      "ttmlChecklist": "Utwory do synchronizacji",
       "tool": "Narzędzia",
       "importLyric": {
         "import": "Importuj tekst..."
@@ -1112,6 +1115,10 @@
       "urbanDictionarySync": "Synchronizacja – wyszukaj w Urban Dictionary",
       "moveFirstWordAndPlay": "Synchronizacja – przejdź do pierwszego słowa i odtwórz",
       "moveLastWordAndPlay": "Synchronizacja – przejdź do ostatniego słowa i odtwórz",
+      "nudgeEarlier": "Synchronizacja – przesuń początek wcześniej",
+      "nudgeLater": "Synchronizacja – przesuń początek później",
+      "nudgeEndEarlier": "Synchronizacja – przesuń koniec wcześniej",
+      "nudgeEndLater": "Synchronizacja – przesuń koniec później",
       "playPause": "Odtwarzanie – odtwórz/wstrzymaj",
       "seekForward": "Odtwarzanie – przewiń do przodu",
       "seekBackward": "Odtwarzanie – przewiń do tyłu",
@@ -1197,6 +1204,9 @@
     "seekStep": "Przewijaj o",
     "seekStepDesc": "Jak daleko przeskakuje jedno naciśnięcie. Przytrzymaj klawisz, aby przewijać dalej.",
     "seekStepUnit": "s",
+    "nudgeStep": "Przesuń o",
+    "nudgeStepDesc": "O ile każde naciśnięcie przesuwa początek lub koniec zaznaczonego słowa, a w trybie edycji zaznaczone wiersze. Shift przesuwa 10 razy dalej, Alt o 1 ms.",
+    "nudgeStepUnit": "ms",
     "otherLayers": "Również na tym klawiszu",
     "closePanel": "Zamknij"
   },
@@ -1751,7 +1761,7 @@
     }
   },
   "ttmlChecklist": {
-    "title": "Lista planowanych TTML",
+    "title": "Utwory do synchronizacji",
     "description": "Śledź utwory i pomysły, które chcesz zsynchronizować później.",
     "songPlaceholder": "Tytuł utworu *",
     "artistPlaceholder": "Wykonawca (opcjonalnie)",

@@ -1,6 +1,10 @@
 // Syncing settings
 
 import { atomWithStorage } from "jotai/utils";
+import {
+	clampNudgeStep,
+	DEFAULT_NUDGE_STEP_MS,
+} from "$/modules/lyric-editor/utils/nudge-timing";
 import { atomWithMigratedStorage } from "./migrated-storage";
 
 export const showTouchSyncPanelAtom = atomWithStorage("touchSyncPanel", false);
@@ -62,4 +66,10 @@ export const editTabPositionAtom = atomWithMigratedStorage<boolean>(
 	"editTabPosition",
 	true,
 	{ legacyKey: "syncTabPosition" },
+);
+/** Milliseconds the nudge shortcuts move a word's start or a line. */
+export const nudgeStepAtom = atomWithMigratedStorage<number>(
+	"nudgeStep",
+	DEFAULT_NUDGE_STEP_MS,
+	{ normalize: clampNudgeStep },
 );

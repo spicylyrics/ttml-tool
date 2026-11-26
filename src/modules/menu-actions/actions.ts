@@ -73,6 +73,8 @@ export interface MenuAction {
 	label: (t: Translate) => string;
 	/** Left out of the palette because a Preferences page already covers it. */
 	paletteHidden?: boolean;
+	/** English words that still find it in the palette, such as a name it used to have. */
+	keywords?: string;
 	enabledAtom?: Atom<boolean>;
 	visibleAtom?: Atom<boolean>;
 	/** Set for toggles: the menu shows a checkbox and the palette a check mark. */
@@ -441,8 +443,11 @@ export const MENU_ACTIONS = {
 	ttmlChecklist: defineAction(
 		"ttmlChecklist",
 		"Tools",
-		[key("topBar.menu.ttmlChecklist"), "TTML checklist"],
-		{ run: ({ menu }) => menu.onOpenTTMLChecklist() },
+		[key("topBar.menu.ttmlChecklist"), "Songs to sync"],
+		{
+			keywords: "TTML checklist to-do list",
+			run: ({ menu }) => menu.onOpenTTMLChecklist(),
+		},
 	),
 	// The metadata editor's songwriter finder. The id predates the MusicBrainz
 	// source and stays, so saved shortcuts keep working.
