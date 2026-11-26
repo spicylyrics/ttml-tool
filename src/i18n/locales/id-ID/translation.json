@@ -558,7 +558,11 @@
       "playbackTracking": "Pelacakan",
       "autoScroll": "Gulir otomatis",
       "highlightActiveLine": "Sorot baris",
-      "spectrogramHoverSync": "Sinkronkan di posisi mouse"
+      "spectrogramHoverSync": "Sinkronkan di posisi mouse",
+      "syncKeys": "Tombol sinkronisasi",
+      "keyStart": "Mulai kata",
+      "keyNext": "Akhiri kata, mulai berikutnya",
+      "keyEnd": "Akhiri kata"
     },
     "loading": "Memuat panel...",
     "advanced": "Lanjutan"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Sinkronkan di posisi mouse",
       "changelog": "Log perubahan & pembaruan",
-      "projects": "Proyek"
+      "projects": "Proyek",
+      "keyboardShortcuts": "Pintasan keyboard"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Sinkronisasi - Pindah ke kata sebelumnya dan putar",
       "moveNextWordAndPlay": "Sinkronisasi - Pindah ke kata berikutnya dan putar",
       "syncStart": "Sinkronisasi - Mulai",
-      "syncNext": "Sinkronisasi - Berikutnya",
+      "syncNext": "Sinkronisasi - Akhiri kata dan mulai berikutnya",
       "syncEnd": "Sinkronisasi - Akhiri",
       "toggleWordHighlight": "Sinkronisasi - Alihkan sorotan kata aktif",
       "urbanDictionary": "Edit - Cari di Urban Dictionary",

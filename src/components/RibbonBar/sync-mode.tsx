@@ -14,12 +14,18 @@ import {
  * https://github.com/spicylyrics/ttml-tool/blob/main/LICENSE
  */
 
-import { Flex, Grid } from "@radix-ui/themes";
+import { Flex, Grid, Kbd } from "@radix-ui/themes";
 import { useAtomValue } from "jotai";
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ActionTooltip } from "$/components/ActionTooltip";
-import { cmdToggleWordHighlight } from "$/modules/keyboard/commands";
+import {
+	cmdSyncEnd,
+	cmdSyncNext,
+	cmdSyncStart,
+	cmdToggleWordHighlight,
+} from "$/modules/keyboard/commands";
+import type { KeyBindingCommand } from "$/modules/keyboard/types";
 import { MENU_ACTIONS } from "$/modules/menu-actions/actions";
 import { RIBBON_ACTIONS } from "$/modules/menu-actions/ribbon-actions";
 import { advancedRibbonControlsAtom } from "$/modules/onboarding/states";
@@ -29,9 +35,29 @@ import {
 } from "$/modules/settings/states/index.ts";
 import { spectrogramHoverSyncEnabledAtom } from "$/modules/settings/states/sync.ts";
 import { showPreviewPanelAtom } from "$/states/main.ts";
+import { formatKeyBindings } from "$/utils/keybindings";
 import { AdvancedSection } from "./AdvancedSection";
 import { RibbonFrame, RibbonSection } from "./common";
 import { RibbonActionToggle, RibbonLabel, RibbonToggle } from "./RibbonToggle";
+
+/** A timing key and what it does, live, so a rebind shows up here too. */
+const SyncKeyRow = ({
+	command,
+	label,
+}: {
+	command: KeyBindingCommand;
+	label: string;
+}) => {
+	const keys = useAtomValue(command.atom);
+	return (
+		<>
+			<Kbd size="1" style={{ justifySelf: "start" }}>
+				{keys.length > 0 ? formatKeyBindings(keys) : "..."}
+			</Kbd>
+			<RibbonLabel label={label} />
+		</>
+	);
+};
 
 export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 	const showWordRomanizationInput = useAtomValue(showWordRomanizationInputAtom);
@@ -45,6 +71,28 @@ export const SyncModeRibbonBar = forwardRef<HTMLDivElement>((_props, ref) => {
 
 	return (
 		<RibbonFrame ref={ref}>
+			<RibbonSection label={t("ribbonBar.syncMode.syncKeys", "Sync keys")}>
+				<Grid
+					columns="max-content auto"
+					gap="2"
+					gapY="1"
+					flexGrow="1"
+					align="center"
+				>
+					<SyncKeyRow
+						command={cmdSyncStart}
+						label={t("ribbonBar.syncMode.keyStart", "Start word")}
+					/>
+					<SyncKeyRow
+						command={cmdSyncNext}
+						label={t("ribbonBar.syncMode.keyNext", "End word, start next")}
+					/>
+					<SyncKeyRow
+						command={cmdSyncEnd}
+						label={t("ribbonBar.syncMode.keyEnd", "End word")}
+					/>
+				</Grid>
+			</RibbonSection>
 			<RibbonSection label={t("ribbonBar.syncMode.syncAdjustment", "Offsets")}>
 				<Grid
 					columns="max-content auto"

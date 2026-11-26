@@ -558,7 +558,11 @@
       "playbackTracking": "追踪",
       "autoScroll": "自动滚动",
       "highlightActiveLine": "高亮歌词行",
-      "spectrogramHoverSync": "按鼠标位置打轴"
+      "spectrogramHoverSync": "按鼠标位置打轴",
+      "syncKeys": "打轴按键",
+      "keyStart": "开始词",
+      "keyNext": "结束词并开始下一个",
+      "keyEnd": "结束词"
     },
     "loading": "面板载入中...",
     "advanced": "高级"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "按鼠标位置打轴",
       "changelog": "更新日志与更新",
-      "projects": "项目"
+      "projects": "项目",
+      "keyboardShortcuts": "键盘快捷键"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "打轴 - 移至上一个字并播放",
       "moveNextWordAndPlay": "打轴 - 移至下一个字并播放",
       "syncStart": "打轴 - 开始",
-      "syncNext": "打轴 - 下一个",
+      "syncNext": "打轴 - 结束当前词并开始下一个",
       "syncEnd": "打轴 - 结束",
       "toggleWordHighlight": "打轴 - 切换当前字高亮",
       "urbanDictionary": "编辑 - 在 Urban Dictionary 中查找",

@@ -558,7 +558,11 @@
       "playbackTracking": "Seuranta",
       "autoScroll": "Automaattinen vieritys",
       "highlightActiveLine": "Korosta rivi",
-      "spectrogramHoverSync": "Ajoita hiiren kohdalla"
+      "spectrogramHoverSync": "Ajoita hiiren kohdalla",
+      "syncKeys": "Ajoitusnäppäimet",
+      "keyStart": "Aloita sana",
+      "keyNext": "Lopeta sana, aloita seuraava",
+      "keyEnd": "Lopeta sana"
     },
     "loading": "Ladataan paneelia...",
     "advanced": "Lisäasetukset"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Ajoita hiiren kohdalla",
       "changelog": "Muutosloki ja päivitykset",
-      "projects": "Projektit"
+      "projects": "Projektit",
+      "keyboardShortcuts": "Pikanäppäimet"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Ajoitus - Siirry edelliseen sanaan ja toista",
       "moveNextWordAndPlay": "Ajoitus - Siirry seuraavaan sanaan ja toista",
       "syncStart": "Ajoitus - Aloita",
-      "syncNext": "Ajoitus - Seuraava",
+      "syncNext": "Ajoitus - Lopeta sana ja aloita seuraava",
       "syncEnd": "Ajoitus - Lopeta",
       "toggleWordHighlight": "Ajoitus - Vaihda aktiivisen sanan korostusta",
       "urbanDictionary": "Muokkaus - Hae Urban Dictionarysta",

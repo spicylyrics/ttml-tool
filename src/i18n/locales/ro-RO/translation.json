@@ -558,7 +558,11 @@
       "playbackTracking": "Urmărire",
       "autoScroll": "Defilare automată",
       "highlightActiveLine": "Evidențiază versul",
-      "spectrogramHoverSync": "Sincronizează la poziția mouse-ului"
+      "spectrogramHoverSync": "Sincronizează la poziția mouse-ului",
+      "syncKeys": "Taste de sincronizare",
+      "keyStart": "Începe cuvântul",
+      "keyNext": "Încheie cuvântul, începe următorul",
+      "keyEnd": "Încheie cuvântul"
     },
     "loading": "Se încarcă panoul...",
     "advanced": "Avansat"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Sincronizează la poziția mouse-ului",
       "changelog": "Jurnal de modificări și actualizări",
-      "projects": "Proiecte"
+      "projects": "Proiecte",
+      "keyboardShortcuts": "Comenzi rapide de la tastatură"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Sincronizare - Treci la cuvântul anterior și redă",
       "moveNextWordAndPlay": "Sincronizare - Treci la cuvântul următor și redă",
       "syncStart": "Sincronizare - Începe",
-      "syncNext": "Sincronizare - Următorul",
+      "syncNext": "Sincronizare - Încheie cuvântul și începe următorul",
       "syncEnd": "Sincronizare - Încheie",
       "toggleWordHighlight": "Sincronizare - Comută evidențierea cuvântului activ",
       "urbanDictionary": "Editare - Caută în Urban Dictionary",

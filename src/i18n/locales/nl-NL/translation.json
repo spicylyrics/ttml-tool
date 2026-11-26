@@ -558,7 +558,11 @@
       "playbackTracking": "Volgen",
       "autoScroll": "Automatisch scrollen",
       "highlightActiveLine": "Regel markeren",
-      "spectrogramHoverSync": "Synchroniseren op muispositie"
+      "spectrogramHoverSync": "Synchroniseren op muispositie",
+      "syncKeys": "Timingtoetsen",
+      "keyStart": "Woord starten",
+      "keyNext": "Woord beëindigen, volgende starten",
+      "keyEnd": "Woord beëindigen"
     },
     "loading": "Paneel laden…",
     "advanced": "Geavanceerd"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Synchroniseren op muispositie",
       "changelog": "Wijzigingslogboek en updates",
-      "projects": "Projecten"
+      "projects": "Projecten",
+      "keyboardShortcuts": "Sneltoetsen"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Timing - Naar vorig woord en afspelen",
       "moveNextWordAndPlay": "Timing - Naar volgend woord en afspelen",
       "syncStart": "Timing - Start",
-      "syncNext": "Timing - Volgende",
+      "syncNext": "Timing - Woord beëindigen en volgende starten",
       "syncEnd": "Timing - Einde",
       "toggleWordHighlight": "Timing - Markering actief woord aan/uit",
       "urbanDictionary": "Bewerken - Opzoeken in Urban Dictionary",

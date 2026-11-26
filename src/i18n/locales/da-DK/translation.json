@@ -558,7 +558,11 @@
       "playbackTracking": "Sporing",
       "autoScroll": "Automatisk rulning",
       "highlightActiveLine": "Fremhæv linje",
-      "spectrogramHoverSync": "Synkronisér ved musens position"
+      "spectrogramHoverSync": "Synkronisér ved musens position",
+      "syncKeys": "Timingtaster",
+      "keyStart": "Start ord",
+      "keyNext": "Afslut ord, start næste",
+      "keyEnd": "Afslut ord"
     },
     "loading": "Indlæser panel...",
     "advanced": "Avanceret"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Synkronisér ved musens position",
       "changelog": "Ændringslog og opdateringer",
-      "projects": "Projekter"
+      "projects": "Projekter",
+      "keyboardShortcuts": "Tastaturgenveje"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Timing - Flyt til forrige ord og afspil",
       "moveNextWordAndPlay": "Timing - Flyt til næste ord og afspil",
       "syncStart": "Timing - Start",
-      "syncNext": "Timing - Næste",
+      "syncNext": "Timing - Afslut ord og start det næste",
       "syncEnd": "Timing - Slut",
       "toggleWordHighlight": "Timing - Slå fremhævning af aktivt ord til/fra",
       "urbanDictionary": "Rediger - Slå op i Urban Dictionary",

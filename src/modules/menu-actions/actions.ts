@@ -489,6 +489,17 @@ export const MENU_ACTIONS = {
 		[key("topBar.menu.suggestSomething"), "Suggest something..."],
 		{ run: ({ store }) => store.set(reportDialogAtom, "suggestion") },
 	),
+	keyboardShortcuts: defineAction(
+		"openKeyboardShortcuts",
+		"Help",
+		[key("topBar.menu.keyboardShortcuts"), "Keyboard shortcuts"],
+		{
+			run: ({ store }) => {
+				store.set(settingsTabAtom, "keybinding");
+				store.set(settingsDialogAtom, true);
+			},
+		},
+	),
 	changelog: defineAction(
 		"openChangelog",
 		"Help",

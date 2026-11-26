@@ -558,7 +558,11 @@
       "playbackTracking": "Acompanhamento",
       "autoScroll": "Rolagem automática",
       "highlightActiveLine": "Destacar linha",
-      "spectrogramHoverSync": "Sincronizar na posição do mouse"
+      "spectrogramHoverSync": "Sincronizar na posição do mouse",
+      "syncKeys": "Teclas de sincronização",
+      "keyStart": "Iniciar palavra",
+      "keyNext": "Encerrar palavra, iniciar a próxima",
+      "keyEnd": "Encerrar palavra"
     },
     "loading": "Carregando painel...",
     "advanced": "Avançado"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Sincronizar na posição do mouse",
       "changelog": "Registro de alterações e atualizações",
-      "projects": "Projetos"
+      "projects": "Projetos",
+      "keyboardShortcuts": "Atalhos de teclado"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Sincronização - Ir à palavra anterior e reproduzir",
       "moveNextWordAndPlay": "Sincronização - Ir à próxima palavra e reproduzir",
       "syncStart": "Sincronização - Iniciar",
-      "syncNext": "Sincronização - Próxima",
+      "syncNext": "Sincronização - Encerrar palavra e iniciar a próxima",
       "syncEnd": "Sincronização - Encerrar",
       "toggleWordHighlight": "Sincronização - Alternar destaque da palavra ativa",
       "urbanDictionary": "Edição - Buscar no Urban Dictionary",

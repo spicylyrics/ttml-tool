@@ -558,7 +558,11 @@
       "playbackTracking": "Tracking",
       "autoScroll": "Auto-scroll",
       "highlightActiveLine": "Highlight line",
-      "spectrogramHoverSync": "Sync at mouse position"
+      "spectrogramHoverSync": "Sync at mouse position",
+      "syncKeys": "Sync keys",
+      "keyStart": "Start word",
+      "keyNext": "End word, start next",
+      "keyEnd": "End word"
     },
     "loading": "Loading panel…",
     "advanced": "Advanced"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Sync at mouse position",
       "changelog": "Changelog & updates",
-      "projects": "Projects"
+      "projects": "Projects",
+      "keyboardShortcuts": "Keyboard shortcuts"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Timing - Move to previous word and play",
       "moveNextWordAndPlay": "Timing - Move to next word and play",
       "syncStart": "Timing - Start",
-      "syncNext": "Timing - Next",
+      "syncNext": "Timing - End word and start the next",
       "syncEnd": "Timing - End",
       "toggleWordHighlight": "Timing - Toggle active word highlight",
       "urbanDictionary": "Edit - Look up in Urban Dictionary",

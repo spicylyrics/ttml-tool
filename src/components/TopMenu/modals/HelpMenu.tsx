@@ -23,6 +23,7 @@ const HelpMenuItems = () => {
 	return (
 		<>
 			<CommandPaletteMenuItem />
+			{item(MENU_ACTIONS.keyboardShortcuts)}
 			{item(MENU_ACTIONS.startGuide)}
 			{item(MENU_ACTIONS.github)}
 			{item(MENU_ACTIONS.guides)}

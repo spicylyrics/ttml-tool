@@ -558,7 +558,11 @@
       "playbackTracking": "Sledovanie",
       "autoScroll": "Automatické posúvanie",
       "highlightActiveLine": "Zvýrazniť riadok",
-      "spectrogramHoverSync": "Synchronizovať na pozícii myši"
+      "spectrogramHoverSync": "Synchronizovať na pozícii myši",
+      "syncKeys": "Klávesy časovania",
+      "keyStart": "Začiatok slova",
+      "keyNext": "Koniec slova, začať ďalšie",
+      "keyEnd": "Koniec slova"
     },
     "loading": "Načítavanie panelu…",
     "advanced": "Pokročilé"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Synchronizovať na pozícii myši",
       "changelog": "Zoznam zmien a aktualizácie",
-      "projects": "Projekty"
+      "projects": "Projekty",
+      "keyboardShortcuts": "Klávesové skratky"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Časovanie – prejsť na predchádzajúce slovo a prehrať",
       "moveNextWordAndPlay": "Časovanie – prejsť na ďalšie slovo a prehrať",
       "syncStart": "Časovanie – Začiatok",
-      "syncNext": "Časovanie – Ďalšie",
+      "syncNext": "Časovanie – Ukončiť slovo a začať ďalšie",
       "syncEnd": "Časovanie – Koniec",
       "toggleWordHighlight": "Časovanie – prepnúť zvýraznenie aktívneho slova",
       "urbanDictionary": "Úpravy – vyhľadať v Urban Dictionary",

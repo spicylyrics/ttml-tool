@@ -558,7 +558,11 @@
       "playbackTracking": "Takip",
       "autoScroll": "Otomatik kaydırma",
       "highlightActiveLine": "Satırı vurgula",
-      "spectrogramHoverSync": "Fare konumunda senkronize et"
+      "spectrogramHoverSync": "Fare konumunda senkronize et",
+      "syncKeys": "Zamanlama tuşları",
+      "keyStart": "Kelimeyi başlat",
+      "keyNext": "Kelimeyi bitir, sonrakini başlat",
+      "keyEnd": "Kelimeyi bitir"
     },
     "loading": "Panel yükleniyor...",
     "advanced": "Gelişmiş"
@@ -1016,7 +1020,8 @@
       },
       "spectrogramHoverSync": "Fare konumunda senkronize et",
       "changelog": "Değişiklik günlüğü ve güncellemeler",
-      "projects": "Projeler"
+      "projects": "Projeler",
+      "keyboardShortcuts": "Klavye kısayolları"
     }
   },
   "header": {
@@ -1108,7 +1113,7 @@
       "movePrevWordAndPlay": "Zamanlama - Önceki kelimeye geç ve oynat",
       "moveNextWordAndPlay": "Zamanlama - Sonraki kelimeye geç ve oynat",
       "syncStart": "Zamanlama - Başlat",
-      "syncNext": "Zamanlama - Sonraki",
+      "syncNext": "Zamanlama - Kelimeyi bitir ve sonrakini başlat",
       "syncEnd": "Zamanlama - Bitir",
       "toggleWordHighlight": "Zamanlama - Etkin kelime vurgusunu aç/kapat",
       "urbanDictionary": "Düzenle - Urban Dictionary'de ara",
