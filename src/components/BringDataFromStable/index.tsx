@@ -90,7 +90,9 @@ export const BringDataFromStableOffer = () => {
 				),
 				{
 					toastId: "bring-data-from-stable",
-					autoClose: false,
+					// Not all session: Preferences › Backup keeps the same offer.
+					autoClose: 20000,
+					pauseOnHover: true,
 					closeOnClick: false,
 					onClose: () => localStorage.setItem(OFFER_DISMISSED_KEY, "true"),
 				},
