@@ -103,6 +103,9 @@ export function useLineListAutoScroll({
 				if (!store.get(audioPlayingAtom)) return;
 				if (store.get(selectedLinesAtom).size > 0) return;
 				if (isPointerDownRef.current) return;
+				// Still aiming; the playback tick follows again once it stops.
+				if (Date.now() - pointerMovedAtRef.current < POINTER_AIM_HOLD_MS)
+					return;
 
 				const currentTime = store.get(currentTimeAtom);
 				const lines = store.get(lyricLinesAtom).lyricLines;
@@ -233,9 +236,16 @@ export function useLineListAutoScroll({
 			}
 		};
 
+		// WebKit fires moves at the same spot when content scrolls under a
+		// resting mouse; only a real change of position counts as aiming.
+		let lastX = Number.NaN;
+		let lastY = Number.NaN;
 		const onPointerMove = (evt: PointerEvent) => {
-			if (evt.pointerType === "mouse" || evt.pointerType === "pen")
-				pointerMovedAtRef.current = Date.now();
+			if (evt.pointerType !== "mouse" && evt.pointerType !== "pen") return;
+			if (evt.clientX === lastX && evt.clientY === lastY) return;
+			lastX = evt.clientX;
+			lastY = evt.clientY;
+			pointerMovedAtRef.current = Date.now();
 		};
 
 		const onWheel = () => {

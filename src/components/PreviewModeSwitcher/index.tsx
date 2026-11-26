@@ -33,17 +33,23 @@ export const PreviewModeSwitcher = () => {
 				direction="column"
 				style={{ minHeight: 0, position: "relative" }}
 			>
-				{/* Over the preview, not above it, so it doesn't jump as banners
-				    come and go while lines get timed. */}
+				{/* Over the Spicy preview, whose top is empty space, so it doesn't
+				    jump as banners come and go while lines get timed. The list
+				    previews start at the top, so there they stay in flow. */}
 				<Flex
 					direction="column"
-					style={{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						right: 0,
-						zIndex: 1,
-					}}
+					flexShrink="0"
+					style={
+						previewModeType === PreviewModeType.Spicy
+							? {
+									position: "absolute",
+									top: 0,
+									left: 0,
+									right: 0,
+									zIndex: 1,
+								}
+							: undefined
+					}
 				>
 					{untimedLines.length > 0 && (
 						<Flex
