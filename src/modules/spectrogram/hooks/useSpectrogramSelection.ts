@@ -71,7 +71,7 @@ export function useSpectrogramSelection(scrollLeft: number, zoom: number) {
 		selectionStyle = {
 			left: `${startPx}px`,
 			width: `${width}px`,
-			backgroundColor: "rgba(50, 150, 255, 0.3)",
+			backgroundColor: "var(--accent-a5)",
 			position: "absolute",
 			top: 0,
 			height: "100%",
@@ -85,7 +85,7 @@ export function useSpectrogramSelection(scrollLeft: number, zoom: number) {
 		selectionStyle = {
 			left: `${startPx}px`,
 			width: `${width}px`,
-			backgroundColor: "rgba(50, 150, 255, 0.4)",
+			backgroundColor: "var(--accent-a6)",
 			position: "absolute",
 			top: 0,
 			height: "100%",

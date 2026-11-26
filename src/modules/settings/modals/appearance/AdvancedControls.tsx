@@ -76,7 +76,7 @@ export const AdvancedSliderItem = ({
 			<Flex align="center" gap="2">
 				<Box
 					style={{
-						color: "var(--accent-9)",
+						color: "var(--accent-11)",
 						display: "flex",
 						alignItems: "center",
 					}}

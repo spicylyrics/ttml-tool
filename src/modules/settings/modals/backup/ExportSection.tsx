@@ -72,7 +72,7 @@ export const ExportSection = ({
 								/>
 								<Box
 									style={{
-										color: "var(--accent-9)",
+										color: "var(--accent-11)",
 										display: "flex",
 										alignItems: "center",
 									}}

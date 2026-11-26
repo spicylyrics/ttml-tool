@@ -408,7 +408,7 @@
 	border: 1px solid var(--sl-border);
 	border-radius: var(--radius-4);
 	background-color: var(--sl-sunken);
-	color: var(--accent-9);
+	color: var(--accent-11);
 }
 
 :root[data-design="spicy-lyrics"] .sl-empty-title {

@@ -2,6 +2,7 @@ import { History24Regular } from "@fluentui/react-icons";
 import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import { useSetAtom } from "jotai";
 import { DEFAULT_CUSTOM_LOGO_COLOR } from "$/modules/logo-color/presets";
+import { DEFAULT_CUSTOM_ACCENT } from "$/modules/settings/states";
 import { confirmDialogAtom } from "$/states/dialogs";
 import {
 	type AdvancedOverrideSetters,
@@ -37,7 +38,7 @@ export const ResetThemeSection = (props: ResetThemeProps) => {
 	const resetTheme = () => {
 		props.setAccentColor("red");
 		props.setUseCustomAccent(false);
-		props.setCustomAccentColor("#e5484d");
+		props.setCustomAccentColor(DEFAULT_CUSTOM_ACCENT);
 		props.setUseSystemAccent(false);
 		props.setBackgroundMode("none");
 		props.setSelectedGradient("sunset");

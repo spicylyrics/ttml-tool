@@ -40,7 +40,7 @@
 :global(:root[data-design="spicy-lyrics"]) .icon {
 	border-color: var(--sl-border);
 	background-color: var(--sl-sunken);
-	color: var(--accent-9);
+	color: var(--accent-11);
 }
 
 .title {

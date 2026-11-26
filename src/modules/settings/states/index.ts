@@ -1,5 +1,5 @@
 import { atom, type ExtractAtomValue } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import { type EffectsMode, usesLiteEffects } from "../logic/effects-mode";
 import { clampGlassBlur } from "../logic/glass-blur";
 import { atomWithMigratedStorage } from "./migrated-storage";
@@ -158,9 +158,45 @@ export const useCustomAccentAtom = atomWithStorage<boolean>(
 	false,
 );
 
+/** Lavender, so a fresh custom accent doesn't read as an error. */
+export const DEFAULT_CUSTOM_ACCENT = "#b19eef";
+/** The old default, kept for people who turned the custom accent on without picking a color. */
+const LEGACY_CUSTOM_ACCENT = "#e5484d";
+
+/** Picks the stored custom accent, or the old red for someone who enabled it without picking one. */
+export function resolveStoredCustomAccent(
+	storage: Pick<Storage, "getItem">,
+): string {
+	const raw = storage.getItem("customAccentColor");
+	if (raw === null) {
+		return storage.getItem("useCustomAccent") === "true"
+			? LEGACY_CUSTOM_ACCENT
+			: DEFAULT_CUSTOM_ACCENT;
+	}
+	try {
+		const parsed: unknown = JSON.parse(raw);
+		if (typeof parsed === "string") return parsed;
+	} catch {
+		// Fall through to the default.
+	}
+	return DEFAULT_CUSTOM_ACCENT;
+}
+
 export const customAccentColorAtom = atomWithStorage<string>(
 	"customAccentColor",
-	"#e5484d",
+	DEFAULT_CUSTOM_ACCENT,
+	{
+		...createJSONStorage<string>(),
+		getItem: () => {
+			try {
+				return resolveStoredCustomAccent(window.localStorage);
+			} catch {
+				// Storage can be unavailable in private browsing.
+				return DEFAULT_CUSTOM_ACCENT;
+			}
+		},
+	},
+	{ getOnInit: true },
 );
 
 export const useCustomGradientAtom = atomWithStorage<boolean>(

@@ -113,7 +113,7 @@
 .wordPillActive {
 	background-color: var(--accent-9);
 	border-color: var(--accent-10);
-	color: white;
+	color: var(--accent-contrast);
 }
 
 .wordPillActive .wordTime {

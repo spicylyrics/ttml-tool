@@ -123,23 +123,8 @@ export function generateRadixScale(baseHex: string, isDark?: boolean) {
 		variables[`--accent-a${step}`] = hslToCss(h, s, l, alphaOpacities[i]);
 	}
 
-	// Generate Harmonious Gray Scale
-	const greyH = h;
-	const greyS = Math.max(5, Math.min(s, 50)); // Thematic saturation
-
-	variables["--gray-surface"] = hslToCss(
-		greyH,
-		greyS,
-		effectiveIsDark ? 10 : 99,
-	);
-
-	for (let i = 0; i < 12; i++) {
-		const step = i + 1;
-		const l = lightnesses[i];
-		variables[`--gray-${step}`] = hslToCss(greyH, greyS, l);
-		variables[`--gray-a${step}`] = hslToCss(greyH, greyS, l, alphaOpacities[i]);
-	}
-
+	// Only the accent scale: a custom accent must not tint the grays, or
+	// descriptions, placeholders and borders all turn the accent color.
 	return variables;
 }
 
