@@ -558,11 +558,7 @@
       "playbackTracking": "Tracking",
       "autoScroll": "Auto-scroll",
       "highlightActiveLine": "Highlight line",
-      "spectrogramHoverSync": "Sync at mouse position",
-      "syncKeys": "Sync keys",
-      "keyStart": "Start word",
-      "keyNext": "End word, start next",
-      "keyEnd": "End word"
+      "spectrogramHoverSync": "Sync at mouse position"
     },
     "loading": "Loading panel…",
     "advanced": "Advanced"

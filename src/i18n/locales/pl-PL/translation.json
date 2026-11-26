@@ -558,11 +558,7 @@
       "playbackTracking": "Śledzenie",
       "autoScroll": "Automatyczne przewijanie",
       "highlightActiveLine": "Podświetl wers",
-      "spectrogramHoverSync": "Synchronizuj w pozycji myszy",
-      "syncKeys": "Klawisze synchronizacji",
-      "keyStart": "Początek słowa",
-      "keyNext": "Koniec słowa, zacznij następne",
-      "keyEnd": "Koniec słowa"
+      "spectrogramHoverSync": "Synchronizuj w pozycji myszy"
     },
     "loading": "Ładowanie panelu...",
     "advanced": "Zaawansowane"

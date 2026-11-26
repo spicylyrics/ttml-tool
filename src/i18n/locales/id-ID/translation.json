@@ -558,11 +558,7 @@
       "playbackTracking": "Pelacakan",
       "autoScroll": "Gulir otomatis",
       "highlightActiveLine": "Sorot baris",
-      "spectrogramHoverSync": "Sinkronkan di posisi mouse",
-      "syncKeys": "Tombol sinkronisasi",
-      "keyStart": "Mulai kata",
-      "keyNext": "Akhiri kata, mulai berikutnya",
-      "keyEnd": "Akhiri kata"
+      "spectrogramHoverSync": "Sinkronkan di posisi mouse"
     },
     "loading": "Memuat panel...",
     "advanced": "Lanjutan"

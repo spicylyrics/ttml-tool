@@ -558,11 +558,7 @@
       "playbackTracking": "Takip",
       "autoScroll": "Otomatik kaydırma",
       "highlightActiveLine": "Satırı vurgula",
-      "spectrogramHoverSync": "Fare konumunda senkronize et",
-      "syncKeys": "Zamanlama tuşları",
-      "keyStart": "Kelimeyi başlat",
-      "keyNext": "Kelimeyi bitir, sonrakini başlat",
-      "keyEnd": "Kelimeyi bitir"
+      "spectrogramHoverSync": "Fare konumunda senkronize et"
     },
     "loading": "Panel yükleniyor...",
     "advanced": "Gelişmiş"

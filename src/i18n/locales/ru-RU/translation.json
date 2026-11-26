@@ -558,11 +558,7 @@
       "playbackTracking": "Отслеживание",
       "autoScroll": "Автопрокрутка",
       "highlightActiveLine": "Подсвечивать строку",
-      "spectrogramHoverSync": "Синхронизировать в позиции мыши",
-      "syncKeys": "Клавиши синхронизации",
-      "keyStart": "Начать слово",
-      "keyNext": "Закончить слово, начать следующее",
-      "keyEnd": "Закончить слово"
+      "spectrogramHoverSync": "Синхронизировать в позиции мыши"
     },
     "loading": "Загрузка панели...",
     "advanced": "Дополнительно"

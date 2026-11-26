@@ -558,11 +558,7 @@
       "playbackTracking": "Volgen",
       "autoScroll": "Automatisch scrollen",
       "highlightActiveLine": "Regel markeren",
-      "spectrogramHoverSync": "Synchroniseren op muispositie",
-      "syncKeys": "Timingtoetsen",
-      "keyStart": "Woord starten",
-      "keyNext": "Woord beëindigen, volgende starten",
-      "keyEnd": "Woord beëindigen"
+      "spectrogramHoverSync": "Synchroniseren op muispositie"
     },
     "loading": "Paneel laden…",
     "advanced": "Geavanceerd"

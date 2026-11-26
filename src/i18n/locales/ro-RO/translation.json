@@ -558,11 +558,7 @@
       "playbackTracking": "Urmărire",
       "autoScroll": "Defilare automată",
       "highlightActiveLine": "Evidențiază versul",
-      "spectrogramHoverSync": "Sincronizează la poziția mouse-ului",
-      "syncKeys": "Taste de sincronizare",
-      "keyStart": "Începe cuvântul",
-      "keyNext": "Încheie cuvântul, începe următorul",
-      "keyEnd": "Încheie cuvântul"
+      "spectrogramHoverSync": "Sincronizează la poziția mouse-ului"
     },
     "loading": "Se încarcă panoul...",
     "advanced": "Avansat"

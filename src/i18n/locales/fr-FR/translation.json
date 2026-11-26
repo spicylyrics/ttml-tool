@@ -558,11 +558,7 @@
       "playbackTracking": "Suivi",
       "autoScroll": "Défilement automatique",
       "highlightActiveLine": "Surligner la ligne",
-      "spectrogramHoverSync": "Synchroniser à la position de la souris",
-      "syncKeys": "Touches de synchro",
-      "keyStart": "Démarrer le mot",
-      "keyNext": "Terminer le mot, démarrer le suivant",
-      "keyEnd": "Terminer le mot"
+      "spectrogramHoverSync": "Synchroniser à la position de la souris"
     },
     "loading": "Chargement du panneau…",
     "advanced": "Avancé"

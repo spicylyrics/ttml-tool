@@ -558,11 +558,7 @@
       "playbackTracking": "Sledovanie",
       "autoScroll": "Automatické posúvanie",
       "highlightActiveLine": "Zvýrazniť riadok",
-      "spectrogramHoverSync": "Synchronizovať na pozícii myši",
-      "syncKeys": "Klávesy časovania",
-      "keyStart": "Začiatok slova",
-      "keyNext": "Koniec slova, začať ďalšie",
-      "keyEnd": "Koniec slova"
+      "spectrogramHoverSync": "Synchronizovať na pozícii myši"
     },
     "loading": "Načítavanie panelu…",
     "advanced": "Pokročilé"

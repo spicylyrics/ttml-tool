@@ -558,11 +558,7 @@
       "playbackTracking": "Sporing",
       "autoScroll": "Automatisk rulning",
       "highlightActiveLine": "Fremhæv linje",
-      "spectrogramHoverSync": "Synkronisér ved musens position",
-      "syncKeys": "Timingtaster",
-      "keyStart": "Start ord",
-      "keyNext": "Afslut ord, start næste",
-      "keyEnd": "Afslut ord"
+      "spectrogramHoverSync": "Synkronisér ved musens position"
     },
     "loading": "Indlæser panel...",
     "advanced": "Avanceret"

@@ -558,11 +558,7 @@
       "playbackTracking": "Seuranta",
       "autoScroll": "Automaattinen vieritys",
       "highlightActiveLine": "Korosta rivi",
-      "spectrogramHoverSync": "Ajoita hiiren kohdalla",
-      "syncKeys": "Ajoitusnäppäimet",
-      "keyStart": "Aloita sana",
-      "keyNext": "Lopeta sana, aloita seuraava",
-      "keyEnd": "Lopeta sana"
+      "spectrogramHoverSync": "Ajoita hiiren kohdalla"
     },
     "loading": "Ladataan paneelia...",
     "advanced": "Lisäasetukset"

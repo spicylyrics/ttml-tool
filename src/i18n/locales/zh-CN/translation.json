@@ -558,11 +558,7 @@
       "playbackTracking": "追踪",
       "autoScroll": "自动滚动",
       "highlightActiveLine": "高亮歌词行",
-      "spectrogramHoverSync": "按鼠标位置打轴",
-      "syncKeys": "打轴按键",
-      "keyStart": "开始词",
-      "keyNext": "结束词并开始下一个",
-      "keyEnd": "结束词"
+      "spectrogramHoverSync": "按鼠标位置打轴"
     },
     "loading": "面板载入中...",
     "advanced": "高级"

@@ -1,8 +1,8 @@
 ---
 type: feature
-impact: 3
-highlight: true
+impact: 2
+highlight: false
 ---
-Sync keys shown in Time mode
+Keyboard shortcuts in the Help menu
 
-The Time ribbon lists your start, next and end keys, and Help has a Keyboard shortcuts item
+Help opens the shortcut list directly, and the Next key's name now says it ends the word and starts the next one
