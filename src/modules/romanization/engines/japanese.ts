@@ -163,18 +163,59 @@ function tokenize(tk: Tokenizer<IpadicFeatures>, text: string): Token[] {
 const INFLECTING = new Set(["動詞", "形容詞", "助動詞"]);
 
 /**
+ * Conjunctive particles that link two clauses are words of their own (itai
+ * kara, iku kedo, ame na node); the ones that make a verb form (te, de, ba,
+ * nagara) stay on the verb.
+ */
+const LINKS_CLAUSES = new Set([
+	"から",
+	"けど",
+	"けれど",
+	"けれども",
+	"が",
+	"のに",
+	"ので",
+	"し",
+	"と",
+	"ものの",
+]);
+
+/** A piece of a Latin word: letters, digits or an apostrophe. */
+const LATIN_WORD = /^[\p{Script=Latin}\p{N}'’]+$/u;
+
+/**
  * Endings that stay on the word before, the way Genius writes them: verb and
  * adjective endings (yonde, ita, ikou), て/で, and suffixes (tomodachisan).
  * A copula after a noun stays its own word (suki da).
  */
 const attaches = (token: Token, previous: Token | undefined) =>
 	(token.pos === "助動詞" && !!previous && INFLECTING.has(previous.pos)) ||
-	(token.pos === "助詞" && token.posDetail === "接続助詞") ||
+	(token.pos === "助詞" &&
+		token.posDetail === "接続助詞" &&
+		!LINKS_CLAUSES.has(token.surface)) ||
 	token.posDetail === "接尾" ||
+	// Latin letters and marks written together are one word (I'm, don't); the
+	// dictionary splits them at the apostrophe.
+	(!!previous &&
+		LATIN_WORD.test(previous.surface) &&
+		LATIN_WORD.test(token.surface)) ||
+	// A one-kanji noun the dictionary split off the noun after it is part of it
+	// (完|全体 → kanzentai).
+	(!!previous &&
+		previous.pos === "名詞" &&
+		previous.posDetail === "一般" &&
+		previous.surface.length === 1 &&
+		isKanji(previous.surface) &&
+		token.pos === "名詞" &&
+		Array.from(token.surface).every(isKanji)) ||
 	// Casual ん (やってんの, 抜かしてんだ) is said as part of the word before.
 	(!!previous && /^[んン]$/.test(token.surface)) ||
 	// A ー on its own stretches the sound before it (せー → see).
 	(!!previous && /^[ーｰ〜～]+$/.test(token.surface)) ||
+	// A hyphen joins the words on either side (ドキ-ドキ → doki-doki); the
+	// dictionary reads it as a token of its own, so the word after it would
+	// otherwise start apart.
+	(!!previous && /^[-‐‑－]+$/.test(previous.surface)) ||
 	stretches(token, previous);
 
 const VOWEL_KANA: Record<string, string> = {
